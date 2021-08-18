@@ -25,7 +25,6 @@
 					
 					<input id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
 				</FormRow>
-				
 			</div><!-- /.form__body -->
 			
 			<div class="form__actions">

@@ -1,0 +1,36 @@
+//Variables
+$font-size-base             : 1.6rem;
+$line-height-base           : 1.38;
+$font-weight-base           : 400;
+
+$font-size-base-large        :1.8rem;
+$line-height-base-large      :1.39;
+
+$font-size-base-small        :1.2rem;
+$line-height-base-small      :1.17;
+
+$ff-sans-serif              : "Open Sans", Helvetica, Arial, sans-serif;
+$ff-titles                  : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$ff-serif                   : Georgia, "Times New Roman", Times, serif;
+
+$t-duration                 : 0.3s;
+ 
+$shell-max-width            : 167.5rem;
+$shell-gutter               : 1.5rem;
+
+$c-black                    : #000;
+$c-white                    : #fff;
+$c-base                     : #444444;
+$c-base-ligter              : #737373;
+
+$responsive-ios             : 812px;
+
+$breakpoints: (
+	mobile-small: 374px,
+	mobile-medium: 575px,
+	mobile: 767px,
+	admin-bar: 782px,
+	tablet: 1023px,
+	small-desktop: 1199px,
+	large-desktop: 1399px
+);

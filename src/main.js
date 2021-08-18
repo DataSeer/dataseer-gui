@@ -3,6 +3,7 @@ import Vuelidate from 'vuelidate';
 
 import router from './router.js'
 import App from './App.vue';
+import "@/assets/scss/style.scss";
 
 Vue.use(Vuelidate);
 
