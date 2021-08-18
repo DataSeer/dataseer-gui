@@ -134,10 +134,12 @@
 					setTimeout(() => {
 						this.submitStatus = 'OK'
 						this.loading = false;
+						this.$router.push({
+							name: 'SignIn', params: {success: true}
+						})
 					}, 500)
 				}
 			}
 		},
-
 	}
 </script>

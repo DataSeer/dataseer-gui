@@ -1,0 +1,92 @@
+<template>
+	<div class="form">
+		<form action="?" method="post">
+			<div class="form__head">
+				<h2>Sign In</h2>
+				<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
+			</div><!-- /.form__head -->
+
+			<div class="form__statuses" v-if="$route.params.success">
+				<p>Great! Your account is created, please sign in</p>
+			</div><!-- /.form__status -->
+			
+			<div class="form__body">
+				<FormRow :error="$v.email.$error" name="email">
+					<template #label>Email Address</template>
+					
+					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
+				</FormRow>
+
+				<FormRow :error="$v.password.$error" name="password">
+					<template #label>
+						Password <span>minimum 8 characters</span>
+					</template>
+					
+					<input id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
+				</FormRow>
+				
+			</div><!-- /.form__body -->
+			
+			<div class="form__actions">
+				<ul>
+					<li>
+						<Button type="submit">Sign Up</Button>
+					</li>
+					
+					<li>
+						<Button alt>Cancel</Button>
+					</li>
+				</ul>
+			</div><!-- /.form__actions -->
+
+			<div class="form__message">
+				<p>Forgot your password? <a href="#">Reset it</a></p>
+				<p>Need and account? <router-link to="/sign-up">Sign Up</router-link></p>
+			</div><!-- /.form__message -->
+		</form>
+	</div><!-- /.form -->
+</template>
+
+<script>
+import { required, minLength, email } from 'vuelidate/lib/validators';
+
+import Button from '@/components/button/button';
+import FormRow from '@/components/form-row/form-row'
+
+export default {
+	name: 'FormSignIn',
+
+	components: {
+		Button,
+		FormRow
+	},
+
+	data: function() {
+		return {
+			email: '',
+			password: '',
+			loading: false
+		}
+	},
+
+	validations: {
+		email: {
+			required,
+			email
+		},
+		password: {
+			required,
+			minLength: minLength(8)
+		}
+	},
+
+	methods: {
+		submit() {
+			this.loading = true;
+			setTimeout(() => {
+				this.loading = false;
+			}, 500)
+		}
+	},
+}
+</script>
