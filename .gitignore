@@ -1,30 +1,23 @@
-# Logs
-logs
-*.log
+.DS_Store
+node_modules
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Dependency directory
-node_modules/
-
-# Build directory
-build/
-
-# Misc
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Settings
-drone.json
-
-# Lock files
-package-lock.json
-
-# Sprite Icons
-src/assets/images/sprite*.*
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
