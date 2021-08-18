@@ -1,8 +1,9 @@
 <template>
 	<div class="form">
-		<form action="?" method="post">
+		<form action="?" method="post" @submit.prevent="submit">
 			<div class="form__head">
 				<h2>Sign In</h2>
+				
 				<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
 			</div><!-- /.form__head -->
 
@@ -83,10 +84,19 @@ export default {
 	methods: {
 		submit() {
 			this.loading = true;
-			setTimeout(() => {
+			this.$v.$touch();
+
+			if (this.$v.$invalid) {
+				setTimeout(() => {
+					this.loading = false;
+					console.log('FAIL')
+				}, 500)
+			} else {
+				console.log('SUCCESS')
 				this.loading = false;
-			}, 500)
+			}
 		}
 	},
 }
 </script>
+

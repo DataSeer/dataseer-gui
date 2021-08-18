@@ -126,7 +126,6 @@
 		methods: {
 			submit() {
 				this.$v.$touch();
-				console.log(this.$v);
 				if (this.$v.$invalid) {
 					this.submitStatus = 'ERROR'
 				} else {
