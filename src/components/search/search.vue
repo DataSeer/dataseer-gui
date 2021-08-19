@@ -1,10 +1,11 @@
 <template>
-  <div class="form">
+  <div class="form form--search">
     <form action="">
-      <div class="form-row">
-        <input type="text" v-model="search" class="field" />  
+      <div class="form__row">
+        <input type="text" v-model="search" class="field" placeholder="Search" />  
+        
         <button type="submit">go</button>
-      </div><!-- /.form-row -->
+      </div><!-- /.form__row -->
     </form>
   </div><!-- /.form -->
 </template>

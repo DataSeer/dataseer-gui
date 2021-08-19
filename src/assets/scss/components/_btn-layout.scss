@@ -1,0 +1,46 @@
+/* ------------------------------------------------------------ *\
+	Btn Layout
+\* ------------------------------------------------------------ */
+
+.btn-layout {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 15px; 
+	height: 42px; 
+	font-size: 14px; 
+	text-transform: uppercase; 
+	border-width: 4px;
+	border-style: solid;
+	border-color: $c-gray;
+	color: $c-base;
+	font-family: $ff-titles; 
+	font-weight: 500; 
+	border-radius: 11px; 
+
+	span {
+		margin-right: 16px; 
+	}
+
+	.btn__icon {
+		display: inline-block; 
+		background-color: $c-skyblue-bc; 
+	}
+	
+	.btn__icon.is-active {
+		background-color: $c-primary; 
+	}
+	
+	.btn__icon + .btn__icon {
+		margin-left: 21px; 
+	}
+
+	.btn__icon--table {
+		width: 24px; 
+		height: 14px; 
+	}
+
+	.btn__icon--grid {
+		width: 20px; 
+		height: 20px; 
+	}
+} 
