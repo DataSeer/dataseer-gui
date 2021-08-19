@@ -30,18 +30,21 @@
 					</ul>
 				</nav><!-- /.nav -->
 			</div><!-- /.header__bar -->
+			<Subheader />
 		</div><!-- /.shell -->
 	</div><!-- /.header -->
 </template>
 
 <script>
 import Logo from '@/components/logo/logo';
+import Subheader from '@/components/subheader/subheader';
 
 export default {
 	name: 'Header',
 
 	components: {
-		Logo
+		Logo,
+		Subheader
 	}
 }
 </script>

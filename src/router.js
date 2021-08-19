@@ -7,6 +7,7 @@ import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
 import Datasets from '@/pages/datasets';
+import Documents from '@/pages/documents';
 
 const routes = [
 	{
@@ -18,6 +19,11 @@ const routes = [
 		name: "Datasets",
 		path: '/datasets',
 		component: Datasets
+	},
+	{
+		name: "Documents",
+		path: '/documents',
+		component: Documents
 	},
 	{
 		name: "SignUp",
