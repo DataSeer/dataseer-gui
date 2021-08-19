@@ -3,4 +3,17 @@
 \* ------------------------------------------------------------ */
 
 .header {
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+	background-color: $c-white; 
+
+	.header__bar {
+		display: flex; 
+		padding: 7px 0; 
+		justify-content: space-between;
+		align-items: center;
+	}
 }

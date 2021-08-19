@@ -3,7 +3,7 @@
 		v-if="href" 
 		:href="href" 
 		class="btn"
-		:class="{'btn--ghost': alt}"
+		:class="{'btn--tertiary': alt}"
 	>
 		<slot />
 	</a>
@@ -11,7 +11,7 @@
 		v-else
 		:type="type"
 		class="btn"
-		:class="{'btn--ghost': alt}"
+		:class="{'btn--tertiary': alt}"
 	>
 		<slot />
 	</button>

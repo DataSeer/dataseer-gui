@@ -4,16 +4,62 @@
 
 .btn {
 	display: inline-block;
+	padding: 8px 27px;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
 	text-decoration: none;
 	appearance: none;
-	font-size: $font-size-base; 
+	font-size: 14px; 
 	letter-spacing: 0; 
+	color: $c-white;
 	text-transform: uppercase; 
+	border-width: 4px;
+	border-style: solid;
+	border-color: $c-primary;
+	background-color: $c-primary; 
+	font-family: $ff-titles; 
 	border-radius: 11px; 
+	transition: background $t-duration, color $t-duration, border $t-duration;
+
+	&:hover {
+		background-color: darken($c-primary, 8); 
+		border-color: darken($c-primary, 8); 
+	}
+
+	&.is-disabled {
+		opacity: .55; 
+		pointer-events: none;
+	}
 }
+
+/* Btn Secondary */
+
+.btn--secondary {
+	background-color: transparent;  
+	border-color: $c-primary-light;
+	color: $c-primary;
+
+	&:hover {
+		background-color: transparent;  
+		border-color: $c-primary;
+	}
+}
+
+/* Btn Tertiary */
+
+.btn--tertiary {
+	background-color: transparent; 
+	border-color: $c-gray;
+	color: $c-base;
+
+	&:hover {
+		background-color: transparent; 
+		border-color: darken($c-gray, 8); 
+	}
+}
+
+
 
 /*  Btn block  */
 

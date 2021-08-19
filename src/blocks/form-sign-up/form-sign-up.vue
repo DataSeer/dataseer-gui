@@ -1,5 +1,5 @@
 <template>
-	<div class="form">
+	<div class="form form--sm">
 		<form action="?" method="post" @submit.prevent="submit">
 			<div class="form__head">
 				<h2>Sign Up</h2>
@@ -8,22 +8,22 @@
 			</div><!-- /.form__head -->
 
 			<div class="form__statuses" v-if="!loading && submitStatus">
-				<div class="form_status form_status--error" v-if="submitStatus === 'ERROR'">
+				<div class="form__status form__status--error" v-if="submitStatus === 'ERROR'">
 					<p v-for="(error, index) in errors" :key="index">{{error}}</p>
-				</div><!-- /.form_status -->
+				</div><!-- /.form__status -->
 			</div><!-- /.form__status -->
 			
 			<div class="form__body">
 				<FormRow :error="$v.name.$error" name="full-name">
 					<template #label>Full Name</template>
 					
-					<input id="full-name" type="text" class="field" v-model.trim="name" placeholder="Full Name">
+					<input id="full-name" type="text" class="field" v-model.trim="name" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.email.$error" name="email">
 					<template #label>Email Address</template>
 					
-					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
+					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.password.$error || $v.password_confirm.$error" name="password">
@@ -41,8 +41,13 @@
 					
 					<div class="select">
 						<select id="organization" v-model.trim="organization">
-							<option value="">Select</option>
-							<option value="1">1</option>
+							<option disabled selected value="">Select</option>
+							
+							<option value="option-1">Option 1</option>
+							
+							<option value="option-2">Option 2</option>
+							
+							<option value="option-3">Option 3</option>
 						</select>
 					</div><!-- /.select -->
 				</FormRow>
@@ -63,6 +68,7 @@
 			<div class="form__message">
 				<p>
 					Already have an account?
+					
 					<router-link to="/sign-in">
 						Sign in
 					</router-link>

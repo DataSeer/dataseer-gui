@@ -1,40 +1,46 @@
 <template>
 	<div class="header">
-		<div class="header__bar">
-			<Logo></Logo>
+		<div class="shell">
+			<div class="header__bar">
+				<Logo></Logo>
 
-			<nav class="header__nav">
-				<ul>
-					<li>
-						<a href="#">Need Help?</a>
-					</li>
+				<nav class="nav">
+					<ul>
+						<li class="nav__link">
+							<a href="#">Need Help?</a>
+						</li>
 
-					<li>
-						<router-link to="/sign-in">
-							<Button href="/" alt>Sign In</Button>
-						</router-link>
-					</li>
-
-					<li>
-						<router-link to="/sign-up">
-							<Button href="/" alt>Sign Up</Button>
-						</router-link>
-					</li>
-				</ul>
-			</nav><!-- /.header__nav -->
-		</div><!-- /.header__bar -->
+						<li>
+							<div class="account">
+								<ul>
+									<li>
+										<router-link class="btn btn--tertiary" to="/sign-in">
+											Sign In
+										</router-link>
+									</li>
+									
+									<li>
+										<router-link class="btn btn--secondary" to="/sign-up">
+											Sign Up
+										</router-link>
+									</li>
+								</ul>
+							</div><!-- /.account -->
+						</li>
+					</ul>
+				</nav><!-- /.nav -->
+			</div><!-- /.header__bar -->
+		</div><!-- /.shell -->
 	</div><!-- /.header -->
 </template>
 
 <script>
-import Button from '@/components/button/button';
 import Logo from '@/components/logo/logo';
 
 export default {
 	name: 'Header',
 
 	components: {
-		Button,
 		Logo
 	}
 }

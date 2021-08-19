@@ -1,5 +1,5 @@
 <template>
-	<div class="form">
+	<div class="form form--sm">
 		<form action="?" method="post" @submit.prevent="submit">
 			<div class="form__head">
 				<h2>Sign In</h2>
@@ -8,7 +8,9 @@
 			</div><!-- /.form__head -->
 
 			<div class="form__statuses" v-if="$route.params.success">
-				<p>Great! Your account is created, please sign in</p>
+				<div class="form__status form__status--success">
+					<p>Great! Your account is created, please sign in</p>
+				</div><!-- /.form__status -->
 			</div><!-- /.form__status -->
 			
 			<div class="form__body">
