@@ -5,8 +5,7 @@
           <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
-            :sort-order="sortOrder"
-            :data="documents"
+            :data-manager="dataManager"
           ></vuetable>
           <Button alt>Upload new Document</Button>
       </div><!-- /.documents -->
@@ -28,15 +27,11 @@ export default {
 
   data: function() {
     return {
-      sortOrder: [
-        {
-          field: "Title",
-        }
-      ],
       columns: [
         {
-          name: 'Title',
-          sortField: 'Title'
+          name: 'title',
+          field: "title",
+          sortField: 'title'
         }, 
         'Author', 
         'Journal', 
@@ -46,10 +41,10 @@ export default {
         'Status', 
         'Action'
       ],
-      documents: [
+      docs: [
         {
           id: 1,
-          Title: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
+          title: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
           File: 'my_uploaded-filename.pdf',
@@ -60,7 +55,7 @@ export default {
         },
         {
           id: 2,
-          Title: 'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long Title That Goes  150 Characters So It Gets Cut O…',
+          title: 'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long title That Goes  150 Characters So It Gets Cut O…',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
           File: 'uploaded-file.pdf',
@@ -71,7 +66,7 @@ export default {
         },
         {
           id: 3,
-          Title: 'This Document Has  A Very Short Title',
+          title: 'This Document Has  A Very Short Title',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
           File: 'a-longer-filename-would-be-cut…',
@@ -82,6 +77,29 @@ export default {
         }
       ]
     }
+  },
+
+  methods: {
+    dataManager(sortOrder) {
+      if (!sortOrder.length) {
+        return;
+      }
+      const sort = sortOrder[0].direction;
+      this.docs = this.docs.sort((a,b) => {
+        if(a.title.toLowerCase() > b.title.toLowerCase()) {
+          return sort === 'asc' ? -1 : 1;
+        } else if(a.title.toLowerCase() < b.title.toLowerCase()) {
+          return sort === 'asc' ? 1 : -1;
+        } else {
+          return 0
+        }
+      })
+      this.$refs.vuetable.setData(this.docs);
+    }
+  },
+
+  mounted() {
+    this.$refs.vuetable.setData(this.docs);
   }
 }
 </script>
