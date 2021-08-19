@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main main--documents">
     <div class="shell">
       <div class="documents">
           <vuetable ref="vuetable"
@@ -51,7 +51,7 @@ export default {
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Validating Datasets',
-          Action: '<a href="#">Continue</a>',
+          Action: '<a class="btn btn--tertiary btn--block" href="#">Continue</a>',
         },
         {
           id: 2,
@@ -62,7 +62,7 @@ export default {
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Document Complete',
-          Action: '<a href="#">View Report</a>',
+          Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
         },
         {
           id: 3,
@@ -73,7 +73,7 @@ export default {
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Document Complete',
-          Action: '<a href="#">View Report</a>',
+          Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
         }
       ]
     }

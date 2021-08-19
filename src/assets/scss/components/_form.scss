@@ -198,3 +198,31 @@
 		margin: 38px 0 43px; 
 	}
 }
+
+/* Form Search */
+
+.form--search {
+	position: relative; 
+
+	.field {
+		height: 42px; 
+		border-color: $c-gray;
+		padding-right: 50px; 
+		border-radius: 13px;
+		
+		@include input-placeholder {
+			color: $c-base-ligter;
+		}
+	}
+
+	button {
+		position: absolute; 
+		top: 50%; 
+		right: 14px; 
+		width: 20px; 
+		height: 20px; 
+		color: $c-primary;
+		border: none;
+		margin-top: -10px; 
+	}
+}

@@ -4,13 +4,12 @@
 
 .btn {
 	display: inline-block;
-	padding: 8px 27px;
+	padding: 9px 27px;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
 	text-decoration: none;
 	appearance: none;
-	font-size: 14px; 
 	letter-spacing: 0; 
 	color: $c-white;
 	text-transform: uppercase; 
@@ -18,6 +17,8 @@
 	border-style: solid;
 	border-color: $c-primary;
 	background-color: $c-primary; 
+	font-size: 14px; 
+	line-height: 1.2;
 	font-family: $ff-titles; 
 	border-radius: 11px; 
 	transition: background $t-duration, color $t-duration, border $t-duration;

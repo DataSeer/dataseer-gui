@@ -1,18 +1,23 @@
 <template>
-  <div class="subheader__row">
-    <div class="subheader__row-col">
+  <div class="subheader__inner">
+    <div class="subheader__left">
       <h3>My Documents</h3>
-    </div><!-- /.subheader__row-col -->
-    <div class="subheader__row-col">
+    </div><!-- /.subheader__left -->
+    
+    <div class="subheader__right">
       <Search />
-      <div class="border-box">
-        View
-        <a href="#">list</a>  
-        <a href="#">grid</a>  
-      </div><!-- /.border-box -->
+    
+      <div class="btn-layout">
+        <span>View</span>
+    
+        <a class="btn__icon btn__icon--table is-active" href="#"></a>  
+    
+        <a class="btn__icon btn__icon--grid" href="#"></a>  
+      </div><!-- /.btn-layout -->
+      
       <Button>Upload new Document</Button>
-    </div><!-- /.subheader__row-col -->
-  </div><!-- /.subheader__row -->
+    </div><!-- /.subheader__right -->
+  </div><!-- /.subheader__inner -->
 </template>
 
 <script>
