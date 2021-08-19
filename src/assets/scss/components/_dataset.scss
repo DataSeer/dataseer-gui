@@ -1,0 +1,16 @@
+.dataset {
+  padding: 0 20px;
+}
+
+.dataset__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dataset__left {
+  flex: 0 0 38.9571%;
+}
+
+.dataset__right {
+  flex: 0 0 60.3681%;
+}

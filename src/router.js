@@ -6,12 +6,18 @@ Vue.use(VueRouter);
 import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
+import Datasets from '@/pages/datasets';
 
 const routes = [
 	{
 		name: "Home",
 		path: '/',
 		component: Home
+	},
+	{
+		name: "Datasets",
+		path: '/datasets',
+		component: Datasets
 	},
 	{
 		name: "SignUp",

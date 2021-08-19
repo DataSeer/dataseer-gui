@@ -1,0 +1,48 @@
+.tabs {
+  position: relative;
+}
+
+.tabs__links {
+  position: absolute;
+  top: 0;
+  right: 100%;
+
+
+  li {
+    list-style: none;
+
+    a {
+      display: block;
+      width: 30px;
+      height: 30px;
+      padding-right: 13px;
+      border-radius: 11px;
+      color: #fff;
+    }
+
+    &:nth-child(20n + 1) {
+      a {
+        background-color: $c-purple-ba;
+        color: $c-base;
+      }
+    }
+
+    &:nth-child(20n + 2) {
+      a {
+        background-color: $c-blue-19;
+      }
+    }
+
+    &:nth-child(20n + 3) {
+      a {
+        background-color: $c-green-4e;
+      }
+    }
+
+    &:nth-child(20n + 4) {
+      a {
+        background-color: $c-green-4e;
+      }
+    }
+  }
+}
