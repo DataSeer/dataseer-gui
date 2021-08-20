@@ -9,6 +9,7 @@ import SignIn from '@/pages/sign-in';
 import Datasets from '@/pages/datasets';
 import Documents from '@/pages/documents';
 import Profile from '@/pages/profile';
+import NewDocument from '@/pages/new-document';
 
 const routes = [
 	{
@@ -20,6 +21,11 @@ const routes = [
 		name: "Profile",
 		path: '/profile',
 		component: Profile
+	},
+	{
+		name: "NewDocument",
+		path: '/new-document',
+		component: NewDocument
 	},
 	{
 		name: "Datasets",
