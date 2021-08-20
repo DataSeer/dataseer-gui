@@ -7,17 +7,14 @@
 				</div><!-- /.main__left -->
 
 				<div class="main__right">
-					<div class="banner">
-						<div class="banner__image">
+					<Banner>
+						<template #image>
 							<img src="@/assets/images/form-img-2@2x.png" alt="">
-						</div><!-- /.banner__image -->
+						</template>
+						<h4>Data sharing has never been simpler</h4>
 
-						<div class="banner__content">
-							<h4>Data sharing has never been simpler</h4>
-
-							<p>DataSeer’s AI scnas research texts and surfaces sentences which may require dataset citations then gives best-practice advice for sharing that type of data.</p>
-						</div><!-- /.banner__content -->
-					</div><!-- /.banner -->
+						<p>DataSeer’s AI scnas research texts and surfaces sentences which may require dataset citations then gives best-practice advice for sharing that type of data.</p>
+					</Banner>
 				</div><!-- /.main__right -->
 			</div><!-- /.main__inner -->
 		</div><!-- /.shell -->
@@ -26,12 +23,14 @@
 
 <script>
 import FormSignIn from '@/blocks/form-sign-in/form-sign-in';
+import Banner from '@/components/banner/banner';
 
 export default {
 	name: 'SignIn',
 
 	components: {
-		FormSignIn
+		FormSignIn,
+		Banner
 	}
 }
 </script>

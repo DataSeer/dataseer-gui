@@ -3,7 +3,7 @@
 		<div class="shell">
 			<div class="main__inner">
 				<div class="main__left">
-					<FormProfile />
+					<FormCols />
 				</div><!-- /.main__left -->
 
 				<div class="main__right">
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import FormProfile from '@/blocks/form-profile/form-profile';
+import FormCols from '@/components/profile-cols/profile-cols';
 
 export default {
   name: 'Profile',
   components: {
-    FormProfile
+    FormCols
   }
 }
 </script>

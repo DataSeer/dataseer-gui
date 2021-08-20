@@ -80,8 +80,31 @@ export default {
   },
 
   computed: {
+    
+  },
+
+  methods: {
+    dataManager(sortOrder) {
+      if (!sortOrder.length) {
+        return;
+      }
+      const sort = sortOrder[0].direction;
+      this.docs = this.docs.sort((a,b) => {
+        const aLower = a.title.toLowerCase();
+        const bLower = b.title.toLowerCase();
+        if(aLower > bLower) {
+          return sort === 'asc' ? -1 : 1;
+        } else if(aLower < bLower) {
+          return sort === 'asc' ? 1 : -1;
+        } else {
+          return 0
+        }
+      })
+      this.$refs.vuetable.setData(this.docs);
+    },
+
     dataModify() {
-      return this.docs.map(item => {
+      this.docs = this.docs.map(item => {
         if(item.title) {
           item.title = `<i class="ico-doc"></i> ${item.title}`
         }
@@ -96,27 +119,9 @@ export default {
     }
   },
 
-  methods: {
-    dataManager(sortOrder) {
-      if (!sortOrder.length) {
-        return;
-      }
-      const sort = sortOrder[0].direction;
-      this.docs = this.docs.sort((a,b) => {
-        if(a.title.toLowerCase() > b.title.toLowerCase()) {
-          return sort === 'asc' ? -1 : 1;
-        } else if(a.title.toLowerCase() < b.title.toLowerCase()) {
-          return sort === 'asc' ? 1 : -1;
-        } else {
-          return 0
-        }
-      })
-      this.$refs.vuetable.setData(this.dataModify);
-    }
-  },
-
   mounted() {
-    this.$refs.vuetable.setData(this.dataModify);
+    this.dataModify();
+    this.$refs.vuetable.setData(this.docs);
   }
 }
 </script>
