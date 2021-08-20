@@ -1,5 +1,5 @@
 <template>
-	<div class="dataset">
+  <div class="main main--dataset">
     <div class="shell">
       <div class="dataset__row">
         <div class="dataset__left">
@@ -47,7 +47,7 @@
           <p>Finally, once all the datasets are accounted for, you can Complete Document in the top right to review your Data Availability Report.</p>
           <div class="dataset__cta">
             <Button>Great! Let’s Go</Button>
-            <Button>I need some help</Button>
+            <Button alt>I need some help</Button>
           </div><!-- /.dataset__cta -->
         </div><!-- /.dataset__left -->
 
@@ -58,7 +58,7 @@
         </div><!-- /.dataset__right -->
       </div><!-- /.dataset__row -->
     </div><!-- /.shell -->
-	</div><!-- /.dataset -->
+  </div><!-- /.main -->
 </template>
 
 <script>

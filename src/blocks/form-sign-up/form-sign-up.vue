@@ -15,19 +15,26 @@
 			
 			<div class="form__body">
 				<FormRow :error="$v.name.$error" name="full-name">
-					<template #label>Full Name</template>
+					<template #label>
+						<Icon name="user" />
+						Full Name
+					</template>
 					
 					<input id="full-name" type="text" class="field" v-model.trim="name" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.email.$error" name="email">
-					<template #label>Email Address</template>
+					<template #label>
+						<Icon name="email" />
+						Email Address
+					</template>
 					
 					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.password.$error || $v.password_confirm.$error" name="password">
 					<template #label>
+						<Icon name="password" />
 						Password <span>minimum 8 characters</span>
 					</template>
 					
@@ -37,7 +44,10 @@
 				</FormRow>
 
 				<FormRow :error="$v.organization.$error" name="organization">
-					<template #label>Institution/Organization</template>
+					<template #label>
+						<Icon name="organization" />
+						Institution/Organization
+					</template>
 					
 					<div class="select">
 						<select id="organization" v-model.trim="organization">
@@ -80,17 +90,19 @@
 </template>
 
 <script>
-	import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
+	import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
 
 	import Button from '@/components/button/button';
-	import FormRow from '@/components/form-row/form-row'
+	import FormRow from '@/components/form-row/form-row';
+	import Icon from '@/components/icon/icon';
 
 	export default {
 		name: 'FormSignUp',
 
 		components: {
 			Button,
-			FormRow
+			FormRow,
+			Icon
 		},
 
 		data: function() {

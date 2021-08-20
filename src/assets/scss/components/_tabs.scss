@@ -10,12 +10,15 @@
 
   li {
     list-style: none;
-
+    margin-bottom: 18px;
+    padding-right: 13px;
+    
     a {
-      display: block;
-      width: 30px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       height: 30px;
-      padding-right: 13px;
+      width: 30px;
       border-radius: 11px;
       color: #fff;
     }
@@ -41,7 +44,28 @@
 
     &:nth-child(20n + 4) {
       a {
-        background-color: $c-green-4e;
+        background-color: $c-yellow-f7;
+        color: $c-base;
+      }
+    }
+
+    &:nth-child(20n + 5) {
+      a {
+        background-color: $c-orange-ee;
+        color: $c-base;
+      }
+    }
+
+    &:nth-child(20n + 6) {
+      a {
+        background-color: $c-purple-88;
+      }
+    }
+
+    &:nth-child(20n + 7) {
+      a {
+        background-color: $c-blue-7a;
+        color: $c-base;
       }
     }
   }

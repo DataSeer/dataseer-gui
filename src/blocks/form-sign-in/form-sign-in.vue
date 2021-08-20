@@ -15,13 +15,17 @@
 			
 			<div class="form__body">
 				<FormRow :error="$v.email.$error" name="email">
-					<template #label>Email Address</template>
+					<template #label>
+						<Icon name="email" />
+						Email Address
+					</template>
 					
 					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
 				</FormRow>
 
 				<FormRow :error="$v.password.$error" name="password">
 					<template #label>
+						<Icon name="password" />
 						Password <span>minimum 8 characters</span>
 					</template>
 					
@@ -52,6 +56,7 @@
 <script>
 import { required, minLength, email } from 'vuelidate/lib/validators';
 
+import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import FormRow from '@/components/form-row/form-row'
 
@@ -60,7 +65,8 @@ export default {
 
 	components: {
 		Button,
-		FormRow
+		FormRow,
+		Icon
 	},
 
 	data: function() {

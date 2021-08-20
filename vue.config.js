@@ -5,7 +5,8 @@ module.exports = {
 	configureWebpack: {
 		resolve: {
 			alias: {
-				"@": path.resolve(__dirname, './src')
+				"@": path.resolve(__dirname, './src'),
+				"@icon": path.resolve(__dirname, './src/assets/images/icons')
 			},
 			extensions: ['.js', '.vue', '.json']
 		}
