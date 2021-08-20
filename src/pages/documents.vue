@@ -47,7 +47,7 @@ export default {
           title: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
-          File: 'my_uploaded-filename.pdf',
+          File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Validating Datasets',
@@ -58,7 +58,7 @@ export default {
           title: 'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long title That Goes  150 Characters So It Gets Cut O…',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
-          File: 'uploaded-file.pdf',
+          File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Document Complete',
@@ -69,13 +69,30 @@ export default {
           title: 'This Document Has  A Very Short Title',
           Author: 'Laura Leadauthor',
           Journal: 'Journal of Medical Internet Research',
-          File: 'a-longer-filename-would-be-cut…',
+          File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Document Complete',
           Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
         }
       ]
+    }
+  },
+
+  computed: {
+    dataModify() {
+      return this.docs.map(item => {
+        if(item.title) {
+          item.title = `<i class="ico-doc"></i> ${item.title}`
+        }
+
+        if(item.File) {
+          const fileName = item.File.split('/').pop();
+          item.File = `<a href="${item.File}">${fileName}</a>`
+        }
+
+        return item;
+      })
     }
   },
 
@@ -94,12 +111,12 @@ export default {
           return 0
         }
       })
-      this.$refs.vuetable.setData(this.docs);
+      this.$refs.vuetable.setData(this.dataModify);
     }
   },
 
   mounted() {
-    this.$refs.vuetable.setData(this.docs);
+    this.$refs.vuetable.setData(this.dataModify);
   }
 }
 </script>
