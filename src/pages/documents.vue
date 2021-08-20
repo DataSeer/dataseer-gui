@@ -15,6 +15,7 @@
 
 <script>
 import Vuetable from 'vuetable-2';
+
 import Button from '@/components/button/button.vue';
 
 export default {

@@ -7,11 +7,11 @@
             :key="index"
             :class="{ 'is-active': tab.isActive }"
           >
-              <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
+            <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
           </li>
         </ul>
       </div><!-- /.tabs__links -->
-      <div class="tabs__content">
+      <div class="tabs__contents">
         <slot />
       </div><!-- /.tabs__content -->
   </div><!-- /.tabs -->
@@ -28,11 +28,11 @@ export default {
   },
 
   methods: {
-      selectTab(selectedTab) {
-        this.tabs.forEach(tab => {
-          tab.isActive = (tab.name == selectedTab.name);
-        });
-      }
+    selectTab(selectedTab) {
+      this.tabs.forEach(tab => {
+        tab.isActive = (tab.name == selectedTab.name);
+      });
+    }
   },
 
   created() {
