@@ -11,7 +11,7 @@
 						</li>
 
 						<li>
-							<div class="account">
+							<nav class="nav-account">
 								<ul>
 									<li>
 										<router-link class="btn btn--tertiary" to="/sign-in">
@@ -25,7 +25,7 @@
 										</router-link>
 									</li>
 								</ul>
-							</div><!-- /.account -->
+							</nav><!-- /.nav -->
 						</li>
 					</ul>
 				</nav><!-- /.nav -->
