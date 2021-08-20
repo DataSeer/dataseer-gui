@@ -18,11 +18,21 @@
 		text-transform: uppercase; 
 	}
 
+	.form__head h5 {
+		font-weight: 700; 
+		font-family: $ff-sans-serif; 
+	}
+
 	.form__head p {
 		color: $c-primary;
 		font-weight: 500; 
 		font-size: 20px; 
 		line-height: 1.2; 
+	}
+
+	/* Form Body */
+	.form__body {
+		margin-bottom: 20px; 
 	}
 
 	/* Form Statuses */
@@ -144,14 +154,20 @@
 		font-weight: inherit;
 		transition: border $t-duration;
 
+		@include input-placeholder {
+			color: $c-placeholder;
+		}
+		
 		&:focus {
 			border-color: $c-primary-light;
 		}
 
-		@include input-placeholder {
-			color: $c-placeholder;
+		&:read-only {
+			border-color: $c-gray;
+			cursor: default;
 		}
 	}
+	
 	.field + .field {
 		margin-top: 13px; 
 	}
@@ -224,5 +240,23 @@
 		color: $c-primary;
 		border: none;
 		margin-top: -10px; 
+	}
+}
+
+/* Form Profile */
+
+.form--profile {
+	.form__head {
+		text-align: left; 
+		margin-bottom: 20px; 
+	}
+
+	.form__head {
+		text-align: left; 
+		margin-bottom: 37px; 
+	}
+
+	.form__actions ul {
+		justify-content: flex-start;
 	}
 }

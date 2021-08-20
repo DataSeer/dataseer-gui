@@ -83,7 +83,6 @@
 						Sign in
 					</router-link>
 				</p>
-				
 			</div><!-- /.form__message -->
 		</form>
 	</div><!-- /.form -->
