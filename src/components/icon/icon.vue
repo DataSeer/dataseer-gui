@@ -52,6 +52,7 @@ export default {
       user: require('@icon/ico-user.svg'),
       view: require('@icon/ico-view.svg'),
       view_grid: require('@icon/ico-view-grid.svg'),
+      view_grid_active: require('@icon/ico-view-grid-active.svg'),
       view_list: require('@icon/ico-view-list.svg'),
       view_list_active: require('@icon/ico-view-list-active.svg'),
       warning: require('@icon/ico-warning.svg'),
