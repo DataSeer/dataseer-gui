@@ -117,7 +117,6 @@
 			}
 		},
 
-
 		validations: {
 			name: {
 				required,

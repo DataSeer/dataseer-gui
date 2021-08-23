@@ -3,7 +3,17 @@
 \* ------------------------------------------------------------ */
 
 .nav {
-	ul {
+	font-weight: 500; 
+	color: $c-base-ligter;
+	text-transform: uppercase; 
+	font-family: $ff-titles; 
+	font-size: 14px; 
+	
+	a {
+		text-decoration: none; 
+	}
+
+	> ul {
 		display: flex; 
 		align-items: center;
 		margin: 0 -11px; 
@@ -12,15 +22,5 @@
 	ul > li {
 		flex-shrink: 0;
 		padding: 0 10px; 
-	}
-
-	.nav__link a {
-		font-weight: 500; 
-		text-transform: none; 
-		color: $c-base-ligter;
-		text-transform: uppercase; 
-		text-decoration: none; 
-		font-family: $ff-titles; 
-		font-size: 14px; 
 	}
 }

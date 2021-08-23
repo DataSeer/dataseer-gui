@@ -9,7 +9,7 @@
         <div class="main__right">
           <Banner>
             <template #image>
-              <img src="@/assets/images/form-img-2@2x.png" alt="">
+              <img src="@/assets/images/form-img-3@2x.png" alt="">
             </template>
 
             <h4>DataSeer is powered by Machine Learning, which means it’s always improving.</h4>
@@ -24,11 +24,14 @@
 
 <script>
 import FormUpload from '@/blocks/form-upload/form-upload'
+import Banner from '@/components/banner/banner'
 
 export default {
   name: 'NewDocument',
+  
   components: {
-    FormUpload
+    FormUpload,
+    Banner
   }
 }
 </script>

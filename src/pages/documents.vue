@@ -7,7 +7,8 @@
             :api-mode="false"
             :data-manager="dataManager"
           ></vuetable>
-          <Button alt>Upload new Document</Button>
+
+          <router-link class='btn btn--tertiary' to="/new-document">Upload new Document</router-link>
       </div><!-- /.documents -->
     </div><!-- /.shell -->  
   </div><!-- /.main -->
@@ -16,14 +17,11 @@
 <script>
 import Vuetable from 'vuetable-2';
 
-import Button from '@/components/button/button.vue';
-
 export default {
   name: "Documents",
 
   components: {
-    Vuetable,
-    Button
+    Vuetable
   },
 
   data: function() {

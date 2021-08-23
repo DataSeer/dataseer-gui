@@ -1,54 +1,54 @@
 /* ------------------------------------------------------------ *\
-	Main
+  Main
 \* ------------------------------------------------------------ */
 
 .main {
-	padding-top: 55px; 
-	min-height: 100vh;
+  padding-top: 55px; 
+  min-height: 100vh;
 
-	.main__inner {
-		display: flex; 
-	}
+  .main__inner {
+    display: flex; 
+  }
 
-	.main__left,
-	.main__right {
-		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
-		padding: 40px; 
-	}
+  .main__left,
+  .main__right {
+    box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+    padding: 40px; 
+  }
 
-	.main__left {
-		width: 61.7%; 
-		flex-shrink: 0;
-		margin-right: 11px; 
-		background-color: $c-white; 
-	}
-	
-	.main__right {
-		flex-grow: 1;
-		background-color: $c-bg-2; 
-	}
+  .main__left {
+    width: 61.7%; 
+    flex-shrink: 0;
+    margin-right: 11px; 
+    background-color: $c-white; 
+  }
+
+  .main__right {
+    flex-grow: 1;
+    background-color: $c-bg-2; 
+  }
 }
 
 /* ------------------------------------------------------------ *\
-	Main Documents
+  Main Documents
 \* ------------------------------------------------------------ */
 
 .main--documents {
-	padding-top: 134px; 
+  padding-top: 134px; 
 }
 
 /* ------------------------------------------------------------ *\
-	Main Profile
+  Main Profile
 \* ------------------------------------------------------------ */
 
 .main--profile {
-	padding-top: 134px; 
+  padding-top: 134px; 
 }
 
 /* ------------------------------------------------------------ *\
-	Main Dataset
+  Main Dataset
 \* ------------------------------------------------------------ */
 
 .main--dataset {
-	padding: 134px 10px 0 40px; 
+  padding: 134px 10px 0 40px; 
 }

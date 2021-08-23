@@ -1,0 +1,77 @@
+/* ------------------------------------------------------------ *\
+  Dropdown Holder
+\* ------------------------------------------------------------ */
+
+.dropdown-holder {
+  position: relative;
+
+  .dropdown__header {
+    cursor: pointer;
+  }
+  
+  .dropdown__account {
+    display: flex; 
+    align-items: center;
+    font-weight: 500; 
+    text-transform: none; 
+    color: $c-primary;
+    text-transform: uppercase; 
+    text-decoration: none; 
+    font-family: $ff-titles; 
+    font-size: 14px; 
+  }
+
+  .dropdown__account span {
+    position: relative; 
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px; 
+    margin-left: 9px; 
+    line-height: 30px; 
+    text-align: center; 
+    font-size: 20px; 
+    color: $c-white;
+    border-radius: 11px;
+    background-color: $c-skyblue-bc; 
+
+    &:after {
+      content: '';
+      position: absolute; 
+      display: inline-block; 
+      bottom: 0; 
+      right: 0; 
+      width: 9px;
+      height: 9px; 
+      background-position: center; 
+      background-repeat: no-repeat;
+      background-size: contain;  
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9.317' height='9.317' viewBox='0 0 9.317 9.317'%3E%3Cpath id='Rectangle' d='M6.293,1.707A1,1,0,0,1,8,2.414V7A1,1,0,0,1,7,8H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(4.658 -1.997) rotate(45)' fill='%23444'/%3E%3C/svg%3E%0A");
+    }
+  }
+
+  .dropdown__body {
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    right: 0; 
+    margin-top: 6px; 
+    width: 196px; 
+    border-radius: 11px;
+    border: 3px solid $c-primary;
+    background-color: $c-white; 
+  }
+
+  .dropdown__nav  a {
+    display: inline-block; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+  }
+
+  &.is-active .dropdown__account span {
+    background-color: $c-primary; 
+  }
+
+  &.is-active .dropdown__body {
+    display: block; 
+  }
+}
