@@ -3,9 +3,17 @@
 \* ------------------------------------------------------------ */
 
 .documents {
-	background-color: $c-white; 
-	padding: 40px 45px; 
-	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+	
+
+	.documents__inner {
+		background-color: $c-white; 
+		padding: 40px 45px; 
+		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+
+		&:last-child {
+			margin-bottom: auto; 
+		}
+	}
 
 	.vuetable-body-wrapper {
 		margin-bottom: 28px; 

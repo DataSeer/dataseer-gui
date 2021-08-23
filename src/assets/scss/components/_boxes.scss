@@ -1,17 +1,18 @@
 /* ------------------------------------------------------------ *\
-  Nav Account
+  Boxes
 \* ------------------------------------------------------------ */
 
-.nav-account {
-  color: $c-primary;
+.boxes {
+  margin: 38px 0; 
 
-   > ul {
+  > ul {
     display: flex; 
-    align-items: center;
-    margin: 0 -11px; 
-   }
+    margin: -17px; 
+    list-style: none; 
+  }
 
-   > ul > li {
-      padding: 0 11px; 
-   }
+  > ul > li {
+    width: 33.3334%; 
+    padding: 17px; 
+  }
 }

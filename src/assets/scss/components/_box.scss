@@ -1,0 +1,135 @@
+/* ------------------------------------------------------------ *\
+  Box
+\* ------------------------------------------------------------ */
+
+.box {
+  background-color: $c-white; 
+  padding: 35px 45px 45px; 
+  box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+  font-size: 12px; 
+  line-height: 1.17; 
+
+  a {
+    text-decoration: none; 
+  }
+
+  .box__head {
+    padding-bottom: 20px; 
+    margin-bottom: 23px; 
+    border-bottom: 4px solid $c-gray;
+    color: $c-skyblue-61;
+  }
+
+  .box__head ul {
+    margin-bottom: 10px; 
+    list-style: none; 
+  }
+
+  .box__head ul li {
+    position: relative; 
+    display: inline-block; 
+  }
+
+  .box__head ul li + li {
+    padding-left: 13px; 
+    margin-left: 13px; 
+    
+    &:before {
+      content: '';
+      position: absolute; 
+      top: 50%; 
+      left: 0; 
+      width: 1px; 
+      height: 14px; 
+      margin-top: -7px; 
+      background-color: $c-skyblue-bc; 
+    }
+  }
+
+  .box__title {
+    margin-bottom: 10px; 
+    font-size: 14px; 
+    font-weight: 700; 
+    line-height: 1.57; 
+    font-family: inherit; 
+    color: $c-base
+  }
+
+  .box__body {
+    margin-bottom: 22px; 
+  }
+
+  .box__status {
+    display: flex; 
+    align-items: center;
+    margin-bottom: 10px; 
+  }
+
+  .box__status > p {
+    margin-bottom: 0; 
+    margin-right: 27px; 
+    flex-shrink: 0;
+  }
+
+  .box__status > p span {
+    display: inline-block; 
+    margin-left: 5px; 
+    font-size: 14px; 
+    line-height: 1.57; 
+    color: $c-primary
+  }
+
+  .box__status-bar {
+    position: relative; 
+    flex-grow: 1;
+    background-color: $c-gray; 
+    height: 5px; 
+    border-radius: 3px;
+    overflow: hidden; 
+  }
+
+  .box__status-bar span {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    height: 100%; 
+  }
+
+  .box__status--validating .box__status-bar span {
+    background-color: $c-primary; 
+  }
+
+  .box__date strong {
+    text-transform: uppercase; 
+  }
+
+  .box__date span {
+    font-size: 14px; 
+  }
+
+  .box__date ul {
+    display: flex; 
+    list-style: none; 
+    margin: -3px -16px; 
+  }
+
+  .box__date ul li {
+    padding: 3px 16px; 
+  }
+
+  .box__actions {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .box__actions >  ul {
+    display: flex; 
+    list-style: none; 
+    margin: -5px -10px; 
+  }
+  
+  .box__actions > ul > li {
+    padding: 5px 10px; 
+  }
+}

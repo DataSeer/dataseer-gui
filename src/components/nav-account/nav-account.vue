@@ -51,7 +51,7 @@ export default {
   name: 'navAccount',
   data () {
     return {
-      isLoggedIn: false
+      isLoggedIn: true
     }
   },
   components: {
