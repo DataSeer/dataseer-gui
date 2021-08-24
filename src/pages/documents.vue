@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="main main--documents">
     <div class="shell">
       <div class="documents">
@@ -291,7 +291,7 @@ export default {
 
   data: function() {
     return {
-      layout: 'GRID',
+      layout: 'LIST',
       columns: [
         {
           name: 'title',
@@ -371,7 +371,7 @@ export default {
     dataModify() {
       this.docs = this.docs.map(item => {
         if(item.title) {
-          item.title = `<i class="ico-doc"></i> ${item.title}`
+          item.title = `<i></i> ${item.title}`
         }
 
         if(item.File) {

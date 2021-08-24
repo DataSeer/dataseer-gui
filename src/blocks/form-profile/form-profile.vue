@@ -1,5 +1,5 @@
 <template>
-	<div class="form form--profile">
+	<div class="form form--profile form--readonly">
 		<form action="?" method="post">
 			<div class="form__head">
 				<h5>Your Profile</h5>

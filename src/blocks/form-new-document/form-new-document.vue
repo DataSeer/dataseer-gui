@@ -23,6 +23,7 @@
           @onChange="onFieldChange"
         >
           <template #label>
+            <Icon name="document_new" />
             Select Your Primary File
           </template>
 
@@ -39,6 +40,8 @@
           @onChange="onFieldChange"
         >
           <template #label>
+            <Icon name="documents" />
+            
             Select Additional Support Files <em>Optional</em>
           </template>
 
@@ -75,6 +78,7 @@
 </template>
 
 <script>
+  import Icon from '@/components/icon/icon';
   import Button from '@/components/button/button';
   import FormFile from '@/components/form-file/form-file';
   import FormCheckbox from '@/components/form-checkbox/form-checkbox';
@@ -92,6 +96,7 @@
     },
 
     components: {
+      Icon,
       Button,
       FormFile,
       FormCheckbox

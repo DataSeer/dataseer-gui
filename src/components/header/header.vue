@@ -1,4 +1,4 @@
-<template>
+<template> 
   <div class="header">
     <div class="shell">
       <div class="header__bar"> 
@@ -19,7 +19,7 @@
 
       <Subheader />
     </div><!-- /.shell -->
-  </div><!-- /.header -->
+  </div><!-- /.header --> 
 </template>
 
 <script>

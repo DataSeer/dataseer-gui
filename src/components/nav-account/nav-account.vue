@@ -17,11 +17,19 @@
           
           <ul class="dropdown__nav">
             <li>
-              <router-link to="/profile">User Profile</router-link>
+              <router-link to="/profile">
+                <Icon name="user"></Icon>
+
+                User Profile
+              </router-link>
             </li>
 
             <li>
-              <a href="#">Sign Out</a>
+              <a href="#">
+                <Icon name="signout"></Icon>
+                
+                Sign Out
+              </a>
             </li>
           </ul>
         </DropDown>
@@ -46,15 +54,17 @@
 
 <script>
 import DropDown from '@/components/dropdown/dropdown';
+import Icon from '@/components/icon/icon';
 
 export default {
   name: 'navAccount',
   data () {
     return {
-      isLoggedIn: false
+      isLoggedIn: true
     }
   },
   components: {
+    Icon,
     DropDown
   }
 }

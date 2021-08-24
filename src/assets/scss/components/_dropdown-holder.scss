@@ -68,6 +68,10 @@
     list-style: none; 
   }
 
+  .dropdown__nav i {
+    fill: $c-primary
+  }
+
   .dropdown__nav li {
     margin: 20px; 
   }
