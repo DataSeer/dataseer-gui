@@ -3,7 +3,7 @@
     <div class="shell">
       <div class="main__inner">
         <div class="main__left">
-          <FormUpload />
+          <FormNewDocument />
         </div><!-- /.main__left -->
 
         <div class="main__right">
@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import FormUpload from '@/blocks/form-upload/form-upload'
+import FormNewDocument from '@/blocks/form-new-document/form-new-document'
 import Banner from '@/components/banner/banner'
 
 export default {
   name: 'NewDocument',
   
   components: {
-    FormUpload,
+    FormNewDocument,
     Banner
   }
 }

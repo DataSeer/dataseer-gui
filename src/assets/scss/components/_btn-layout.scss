@@ -21,6 +21,14 @@
 		margin-right: 16px; 
 	}
 
+	i {
+		fill: $c-skyblue-bc;
+	}
+
+	.is-active i {
+		fill: $c-primary;
+	}
+
 	.btn__icon {
 		display: inline-block; 
 	}

@@ -11,6 +11,21 @@
 		justify-content: space-between;
 	}
 
+	.subheader__left h3 .ico--documents {
+		width: 30px; 
+		height: 33px; 
+	}
+
+	.subheader__left h3 .ico--document {
+		width: 26px; 
+		height: 33px; 
+	}
+
+	.subheader__left h3 .ico--user {
+		width: 33px;
+		height: 33px; 
+	}
+
 	.subheader__right {
 		display: flex; 
 		align-items: center;

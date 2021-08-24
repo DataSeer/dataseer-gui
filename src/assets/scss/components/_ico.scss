@@ -1,0 +1,99 @@
+/* ------------------------------------------------------------ *\
+  Icons
+\* ------------------------------------------------------------ */
+
+.ico {
+  font-size: 0;
+  line-height: 0;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  fill: $c-base; 
+
+  svg {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+  }
+
+  path {
+    fill: inherit;
+  }
+}
+
+/* Ico User */
+
+.ico--user {
+  width: 20px; 
+  height: 20px; 
+}
+
+/* Ico Email */
+
+.ico--email {
+  width: 20px; 
+  height: 16px; 
+}
+
+/* Ico Password */
+
+.ico--password {
+  width: 16px; 
+  height: 20px; 
+}
+
+/* Ico Organization */
+
+.ico--organization {
+  width: 20px;
+  height: 20px; 
+}
+
+/* Ico Document */
+
+.ico--document {
+  width: 18px;
+  height: 20px; 
+}
+
+/* Ico Documents */
+
+.ico--documents {
+  width: 18px;
+  height: 20px; 
+}
+
+/* Ico Document New */
+
+.ico--document-new {
+  width: 18px;
+  height: 20px; 
+}
+
+/* Ico Search */
+
+.ico--search {
+  width: 20px; 
+  height: 20px; 
+}
+
+/* Ico View List */
+
+.ico--view-list {
+  width: 24px; 
+  height: 14px; 
+}
+
+/* Ico View Grid */
+
+.ico--view-grid {
+  width: 20px; 
+  height: 20px; 
+}
+
+/* Ico Signout */
+
+.ico--signout {
+  width: 16px;
+  height: 20px; 
+}

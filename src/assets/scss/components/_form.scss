@@ -111,6 +111,10 @@
 		color: $c-orange;
 	}
 
+	.has-error .form__label i {
+		fill: $c-orange;
+	}
+
 	.form__row {
 		margin-bottom: 24px; 
 
@@ -172,11 +176,6 @@
 		
 		&:focus {
 			border-color: $c-primary-light;
-		}
-
-		&:read-only {
-			border-color: $c-gray;
-			cursor: default;
 		}
 	}
 	
@@ -378,6 +377,12 @@
 		color: $c-primary;
 		border: none;
 		margin-top: -10px; 
+		background-color: transparent; 
+	}
+
+	button i {
+		display: block; 
+		fill: $c-primary;
 	}
 }
 
@@ -400,5 +405,15 @@
 
 	.form__statuses {
 		text-align: left; 
+	}
+}
+
+/* form--readonly */
+
+.form--readonly {
+	.field,
+	.field select {
+		border-color: $c-gray !important;
+		cursor: default !important;
 	}
 }
