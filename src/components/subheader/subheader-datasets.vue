@@ -22,7 +22,7 @@
 
           <ul class="dropdown__nav">
             <li>
-              <a href="#">
+              <a href="#" @click.prevent="toggleSummary">
                 <Icon name="view_list" />
                 
                 Document Summary
@@ -77,7 +77,7 @@
       <Button alt>Complete Document</Button>
     </div><!-- /.subheader__right -->
 
-    <div class="summary">
+    <div class="summary" v-if="showSummary">
       <div class="shell">
         <div class="summary__inner">
           <div class="summary__content">
@@ -246,10 +246,22 @@ import Dropdown from '@/components/dropdown/dropdown';
 export default {
   name: "SubheaderDatasets",
 
+  data: function() {
+    return {
+      showSummary: false
+    }
+  },
+  
   components: { 
     Dropdown,
     Button,
     Icon
   },
+  
+  methods: {
+    toggleSummary() {
+        this.showSummary = !this.showSummary;
+    }
+  }
 }
 </script>

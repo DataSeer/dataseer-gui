@@ -2,7 +2,7 @@
   <div class="main main--documents">
     <div class="shell">
       <div class="documents">
-        <div class="documents__inner" v-if="layout === 'LIST'">
+        <div class="documents__inner" v-if="layout === 'GRID'">
           <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
@@ -73,24 +73,41 @@
 
                       <ul class="dropdown__nav">
                         <li>
-                          <router-link to="/profile">User Profile</router-link>
+                          <a href="#" @click.prevent="toggleSummary">
+                            <Icon name="view_list" />
+
+                            Document Summary
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Invite By Email</a>
+
+                          <a href="#">
+                            <Icon name="invite" />
+
+                            Invite By Email
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Get A Share Link</a>
+
+                          <a href="#">
+                            <Icon name="share" />
+
+                            Get A Share Link
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">View Uploaded File</a>
+                          <a href="#">
+                            <Icon name="view" />
+
+                            View Uploaded File
+                          </a>
                         </li>
                       </ul>
                     </Dropdown>
                   </div><!-- /.box__dropdown -->
-
                 </div><!-- /.box__actions -->
               </div><!-- /.box -->
             </li>
@@ -156,24 +173,41 @@
 
                       <ul class="dropdown__nav">
                         <li>
-                          <router-link to="/profile">User Profile</router-link>
+                          <a href="#" @click.prevent="toggleSummary">
+                            <Icon name="view_list" />
+
+                            Document Summary
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Invite By Email</a>
+
+                          <a href="#">
+                            <Icon name="invite" />
+
+                            Invite By Email
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Get A Share Link</a>
+
+                          <a href="#">
+                            <Icon name="share" />
+
+                            Get A Share Link
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">View Uploaded File</a>
+                          <a href="#">
+                            <Icon name="view" />
+
+                            View Uploaded File
+                          </a>
                         </li>
                       </ul>
                     </Dropdown>
                   </div><!-- /.box__dropdown -->
-
                 </div><!-- /.box__actions -->
               </div><!-- /.box -->
             </li>
@@ -239,33 +273,48 @@
 
                       <ul class="dropdown__nav">
                         <li>
-                          <router-link to="/profile">User Profile</router-link>
+                          <a href="#" @click.prevent="toggleSummary">
+                            <Icon name="view_list" />
+
+                            Document Summary
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Invite By Email</a>
+
+                          <a href="#">
+                            <Icon name="invite" />
+
+                            Invite By Email
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">Get A Share Link</a>
+
+                          <a href="#">
+                            <Icon name="share" />
+
+                            Get A Share Link
+                          </a>
                         </li>
 
                         <li>
-                          <a href="#">View Uploaded File</a>
+                          <a href="#">
+                            <Icon name="view" />
+
+                            View Uploaded File
+                          </a>
                         </li>
                       </ul>
                     </Dropdown>
                   </div><!-- /.box__dropdown -->
-
                 </div><!-- /.box__actions -->
               </div><!-- /.box -->
             </li>
 
             <li>
               <div class="box box--upload">
-                <figure>
-                  <img src="css/images/temp/" alt="">
-                </figure>
+                <Icon name="document_new" />
                 
                 <a href="#" class="btn btn--tertiary">Upload new Document</a>
               </div><!-- /.box box-/-upload -->
@@ -280,11 +329,13 @@
 <script>
 import Vuetable from 'vuetable-2';
 import Dropdown from '@/components/dropdown/dropdown'
+import Icon from '@/components/icon/icon'
 
 export default {
   name: "Documents",
 
   components: {
+    Icon,
     Vuetable,
     Dropdown
   },
