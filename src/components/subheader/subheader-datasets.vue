@@ -1,26 +1,253 @@
 <template>
   <div class="subheader__inner">
     <div class="subheader__left">
-      <h3>
+
+      <div class="subheader__document">
         <Icon name="document" />
-        My Documents
-      </h3>
+        
+        <ul>
+          <li><strong>L. Leadauthor</strong></li>
+          
+          <li>
+            <a href="#">my_uploaded-filename.pdf</a>
+          </li>
+        </ul>
+
+        <h6>Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
+        
+        <Dropdown>
+          <template #header>
+            <span class="dropdown__button"></span>
+          </template>
+
+          <ul class="dropdown__nav">
+            <li>
+              <a href="#">
+                <Icon name="view_list" />
+                
+                Document Summary
+              </a>
+            </li>
+
+            <li>
+
+              <a href="#">
+                <Icon name="invite" />
+                
+                Invite By Email
+              </a>
+            </li>
+
+            <li>
+
+              <a href="#">
+                <Icon name="share" />
+                
+                Get A Share Link
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <Icon name="view" />
+                
+                View Uploaded File
+              </a>
+            </li>
+          </ul>
+        </Dropdown>
+      </div><!-- /.subheader__document -->
     </div><!-- /.subheader__left -->
-    
+
     <div class="subheader__right">
+      <div class="document-status">
+        <ul>
+          <li>
+            <span>1</span> of 7 Completed
+          </li>
+          
+          <li>
+            <Icon name="check"></Icon>
+            
+            Auto-Saved
+          </li>
+        </ul>
+      
+      </div><!-- /.document-status -->
       <Button alt>Complete Document</Button>
     </div><!-- /.subheader__right -->
+
+    <div class="summary">
+      <div class="shell">
+        <div class="summary__inner">
+          <div class="summary__content">
+            <div class="summary__head">
+              <h3>Document Upload Summary</h3>
+
+              <p>Please review the data shown below and confirm if it is correct</p>
+            </div><!-- /.summary__head -->
+
+            <div class="summary__body">
+              <div class="summary__body-aside">
+                <ul>
+                  <li>
+                    <h6>Journal</h6>
+
+                    Journal of Medical Internet Research
+                  </li>
+                  
+                  <li>
+                    <h6>Publisher</h6>
+
+                    JMIR Publications Inc.
+                  </li>
+                  
+                  <li>
+                    <h6>Publication Date</h6>
+
+                    2021-03-16
+                  </li>
+                  
+                  <li>
+                    <h6>DOI</h6>
+
+                    10.2196/15443
+                  </li>
+                </ul>
+              </div><!-- /.summary__body-aside -->
+
+              <div class="summary__body-content">
+                <div class="summary__authors">
+                  <h6>Authors (10)</h6>
+
+                  <ul>
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+                    
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+                    
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+                    <li>
+                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                    </li>
+                  </ul>
+                </div><!-- /.summary__authors -->
+
+                <div class="summary__actions">
+                  <ul>
+                    <li>
+                      <a href="#" class="btn btn--block">This Data Looks Good, Continue</a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="btn btn--tertiary btn--block">Something is wrong with this data</a>
+                    </li>
+                  </ul>
+                </div><!-- /.summary__actions -->
+              </div><!-- /.summary__body-content -->
+            </div><!-- /.summary__body -->
+          </div><!-- /.summary__content -->
+
+          <div class="summary__aside">
+            <h4>Invite Collaborators</h4>
+
+            <ul>
+              <li>
+                <a href="#">
+                  <span>
+                    <Icon name="invite" />
+                  </span>
+
+                  Send Email
+                </a>
+              </li>
+
+              <li>
+                <a href="#">
+                  <span>
+                    <Icon name="share" />
+                  </span>
+
+                  Get A Link
+                </a>
+              </li>
+
+              <li>
+                <a href="#">
+                  <span>
+                    <Icon name="view" />
+                  </span>
+
+                  Open File
+                </a>
+              </li>
+            </ul>
+          </div><!-- /.summary__aside -->
+        </div><!-- /.summary__inner -->
+      </div><!-- /.shell -->
+    </div><!-- /.summary -->
   </div><!-- /.subheader__inner -->
 </template>
 
 <script>
 import Button from '@/components/button/button.vue'
 import Icon from '@/components/icon/icon';
+import Dropdown from '@/components/dropdown/dropdown';
 
 export default {
   name: "SubheaderDatasets",
 
   components: { 
+    Dropdown,
     Button,
     Icon
   },

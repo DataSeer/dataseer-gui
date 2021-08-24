@@ -1,4 +1,4 @@
-<template>
+btn-layout<template>
   <div class="subheader__inner">
     <div class="subheader__left">
       <h3>
@@ -14,7 +14,7 @@
         <span>View</span>
     
         <a class="btn__icon is-active" href="#">
-          <Icon name="view_list" :active="true" />
+          <Icon name="view_list" />
         </a>  
     
         <a class="btn__icon " href="#">

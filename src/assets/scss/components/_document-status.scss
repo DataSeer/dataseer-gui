@@ -1,0 +1,29 @@
+/* ------------------------------------------------------------ *\
+  Document Status
+\* ------------------------------------------------------------ */
+
+.document-status {
+  font-size: 12px; 
+  line-height: 1.42; 
+  color: $c-base-ligter;
+  
+  ul {
+    list-style: none;
+  }
+  
+  li {
+    display: inline-block; 
+  }
+
+  li + li {
+    margin-left: 24px; 
+  }
+
+  span {
+    color: $c-primary;
+  }
+
+  .ico--check {
+    stroke: $c-green;
+  }
+}

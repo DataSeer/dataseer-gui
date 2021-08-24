@@ -58,7 +58,7 @@
 
 /* Ico Documents */
 
-.ico--documents {
+.ico--documents { 
   width: 18px;
   height: 20px; 
 }
@@ -96,4 +96,38 @@
 .ico--signout {
   width: 16px;
   height: 20px; 
+}
+
+/* Ico Check */
+
+.ico--check {
+  height: 9px;
+  width: 13px;
+  stroke: $c-base;
+
+  path {
+    fill: none;
+    stroke: inherit;
+  }
+}
+
+/* Ico Invite */
+
+.ico--invite {
+  width: 21px; 
+  height: 20px; 
+}
+
+/* Ico Share */
+
+.ico--share {
+  width: 21px;
+  height: 21px; 
+}
+
+/* Ico View */
+
+.ico--view {
+  width: 20px; 
+  height: 21px; 
 }

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import SubheaderDocuments from '@/components/subheader/subheader-documents.vue';
-import SubheaderDatasets from '@/components/subheader/subheader-datasets.vue';
+import SubheaderDocuments from './subheader-documents.vue';
+import SubheaderDatasets from './subheader-datasets.vue';
 import SubheaderProfile from './subheader-profile.vue';
 
 export default {

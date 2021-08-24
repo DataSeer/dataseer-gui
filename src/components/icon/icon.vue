@@ -14,6 +14,10 @@
   <i class="ico ico--chain" v-else-if="name === 'chain'">
     <Chain />
   </i>
+
+  <i class="ico ico--check" v-else-if="name === 'check'">
+    <Check />
+  </i>
   
   <i class="ico ico--comment" v-else-if="name === 'comment'">
     <Comment />
@@ -84,7 +88,7 @@
   </i>
   
   <i class="ico ico--view" v-else-if="name === 'view'">
-    <View />
+    <DocumentView />
   </i>
   
   <i class="ico ico--view-grid" v-else-if="name === 'view_grid'">
@@ -101,11 +105,13 @@ import Add from './icon-add'
 import ArrowDown from './icon-arrow-down'
 import ArrowUp from './icon-arrow-up'
 import Chain from './icon-chain'
+import Check from './icon-check'
 import Comment from './icon-comment'
 import Connect from './icon-connect'
 import Document from './icon-document'
 import Documents from './icon-documents'
 import DocumentNew from './icon-document-new'
+import DocumentView from './icon-document-view'
 import IconEmail from './icon-email'
 import Grid from './icon-grid'
 import Invite from './icon-invite'
@@ -118,7 +124,6 @@ import Share from './icon-share'
 import Signout from './icon-signout'
 import Trash from './icon-trash'
 import IconUser from './icon-user'
-import View from './icon-view'
 import ViewGrid from './icon-view-grid'
 import ViewList from './icon-view-list'
 
@@ -131,11 +136,13 @@ export default {
     ArrowDown,
     ArrowUp,
     Chain,
+    Check,
     Comment,
     Connect,
     Document,
     Documents,
     DocumentNew,
+    DocumentView,
     IconEmail,
     Grid,
     Invite,
@@ -148,7 +155,6 @@ export default {
     Signout,
     Trash,
     IconUser,
-    View,
     ViewGrid,
     ViewList
   },
