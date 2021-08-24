@@ -16,7 +16,8 @@ export default {
 
   props: {
     name: { required: true },
-    selected: { default: false}
+    selected: { default: false},
+    tooltip: {dfault: ''}
   },
 
   mounted() {

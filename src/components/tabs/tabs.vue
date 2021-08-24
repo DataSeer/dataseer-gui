@@ -7,7 +7,13 @@
             :key="index"
             :class="{ 'is-active': tab.isActive }"
           >
-            <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
+            <a 
+              :href="tab.href"
+              @click="selectTab(tab)"
+              v-tooltip.right="tabTooltips[index]"
+            >
+              {{ tab.name }}
+            </a>
           </li>
         </ul>
       </div><!-- /.tabs__links -->
@@ -21,14 +27,29 @@
 export default {
   name: 'Tabs',
 
+  props: ['start'],
+
   data: function() {
     return {
       tabs: [],
     }
   },
 
+  computed: {
+    tabTooltips() {
+      return this.tabs.map(item => item.tooltip);
+    }
+  },
+
+  watch: {
+    start() {
+      this.tabs[0].isActive = true;
+    }
+  },
+
   methods: {
     selectTab(selectedTab) {
+      this.$emit('tabSelected');
       this.tabs.forEach(tab => {
         tab.isActive = (tab.name == selectedTab.name);
       });

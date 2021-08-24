@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
+import VTooltip from 'v-tooltip';
+
+Vue.use(VTooltip);
 
 import router from './router.js'
 import App from './App.vue';

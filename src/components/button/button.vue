@@ -4,6 +4,7 @@
 		:href="href" 
 		class="btn"
 		:class="{'btn--tertiary': alt}"
+		@click="$emit('click')"
 	>
 		<slot />
 	</a>
@@ -12,6 +13,7 @@
 		:type="type"
 		class="btn"
 		:class="{'btn--tertiary': alt}"
+		@click="$emit('click')"
 	>
 		<slot />
 	</button>

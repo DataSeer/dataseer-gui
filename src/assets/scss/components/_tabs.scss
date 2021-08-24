@@ -21,6 +21,11 @@
         transform: translateY(-50%);
         border-radius: 15px 0 0 15px;
       }
+
+      a:hover {
+        background-color: #fff !important;
+        color: $c-base;
+      }
     }
     
     a {
