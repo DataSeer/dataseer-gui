@@ -79,7 +79,7 @@
           </div><!-- /.dataset__left -->
           <div class="dataset__right">
             <div class="pdf-holder">
-              <VuePdfEmbed :source="source" />
+              <PDF />
             </div><!-- /.pdf-holder -->
           </div><!-- /.dataset__right -->
         </div><!-- /.dataset__row -->
@@ -89,14 +89,13 @@
 </template>
 
 <script>
-import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed';
-
 import Button from '@/components/button/button';
 import Tabs from '@/components/tabs/tabs';
 import Tab from '@/components/tabs/tab';
 import Icon from '@/components/icon/icon.vue';
 import FormDataset from '@/blocks/form-dataset/form-dataset.vue';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
+import PDF from '@/blocks/pdf/pdf.vue';
 
 export default {
 	name: 'Datasets',
@@ -111,12 +110,12 @@ export default {
 
   components: {
     Button,
-    VuePdfEmbed,
     Tabs,
     Tab,
     Icon,
     FormDataset,
-    DatasetUtils
+    DatasetUtils,
+    PDF
   },
 
   methods: {
