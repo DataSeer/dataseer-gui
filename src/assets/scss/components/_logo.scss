@@ -4,8 +4,9 @@
 
 .logo {
 	position: relative; 
-	width: 128px;
 	z-index: 25; 
+	width: 128px;
+	flex-shrink: 0;
 	font-size: 0;
 	line-height: 0;
 	text-indent: -4004px;
@@ -14,10 +15,6 @@
 	vertical-align: middle;
 	text-decoration: none;
 	pointer-events: auto;
-
-	@include breakpoint-down(mobile) {
-		width: 20px;
-	}
 
 	> img {
 		display: block;

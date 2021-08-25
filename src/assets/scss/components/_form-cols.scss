@@ -5,13 +5,46 @@
 .form-cols {
 	padding: 25px 33px; 
 
+	@include breakpoint-down(large-desktop) {
+		padding-left: 0; 
+		padding-right: 0; 
+	}
+
+	@include breakpoint-down(tablet) {
+		padding-top: 20px; 
+		padding-bottom: 20px; 
+	}
+
+	@include breakpoint-down(mobile) {
+		padding-top: 0; 
+		padding-bottom: 0; 
+	}
+
 	.form__cols {
 		display: flex; 
+		flex-wrap: wrap;
 		margin: 0 -42px; 
+
+		@include breakpoint-down(small-desktop) {
+			margin: 0 -21px; 
+		}
+
+		@include breakpoint-down(tablet) {
+			margin: -15px 0; 
+		}
 	}
 
 	.form__col {
 		width: 50%; 
 		padding: 0 42px; 
+
+		@include breakpoint-down(small-desktop) {
+			padding: 0 21px; 
+		}
+
+		@include breakpoint-down(tablet) {
+			width: 100%; 
+			padding: 15px 0; 
+		}
 	}
 }

@@ -3,11 +3,14 @@
 \* ------------------------------------------------------------ */
 
 .main {
-  padding-top: 55px; 
-  min-height: 100vh;
+  padding-top: 56px; 
 
   .main__inner {
     display: flex; 
+
+    @include breakpoint-down(mobile) {
+      flex-wrap: wrap;
+    }
   }
 
   .main__left,
@@ -16,21 +19,37 @@
     padding-left: 40px; 
     padding-right: 40px;
     padding-bottom: 40px;  
+
+    @include breakpoint-down(tablet) {
+      padding-left: 30px; 
+      padding-right: 30px;
+      padding-bottom: 30px; 
+    }
   }
 
   .main__left {
-    width: 61.7%; 
+    width: calc(61.7% - 10px); 
     flex-shrink: 0;
-    margin-right: 11px; 
+    margin-right: 10px; 
     padding-top: 40px; 
     padding-bottom: 40px; 
     background-color: $c-white; 
+
+    @include breakpoint-down(mobile) {
+      width: 100%; 
+      margin-bottom: $shell-gutter; 
+    }
   }
 
   .main__right {
+    width: 38.3%; 
     padding-top: 25px; 
     flex-grow: 1;
     background-color: $c-bg-2; 
+
+    @include breakpoint-down(mobile) {
+      width: 100%; 
+    }
   }
 }
 

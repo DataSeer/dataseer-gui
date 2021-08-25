@@ -7,6 +7,14 @@
 	max-width: 100%; 
 	padding-top: 95px; 
 	margin: 0 auto; 
+
+	@include breakpoint-down(tablet) {
+		padding-top: 45px; 
+	}
+
+	@include breakpoint-down(mobile) {
+		padding-top: 25px; 
+	}
 	
 	.banner__image {
 		padding: 0 15px; 
@@ -25,7 +33,6 @@
 		color: #618BBA;
 	}
 }
-
 
 .main--profile .banner {
 	padding-top: 0px; 

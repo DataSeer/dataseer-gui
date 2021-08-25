@@ -8,12 +8,13 @@
     </div><!-- /.subheader__left -->
     
     <div class="subheader__right">
-      <Button className="tertiary">Exit Profile</Button>
+      <Button className="tertiary" @onClick='exitProfile'>Exit Profile</Button>
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue'
 
@@ -24,5 +25,19 @@ export default {
     Button,
     Icon
   },
+
+  methods: {
+    ...mapActions([
+      'login'
+    ]),
+    exitProfile(event) {
+      event.preventDefault();
+      this.login(false);
+
+      this.$router.push({
+        name: 'SignIn',
+      })
+    }
+  }
 }
 </script>

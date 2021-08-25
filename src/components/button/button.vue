@@ -10,10 +10,10 @@
 	</a>
 	<button 
 		v-else
-		:type="type"
+		type="button"
 		class="btn"
 		:class="{[`btn--${className}`]: className, 'is-disabled': disabled}"
-		@click="$emit('click')"
+		@click="handleClick"
 	>
 		<slot />
 	</button>
@@ -28,10 +28,6 @@ export default {
 			type: String,
 			default: ''
 		},
-		type: {
-			type: String,
-			default: "button"
-		},
 		className: {
 			type: String,
 			default: ''
@@ -40,6 +36,12 @@ export default {
 			type: Boolean,
 			default: false
 		},
+	},
+
+	methods: {
+		handleClick(event){
+			this.$emit('onClick', event);
+		}
 	}
 }
 </script>

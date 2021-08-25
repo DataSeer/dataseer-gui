@@ -128,6 +128,10 @@
 	.form__actions {
 		margin-bottom: 28px; 
 
+		@include breakpoint-down(tablet) {
+			margin-bottom: 18px; 
+		}
+
 		&:last-child {
 			margin-bottom: 0; 
 		}
@@ -136,12 +140,13 @@
 	.form__actions ul {
 		display: flex; 
 		justify-content: center;
+		flex-wrap: wrap;
 		list-style: none; 
-		margin: 0 -12px; 
+		margin: -5px -12px; 
 	}
 
 	.form__actions ul li {
-		padding: 0 12px; 
+		padding: 5px 12px; 
 	}
 
 	/* Form Message */
@@ -150,8 +155,12 @@
 		text-align: center; 
 	}
 
-	.form__message  p {
+	.form__message p {
 		margin-bottom: 20px; 
+		
+		@include breakpoint-down(tablet) {
+			margin-bottom: 10px; 
+		}
 	}
 
 	.form__helptext {
@@ -170,6 +179,7 @@
 		border-radius: 6px;
 		font-weight: inherit;
 		transition: border $t-duration;
+		background-color: $c-white; 
 
 		@include input-placeholder {
 			color: $c-placeholder;
@@ -340,10 +350,27 @@
 	padding: 55px 0; 
 	max-width: 483px;
 
+	@include breakpoint-down(tablet) {
+		padding: 35px 0; 
+	}
+
+	@include breakpoint-down(mobile) {
+		padding: 0; 
+	}
+
 	/* Form Body */
 	.form__body {
 		padding: 0 45px; 
 		margin: 38px 0 43px; 
+
+		@include breakpoint-down(tablet) {
+			margin: 20px 0 25px; 
+			padding: 0 25px; 
+		}
+
+		@include breakpoint-down(mobile) {
+			padding: 0; 
+		}
 	}
 }
 

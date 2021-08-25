@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-account">
-    <ul v-if="isLoggedIn">
+    <ul v-if="getLogin">
       <li>
         <router-link to="/documents">my documents</router-link>
       </li>
@@ -25,9 +25,9 @@
             </li>
 
             <li>
-              <a href="#">
-                <Icon name="signout"></Icon>
-                
+              <a href="#" @click.prevent="login(false)">
+                <Icon name="signout" />
+
                 Sign Out
               </a>
             </li>
@@ -55,14 +55,22 @@
 <script>
 import DropDown from '@/components/dropdown/dropdown';
 import Icon from '@/components/icon/icon';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'navAccount',
-  data () {
-    return {
-      isLoggedIn: true
-    }
+  computed: {
+    ...mapGetters([
+      'getLogin'
+      ])
   },
+
+  methods: {
+    ...mapActions([
+      'login'
+    ])
+  },
+  
   components: {
     Icon,
     DropDown

@@ -56,6 +56,7 @@
 
 <script>
 import { required, minLength, email } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex'
 
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
@@ -90,6 +91,9 @@ export default {
 	},
 
 	methods: {
+		...mapActions([
+			'login'
+		]),
 		submit() {
 			this.loading = true;
 			this.$v.$touch();
@@ -102,9 +106,14 @@ export default {
 			} else {
 				console.log('SUCCESS')
 				this.loading = false;
+
+				this.login(true);
+				this.$router.push({
+					name: 'Profile'
+				})
 			}
 		}
-	},
+	}
 }
 </script>
 
