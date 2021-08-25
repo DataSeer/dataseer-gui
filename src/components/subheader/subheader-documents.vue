@@ -1,4 +1,4 @@
-btn-layout<template>
+<template>
   <div class="subheader__inner">
     <div class="subheader__left">
       <h3>
@@ -21,22 +21,20 @@ btn-layout<template>
           <Icon name="view_grid" />  
         </a>  
       </div><!-- /.btn-layout -->
-      
-      <Button className="secondary">Upload new Document</Button>
+
+      <router-link to="/new-document" class="btn btn--secondary">Upload new Document</router-link>
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>
 
 <script>
 import Icon from '@/components/icon/icon';
-import Button from '@/components/button/button.vue'
 import Search from '../search/search.vue'
 
 export default {
   name: "SubheaderDocuments",
 
   components: { 
-    Button,
     Search,
     Icon
   },

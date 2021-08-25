@@ -3,13 +3,14 @@
 \* ------------------------------------------------------------ */
 
 .banner {
-	width: 429px; 
+	width: 430px; 
 	max-width: 100%; 
-	padding-top: 80px; 
+	padding-top: 95px; 
 	margin: 0 auto; 
 	
 	.banner__image {
-		margin-bottom: 15px; 
+		padding: 0 15px; 
+		margin-bottom: 32px; 
 	}
 
 	.banner__content {
@@ -22,6 +23,17 @@
 		font-weight: 500; 
 		font-family: $ff-titles; 
 		color: #618BBA;
+	}
+}
 
+
+.main--profile .banner {
+	padding-top: 0px; 
+	width: 490px; 
+
+	.banner__image {
+		margin-bottom: 22px; 
+		padding-left: 0; 
+		padding-right: 0; 
 	}
 }

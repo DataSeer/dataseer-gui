@@ -21,7 +21,9 @@
                 <div class="box__head">
                   <ul>
                     <li>
-                      <i class="icon"></i> <strong>L. Leadauthor</strong>
+                      <Icon name="document" />
+                      
+                      <strong>L. Leadauthor</strong>
                     </li>
 
                     <li>
@@ -61,7 +63,7 @@
                 <div class="box__actions">
                   <ul>
                     <li>
-                      <a href="#" class="btn btn--secondary">Continue</a>
+                      <a href="#" class="btn btn--secondary">View Report</a>
                     </li>
                   </ul>
 
@@ -117,7 +119,9 @@
                 <div class="box__head">
                   <ul>
                     <li>
-                      <i class="icon"></i> <strong>L. Leadauthor</strong>
+                      <Icon name="document" />
+
+                      <strong>L. Leadauthor</strong>
                     </li>
 
                     <li>
@@ -157,7 +161,7 @@
                 <div class="box__actions">
                   <ul>
                     <li>
-                      <a href="#" class="btn btn--secondary">Continue</a>
+                      <a href="#" class="btn btn--secondary">View Report</a>
                     </li>
                     
                     <li>
@@ -217,7 +221,9 @@
                 <div class="box__head">
                   <ul>
                     <li>
-                      <i class="icon"></i> <strong>L. Leadauthor</strong>
+                      <Icon name="document" />
+
+                      <strong>L. Leadauthor</strong>
                     </li>
 
                     <li>
@@ -257,7 +263,7 @@
                 <div class="box__actions">
                   <ul>
                     <li>
-                      <a href="#" class="btn btn--secondary">Continue</a>
+                      <a href="#" class="btn btn--secondary">View Report</a>
                     </li>
                     
                     <li>
@@ -316,7 +322,7 @@
               <div class="box box--upload">
                 <Icon name="document_new" />
                 
-                <a href="#" class="btn btn--tertiary">Upload new Document</a>
+                <router-link to="/new-document" class="btn btn--tertiary">Upload new Document</router-link>
               </div><!-- /.box box-/-upload -->
             </li>
           </ul>

@@ -13,17 +13,22 @@
   .main__left,
   .main__right {
     box-shadow: 0 2px 9px rgba($c-primary, 0.12);
-    padding: 40px; 
+    padding-left: 40px; 
+    padding-right: 40px;
+    padding-bottom: 40px;  
   }
 
   .main__left {
     width: 61.7%; 
     flex-shrink: 0;
     margin-right: 11px; 
+    padding-top: 40px; 
+    padding-bottom: 40px; 
     background-color: $c-white; 
   }
 
   .main__right {
+    padding-top: 25px; 
     flex-grow: 1;
     background-color: $c-bg-2; 
   }
@@ -34,7 +39,7 @@
 \* ------------------------------------------------------------ */
 
 .main--documents {
-  padding-top: 134px; 
+  padding-top: 120px; 
 }
 
 /* ------------------------------------------------------------ *\
@@ -42,7 +47,7 @@
 \* ------------------------------------------------------------ */
 
 .main--profile {
-  padding-top: 134px; 
+  padding-top: 120px; 
 }
 
 /* ------------------------------------------------------------ *\
@@ -50,5 +55,5 @@
 \* ------------------------------------------------------------ */
 
 .main--dataset {
-  padding: 134px 10px 0 40px; 
+  padding: 120px 10px 0 40px; 
 }

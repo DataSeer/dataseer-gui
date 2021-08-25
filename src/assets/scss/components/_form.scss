@@ -116,7 +116,7 @@
 	}
 
 	.form__row {
-		margin-bottom: 24px; 
+		margin-bottom: 25px; 
 
 		&:last-child {
 			margin-bottom: 0; 
@@ -155,7 +155,8 @@
 	}
 
 	.form__helptext {
-		padding: 10px 10px; 
+		margin-top: 10px; 
+		
 	}
 
 	/* Field */
@@ -176,6 +177,12 @@
 		
 		&:focus {
 			border-color: $c-primary-light;
+		}
+	}
+
+	.field {
+		&:read-only {
+			border-color: $c-gray;
 		}
 	}
 	
@@ -335,7 +342,7 @@
 
 	/* Form Body */
 	.form__body {
-		padding: 0 42px; 
+		padding: 0 45px; 
 		margin: 38px 0 43px; 
 	}
 }
@@ -357,7 +364,7 @@
 	}
 
 	.form__row {
-		margin-bottom: 60px; 
+		margin-bottom: 67px; 
 	}
 }
 
@@ -365,14 +372,19 @@
 
 .form--search {
 	position: relative; 
+	width: 255px; 
 
 	.field {
 		height: 42px; 
 		border-color: $c-gray;
-		padding-right: 50px; 
+		padding-right: 41px; 
+		padding-left: 15px; 
 		border-radius: 13px;
+		font-size: 14px; 
+
 		
 		@include input-placeholder {
+			text-transform: uppercase; 
 			color: $c-base-ligter;
 		}
 	}
@@ -405,7 +417,7 @@
 
 	.form__head {
 		text-align: left; 
-		margin-bottom: 37px; 
+		margin-bottom: 35px; 
 	}
 
 	.form__actions ul {
@@ -417,12 +429,12 @@
 	}
 }
 
-/* form--readonly */
+/* Form New Document */
 
-.form--readonly {
-	.field,
-	.field select {
-		border-color: $c-gray !important;
-		cursor: default !important;
+.form--new-document {
+	.form__label,
+	.form__helptext {
+		padding-left: 10px; 
+		padding-right: 10px; 
 	}
 }
