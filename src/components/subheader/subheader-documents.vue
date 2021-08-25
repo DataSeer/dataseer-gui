@@ -13,30 +13,43 @@
       <div class="btn-layout">
         <span>View</span>
     
-        <a class="btn__icon is-active" href="#">
+        <a class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
           <Icon name="view_list" />
         </a>  
     
-        <a class="btn__icon " href="#">
+        <a class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
           <Icon name="view_grid" />  
         </a>  
       </div><!-- /.btn-layout -->
-
       <router-link to="/new-document" class="btn btn--secondary">Upload new Document</router-link>
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import Icon from '@/components/icon/icon';
 import Search from '../search/search.vue'
 
 export default {
   name: "SubheaderDocuments",
 
-  components: { 
+  components: {
     Search,
     Icon
   },
+
+  computed: {
+    ...mapGetters([
+      'getDocumentView'
+    ]),
+  },
+
+  methods: {
+    ...mapActions([
+      'changeView'
+    ])
+  }
 }
 </script>

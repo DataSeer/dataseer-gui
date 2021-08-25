@@ -7,12 +7,14 @@ Vue.use(VTooltip);
 import router from './router.js'
 import App from './App.vue';
 import "@/assets/scss/style.scss";
+import store from './store'
 
 Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 
 new Vue({
-	router,
-	render: h => h(App),
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
