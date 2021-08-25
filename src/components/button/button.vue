@@ -12,7 +12,7 @@
 		v-else
 		:type="type"
 		class="btn"
-		:class="{[`btn--${className}`]: className}"
+		:class="{[`btn--${className}`]: className, 'is-disabled': disabled}"
 		@click="$emit('click')"
 	>
 		<slot />
@@ -35,7 +35,11 @@ export default {
 		className: {
 			type: String,
 			default: ''
-		}
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
 	}
 }
 </script>

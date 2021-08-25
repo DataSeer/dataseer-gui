@@ -74,7 +74,7 @@
         </ul>
       
       </div><!-- /.document-status -->
-      <Button className="tertiary">Complete Document</Button>
+      <Button className="tertiary" disabled>Complete Document</Button>
     </div><!-- /.subheader__right -->
 
     <div class="summary" v-if="showSummary">
@@ -124,68 +124,83 @@
                     <li>
                       <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+                      Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
+                      Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Nicole Etherington</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-                    </li>
-                    
-                    <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
-
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-                    </li>
-                    
-                    <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
-
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Sandy Lam</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Maxime Lê</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Laurie Proulx</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Meghan Britton</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Main Operating Room The Ottawa Hospital, Ottawa, Canada
                     </li>
 
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Julie Kenna</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Main Operating Room The Ottawa Hospital, Ottawa, Canada
                     </li>
+
                     <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+                      <h6>Antoine Przybylak-Brouillard</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
                     </li>
+
+                    <li>
+                      <h6>Jeremy Grimshaw</h6>
+
+                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+                    </li>
+
+                    <li>
+                      <h6>Teodor Grantcharov</h6>
+
+                      Department of General Surgery University of Toronto, Toronto, Canada
+                      Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
+                    </li>
+
+                    <li>
+                      <h6>Sukhbir Singh</h6>
+
+                      Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
+                    </li>
+
                   </ul>
                 </div><!-- /.summary__authors -->
 
                 <div class="summary__actions">
                   <ul>
                     <li>
-                      <a href="#" class="btn btn--block">This Data Looks Good, Continue</a>
+                      <a href="#" class="btn btn--block" @click.prevent="toggleSummary">This Data Looks Good, Continue</a>
                     </li>
 
                     <li>

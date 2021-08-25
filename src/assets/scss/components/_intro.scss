@@ -1,0 +1,82 @@
+/* ------------------------------------------------------------ *\
+  Intro
+\* ------------------------------------------------------------ */
+
+.intro {
+  font-family: $ff-titles; 
+  font-size: 18px; 
+  font-weight: 500; 
+  color: $c-primary;
+
+  .intro__head {
+    position: relative; 
+    padding: 48px 230px 40px 50px; 
+    background-color: $c-orange-bg; 
+    border-radius: 15px;
+  }
+
+  .intro__head h3 {
+    margin-bottom: 0; 
+    color: $c-base;
+    font-size: 23px; 
+    line-height: 1.22; 
+  }
+
+  .intro__head h3 span {
+    display: block; 
+    color: $c-primary;
+  }
+
+  .intro__head figure {
+    position: absolute; 
+    width: 218px; 
+    right: 12px; 
+    top: 50%; 
+    transform: translateY(-50%);
+  }
+
+  .intro__body {
+    padding: 65px 70px 65px 50px; 
+  }
+
+  .intro__text {
+    position: relative; 
+  }
+
+  .intro__text i {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .intro__text i.ico--arrow-up {
+    top: -35px;
+    margin-right: 21px;
+    right: 100%;
+    transform: rotate(-29deg);
+  }
+
+  .intro__text i.ico--arrow-down {
+    top: 15px;
+    margin-right: 14px;
+    right: 100%;
+  }
+
+  .intro__text + .intro__text {
+    margin-top: 64px; 
+  }
+
+  .intro__cta {
+    margin-top: 54px; 
+  }
+
+  .intro__cta ul {
+    display: flex; 
+    list-style: none; 
+    flex-wrap: wrap;
+    margin: -5px -13px; 
+  }
+
+  .intro__cta li {
+    padding: 5px 13px; 
+  }
+}

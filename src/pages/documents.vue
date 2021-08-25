@@ -2,7 +2,7 @@
   <div class="main main--documents">
     <div class="shell">
       <div class="documents">
-        <div class="documents__inner" v-if="layout === 'GRID'">
+        <div class="documents__inner" v-if="layout === 'LIST'">
           <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
@@ -433,7 +433,7 @@ export default {
 
         if(item.File) {
           const fileName = item.File.split('/').pop();
-          item.File = `<a href="${item.File}">${fileName}</a>`
+          item.File = `<a href="${item.File}" target="_blank">${fileName}</a>`
         }
 
         return item;
