@@ -229,10 +229,19 @@
 	.select select {
 		appearance: none;
 		padding-right: 44px; 
+		color: $c-placeholder;
+	}
+
+	.select option {
+		color: $c-base
 	}
 
 	.select option[value=""][disabled] {
 		color: $c-placeholder;
+	}
+
+	.select.is-selected select {
+		color: inherit;
 	}
 
 	/* Checkbox and Radio */

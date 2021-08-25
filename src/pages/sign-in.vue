@@ -11,6 +11,7 @@
 						<template #image>
 							<img src="@/assets/images/form-img-2@2x.png" alt="">
 						</template>
+						
 						<h4>Data sharing has never been simpler</h4>
 
 						<p>DataSeer’s AI scnas research texts and surfaces sentences which may require dataset citations then gives best-practice advice for sharing that type of data.</p>

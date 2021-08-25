@@ -22,7 +22,7 @@ btn-layout<template>
         </a>  
       </div><!-- /.btn-layout -->
       
-      <Button>Upload new Document</Button>
+      <Button className="secondary">Upload new Document</Button>
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>

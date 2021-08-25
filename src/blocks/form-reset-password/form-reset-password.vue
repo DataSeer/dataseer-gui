@@ -31,7 +31,7 @@
           </li>
 
           <li>
-            <Button alt>Cancel</Button>
+            <Button className="tertiary">Cancel</Button>
           </li>
         </ul>
       </div><!-- /.form__actions -->

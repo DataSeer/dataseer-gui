@@ -74,7 +74,7 @@
         </ul>
       
       </div><!-- /.document-status -->
-      <Button alt>Complete Document</Button>
+      <Button className="tertiary">Complete Document</Button>
     </div><!-- /.subheader__right -->
 
     <div class="summary" v-if="showSummary">

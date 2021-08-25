@@ -40,13 +40,14 @@
 					</li>
 					
 					<li>
-						<Button alt>Cancel</Button>
+						<Button className="tertiary">Cancel</Button>
 					</li>
 				</ul>
 			</div><!-- /.form__actions -->
 
 			<div class="form__message">
 				<p>Forgot your password? <a href="#">Reset it</a></p>
+				
 				<p>Need and account? <router-link to="/sign-up">Sign Up</router-link></p>
 			</div><!-- /.form__message -->
 		</form>

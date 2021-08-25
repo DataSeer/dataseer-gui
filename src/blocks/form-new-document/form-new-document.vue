@@ -69,7 +69,7 @@
           </li>
           
           <li>
-            <Button alt>Cancel</Button>
+            <Button className="tertiary">Cancel</Button>
           </li>
         </ul>
       </div><!-- /.form__actions -->
@@ -121,7 +121,7 @@
       onSubmit() {
         if (!this.primaryFile) {
           this.errors = true;
-          this.errorMessage = 'Primary file is empty'
+          this.errorMessage = 'Example error message'
         }
       }
     }

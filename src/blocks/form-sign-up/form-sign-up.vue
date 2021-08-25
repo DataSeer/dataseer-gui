@@ -49,7 +49,7 @@
 						Institution/Organization
 					</template>
 					
-					<div class="select">
+					<div class="select" :class="{'is-selected': organization}">
 						<select id="organization" v-model.trim="organization">
 							<option disabled selected value="">Select</option>
 							
@@ -70,7 +70,7 @@
 					</li>
 					
 					<li>
-						<Button alt>Cancel</Button>
+						<Button className="tertiary">Cancel</Button>
 					</li>
 				</ul>
 			</div><!-- /.form__actions -->
@@ -79,9 +79,7 @@
 				<p>
 					Already have an account?
 					
-					<router-link to="/sign-in">
-						Sign in
-					</router-link>
+					<router-link to="/sign-in">Sign in</router-link>
 				</p>
 			</div><!-- /.form__message -->
 		</form>

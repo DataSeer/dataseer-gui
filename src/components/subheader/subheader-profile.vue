@@ -8,7 +8,7 @@
     </div><!-- /.subheader__left -->
     
     <div class="subheader__right">
-      <Button alt>Exit Profile</Button>
+      <Button className="tertiary">Exit Profile</Button>
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>

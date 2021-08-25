@@ -3,7 +3,7 @@
 		v-if="href" 
 		:href="href" 
 		class="btn"
-		:class="{'btn--tertiary': alt}"
+		:class="{[`btn--${className}`]: className}"
 		@click="$emit('click')"
 	>
 		<slot />
@@ -12,7 +12,7 @@
 		v-else
 		:type="type"
 		class="btn"
-		:class="{'btn--tertiary': alt}"
+		:class="{[`btn--${className}`]: className}"
 		@click="$emit('click')"
 	>
 		<slot />
@@ -32,11 +32,10 @@ export default {
 			type: String,
 			default: "button"
 		},
-		alt: {
-			type: Boolean,
-			default: false
+		className: {
+			type: String,
+			default: ''
 		}
 	}
 }
 </script>
-
