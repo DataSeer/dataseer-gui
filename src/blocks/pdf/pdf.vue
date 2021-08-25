@@ -45,7 +45,7 @@ export default {
           pdf:
             pdf && pdf.res
               ? {
-                url: 'http://127.0.0.1:8080/pdf.pdf',
+                url: '/pdf.pdf',
                 metadata: pdf.res.metadata
               }
               : undefined
