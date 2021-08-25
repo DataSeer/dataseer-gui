@@ -2,7 +2,7 @@
   <div class="main main--documents">
     <div class="shell">
       <div class="documents">
-        <div class="documents__inner" v-if="layout === 'LIST'">
+        <div class="documents__inner" v-if="getDocumentView === 'list'">
           <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
@@ -14,7 +14,7 @@
           </div><!-- /.documents__actions -->
         </div><!-- /.documents__inner -->
 
-        <div class="boxes" v-else>
+        <div class="boxes" v-if="getDocumentView === 'grid'">
           <ul>
             <li>
               <div class="box">
@@ -333,7 +333,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Vuetable from 'vuetable-2';
+
 import Dropdown from '@/components/dropdown/dropdown'
 import Icon from '@/components/icon/icon'
 
@@ -348,7 +350,6 @@ export default {
 
   data: function() {
     return {
-      layout: 'LIST',
       columns: [
         {
           name: 'title',
@@ -402,7 +403,9 @@ export default {
   },
 
   computed: {
-    
+    ...mapGetters([
+      'getDocumentView'
+      ])
   },
 
   methods: {
@@ -424,13 +427,8 @@ export default {
       })
       this.$refs.vuetable.setData(this.docs);
     },
-
     dataModify() {
       this.docs = this.docs.map(item => {
-        if(item.title) {
-          item.title = `<i></i> ${item.title}`
-        }
-
         if(item.File) {
           const fileName = item.File.split('/').pop();
           item.File = `<a href="${item.File}" target="_blank">${fileName}</a>`
@@ -440,10 +438,18 @@ export default {
       })
     }
   },
-
+  
   mounted() {
-    this.dataModify();
-    this.$refs.vuetable.setData(this.docs);
+    if (this.getDocumentView === 'list') {
+      this.dataModify();
+      this.$refs.vuetable.setData(this.docs);
+    }
+  },
+
+  updated() {
+    if (this.getDocumentView === 'list') {
+      this.$refs.vuetable.setData(this.docs);
+    }
   }
 }
 </script>
