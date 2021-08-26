@@ -6,6 +6,10 @@
   font-size: 12px; 
   line-height: 1.42; 
   color: $c-base-ligter;
+
+  @include breakpoint-down(mobile-small) {
+    font-size: 10px; 
+  }
   
   ul {
     list-style: none;
@@ -17,6 +21,10 @@
 
   li + li {
     margin-left: 24px; 
+
+    @include breakpoint-down(mobile) {
+      margin-left: 12px; 
+    }
   }
 
   span {

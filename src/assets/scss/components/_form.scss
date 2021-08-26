@@ -3,8 +3,6 @@
 \* ------------------------------------------------------------ */
 
 .form {
-	margin: 0 auto; 
-
 	/* Form Head */
 
 	.form__head {
@@ -349,6 +347,7 @@
 .form--sm {
 	padding: 55px 0; 
 	max-width: 483px;
+	margin: 0 auto; 
 
 	@include breakpoint-down(tablet) {
 		padding: 35px 0; 
@@ -379,6 +378,7 @@
 .form--lg {
 	max-width: 744px;
 	padding: 50px 0; 
+	margin: 0 auto; 
 
 	.form__head {
 		max-width: 483px;

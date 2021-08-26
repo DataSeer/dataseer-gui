@@ -4,16 +4,28 @@
 
 .documents {
 	.documents__inner {
+		padding-left: 45px;
+		padding-right: 45px; 
 		background-color: $c-white; 
-		padding: 40px 45px; 
 		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+
+		@include breakpoint-down(large-desktop) {
+			padding-left: 25px; 
+			padding-right: 25px; 
+		}
 
 		&:last-child {
 			margin-bottom: auto; 
 		}
 	}
 
+	.documents__table {
+		padding: 40px 0; 
+		overflow-x: auto;
+	}
+
 	.vuetable-body-wrapper {
+		min-width: 1200px; 
 		margin-bottom: 28px; 
 	}
 
@@ -46,7 +58,7 @@
 	}
 
 	.vuetable-col-Action {
-		width: 9.9%; 
+		width: 157px; 
 	}
 
 	thead {

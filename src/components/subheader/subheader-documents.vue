@@ -7,21 +7,34 @@
       </h3>
     </div><!-- /.subheader__left -->
     
-    <div class="subheader__right">
-      <Search />
-    
-      <div class="btn-layout">
-        <span>View</span>
-    
-        <a class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
-          <Icon name="view_list" />
-        </a>  
-    
-        <a class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
-          <Icon name="view_grid" />  
-        </a>  
-      </div><!-- /.btn-layout -->
-      <router-link to="/new-document" class="btn btn--secondary">Upload new Document</router-link>
+    <div class="subheader__right" :class="{'is-active': showMobileMenu}">
+      <button class="subheader__btn btn-dropdown" @click="toggleMobileMenu"></button>
+
+      <div class="subheader__menu">
+        <ul>
+          <li>
+            <Search />
+          </li>
+          
+          <li>
+            <div class="btn-layout">
+              <span>View</span>
+
+              <a class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
+                <Icon name="view_list" />
+              </a>  
+
+              <a class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
+                <Icon name="view_grid" />  
+              </a>  
+            </div><!-- /.btn-layout -->
+          </li>
+
+          <li>
+            <router-link to="/new-document" class="btn btn--secondary">Upload new Document</router-link>
+          </li>
+        </ul>
+      </div><!-- /.subheader__menu -->
     </div><!-- /.subheader__right -->
   </div><!-- /.subheader__inner -->
 </template>
@@ -40,6 +53,12 @@ export default {
     Icon
   },
 
+  data: function() {
+    return {
+      showMobileMenu: false
+    }
+  },
+
   computed: {
     ...mapGetters([
       'getDocumentView'
@@ -49,7 +68,10 @@ export default {
   methods: {
     ...mapActions([
       'changeView'
-    ])
+    ]),
+    toggleMobileMenu(){
+      this.showMobileMenu = !this.showMobileMenu
+    }
   }
 }
 </script>

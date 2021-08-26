@@ -8,8 +8,8 @@
   background: transparent;
   border: 0 none;
   appearance: none;
-  width: 40px;
-  height: 26px;
+  width: 30px;
+  height: 18px;
   color: $c-primary;
 
   @include breakpoint-down(mobile) {
@@ -19,9 +19,8 @@
   span {
     position: absolute;
     display: block;
-    height: 4px;
+    height: 2px;
     width: 100%;
-    border-radius: 2px;
     background: currentcolor;
     transition: top .2s .25s, opacity .2s .25s, transform .2s 0s;
 

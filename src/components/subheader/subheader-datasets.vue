@@ -17,7 +17,7 @@
         
         <Dropdown>
           <template #header>
-            <span class="dropdown__button"></span>
+            <span class="btn-dropdown"></span>
           </template>
 
           <ul class="dropdown__nav">
@@ -60,21 +60,27 @@
     </div><!-- /.subheader__left -->
 
     <div class="subheader__right">
-      <div class="document-status">
+      <div class="subheader__menu">
         <ul>
           <li>
-            <span>1</span> of 7 Completed
+            <div class="document-status">
+              <ul>
+                <li>
+                  <span>1</span> of 7 Completed
+                </li>
+                
+                <li>
+                  <Icon name="check"></Icon>
+                  
+                  Auto-Saved
+                </li>
+              </ul>
+            </div><!-- /.document-status -->
           </li>
           
-          <li>
-            <Icon name="check"></Icon>
-            
-            Auto-Saved
-          </li>
+          <li><Button className="tertiary" disabled>Complete <span>Document</span></Button></li>
         </ul>
-      
-      </div><!-- /.document-status -->
-      <Button className="tertiary" disabled>Complete Document</Button>
+      </div><!-- /.subheader__menu -->
     </div><!-- /.subheader__right -->
 
     <div class="summary" v-if="showSummary">

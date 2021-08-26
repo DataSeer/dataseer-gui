@@ -1,7 +1,7 @@
 <template>
-  <div class="subheader" v-if="isVisible">
+  <div class="subheader" :class="{[`subheader--${additionalClass}`]: additionalClass}" v-if="isVisible">
     <SubheaderDocuments v-if="isDocumentsPage" />
-    <SubheaderDatasets v-if="isDatasheetsPage" />
+    <SubheaderDatasets v-if="isDatasetsPage" />
     <SubheaderProfile v-if="isUserPage" />
   </div><!-- /.subheader -->
 </template>
@@ -12,27 +12,47 @@ import SubheaderDatasets from './subheader-datasets.vue';
 import SubheaderProfile from './subheader-profile.vue';
 
 export default {
+  /**
+   * Name
+  */
   name: "Subheader",
 
+  /**
+   * components
+  */
   components: { 
     SubheaderDocuments,
     SubheaderDatasets,
     SubheaderProfile
   },
 
+  /**
+   * computed
+  */
   computed: {
     isDocumentsPage() {
       return this.$route.path === '/documents';
     },
-    isDatasheetsPage() {
+    isDatasetsPage() {
       return this.$route.path === '/datasets';
     },
     isUserPage() {
       return this.$route.path === '/profile';
     },
     isVisible() {
-      return this.isDocumentsPage || this.isUserPage || this.isDatasheetsPage;
+      return this.isDocumentsPage || this.isUserPage || this.isDatasetsPage;
+    },
+    additionalClass() {
+      if(this.isDocumentsPage) {
+        return 'documents';
+      } else if(this.isDatasetsPage) {
+        return 'datasets';
+      } else if (this.isUserPage) {
+        return 'profile';
+      } else {
+        return '';
+      }
     }
-  },
+  }
 }
 </script>

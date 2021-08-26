@@ -3,15 +3,17 @@
     <div class="shell">
       <div class="documents">
         <div class="documents__inner" v-if="getDocumentView === 'list'">
-          <vuetable ref="vuetable"
-            :fields="columns"
-            :api-mode="false"
-            :data-manager="dataManager"
-          ></vuetable>
-        
-          <div class="documents__actions">
-            <router-link class='btn btn--tertiary' to="/new-document">Upload new Document</router-link>
-          </div><!-- /.documents__actions -->
+          <div class="documents__table">
+            <vuetable ref="vuetable"
+              :fields="columns"
+              :api-mode="false"
+              :data-manager="dataManager"
+            ></vuetable>
+          
+            <div class="documents__actions">
+              <router-link class='btn btn--tertiary' to="/new-document">Upload new Document</router-link>
+            </div><!-- /.documents__actions -->
+          </div><!-- /.documents__table -->
         </div><!-- /.documents__inner -->
 
         <div class="boxes" v-if="getDocumentView === 'grid'">
@@ -70,7 +72,7 @@
                   <div class="box__dropdown">
                     <Dropdown>
                       <template #header>
-                        <span class="dropdown__button"></span>
+                        <span class="btn-dropdown"></span>
                       </template>
 
                       <ul class="dropdown__nav">
@@ -172,7 +174,7 @@
                   <div class="box__dropdown">
                     <Dropdown>
                       <template #header>
-                        <span class="dropdown__button"></span>
+                        <span class="btn-dropdown"></span>
                       </template>
 
                       <ul class="dropdown__nav">
@@ -274,7 +276,7 @@
                   <div class="box__dropdown">
                     <Dropdown>
                       <template #header>
-                        <span class="dropdown__button"></span>
+                        <span class="btn-dropdown"></span>
                       </template>
 
                       <ul class="dropdown__nav">
