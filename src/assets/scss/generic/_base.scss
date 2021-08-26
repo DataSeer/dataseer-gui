@@ -19,6 +19,7 @@ a {
 	text-underline-position: under;
 	text-decoration-color: $c-primary;
 
+	&:focus,
 	&:hover {
 		color: $c-primary;
 		text-decoration-color: $c-primary-light;

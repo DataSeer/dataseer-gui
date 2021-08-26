@@ -8,6 +8,16 @@
 	text-transform: uppercase; 
 	font-family: $ff-titles; 
 	font-size: 14px; 
+
+	@include breakpoint-down(mobile) {
+		position: absolute; 
+		top: 100%; 
+		width: 100%; 
+		right: 0;
+		height: calc(100vh - 100%); 
+		transition: background $t-duration;
+		pointer-events: none;
+	}
 	
 	a {
 		text-decoration: none; 
@@ -17,10 +27,41 @@
 		display: flex; 
 		align-items: center;
 		margin: 0 -11px; 
+
+		@include breakpoint-down(mobile) {
+			flex-direction: column-reverse;
+			justify-content: flex-end;
+			align-items: flex-end;
+			width: 280px; 
+			height: 100%; 
+			padding: 10px 20px 20px;
+			margin-left: auto;
+			margin-right: 0; 
+			transform: translate(101%); 
+			background-color: $c-white;
+			transition: transform $t-duration;
+		}
 	}
 
 	> ul > li {
 		flex-shrink: 0;
 		padding: 0 11px; 
+
+		@include breakpoint-down(mobile) {
+			width: 100%; 
+			padding: 0; 
+			margin-bottom: 16px; 
+		}
+	}
+}
+
+.header.is-menu-expanded .nav {
+	@include breakpoint-down(mobile) {
+		background: rgba($c-primary, .66);
+		pointer-events: auto;
+
+		> ul {
+			transform: translate(0);
+		}
 	}
 }
