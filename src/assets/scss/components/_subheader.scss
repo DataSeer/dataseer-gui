@@ -57,7 +57,8 @@
 	.subheader__inner {
 		@include breakpoint-down(tablet) {
 			display: block; 
-			height: 112px; 
+			height: auto; 
+			padding: 10px 0; 
 		}
 	}
 
@@ -163,6 +164,13 @@
 		bottom: 0; 
 	}
 
+	.subheader__document .dropdown-holder .dropdown__body {
+		@include breakpoint-up(tablet) {
+			right: auto; 
+			left: 0; 
+		}
+	}
+
 	.subheader__menu > ul {
 		display: flex; 
 		align-items: center;
@@ -224,7 +232,7 @@
 	}
 
 	.subheader__menu ul li + li {
-		margin-left: 27px; 
+		margin-left: 28px; 
 
 		@include breakpoint-down(tablet) {
 			margin-left: 0; 

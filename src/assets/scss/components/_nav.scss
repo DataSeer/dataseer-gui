@@ -45,7 +45,6 @@
 	}
 
 	> ul > li {
-		flex-shrink: 0;
 		padding: 0 11px; 
 
 		@include breakpoint-down(mobile) {

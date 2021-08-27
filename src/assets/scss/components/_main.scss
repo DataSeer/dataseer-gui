@@ -6,6 +6,7 @@
   width: 100%; 
   overflow: hidden; 
   padding-top: 56px; 
+  min-height: 100vh;
 
   .main__inner {
     display: flex; 
@@ -38,7 +39,7 @@
   }
 
   .main__left {
-    width: calc(61.7% - 10px); 
+    width: calc(62.5% - 10px); 
     flex-shrink: 0;
     margin-right: 10px; 
     padding-top: 40px; 
@@ -54,8 +55,9 @@
   }
 
   .main__right {
-    width: 38.3%; 
+    width: 37.5%; 
     padding-top: 25px; 
+    padding-bottom: 25px; 
     flex-grow: 1;
     background-color: $c-bg-2; 
 
