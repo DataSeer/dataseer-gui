@@ -9,7 +9,7 @@
 				<div class="main__right">
 					<Banner>
 						<template #image>
-							<img src="@/assets/images/form-img-2@2x.png" alt="">
+							<img src="@/assets/images/form-img-2@2x.png" alt="Example Image Title">
 						</template>
 						
 						<h4>Data sharing has never been simpler</h4>

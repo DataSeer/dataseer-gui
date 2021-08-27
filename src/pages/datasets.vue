@@ -14,7 +14,7 @@
                   </h3>
                   
                   <figure>
-                    <img src="@/assets/images/intro-img@2x.png" alt="">
+                    <img src="@/assets/images/intro-img@2x.png" alt="Example Image Title">
                   </figure>
                 </div><!-- /.intro__head -->
 

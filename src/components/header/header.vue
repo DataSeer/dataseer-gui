@@ -1,27 +1,30 @@
 <template> 
   <div class="header" :class="{'is-menu-expanded': showMobileMenu}">
-    <div class="shell">
-      <div class="header__bar"> 
-        <Logo></Logo>
+    <div class="header__bar"> 
+      <div class="shell">
+        <div class="header__bar-inner">
+          <Logo></Logo>
 
-        <navTrigger
+          <navTrigger
           @onClick='toggleMenu'
-        ></navTrigger>
+          ></navTrigger>
 
-        <nav class="nav">
-          <ul>
-            <li>
-              <a tabindex="0" href="#">Need Help?</a>
-            </li>
+          <nav class="nav">
+            <ul>
+              <li>
+                <a tabindex="0" href="#">Need Help?</a>
+              </li>
 
-            <li>
-              <navAccount></navAccount>
-            </li>
-          </ul>
-        </nav><!-- /.nav -->
-      </div><!-- /.header__bar -->
-      <Subheader />
-    </div><!-- /.shell -->
+              <li>
+                <navAccount></navAccount>
+              </li>
+            </ul>
+          </nav><!-- /.nav -->
+        </div><!-- /.header__bar-inner -->
+      </div><!-- /.shell -->
+    </div><!-- /.header__bar -->
+
+    <Subheader />
   </div><!-- /.header --> 
 </template>
 

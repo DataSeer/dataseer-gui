@@ -1,8 +1,10 @@
 <template>
   <div class="subheader" :class="{[`subheader--${additionalClass}`]: additionalClass}" v-if="isVisible">
-    <SubheaderDocuments v-if="isDocumentsPage" />
-    <SubheaderDatasets v-if="isDatasetsPage" />
-    <SubheaderProfile v-if="isUserPage" />
+    <div class="shell">
+      <SubheaderDocuments v-if="isDocumentsPage" />
+      <SubheaderDatasets v-if="isDatasetsPage" />
+      <SubheaderProfile v-if="isUserPage" />
+    </div><!-- /.shell -->
   </div><!-- /.subheader -->
 </template>
 

@@ -9,7 +9,7 @@
         <div class="main__right">
           <Banner>
             <template #image>
-              <img src="@/assets/images/form-img-4@2x.png" alt="">
+              <img src="@/assets/images/form-img-4@2x.png" alt="Example Image Title">
             </template>
 
             <h4>Data standards can be confusing</h4>

@@ -12,6 +12,10 @@
 	background-color: $c-white; 
 
 	.header__bar {
+		position: relative; 
+	}
+
+	.header__bar-inner {
 		display: flex; 
 		height: 56px; 
 		justify-content: space-between;

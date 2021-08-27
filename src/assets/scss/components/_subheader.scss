@@ -85,8 +85,9 @@
 
 		@include breakpoint-down(tablet) {
 			width: 100%; 
+			min-height: 35px; 
 			margin-bottom: 10px; 
-			padding-left: 31px; 
+			padding-left: 35px; 
 		}
 	}
 
@@ -180,7 +181,7 @@
 	.subheader__menu > ul > li + li {
 		margin-left: 19px; 
 
-		@include breakpoint-down(mobile) {
+		@include breakpoint-down(tablet) {
 			margin-left: auto; 
 		}
 	}
