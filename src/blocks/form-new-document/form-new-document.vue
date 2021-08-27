@@ -19,8 +19,9 @@
           accept=".docx, .pdf"
           name="primaryFile"
           :error="errors"
-          :text="getFileName('primaryFile')"
+          :text="getFileName('primaryFileText')"
           @onChange="onFieldChange"
+          @onClear='clearField'
         >
           <template #label>
             <Icon name="document_new" />
@@ -36,8 +37,9 @@
           :file="additionalFiles"
           name="additionalFiles"
           multiple="multiple"
-          :text="getFileName('additionalFiles')"
+          :text="getFileName('additionalFilesText')"
           @onChange="onFieldChange"
+          @onClear='clearField'
         >
           <template #label>
             <Icon name="documents" />
@@ -89,6 +91,8 @@
       return {
         primaryFile: '',
         additionalFiles: '',
+        primaryFileText: [],
+        additionalFilesText: [],
         checkbox: false,
         errorMessage: '',
         errors: false
@@ -104,19 +108,21 @@
 
     methods: {
       getFileName(name) {
-        if(this[name]) {
-          return this[name].split('\\').pop()
-        } else {
-          return '';
-        }
+        return this[name].join(', ');
       },
       onFieldChange(event) {
         const name = event.target.name;
         this[name] = event.target.value;
+
+        this[`${name}Text`] = Object.values(event.target.files).map(file => file.name)
       },
       onCheckboxChange(event) {
         const name = event.target.name;
         this[name] = event.target.checked;
+      },
+      clearField(name){
+        this[name] = '';
+        this[`${name}Text`] = [];
       },
       onSubmit() {
         if (!this.primaryFile) {

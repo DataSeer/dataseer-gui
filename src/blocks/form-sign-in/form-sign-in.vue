@@ -48,7 +48,7 @@
 			<div class="form__message">
 				<p>Forgot your password? <a href="#">Reset it</a></p>
 				
-				<p>Need and account? <router-link to="/sign-up">Sign Up</router-link></p>
+				<p>Need an account? <router-link to="/sign-up">Sign Up</router-link></p>
 			</div><!-- /.form__message -->
 		</form>
 	</div><!-- /.form -->
@@ -109,7 +109,7 @@ export default {
 
 				this.login(true);
 				this.$router.push({
-					name: 'Profile'
+					name: 'Documents'
 				})
 			}
 		}

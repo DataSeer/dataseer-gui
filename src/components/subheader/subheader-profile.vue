@@ -35,7 +35,7 @@ export default {
       this.login(false);
 
       this.$router.push({
-        name: 'SignIn',
+        name: 'Documents',
       })
     }
   }
