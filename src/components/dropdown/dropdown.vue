@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown-holder" ref="dropdown">
-    <div class="dropdown__header" @click="handleClick">
+    <div tabindex="0" class="dropdown__header" @click="handleClick">
       <slot name="header" />
     </div><!-- /.dropdown__header -->
     <div class="dropdown__body">

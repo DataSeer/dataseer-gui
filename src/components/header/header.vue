@@ -11,7 +11,7 @@
         <nav class="nav">
           <ul>
             <li>
-              <a href="#">Need Help?</a>
+              <a tabindex="0" href="#">Need Help?</a>
             </li>
 
             <li>

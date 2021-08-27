@@ -37,7 +37,8 @@
     }
 
     &:hover,
-    .is-active & {
+    .is-active &,
+    .dropdown-holder:focus-within & {
       border-color: $c-primary; 
     }
   }

@@ -20,7 +20,7 @@
 						Email Address
 					</template>
 					
-					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
+					<input tabindex="0" id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
 				</FormRow>
 
 				<FormRow :error="$v.password.$error" name="password">
@@ -29,18 +29,18 @@
 						Password <span>minimum 8 characters</span>
 					</template>
 					
-					<input id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
+					<input tabindex="0" id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
 				</FormRow>
 			</div><!-- /.form__body -->
 			
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button type="submit">Sign In</Button>
+						<Button tabindex="0" type="submit">Sign In</Button>
 					</li>
 					
 					<li>
-						<Button className="tertiary">Cancel</Button>
+						<Button tabindex="0" className="tertiary">Cancel</Button>
 					</li>
 				</ul>
 			</div><!-- /.form__actions -->
@@ -48,7 +48,7 @@
 			<div class="form__message">
 				<p>Forgot your password? <a href="#">Reset it</a></p>
 				
-				<p>Need an account? <router-link to="/sign-up">Sign Up</router-link></p>
+				<p>Need an account? <router-link tabindex="0" to="/sign-up">Sign Up</router-link></p>
 			</div><!-- /.form__message -->
 		</form>
 	</div><!-- /.form -->

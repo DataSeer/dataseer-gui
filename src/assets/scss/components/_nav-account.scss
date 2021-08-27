@@ -28,6 +28,15 @@
 		width: 100%; 
 	}
 
+	> ul > li a:not(.btn) {
+		transition: color $t-duration;
+	}
+
+	> ul > li:hover > a:not(.btn),
+	> ul > li:focus-within > a:not(.btn) {
+		color: $c-primary-light;
+	}
+
 	.dropdown-holder .dropdown__body {
 		width: 196px; 
 

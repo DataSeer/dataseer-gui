@@ -67,11 +67,11 @@
       <div class="form__actions">
         <ul>
           <li>
-            <Button type="submit">Upload Documents</Button>
+            <Button tabindex="1" type="submit">Upload Documents</Button>
           </li>
           
           <li>
-            <Button className="tertiary">Cancel</Button>
+            <Button tabindex="1" className="tertiary">Cancel</Button>
           </li>
         </ul>
       </div><!-- /.form__actions -->

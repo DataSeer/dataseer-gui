@@ -2,7 +2,7 @@
   <nav class="nav-account" :class="{'is-logged-in': getLogin}">
     <ul v-if="getLogin">
       <li>
-        <router-link to="/documents">my documents</router-link>
+        <router-link tabindex="0" to="/documents">my documents</router-link>
       </li>
       
       <li>
@@ -17,7 +17,7 @@
           
           <ul class="dropdown__nav">
             <li>
-              <router-link to="/profile">
+              <router-link tabindex="0" to="/profile">
                 <Icon name="user"></Icon>
 
                 User Profile
@@ -25,7 +25,7 @@
             </li>
 
             <li>
-              <a href="#" @click.prevent="login(false)">
+              <a tabindex="0" href="#" @click.prevent="login(false)">
                 <Icon name="signout" />
 
                 Sign Out
@@ -38,13 +38,13 @@
     
     <ul v-else>
       <li>
-        <router-link class="btn btn--tertiary" to="/sign-in">
+        <router-link tabindex="0" class="btn btn--tertiary" to="/sign-in">
           Sign In
         </router-link>
       </li>
 
       <li>
-        <router-link class="btn btn--secondary" to="/sign-up">
+        <router-link tabindex="0" class="btn btn--secondary" to="/sign-up">
           Sign Up
         </router-link>
       </li>

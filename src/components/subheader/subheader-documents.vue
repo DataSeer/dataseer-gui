@@ -20,11 +20,11 @@
             <div class="btn-layout">
               <span>View</span>
 
-              <a class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
+              <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
                 <Icon name="view_list" />
               </a>  
 
-              <a class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
+              <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
                 <Icon name="view_grid" />  
               </a>  
             </div><!-- /.btn-layout -->

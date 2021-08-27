@@ -3,7 +3,7 @@
     <div class="checkbox" :class="{'has-error': error}">
       <input type="checkbox" :name="name" :id="name" @change="handleChange">
 
-      <label :for="name">This is a new version of an article DataSeer has already assessed</label>
+      <label tabindex="1" :for="name">This is a new version of an article DataSeer has already assessed</label>
     </div><!-- /.checkbox -->
   </li>
 </template>

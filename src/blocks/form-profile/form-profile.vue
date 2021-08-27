@@ -12,7 +12,7 @@
 						Full Name
 					</template>
 					
-					<input id="full-name" type="text" class="field" readonly :value="fullName">
+					<input tabindex="-1" id="full-name" type="text" class="field" readonly :value="fullName">
 				</FormRow>
 
 				<FormRow name="email">
@@ -21,7 +21,7 @@
 						Email Address
 					</template>
 					
-					<input id="email" type="text" class="field" readonly :value="userData.email">
+					<input tabindex="-1" id="email" type="text" class="field" readonly :value="userData.email">
 				</FormRow>
 
 				<FormRow name="organization">
@@ -30,7 +30,7 @@
 						Institution/Organization
 					</template>
 					
-					<input id="organization" type="text" class="field" readonly :value="userData.organization">
+					<input tabindex="-1" id="organization" type="text" class="field" readonly :value="userData.organization">
 				</FormRow>
 			</div><!-- /.form__body -->
 		</form>

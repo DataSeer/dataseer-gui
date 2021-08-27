@@ -21,6 +21,7 @@
     text-decoration: none; 
     font-family: $ff-titles; 
     font-size: 14px; 
+    transition: color $t-duration;
   }
 
   .dropdown__account span {
@@ -35,6 +36,7 @@
     color: $c-white;
     border-radius: 11px;
     background-color: $c-skyblue-bc; 
+    transition: background-color $t-duration;
 
     &:after {
       content: '';
@@ -99,18 +101,27 @@
     height: 11px; 
   }
 
+  .dropdown__nav a:focus,
   .dropdown__nav a:hover {
     color: $c-primary-light;
   }
   
+  .dropdown__nav a:focus i,
   .dropdown__nav a:hover i {
     fill: $c-primary-light;
   }
 
-  &.is-active .dropdown__account span {
+  &:focus-within .dropdown__account,
+  &.is-active .dropdown__account {
+    color: $c-primary-light;
+  }
+
+  &:focus-within .dropdown__account span,
+  &.is-active .dropdown__account span { 
     background-color: $c-primary; 
   }
 
+  &:focus-within .dropdown__body,
   &.is-active .dropdown__body {
     display: block; 
   }

@@ -18,20 +18,20 @@
             Password <span>minimum 8 characters</span>
           </template>
 
-          <input id="password" type="password" class="field" v-model.trim="password_current" placeholder="Enter Current Password">
+          <input tabindex="1" id="password" type="password" class="field" v-model.trim="password_current" placeholder="Enter Current Password">
 
-          <input type="password" class="field" v-model.trim="password_new" placeholder="Enter New Password">
+          <input tabindex="1" type="password" class="field" v-model.trim="password_new" placeholder="Enter New Password">
         </FormRow>
       </div><!-- /.form__body -->
 
       <div class="form__actions">
         <ul>
           <li>
-            <Button type="submit">Reset Password</Button>
+            <Button tabindex="1" type="submit">Reset Password</Button>
           </li>
 
           <li>
-            <Button className="tertiary">Cancel</Button>
+            <Button tabindex="1" className="tertiary">Cancel</Button>
           </li>
         </ul>
       </div><!-- /.form__actions -->

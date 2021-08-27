@@ -23,10 +23,7 @@
 
 	i {
 		fill: $c-skyblue-bc;
-	}
-
-	.is-active i {
-		fill: $c-primary;
+		transition: fill $t-duration;
 	}
 
 	.btn__icon {
@@ -35,6 +32,15 @@
 	
 	.btn__icon + .btn__icon {
 		margin-left: 21px; 
+	}
+
+	.btn__icon:focus i,
+	.btn__icon:hover i {
+		fill: rgba($c-primary, .5);
+	}
+
+	.btn__icon.is-active i {
+		fill: $c-primary;
 	}
 
 	.btn__icon--table {

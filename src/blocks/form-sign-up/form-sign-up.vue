@@ -20,7 +20,7 @@
 						Full Name
 					</template>
 					
-					<input id="full-name" type="text" class="field" v-model.trim="name" placeholder="Enter">
+					<input tabindex="0" id="full-name" type="text" class="field" v-model.trim="name" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.email.$error" name="email">
@@ -29,7 +29,7 @@
 						Email Address
 					</template>
 					
-					<input id="email" type="text" class="field" v-model.trim="email" placeholder="Enter">
+					<input tabindex="0" id="email" type="text" class="field" v-model.trim="email" placeholder="Enter">
 				</FormRow>
 
 				<FormRow :error="$v.password.$error || $v.password_confirm.$error" name="password">
@@ -38,9 +38,9 @@
 						Password <span>minimum 8 characters</span>
 					</template>
 					
-					<input id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
+					<input tabindex="0" id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
 					
-					<input type="password" class="field" v-model.trim="password_confirm" placeholder="Confirm">
+					<input tabindex="0" type="password" class="field" v-model.trim="password_confirm" placeholder="Confirm">
 				</FormRow>
 
 				<FormRow :error="$v.organization.$error" name="organization">
@@ -66,11 +66,11 @@
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button type="submit">Sign Up</Button>
+						<Button tabindex="0" type="submit">Sign Up</Button>
 					</li>
 					
 					<li>
-						<Button className="tertiary">Cancel</Button>
+						<Button tabindex="0" className="tertiary">Cancel</Button>
 					</li>
 				</ul>
 			</div><!-- /.form__actions -->
@@ -79,7 +79,7 @@
 				<p>
 					Already have an account?
 					
-					<router-link to="/sign-in">Sign in</router-link>
+					<router-link tabindex="0" to="/sign-in">Sign in</router-link>
 				</p>
 			</div><!-- /.form__message -->
 		</form>
