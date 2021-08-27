@@ -38,11 +38,21 @@
   }
 
   .box__head ul {
+    position: relative; 
     margin-bottom: 8px; 
     list-style: none; 
+    padding: 3px 0 3px 22px; 
+
+    @include breakpoint-down(mobile-medium) {
+      padding-top: 0; 
+      padding-bottom: 0; 
+    }
   }
 
-  .box__head  i {
+  .box__head i {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
     margin-right: 5px; 
   }
 
@@ -122,7 +132,6 @@
     margin-left: 5px; 
     font-size: 14px; 
     line-height: 1.57; 
-    color: $c-primary
   }
 
   .box__status-bar {
@@ -145,8 +154,16 @@
     background-color: $c-primary; 
   }
 
+  .box__status--validating > p span {
+    color: $c-primary
+  }
+
   .box__status--complete .box__status-bar span {
     background-color: $c-green; 
+  }
+
+  .box__status--complete > p span {
+    color: $c-green; 
   }
 
   .box__date strong {

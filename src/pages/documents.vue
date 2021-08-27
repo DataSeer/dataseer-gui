@@ -16,319 +16,9 @@
           </div><!-- /.documents__table -->
         </div><!-- /.documents__inner -->
 
-        <div class="boxes" v-if="getDocumentView === 'grid'">
-          <ul>
-            <li>
-              <div class="box">
-                <div class="box__head">
-                  <ul>
-                    <li>
-                      <Icon name="document" />
-                      
-                      <strong>L. Leadauthor</strong>
-                    </li>
-
-                    <li>
-                      <a href="http://www.africau.edu/images/default/sample.pdf" target="_blank">my_uploaded-filename.pdf</a>
-                    </li>
-                  </ul>
-
-                  <h6 class="box__title">Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6><!-- /.box__title -->
-
-                  <div class="box__journal">
-                    <strong>Journal of Medical Internet Research</strong>
-                  </div><!-- /.box__journal -->
-                </div><!-- /.box__head -->
-
-                <div class="box__body">
-                  <div class="box__status box__status--validating">
-                    <p><strong>STATUS</strong> <span>Validating Datasets</span></p>
-
-                    <div class="box__status-bar">
-                      <span style="width: 40%"></span>
-                    </div><!-- /.box__status-bar -->
-                  </div><!-- /.box__status -->
-
-                  <div class="box__date">
-                    <ul>
-                      <li>
-                        <strong>uploaded</strong> <span>2021-06-12</span>
-                      </li>
-
-                      <li>
-                        <strong>modified</strong> <span>2021-06-18</span>
-                      </li>
-                    </ul>
-                  </div><!-- /.box__date -->
-                </div><!-- /.box__body -->
-
-                <div class="box__actions">
-                  <ul>
-                    <li>
-                      <a href="#" class="btn btn--secondary">View Report</a>
-                    </li>
-                  </ul>
-
-                  <div class="box__dropdown">
-                    <Dropdown>
-                      <template #header>
-                        <span class="btn-dropdown"></span>
-                      </template>
-
-                      <ul class="dropdown__nav">
-                        <li>
-                          <a href="#" @click.prevent="toggleSummary">
-                            <Icon name="view_list" />
-
-                            Document Summary
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="invite" />
-
-                            Invite By Email
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="share" />
-
-                            Get A Share Link
-                          </a>
-                        </li>
-
-                        <li>
-                          <a href="#">
-                            <Icon name="view" />
-
-                            View Uploaded File
-                          </a>
-                        </li>
-                      </ul>
-                    </Dropdown>
-                  </div><!-- /.box__dropdown -->
-                </div><!-- /.box__actions -->
-              </div><!-- /.box -->
-            </li>
-
-            <li>
-              <div class="box">
-                <div class="box__head">
-                  <ul>
-                    <li>
-                      <Icon name="document" />
-
-                      <strong>L. Leadauthor</strong>
-                    </li>
-
-                    <li>
-                      <a href="http://www.africau.edu/images/default/sample.pdf" target="_blank">my_uploaded-filename.pdf</a>
-                    </li>
-                  </ul>
-
-                  <h6 class="box__title">Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long Title That Goes  150 Characters So It Gets Cut O…</h6><!-- /.box__title -->
-
-                  <div class="box__journal">
-                    <strong>Journal of Medical Internet Research</strong>
-                  </div><!-- /.box__journal -->
-                </div><!-- /.box__head -->
-
-                <div class="box__body">
-                  <div class="box__status box__status--complete">
-                    <p><strong>STATUS</strong> <span>Document Complete</span></p>
-
-                    <div class="box__status-bar">
-                      <span style="width: 100%"></span>
-                    </div><!-- /.box__status-bar -->
-                  </div><!-- /.box__status -->
-
-                  <div class="box__date">
-                    <ul>
-                      <li>
-                        <strong>uploaded</strong> <span>2021-04-02</span>
-                      </li>
-
-                      <li>
-                        <strong>modified</strong> <span>2021-04-11</span>
-                      </li>
-                    </ul>
-                  </div><!-- /.box__date -->
-                </div><!-- /.box__body -->
-
-                <div class="box__actions">
-                  <ul>
-                    <li>
-                      <a href="#" class="btn btn--secondary">View Report</a>
-                    </li>
-                    
-                    <li>
-                      <a href="#" class="btn btn--tertiary">Edit</a>
-                    </li>
-                  </ul>
-
-                  <div class="box__dropdown">
-                    <Dropdown>
-                      <template #header>
-                        <span class="btn-dropdown"></span>
-                      </template>
-
-                      <ul class="dropdown__nav">
-                        <li>
-                          <a href="#" @click.prevent="toggleSummary">
-                            <Icon name="view_list" />
-
-                            Document Summary
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="invite" />
-
-                            Invite By Email
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="share" />
-
-                            Get A Share Link
-                          </a>
-                        </li>
-
-                        <li>
-                          <a href="#">
-                            <Icon name="view" />
-
-                            View Uploaded File
-                          </a>
-                        </li>
-                      </ul>
-                    </Dropdown>
-                  </div><!-- /.box__dropdown -->
-                </div><!-- /.box__actions -->
-              </div><!-- /.box -->
-            </li>
-
-            <li>
-              <div class="box">
-                <div class="box__head">
-                  <ul>
-                    <li>
-                      <Icon name="document" />
-
-                      <strong>L. Leadauthor</strong>
-                    </li>
-
-                    <li>
-                      <a href="http://www.africau.edu/images/default/sample.pdf" target="_blank">a-longer-filename-would-be-cut-off-after…</a>
-                    </li>
-                  </ul>
-
-                  <h6 class="box__title">This Document Has  A Very Short Title</h6><!-- /.box__title -->
-
-                  <div class="box__journal">
-                    <strong>Journal of Medical Internet Research</strong>
-                  </div><!-- /.box__journal -->
-                </div><!-- /.box__head -->
-
-                <div class="box__body">
-                  <div class="box__status box__status--complete">
-                    <p><strong>STATUS</strong> <span>Document Complete</span></p>
-
-                    <div class="box__status-bar">
-                      <span style="width: 100%"></span>
-                    </div><!-- /.box__status-bar -->
-                  </div><!-- /.box__status -->
-
-                  <div class="box__date">
-                    <ul>
-                      <li>
-                        <strong>uploaded</strong> <span>2021-01-19</span>
-                      </li>
-
-                      <li>
-                        <strong>modified</strong> <span>2021-01-21</span>
-                      </li>
-                    </ul>
-                  </div><!-- /.box__date -->
-                </div><!-- /.box__body -->
-
-                <div class="box__actions">
-                  <ul>
-                    <li>
-                      <a href="#" class="btn btn--secondary">View Report</a>
-                    </li>
-                    
-                    <li>
-                      <a href="#" class="btn btn--tertiary">Edit</a>
-                    </li>
-                  </ul>
-
-                  <div class="box__dropdown">
-                    <Dropdown>
-                      <template #header>
-                        <span class="btn-dropdown"></span>
-                      </template>
-
-                      <ul class="dropdown__nav">
-                        <li>
-                          <a href="#" @click.prevent="toggleSummary">
-                            <Icon name="view_list" />
-
-                            Document Summary
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="invite" />
-
-                            Invite By Email
-                          </a>
-                        </li>
-
-                        <li>
-
-                          <a href="#">
-                            <Icon name="share" />
-
-                            Get A Share Link
-                          </a>
-                        </li>
-
-                        <li>
-                          <a href="#">
-                            <Icon name="view" />
-
-                            View Uploaded File
-                          </a>
-                        </li>
-                      </ul>
-                    </Dropdown>
-                  </div><!-- /.box__dropdown -->
-                </div><!-- /.box__actions -->
-              </div><!-- /.box -->
-            </li>
-
-            <li>
-              <div class="box box--upload">
-                <Icon name="document_new" />
-                
-                <router-link to="/new-document" class="btn btn--tertiary">Upload new Document</router-link>
-              </div><!-- /.box box-/-upload -->
-            </li>
-          </ul>
-        </div><!-- /.boxes -->
+        <Boxes v-if="getDocumentView === 'grid'">
+          <Box v-for="doc in docs" :key="doc.id" :doc="doc"></Box>
+        </Boxes>
       </div><!-- /.documents -->
     </div><!-- /.shell -->  
   </div><!-- /.main -->
@@ -338,16 +28,16 @@
 import { mapGetters } from 'vuex'
 import Vuetable from 'vuetable-2';
 
-import Dropdown from '@/components/dropdown/dropdown'
-import Icon from '@/components/icon/icon'
+import Box from '@/components/box/box'
+import Boxes from '@/components/boxes/boxes'
 
 export default {
   name: "Documents",
 
   components: {
-    Icon,
+    Box,
+    Boxes,
     Vuetable,
-    Dropdown
   },
 
   data: function() {
@@ -375,7 +65,7 @@ export default {
           File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
-          Status: 'Validating Datasets',
+          Status: 'Validating',
           Action: '<a class="btn btn--tertiary btn--block" href="#">Continue</a>',
         },
         {
@@ -386,7 +76,7 @@ export default {
           File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
-          Status: 'Document Complete',
+          Status: 'Complete',
           Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
         },
         {
@@ -397,7 +87,7 @@ export default {
           File: 'http://www.africau.edu/images/default/sample.pdf',
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
-          Status: 'Document Complete',
+          Status: 'Complete',
           Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
         }
       ]
@@ -429,11 +119,26 @@ export default {
       })
       this.$refs.vuetable.setData(this.docs);
     },
-    dataModify() {
+    modifyTableData() {
       this.docs = this.docs.map(item => {
         if(item.File) {
           const fileName = item.File.split('/').pop();
           item.File = `<a href="${item.File}" target="_blank">${fileName}</a>`
+        }
+
+        if (item.Status){
+          var status = item.Status;
+
+          switch (status) {
+            case 'Validating':
+            item.Status = `<span style="color: #006AC9">Validating Datasets</span>`
+            break;
+            case 'Alert':
+            item.Status = `<span style="color: #E36329">Document Complete</span>`
+            break;
+            default:
+            item.Status = `<span style="color: #66AE2E">Document Complete</span>`
+          }
         }
 
         return item;
@@ -443,7 +148,7 @@ export default {
   
   mounted() {
     if (this.getDocumentView === 'list') {
-      this.dataModify();
+      this.modifyTableData();
       this.$refs.vuetable.setData(this.docs);
     }
   },
