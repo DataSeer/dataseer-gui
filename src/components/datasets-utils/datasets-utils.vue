@@ -6,7 +6,7 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="#" v-tooltip.right="addText">
         <Icon name="add" />
       </a>
     </li>
@@ -25,7 +25,8 @@ export default {
 
   data: function() {
     return {
-      mergeText: 'Merge existing datasets'
+      mergeText: 'Merge existing datasets',
+      addText: 'Add New Dataset'
     }
   }
 }

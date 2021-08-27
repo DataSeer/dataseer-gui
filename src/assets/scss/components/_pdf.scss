@@ -2,9 +2,10 @@
   PDF
 \* ------------------------------------------------------------ */
 .pdf-holder {
+  height: 100%;
+  overflow: auto;
+
   .documentView {
-    height: 100vh;
-    overflow: scroll;
     font-family: Times, "Times New Roman", serif;
     font-size: 14px;
     padding-top: 10px;
