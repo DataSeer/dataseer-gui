@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-account" :class="{'is-logged': getLogin}">
+  <nav class="nav-account" :class="{'is-logged-in': getLogin}">
     <ul v-if="getLogin">
       <li>
         <router-link to="/documents">my documents</router-link>

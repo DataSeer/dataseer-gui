@@ -12,6 +12,14 @@
   font-size: 12px; 
   line-height: 1.17; 
 
+  @include breakpoint-down(large-desktop) {
+    padding: 20px 25px 35px; 
+  }
+
+  @include breakpoint-down(mobile) {
+    padding-bottom: 25px; 
+  }
+
   a {
     text-decoration: none; 
   }
@@ -21,6 +29,12 @@
     margin-bottom: 22px; 
     border-bottom: 4px solid $c-gray;
     color: $c-skyblue-61;
+
+    @include breakpoint-down(mobile) {
+      padding-bottom: 15px; 
+      margin-bottom: 15px; 
+      border-bottom: 2px solid $c-gray;
+    }
   }
 
   .box__head ul {
@@ -35,11 +49,21 @@
   .box__head ul li {
     position: relative; 
     display: inline-block; 
+
+    @include breakpoint-down(mobile-medium) {
+      display: block; 
+    }
   }
 
   .box__head ul li + li {
     padding-left: 13px; 
     margin-left: 13px; 
+
+    @include breakpoint-down(mobile-medium) {
+      padding-left: 0; 
+      margin-left: 0; 
+      margin-top: 5px; 
+    }
     
     &:before {
       content: '';
@@ -50,6 +74,12 @@
       height: 14px; 
       margin-top: -7px; 
       background-color: $c-skyblue-bc; 
+
+      @include breakpoint-down(mobile-medium) {
+        content: none;
+        padding-left: 0; 
+        margin-left: 0; 
+      }
     }
   }
 
@@ -70,12 +100,21 @@
     display: flex; 
     align-items: center;
     margin-bottom: 10px; 
+
+    @include breakpoint-down(large-desktop) {
+      display: block; 
+    }
   }
 
   .box__status > p {
     margin-bottom: 0; 
     margin-right: 27px; 
     flex-shrink: 0;
+
+    @include breakpoint-down(large-desktop) {
+      margin-right: 0; 
+      margin-bottom: 10px; 
+    }
   }
 
   .box__status > p span {
@@ -120,6 +159,7 @@
 
   .box__date ul {
     display: flex; 
+    flex-wrap: wrap;
     list-style: none; 
     margin: -3px -16px; 
   }
@@ -133,14 +173,21 @@
     align-items: center;
     justify-content: space-between;
     margin-top: auto; 
+
+    @include breakpoint-down(mobile-medium) {
+      align-items: flex-start;
+    }
   }
 
-  .box__actions >  ul {
+  .box__actions > ul {
     display: flex; 
     list-style: none; 
     margin: -5px -10px; 
+
+    @include breakpoint-down(mobile-medium) {
+      display: block; 
+    }
   }
-  
   .box__actions > ul > li {
     padding: 5px 10px; 
   }

@@ -20,7 +20,7 @@
   }
 
   li + li {
-    margin-left: 24px; 
+    margin-left: 22px; 
 
     @include breakpoint-down(mobile) {
       margin-left: 12px; 

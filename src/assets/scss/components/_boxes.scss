@@ -15,5 +15,13 @@
   > ul > li {
     width: 33.3334%; 
     padding: 17px; 
+
+    @media(max-width: 1300px){
+      width: 50%; 
+    }
+
+    @include breakpoint-down(tablet) {
+      width: 100%; 
+    }
   }
 }

@@ -36,7 +36,7 @@
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button type="submit">Sign Up</Button>
+						<Button type="submit">Sign In</Button>
 					</li>
 					
 					<li>
