@@ -84,6 +84,10 @@
     100% { transform: rotate(360deg); }
   }
 
+  #pdfViewerInfos {
+    display: none;
+  }
+
   .footer {
     flex-shrink: 0;
   }
@@ -103,17 +107,8 @@
   }
 
   #documentView {
-    height: calc(100% - 50px);
-    background-color: white;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #FFFFFF;
-    border-top: 1px solid #184D7E;
-    border-bottom: 1px solid #184D7E;
-    border-left: 1px solid #184D7E;
-    border-right: 1px solid #184D7E;
+    position: relative;
+    height: calc(100vh - 120px);
     overflow: hidden; 
   }
 
@@ -150,7 +145,7 @@
 
   #documentView\.screen {
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
     font-family: Times, "Times New Roman", serif;
     font-size: 14px;
     padding-top: 10px;
@@ -199,70 +194,73 @@
     padding:0;
   }
 
-  #documentView #pdfViewer {
-    background: lightgray;
-  }
-
   #documentView #pdfViewer .page {
     margin-bottom: 10px;
   }
 
-  #documentView #pdfViewer .textLayer {
+  .textLayer {
     z-index: 1000;
   }
 
-  #documentView #pdfViewer .contoursLayer {
+  .contoursLayer {
     background-color: transparent;
     z-index: 3000;
+
+    .contour {
+      &.activeContourDataset canvas,
+      &.activeContourSentence canvas,
+      &.selected canvas {
+        z-index: 3210;
+      }
+
+      &.hover canvas {
+        z-index: 3215;
+      }
+    }
   }
 
-  #documentView #pdfViewer .annotationsLayer {
+  .annotationsLayer {
     background-color: transparent;
-    z-index: 2000;
+    z-index: 2000; 
+
+    .contour {
+      background-color: transparent;
+      z-index: 3100;
+      cursor: pointer;
+
+      &.activeContourDataset,
+      &.activeContourSentence,
+      &.selected {
+        z-index: 3200;
+
+        canvas {
+          z-index: 3210;
+        }
+      }
+
+      div {
+        background-color: transparent;
+      }
+
+      canvas {
+        z-index: 3110;
+      }
+
+      &[corresp],
+      &[datasets] {
+        canvas {
+          z-index: 3115;
+        }
+      }
+    }
   }
 
-  #documentView #pdfViewer .contoursLayer .contour {
-    background-color: transparent;
-    z-index: 3100;
-    cursor: pointer;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour div {
-    background-color: transparent;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour canvas {
-    z-index: 3110;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour[corresp] canvas,
-  #documentView #pdfViewer .contoursLayer .contour[datasets] canvas {
-    z-index: 3115;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour.activeContourDataset,
-  #documentView #pdfViewer .contoursLayer .contour.activeContourSentence,
-  #documentView #pdfViewer .contoursLayer .contour.selected {
-    z-index: 3200;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour.activeContourDataset canvas,
-  #documentView #pdfViewer .contoursLayer .contour.activeContourSentence canvas,
-  #documentView #pdfViewer .contoursLayer .contour.selected canvas {
-    z-index: 3210;
-  }
-
-  #documentView #pdfViewer .contoursLayer .contour.hover canvas,
-  #documentView #pdfViewer .contoursLayer .contour.hover canvas {
-    z-index: 3215;
-  }
-
-  #documentView #pdfViewer .annotationsLayer s {
+  .annotationsLayer s {
     z-index: 2100;
     cursor: pointer;
   }
 
-  #documentView #pdfViewer .contoursLayer {
+  .contoursLayer {
       position: absolute;
       left: 0px;
       top: 0px;
@@ -272,7 +270,7 @@
       overflow: hidden;
   }
 
-  #documentView #pdfViewer .annotationsLayer {
+  .annotationsLayer {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -282,21 +280,21 @@
     overflow: hidden;
   }
 
-  #documentView #pdfViewer .annotationsLayer .hover {
+  .annotationsLayer .hover {
     cursor: pointer;
   }
 
-  #documentView #pdfViewer .annotationsLayer .selected {
+  .annotationsLayer .selected {
     cursor: pointer;
   }
 
-  #documentView #pdfViewer .annotationsLayer s[corresp],
-  #documentView #pdfViewer .annotationsLayer s[id] {
+  .annotationsLayer s[corresp],
+  .annotationsLayer s[id] {
     cursor: pointer;
     background-color: lightyellow;
   }
 
-  #documentView #pdfViewer #sentencesLayer {
+  #sentencesLayer {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -309,9 +307,8 @@
   #pdfViewerScrollMarkers {
     z-index: 4000;
     position: absolute;
-    height: calc(100% - 78px);
+    height: 100%;
     width: 30px;
-    max-height: calc(100% - 28px);
     overflow: hidden;
     background-color: gainsboro;
   }
@@ -322,8 +319,8 @@
   }
 
   #pdfViewerScrollMarkers.display-right {
-    top: 25px;
-    right: 30px;
+    top: 0;
+    right: 0;
   }
 
   #pdfViewerScrollMarkers span {

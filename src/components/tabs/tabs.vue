@@ -12,7 +12,7 @@
               @click="selectTab(tab)"
               v-tooltip.right="tabTooltips[index]"
             >
-              {{ tab.name }}
+              <span>{{ tab.name }}</span>
             </a>
           </li>
         </ul>

@@ -9,9 +9,12 @@
     padding-right: 10px;
 
     &.is-active {
-      position: relative;
+
+      &:after {
+        opacity: 1;
+      }
       
-      &:before {
+      a:before {
         content: '';
         position: absolute;
         top: 50%;
@@ -22,72 +25,94 @@
         border-radius: 15px 0 0 15px;
       }
 
-      a:hover {
+      a:hover span{
         background-color: #fff !important;
         color: $c-base;
       }
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 100%;
+      width: 8px;
+      height: 100vh;
+      opacity: 0;
     }
     
     a {
       position: relative;
       z-index: 1;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      height: 30px;
-      width: 30px;
-      border-radius: 11px;
       color: #fff;
+      
+      span {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 30px;
+        border-radius: 11px;
+        z-index: 1;
+      }
     }
 
     &:nth-child(20n + 1) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-purple-ba;
         color: $c-base;
       }
     }
 
     &:nth-child(20n + 2) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-blue-19;
       }
     }
 
     &:nth-child(20n + 3) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-green-4e;
       }
     }
 
     &:nth-child(20n + 4) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-yellow-f7;
         color: $c-base;
       }
     }
 
     &:nth-child(20n + 5) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-orange-ee;
         color: $c-base;
       }
     }
 
     &:nth-child(20n + 6) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-purple-88;
       }
     }
 
     &:nth-child(20n + 7) {
-      &:before,
-      a {
+      &:after,
+      a:before,
+      a span {
         background-color: $c-blue-7a;
         color: $c-base;
       }
