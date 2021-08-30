@@ -31,7 +31,6 @@
 				:placeholder="placeholder"
 				@input="handleChange"
 			>
-			{{value}}
 		</div><!-- /.form__controls -->
 	</div><!-- /.form__row -->
 </template>
