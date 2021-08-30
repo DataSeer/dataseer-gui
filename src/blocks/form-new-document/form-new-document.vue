@@ -58,7 +58,9 @@
               <FormCheckbox
                 name="checkbox"
                 @onChange="onCheckboxChange"
-              />
+              >
+                This is a new version of an article DataSeer has already assessed
+              </FormCheckbox>
             </ul>
           </div><!-- /.checkboxes -->
         </div><!-- /.form__row -->

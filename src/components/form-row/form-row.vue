@@ -21,6 +21,16 @@
 					</option>
 				</select>
 			</div>
+			<textarea
+				v-else-if="type === 'textarea'"
+				:name="name"
+				:id="name"
+				class="field field--textarea"
+				@input="handleChange"
+				:placeholder="placeholder"
+				:value="value"
+			>
+			</textarea><!-- /# -->
 			<input 
 				v-else
 				class="field"

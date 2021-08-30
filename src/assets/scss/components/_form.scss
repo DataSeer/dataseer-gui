@@ -103,6 +103,16 @@
 		font-weight: 700; 
 		font-size: 12px; 
 		line-height: 1.42; 
+
+		a {
+			color: $c-blue-00;
+			text-decoration: none;
+			font-weight: normal;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 
 	.form__label i {
@@ -125,6 +135,10 @@
 
 	.form__row {
 		margin-bottom: 13px; 
+
+		&--space-top {
+			margin-top: 26px;
+		}
 
 		&:last-child {
 			margin-bottom: 0; 
@@ -221,6 +235,10 @@
 		font-weight: inherit;
 		transition: border $t-duration;
 		background-color: $c-white; 
+
+		&--textarea {
+			height: 80px;
+		}
 
 		@include input-placeholder {
 			color: $c-placeholder;
@@ -331,6 +349,12 @@
 	.radios ul,
 	.checkboxes ul{
 		list-style: none; 
+	}
+
+	.checkboxes {
+		li + li {
+			margin-top: 21px;
+		}
 	}
 
 	.radios--center,
@@ -547,5 +571,22 @@
 	.form__helptext {
 		padding-left: 10px; 
 		padding-right: 10px; 
+	}
+}
+
+
+.form__cta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	a {
+		margin-left: 28px;
+	}
+
+	.ico {
+		path {
+			fill: $c-blue-00;
+		}
 	}
 }

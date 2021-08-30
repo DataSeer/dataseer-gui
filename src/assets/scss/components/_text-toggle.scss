@@ -1,0 +1,10 @@
+.text-toggle {
+  background: none;
+  color: $c-blue-00;
+  border: 0;
+  font-size: 12px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
