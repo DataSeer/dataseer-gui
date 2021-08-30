@@ -14,33 +14,43 @@
 			</div><!-- /.form__status -->
 			
 			<div class="form__body">
-				<FormRow :error="$v.name.$error" name="full-name">
-					<template #label>
-						<Icon name="user" />
-						Full Name
-					</template>
-					
-					<input tabindex="0" id="full-name" type="text" class="field" v-model.trim="name" placeholder="Enter">
+				<FormRow
+					:error="$v.name.$error"
+					name="full-name"
+					v-model.trim="name"
+					type="text"
+					placeholder="Enter"
+				>
+					<Icon name="user" /> Full Name
 				</FormRow>
 
-				<FormRow :error="$v.email.$error" name="email">
-					<template #label>
-						<Icon name="email" />
-						Email Address
-					</template>
-					
-					<input tabindex="0" id="email" type="text" class="field" v-model.trim="email" placeholder="Enter">
+				<FormRow
+					:error="$v.email.$error"
+					name="email"
+					v-model.trim="email"
+					type="text"
+					placeholder="Enter"
+				>
+					<Icon name="email" /> Email Address
 				</FormRow>
 
-				<FormRow :error="$v.password.$error || $v.password_confirm.$error" name="password">
-					<template #label>
-						<Icon name="password" />
-						Password <span>minimum 8 characters</span>
-					</template>
-					
-					<input tabindex="0" id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
-					
-					<input tabindex="0" type="password" class="field" v-model.trim="password_confirm" placeholder="Confirm">
+				<FormRow
+					:error="$v.password.$error || $v.password_confirm.$error"
+					name="password"
+					v-model.trim="password"
+					type="password"
+					placeholder="Enter"
+				>
+					<Icon name="password" /> Password <span>minimum 8 characters</span>
+				</FormRow>
+
+				<FormRow
+					:error="$v.password_confirm.$error"
+					name="password-confirm"
+					v-model.trim="password_confirm"
+					type="password"
+					placeholder="Confirm"
+				>
 				</FormRow>
 
 				<FormRow 
@@ -50,8 +60,7 @@
 					:options="['Option 1', 'Option 2', 'Option 3']"
 					placeholder="Select"
 				>
-					<Icon name="organization" />
-					Institution/Organization
+					<Icon name="organization" /> Institution/Organization
 				</FormRow>
 			</div><!-- /.form__body -->
 			

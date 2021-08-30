@@ -29,6 +29,7 @@
 				:type="type"
 				:value="value"
 				:placeholder="placeholder"
+				:readonly="readonly"
 				@input="handleChange"
 			>
 		</div><!-- /.form__controls -->
@@ -42,6 +43,10 @@ export default {
 		type: {
 			type: String,
 			default: 'text'
+		},
+		readonly: {
+			type: Boolean,
+			default: false
 		},
 		error: {
 			type: Boolean,

@@ -12,15 +12,23 @@
       </div><!-- /.form__status -->
 
       <div class="form__body">
-        <FormRow name="password" :error="$v.password_current.$error || $v.password_new.$error">
-          <template #label>
-            <Icon name="password" />
-            Password <span>minimum 8 characters</span>
-          </template>
-
-          <input tabindex="1" id="password" type="password" class="field" v-model.trim="password_current" placeholder="Enter Current Password">
-
-          <input tabindex="1" type="password" class="field" v-model.trim="password_new" placeholder="Enter New Password">
+        <FormRow
+          :error="$v.password_current.$error || $v.password_new.$error"
+          name="password"
+          v-model.trim="password_current"
+          type="password"
+          placeholder="Enter Current Password"
+          >
+          <Icon name="password" /> Password <span>minimum 8 characters</span>
+        </FormRow>
+        
+        <FormRow
+          :error="$v.password_new.$error"
+          name="password-confirm"
+          v-model.trim="password_new"
+          type="password"
+          placeholder="Enter New Password"
+          >
         </FormRow>
       </div><!-- /.form__body -->
 
