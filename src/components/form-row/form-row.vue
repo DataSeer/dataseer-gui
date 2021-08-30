@@ -1,6 +1,6 @@
 <template>
 	<div class="form__row" :class="{'has-error': error}">
-		<label :for="name" class="form__label">
+		<label v-if="this.$slots.default" :for="name" class="form__label">
 			<slot />
 		</label>
 		
