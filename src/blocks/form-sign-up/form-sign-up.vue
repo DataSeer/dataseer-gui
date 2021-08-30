@@ -43,23 +43,15 @@
 					<input tabindex="0" type="password" class="field" v-model.trim="password_confirm" placeholder="Confirm">
 				</FormRow>
 
-				<FormRow :error="$v.organization.$error" name="organization">
-					<template #label>
-						<Icon name="organization" />
-						Institution/Organization
-					</template>
-					
-					<div class="select" :class="{'is-selected': organization}">
-						<select id="organization" v-model.trim="organization">
-							<option disabled selected value="">Select</option>
-							
-							<option value="option-1">Option 1</option>
-							
-							<option value="option-2">Option 2</option>
-							
-							<option value="option-3">Option 3</option>
-						</select>
-					</div><!-- /.select -->
+				<FormRow 
+					:error="$v.organization.$error"
+					name="organization"
+					v-model.trim="organization"
+					:options="['Option 1', 'Option 2', 'Option 3']"
+					placeholder="Select"
+				>
+					<Icon name="organization" />
+					Institution/Organization
 				</FormRow>
 			</div><!-- /.form__body -->
 			

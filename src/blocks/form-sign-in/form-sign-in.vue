@@ -14,22 +14,27 @@
 			</div><!-- /.form__status -->
 			
 			<div class="form__body">
-				<FormRow :error="$v.email.$error" name="email">
-					<template #label>
+				<FormRow
+					:error="$v.email.$error"
+					name="email"
+					v-model.trim="email"
+					type="text"
+					placeholder="Email Address"
+				>
 						<Icon name="email" />
 						Email Address
-					</template>
 					
-					<input tabindex="0" id="email" type="text" class="field" v-model.trim="email" placeholder="Email Address">
 				</FormRow>
 
-				<FormRow :error="$v.password.$error" name="password">
-					<template #label>
-						<Icon name="password" />
-						Password <span>minimum 8 characters</span>
-					</template>
-					
-					<input tabindex="0" id="password" type="password" class="field" v-model.trim="password" placeholder="Enter">
+				<FormRow 
+					:error="$v.password.$error"
+					name="password"
+					v-model.trim="password"
+					type="password"
+					placeholder="Enter"
+				>
+					<Icon name="password" />
+					Password <span>minimum 8 characters</span>
 				</FormRow>
 			</div><!-- /.form__body -->
 			
