@@ -6,31 +6,34 @@
 			</div><!-- /.form__head -->
 			
 			<div class="form__body">
-				<FormRow name="full-name">
-					<template #label>
-						<Icon name="user" />
-						Full Name
-					</template>
-					
-					<input tabindex="-1" id="full-name" type="text" class="field" readonly :value="fullName">
+				<FormRow 
+					name="full-name"
+					tabindex="-1"
+					readonly
+					type="text"
+					:value="fullName"
+				>
+					<Icon name="user" /> Full Name
 				</FormRow>
 
-				<FormRow name="email">
-					<template #label>
-						<Icon name="email" />
-						Email Address
-					</template>
-					
-					<input tabindex="-1" id="email" type="text" class="field" readonly :value="userData.email">
+				<FormRow 
+					name="email"
+					tabindex="-1"
+					readonly
+					type="text"
+					:value="userData.email"
+				>
+					<Icon name="email" /> Email Address
 				</FormRow>
 
-				<FormRow name="organization">
-					<template #label>
-						<Icon name="organization" />
-						Institution/Organization
-					</template>
-					
-					<input tabindex="-1" id="organization" type="text" class="field" readonly :value="userData.organization">
+				<FormRow 
+					name="organization"
+					tabindex="-1"
+					readonly
+					type="text"
+					:value="userData.organization"
+				>
+					<Icon name="organization" /> Institution/Organization
 				</FormRow>
 			</div><!-- /.form__body -->
 		</form>

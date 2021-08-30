@@ -29,9 +29,9 @@
 				:type="type"
 				:value="value"
 				:placeholder="placeholder"
+				:readonly="readonly"
 				@input="handleChange"
 			>
-			{{value}}
 		</div><!-- /.form__controls -->
 	</div><!-- /.form__row -->
 </template>
@@ -43,6 +43,10 @@ export default {
 		type: {
 			type: String,
 			default: 'text'
+		},
+		readonly: {
+			type: Boolean,
+			default: false
 		},
 		error: {
 			type: Boolean,

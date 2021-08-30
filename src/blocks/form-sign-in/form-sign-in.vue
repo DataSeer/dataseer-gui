@@ -21,11 +21,9 @@
 					type="text"
 					placeholder="Email Address"
 				>
-						<Icon name="email" />
-						Email Address
-					
+					<Icon name="email" /> Email Address
 				</FormRow>
-
+				
 				<FormRow 
 					:error="$v.password.$error"
 					name="password"
@@ -33,8 +31,7 @@
 					type="password"
 					placeholder="Enter"
 				>
-					<Icon name="password" />
-					Password <span>minimum 8 characters</span>
+					<Icon name="password" /> Password <span>minimum 8 characters</span>
 				</FormRow>
 			</div><!-- /.form__body -->
 			
