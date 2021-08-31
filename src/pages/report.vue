@@ -32,7 +32,7 @@
 							<h1>Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h1>
 
 							<p>
-								<Icon name="document" />
+								<Icon name="document" color="#8CABCD"/>
 								Manuscript # 03
 							</p>
 						</div><!-- /.report-title -->
@@ -220,19 +220,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													A few additional comments here to further describe this dataset
 												</li>
@@ -256,19 +256,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													A few additional comments here to further describe this dataset
 												</li>
@@ -292,19 +292,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													none
 												</li>
@@ -330,19 +330,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													none
 												</li>
@@ -366,19 +366,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													A few additional comments here to further describe this dataset
 												</li>
@@ -404,19 +404,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li class="is-empty">
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<p>No DOI Provided</p>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													The data are not publicly available due to their containing information that could compromise the privacy of research participants.
 												</li>
@@ -442,19 +442,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													A few additional comments here to further describe this dataset
 												</li>
@@ -480,19 +480,19 @@
 										<div class="dataset__content">
 											<ul>
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="texts" color="currentColor" />
 
 													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 												</li>
 												
 												<li>
-													<Icon name="chain"></Icon>
+													<Icon name="chain" color="currentColor" />
 
 													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 												</li>
 												
 												<li>
-													<Icon name="message"></Icon>
+													<Icon name="comment" color="currentColor" />
 
 													A few additional comments here to further describe this dataset
 												</li>
@@ -525,19 +525,19 @@
 											<div class="dataset__content">
 												<ul>
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 													</li>
 													
 													<li>
-														<Icon name="chain"></Icon>
+														<Icon name="chain" color="currentColor" />
 
 														<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 													</li>
 													
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														A few additional comments here to further describe this dataset
 													</li>
@@ -561,19 +561,19 @@
 											<div class="dataset__content">
 												<ul>
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
 													</li>
 													
 													<li>
-														<Icon name="chain"></Icon>
+														<Icon name="chain" color="currentColor" />
 
 														<a href="www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234</a>
 													</li>
 													
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														A few additional comments here to further describe this dataset
 													</li>
@@ -597,19 +597,19 @@
 											<div class="dataset__content">
 												<ul>
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.
 													</li>
 													
 													<li>
-														<Icon name="chain"></Icon>
+														<Icon name="chain" color="currentColor" />
 
 														<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
 													</li>
 													
 													<li>
-														<Icon name="message"></Icon>
+														<Icon name="comment" color="currentColor" />
 
 														none
 													</li>

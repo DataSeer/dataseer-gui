@@ -2,12 +2,12 @@
   <ul class="datasets-utils">
     <li>
       <a href="#" v-tooltip.right="mergeText">
-        <Icon name="merge" />
+        <Icon name="merge" color="#006AC9" />
       </a>
     </li>
     <li>
       <a href="#" v-tooltip.right="addText">
-        <Icon name="add" />
+        <Icon name="add" color="#006AC9" />
       </a>
     </li>
   </ul><!-- /.datasets-utils -->

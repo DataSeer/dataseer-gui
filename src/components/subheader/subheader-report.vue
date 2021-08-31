@@ -20,46 +20,50 @@
 					</template>
 
 					<ul class="dropdown__nav">
-						<li>
-							<a href="#" @click.prevent="toggleSummary">
-								<Icon name="view_list" />
+            <li>
+              <a href="#" @click.prevent="toggleSummary">
+                <Icon name="view_list" color="currentColor" />
+                
+                Document Summary
+              </a>
+            </li>
 
-								Document Summary
-							</a>
-						</li>
+            <li>
 
-						<li>
+              <a href="#">
+                <Icon name="invite" color="currentColor" />
+                
+                Invite By Email
+              </a>
+            </li>
 
-							<a href="#">
-								<Icon name="invite" />
+            <li>
 
-								Invite By Email
-							</a>
-						</li>
+              <a href="#">
+                <Icon name="share" color="currentColor" />
+                
+                Get A Share Link
+              </a>
+            </li>
 
-						<li>
-
-							<a href="#">
-								<Icon name="share" />
-
-								Get A Share Link
-							</a>
-						</li>
-
-						<li>
-							<a href="#">
-								<Icon name="view" />
-
-								View Uploaded File
-							</a>
-						</li>
-					</ul>
+            <li>
+              <a href="#">
+                <Icon name="document_view" color="currentColor" />
+                
+                View Uploaded File
+              </a>
+            </li>
+          </ul>
 				</Dropdown>
 			</div><!-- /.subheader__document -->
 		</div><!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button className="tertiary" >Back To Dataset Definition</Button>
+			<router-link tabindex="0" to="/datasets" class="btn btn--tertiary ">
+				<Icon name="back" color="#006AC9"></Icon>
+				
+				Back To Dataset Definition
+			</router-link>
 		</div><!-- /.subheader__right -->
 
 		<div class="summary" v-if="showSummary">
@@ -224,7 +228,7 @@
 							<li>
 								<a href="#">
 									<span>
-										<Icon name="view" />
+										<Icon name="document_view" />
 									</span>
 
 									Open File
@@ -240,7 +244,6 @@
 
 <script>
 import Icon from '@/components/icon/icon';
-import Button from '@/components/button/button.vue'
 import Dropdown from '@/components/dropdown/dropdown';
 
 export default {
@@ -254,7 +257,6 @@ export default {
 	*/
 	components: { 
 		Dropdown,
-		Button,
 		Icon
 	},
 }

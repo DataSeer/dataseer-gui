@@ -79,6 +79,7 @@
 		position: absolute; 
 		top: 3px; 
 		left: 0; 
+		color: $c-placeholder;
 	}
 
 	.dataset__content > ul {
@@ -93,5 +94,10 @@
 		&:last-child {
 			margin-bottom: 0; 
 		}
+	}
+
+	.dataset__content > ul > li.is-empty,
+	.dataset__content > ul > li.is-empty i {
+		color: $c-orange;
 	}
 }

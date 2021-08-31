@@ -23,7 +23,7 @@
           <ul class="dropdown__nav">
             <li>
               <a href="#" @click.prevent="toggleSummary">
-                <Icon name="view_list" />
+                <Icon name="view_list" color="currentColor" />
                 
                 Document Summary
               </a>
@@ -32,7 +32,7 @@
             <li>
 
               <a href="#">
-                <Icon name="invite" />
+                <Icon name="invite" color="currentColor" />
                 
                 Invite By Email
               </a>
@@ -41,7 +41,7 @@
             <li>
 
               <a href="#">
-                <Icon name="share" />
+                <Icon name="share" color="currentColor" />
                 
                 Get A Share Link
               </a>
@@ -49,7 +49,7 @@
 
             <li>
               <a href="#">
-                <Icon name="view" />
+                <Icon name="document_view" color="currentColor" />
                 
                 View Uploaded File
               </a>
@@ -70,7 +70,7 @@
                 </li>
                 
                 <li>
-                  <Icon name="check"></Icon>
+                  <Icon name="check" color="#66AE2E"></Icon>
                   
                   Auto-Saved
                 </li>
@@ -225,7 +225,7 @@
               <li>
                 <a href="#">
                   <span>
-                    <Icon name="invite" />
+                    <Icon name="invite" color="currentColor" />
                   </span>
 
                   Send Email
@@ -235,7 +235,7 @@
               <li>
                 <a href="#">
                   <span>
-                    <Icon name="share" />
+                    <Icon name="share" color="currentColor" />
                   </span>
 
                   Get A Link
@@ -245,7 +245,7 @@
               <li>
                 <a href="#">
                   <span>
-                    <Icon name="view" />
+                    <Icon name="document_view" color="currentColor" />
                   </span>
 
                   Open File

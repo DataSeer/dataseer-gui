@@ -21,11 +21,11 @@
               <span>View</span>
 
               <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
-                <Icon name="view_list" />
+                <Icon name="view_list" color="currentColor" />
               </a>  
 
               <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
-                <Icon name="view_grid" />  
+                <Icon name="view_grid" color="currentColor" />  
               </a>  
             </div><!-- /.btn-layout -->
           </li>

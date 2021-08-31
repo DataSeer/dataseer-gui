@@ -5,7 +5,7 @@
         <input type="text" v-model="search" class="field" placeholder="Search" />  
         
         <button type="submit">
-          <Icon name="search" />
+          <Icon name="search" color="#006AC9" />
         </button>
       </div><!-- /.form__row -->
     </form>

@@ -20,13 +20,13 @@
 
                 <div class="intro__body">
                   <div class="intro__text">
-                    <Icon name="arrow_up" />
+                    <Icon name="arrow_up" color="#8CABCD"/>
                     <p>These swatches represent passages in the document which DataSeer thinks need a reference dataset</p>
                     <p>Click on one, then review the corresponding form to complete each dataset</p>
                   </div><!-- /.intro__text -->
                   
                   <div class="intro__text">
-                    <Icon name="arrow_down" />
+                    <Icon name="arrow_down" color="#8CABCD"/>
                     <p>If you want to merge datasets together, or add new datasets, use these tools at the bottom</p>
                     <p>Finally, once all the datasets are accounted for, you can Complete Document in the top right to review your Data Availability Report.</p>
                   </div><!-- /.intro__text -->

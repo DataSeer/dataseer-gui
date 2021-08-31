@@ -68,9 +68,7 @@
   }
   
   .summary__aside i {
-    fill: $c-primary;
     @include center;
-    transition: fill $t-duration;
   }
 
   .summary__aside a {
@@ -89,15 +87,12 @@
     text-align: center; 
     border: 2px solid $c-skyblue;
     background-color: $c-white; 
-    transition: background-color $t-duration;
+    transition: background-color $t-duration, color $t-duration;
   }
 
   .summary__aside a:hover span {
     background-color: $c-primary; 
-  }
-
-  .summary__aside a:hover i {
-    fill: $c-skyblue; 
+    color: $c-white; 
   }
 
   .summary__aside ul {

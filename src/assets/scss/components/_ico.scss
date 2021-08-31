@@ -8,16 +8,11 @@
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  fill: $c-base; 
 
   svg {
     display: block; 
     width: 100%; 
     height: 100%; 
-  }
-
-  path {
-    fill: inherit;
   }
 }
 
@@ -79,14 +74,14 @@
 
 /* Ico View List */
 
-.ico--view-list {
+.ico--view_list {
   width: 24px; 
   height: 14px; 
 }
 
 /* Ico View Grid */
 
-.ico--view-grid {
+.ico--view_grid {
   width: 20px; 
   height: 20px; 
 }
@@ -103,12 +98,6 @@
 .ico--check {
   height: 9px;
   width: 13px;
-  stroke: $c-base;
-
-  path {
-    fill: none;
-    stroke: inherit;
-  }
 }
 
 /* Ico Invite */
@@ -134,14 +123,14 @@
 
 /* Ico Arrow Down */
 
-.ico--arrow-down {
+.ico--arrow_down {
   width: 41px; 
   height: 64px; 
 }
 
 /* Ico Arrow Up */
 
-.ico--arrow-up {
+.ico--arrow_up {
   width: 42px;
   height: 65px;
 }
@@ -158,4 +147,17 @@
 .ico--add {
   width: 27px;
   height: 27px;
+}
+
+/* Ico Text */
+
+.ico--texts {
+  width: 19px;
+  height: 18px;
+  stroke: $c-placeholder;
+
+  path {
+    fill: none;
+    stroke: inherit;
+  }
 }

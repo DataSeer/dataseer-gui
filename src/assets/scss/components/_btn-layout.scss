@@ -21,26 +21,23 @@
 		margin-right: 16px; 
 	}
 
-	i {
-		fill: $c-skyblue-bc;
-		transition: fill $t-duration;
-	}
-
 	.btn__icon {
 		display: inline-block; 
+		transition: color $t-duration;
+		color: $c-skyblue-bc
 	}
 	
 	.btn__icon + .btn__icon {
 		margin-left: 21px; 
 	}
 
-	.btn__icon:focus i,
-	.btn__icon:hover i {
-		fill: rgba($c-primary, .5);
+	.btn__icon:focus,
+	.btn__icon:hover {
+		color: rgba($c-primary, .5);
 	}
 
-	.btn__icon.is-active i {
-		fill: $c-primary;
+	.btn__icon.is-active {
+		color: $c-primary;
 	}
 
 	.btn__icon--table {

@@ -105,7 +105,7 @@
 
 							<li>
 								<a href="#">
-									<Icon name="view" />
+									<Icon name="document_view" />
 
 									View Uploaded File
 								</a>
