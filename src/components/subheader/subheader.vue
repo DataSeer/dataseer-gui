@@ -4,6 +4,7 @@
       <SubheaderDocuments v-if="isDocumentsPage" />
       <SubheaderDatasets v-if="isDatasetsPage" />
       <SubheaderProfile v-if="isUserPage" />
+      <SubheaderReport v-if="isReportPage" />
     </div><!-- /.shell -->
   </div><!-- /.subheader -->
 </template>
@@ -12,6 +13,7 @@
 import SubheaderDocuments from './subheader-documents.vue';
 import SubheaderDatasets from './subheader-datasets.vue';
 import SubheaderProfile from './subheader-profile.vue';
+import SubheaderReport from './subheader-report.vue';
 
 export default {
   /**
@@ -25,7 +27,8 @@ export default {
   components: { 
     SubheaderDocuments,
     SubheaderDatasets,
-    SubheaderProfile
+    SubheaderProfile,
+    SubheaderReport
   },
 
   /**
@@ -41,8 +44,11 @@ export default {
     isUserPage() {
       return this.$route.path === '/profile';
     },
+    isReportPage() {
+      return this.$route.path === '/report';
+    },
     isVisible() {
-      return this.isDocumentsPage || this.isUserPage || this.isDatasetsPage;
+      return this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;
     },
     additionalClass() {
       if(this.isDocumentsPage) {
@@ -51,6 +57,8 @@ export default {
         return 'datasets';
       } else if (this.isUserPage) {
         return 'profile';
+      } else if (this.isReportPage) {
+        return 'report';
       } else {
         return '';
       }

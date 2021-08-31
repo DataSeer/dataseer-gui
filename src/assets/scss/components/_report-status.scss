@@ -1,0 +1,52 @@
+/* ------------------------------------------------------------ *\
+	Report Status
+\* ------------------------------------------------------------ */
+
+.report-status {
+	width: 200px;
+	color: $c-base-ligter;
+	font-size: 12px; 
+	line-height: 1.42; 
+	text-align: right; 
+
+	.report-status-text {
+		margin-bottom: 6px; 
+	}
+
+	.report-status-text span {
+		display: inline-block; 
+		padding-left: 6px; 
+		font-size: 14px; 
+	}
+
+	.report-status__bar {
+		position: relative; 
+		width: 100%; 
+		height: 5px; 
+		margin-bottom: 8px; 
+		border-radius: 5px;
+		overflow: hidden; 
+		background-color: $c-base-ligter;
+	}
+
+	.report-status__bar span {
+		position: absolute; 
+		top: 0; 
+		left: 0; 
+		height: 100%; 
+		width: 100%; 
+	}
+}
+
+/* is completed */
+
+.report-status.is-completed {
+	.report-status__bar span {
+		background-color: $c-green; 
+	}
+	
+	.report-status-text span,
+	.report-status__steps span {
+		color: $c-green; 
+	}
+}

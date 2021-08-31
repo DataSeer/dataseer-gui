@@ -2,6 +2,13 @@
   Helpers
 \* ------------------------------------------------------------ */
 
+.larger-text {
+	font-size: 20px; 
+	line-height: 1.15; 
+	font-family: $ff-titles; 
+	font-weight: 500; 
+}
+
 /*  Clear  */
 
 .clear:after {

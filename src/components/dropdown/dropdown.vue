@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'component_name',
+  name: 'Dropdown',
 
   methods: {
     handleClick() {

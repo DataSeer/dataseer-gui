@@ -1,0 +1,63 @@
+/* ------------------------------------------------------------ *\
+	Report Suggestions
+\* ------------------------------------------------------------ */
+
+.report-suggestions {
+	margin-bottom: 93px; 
+
+	&:last-child {
+		margin-bottom: 0; 
+	}
+	
+	.report__title {
+		margin-bottom: 28px; 
+		font-size: 20px; 
+		color: $c-skyblue-61;
+
+		&:last-child {
+			margin-bottom: 0; 
+		}
+	}
+	
+	.report__body {
+		position: relative; 
+		padding: 23px 25px; 
+		margin-bottom: 21px; 
+		background-color: $c-bg-2; 
+		box-shadow: 0 2px 13px rgba($c-black, 0.13);
+		font-size: 14px; 
+		line-height: 1.57; 
+
+		&:before {
+			content: '';
+			position: absolute;
+			width: 8px; 
+			top: 8px; 
+			bottom: 8px; 
+			left: 0; 
+			border-radius: 0 8px 8px 0;
+			position: absolute; 
+			background-color: $c-blue-00; 
+		}
+	}
+
+	.report__body h6 {
+		margin-bottom: 3px; 
+		font-size: 12px; 
+		line-height: 1.17; 
+		font-weight: 700; 
+		font-family: inherit; 
+	}
+	
+	.report__body ul {
+		list-style: none; 
+	}
+
+	.report__body li {
+		margin-bottom: 25px; 
+
+		&:last-child {
+			margin-bottom: 0; 
+		}
+	}
+}

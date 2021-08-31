@@ -3,33 +3,95 @@
 \* ------------------------------------------------------------ */
 
 .dataset {
-	height: calc(100vh - 120px); 
-	padding-left: 40px; 
-
-	.dataset__row {
-		display: flex;
-		justify-content: space-between;
-		height: 100%; 
+	.dataset__title {
+		margin-bottom: 3px; 
+		font-weight: 700; 
+		font-family: inherit; 
 	}
 
-	.dataset__left,
-	.dataset__right {
-		height: 100%; 
+	.dataset__tags {
+		margin-bottom: 12px; 
+		font-size: 14px; 
+		line-height: 1.79; 
 	}
 
-	.dataset__left {
-		position: relative;
-		flex: 0 0 38.9571%;
-		background-color: #fff;
+	.dataset__tags span {
+			display: inline-block; 
+			border-radius: 8px;
+			line-height: 23px; 
+			padding-left: 7px; 
+			padding-right: 7px; 
+			text-align: center; 
 	}
 
-	.dataset__left-inner {
-		height: 100%; 
-		overflow: auto; 
-		padding: 35px;
+	li:nth-child(7n + 1) & .dataset__tags span {
+		background-color: $c-purple-ba; 
 	}
 
-	.dataset__right {
-		flex: 0 0 60.3681%;
+	li:nth-child(7n + 2) & .dataset__tags span {
+		background-color: $c-blue-19; 
+		color: $c-white;
+	}
+
+	li:nth-child(7n + 3) & .dataset__tags span {
+		background-color: $c-green-4e; 
+	}
+
+	li:nth-child(7n + 4) & .dataset__tags span {
+		background-color: $c-yellow-f7CB; 
+	}
+
+	li:nth-child(7n + 5) & .dataset__tags span {
+		background-color: $c-orange-ee; 
+	}
+
+	li:nth-child(7n + 6) & .dataset__tags span {
+		background-color: $c-purple-88; 
+		color: $c-white;
+	}
+
+	li:nth-child(7n + 7) & .dataset__tags span {
+		background-color: $c-blue-7a; 
+	}
+
+	.dataset__tags ul {
+		display: inline-block; 
+		list-style: none; 
+		padding-left: 15px; 
+	}
+
+	.dataset__tags li {
+		display: inline-block; 
+	}
+
+	.dataset__tags li + li:before {
+		margin-right: 7px;
+		margin-left: 7px; 
+		content: '>';
+		color: $c-placeholder;
+	}
+
+	.dataset__content a {
+		font-weight: 700; 
+	}
+
+	.dataset__content i {
+		position: absolute; 
+		top: 3px; 
+		left: 0; 
+	}
+
+	.dataset__content > ul {
+		list-style: none; 
+	}
+
+	.dataset__content > ul > li {
+		position: relative; 
+		margin-bottom: 12px; 
+		padding-left: 28px; 
+
+		&:last-child {
+			margin-bottom: 0; 
+		}
 	}
 }

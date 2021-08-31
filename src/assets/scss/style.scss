@@ -34,12 +34,15 @@
 @import 'components/banner';
 @import 'components/form';
 @import 'components/form-cols';
+@import 'components/dataset-primary';
+@import 'components/datasets';
 @import 'components/dataset';
 @import 'components/tabs';
 @import 'components/subheader';
 @import 'components/documents';
 @import 'components/document-status';
 @import 'components/dropdown-holder';
+@import 'components/content-toggle';
 @import 'components/boxes';
 @import 'components/box';
 @import 'components/datasets-utils';
@@ -50,3 +53,11 @@
 @import 'components/pdf';
 @import 'components/text-toggle';
 @import 'components/hidden-text';
+@import 'components/report-cta';
+@import 'components/report-head';
+@import 'components/report-title';
+@import 'components/report-group';
+@import 'components/report-status';
+@import 'components/report-suggestions';
+@import 'components/author';
+@import 'components/authors';

@@ -1,8 +1,8 @@
 <template>
 	<a
 		v-if="href" 
-		:href="href" 
 		class="btn"
+		:href="href" 
 		:class="{[`btn--${className}`]: className}"
 		@click="$emit('click')"
 	>

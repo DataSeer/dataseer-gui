@@ -1,0 +1,21 @@
+/* ------------------------------------------------------------ *\
+	Report Title
+\* ------------------------------------------------------------ */
+
+.report-title {
+	margin-bottom: 16px; 
+	
+	h1 {
+		margin-bottom: 0; 
+	}
+
+	p {
+		padding-left: 5px; 
+
+	}
+
+	i {
+		margin-right: 3px; 
+		fill: $c-placeholder;
+	}
+}

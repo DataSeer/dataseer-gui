@@ -1,7 +1,7 @@
 <template>
   <div class="main main--dataset">
     <div class="shell">
-      <div class="dataset">
+      <div class="dataset-primary">
         <div class="dataset__row">
           <div class="dataset__left">
             <div class="dataset__left-inner">

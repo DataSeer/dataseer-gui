@@ -1,0 +1,43 @@
+/* ------------------------------------------------------------ *\
+	Author
+\* ------------------------------------------------------------ */
+
+.author {
+	.author__head {
+		display: flex; 
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	.author__head h6 {
+		margin-bottom: 0; 
+		margin-right: 17px; 
+	}
+
+	.author__badges {
+		list-style: none; 
+		font-size: 12px; 
+		line-height: 1.42; 
+		color: $c-placeholder;
+	}
+
+	.author__badges li {
+		margin-right: 14px; 
+		display: inline-block; 
+	}
+	
+	.author__badges span {
+		display: inline-block; 
+		white-space: nowrap;
+		line-height: 21px; 
+		border-radius: 9px;
+		padding-left: 7px; 
+		padding-right: 7px; 
+		border: 2px solid $c-gray;
+	}
+
+	.author__content {
+		font-size: 14px; 
+		line-height: 1.57; 
+	}
+}

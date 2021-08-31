@@ -1,0 +1,37 @@
+/* ------------------------------------------------------------ *\
+	Report Group
+\* ------------------------------------------------------------ */
+
+.report-group {
+	&:not(:last-child) {
+		padding-bottom: 30px; 
+		margin-bottom: 40px; 
+		border-bottom: 1px solid $c-skyblue-bc;
+	}
+
+	.report-group__title {
+		position: relative; 
+		margin-bottom: 28px; 
+		font-size: 12px; 
+		line-height: 1.17; 
+		font-weight: 700; 
+		font-family: inherit; 
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: -40px; 
+			top: 50%; 
+			width: 8px; 
+			height: 46px; 
+			margin-top: -23px; 
+			border-radius: 0 8px 8px 0;
+			position: absolute; 
+			background-color: $c-blue-00; 
+		}
+	}
+
+	.author__head h6 {
+		font-family: inherit; 
+	}
+}

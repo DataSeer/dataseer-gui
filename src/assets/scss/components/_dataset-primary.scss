@@ -1,0 +1,35 @@
+/* ------------------------------------------------------------ *\
+	Dataset Primary
+\* ------------------------------------------------------------ */
+
+.dataset-primary {
+	height: calc(100vh - 120px); 
+	padding-left: 40px; 
+
+	.dataset__row {
+		display: flex;
+		justify-content: space-between;
+		height: 100%; 
+	}
+
+	.dataset__left,
+	.dataset__right {
+		height: 100%; 
+	}
+
+	.dataset__left {
+		position: relative;
+		flex: 0 0 38.9571%;
+		background-color: #fff;
+	}
+
+	.dataset__left-inner {
+		height: 100%; 
+		overflow: auto; 
+		padding: 35px;
+	}
+
+	.dataset__right {
+		flex: 0 0 60.3681%;
+	}
+}
