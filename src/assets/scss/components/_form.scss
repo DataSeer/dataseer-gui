@@ -590,3 +590,31 @@
 		}
 	}
 }
+
+/* form dataset */
+
+.form--dataset {
+	.form__body {
+		padding-bottom: 123px; 
+	}
+
+	.form__cta {
+		position: absolute; 
+		bottom: 0; 
+		left: 0; 
+		width: 100%; 
+		padding: 33px 35px; 
+		background-color: $c-white; 
+
+		&:before {
+			content: '';
+			position: absolute; 
+			top: 0; 
+			left: 20px; 
+			right: 20px; 
+			height: 1px; 
+			background-color: $c-skyblue-bc; 
+
+		}
+	}
+}

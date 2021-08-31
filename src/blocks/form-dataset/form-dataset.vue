@@ -1,5 +1,5 @@
 <template>
-  <div class="form form--profile">
+  <div class="form form--dataset">
 		<form action="?" method="post">
 			<div class="form__body">
 				<FormRow 

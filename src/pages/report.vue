@@ -684,7 +684,7 @@
 						
 						<span>How Was Your DataSeer Experience?</span>
 						
-						<p>Give Us Feedback</p>
+						<a href="#">Give Us Feedback</a>
 					</div><!-- /.report-cta -->
 				</div><!-- /.main__right -->
 			</div><!-- /.main__inner -->
