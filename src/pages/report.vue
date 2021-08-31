@@ -21,7 +21,7 @@
 								</div><!-- /.report-status__bar -->
 								
 								<div class="report-status__steps">
-									<span>7</span> of <strong>7</strong> Completed
+									<span><strong>7</strong></span> of <strong>7</strong> Completed
 								</div><!-- /.report-status__steps -->
 							</div><!-- /.report-status -->
 						</div><!-- /.report-head -->

@@ -7,6 +7,11 @@
 		padding-bottom: 30px; 
 		margin-bottom: 40px; 
 		border-bottom: 1px solid $c-skyblue-bc;
+
+		@include breakpoint-down(mobile) {
+			padding-bottom: 15px; 
+			margin-bottom: 20px; 
+		}
 	}
 
 	.report-group__title {
@@ -28,6 +33,15 @@
 			border-radius: 0 8px 8px 0;
 			position: absolute; 
 			background-color: $c-blue-00; 
+
+			@include breakpoint-down(tablet) {
+				left: -30px; 
+			}
+
+			@include breakpoint-down(mobile-small) {
+				width: 5px; 
+				left: -15px; 
+			}
 		}
 	}
 

@@ -53,8 +53,16 @@ h1 {
 	font-size: 40px; 
 	line-height: 1.15; 
 
+	@include breakpoint-down(large-desktop) {
+		font-size: 36px; 
+	}
+
 	@include breakpoint-down(mobile) {
 		font-size: 28px; 
+	}
+
+	@include breakpoint-down(mobile-medium) {
+		font-size: 26px; 
 	}
 }
 

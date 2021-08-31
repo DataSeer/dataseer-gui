@@ -99,8 +99,39 @@
 .main--report {
 	padding-top: 120px; 
 
+	@include breakpoint-down(tablet) {
+		padding-top: 160px; 
+	}
+
+	@include breakpoint-down(mobile) {
+		padding-top: 175px; 
+	}
+
+	.main__inner {
+		@include breakpoint-down(small-desktop) {
+			flex-wrap: wrap;
+		}
+	}
+
+	.main__left,
+	.main__right {
+		@include breakpoint-down(small-desktop) {
+			width: 100%; 
+		}
+	}
+
+	.main__left {
+		@include breakpoint-down(small-desktop) {
+			margin-bottom: 15px; 
+		}
+	}
+
 	.main__right {
 		padding: 75px 60px 75px 58px;
 		background-color: $c-white; 
+
+		@include breakpoint-down(large-desktop) {
+			padding: 45px 45px;
+		}
 	}
 }

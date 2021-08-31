@@ -9,6 +9,10 @@
 	line-height: 1.42; 
 	text-align: right; 
 
+	@include breakpoint-down(mobile) {
+		width: 100%; 
+	}
+
 	.report-status-text {
 		margin-bottom: 6px; 
 	}

@@ -58,6 +58,11 @@
 		display: inline-block; 
 		list-style: none; 
 		padding-left: 15px; 
+
+		@include breakpoint-down(mobile) {
+			display: block; 
+			padding-left: 0; 
+		}
 	}
 
 	.dataset__tags li {
@@ -73,6 +78,7 @@
 
 	.dataset__content a {
 		font-weight: 700; 
+		word-break: break-all;
 	}
 
 	.dataset__content i {

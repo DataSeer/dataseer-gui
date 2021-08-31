@@ -10,6 +10,16 @@
 		height: 64px; 
 	}
 
+	.subheader__left h3 {
+		display: flex; 
+		align-items: center;
+		text-transform: uppercase; 
+	}
+
+	.subheader__left h3 i {
+		margin-right: 10px; 
+	}
+	
 	.subheader__left .ico--documents {
 		width: 30px; 
 		height: 33px; 
@@ -39,16 +49,7 @@
 			height: 26px; 
 		}
 	}
-
-	.subheader__left h3 {
-		display: flex; 
-		align-items: center;
-		text-transform: uppercase; 
-	}
-
-	.subheader__left h3 i {
-		margin-right: 10px; 
-	}
+	
 	.subheader__document {
 		position: relative; 
 		width: 722px; 
@@ -259,6 +260,36 @@
 	.subheader__right {
 		@include breakpoint-down(mobile-medium) {
 			display: none; 
+		}
+	}
+}
+
+/* Subheader Report */
+
+.subheader--report {
+	.subheader__inner {
+		@include breakpoint-down(tablet) {
+			display: block; 
+			height: auto; 
+			padding: 10px 0; 
+		}
+	}
+
+	.subheader__left {
+		width: 722px; 
+
+		@include breakpoint-down(large-desktop) {
+			width: 500px; 
+		}
+
+		@include breakpoint-down(tablet) {
+			width: 100%; 
+		}
+	}
+
+	.subheader__right {
+		@include breakpoint-down(tablet) {
+			text-align: right; 
 		}
 	}
 }

@@ -5,8 +5,16 @@
 .report-head {
 	display: flex; 
 
+	@include breakpoint-down(mobile) {
+		display: block; 
+	}
+
 	.report-head__inner {
 		flex-grow: 1;
+
+		@include breakpoint-down(mobile) {
+			margin-bottom: 20px; 
+		}
 	}
 
 	.report-head__inner h3 {

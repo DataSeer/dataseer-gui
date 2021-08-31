@@ -49,6 +49,10 @@
 		font-family: inherit; 
 	}
 	
+	.report__body a {
+		word-break: break-all;
+	}
+	
 	.report__body ul {
 		list-style: none; 
 	}
