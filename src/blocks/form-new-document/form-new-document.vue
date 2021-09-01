@@ -24,7 +24,7 @@
           @onClear='clearField'
         >
           <template #label>
-            <Icon name="document_new" />
+            <Icon name="document_new" color="currentColor" />
             Select Your Primary File
           </template>
 
@@ -42,7 +42,7 @@
           @onClear='clearField'
         >
           <template #label>
-            <Icon name="documents" />
+            <Icon name="documents" color="currentColor" />
             
             Select Additional Support Files <em>Optional</em>
           </template>

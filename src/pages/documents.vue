@@ -1,7 +1,7 @@
  <template>
   <div class="main main--documents">
     <div class="shell">
-      <div class="documents">
+      <div class="documents" tabindex="0" aria-label="documents">
         <div class="documents__inner" v-if="getDocumentView === 'list'">
           <div class="documents__table">
             <vuetable ref="vuetable"

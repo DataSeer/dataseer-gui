@@ -1,5 +1,5 @@
 <template>
-	<div class="subheader__inner">
+	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
 		<div class="subheader__left">
 			<div class="subheader__document">
 				<Icon name="document" />
@@ -12,7 +12,7 @@
 					</li>
 				</ul>
 
-				<h6>Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
+				<h6 id="subheader-title">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
 
 				<Dropdown>
 					<template #header>

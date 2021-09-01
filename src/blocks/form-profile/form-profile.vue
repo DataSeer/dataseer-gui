@@ -1,39 +1,45 @@
 <template>
 	<div class="form form--profile">
 		<form action="?" method="post">
-			<div class="form__head">
+			<div class="form__head" tabindex="0">
 				<h5>Your Profile</h5>
 			</div><!-- /.form__head -->
 			
 			<div class="form__body">
 				<FormRow 
 					name="full-name"
-					tabindex="-1"
+					tabindex="0"
 					readonly
 					type="text"
 					:value="fullName"
 				>
-					<Icon name="user" /> Full Name
+					<Icon name="user" color="currentColor" />
+
+					Full Name
 				</FormRow>
 
 				<FormRow 
 					name="email"
-					tabindex="-1"
+					tabindex="0"
 					readonly
 					type="text"
 					:value="userData.email"
 				>
-					<Icon name="email" /> Email Address
+					<Icon name="email" color="currentColor" />
+
+					Email Address
 				</FormRow>
 
 				<FormRow 
 					name="organization"
-					tabindex="-1"
+					tabindex="0"
 					readonly
 					type="text"
 					:value="userData.organization"
 				>
-					<Icon name="organization" /> Institution/Organization
+					<Icon name="organization" color="currentColor" />
+
+					Institution/Organization
 				</FormRow>
 			</div><!-- /.form__body -->
 		</form>

@@ -1,7 +1,7 @@
 <template>
   <div class="form form--profile">
     <form action="?" method="post" @submit.prevent="submit">
-      <div class="form__head">
+      <div class="form__head" tabindex="0">
         <h5>Reset Your Password</h5>
       </div><!-- /.form__head -->
 
@@ -19,7 +19,9 @@
           type="password"
           placeholder="Enter Current Password"
           >
-          <Icon name="password" /> Password <span>minimum 8 characters</span>
+          <Icon name="password" color="currentColor" />
+
+          Password <span>minimum 8 characters</span>
         </FormRow>
         
         <FormRow

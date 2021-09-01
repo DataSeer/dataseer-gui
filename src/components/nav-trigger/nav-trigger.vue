@@ -1,5 +1,5 @@
 <template>
-  <button tabindex="0" class="nav-trigger" @click="$emit('onClick')">
+  <button tabindex="0" class="nav-trigger" @click="$emit('onClick')" aria-label="Toggle mobile menu">
     <span></span>
 
     <span></span>

@@ -70,7 +70,7 @@
 						</div><!-- /.author -->
 
 						<ContentToggle
-						label="Show All Authors"
+							label="Show All Authors"
 						>
 							<div class="authors">
 								<ul>

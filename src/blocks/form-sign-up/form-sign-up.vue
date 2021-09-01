@@ -1,7 +1,7 @@
 <template>
 	<div class="form form--sm">
 		<form action="?" method="post" @submit.prevent="submit">
-			<div class="form__head">
+			<div class="form__head" tabindex="0">
 				<h2>Sign Up</h2>
 				
 				<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts </p>
@@ -21,7 +21,9 @@
 					type="text"
 					placeholder="Enter"
 				>
-					<Icon name="user" /> Full Name
+					<Icon name="user" color="currentColor" />
+
+					Full Name
 				</FormRow>
 
 				<FormRow
@@ -31,7 +33,9 @@
 					type="text"
 					placeholder="Enter"
 				>
-					<Icon name="email" /> Email Address
+					<Icon name="email" color="currentColor" />
+
+					Email Address
 				</FormRow>
 
 				<FormRow
@@ -41,7 +45,9 @@
 					type="password"
 					placeholder="Enter"
 				>
-					<Icon name="password" /> Password <span>minimum 8 characters</span>
+					<Icon name="password" color="currentColor" />
+
+					Password <span>minimum 8 characters</span>
 				</FormRow>
 
 				<FormRow
@@ -60,7 +66,9 @@
 					:options="['Option 1', 'Option 2', 'Option 3']"
 					placeholder="Select"
 				>
-					<Icon name="organization" /> Institution/Organization
+					<Icon name="organization" color="currentColor" />
+
+					Institution/Organization
 				</FormRow>
 			</div><!-- /.form__body -->
 			

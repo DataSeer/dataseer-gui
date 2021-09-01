@@ -4,8 +4,8 @@
       <div class="form__row">
         <input type="text" v-model="search" class="field" placeholder="Search" />  
         
-        <button type="submit">
-          <Icon name="search" color="#006AC9" />
+        <button type="submit" aria-label="Submit Search">
+          <Icon name="search" color="#005AC9" />
         </button>
       </div><!-- /.form__row -->
     </form>

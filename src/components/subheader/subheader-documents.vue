@@ -1,7 +1,7 @@
 <template>
-  <div class="subheader__inner">
+  <div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
     <div class="subheader__left">
-      <h3>
+      <h3 id="subheader-title">
         <Icon name="documents" />
         My Documents
       </h3>
@@ -17,14 +17,14 @@
           </li>
           
           <li>
-            <div class="btn-layout">
+            <div tabindex="0" class="btn-layout" aria-label="select view">
               <span>View</span>
 
-              <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
+              <a tabindex="0" aria-label="list" class="btn__icon" :class="{'is-active': getDocumentView === 'list'}" href="#" @click.prevent="changeView('list')">
                 <Icon name="view_list" color="currentColor" />
               </a>  
 
-              <a tabindex="0" class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
+              <a tabindex="0" aria-label="grid" class="btn__icon" :class="{'is-active': getDocumentView === 'grid'}" href="#" @click.prevent="changeView('grid')">
                 <Icon name="view_grid" color="currentColor" />  
               </a>  
             </div><!-- /.btn-layout -->

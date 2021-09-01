@@ -1,13 +1,11 @@
 <template> 
   <div class="header" :class="{'is-menu-expanded': showMobileMenu}">
-    <div class="header__bar"> 
+    <div tabindex="0" class="header__bar" aria-label="main header bar"> 
       <div class="shell">
         <div class="header__bar-inner">
-          <Logo></Logo>
+          <Logo />
 
-          <navTrigger
-          @onClick='toggleMenu'
-          ></navTrigger>
+          <navTrigger @onClick='toggleMenu' />
 
           <nav class="nav">
             <ul>
@@ -23,7 +21,7 @@
         </div><!-- /.header__bar-inner -->
       </div><!-- /.shell -->
     </div><!-- /.header__bar -->
-
+    
     <Subheader />
   </div><!-- /.header --> 
 </template>

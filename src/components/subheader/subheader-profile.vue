@@ -1,8 +1,9 @@
 <template>
-  <div class="subheader__inner">
+  <div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
     <div class="subheader__left">
-      <h3>
+      <h3 id="subheader-title">
         <Icon name="user" />
+        
         User Profile
       </h3>
     </div><!-- /.subheader__left -->
