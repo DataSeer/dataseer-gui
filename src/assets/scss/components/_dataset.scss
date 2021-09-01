@@ -3,6 +3,20 @@
 \* ------------------------------------------------------------ */
 
 .dataset {
+	margin-bottom: 50px; 
+
+	&:last-child {
+		margin-bottom: 0; 
+	}
+
+	@include breakpoint-down(tablet) {
+		margin-bottom: 30px; 
+	}
+
+	@include breakpoint-down(mobile) {
+		margin-bottom: 20px; 
+	}
+
 	.dataset__title {
 		margin-bottom: 3px; 
 		font-weight: 700; 
@@ -24,33 +38,33 @@
 			text-align: center; 
 	}
 
-	li:nth-child(7n + 1) & .dataset__tags span {
+	&:nth-child(7n + 1) .dataset__tags span {
 		background-color: $c-purple-ba; 
 	}
 
-	li:nth-child(7n + 2) & .dataset__tags span {
+	&:nth-child(7n + 2) .dataset__tags span {
 		background-color: $c-blue-19; 
 		color: $c-white;
 	}
 
-	li:nth-child(7n + 3) & .dataset__tags span {
+	&:nth-child(7n + 3) .dataset__tags span {
 		background-color: $c-green-4e; 
 	}
 
-	li:nth-child(7n + 4) & .dataset__tags span {
+	&:nth-child(7n + 4) .dataset__tags span {
 		background-color: $c-yellow-f7CB; 
 	}
 
-	li:nth-child(7n + 5) & .dataset__tags span {
+	&:nth-child(7n + 5) .dataset__tags span {
 		background-color: $c-orange-ee; 
 	}
 
-	li:nth-child(7n + 6) & .dataset__tags span {
+	&:nth-child(7n + 6) .dataset__tags span {
 		background-color: $c-purple-88; 
 		color: $c-white;
 	}
 
-	li:nth-child(7n + 7) & .dataset__tags span {
+	&:nth-child(7n + 7) .dataset__tags span {
 		background-color: $c-blue-7a; 
 	}
 

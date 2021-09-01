@@ -1,18 +1,14 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
-import VueSimpleMarkdown from 'vue-simple-markdown'
-
-Vue.use(VTooltip);
-Vue.use(VueSimpleMarkdown)
-Vue.use(Vuelidate);
-
 import router from './router.js'
 import App from './App.vue';
-import "@/assets/scss/style.scss";
-import 'vue-simple-markdown/dist/vue-simple-markdown.css'
 import store from './store'
 
+import "@/assets/scss/style.scss";
+
+Vue.use(VTooltip);
+Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 

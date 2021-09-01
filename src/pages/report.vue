@@ -40,587 +40,35 @@
 
 					<div class="report-group">
 						<h6 class="report-group__title">Authors (10)</h6>
-						
-						<div class="author">
-							<div class="author__head">
-								<h6><strong>Laura Leadauthor</strong> (leadauthor@toh.ca)</h6>
 
-								<ul class="author__badges">
-									<li>
-										<span>Lead Author</span>
-									</li>
-
-									<li>
-										<span>Submitting Author</span>
-									</li>
-								</ul><!-- /.author__badges -->
-							</div><!-- /.author__head -->
-
-							<div class="author__content">
-								<p>
-									Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-									<br>
-									Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-									<br>
-									Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
-									<br>
-									Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-								</p>
-							</div><!-- /.author__content -->
-						</div><!-- /.author -->
+						<div class="Author"></div><!-- /.Author -->
+					
+						<Author v-for="(author, index) in leadAuthors" :key="index" :author="author"></Author>
 
 						<ContentToggle
-						labelClosed="Show All Authors"
-						labelOpened="Hide All Authors"
+							labelClosed="Show All Authors"
+							labelOpened="Hide All Authors"
 						>
-							<div class="authors">
-								<ul>
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Nicole Etherington</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Nicole Etherington</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Maxime Lê</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Laurie Proulx</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Meghan Britton</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Main Operating Room The Ottawa Hospital, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Julie Kenna</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Main Operating Room The Ottawa Hospital, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Antoine Przybylak-Brouillard</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Jeremy Grimshaw</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Teodor Grantcharov</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Department of General Surgery University of Toronto, Toronto, Canada Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-
-									<li>
-										<div class="author">
-											<div class="author__head">
-												<h6><strong>Sukhbir Singh</strong></h6>
-											</div><!-- /.author__head -->
-
-											<div class="author__content">
-												<p>Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada</p>
-											</div><!-- /.author__content -->
-										</div><!-- /.author -->
-									</li>
-								</ul>
-							</div><!-- /.authors -->
+							<Authors>
+								<Author v-for="(author, index) in nonLeadAuthors" :key="index" :author="author"></Author>
+							</Authors>
 						</ContentToggle>
-					
 					</div><!-- /.report-group -->
 
 					<div class="report-group">
 						<h6 class="report-group__title">Datasets (7)</h6>
-						
-						<div class="datasets">
-							<ul>
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">First Named Tabular Data</h6><!-- /.dataset__title -->
 
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li> Tabular Data</li>
-												
-												<li>Fluorometry</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													A few additional comments here to further describe this dataset
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">Another Dataset</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li>Tabular Data</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													A few additional comments here to further describe this dataset
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">Some Named Tabular Data</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li> Tabular Data</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													none
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">Dataset-4</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li>Tabular Dat</li>
-												
-												<li>Sample Table</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													none
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">Some Named Tabular Data</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-5</span>
-
-											<ul>
-												<li>Coulometry Data</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													A few additional comments here to further describe this dataset
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">Named Data</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-7</span>
-
-											<ul>
-												<li>Tabular Data</li>
-												
-												<li>Fluorometry</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li class="is-empty">
-													<Icon name="chain" color="currentColor" />
-
-													<p>No DOI Provided</p>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													The data are not publicly available due to their containing information that could compromise the privacy of research participants.
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">First Named Tabular Data</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li> Tabular Data</li>
-												
-												<li>Fluorometry</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													A few additional comments here to further describe this dataset
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-
-								<li>
-									<div class="dataset">
-										<h6 class="dataset__title">First Named Tabular Data</h6><!-- /.dataset__title -->
-
-										<div class="dataset__tags">
-											<span>Dataset-1</span>
-
-											<ul>
-												<li> Tabular Data</li>
-												
-												<li>Fluorometry</li>
-											</ul>
-										</div><!-- /.dataset__tags -->
-
-										<div class="dataset__content">
-											<ul>
-												<li>
-													<Icon name="texts" color="currentColor" />
-
-													Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-												</li>
-												
-												<li>
-													<Icon name="chain" color="currentColor" />
-
-													<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-												</li>
-												
-												<li>
-													<Icon name="comment" color="currentColor" />
-
-													A few additional comments here to further describe this dataset
-												</li>
-											</ul>
-										</div><!-- /.dataset__content -->
-									</div><!-- /.dataset -->
-								</li>
-							</ul>
-						</div><!-- /.datasets -->
+						<Datasets>
+							<Dataset v-for="(dataset, index) in activeDatasets" :key="index" :dataset="dataset"></Dataset>
+						</Datasets>
 
 						<ContentToggle
-						labelClosed="Show Deleted Datasets"
-						labelOpened="Hide Deleted Datasets"
+							labelClosed="Show Deleted Datasets"
+							labelOpened="Hide Deleted Datasets"
 						>
-							<div class="datasets">
-								<ul>
-									<li>
-										<div class="dataset">
-											<h6 class="dataset__title">First Named Tabular Data</h6><!-- /.dataset__title -->
-
-											<div class="dataset__tags">
-												<span>Dataset-1</span>
-
-												<ul>
-													<li> Tabular Data</li>
-													
-													<li>Fluorometry</li>
-												</ul>
-											</div><!-- /.dataset__tags -->
-
-											<div class="dataset__content">
-												<ul>
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-													</li>
-													
-													<li>
-														<Icon name="chain" color="currentColor" />
-
-														<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-													</li>
-													
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														A few additional comments here to further describe this dataset
-													</li>
-												</ul>
-											</div><!-- /.dataset__content -->
-										</div><!-- /.dataset -->
-									</li>
-
-									<li>
-										<div class="dataset">
-											<h6 class="dataset__title">Another Dataset</h6><!-- /.dataset__title -->
-
-											<div class="dataset__tags">
-												<span>Dataset-1</span>
-
-												<ul>
-													<li>Tabular Data</li>
-												</ul>
-											</div><!-- /.dataset__tags -->
-
-											<div class="dataset__content">
-												<ul>
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).
-													</li>
-													
-													<li>
-														<Icon name="chain" color="currentColor" />
-
-														<a href="www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234</a>
-													</li>
-													
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														A few additional comments here to further describe this dataset
-													</li>
-												</ul>
-											</div><!-- /.dataset__content -->
-										</div><!-- /.dataset -->
-									</li>
-
-									<li>
-										<div class="dataset">
-											<h6 class="dataset__title">Some Named Tabular Data</h6><!-- /.dataset__title -->
-
-											<div class="dataset__tags">
-												<span>Dataset-1</span>
-
-												<ul>
-													<li> Tabular Data</li>
-												</ul>
-											</div><!-- /.dataset__tags -->
-
-											<div class="dataset__content">
-												<ul>
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.
-													</li>
-													
-													<li>
-														<Icon name="chain" color="currentColor" />
-
-														<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-													</li>
-													
-													<li>
-														<Icon name="comment" color="currentColor" />
-
-														none
-													</li>
-												</ul>
-											</div><!-- /.dataset__content -->
-										</div><!-- /.dataset -->
-									</li>
-								</ul>
-							</div><!-- /.datasets -->
+							<Datasets>
+								<Dataset v-for="(dataset, index) in deletedDatasets" :key="index" :dataset="dataset"></Dataset>
+							</Datasets>
 						</ContentToggle>
 					</div><!-- /.report-group -->
 				</div><!-- /.main__left -->
@@ -630,7 +78,6 @@
 					title="Suggested Data Availability Statement"
 					:suggestions="suggestions"
 					/>
-
 
 					<div class="report-cta larger-text">
 						<figure>
@@ -650,6 +97,10 @@
 <script>
 import reportSuggestions from '@/blocks/report-suggestions/report-suggestions'
 import ContentToggle from '@/components/contenttoggle/contenttoggle'
+import Authors from '@/components/authors/authors'
+import Author from '@/components/author/author'
+import Datasets from '@/components/datasets/datasets'
+import Dataset from '@/components/dataset/dataset'
 import Icon from '@/components/icon/icon'
 
 export default {
@@ -664,6 +115,10 @@ export default {
 	components: {
 		reportSuggestions,
 		ContentToggle,
+		Datasets,
+		Dataset,
+		Authors,
+		Author,
 		Icon
 	},
 
@@ -711,7 +166,190 @@ export default {
 					isPrivate: true,
 					url: ''
 				},
+			],
+			authors: [
+				{
+					name: 'Laura Leadauthor',
+					email: 'leadauthor@toh.ca',
+					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+						Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+						Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
+						Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada`,
+					isLeadAuthor: true,
+					isSubmittingAuthor: true
+				},
+				{
+					name: 'Nicole Etherington',
+					email: '',
+					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Nicole Etherington',
+					email: '',
+					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Maxime Lê',
+					email: '',
+					description: `Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Laurie Proulx',
+					email: '',
+					description: `Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Meghan Britton',
+					email: '',
+					description: `Main Operating Room The Ottawa Hospital, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Julie Kenna',
+					email: '',
+					description: `Main Operating Room The Ottawa Hospital, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Antoine Przybylak-Brouillard',
+					email: '',
+					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Jeremy Grimshaw',
+					email: '',
+					description: `Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Teodor Grantcharov',
+					email: '',
+					description: `Department of General Surgery University of Toronto, Toronto, Canada Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+				{
+					name: 'Sukhbir Singh',
+					email: '',
+					description: `Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada`,
+					isLeadAuthor: false,
+					isSubmittingAuthor: false
+				},
+			],
+			datasets: [
+				{
+					title: 'First Named Tabular Data',
+					tag: 'Dataset-1',
+					categories: [' Tabular Data', 'Fluorometry'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'A few additional comments here to further describe this dataset',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Another Dataset',
+					tag: 'Dataset-2',
+					categories: ['Tabular Data'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234',
+					comment: 'A few additional comments here to further describe this dataset',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Some Named Tabular Data',
+					tag: 'Dataset-3',
+					categories: [' Tabular Data'],
+					descreiption: 'The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'none',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Dataset-4',
+					tag: 'Dataset-4',
+					categories: ['Tabular Dat', 'Sample Table'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'none',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Some Named Tabular Data',
+					tag: 'Dataset-5',
+					categories: ['Coulometry Data'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'A few additional comments here to further describe this dataset',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Named Data',
+					tag: 'Dataset-6',
+					categories: ['Tabular Data', 'Fluorometry'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: '',
+					comment: 'The data are not publicly available due to their containing information that could compromise the privacy of research participants.',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'First Named Tabular Data',
+					tag: 'Dataset-7',
+					categories: [' Tabular Data', 'Fluorometry'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'A few additional comments here to further describe this dataset',
+					status: 'ACTIVE'
+				},
+				{
+					title: 'Named Data',
+					tag: 'Dataset-6',
+					categories: ['Tabular Data', 'Fluorometry'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: '',
+					comment: 'The data are not publicly available due to their containing information that could compromise the privacy of research participants.',
+					status: 'DELETED'
+				},
+				{
+					title: 'First Named Tabular Data',
+					tag: 'Dataset-7',
+					categories: [' Tabular Data', 'Fluorometry'],
+					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
+					comment: 'A few additional comments here to further describe this dataset',
+					status: 'DELETED'
+				},
 			]
+		}
+	},
+
+	/**
+	 * Computed
+	*/
+	computed: {
+		leadAuthors() {
+			return this.authors.filter(author => author.isLeadAuthor);
+		},
+		nonLeadAuthors() {
+			return this.authors.filter(author => !author.isLeadAuthor);
+		},
+		activeDatasets() {
+			return this.datasets.filter(dataset => dataset.status !== 'DELETED');
+		},
+		deletedDatasets() {
+			return this.datasets.filter(dataset => dataset.status === 'DELETED');
 		}
 	}
 }

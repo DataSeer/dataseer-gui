@@ -3,19 +3,5 @@
 \* ------------------------------------------------------------ */
 
 .datasets {
-	> ul {
-		list-style: none; 
-	}
-
-	> ul > li + li {
-		margin-top: 50px; 
-
-		@include breakpoint-down(tablet) {
-			margin-top: 30px; 
-		}
-
-		@include breakpoint-down(mobile) {
-			margin-top: 20px; 
-		}
-	}
+	
 }
