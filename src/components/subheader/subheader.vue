@@ -45,7 +45,7 @@ export default {
       return this.$route.path === '/profile';
     },
     isReportPage() {
-      return this.$route.path === '/data-availability-report';
+      return this.$route.path === '/report';
     },
     isVisible() {
       return this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;

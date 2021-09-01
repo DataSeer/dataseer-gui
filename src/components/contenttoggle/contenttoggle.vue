@@ -1,8 +1,6 @@
 <template>
-	<div class="content-toggle" ref="content">
-		<div tabindex="0" class="content__header" @click="handleClick">
-			<button class="content__btn btn btn--tertiary">{{label}}</button>
-		</div><!-- /.content__header -->
+	<div class="content-toggle" :class="{'is-active': isOpened}" ref="content">
+		<button tabindex="0" class="content__btn btn btn--tertiary" @click="handleClick">{{getActiveLabel}}</button>
 
 		<div class="content__body">
 			<slot />
@@ -15,15 +13,31 @@ export default {
 	name: 'ContentToggle',
 
 	props: {
-		label: {
+		labelOpened: {
 			type: String,
-			default: ''
+			default: 'Hide'
 		},
+		labelClosed: {
+			type: String,
+			default: 'Show'
+		},
+	},
+
+	data: function(){
+		return {
+			isOpened: false
+		}
+	},
+
+	computed: {
+		getActiveLabel() {
+			return this.isOpened ? this.labelOpened : this.labelClosed;
+		}
 	},
 
 	methods: {
 		handleClick() {
-			this.$refs.content.classList.toggle('is-active')
+			this.isOpened = !this.isOpened
 		}
 	}
 }

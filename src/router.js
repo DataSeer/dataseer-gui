@@ -53,11 +53,6 @@ const routes = [
 		name: "Report",
 		path: '/report',
 		component: Report
-	},
-	{
-		name: "dataAvailabilityReport",
-		path: '/data-availability-report',
-		component: Report
 	}
 ]
 

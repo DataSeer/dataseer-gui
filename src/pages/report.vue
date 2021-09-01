@@ -70,7 +70,8 @@
 						</div><!-- /.author -->
 
 						<ContentToggle
-							label="Show All Authors"
+						labelClosed="Show All Authors"
+						labelOpened="Hide All Authors"
 						>
 							<div class="authors">
 								<ul>
@@ -504,7 +505,8 @@
 						</div><!-- /.datasets -->
 
 						<ContentToggle
-						label="Show Deleted Datasets"
+						labelClosed="Show Deleted Datasets"
+						labelOpened="Hide Deleted Datasets"
 						>
 							<div class="datasets">
 								<ul>
@@ -624,57 +626,10 @@
 				</div><!-- /.main__left -->
 
 				<div class="main__right">
-					<div class="report-suggestions">
-						<h4 class="report__title">Suggested Data Availability Statement</h4>
-						<div class="report__body">
-							
-							<ul>
-								<li>
-									<h6>First Named Tabular Data</h6>
-									
-									<a href="www.somerepo.com/#d/HEied382-CA293?ID=234" target="_blank">www.somerepo.com/#d/HEied382-CA293?ID=234</a>
-								</li>
-								
-								<li>
-									<h6>Another Dataset</h6>
-									
-									<a href="www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html" target="_blank">www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html</a>
-								</li>
-
-								<li>
-									<h6>Some Named Tabular Data</h6>
-									
-									<a href="www.repo.com/#d/HEied382-CA293?ID=234" target="_blank">www.repo.com/#d/HEied382-CA293?ID=234</a>
-								</li>
-
-								<li>
-									<h6>Another Dataset</h6>
-									
-									<a href="www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html" target="_blank">www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html</a>
-								</li>
-
-								<li>
-									<h6>Some Named Tabular Data</h6>
-									
-									<a href="www.repo.com/#d/HEied382-CA293?ID=234" target="_blank">www.repo.com/#d/HEied382-CA293?ID=234</a>
-								</li>
-
-								<li>
-									<h6>Named Data</h6>
-									
-									<a href="www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdwwddwdw/445-2344-245.html#442r23" target="_blank">www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdwwddwdw/445-2344-245.html#442r23</a>
-								</li>
-
-								<li>
-									<h6>My Private Dataset</h6>
-									
-									<p>The data are not publicly available due to their containing information that could compromise the privacy of research participants.</p>
-								</li>
-							</ul>
-						</div><!-- /.report__body -->
-						
-						<Button tabindex="1" className="secondary">Copy To Clipboard</Button>
-					</div><!-- /.report-suggestions -->
+					<reportSuggestions
+					title="Suggested Data Availability Statement"
+					:suggestions="suggestions"
+					/>
 
 
 					<div class="report-cta larger-text">
@@ -693,8 +648,8 @@
 </template>
 
 <script>
+import reportSuggestions from '@/blocks/report-suggestions/report-suggestions'
 import ContentToggle from '@/components/contenttoggle/contenttoggle'
-import Button from '@/components/button/button'
 import Icon from '@/components/icon/icon'
 
 export default {
@@ -707,9 +662,57 @@ export default {
 	 * Components
 	*/
 	components: {
+		reportSuggestions,
 		ContentToggle,
-		Button,
 		Icon
+	},
+
+	/**
+	 * Data
+	*/
+	data: function(){
+		return {
+			suggestions: [
+				{
+					title: 'First Named Tabular Data',
+					isPrivate: false,
+					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234'
+				},
+				{
+					title: 'Another Dataset',
+					isPrivate: false,
+					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
+				},
+
+				{
+					title: 'Some Named Tabular Data',
+					isPrivate: false,
+					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
+				},
+
+				{
+					title: 'Another Dataset',
+					isPrivate: false,
+					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
+				},
+				{
+					title: 'Some Named Tabular Data',
+					isPrivate: false,
+					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
+				},
+				{
+					title: 'Named Data',
+					isPrivate: false,
+					url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdwwddwdw/445-2344-245.html#442r23'
+				},
+
+				{
+					title: 'My Private Dataset',
+					isPrivate: true,
+					url: ''
+				},
+			]
+		}
 	}
 }
 </script>

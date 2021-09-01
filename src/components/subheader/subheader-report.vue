@@ -59,7 +59,7 @@
 		</div><!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<router-link tabindex="0" to="/datasets" class="btn btn--tertiary ">
+			<router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
 				<Icon name="back" color="#006AC9"></Icon>
 				
 				Back To Dataset Definition
@@ -270,7 +270,7 @@ export default {
 	},
 
 	/**
-	 * ethods
+	 * Methods
 	*/
 	methods: {
 		toggleSummary() {

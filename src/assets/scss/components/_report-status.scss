@@ -3,7 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .report-status {
-	width: 200px;
+	flex-shrink: 0;
 	color: $c-base-ligter;
 	font-size: 12px; 
 	line-height: 1.42; 
