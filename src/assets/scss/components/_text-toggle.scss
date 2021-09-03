@@ -4,6 +4,7 @@
   border: 0;
   font-size: 12px;
 
+  &:focus,
   &:hover {
     text-decoration: underline;
   }

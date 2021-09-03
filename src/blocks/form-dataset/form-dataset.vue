@@ -32,7 +32,7 @@
 								This dataset cannot be shared publicly
 							</FormCheckbox>
 							<FormCheckbox name="practices" v-model="practices">
-								<a href="#">Best practices</a> for this data type have been followed <button type="button" class="text-toggle" @click="practices_text = !practices_text">{{textToggle(practices_text)}}</button>
+								<a href="#">Best practices</a> for this data type have been followed <button tabindex="0" type="button" class="text-toggle" @click="practices_text = !practices_text">{{textToggle(practices_text)}}</button>
 							</FormCheckbox>
 							<HiddenText v-if="practices_text">
 								<p>There are many considerations when sharing human clinical or demographic data. Of primary concern are issues around consent and identifiability. Ideally, consent for data sharing is obtained from participants before data collection occurs. If the study design does not involve consenting new participants, then ethics board approval needs to be sought with respect to sharing data without consent. Careful de-identification (removal of personally identifying data such as birthdates) and/or anonymization needs to happen prior to sharing or deposition in a repository. Consultation with your ethics review board is required to determine what level of de-identification or anonymization is needed in your specific case. However, here are some basic guidelines (from <a href="https://irb.ucsf.edu/definitions#18">https://irb.ucsf.edu/definitions#18</a>) for data from the USA, although these are likely applicable in other jurisdictions:</p>
@@ -69,7 +69,7 @@
 								<p>Finally, a very thorough data dictionary is needed to accompany the data set to explain any data coding, categories, or other calculations. Column headings should describe the content of each column and contain only numbers, letters, and underscores – no spaces, or special characters. Lowercase letters are preferred. Row names should be consistent with those used in the article and in other related datasets. You can check the formatting of tables with goodtables.io.</p>
 							</HiddenText>
 							<FormCheckbox name="repo" v-model="repo" v-if="!reuse">
-								A <a href="#">suitable repository</a> has been used to host this data <button type="button" class="text-toggle" @click="repo_text = !repo_text">{{textToggle(repo_text)}}</button>
+								A <a href="#">suitable repository</a> has been used to host this data <button tabindex="0" type="button" class="text-toggle" @click="repo_text = !repo_text">{{textToggle(repo_text)}}</button>
 							</FormCheckbox>
 							<HiddenText v-if="repo_text">
 								<p>There are many considerations when sharing human clinical or demographic data. Of primary concern are issues around consent and identifiability. Ideally, consent for data sharing is obtained from participants before data collection occurs. If the study design does not involve consenting new participants, then ethics board approval needs to be sought with respect to sharing data without consent. Careful de-identification (removal of personally identifying data such as birthdates) and/or anonymization needs to happen prior to sharing or deposition in a repository. Consultation with your ethics review board is required to determine what level of de-identification or anonymization is needed in your specific case. However, here are some basic guidelines (from <a href="https://irb.ucsf.edu/definitions#18">https://irb.ucsf.edu/definitions#18</a>) for data from the USA, although these are likely applicable in other jurisdictions:</p>

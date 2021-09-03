@@ -362,11 +362,6 @@
 		text-align: center; 
 	}
 
-	.checkbox input[type=checkbox],
-	.radio input[type=radio] {
-		display: none;
-	}
-
 	.checkbox label,
 	.radio label {
 		position: relative;
@@ -430,6 +425,11 @@
 	.radio input:checked + label:before,
 	.radio input + label:focus:before {
 		border-color: $c-base;
+	}
+
+	.checkbox input:focus + label:before,
+	.radio input:focus + label:before {
+		border-color: $c-primary;
 	}
 
 	.radio label:before,

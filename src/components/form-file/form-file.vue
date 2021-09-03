@@ -4,7 +4,7 @@
       <slot name="label" />
     </label>
 
-    <div tabindex="1" class="field field--upload">
+    <div tabindex="0" class="field field--upload">
       <input ref="file" type="file" :id="name" :name="name" :value="file" :accept="accept" :multiple="multiple" @change="onChange">
 
       <label :for="name">

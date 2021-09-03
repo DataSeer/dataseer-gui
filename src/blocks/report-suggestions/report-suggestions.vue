@@ -14,7 +14,7 @@
 			</ul>
 		</div><!-- /.report__body -->
 
-		<Button tabindex="1" className="secondary" @onClick="copyToClip()">{{buttonText}}</Button>
+		<Button tabindex="0" className="secondary" @onClick="copyToClip()">{{buttonText}}</Button>
 	</div><!-- /.report-suggestions -->
 </template>
 

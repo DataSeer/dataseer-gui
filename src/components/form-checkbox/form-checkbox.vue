@@ -1,9 +1,9 @@
 <template>
   <li>
     <div class="checkbox" :class="{'has-error': error}">
-      <input type="checkbox" :name="name" :id="name" @change="handleChange" :value="value">
+      <input tabindex="0" type="checkbox" ref="checkbox" class="sr-only" :name="name" :id="name" @change="handleChange" :value="value">
 
-      <label tabindex="1" :for="name">
+      <label ref="label" :for="name" >
         <slot />
       </label>
     </div><!-- /.checkbox -->
@@ -19,7 +19,7 @@ export default {
     handleChange(event){
       this.$emit('onChange', event);
       this.$emit('input', event.target.checked);
-    }
+    },
   }
 }
 </script>
