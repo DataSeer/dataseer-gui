@@ -236,9 +236,6 @@
 		transition: border $t-duration;
 		background-color: $c-white; 
 
-		&--textarea {
-			height: 80px;
-		}
 
 		@include input-placeholder {
 			color: $c-placeholder;
@@ -257,6 +254,14 @@
 	
 	.field + .field {
 		margin-top: 13px; 
+	}
+
+	/* Textarea */
+
+	.field--textarea {
+		height: 80px;
+		padding-top: 8px; 
+		padding-bottom: 8px; 
 	}
 
 	/* Upload */

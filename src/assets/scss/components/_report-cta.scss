@@ -9,6 +9,11 @@
 	padding: 21px 10px 18px 143px;
 	letter-spacing: -0.027em;
 
+	@include breakpoint-down(mobile-medium) {
+		padding: 20px 25px; 
+		text-align: center; 
+	}
+
 	a {
 		text-decoration: none;
 		color: $c-primary;
@@ -25,5 +30,11 @@
 		left: -23px;
 		width: 153px;
 		transform: translateY(-55%);
+
+		@include breakpoint-down(mobile-medium) {
+			position: static; 
+			transform: translateY(0);
+			margin: -75px auto 12px; 
+		}
 	}
 }

@@ -20,228 +20,228 @@
 					</template>
 
 					<ul class="dropdown__nav">
-            <li>
-              <a href="#" @click.prevent="toggleSummary">
-                <Icon name="view_list" color="currentColor" />
-                
-                Document Summary
-              </a>
-            </li>
+						<li>
+							<a href="#" @click.prevent="toggleSummary">
+								<Icon name="view_list" color="currentColor" />
 
-            <li>
+								Document Summary
+							</a>
+						</li>
 
-              <a href="#">
-                <Icon name="invite" color="currentColor" />
-                
-                Invite By Email
-              </a>
-            </li>
+						<li>
 
-            <li>
+							<a href="#">
+								<Icon name="invite" color="currentColor" />
 
-              <a href="#">
-                <Icon name="share" color="currentColor" />
-                
-                Get A Share Link
-              </a>
-            </li>
+								Invite By Email
+							</a>
+						</li>
 
-            <li>
-              <a href="#">
-                <Icon name="document_view" color="currentColor" />
-                
-                View Uploaded File
-              </a>
-            </li>
-          </ul>
-        </Dropdown>
-      </div><!-- /.subheader__document -->
-    </div><!-- /.subheader__left -->
+						<li>
 
-    <div class="subheader__right">
-     <router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
-      <Icon name="back" color="#006AC9"></Icon>
+							<a href="#">
+								<Icon name="share" color="currentColor" />
 
-      Back To Dataset Definition
-    </router-link>
-  </div><!-- /.subheader__right -->
-  
-  <transition name="summary">
-    <div class="summary" v-if="showSummary">
-      <div class="shell">
-        <div class="summary__inner">
-          <div class="summary__content">
-            <div class="summary__head">
-              <h3>Document Upload Summary</h3>
+								Get A Share Link
+							</a>
+						</li>
 
-              <p>Please review the data shown below and confirm if it is correct</p>
-            </div><!-- /.summary__head -->
+						<li>
+							<a href="#">
+								<Icon name="document_view" color="currentColor" />
 
-            <div class="summary__body">
-              <div class="summary__body-aside">
-                <ul>
-                  <li>
-                    <h6>Journal</h6>
+								View Uploaded File
+							</a>
+						</li>
+					</ul>
+				</Dropdown>
+			</div><!-- /.subheader__document -->
+		</div><!-- /.subheader__left -->
 
-                    Journal of Medical Internet Research
-                  </li>
+		<div class="subheader__right">
+			<router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
+				<Icon name="back" color="#006AC9"></Icon>
 
-                  <li>
-                    <h6>Publisher</h6>
+				Back To Dataset Definition
+			</router-link>
+		</div><!-- /.subheader__right -->
 
-                    JMIR Publications Inc.
-                  </li>
+		<transition name="summary">
+			<div class="summary" v-if="showSummary">
+				<div class="shell">
+					<div class="summary__inner">
+						<div class="summary__content">
+							<div class="summary__head">
+								<h3>Document Upload Summary</h3>
 
-                  <li>
-                    <h6>Publication Date</h6>
+								<p>Please review the data shown below and confirm if it is correct</p>
+							</div><!-- /.summary__head -->
 
-                    2021-03-16
-                  </li>
+							<div class="summary__body">
+								<div class="summary__body-aside">
+									<ul>
+										<li>
+											<h6>Journal</h6>
 
-                  <li>
-                    <h6>DOI</h6>
+											Journal of Medical Internet Research
+										</li>
 
-                    10.2196/15443
-                  </li>
-                </ul>
-              </div><!-- /.summary__body-aside -->
+										<li>
+											<h6>Publisher</h6>
 
-              <div class="summary__body-content">
-                <div class="summary__authors">
-                  <h6>Authors (10)</h6>
+											JMIR Publications Inc.
+										</li>
 
-                  <ul>
-                    <li>
-                      <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+										<li>
+											<h6>Publication Date</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                      Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
-                      Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-                    </li>
+											2021-03-16
+										</li>
 
-                    <li>
-                      <h6>Nicole Etherington</h6>
+										<li>
+											<h6>DOI</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                    </li>
+											10.2196/15443
+										</li>
+									</ul>
+								</div><!-- /.summary__body-aside -->
 
-                    <li>
-                      <h6>Sandy Lam</h6>
+								<div class="summary__body-content">
+									<div class="summary__authors">
+										<h6>Authors (10)</h6>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                    </li>
+										<ul>
+											<li>
+												<h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
 
-                    <li>
-                      <h6>Maxime Lê</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+												Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
+												Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+											</li>
 
-                      Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Nicole Etherington</h6>
 
-                    <li>
-                      <h6>Laurie Proulx</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+											</li>
 
-                      Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Sandy Lam</h6>
 
-                    <li>
-                      <h6>Meghan Britton</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+											</li>
 
-                      Main Operating Room The Ottawa Hospital, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Maxime Lê</h6>
 
-                    <li>
-                      <h6>Julie Kenna</h6>
+												Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                      Main Operating Room The Ottawa Hospital, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Laurie Proulx</h6>
 
-                    <li>
-                      <h6>Antoine Przybylak-Brouillard</h6>
+												Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                      Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Meghan Britton</h6>
 
-                    <li>
-                      <h6>Jeremy Grimshaw</h6>
+												Main Operating Room The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                      Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Julie Kenna</h6>
 
-                    <li>
-                      <h6>Teodor Grantcharov</h6>
+												Main Operating Room The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                      Department of General Surgery University of Toronto, Toronto, Canada
-                      Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
-                    </li>
+											<li>
+												<h6>Antoine Przybylak-Brouillard</h6>
 
-                    <li>
-                      <h6>Sukhbir Singh</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+											</li>
 
-                      Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
-                    </li>
+											<li>
+												<h6>Jeremy Grimshaw</h6>
 
-                  </ul>
-                </div><!-- /.summary__authors -->
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+											</li>
 
-                <div class="summary__actions">
-                  <ul>
-                    <li>
-                      <a href="#" class="btn btn--block" @click.prevent="toggleSummary">This Data Looks Good, Continue</a>
-                    </li>
+											<li>
+												<h6>Teodor Grantcharov</h6>
 
-                    <li>
-                      <a href="#" class="btn btn--tertiary btn--block">Something is wrong with this data</a>
-                    </li>
-                  </ul>
-                </div><!-- /.summary__actions -->
-              </div><!-- /.summary__body-content -->
-            </div><!-- /.summary__body -->
-          </div><!-- /.summary__content -->
+												Department of General Surgery University of Toronto, Toronto, Canada
+												Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
+											</li>
 
-          <div class="summary__aside">
-            <h4>Invite Collaborators</h4>
+											<li>
+												<h6>Sukhbir Singh</h6>
 
-            <ul>
-              <li>
-                <a href="#">
-                  <span>
-                    <Icon name="invite" color="currentColor" />
-                  </span>
+												Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
+											</li>
 
-                  Send Email
-                </a>
-              </li>
+										</ul>
+									</div><!-- /.summary__authors -->
 
-              <li>
-                <a href="#">
-                  <span>
-                    <Icon name="share" color="currentColor" />
-                  </span>
+									<div class="summary__actions">
+										<ul>
+											<li>
+												<a href="#" class="btn btn--block" @click.prevent="toggleSummary">This Data Looks Good, Continue</a>
+											</li>
 
-                  Get A Link
-                </a>
-              </li>
+											<li>
+												<a href="#" class="btn btn--tertiary btn--block">Something is wrong with this data</a>
+											</li>
+										</ul>
+									</div><!-- /.summary__actions -->
+								</div><!-- /.summary__body-content -->
+							</div><!-- /.summary__body -->
+						</div><!-- /.summary__content -->
 
-              <li>
-                <a href="#">
-                  <span>
-                    <Icon name="document_view" color="currentColor" />
-                  </span>
+						<div class="summary__aside">
+							<h4>Invite Collaborators</h4>
 
-                  Open File
-                </a>
-              </li>
-            </ul>
-          </div><!-- /.summary__aside -->
-        </div><!-- /.summary__inner -->
-      </div><!-- /.shell -->
-    </div><!-- /.summary -->
-  </transition>
-</div><!-- /.subheader__inner -->
+							<ul>
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="invite" color="currentColor" />
+										</span>
+
+										Send Email
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="share" color="currentColor" />
+										</span>
+
+										Get A Link
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="document_view" color="currentColor" />
+										</span>
+
+										Open File
+									</a>
+								</li>
+							</ul>
+						</div><!-- /.summary__aside -->
+					</div><!-- /.summary__inner -->
+				</div><!-- /.shell -->
+			</div><!-- /.summary -->
+		</transition>
+	</div><!-- /.subheader__inner -->
 </template>
 
 <script>
