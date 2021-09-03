@@ -222,6 +222,7 @@
     margin: 0 auto 30px; 
     width: 98px; 
     height: 109px; 
-    fill: rgba($c-base-ligter, 0.19);
+    fill: $c-base-ligter;
+    opacity: 0.19;
   }
 }

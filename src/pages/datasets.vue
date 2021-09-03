@@ -49,10 +49,10 @@
                   <div class="form__heading">
                     <div class="form__heading-col">
                       <h5>
-                        <a href="#">Dataset-6</a>
+                        Dataset-6 <Icon name="pen" />
                       </h5>
                     </div><!-- /.form__heading-col -->
-                    <div class="form__heading-col">
+                    <div class="form__heading-col status">
                       Incomplete Dataset 6
                     </div><!-- /.form__heading-col -->
                   </div><!-- /.form__heading -->

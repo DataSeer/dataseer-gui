@@ -9,6 +9,8 @@
   .dropdown__header {
     display: block; 
     cursor: pointer;
+    border: 0;
+    background: none;
   }
   
   .dropdown__account {
@@ -121,7 +123,6 @@
     background-color: $c-primary; 
   }
 
-  &:focus-within .dropdown__body,
   &.is-active .dropdown__body {
     display: block; 
   }

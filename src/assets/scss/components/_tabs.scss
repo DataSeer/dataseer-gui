@@ -120,3 +120,49 @@
     }
   }
 }
+
+.tabs__contents {
+  .tab {
+    &:nth-child(20n + 1) {
+      .form__heading .status:after {
+        background: $c-purple-ba;
+      }
+    }
+
+    &:nth-child(20n + 2) {
+      .form__heading .status:after {
+        background: $c-blue-19;
+      }
+    }
+
+    &:nth-child(20n + 3) {
+      .form__heading .status:after {
+        background: $c-green-4e;
+      }
+    }
+
+    &:nth-child(20n + 4) {
+      .form__heading .status:after {
+        background: $c-yellow-f7;
+      }
+    }
+
+    &:nth-child(20n + 5) {
+      .form__heading .status:after {
+        background: $c-orange-ee;
+      }
+    }
+
+    &:nth-child(20n + 6) {
+      .form__heading .status:after {
+        background: $c-purple-88;
+      }
+    }
+
+    &:nth-child(20n + 7) {
+      .form__heading .status:after {
+        background: $c-blue-7a;
+      }
+    }
+  }
+}

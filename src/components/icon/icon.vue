@@ -32,6 +32,7 @@ import trash from './icon-trash'
 import user from './icon-user'
 import view_grid from './icon-view-grid'
 import view_list from './icon-view-list'
+import pen from './icon-pen'
 
 
 export default {
@@ -75,7 +76,8 @@ export default {
     trash,
     user,
     view_grid,
-    view_list
+    view_list,
+    pen
   }
 }
 </script>

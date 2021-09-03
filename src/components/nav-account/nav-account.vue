@@ -8,11 +8,11 @@
       <li>
         <DropDown>
           <template #header>
-            <div class="dropdown__account">
+            <span class="dropdown__account">
               Laura L.
 
               <span>L</span>
-            </div><!-- /.dropdown__account -->
+            </span><!-- /.dropdown__account -->
           </template>
           
           <ul class="dropdown__nav">

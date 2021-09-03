@@ -133,7 +133,7 @@
             <Icon name="connect" />
             Connect Text
           </a>
-          <a href="#" class="btn btn--tertiary btn--less-space">
+          <a href="#" class="btn btn--tertiary btn--less-space" v-tooltip.top-center="tooltips.deleteText">
             <Icon name="trash" />
             Delete
           </a>
@@ -176,7 +176,8 @@ export default {
 			practices_text: false,
 			repo_text: false,
 			tooltips: {
-				connectText: 'Select additional sentences from the document to connect to this dataset'
+				connectText: 'Select additional sentences from the document to connect to this dataset',
+				deleteText: 'Delete this Dataset'
 			}
     }
   },

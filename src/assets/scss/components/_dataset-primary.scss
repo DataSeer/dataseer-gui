@@ -26,10 +26,65 @@
 	.dataset__left-inner {
 		height: 100%; 
 		overflow: auto; 
-		padding: 35px;
+		padding:  0 35px 35px;
 	}
 
 	.dataset__right {
 		flex: 0 0 60.3681%;
+	}
+
+	.form__heading {
+		position: sticky;
+		top: 0;
+		display: flex;
+		padding: 35px 0 10px;
+		margin-bottom: -10px;
+		justify-content: space-between;
+		align-items: center;
+		background: #fff;
+		font-size: 12px;
+		font-family: $ff-sans-serif;
+		z-index: 1;
+
+		.status {
+			display: flex;
+			align-items: center;
+			
+			&:after {
+				content: '';
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-radius: 4px;
+				margin-left: 6px;
+			}
+		}
+	
+		h5 {
+			display: flex;
+			align-items: center;
+			font-size: 18px;
+			font-weight: 700;
+			font-family: $ff-sans-serif;
+			transition: color 0.3s;
+
+			svg {
+				width: 14px;
+				height: 14px;
+				margin-left: 5px;
+				transform: translateY(-3px);
+				opacity: 0;
+				transition: opacity	0.3s;
+			}
+
+			&:hover {
+				color: $c-blue-00;
+
+				svg {
+					display: inline-block;
+					opacity: 1;
+				}
+			}
+		}
 	}
 }

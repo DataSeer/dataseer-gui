@@ -1,8 +1,8 @@
 <template>
   <div class="dropdown-holder" ref="dropdown">
-    <div tabindex="0" class="dropdown__header" @click="handleClick" aria-label="dropdown">
+    <button tabindex="0" class="dropdown__header" @click="handleClick" aria-label="dropdown">
       <slot name="header" />
-    </div><!-- /.dropdown__header -->
+    </button><!-- /.dropdown__header -->
     <div class="dropdown__body">
       <slot />
     </div><!-- /.dropdown__body -->
@@ -15,6 +15,7 @@ export default {
 
   methods: {
     handleClick() {
+      console.log(1);
       this.$refs.dropdown.classList.toggle('is-active')
     }
   }

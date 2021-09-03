@@ -23,7 +23,7 @@ export default {
       if(activeDropdowns) {
         activeDropdowns.forEach((activeDropdown) => {
           if (activeDropdown.contains(event.target)) return;
-
+          console.log(2)
           activeDropdown.classList.remove('is-active');
         })
       }
