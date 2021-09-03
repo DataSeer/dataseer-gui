@@ -133,7 +133,7 @@
             <Icon name="connect" />
             Connect Text
           </a>
-          <a href="#" class="btn btn--tertiary btn--less-space" v-tooltip.top-center="tooltips.deleteText">
+          <a href="#" class="btn btn--tertiary btn--less-space" v-tooltip.top-center="tooltips.deleteText" @click="handleDelete">
             <Icon name="trash" />
             Delete
           </a>
@@ -197,6 +197,10 @@ export default {
 	methods: {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
+		},
+
+		handleDelete() {
+			window.confirm('Are you sure you want to delete this dataset?');
 		}
 	}
 }
