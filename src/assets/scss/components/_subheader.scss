@@ -3,6 +3,8 @@
 \* ------------------------------------------------------------ */
 
 .subheader {
+	background-color: $c-white; 
+	
 	.subheader__inner {
 		display: flex; 
 		align-items: center;
@@ -82,12 +84,19 @@
 	}
 
 	.subheader__document h6 {
-		margin-bottom: 0; 
+		margin-bottom: -10px; 
+		padding-bottom: 10px; 
 		font-weight: 700; 
 		font-family: inherit; 
 		overflow: hidden; 
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		text-underline-position: under;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline dotted $c-primary;
+		}
 	}
 
 	.subheader__document a {

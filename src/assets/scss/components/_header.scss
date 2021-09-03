@@ -9,10 +9,10 @@
 	z-index: 999; 
 	width: 100%; 
 	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
-	background-color: $c-white; 
 
 	.header__bar {
 		position: relative; 
+		background-color: $c-white; 
 	}
 
 	.header__bar-inner {

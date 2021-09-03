@@ -12,7 +12,7 @@
 					</li>
 				</ul>
 
-				<h6 id="subheader-title">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
+				<h6 id="subheader-title" @click.prevent="toggleSummary">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
 
 				<Dropdown>
 					<template #header>
@@ -54,19 +54,20 @@
               </a>
             </li>
           </ul>
-				</Dropdown>
-			</div><!-- /.subheader__document -->
-		</div><!-- /.subheader__left -->
+        </Dropdown>
+      </div><!-- /.subheader__document -->
+    </div><!-- /.subheader__left -->
 
-		<div class="subheader__right">
-			<router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
-				<Icon name="back" color="#006AC9"></Icon>
-				
-				Back To Dataset Definition
-			</router-link>
-		</div><!-- /.subheader__right -->
+    <div class="subheader__right">
+     <router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
+      <Icon name="back" color="#006AC9"></Icon>
 
-		<div class="summary" v-if="showSummary">
+      Back To Dataset Definition
+    </router-link>
+  </div><!-- /.subheader__right -->
+  
+  <transition name="summary">
+    <div class="summary" v-if="showSummary">
       <div class="shell">
         <div class="summary__inner">
           <div class="summary__content">
@@ -84,19 +85,19 @@
 
                     Journal of Medical Internet Research
                   </li>
-                  
+
                   <li>
                     <h6>Publisher</h6>
 
                     JMIR Publications Inc.
                   </li>
-                  
+
                   <li>
                     <h6>Publication Date</h6>
 
                     2021-03-16
                   </li>
-                  
+
                   <li>
                     <h6>DOI</h6>
 
@@ -239,7 +240,8 @@
         </div><!-- /.summary__inner -->
       </div><!-- /.shell -->
     </div><!-- /.summary -->
-	</div><!-- /.subheader__inner -->
+  </transition>
+</div><!-- /.subheader__inner -->
 </template>
 
 <script>

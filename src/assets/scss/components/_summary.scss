@@ -6,6 +6,7 @@
   position: absolute; 
   top: 100%; 
   left: 0; 
+  z-index: -1;
   width: 100%; 
   background-color: $c-bg; 
 
@@ -269,5 +270,23 @@
     @include breakpoint-down(small-desktop) {
       width: 100%; 
     }
+  }
+}
+
+.summary.summary-enter-active,
+.summary.summary-leave-active {
+  transition: all .5s ease;
+  
+  .summary__inner {
+    transition: transform .5s ease;
+  }
+}
+
+.summary.summary-enter,
+.summary.summary-leave-to {
+  opacity: 0;
+  
+  .summary__inner {
+    transform: translateY(-100%);
   }
 }
