@@ -1,7 +1,7 @@
 <template>
 	<div class="author">
 		<div class="author__head">
-			<h6><strong>{{author.name}}</strong> {{author.email}}</h6>
+			<h6><strong>{{author.name}}</strong> ({{author.email}})</h6>
 
 			<ul v-if="author.isLeadAuthor || author.isSubmittingAuthor" class="author__badges">
 				<li v-if="author.isLeadAuthor">
@@ -24,12 +24,12 @@
 export default {
 	/**
 	 * Name
-	*/
+	 */
 	name: 'Author',
 
 	/**
 	 * Props
-	*/
+	 */
 	props: ['author']
 }
 </script>

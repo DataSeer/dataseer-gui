@@ -4,16 +4,17 @@
 		class="btn"
 		:href="href" 
 		:class="{[`btn--${className}`]: className}"
-		@click="$emit('click')"
+		@click="$emit('onClick')"
 	>
 		<slot />
 	</a>
+	
 	<button 
 		v-else
 		type="button"
 		class="btn"
 		:class="{[`btn--${className}`]: className, 'is-disabled': disabled}"
-		@click="handleClick"
+		@click="$emit('onClick')"
 	>
 		<slot />
 	</button>
@@ -36,12 +37,6 @@ export default {
 			type: Boolean,
 			default: false
 		},
-	},
-
-	methods: {
-		handleClick(event){
-			this.$emit('onClick', event);
-		}
 	}
 }
 </script>

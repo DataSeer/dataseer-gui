@@ -129,13 +129,15 @@
 	}
 
 	.main__left {
+		padding-top: 25px;
+		
 		@include breakpoint-down(small-desktop) {
 			margin-bottom: 15px; 
 		}
 	}
 
 	.main__right {
-		padding: 75px 60px 75px 58px;
+		padding: 30px 30px 75px 30px;
 		background-color: $c-white; 
 
 		@include breakpoint-down(large-desktop) {

@@ -1,6 +1,11 @@
 <template>
 	<div class="report-suggestions">
-		<h4 v-if="title" class="report__title">{{title}}</h4>
+		<div class="report__head">
+			<h4 v-if="title" class="report__title">{{title}}</h4>
+
+			<Button tabindex="0" className="secondary" @onClick="copyToClip()">{{buttonText}}</Button>
+		</div><!-- /.report__head -->
+		
 		
 		<div v-if="suggestions" class="report__body" ref="source">
 			<ul>
@@ -13,8 +18,6 @@
 				</li>
 			</ul>
 		</div><!-- /.report__body -->
-
-		<Button tabindex="0" className="secondary" @onClick="copyToClip()">{{buttonText}}</Button>
 	</div><!-- /.report-suggestions -->
 </template>
 
@@ -25,12 +28,15 @@ export default {
 	/**
 	* Name
 	*/
-	name: 'reportSuggestions',
+	name: 'ReportSuggestions',
 	
 	/**
 	* Props
 	*/
-	props: ['title', 'suggestions'],
+	props: {
+		title: String,
+		suggestions: Array
+	},
 
 	/**
 	* Components

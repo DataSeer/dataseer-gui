@@ -17,7 +17,8 @@
 
 	.author__head h6 {
 		margin-bottom: 0; 
-		margin-right: 17px; 
+		margin-right: 2px; 
+		font-family: inherit;
 	}
 
 	.author__badges {
@@ -30,6 +31,10 @@
 	.author__badges li {
 		margin-right: 14px; 
 		display: inline-block; 
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 	
 	.author__badges span {

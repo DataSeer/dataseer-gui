@@ -167,6 +167,7 @@ export default {
 					url: ''
 				},
 			],
+			
 			authors: [
 				{
 					name: 'Laura Leadauthor',
@@ -249,6 +250,7 @@ export default {
 					isSubmittingAuthor: false
 				},
 			],
+			
 			datasets: [
 				{
 					title: 'First Named Tabular Data',
