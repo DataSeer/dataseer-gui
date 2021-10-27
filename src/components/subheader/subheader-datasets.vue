@@ -88,38 +88,38 @@
           <div class="summary__inner">
             <div class="summary__content">
               <div class="summary__head">
-                <h3>Document Upload Summary</h3>
-
-                <p>Please review the data shown below and confirm if it is correct</p>
+                <h3 class="summary__title">Document Summary</h3>
               </div><!-- /.summary__head -->
 
               <div class="summary__body">
                 <div class="summary__body-aside">
                   <ul>
                     <li>
+                      <h6>Title</h6>
+
+                      <p>Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</p>
+                    </li>
+
+                    <li>
                       <h6>Journal</h6>
 
-                      Journal of Medical Internet Research
-                    </li>
-
-                    <li>
+                      <p>Journal of Medical Internet Research</p>
+                    
                       <h6>Publisher</h6>
 
-                      JMIR Publications Inc.
-                    </li>
-
-                    <li>
+                      <p>JMIR Publications Inc.</p>
+                    
                       <h6>Publication Date</h6>
 
-                      2021-03-16
-                    </li>
-
-                    <li>
+                      <p>2021-03-16</p>
+                    
                       <h6>DOI</h6>
 
-                      10.2196/15443
+                      <p>10.2196/15443</p>
                     </li>
                   </ul>
+
+                  <a href="#" class="btn btn--tertiary btn--block">This data is incorrect</a>
                 </div><!-- /.summary__body-aside -->
 
                 <div class="summary__body-content">
@@ -199,21 +199,8 @@
 
                         Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
                       </li>
-
                     </ul>
                   </div><!-- /.summary__authors -->
-
-                  <div class="summary__actions">
-                    <ul>
-                      <li>
-                        <a href="#" class="btn btn--block" @click.prevent="toggleSummary">This Data Looks Good, Continue</a>
-                      </li>
-
-                      <li>
-                        <a href="#" class="btn btn--tertiary btn--block">Something is wrong with this data</a>
-                      </li>
-                    </ul>
-                  </div><!-- /.summary__actions -->
                 </div><!-- /.summary__body-content -->
               </div><!-- /.summary__body -->
             </div><!-- /.summary__content -->
@@ -252,6 +239,8 @@
                   </a>
                 </li>
               </ul>
+
+              <BtnClose @onClick='toggleSummary' label="Close Summary" />
             </div><!-- /.summary__aside -->
           </div><!-- /.summary__inner -->
         </div><!-- /.shell -->
@@ -261,9 +250,10 @@
 </template>
 
 <script>
-import Button from '@/components/button/button.vue'
 import Icon from '@/components/icon/icon';
+import Button from '@/components/button/button.vue'
 import Dropdown from '@/components/dropdown/dropdown';
+import BtnClose from '@/components/btn-close/btn-close';
 
 export default {
   name: "SubheaderDatasets",
@@ -275,13 +265,15 @@ export default {
   },
   
   components: { 
-    Dropdown,
+    Icon,
     Button,
-    Icon
+    Dropdown,
+    BtnClose
   },
   
   methods: {
     toggleSummary() {
+        console.log('dasdasdasd');
         this.showSummary = !this.showSummary;
     }
   }
