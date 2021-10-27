@@ -4,7 +4,7 @@
       <div class="form__head form__head--center">
         <h2>Upload Your Research Text</h2>
         
-        <p>DataSeer will process the document and highlight passages which may need links to a dataset</p>
+        <p>DataSeer will process the document and highlight passages which may need links to a dataset, code, lab materials, or protocol</p>
       </div><!-- /.form__head -->
 
       <div class="form__statuses" v-if="errors">

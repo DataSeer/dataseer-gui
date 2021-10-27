@@ -26,18 +26,10 @@
 			<div class="box__body">
 				<div v-if="doc.Status ==='Validating'" class="box__status box__status--validating">
 					<p><strong>STATUS</strong> <span>Validating Datasets</span></p>
-
-					<div class="box__status-bar">
-						<span style="width: 40%"></span>
-					</div><!-- /.box__status-bar -->
 				</div><!-- /.box__status -->
 
 				<div v-else class="box__status box__status--complete">
 					<p><strong>STATUS</strong> <span>Document Complete</span></p>
-
-					<div class="box__status-bar">
-						<span style="width: 100%"></span>
-					</div><!-- /.box__status-bar -->
 				</div><!-- /.box__status -->
 
 				<div class="box__date">

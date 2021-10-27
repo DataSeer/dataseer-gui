@@ -134,38 +134,6 @@
     line-height: 1.57; 
   }
 
-  .box__status-bar {
-    position: relative; 
-    flex-grow: 1;
-    background-color: $c-gray; 
-    height: 5px; 
-    border-radius: 3px;
-    overflow: hidden; 
-  }
-
-  .box__status-bar span {
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    height: 100%; 
-  }
-
-  .box__status--validating .box__status-bar span {
-    background-color: $c-primary; 
-  }
-
-  .box__status--validating > p span {
-    color: $c-primary
-  }
-
-  .box__status--complete .box__status-bar span {
-    background-color: $c-green; 
-  }
-
-  .box__status--complete > p span {
-    color: $c-green; 
-  }
-
   .box__date strong {
     text-transform: uppercase; 
   }
