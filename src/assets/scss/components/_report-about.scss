@@ -30,6 +30,9 @@
 			background-color: $c-blue-19;
 		}
 	}
+	> ul > li > a {
+		word-break: break-all;
+	}
 
 	> ul > li > h6 {
 		margin-bottom: 5px;

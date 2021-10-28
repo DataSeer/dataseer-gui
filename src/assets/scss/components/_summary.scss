@@ -39,7 +39,7 @@
     background-color: $c-white; 
 
     @include breakpoint-down(large-desktop) {
-      width: 66.6667%; 
+      width: 72%; 
     }
 
     @include breakpoint-down(small-desktop) {
@@ -51,14 +51,17 @@
     position: relative;
     width: 38%; 
     background-color: $c-bg-2; 
-    padding: 83px 60px; 
+    padding: 80px 60px 35px; 
 
     @include breakpoint-down(large-desktop) {
-      width: 33.3334%; 
+      width: 28%; 
+      padding-left: 40px;
+      padding-right: 40px;
     }
 
     @include breakpoint-down(small-desktop) {
-      padding: 30px 25px; 
+      padding-left: 25px;
+      padding-right: 25px;
     }
   }
 
@@ -135,12 +138,7 @@
     flex-shrink: 0;
     padding-right: 40px; 
 
-    @include breakpoint-down(large-desktop) {
-      width: 200px; 
-    }
-
     @include breakpoint-down(tablet) {
-      width: 100%; 
       margin-bottom: 15px; 
     }
   }
@@ -225,7 +223,7 @@
     list-style: none; 
 
     @include breakpoint-down(small-desktop) {
-      max-height: 300px; 
+      max-height: 500px; 
       padding-left: 20px; 
       padding-right: 20px; 
     }

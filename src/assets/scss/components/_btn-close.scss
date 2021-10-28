@@ -9,6 +9,11 @@
 	background: none;
 	border: 0;
 
+	@include breakpoint-down(small-desktop) {
+		width: 24px;
+		height: 24px;
+	}
+
 	&:after,
 	&:before {
 		position: absolute;
