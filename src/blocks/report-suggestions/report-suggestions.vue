@@ -3,18 +3,25 @@
 		<div class="report__head">
 			<h4 v-if="title" class="report__title">{{title}}</h4>
 
-			<Button tabindex="0" className="secondary" @onClick="copyToClip()">{{buttonText}}</Button>
+			<Button 
+				tabindex="0"
+				className="tertiary"
+				size="small"
+				@onClick="copyToClip()"
+			>
+				<Icon name="documents" color="#006AC9"/>
+				{{ buttonText }}
+			</Button>
 		</div><!-- /.report__head -->
 		
-		
 		<div v-if="suggestions" class="report__body" ref="source">
-			<ul>
-				<li v-for="(suggestion, index) in suggestions" :key="index">
-					<h6>{{suggestion.title}}</h6>
+			<ul v-for="(suggestion, index) in suggestions" :key="index">
+				<li v-for="(entry, index) in suggestion" :key="index">
+					<h6>{{entry.title}}</h6>
 					
-					<a v-if="!suggestion.isPrivate" :href="suggestion.url" target="_blank">{{suggestion.url}}</a>
+					<a v-if="!entry.isPrivate" :href="entry.url" target="_blank">{{entry.url}}</a>
 
-					<p v-if="suggestion.isPrivate">The data are not publicly available due to their containing information that could compromise the privacy of research participants.</p>
+					<p v-if="entry.isPrivate">The data are not publicly available due to their containing information that could compromise the privacy of research participants.</p>
 				</li>
 			</ul>
 		</div><!-- /.report__body -->
@@ -22,6 +29,7 @@
 </template>
 
 <script>
+import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
 
 export default {
@@ -42,6 +50,7 @@ export default {
 	* Components
 	*/
 	components: {
+		Icon,
 		Button
 	},
 

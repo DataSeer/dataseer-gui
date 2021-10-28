@@ -8,7 +8,7 @@
 							<h1>Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h1>
 
 							<p>
-								<Icon name="share" color="#006AC9"/>
+								<Icon name="chain" color="#006AC9"/>
 								
 								<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
 							</p>
@@ -19,7 +19,11 @@
 						<ul>
 							<li>
 								<div class="report-action">
-									<h6>Datasets</h6>
+									<h6>
+										<Icon name="datasets" color="currentColor" />
+										
+										Datasets
+									</h6>
 									
 									<ul>
 										<li>
@@ -37,7 +41,11 @@
 
 							<li>
 								<div class="report-action report-action--error">
-									<h6>Code</h6>
+									<h6>
+										<Icon name="brackets" color="currentColor" />
+
+										Code
+									</h6>
 									
 									<ul>
 										<li>
@@ -55,7 +63,11 @@
 
 							<li>
 								<div class="report-action report-action--warning">
-									<h6>Materials</h6>
+									<h6>
+										<Icon name="flask" color="currentColor" />
+
+										Materials
+									</h6>
 									
 									<ul>
 										<li>
@@ -73,7 +85,11 @@
 							
 							<li>
 								<div class="report-action">
-									<h6>Protocols</h6>
+									<h6>
+										<Icon name="protocols" color="currentColor" />
+										
+										Protocols
+									</h6>
 									
 									<ul>
 										<li>
@@ -130,26 +146,8 @@
 							</li>
 						</ul>
 					</div><!-- /.report-about -->
-					
-					<div class="report-chart">
-						<div class="report__graph">
-							<img src="@/assets/images/images/chart.png" alt="Chart">
-							</div><!-- /.report__graph -->
 
-						<div class="report__content">
-							<h4>This Chart Needs A Title or Short Description</h4>
-
-							<ul>
-								<li>
-									<a href="" class="btn btn--block btn--tertiary">View Larger</a>
-								</li>
-
-								<li>
-									<a href="" class="btn btn--block btn--tertiary">Copy Share Link</a>
-								</li>
-							</ul>
-						</div><!-- /.report__content -->
-					</div><!-- /.report-chart -->
+					<ReportChart shareLink="https://example.com/" />
 				</div><!-- /.main__right -->
 			</div><!-- /.main__inner -->
 		</div><!-- /.shell -->
@@ -160,6 +158,7 @@
 import Icon from '@/components/icon/icon'
 import Author from '@/components/author/author'
 import Authors from '@/components/authors/authors'
+import ReportChart from '@/components/report-chart/report-chart'
 import ContentToggle from '@/components/contenttoggle/contenttoggle'
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions'
 
@@ -176,6 +175,7 @@ export default {
 		Icon,
 		Author,
 		Authors,
+		ReportChart,
 		ContentToggle,
 		ReportSuggestions
 	},
@@ -185,46 +185,130 @@ export default {
 	 */
 	data: function(){
 		return {
-			suggestions: [
+			suggestions: [[
 				{
-					title: 'First Named Tabular Data',
+					title: "First Named Tabular Data",
 					isPrivate: false,
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234'
+					url: "www.somerepo.com/#d/HEied382-CA293?ID=234"
 				},
 				{
-					title: 'Another Dataset',
+					title: "Another Dataset",
 					isPrivate: false,
-					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
-				},
-
-				{
-					title: 'Some Named Tabular Data',
-					isPrivate: false,
-					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
-				},
-
-				{
-					title: 'Another Dataset',
-					isPrivate: false,
-					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
 				},
 				{
-					title: 'Some Named Tabular Data',
+					title: "Some Named Tabular Data",
 					isPrivate: false,
-					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
 				},
 				{
-					title: 'Named Data',
+					title: "Another Dataset",
 					isPrivate: false,
-					url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdwwddwdw/445-2344-245.html#442r23'
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
 				},
-
 				{
-					title: 'My Private Dataset',
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
 					isPrivate: true,
-					url: ''
+					url: ""
 				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				}
 			],
+			[
+				{
+					title: "First Named Tabular Data",
+					isPrivate: false,
+					url: "www.somerepo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				}
+			]],
 
 			authors: [
 				{

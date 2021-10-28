@@ -3,8 +3,11 @@
 \* ------------------------------------------------------------ */
 
 .btn {
-	display: inline-block;
-	padding: 9px 29px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 42px;
+	padding: 0 29px;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
@@ -29,6 +32,10 @@
 		color: $c-white;
 		background-color: darken($c-primary, 8); 
 		border-color: darken($c-primary, 8); 
+	}
+
+	i {
+		margin-right: 9px;
 	}
 
 	&.is-disabled {
@@ -74,14 +81,13 @@
 /*  Btn Small  */
 
 .btn--small {
-	padding-top: 6px; 
-	padding-bottom: 6px;
+	height: 35px;
 }
 
 /*  Btn Block  */
 
 .btn--block {
-	display: block;
+	width: 100%;
 	padding-left: 10px;
 	padding-right: 10px;
 }

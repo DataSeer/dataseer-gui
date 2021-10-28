@@ -33,6 +33,12 @@ import user from './icon-user'
 import view_grid from './icon-view-grid'
 import view_list from './icon-view-list'
 import pen from './icon-pen'
+import focus from './icon-focus'
+import protocols from './icon-protocols'
+import flask from './icon-flask'
+import brackets from './icon-brackets'
+import datasets from './icon-datasets'
+import lock from './icon-lock'
 
 
 export default {
@@ -77,7 +83,13 @@ export default {
     user,
     view_grid,
     view_list,
-    pen
+    pen,
+    focus,
+    protocols,
+    flask,
+    brackets,
+    datasets,
+    lock
   }
 }
 </script>

@@ -45,7 +45,7 @@ export default {
       return this.$route.path === '/profile';
     },
     isReportPage() {
-      return this.$route.path === '/report';
+      return this.$route.path === '/report' || this.$route.path === '/science-report';
     },
     isVisible() {
       return this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;

@@ -19,9 +19,17 @@
 	}
 	
 	h6 {
+		margin-bottom: 5px;
+		display: flex;
+		align-items: center;
 		text-transform: uppercase;
 		font-weight: 500;
+		letter-spacing: 0.028em;
 	}	
+
+	h6 i {
+		margin-right: 10px;
+	}
 
 	strong {
 		margin-left: 5px;

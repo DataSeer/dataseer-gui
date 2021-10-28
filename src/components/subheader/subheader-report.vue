@@ -1,68 +1,18 @@
 <template>
 	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
 		<div class="subheader__left">
-			<div class="subheader__document">
-				<Icon name="document" />
-
-				<ul>
-					<li><strong>L. Leadauthor</strong></li>
-
-					<li>
-						<a href="#">my_uploaded-filename.pdf</a>
-					</li>
-				</ul>
-
-				<h6 id="subheader-title" @click.prevent="toggleSummary">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
-
-				<Dropdown>
-					<template #header>
-						<span class="btn-dropdown"></span>
-					</template>
-
-					<ul class="dropdown__nav">
-						<li>
-							<a href="#" @click.prevent="toggleSummary">
-								<Icon name="view_list" color="currentColor" />
-
-								Document Summary
-							</a>
-						</li>
-
-						<li>
-
-							<a href="#">
-								<Icon name="invite" color="currentColor" />
-
-								Invite By Email
-							</a>
-						</li>
-
-						<li>
-
-							<a href="#">
-								<Icon name="share" color="currentColor" />
-
-								Get A Share Link
-							</a>
-						</li>
-
-						<li>
-							<a href="#">
-								<Icon name="document_view" color="currentColor" />
-
-								View Uploaded File
-							</a>
-						</li>
-					</ul>
-				</Dropdown>
-			</div><!-- /.subheader__document -->
+			<h3 id="subheader-title">
+        <Icon name="lock" />
+        
+				Open Science Report
+      </h3>
 		</div><!-- /.subheader__left -->
 
 		<div class="subheader__right">
 			<router-link tabindex="0" to="/datasets" class="subheader__btn btn btn--tertiary ">
 				<Icon name="back" color="#006AC9"></Icon>
 
-				Back To Dataset Definition
+				Back to Document
 			</router-link>
 		</div><!-- /.subheader__right -->
 
@@ -246,7 +196,6 @@
 
 <script>
 import Icon from '@/components/icon/icon';
-import Dropdown from '@/components/dropdown/dropdown';
 
 export default {
 	/**
@@ -267,7 +216,6 @@ export default {
 	 * Components
 	*/
 	components: { 
-		Dropdown,
 		Icon
 	},
 
