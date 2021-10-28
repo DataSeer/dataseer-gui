@@ -1,85 +1,49 @@
 <template>
   <div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
     <div class="subheader__left">
-      <div class="subheader__document">
-        <Icon name="document" />
-        
+      <nav class="nav-datasets">
         <ul>
-          <li><strong>L. Leadauthor</strong></li>
-          
           <li>
-            <a href="#">my_uploaded-filename.pdf</a>
+            <router-link to="/datasets">
+              <Icon name="datasets" color="currentColor" />
+              
+              Datasets
+            </router-link>
+          </li>
+
+          <li>
+            <router-link to="/datasets-code">
+              <Icon name="brackets" color="currentColor" />
+
+              Code
+            </router-link>
+          </li>
+
+          <li>
+            <router-link to="/datasets-materials">
+              <Icon name="flask" color="currentColor" />
+
+              Materials
+            </router-link>
+          </li>
+
+          <li>
+            <router-link to="/datasets-protocols">
+              <Icon name="protocols" color="currentColor" />
+
+              Protocols
+            </router-link>
           </li>
         </ul>
-
-        <h6 id="subheader-title" @click.prevent="toggleSummary">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
-        
-        <Dropdown>
-          <template #header>
-            <span class="btn-dropdown"></span>
-          </template>
-
-          <ul class="dropdown__nav">
-            <li>
-              <a href="#" @click.prevent="toggleSummary">
-                <Icon name="view_list" color="currentColor" />
-                
-                Document Summary
-              </a>
-            </li>
-
-            <li>
-
-              <a href="#">
-                <Icon name="invite" color="currentColor" />
-                
-                Invite By Email
-              </a>
-            </li>
-
-            <li>
-
-              <a href="#">
-                <Icon name="share" color="currentColor" />
-                
-                Get A Share Link
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <Icon name="document_view" color="currentColor" />
-                
-                View Uploaded File
-              </a>
-            </li>
-          </ul>
-        </Dropdown>
-      </div><!-- /.subheader__document -->
+      </nav><!-- /.nav-datasets -->
     </div><!-- /.subheader__left -->
 
     <div class="subheader__right">
-      <div class="subheader__menu">
-        <ul>
-          <li>
-            <div class="document-status">
-              <ul>
-                <li>
-                  <span>1</span> of 7 Completed
-                </li>
-                
-                <li>
-                  <Icon name="check" color="#66AE2E"></Icon>
-                  
-                  Auto-Saved
-                </li>
-              </ul>
-            </div><!-- /.document-status -->
-          </li>
-          
-          <li><Button className="tertiary" disabled>Complete <span>Document</span></Button></li>
-        </ul>
-      </div><!-- /.subheader__menu -->
+      <Button className="tertiary">
+        <Icon name="check" color="#006AC9" />
+        
+        Open Science Report
+      </Button>
     </div><!-- /.subheader__right -->
 
     <transition name="summary">
@@ -252,7 +216,6 @@
 <script>
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue'
-import Dropdown from '@/components/dropdown/dropdown';
 import BtnClose from '@/components/btn-close/btn-close';
 
 export default {
@@ -267,7 +230,6 @@ export default {
   components: { 
     Icon,
     Button,
-    Dropdown,
     BtnClose
   },
   

@@ -94,6 +94,7 @@
 </template>
 
 <script>
+
 import Button from '@/components/button/button';
 import Tabs from '@/components/tabs/tabs';
 import Tab from '@/components/tabs/tab';

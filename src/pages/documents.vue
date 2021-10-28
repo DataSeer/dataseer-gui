@@ -77,7 +77,7 @@ export default {
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Complete',
-          Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
+          Action: '<a class="btn btn--tertiary btn--block" href="/report">View Report</a>',
         },
         {
           id: 3,
@@ -88,7 +88,7 @@ export default {
           Uploaded: '2021-06-12',
           Modified: '2021-06-12',
           Status: 'Complete',
-          Action: '<a class="btn btn--tertiary btn--block" href="#">View Report</a>',
+          Action: '<a class="btn btn--tertiary btn--block" href="/report">View Report</a>',
         }
       ]
     }

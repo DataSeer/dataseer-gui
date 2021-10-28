@@ -1,0 +1,42 @@
+/* ------------------------------------------------------------ *\
+	Nav Datasets
+\* ------------------------------------------------------------ */
+
+.nav-datasets {
+	font-weight: 500;
+	font-size: 15px;
+	font-family: $ff-titles;
+	text-transform: uppercase;
+	color: $c-base-ligter;
+
+	ul {
+		display: flex;
+		align-items: center;
+		margin: 0 -12px;
+	}
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		padding: 0 12px;
+	}
+	
+	a {
+		display: block;
+		padding: 11px 20px 11px 10px;
+		border-radius: 7px;
+		text-decoration: none;
+		overflow: hidden;
+		
+		&.router-link-active {
+			box-shadow: 0 2px 2px 0px rgba(25,101,176,0.15) inset;
+			background-color: $c-skyblue-fa;			
+			color: $c-base;
+			border-left: 5px solid $c-blue-19;
+		}
+	}
+
+	i {
+		margin-right: 8px;
+	}
+}
