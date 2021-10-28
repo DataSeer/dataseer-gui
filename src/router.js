@@ -11,7 +11,6 @@ import Documents from '@/pages/documents';
 import Profile from '@/pages/profile';
 import NewDocument from '@/pages/new-document';
 import Report from '@/pages/report';
-import ScienceReport from '@/pages/science-report';
 
 const routes = [
 	{
@@ -54,11 +53,6 @@ const routes = [
 		name: "Report",
 		path: '/report',
 		component: Report
-	},
-	{
-		name: "ScienceReport",
-		path: '/science-report',
-		component: ScienceReport
 	}
 ]
 

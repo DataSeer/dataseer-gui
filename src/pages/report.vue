@@ -4,90 +4,150 @@
 			<div class="main__inner">
 				<div class="main__left">
 					<div class="report-group">
-						<div class="report-head">
-							<div class="report-head__inner larger-text">
-								<h3>Data Availability Report</h3>
-						
-								<p>Well done, the datasets for this text have been successfully linked.</p>
-							</div><!-- /.report-head__inner -->
-						
-							<div class="report-status is-completed">
-								<p class="report-status-text">
-									<strong>STATUS</strong> <span>Document Complete</span>
-								</p><!-- /.report-status-text -->
-								
-								<div class="report-status__bar">
-									<span></span>
-								</div><!-- /.report-status__bar -->
-								
-								<div class="report-status__steps">
-									<span><strong>7</strong></span> of <strong>7</strong> Completed
-								</div><!-- /.report-status__steps -->
-							</div><!-- /.report-status -->
-						</div><!-- /.report-head -->
-					</div><!-- /.report-group -->
-
-					<div class="report-group">
 						<div class="report-title">
 							<h1>Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h1>
 
 							<p>
-								<Icon name="document" color="#8CABCD"/>
-								Manuscript # 03
+								<Icon name="chain" color="#006AC9"/>
+								
+								<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
 							</p>
 						</div><!-- /.report-title -->
 					</div><!-- /.report-group -->
 
-					<div class="report-group">
-						<h6 class="report-group__title">Authors (10)</h6>
+					<div class="report-group report-group--actions">
+						<ul>
+							<li>
+								<div class="report-action">
+									<h6>
+										<Icon name="datasets" color="currentColor" />
+										
+										Datasets
+									</h6>
+									
+									<ul>
+										<li>
+											New  <strong>12</strong>
+										</li>
 
-						<div class="Author"></div><!-- /.Author -->
-					
-						<Author v-for="(author, index) in leadAuthors" :key="index" :author="author"></Author>
+										<li>
+											Re-Use <strong>2</strong>
+										</li>
+									</ul>
 
-						<ContentToggle
-							labelClosed="Show All Authors"
-							labelOpened="Hide All Authors"
-						>
-							<Authors>
-								<Author v-for="(author, index) in nonLeadAuthors" :key="index" :author="author"></Author>
-							</Authors>
-						</ContentToggle>
+									<p>No Action Required</p>
+								</div><!-- /.report-action -->
+							</li>
+
+							<li>
+								<div class="report-action report-action--error">
+									<h6>
+										<Icon name="brackets" color="currentColor" />
+
+										Code
+									</h6>
+									
+									<ul>
+										<li>
+											New  <strong>12</strong>
+										</li>
+
+										<li>
+											Re-Use <strong>3</strong>
+										</li>
+									</ul>
+
+									<p>Action Required</p>
+								</div><!-- /.report-action -->
+							</li>
+
+							<li>
+								<div class="report-action report-action--warning">
+									<h6>
+										<Icon name="flask" color="currentColor" />
+
+										Materials
+									</h6>
+									
+									<ul>
+										<li>
+											New  <strong>12</strong>
+										</li>
+
+										<li>
+											Re-Use <strong>2</strong>
+										</li>
+									</ul>
+
+									<p>Action May Be Required</p>
+								</div><!-- /.report-action -->
+							</li>
+							
+							<li>
+								<div class="report-action">
+									<h6>
+										<Icon name="protocols" color="currentColor" />
+										
+										Protocols
+									</h6>
+									
+									<ul>
+										<li>
+											New  <strong>12</strong>
+										</li>
+
+										<li>
+											Re-Use <strong>2</strong>
+										</li>
+									</ul>
+
+									<p>No Action Required</p>
+								</div><!-- /.report-action -->
+							</li>
+						</ul>
 					</div><!-- /.report-group -->
 
 					<div class="report-group">
-						<h6 class="report-group__title">Datasets (7)</h6>
-
-						<Datasets>
-							<Dataset v-for="(dataset, index) in activeDatasets" :key="index" :dataset="dataset"></Dataset>
-						</Datasets>
-
-						<ContentToggle
-							labelClosed="Show Deleted Datasets"
-							labelOpened="Hide Deleted Datasets"
-						>
-							<Datasets>
-								<Dataset v-for="(dataset, index) in deletedDatasets" :key="index" :dataset="dataset"></Dataset>
-							</Datasets>
-						</ContentToggle>
+						<ReportSuggestions
+							title="Data Availability Statement"
+							:suggestions="suggestions"
+						/>
 					</div><!-- /.report-group -->
 				</div><!-- /.main__left -->
 
 				<div class="main__right">
-					<reportSuggestions
-					title="Suggested Data Availability Statement"
-					:suggestions="suggestions"
-					/>
+					<div class="report-about">
+						<ul>
+							<li>
+								<h6>Preprint link</h6>
 
-					<div class="report-cta larger-text">
-						<figure>
-							<img src="@/assets/images/cta-img-1@2x.png" alt="CTA image">
-						</figure>
-						
-						<span>How Was Your DataSeer Experience?</span>
-						
-						<a href="#">Give Us Feedback</a>
-					</div><!-- /.report-cta -->
+								<a href="https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full">https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full</a>
+							</li>
+							
+							<li>
+								<h6>DataSeer Link</h6>
+
+								<a href="#">Sulzer Hobson et al Preprint Aug 2021.pdf</a>
+							</li>
+
+							<li>
+								<h6>Authors ({{authors.length}})</h6>
+
+								<Author v-for="(author, index) in leadAuthors" :key="index" :author="author"></Author>
+
+								<ContentToggle
+									labelClosed="Show All Authors"
+									labelOpened="Hide All Authors"
+								>
+									<Authors>
+										<Author v-for="(author, index) in nonLeadAuthors" :key="index" :author="author"></Author>
+									</Authors>
+								</ContentToggle>
+							</li>
+						</ul>
+					</div><!-- /.report-about -->
+
+					<ReportChart shareLink="https://example.com/" />
 				</div><!-- /.main__right -->
 			</div><!-- /.main__inner -->
 		</div><!-- /.shell -->
@@ -95,79 +155,161 @@
 </template>
 
 <script>
-import reportSuggestions from '@/blocks/report-suggestions/report-suggestions'
-import ContentToggle from '@/components/contenttoggle/contenttoggle'
-import Authors from '@/components/authors/authors'
-import Author from '@/components/author/author'
-import Datasets from '@/components/datasets/datasets'
-import Dataset from '@/components/dataset/dataset'
 import Icon from '@/components/icon/icon'
+import Author from '@/components/author/author'
+import Authors from '@/components/authors/authors'
+import ReportChart from '@/components/report-chart/report-chart'
+import ContentToggle from '@/components/contenttoggle/contenttoggle'
+import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions'
 
-export default {
+export default {	
 	/**
 	 * Name
-	*/
-	name: "Report",
-
+	 */
+	name: 'ScienceReport',
+	
 	/**
 	 * Components
-	*/
+	 */
 	components: {
-		reportSuggestions,
-		ContentToggle,
-		Datasets,
-		Dataset,
-		Authors,
+		Icon,
 		Author,
-		Icon
+		Authors,
+		ReportChart,
+		ContentToggle,
+		ReportSuggestions
 	},
 
 	/**
 	 * Data
-	*/
+	 */
 	data: function(){
 		return {
-			suggestions: [
+			suggestions: [[
 				{
-					title: 'First Named Tabular Data',
+					title: "First Named Tabular Data",
 					isPrivate: false,
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234'
+					url: "www.somerepo.com/#d/HEied382-CA293?ID=234"
 				},
 				{
-					title: 'Another Dataset',
+					title: "Another Dataset",
 					isPrivate: false,
-					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
-				},
-
-				{
-					title: 'Some Named Tabular Data',
-					isPrivate: false,
-					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
-				},
-
-				{
-					title: 'Another Dataset',
-					isPrivate: false,
-					url: 'www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html'
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
 				},
 				{
-					title: 'Some Named Tabular Data',
+					title: "Some Named Tabular Data",
 					isPrivate: false,
-					url: 'www.repo.com/#d/HEied382-CA293?ID=234'
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
 				},
 				{
-					title: 'Named Data',
+					title: "Another Dataset",
 					isPrivate: false,
-					url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdwwddwdw/445-2344-245.html#442r23'
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
 				},
-
 				{
-					title: 'My Private Dataset',
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
 					isPrivate: true,
-					url: ''
+					url: ""
 				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				}
 			],
-			
+			[
+				{
+					title: "First Named Tabular Data",
+					isPrivate: false,
+					url: "www.somerepo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Another Dataset",
+					isPrivate: false,
+					url: "www.someotherrepo.com/#d33/CA29333443ddvs3aa3.html"
+				},
+				{
+					title: "Some Named Tabular Data",
+					isPrivate: false,
+					url: "www.repo.com/#d/HEied382-CA293?ID=234"
+				},
+				{
+					title: "Named Data",
+					isPrivate: false,
+					url: "www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23"
+				},
+				{
+					title: "My Private Dataset",
+					isPrivate: true,
+					url: ""
+				}
+			]],
+
 			authors: [
 				{
 					name: 'Laura Leadauthor',
@@ -249,109 +391,19 @@ export default {
 					isLeadAuthor: false,
 					isSubmittingAuthor: false
 				},
-			],
-			
-			datasets: [
-				{
-					title: 'First Named Tabular Data',
-					tag: 'Dataset-1',
-					categories: [' Tabular Data', 'Fluorometry'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'A few additional comments here to further describe this dataset',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Another Dataset',
-					tag: 'Dataset-2',
-					categories: ['Tabular Data'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators). Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEiedfefefefefef/efr3rf/382-CA293?ID=234',
-					comment: 'A few additional comments here to further describe this dataset',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Some Named Tabular Data',
-					tag: 'Dataset-3',
-					categories: [' Tabular Data'],
-					descreiption: 'The patient advisors collaborated in pairing patient messages with relatable graphic images and wording.',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'none',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Dataset-4',
-					tag: 'Dataset-4',
-					categories: ['Tabular Dat', 'Sample Table'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'none',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Some Named Tabular Data',
-					tag: 'Dataset-5',
-					categories: ['Coulometry Data'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'A few additional comments here to further describe this dataset',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Named Data',
-					tag: 'Dataset-6',
-					categories: ['Tabular Data', 'Fluorometry'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: '',
-					comment: 'The data are not publicly available due to their containing information that could compromise the privacy of research participants.',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'First Named Tabular Data',
-					tag: 'Dataset-7',
-					categories: [' Tabular Data', 'Fluorometry'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'A few additional comments here to further describe this dataset',
-					status: 'ACTIVE'
-				},
-				{
-					title: 'Named Data',
-					tag: 'Dataset-6',
-					categories: ['Tabular Data', 'Fluorometry'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: '',
-					comment: 'The data are not publicly available due to their containing information that could compromise the privacy of research participants.',
-					status: 'DELETED'
-				},
-				{
-					title: 'First Named Tabular Data',
-					tag: 'Dataset-7',
-					categories: [' Tabular Data', 'Fluorometry'],
-					descreiption: 'Briefly, participants were recruited across each of the 3 campuses of our center, either in-person (patients) or via email (clinicians and administrators).',
-					url: 'www.somerepo.com/#d/HEied382-CA293?ID=234',
-					comment: 'A few additional comments here to further describe this dataset',
-					status: 'DELETED'
-				},
 			]
 		}
 	},
 
 	/**
 	 * Computed
-	*/
+	 */
 	computed: {
 		leadAuthors() {
 			return this.authors.filter(author => author.isLeadAuthor);
 		},
 		nonLeadAuthors() {
 			return this.authors.filter(author => !author.isLeadAuthor);
-		},
-		activeDatasets() {
-			return this.datasets.filter(dataset => dataset.status !== 'DELETED');
-		},
-		deletedDatasets() {
-			return this.datasets.filter(dataset => dataset.status === 'DELETED');
 		}
 	}
 }
