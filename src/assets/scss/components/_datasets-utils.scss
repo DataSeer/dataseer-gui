@@ -1,17 +1,17 @@
 .datasets-utils {
   position: absolute;
   bottom: 0;
-  right: 100%;
+  left: 0;
   list-style: none; 
 
   li {
-    margin: 2px 0 0;
+    margin-top: 2px;
   }
 
   a {
     display: flex;
-    width: 56px;
-    height: 54px;
+    width: 46px;
+    height: 46px;
     align-items: center;
     justify-content: center;
     background-color: $c-skyblue;

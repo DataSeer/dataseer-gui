@@ -225,8 +225,7 @@
 
 	/* Field */
 
-	.field,
-	.select select {
+	.field {
 		width: 100%;
 		height: 44px;
 		padding: 0 12px;
@@ -313,41 +312,81 @@
 	}
 	
 	/* Select */
-	.select {
+	.v-select {
 		position: relative; 
 
-		&:after {
-			content: '';
-			position: absolute; 
-			top: 50%; 
-			right: 16px; 
-			width: 15px; 
-			height: 8px; 
-			background-position: center; 
-			background-size: contain; 
-			background-repeat: no-repeat; 
-			margin-top: -4px; 
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='8.241' viewBox='0 0 15 8.241'%3E%3Cpath id='Path' d='M14.789.229A.752.752,0,0,0,13.727.211L7.5,6.43,1.273.211A.75.75,0,0,0,.211,1.271l6.758,6.75a.751.751,0,0,0,1.062,0l6.758-6.75A.749.749,0,0,0,14.789.229Z' fill='%23006ac9'/%3E%3C/svg%3E%0A");
-			pointer-events: none;
-		}
-	}
+		.vs__dropdown-toggle {
+			width: 100%;
+			height: 44px;
+			padding: 0 44px 0 12px;
+			margin: 0;
+			border: 3px solid $c-skyblue;
+			border-radius: 6px;
+			font-weight: inherit;
+			transition: border $t-duration;
+			background-color: $c-white; 
 	
-	.select select {
-		appearance: none;
-		padding-right: 44px; 
-		color: $c-placeholder;
-	}
+			@include input-placeholder {
+				color: $c-placeholder;
+			}
+			
+			&:focus {
+				
+			}
 
-	.select option {
-		color: $c-base
-	}
+			&:after {
+				content: '';
+				position: absolute; 
+				top: 50%; 
+				right: 16px; 
+				width: 15px; 
+				height: 8px; 
+				background-position: center; 
+				background-size: contain; 
+				background-repeat: no-repeat; 
+				margin-top: -4px; 
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='8.241' viewBox='0 0 15 8.241'%3E%3Cpath id='Path' d='M14.789.229A.752.752,0,0,0,13.727.211L7.5,6.43,1.273.211A.75.75,0,0,0,.211,1.271l6.758,6.75a.751.751,0,0,0,1.062,0l6.758-6.75A.749.749,0,0,0,14.789.229Z' fill='%23006ac9'/%3E%3C/svg%3E%0A");
+				pointer-events: none;
+			}	
+		}
 
-	.select option[value=""][disabled] {
-		color: $c-placeholder;
-	}
+		.vs__actions {
+			display: none;
+		}
 
-	.select.is-selected select {
-		color: inherit;
+		.vs__search {
+			margin: 0;
+			padding: 0;
+			color: $c-placeholder;
+		}
+
+		.vs__selected {
+			position: static !important;
+			padding: 0;
+			margin: 0;
+		}
+
+		&.vs--open .vs__dropdown-toggle {
+			border-color: $c-primary-light;
+		}
+
+		.vs__dropdown-menu {
+			top: 100%;
+			margin-top: 4px;
+			box-shadow: 0 4px 8px rgba($c-black, 0.14);
+			border: none;
+			border-radius: 0;
+			padding: 0;
+		}
+
+		.vs__dropdown-option {
+			padding: 6px 14px;
+		}
+
+		.vs__dropdown-option--highlight {
+			color: $c-white;
+			background-color: $c-placeholder;
+		}
 	}
 
 	/* Checkbox and Radio */
@@ -600,27 +639,15 @@
 
 .form--dataset {
 	.form__body {
-		padding-bottom: 123px; 
+		padding-bottom: 109px;
 	}
 
 	.form__cta {
-		position: absolute; 
+		position: absolute;
 		bottom: 0; 
-		left: 0; 
-		width: 100%; 
-		padding: 33px 35px; 
+		padding: 33px 0;
 		background-color: $c-white; 
-
-		&:before {
-			content: '';
-			position: absolute; 
-			top: 0; 
-			left: 20px; 
-			right: 20px; 
-			height: 1px; 
-			background-color: $c-skyblue-bc; 
-
-		}
+		border-top: 1px solid $c-skyblue-bc;
 	}
 }
 

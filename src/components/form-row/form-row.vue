@@ -8,18 +8,24 @@
 			<div 
 				v-if="options.length"
 				class="select"
-				:class="{'is-selected': value.length}" 
+				:class="{'is-selected': value.length, 'is-opened': isOpened}" 
 			>
-				<select :id="name" :value="value" @change="handleChange">
-					<option disabled value="" v-if="placeholder">{{placeholder}}</option>
-					<option
-						v-for="(option, index) in options"
-						:key="index"
-						:value="option"
-					>
-						{{option}}
-					</option>
-				</select>
+				<vSelect 
+					:id="name" 
+					:placeholder="placeholder" 
+					:clearable="false" 
+					:searchable="false" 
+					:options="selectOptions"
+					label="title"
+				>
+					<template #option="{ title, helptext }">
+						{{ title }} <span>{{ helptext }}</span>
+					</template>
+					
+					<template #selected-option="{ title, helptext }">
+						{{ title }} <span>{{ helptext }}</span>
+					</template>
+				</vSelect>
 			</div>
 			<textarea
 				v-else-if="type === 'textarea'"
@@ -47,8 +53,11 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
+
 export default {
 	name: 'FormRow',
+	
 	props: {
 		type: {
 			type: String,
@@ -83,6 +92,22 @@ export default {
 			default: () => []
 		}
 	},
+
+	components: {
+		vSelect
+	},
+
+	data: function () {
+    return {
+      isOpened: false,
+			selectOptions: [
+				{
+					title: "Tabular Data",
+					helptext: "Suggested Type",
+				},
+			],
+    }
+  },
 
 	methods: {
 		handleChange(event) {

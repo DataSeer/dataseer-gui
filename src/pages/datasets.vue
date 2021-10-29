@@ -33,7 +33,7 @@
                   <div class="intro__cta">
                     <ul>
                       <li>
-                        <Button @click="handleStart">Great! Let’s Go</Button>
+                        <Button>Great! Let’s Go</Button>
                       </li>
                       
                       <li>
@@ -44,36 +44,41 @@
                 </div><!-- /.intro__body -->
               </div><!-- /.intro -->
 
-              <Tabs @tabSelected="intro=false" :start="start">
-                <Tab name="1" tooltip="This Dataset Name Is Too Lon…">
+              <Tabs>
+                <Tab :index=0 completed tooltip="This Dataset Name Is Too Lon…">
                   <div class="form__heading">
                     <div class="form__heading-col">
-                      <h5>
-                        Dataset-6 <Icon name="pen" />
-                      </h5>
+                      <h5> Dataset-6 </h5>
                     </div><!-- /.form__heading-col -->
+                    
                     <div class="form__heading-col status">
-                      Incomplete Dataset 6
+                      Tabular Data
                     </div><!-- /.form__heading-col -->
                   </div><!-- /.form__heading -->
                   <FormDataset />
                 </Tab>
-                <Tab name="2" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=1 tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
-                <Tab name="3" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=2 tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
-                <Tab name="4" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=3 tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
-                <Tab name="5" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=4 tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
-                <Tab name="6" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=5 tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
-                <Tab name="7" tooltip="This Dataset Name Is Too Lon…">
+                
+                <Tab :index=6 tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
               </Tabs>
@@ -109,8 +114,7 @@ export default {
   data: function() {
     return {
       source: '/test.pdf',
-      intro: true,
-      start: false
+      intro: false,
     }
   },
 
@@ -123,12 +127,5 @@ export default {
     DatasetUtils,
     PDF
   },
-
-  methods: {
-    handleStart() {
-      this.start = true;
-      this.intro = false;
-    }
-  }
 }
 </script>

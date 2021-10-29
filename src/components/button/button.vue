@@ -46,7 +46,7 @@ export default {
       default: '',
       validator: function(value) {
         // The value must match one of these strings
-        return ['secondary', 'tertiary'].indexOf(value) !== -1;
+        return ['', 'secondary', 'tertiary'].indexOf(value) !== -1;
       },
     },
 

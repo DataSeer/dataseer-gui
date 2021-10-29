@@ -1,168 +1,82 @@
-.tabs__links {
-  position: absolute;
-  top: 16px;
-  right: 100%;
+/* ------------------------------------------------------------ *\
+  Tabs
+\* ------------------------------------------------------------ */
 
-  li {
-    list-style: none;
-    margin-bottom: 18px;
-    padding-right: 10px;
+.tabs {
+  .tabs__links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 8px 0;
+    font-size: 14px;
+    font-family: $ff-titles;
+    font-weight: 500;
 
-    &.is-active {
+    ul {
+      counter-reset: tab; 
+    }
+  
+    li {
+      list-style: none;
+      padding: 8px;
+      border-radius: 15px 0 0 15px;
+      margin-bottom: 2px;
 
-      &:after {
-        opacity: 1;
-      }
-      
-      a:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: -9px;
-        width: 51px;
-        height: 46px;
-        transform: translateY(-50%);
-        border-radius: 15px 0 0 15px;
-      }
-
-      a:hover span{
-        background-color: #fff !important;
-        color: $c-base;
+      &.is-active {
+        background-color: #fff;
+        box-shadow: 0 1px 9px rgba($c-primary, .22);
       }
     }
 
-    &:after {
-      content: '';
-      position: absolute;
-      top: -20px;
-      left: 100%;
-      z-index: 15; 
-      width: 8px;
-      height: 100vh;
-      opacity: 0;
-    }
-    
-    a {
+    span {
       position: relative;
       z-index: 1;
       color: #fff;
-      
-      span {
-        position: relative;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        height: 30px;
-        width: 30px;
-        border-radius: 11px;
-        z-index: 1;
-      }
-    }
+      position: relative;
+      height: 30px;
+      width: 30px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 11px;
+      border: 4px solid $c-blue-19;
+      background-color: $c-blue-19;
+      z-index: 1;
 
-    &:nth-child(20n + 1) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-purple-ba;
-        color: $c-base;
+      &:before {
+        counter-increment: tab;
+        content: counter(tab);
       }
     }
+  }
 
-    &:nth-child(20n + 2) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-blue-19;
-      }
-    }
+  li.is-completed span {
+    border-color: $c-blue-19;
+    color: $c-blue-19;
+    background-color: transparent;
+    opacity: .22;
 
-    &:nth-child(20n + 3) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-green-4e;
-      }
+    &:before {
+      content: none;
     }
-
-    &:nth-child(20n + 4) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-yellow-f7;
-        color: $c-base;
-      }
-    }
-
-    &:nth-child(20n + 5) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-orange-ee;
-        color: $c-base;
-      }
-    }
-
-    &:nth-child(20n + 6) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-purple-88;
-      }
-    }
-
-    &:nth-child(20n + 7) {
-      &:after,
-      a:before,
-      a span {
-        background-color: $c-blue-7a;
-        color: $c-base;
-      }
-    }
+  }
+  
+  li.is-active span {
+    background-color: transparent;
+    border-color: transparent;
+    color: $c-blue-19;
+  }
+  
+  .tabs__contents {
+    padding: 0 30px;
+    background-color: #fff;
   }
 }
 
-.tabs__contents {
-  .tab {
-    &:nth-child(20n + 1) {
-      .form__heading .status:after {
-        background: $c-purple-ba;
-      }
-    }
+/* ------------------------------------------------------------ *\
+  Tab
+\* ------------------------------------------------------------ */
 
-    &:nth-child(20n + 2) {
-      .form__heading .status:after {
-        background: $c-blue-19;
-      }
-    }
-
-    &:nth-child(20n + 3) {
-      .form__heading .status:after {
-        background: $c-green-4e;
-      }
-    }
-
-    &:nth-child(20n + 4) {
-      .form__heading .status:after {
-        background: $c-yellow-f7;
-      }
-    }
-
-    &:nth-child(20n + 5) {
-      .form__heading .status:after {
-        background: $c-orange-ee;
-      }
-    }
-
-    &:nth-child(20n + 6) {
-      .form__heading .status:after {
-        background: $c-purple-88;
-      }
-    }
-
-    &:nth-child(20n + 7) {
-      .form__heading .status:after {
-        background: $c-blue-7a;
-      }
-    }
-  }
+.tab {
+  
 }

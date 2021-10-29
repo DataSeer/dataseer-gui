@@ -3,8 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .dataset-primary {
-	height: calc(100vh - 120px); 
-	padding-left: 40px; 
+	height: calc(100vh - 136px); 
 
 	.dataset__row {
 		display: flex;
@@ -20,13 +19,13 @@
 	.dataset__left {
 		position: relative;
 		flex: 0 0 38.9571%;
-		background-color: #fff;
+		padding-left: 46px;
 	}
 
 	.dataset__left-inner {
 		height: 100%; 
-		overflow: auto; 
-		padding:  0 35px 35px;
+		overflow-x: auto;
+		background: $c-white;
 	}
 
 	.dataset__right {

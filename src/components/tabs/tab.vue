@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isActive" class="tab">
+  <div v-show="isActive" class="tab" :class="{ 'is-completed': completed }">
     <slot />
   </div>
 </template>
@@ -10,18 +10,30 @@ export default {
 
   data: function() {
     return {
-      isActive: false
-    }
+      isActive: false,
+    };
   },
 
   props: {
-    name: { required: true },
-    selected: { default: false},
-    tooltip: {dfault: ''}
+    completed: {
+      type: Boolean,
+      default: false
+    },
+    selected: {
+      type: Boolean,
+      default: false
+    },
+    tooltip: {
+      default: ""
+    },
+    index: {
+      type: Number,
+    },
   },
+  
 
   mounted() {
     this.isActive = this.selected;
-  }
-}
+  },
+};
 </script>
