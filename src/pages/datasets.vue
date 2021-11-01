@@ -45,7 +45,7 @@
               </div><!-- /.intro -->
 
               <Tabs>
-                <Tab :index=0 completed tooltip="This Dataset Name Is Too Lon…">
+                <Tab completed tooltip="This Dataset Name Is Too Lon…">
                   <div class="form__heading">
                     <div class="form__heading-col">
                       <h5> Dataset-6 </h5>
@@ -58,27 +58,27 @@
                   <FormDataset />
                 </Tab>
                 
-                <Tab :index=1 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
                 
-                <Tab :index=2 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
                 
-                <Tab :index=3 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
                 
-                <Tab :index=4 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
                 
-                <Tab :index=5 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>How much we do it for</h1>
                 </Tab>
                 
-                <Tab :index=6 tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <h1>Why we do it</h1>
                 </Tab>
               </Tabs>

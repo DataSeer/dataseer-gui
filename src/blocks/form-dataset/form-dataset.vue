@@ -25,13 +25,13 @@
 				<div class="form__row form__row--space-top">
           <div class="checkboxes">
 						<ul>
-							<FormCheckbox name="reuse" v-model="reuse">
+							<FormCheckbox name="reuse" v-model="reuse" isDropdown>
 								This dataset is re-used from another public or private source
 							</FormCheckbox>
 							<FormCheckbox name="publicly" v-model="publicly" v-if="!reuse">
 								This dataset cannot be shared publicly
 							</FormCheckbox>
-							<FormCheckbox name="practices" v-model="practices">
+							<FormCheckbox name="practices" v-model="practices" >
 								<a href="#">Best practices</a> for this data type have been followed <button tabindex="0" type="button" class="text-toggle" @click="practices_text = !practices_text">{{textToggle(practices_text)}}</button>
 							</FormCheckbox>
 							<HiddenText v-if="practices_text">
@@ -108,14 +108,6 @@
 						</ul>
 					</div>
 				</div>
-        <FormRow
-					name="permalink"
-					v-model.trim="permalink"
-					placeholder="https://"
-				>
-					<Icon name="chain" />
-					DOI or Permalink
-        </FormRow>
         <FormRow
 					name="instructions"
 					type="textarea"
