@@ -29,14 +29,37 @@
 		overflow: hidden;
 		
 		&.router-link-active {
-			box-shadow: 0 2px 2px 0px rgba(25,101,176,0.15) inset;
-			background-color: $c-skyblue-fa;			
 			color: $c-base;
-			border-left: 5px solid $c-blue-19;
+			border-width: 0 0 0 5px;
+			border-style: solid;
 		}
 	}
 
 	i {
 		margin-right: 8px;
+	}
+
+	li:nth-child(1) .router-link-active {
+		box-shadow: 0 2px 2px 0px rgba(25,101,176,0.15) inset;
+		background-color: $c-skyblue-fa;			
+		border-left-color: $c-blue-19;
+	}
+
+	li:nth-child(2) .router-link-active {
+		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
+		background-color: #FAF7FF;			
+		border-left-color: $c-purple-72;
+	}
+
+	li:nth-child(3) .router-link-active {
+		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
+		background-color: rgba(#FFF7F4, 0.15);			
+		border-left-color: $c-orange-d2;
+	}
+
+	li:nth-child(4) .router-link-active {
+		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
+		background-color: #F5FCF8;			
+		border-left-color: $c-green-40;
 	}
 }

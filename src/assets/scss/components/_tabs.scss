@@ -14,46 +14,51 @@
     font-family: $ff-titles;
     font-weight: 500;
 
-    ul {
-      counter-reset: tab; 
-    }
+  }
   
-    li {
-      list-style: none;
-      padding: 8px;
-      border-radius: 15px 0 0 15px;
-      margin-bottom: 2px;
+  .tabs__links ul {
+    counter-reset: tab; 
+    list-style: none;
+  }
+  
+  .tabs__link {
+    list-style: none;
+    padding: 8px;
+    border-radius: 15px 0 0 15px;
+    margin-bottom: 2px;
+  }
 
-      &.is-active {
-        background-color: #fff;
-        box-shadow: 0 1px 9px rgba($c-primary, .22);
-      }
-    }
+  .tabs__link span {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 11px;
+    border: 4px solid $c-blue-19;
+    background-color: $c-blue-19;
+    color: $c-white;
 
-    span {
-      position: relative;
-      z-index: 1;
-      color: #fff;
-      position: relative;
-      height: 30px;
-      width: 30px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 11px;
-      border: 4px solid $c-blue-19;
-      background-color: $c-blue-19;
-      z-index: 1;
-
-      &:before {
-        counter-increment: tab;
-        content: counter(tab);
-      }
+    &:before {
+      counter-increment: tab;
+      content: counter(tab);
     }
   }
 
-  li.is-completed span {
-    border-color: rgba($c-placeholder, 0.39);
+  .tabs__link.is-active {
+    background-color: $c-white;
+    box-shadow: 0 1px 9px rgba($c-primary, .22);
+  }
+  
+  .tabs__link.is-active span {
+    background-color: transparent;
+    border-color: transparent;
+    color: $c-blue-19;
+  }
+
+  .tabs__link.is-completed span {
+    border-color: rgba($c-blue-19, 0.39);
     background-color: transparent;
 
     &:before {
@@ -70,12 +75,6 @@
     }
   }
   
-  li.is-active span {
-    background-color: transparent;
-    border-color: transparent;
-    color: $c-blue-19;
-  }
-  
   .tabs__contents {
     position: relative;
     z-index: 15;
@@ -83,12 +82,4 @@
     background-color: #fff;
     height: 100%;
   }
-}
-
-/* ------------------------------------------------------------ *\
-  Tab
-\* ------------------------------------------------------------ */
-
-.tab {
-  
 }

@@ -8,9 +8,9 @@
               <div class="intro" v-if="intro">
                 <div class="intro__head">
                   <h3>
-                    WELCOME TO DATASEER
-                    
-                    <span>Let’s Get Started</span>
+                    No Materials Yet
+
+                    <span>Need to Add Some?</span>
                   </h3>
                   
                   <figure>

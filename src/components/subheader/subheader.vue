@@ -39,7 +39,7 @@ export default {
       return this.$route.path === '/documents';
     },
     isDatasetsPage() {
-      return this.$route.path === '/datasets';
+      return this.$route.path === '/datasets' || this.$route.path === '/datasets-code' || this.$route.path === '/datasets-materials' || this.$route.path === '/datasets-protocols'; 
     },
     isUserPage() {
       return this.$route.path === '/profile';

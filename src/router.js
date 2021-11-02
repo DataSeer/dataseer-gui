@@ -7,6 +7,9 @@ import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
 import Datasets from '@/pages/datasets';
+import DatasetsCode from '@/pages/datasets-code';
+import DatasetsMaterials from '@/pages/datasets-materials';
+import DatasetsProtocols from '@/pages/datasets-protocols';
 import Documents from '@/pages/documents';
 import Profile from '@/pages/profile';
 import NewDocument from '@/pages/new-document';
@@ -32,6 +35,21 @@ const routes = [
 		name: "Datasets",
 		path: '/datasets',
 		component: Datasets
+	},
+	{
+		name: "DatasetsCode",
+		path: '/datasets-code',
+		component: DatasetsCode
+	},
+	{
+		name: "DatasetsMaterials",
+		path: '/datasets-materials',
+		component: DatasetsMaterials
+	},
+	{
+		name: "DatasetsProtocols",
+		path: '/datasets-protocols',
+		component: DatasetsProtocols
 	},
 	{
 		name: "Documents",

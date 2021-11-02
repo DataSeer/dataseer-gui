@@ -1,14 +1,14 @@
 //Variables
 $font-size-base             : 16px;
 $line-height-base           : 1.38;
-$letter-spacing-base        : 0.003em;
+$letter-spacing-base        : 0.0313em;
 $font-weight-base           : 400;
 
-$font-size-base-large        :18px;
-$line-height-base-large      :1.39;
+$font-size-base-large       :18px;
+$line-height-base-large     :1.39;
 
-$font-size-base-small        :12px;
-$line-height-base-small      :1.17;
+$font-size-base-small       :12px;
+$line-height-base-small     :1.17;
 
 $ff-sans-serif              : "Open Sans", Helvetica, Arial, sans-serif;
 $ff-titles                  : 'Quicksand', Helvetica, Arial, sans-serif;
@@ -30,6 +30,7 @@ $c-purple-aa								: #aa6f9f;
 $c-purple-99								: #994f88;
 $c-purple-88								: #882e72;
 $c-purple-72								: #725DBD;
+$c-purple-65								: #6546D4;
 $c-blue-19									: #1965b0;
 $c-blue-43									: #437dbf;
 $c-blue-61									: #6195cf;
@@ -54,10 +55,12 @@ $c-brown-72									: #72190e;
 $c-blue-00									: #006AC9;
 
 $c-primary                  : #006AC9;
+$c-primary                  : #006AC9;
 $c-primary-dark             : #00118F;
 $c-primary-light            : #00BDFF;
 
 $c-skyblue                  : #E2F1FF;
+$c-skyblue                  : #FAF7FF;
 $c-skyblue-fa								: #F2FBFF;
 $c-skyblue-bc               : #BCD0E6;
 $c-skyblue-61               : #618BBA;
