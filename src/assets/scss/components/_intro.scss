@@ -69,13 +69,14 @@
 
   .ico--arrow_up {
     position: absolute;
+    top: -34px;
     left: 100%;
-    margin-left: 10px;
+    margin-left: -4px;
   }
 
   .ico--arrow_down {
-    top: 60%;
+    top: 24px;
     right: 100%;
-    margin-right: 20px;
+    margin-right: 12px;
   }
 }

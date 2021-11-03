@@ -85,10 +85,10 @@
 }
 
 /* ------------------------------------------------------------ *\
-  Main Dataset
+  Main Datasets
 \* ------------------------------------------------------------ */
 
-.main--dataset {
+.main--datasets {
 	padding-top: 132px; 
 
 	@include breakpoint-down(tablet) {
@@ -97,6 +97,18 @@
 
 	@include breakpoint-down(mobile) {
 		padding-top: 170px; 
+	}
+
+	&[data-dataset="code"] {
+		background-color: $c-purple-fa;
+	}
+	
+	&[data-dataset="materials"] {
+		background-color: $c-orange-ff;  
+	}
+	
+	&[data-dataset="protocols"] {
+		background-color: rgba($c-green-40, 0.08)
 	}
 }
 

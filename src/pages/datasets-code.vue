@@ -1,7 +1,7 @@
 <template>
-  <div class="main main--dataset">
+  <div class="main main--datasets" data-dataset="code">
     <div class="shell">
-      <div class="dataset-primary dataset-primary--code">
+      <div class="dataset-primary">
         <div class="dataset__row">
           <div class="dataset__left">
             <div class="dataset__left-inner">
@@ -17,7 +17,7 @@
                     </div><!-- /.form__heading-col -->
                   </div><!-- /.form__heading -->
                   
-                  <FormDataset />
+                  <FormDatasetCode />
                 </Tab>
                 
                 <Tab tooltip="This Dataset Name Is Too Lon…">
@@ -111,7 +111,7 @@
 <script>
 import Tabs from '@/components/tabs/tabs';
 import Tab from '@/components/tabs/tab';
-import FormDataset from '@/blocks/form-dataset/form-dataset.vue';
+import FormDatasetCode from '@/blocks/form-dataset-code/form-dataset-code.vue';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
 import PDF from '@/blocks/pdf/pdf.vue';
 
@@ -128,7 +128,7 @@ export default {
   components: {
     Tabs,
     Tab,
-    FormDataset,
+    FormDatasetCode,
     DatasetUtils,
     PDF
   },

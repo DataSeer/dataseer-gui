@@ -1,5 +1,5 @@
 <template>
-  <div class="main main--dataset">
+  <div class="main main--datasets" data-dataset="dataset">
     <div class="shell">
       <div class="dataset-primary">
         <div class="dataset__row">

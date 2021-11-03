@@ -5,8 +5,9 @@
         <Icon name="merge" color="#006AC9" />
       </a>
     </li>
+    
     <li>
-      <a href="#" v-tooltip.right="addText" tabindex="0" :aria-label="addText">
+      <a href="#" v-tooltip.right="addText" tabindex="0" :aria-label="addText" @click="$emit('onAddClick')">
         <Icon name="add" color="#006AC9" />
       </a>
     </li>
@@ -17,7 +18,7 @@
 import Icon from '@/components/icon/icon.vue';
 
 export default {
-  name: "DatasetsUtils",
+  name: " DatasetsUtils",
 
   components: {
     Icon

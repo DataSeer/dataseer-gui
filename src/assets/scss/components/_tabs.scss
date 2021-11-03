@@ -42,6 +42,7 @@
     background-color: $c-blue-19;
     color: $c-white;
     counter-increment: tab;
+    cursor: pointer;
 
     &:before {
       content: counter(tab);

@@ -1,7 +1,7 @@
 <template>
-  <div class="main main--dataset">
+  <div class="main main--datasets" data-dataset="protocols">
     <div class="shell">
-      <div class="dataset-primary dataset-primary--protocols">
+      <div class="dataset-primary">
         <div class="dataset__row">
           <div class="dataset__left">
             <div class="dataset__left-inner">
@@ -52,7 +52,7 @@
                     </div><!-- /.form__heading-col -->
                   </div><!-- /.form__heading -->
                   
-                  <FormDataset />
+                  <FormDatasetProtocols />
                 </Tab>
                 
                 <Tab tooltip="This Dataset Name Is Too Lon…">
@@ -148,7 +148,7 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Tabs from '@/components/tabs/tabs';
 import Tab from '@/components/tabs/tab';
-import FormDataset from '@/blocks/form-dataset/form-dataset.vue';
+import FormDatasetProtocols from '@/blocks/form-dataset-protocols/form-dataset-protocols.vue';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
 import PDF from '@/blocks/pdf/pdf.vue';
 
@@ -167,7 +167,7 @@ export default {
     Button,
     Tabs,
     Tab,
-    FormDataset,
+    FormDatasetProtocols,
     DatasetUtils,
     PDF
   },

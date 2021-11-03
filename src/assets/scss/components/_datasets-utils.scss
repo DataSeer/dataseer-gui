@@ -17,9 +17,23 @@
     background-color: $c-skyblue;
     border-radius: 3px;
     transition: opacity 0.3s;
+    
+    [data-dataset="code"] & {
+      background-color: rgba($c-purple-65, 0.06)
+    }
+    
+    [data-dataset="materials"] & {
+      background-color: $c-orange-fff;  
+    }
+    
+    [data-dataset="protocols"] & {
+      background-color: $c-green-f5;
+    }
 
     &:hover {
       opacity: .7;
     }
   }
 }
+
+

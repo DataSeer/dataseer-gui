@@ -2,57 +2,6 @@
   <div class="form form--dataset">
     <form action="?" method="post">
       <div class="form__body">
-        <FormRow
-          :error="$v.type.$error"
-          :options="[
-              {
-                title: 'Tabular Data',
-                helptext: 'Suggested Type',
-              },
-              {
-                title: 'Option 0',
-              },
-              {
-                title: 'Option 1',
-              },
-              {
-                title: 'Option 2',
-              },
-          ]"
-          name="type"
-          v-model.trim="type"
-          placeholder="Tabular Data"
-        >
-          <Icon name="grid" />
-          Data Type <a href="#">Type Definitions</a>
-        </FormRow>
-        
-        <FormRow
-          :error="$v.subtype.$error"
-          :options="[
-              {
-                title: 'Tabular Subtype',
-                helptext: 'Suggested Subtype',
-              },
-              {
-                title: 'Option 0',
-              },
-              {
-                title: 'Option 1',
-              },
-              {
-                title: 'Option 2',
-              },
-          ]"
-          name="organization"
-          v-model.trim="subtype"
-          placeholder="Select"
-        >
-          <Icon name="grid" />
-          
-          Data Subtype
-        </FormRow>
-        
         <div class="form__row">
           <div class="checkboxes">
             <ul>
@@ -172,8 +121,8 @@
               </HiddenText>
               
               <FormCheckbox name="repo" v-model="repo" isDropdown v-if="publicly === true">
-                A <a href="#">suitable repository</a> has been used to host this data
-                
+                A <a href="#">suitable repository</a> has been used to host this
+                data
                 <button
                   tabindex="0"
                   type="button"
@@ -283,19 +232,19 @@
 
         <FormRow
           v-if="repo"
-					name="permalink"
-					type="text"
+          name="permalink"
           v-model.trim="permalink"
-					placeholder="https://"
-				>
-					<Icon name="chain" color="currentColor" />
+          type="text"
+          placeholder="https://"
+        >
+          <Icon name="chain" color="currentColor" />
 
-					DOI or Permalink
-				</FormRow>
+          DOI or Permalink
+        </FormRow>
 
         <FormRow name="instructions" type="textarea" v-model="instructions">
           <Icon name="comment" />
-          
+              
           Additional Comments or Instructions
         </FormRow>
       </div><!-- /.form__body -->
@@ -339,7 +288,7 @@ import FormCheckbox from "@/components/form-checkbox/form-checkbox.vue";
 import HiddenText from "@/components/hidden-text/hidden-text.vue";
 
 export default {
-  name: "FormDataset",
+  name: "FormDatasetProtocols",
 
   components: {
     FormRow,
@@ -351,16 +300,14 @@ export default {
 
   data: function() {
     return {
-      type: "",
-      subtype: "",
-      permalink: "",
-      instructions: "",
       reuse: null,
       publicly: null,
       practices: null,
       repo: null,
       practices_text: false,
       repo_text: false,
+      permalink: "",
+      instructions: "",
       tooltips: {
         connectText:
           "Select additional sentences from the document to connect to this dataset",

@@ -1,7 +1,7 @@
 <template>
-  <div class="main main--dataset">
+  <div class="main main--datasets" data-dataset="materials">
     <div class="shell">
-      <div class="dataset-primary dataset-primary--materials">
+      <div class="dataset-primary">
         <div class="dataset__row">
           <div class="dataset__left">
             <div class="dataset__left-inner">
@@ -45,7 +45,7 @@
               </div><!-- /.intro -->
 
               <Tabs v-if="!intro">
-                <Tab completed tooltip="This Dataset Name Is Too Lon…">
+                <Tab tooltip="This Dataset Name Is Too Lon…">
                   <div class="form__heading">
                     <div class="form__heading-col">
                       <h5>R v4.2.1</h5>
@@ -56,84 +56,12 @@
                     </div><!-- /.form__heading-col -->
                   </div><!-- /.form__heading -->
                   
-                  <FormDataset />
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>How much we do it for</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>Why we do it</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>How much we do it for</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>Why we do it</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>How much we do it for</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
-                </Tab>
-                
-                <Tab tooltip="This Dataset Name Is Too Lon…">
-                  <div class="form__heading">
-                    <div class="form__heading-col">
-                      <h5>Why we do it</h5>
-                    </div><!-- /.form__heading-col -->
-                    
-                    <div class="form__heading-col">
-                      Code/Software
-                    </div><!-- /.form__heading-col -->
-                  </div><!-- /.form__heading -->
+                  <FormDatasetMaterial />
                 </Tab>
               </Tabs>
             </div><!-- /.dataset__left-inner -->
             
-            <DatasetUtils />
+            <DatasetUtils @onAddClick="addTab" />
           </div><!-- /.dataset__left -->
 
           <div class="dataset__right">
@@ -152,7 +80,7 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Tabs from '@/components/tabs/tabs';
 import Tab from '@/components/tabs/tab';
-import FormDataset from '@/blocks/form-dataset/form-dataset.vue';
+import FormDatasetMaterial from '@/blocks/form-dataset-material/form-dataset-material.vue';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
 import PDF from '@/blocks/pdf/pdf.vue';
 
@@ -171,9 +99,15 @@ export default {
     Button,
     Tabs,
     Tab,
-    FormDataset,
+    FormDatasetMaterial,
     DatasetUtils,
     PDF
   },
+
+  methods:{
+    addTab() {
+      this.intro = false;
+    }
+  }
 }
 </script>
