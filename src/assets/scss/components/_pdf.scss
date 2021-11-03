@@ -2,11 +2,10 @@
   PDF
 \* ------------------------------------------------------------ */
 .pdf-holder {
-  display: none !important;
   position: relative;
   z-index: 1;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
 
   .documentView {
     font-family: Times, "Times New Roman", serif;
