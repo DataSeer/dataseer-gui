@@ -22,6 +22,16 @@
 	.subheader__left h3 i {
 		margin-right: 10px; 
 	}
+
+	.subheader__left h3 i.ico--lock {
+		width: 35px;
+		height: 35px;
+
+		@include breakpoint-down(mobile-medium) {
+			width: 24px;
+			height: 24px;
+		}
+	}
 	
 	.subheader__left .ico--documents {
 		width: 30px; 

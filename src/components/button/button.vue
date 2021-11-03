@@ -1,6 +1,21 @@
 <template>
+  <router-link 
+    v-if="to"
+    class="btn"
+    :to="to"
+    :class="{
+      [`btn--${className}`]: className,
+      'is-disabled': disabled,
+      'btn--small': size === 'small',
+      'btn--block': block
+    }"
+    @click="$emit('onClick')"
+  >
+    <slot />
+  </router-link>
+  
   <a
-    v-if="href"
+    v-else-if="href"
     class="btn"
     :href="href"
     :class="{
@@ -42,6 +57,11 @@ export default {
    * Props
    */
   props: {
+    to: {
+      type: String,
+      default: '',
+    },
+    
     href: {
       type: String,
       default: '',

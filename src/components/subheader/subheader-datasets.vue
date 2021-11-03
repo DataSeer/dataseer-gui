@@ -39,8 +39,8 @@
     </div><!-- /.subheader__left -->
 
     <div class="subheader__right">
-      <Button className="tertiary">
-        <Icon name="check" color="#006AC9" />
+      <Button to="/report" className="tertiary">
+        <Icon name="lock" color="#006AC9" />
         
         Open Science Report
       </Button>

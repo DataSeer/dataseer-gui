@@ -60,11 +60,18 @@
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-purple-72;
 		border-color: $c-purple-72;
+
+		&:focus,
+		&:hover {
+			color: $c-white;
+			background-color: darken($c-purple-72, 8); 
+			border-color: darken($c-purple-72, 8); 
+		}
 	}
 
 	.tabs .tabs__link span {
 		border-color: $c-purple-72;
-    	background-color: $c-purple-72;
+		background-color: $c-purple-72;
 	}
 
 	.form .field:focus,
@@ -83,6 +90,13 @@
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-orange-d2;
 		border-color: $c-orange-d2;
+
+		&:focus,
+		&:hover {
+			color: $c-white;
+			background-color: darken($c-orange-d2, 8); 
+			border-color: darken($c-orange-d2, 8); 
+		}
 	}
 
 	.tabs .tabs__link span {
@@ -106,6 +120,13 @@
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-green-40;
 		border-color: $c-green-40;
+
+		&:focus,
+		&:hover {
+			color: $c-white;
+			background-color: darken($c-green-40, 8); 
+			border-color: darken($c-green-40, 8); 
+		}
 	}
 
 	.tabs .tabs__link span {

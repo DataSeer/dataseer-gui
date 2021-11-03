@@ -1,7 +1,7 @@
 <template>
   <ul class="datasets-utils">
     <li>
-      <a href="#" v-tooltip.right="mergeText" tabindex="0" :aria-label="mergeText">
+      <a href="#" v-tooltip.right="mergeText" tabindex="0" :aria-label="mergeText" @click="$emit('onMergeClick')">
         <Icon name="merge" color="#006AC9" />
       </a>
     </li>
@@ -18,7 +18,7 @@
 import Icon from '@/components/icon/icon.vue';
 
 export default {
-  name: " DatasetsUtils",
+  name: "DatasetsUtils",
 
   components: {
     Icon
