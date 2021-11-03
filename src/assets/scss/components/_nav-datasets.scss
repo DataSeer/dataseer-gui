@@ -12,54 +12,81 @@
 	ul {
 		display: flex;
 		align-items: center;
-		margin: 0 -12px;
+		margin: 0 -10px;
 	}
 
 	li {
 		display: inline-flex;
 		align-items: center;
-		padding: 0 12px;
-	}
-	
-	a {
-		display: block;
-		padding: 11px 20px 11px 10px;
-		border-radius: 7px;
-		text-decoration: none;
-		overflow: hidden;
-		
-		&.router-link-active {
-			color: $c-base;
-			border-width: 0 0 0 5px;
-			border-style: solid;
-		}
+		padding: 0 10px;
 	}
 
 	i {
 		margin-right: 8px;
 	}
+	
+	a {
+		position: relative;
+		display: block;
+		padding: 11px 15px;
+		border-radius: 7px;
+		text-decoration: none;
+		overflow: hidden;
+		color: inherit;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 6px;
+			height: 100%;
+		}
+		
+		&.router-link-active {
+			color: $c-base;
+		}
+		
+		&:focus,
+		&:hover {
+			color: $c-base;
+			background-color: $c-gray-f5;
+		}
+	}
 
 	li:nth-child(1) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba(25,101,176,0.15) inset;
 		background-color: $c-skyblue-fa;			
-		border-left-color: $c-blue-19;
+		
+		&:before {
+			background-color: $c-blue-19;
+		}
 	}
 
 	li:nth-child(2) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
 		background-color: #FAF7FF;			
-		border-left-color: $c-purple-72;
+		
+		&:before {
+			background-color: $c-purple-72;
+		}
 	}
 
 	li:nth-child(3) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
 		background-color: rgba(#FFF7F4, 0.15);			
-		border-left-color: $c-orange-d2;
+		
+		&:before {
+			background-color: $c-orange-d2;
+		}
 	}
 
 	li:nth-child(4) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
 		background-color: #F5FCF8;			
-		border-left-color: $c-green-40;
+		
+		&:before {
+			background-color: $c-green-40;
+		}
 	}
 }

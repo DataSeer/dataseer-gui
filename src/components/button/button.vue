@@ -33,8 +33,14 @@
 
 <script>
 export default {
+  /**
+   * Name
+   */
   name: 'Button',
 
+  /**
+   * Props
+   */
   props: {
     href: {
       type: String,

@@ -15,7 +15,7 @@
           :placeholder="placeholder"
           :clearable="false"
           :searchable="false"
-          :options="selectOptions"
+          :options="options"
           label="title"
         >
           <template #option="{ title, helptext }">
@@ -103,12 +103,6 @@ export default {
   data: function() {
     return {
       isOpened: false,
-      selectOptions: [
-        {
-          title: 'Tabular Data',
-          helptext: 'Suggested',
-        },
-      ],
     };
   },
 

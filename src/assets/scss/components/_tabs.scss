@@ -8,12 +8,14 @@
   .tabs__links {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 100%;
     margin: 8px 0;
     font-size: 14px;
     font-family: $ff-titles;
     font-weight: 500;
-
+    margin: -1px 0 -9px -9px;
+    padding: 9px 0 9px 9px;
+    overflow: hidden;
   }
   
   .tabs__links ul {
@@ -39,9 +41,9 @@
     border: 4px solid $c-blue-19;
     background-color: $c-blue-19;
     color: $c-white;
+    counter-increment: tab;
 
     &:before {
-      counter-increment: tab;
       content: counter(tab);
     }
   }
@@ -73,13 +75,5 @@
       width: 13px;
       height: 9px;
     }
-  }
-  
-  .tabs__contents {
-    position: relative;
-    z-index: 15;
-    padding: 0 20px 0 30px;
-    background-color: #fff;
-    height: 100%;
   }
 }

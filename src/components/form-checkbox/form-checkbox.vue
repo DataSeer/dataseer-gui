@@ -21,14 +21,14 @@
         label="title"
         @input=handleSelect
       >
-        <template #option="{ title, value }">
-          <span :data-value="value.toString()">
+        <template #option="{ title }">
+          <span :data-title="title">
             {{ title }}
           </span>
         </template>
 
-        <template #selected-option="{ title, value }">
-          <span :data-value="value.toString()">
+        <template #selected-option="{ title }">
+          <span :data-title="title">
             {{ title }}
           </span>
         </template>
@@ -48,6 +48,7 @@ export default {
   },
   
   props: {
+    value: Boolean || null,
     error: Boolean,
     name: String,
     isDropdown: {
@@ -58,8 +59,11 @@ export default {
 
   data: function() {
     return {
-      value: false,
       selectOptions: [
+        {
+          title: 'Select',
+          value: null,
+        },
         {
           title: 'Yes',
           value: true,
@@ -80,7 +84,6 @@ export default {
 
     handleSelect(el){
       this.$emit('input', el.value);
-      this.value = el.value
     },
   },
 }

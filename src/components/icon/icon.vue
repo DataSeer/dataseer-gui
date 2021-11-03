@@ -39,7 +39,8 @@ import flask from './icon-flask'
 import brackets from './icon-brackets'
 import datasets from './icon-datasets'
 import lock from './icon-lock'
-
+import cube from './icon-cube'
+import windows from './icon-windows'
 
 export default {
   name: "Icon",
@@ -89,7 +90,9 @@ export default {
     flask,
     brackets,
     datasets,
-    lock
+    lock,
+    cube,
+    windows
   }
 }
 </script>

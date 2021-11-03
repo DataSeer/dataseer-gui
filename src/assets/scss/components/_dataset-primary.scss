@@ -3,27 +3,29 @@
 \* ------------------------------------------------------------ */
 
 .dataset-primary {
-	height: calc(100vh - 136px); 
+	height: calc(100vh - 132px); 
+
+	.dataset__row,
+	.dataset__left,
+	.dataset__right {
+		height: inherit;
+	}
 
 	.dataset__row {
 		display: flex;
-		justify-content: space-between;
-		height: 100%; 
-	}
-
-	.dataset__left,
-	.dataset__right {
-		height: 100%; 
 	}
 
 	.dataset__left {
 		position: relative;
-		flex: 0 0 40.5%;
-		padding-left: 46px;
+		width: calc(40.5% - 46px);
+		flex: 0 0 calc(40.5% - 46px);
+		margin-left: 46px;
+		box-shadow: 0 1px 9px rgba($c-primary, .22);
 	}
 
 	.dataset__left-inner {
 		height: 100%; 
+		padding: 0 20px 0 30px;
 		overflow-x: auto;
 		background: $c-white;
 	}
