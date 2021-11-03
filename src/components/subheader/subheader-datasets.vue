@@ -210,12 +210,72 @@
         </div><!-- /.shell -->
       </div><!-- /.summary -->
     </transition>
+
+    <div class="dataset-title">
+
+      <div class="dataset__inner">
+        <Icon name="document" />
+        
+        <h6 id="subheader-title" @click.prevent="toggleSummary">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
+
+        <Dropdown>
+          <template #header>
+            <span class="btn-dropdown"></span>
+          </template>
+
+          <ul class="dropdown__nav">
+            <li>
+              <a href="#" @click.prevent="toggleSummary">
+                <Icon name="view_list" color="currentColor" />
+                
+                Document Summary
+              </a>
+            </li>
+
+            <li>
+
+              <a href="#">
+                <Icon name="invite" color="currentColor" />
+                
+                Invite By Email
+              </a>
+            </li>
+
+            <li>
+
+              <a href="#">
+                <Icon name="share" color="currentColor" />
+                
+                Get A Share Link
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <Icon name="document_view" color="currentColor" />
+                
+                View Uploaded File
+              </a>
+            </li>
+          </ul>
+        </Dropdown>
+      </div><!-- /.dataset__inner -->
+      
+      <ul>
+        <li><strong>L. Leadauthor</strong></li>
+        
+        <li>
+          <a href="#">my_uploaded-filename.pdf</a>
+        </li>
+      </ul>
+    </div><!-- /.dataset-title -->
   </div><!-- /.subheader__inner -->
 </template>
 
 <script>
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue'
+import Dropdown from '@/components/dropdown/dropdown';
 import BtnClose from '@/components/btn-close/btn-close';
 
 export default {
@@ -230,12 +290,12 @@ export default {
   components: { 
     Icon,
     Button,
+    Dropdown,
     BtnClose
   },
   
   methods: {
     toggleSummary() {
-        console.log('dasdasdasd');
         this.showSummary = !this.showSummary;
     }
   }

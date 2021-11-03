@@ -52,161 +52,16 @@
 			height: 26px; 
 		}
 	}
-	
-	.subheader__document {
-		position: relative; 
-		width: 722px; 
-		max-width: 100%; 
-		padding-left: 42px; 
-		padding-right: 42px; 
-		font-size: 12px; 
-		line-height: 1.17; 
-		
-		@include breakpoint-down(large-desktop) {
-			width: 500px; 
-		}
-
-		@include breakpoint-down(tablet) {
-			width: 100%; 
-			min-height: 35px; 
-			margin-bottom: 10px; 
-			padding-left: 35px; 
-		}
-	}
-
-	.subheader__document > i {
-		position: absolute; 
-		top: -2px; 
-		left: 0; 
-
-		@include breakpoint-down(mobile-medium) {
-			top: 2px; 
-		}
-	}
-
-	.subheader__document h6 {
-		margin-bottom: -10px; 
-		padding-bottom: 10px; 
-		font-weight: 700; 
-		font-family: inherit; 
-		overflow: hidden; 
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		text-underline-position: under;
-		cursor: pointer;
-
-		&:hover {
-			text-decoration: underline dotted $c-primary;
-		}
-	}
-
-	.subheader__document a {
-		text-decoration: none; 
-	}
-
-	.subheader__document > ul {
-		margin-bottom: 0; 
-		list-style: none; 
-		color: $c-skyblue-61;
-	}
-
-	.subheader__document > ul > li {
-		position: relative; 
-		display: inline-block; 
-
-		@include breakpoint-down(mobile) {
-			display: block; 
-		}
-	}
-
-	.subheader__document > ul > li + li {
-		padding-left: 13px; 
-		margin-left: 13px; 
-
-		@include breakpoint-down(tablet) {
-			padding-left: 7px; 
-			margin-left: 7px; 
-		}
-
-		@include breakpoint-down(mobile) {
-			padding-left: 0; 
-			margin-left: 0; 
-		}
-
-		&:before {
-			content: '';
-			position: absolute; 
-			top: 50%; 
-			left: 0; 
-			width: 1px; 
-			height: 14px; 
-			margin-top: -7px; 
-			background-color: $c-skyblue-bc; 
-
-			@include breakpoint-down(mobile) {
-				content: none;
-			}
-		}
-	}
-
-	.subheader__document .dropdown-holder {
-		position: absolute; 
-		right: 0; 
-		bottom: 10px; 
-	}
-
-	.subheader__document .dropdown-holder .dropdown__body {
-		@include breakpoint-up(tablet) {
-			right: auto; 
-			left: 0; 
-		}
-	}
 }
 
 /* Subheader Datasets */
 
 .subheader--datasets {
-	.subheader__inner {
-		@include breakpoint-down(tablet) {
-			display: block; 
-			height: auto; 
-			padding: 10px 0; 
-		}
-	}
-
 	.subheader__left {
 		padding-right: 15px; 
 
 		@include breakpoint-down(tablet) {
 			padding-right: 0; 
-		}
-	}
-
-	.subheader__menu > ul {
-		display: flex; 
-		align-items: center;
-		list-style: none; 
-	}
-
-	.subheader__menu > ul > li + li {
-		margin-left: 19px; 
-
-		@include breakpoint-down(tablet) {
-			margin-left: auto; 
-		}
-	}
-
-	.subheader__menu .btn {
-		@include breakpoint-down(mobile) {
-			padding-left: 12px; 
-			padding-right: 12px; 
-			font-size: 12px; 
-		}
-	}
-
-	.subheader__menu .btn span {
-		@include breakpoint-down(mobile) {
-			display: none; 
 		}
 	}
 }
