@@ -24,11 +24,11 @@
 	}
 
 	.subheader__left h3 i.ico--lock {
-		width: 35px;
+		width: 21px;
 		height: 35px;
 
 		@include breakpoint-down(mobile-medium) {
-			width: 24px;
+			width: 14px;
 			height: 24px;
 		}
 	}
