@@ -683,7 +683,7 @@
 	letter-spacing: normal;
 
 	.form__body {
-		padding-bottom: 130px;
+		padding-bottom: 186px;
 	}
 
 	.form__cta {
@@ -696,7 +696,7 @@
 		background-color: $c-white; 
 	}
 
-	.form__cta button + button{
+	.form__cta button + button {
 		margin-left: 28px;
 	}
 
@@ -708,12 +708,18 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 33px 0; 
+		flex-wrap: wrap;
+		padding: 28px 0; 
 		border-top: 1px solid $c-skyblue-bc;
 	}
 
 	.form__cta .btn--tertiary {
 		padding-left: 5px;
 		padding-right: 5px;
+	}
+	
+	.form__cta-col {
+		flex-shrink: 0;
+		padding: 5px 0;
 	}
 }
