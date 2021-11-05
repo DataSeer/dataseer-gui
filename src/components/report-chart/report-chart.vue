@@ -1,23 +1,32 @@
 <template>
   <div class="report-chart">
 		<div class="report__graph">
-			<img src="@/assets/images/images/chart.png" alt="Chart">
-			</div><!-- /.report__graph -->
+			<img src="@/assets/images/chart.png" alt="Chart">
+		</div><!-- /.report__graph -->
 
 		<div class="report__content">
 			<h4>This Chart Needs A Title or Short Description</h4>
 
 			<ul>
 				<li>
-					<Button
-						className="tertiary"
-						size="small"
-						block
-					>
-						<Icon name="focus" color="#006AC9"/>
-						
-						View Larger
-					</Button>
+					<Popup name="report-chart-popup">
+						<template #header="{ showModal }">
+							<Button
+								className="tertiary"
+								size="small"
+								block
+								@onClick="showModal"
+							>
+								<Icon name="focus" color="#006AC9"/>
+								
+								{{popupButtonText}}
+							</Button>
+						</template>
+
+						<div class="report__popup-graph">
+							<img src="@/assets/images/larger-graph.jpg" alt="Chart">
+						</div><!-- /.report__popup-graph -->
+					</Popup>
 				</li>
 
 				<li>
@@ -38,8 +47,9 @@
 </template>
 
 <script>
-import Icon from '@/components/icon/icon'
-import Button from '@/components/button/button'
+import Icon from '@/components/icon/icon';
+import Button from '@/components/button/button';
+import Popup from '@/components/popup/popup';
 
 export default {
 	/**
@@ -52,6 +62,7 @@ export default {
 	 */
 	components: {
 		Icon,
+		Popup,
 		Button
 	},
 
@@ -70,6 +81,7 @@ export default {
 	 */
 	data: function() {
 		return {
+			popupButtonText: "View Larger",
 			copyButtonText: "Copy Share Link"
 		}
 	},
@@ -93,7 +105,7 @@ export default {
 			document.addEventListener("copy", listener);
 			document.execCommand("copy");
 			document.removeEventListener("copy", listener);
-		}
-	}
+		},
+	},
 }
 </script>

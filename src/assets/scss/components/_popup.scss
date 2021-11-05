@@ -1,0 +1,25 @@
+/* ------------------------------------------------------------ *\
+	Popup
+\* ------------------------------------------------------------ */
+
+.popup {	
+	.v--modal {
+		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+		border-radius: 0;
+	}
+
+	.v--modal-box {
+		padding: 60px 15px 15px;
+	}
+	
+	.v--modal-overlay {
+		background: rgba(140, 171, 205, 0.81);
+	}
+
+	.btn-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 10px;
+	}
+}
