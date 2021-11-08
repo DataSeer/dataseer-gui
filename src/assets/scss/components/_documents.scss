@@ -5,132 +5,110 @@
 .documents {
 	.documents__inner {
 		padding-left: 45px;
-		padding-right: 45px; 
-		background-color: $c-white; 
+		padding-right: 45px;
+		background-color: $c-white;
 		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
 		@include breakpoint-down(large-desktop) {
-			padding-left: 25px; 
-			padding-right: 25px; 
+			padding-left: 25px;
+			padding-right: 25px;
 		}
 
 		&:last-child {
-			margin-bottom: auto; 
+			margin-bottom: auto;
 		}
 	}
 
 	.documents__table {
-		padding: 40px 0; 
+		padding: 40px 0;
 		overflow-x: auto;
 	}
 
-	.vuetable-body-wrapper {
-		min-width: 1200px; 
-		margin-bottom: 28px; 
+	.document__title {
+		position: relative;
+		display: block;
+		padding-left: 28px;
+		font-weight: 700;
 	}
 
-	.vuetable-col-Title {
-		width: 28%; 
+	.document__title i {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 0;
 	}
 
-	.vuetable-col-Author {
-		width: 10.5%; 
-	}
+	.document__status {
+		&.is-validating {
+			color: $c-primary;
+		}
 
-	.vuetable-col-Journal {
-		width: 11.2%; 
-	}
-
-	.vuetable-col-File {
-		width: 15.2%; 
-	}
-
-	.vuetable-col-Uploaded {
-		width: 6.3%; 
-	}
-	
-	.vuetable-col-Modified {
-		width: 8%; 
-	}
-
-	.vuetable-col-Status {
-		width: 10.9%; 
-	}
-
-	.vuetable-col-Action {
-		width: 157px; 
-	}
-
-	thead {
-		font-size: 12px; 
-		font-weight: 700; 
-		color: $c-base-ligter;
-		text-align: left; 
-		border-bottom: 1px solid $c-skyblue-bc;
-	}
-
-	thead th {
-		padding-bottom: 6px; 
-	}
-	
-
-	thead th.sortable {
-		color: $c-primary;
-		padding-left: 28px; 
-	}
-
-	tbody {
-		font-size: 14px; 
-		line-height: 1.57; 
-	}
-
-	tbody tr {
-		border-bottom: 1px solid $c-gray;
-	}
-	
-	tbody td {
-		padding: 22px 15px 23px 0; 
-		vertical-align: top;
-	}
-
-	.vuetable-td-title{
-		position: relative; 
-		font-weight: 700; 
-		padding-left: 28px; 
-		padding-right: 28px; 
-
-		&:after {
-			content: '';
-			position: absolute; 
-			top: 24px; 
-			left: 2px; 
-			width: 15px; 
-			height: 19px; 
-			background-position: center; 
-			background-repeat: no-repeat;
-			background-size: contain;  
-			background-image: url(../images/icons/ico-document.svg); 
+		&.is-complete {
+			color: $c-green;
 		}
 	}
 
-	.vuetable-td-Action {
-		padding-top: 12px; 
+	.documents__actions ul {
+		display: flex;
+		list-style: none;
 	}
 
-	i.sort-icon {
-		float: none !important;
-		display: inline-block; 
-		width: 8px; 
-		height: 8px;
-		margin-bottom: 2px; 
-		background-position: center; 
-		background-repeat: no-repeat;
-		background-size: contain;  
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23006ac9'/%3E%3C/svg%3E%0A");
+	.documents__actions ul li {
+		flex-shrink: 0;
 	}
 
-	i.sort-icon.down {
-		transform: scale(1, -1);
-		margin-bottom: 0px; 
+	.documents__actions ul li + li {
+		margin-left: 16px;
+	}
+
+	table.vgt-table {
+		border: none;
+		font-size: 14px;
+		line-height: 1.57;
+		letter-spacing: 0;
+	}
+
+	table.vgt-table td {
+		border-color: $c-gray;
+		padding: 20px 15px 23px 0;
+		vertical-align: top;
+	}
+
+	table.vgt-table th {
+		border-color: $c-skyblue-bc;
+	}
+
+	.vgt-table thead th {
+		padding: 0 0 6px 0;
+		background: none;
+		font-size: 12px;
+		color: $c-base-ligter;
+	}
+
+	.vgt-table thead th.sortable {
+		color: $c-primary;
+	}
+
+	.vgt-table th.sortable button {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		width: 8px;
+		height: 12px;
+		margin-left: 10px;
+
+		&:after,
+		&:before {
+			left: 0;
+			margin: 0;
+		}
+
+		&:after {
+			top: 0;
+		}
+
+		&:before {
+			bottom: 0;
+		}
 	}
 }

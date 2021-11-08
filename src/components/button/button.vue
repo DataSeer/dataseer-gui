@@ -8,6 +8,7 @@
 			'is-disabled': disabled,
 			'btn--small': size === 'small',
 			'btn--block': block,
+			'btn--square': square,
 		}"
 		@click="$emit('onClick')"
 	>
@@ -23,6 +24,7 @@
 			'is-disabled': disabled,
 			'btn--small': size === 'small',
 			'btn--block': block,
+			'btn--square': square,
 		}"
 		@click="$emit('onClick')"
 	>
@@ -39,6 +41,7 @@
 			'is-disabled': disabled,
 			'btn--small': size === 'small',
 			'btn--block': block,
+			'btn--square': square,
 		}"
 		@click="$emit('onClick')"
 	>
@@ -91,6 +94,11 @@ export default {
 		},
 
 		disabled: {
+			type: Boolean,
+			default: false,
+		},
+
+		square: {
 			type: Boolean,
 			default: false,
 		},

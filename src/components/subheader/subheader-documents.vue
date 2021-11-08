@@ -15,9 +15,9 @@
 			<div class="subheader__menu">
 				<ul>
 					<li>
-						<a href="#" class="btn btn--tertiary btn--square">
-							<Icon name="settings" color="currentColor" /> </a
-						><!-- /.btn -->
+						<Button className="tertiary" square to="/new-document">
+							<Icon name="settings" color="currentColor" />
+						</Button>
 					</li>
 
 					<li>
