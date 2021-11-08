@@ -1,303 +1,332 @@
 <template>
-  <div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
-    <div class="subheader__left">
-      <nav class="nav-datasets">
-        <ul>
-          <li>
-            <router-link to="/datasets">
-              <Icon name="datasets" color="currentColor" />
-              
-              Datasets
-            </router-link>
-          </li>
+	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
+		<div class="subheader__left">
+			<nav class="nav-datasets">
+				<ul>
+					<li>
+						<router-link to="/datasets">
+							<Icon name="datasets" color="currentColor" />
 
-          <li>
-            <router-link to="/datasets-code">
-              <Icon name="brackets" color="currentColor" />
+							Datasets
+						</router-link>
+					</li>
 
-              Code
-            </router-link>
-          </li>
+					<li>
+						<router-link to="/datasets-code">
+							<Icon name="brackets" color="currentColor" />
 
-          <li>
-            <router-link to="/datasets-materials">
-              <Icon name="flask" color="currentColor" />
+							Code
+						</router-link>
+					</li>
 
-              Materials
-            </router-link>
-          </li>
+					<li>
+						<router-link to="/datasets-materials">
+							<Icon name="flask" color="currentColor" />
 
-          <li>
-            <router-link to="/datasets-protocols">
-              <Icon name="protocols" color="currentColor" />
+							Materials
+						</router-link>
+					</li>
 
-              Protocols
-            </router-link>
-          </li>
-        </ul>
-      </nav><!-- /.nav-datasets -->
-    </div><!-- /.subheader__left -->
+					<li>
+						<router-link to="/datasets-protocols">
+							<Icon name="protocols" color="currentColor" />
 
-    <div class="subheader__right">
-      <Button to="/report" className="tertiary">
-        <Icon name="lock" color="#006AC9" />
-        
-        Open Science Report
-      </Button>
-    </div><!-- /.subheader__right -->
+							Protocols
+						</router-link>
+					</li>
+				</ul>
+			</nav>
+			<!-- /.nav-datasets -->
+		</div>
+		<!-- /.subheader__left -->
 
-    <transition name="summary">
-      <div class="summary" v-if="showSummary">
-        <div class="shell">
-          <div class="summary__inner">
-            <div class="summary__content">
-              <div class="summary__head">
-                <h3 class="summary__title">Document Summary</h3>
-              </div><!-- /.summary__head -->
+		<div class="subheader__right">
+			<Button to="/report" className="tertiary">
+				<Icon name="lock" color="#006AC9" />
 
-              <div class="summary__body">
-                <div class="summary__body-aside">
-                  <ul>
-                    <li>
-                      <h6>Title</h6>
+				Open Science Report
+			</Button>
+		</div>
+		<!-- /.subheader__right -->
 
-                      <p>Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</p>
-                    </li>
+		<transition name="summary">
+			<div class="summary" v-if="showSummary">
+				<div class="shell">
+					<div class="summary__inner">
+						<div class="summary__content">
+							<div class="summary__head">
+								<h3 class="summary__title">Document Summary</h3>
+							</div>
+							<!-- /.summary__head -->
 
-                    <li>
-                      <h6>Journal</h6>
+							<div class="summary__body">
+								<div class="summary__body-aside">
+									<ul>
+										<li>
+											<h6>Title</h6>
 
-                      <p>Journal of Medical Internet Research</p>
-                    
-                      <h6>Publisher</h6>
+											<p>
+												Implementation of the Operating Room Black Box Research Program at the
+												Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case
+												Study
+											</p>
+										</li>
 
-                      <p>JMIR Publications Inc.</p>
-                    
-                      <h6>Publication Date</h6>
+										<li>
+											<h6>Journal</h6>
 
-                      <p>2021-03-16</p>
-                    
-                      <h6>DOI</h6>
+											<p>Journal of Medical Internet Research</p>
 
-                      <p>10.2196/15443</p>
-                    </li>
-                  </ul>
+											<h6>Publisher</h6>
 
-                  <a href="#" class="btn btn--tertiary btn--block">This data is incorrect</a>
-                </div><!-- /.summary__body-aside -->
+											<p>JMIR Publications Inc.</p>
 
-                <div class="summary__body-content">
-                  <div class="summary__authors">
-                    <h6>Authors (10)</h6>
+											<h6>Publication Date</h6>
 
-                    <ul>
-                      <li>
-                        <h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
+											<p>2021-03-16</p>
 
-                        Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                        Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                        Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
-                        Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-                      </li>
+											<h6>DOI</h6>
 
-                      <li>
-                        <h6>Nicole Etherington</h6>
+											<p>10.2196/15443</p>
+										</li>
+									</ul>
 
-                        Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                        Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                      </li>
+									<a href="#" class="btn btn--tertiary btn--block">This data is incorrect</a>
+								</div>
+								<!-- /.summary__body-aside -->
 
-                      <li>
-                        <h6>Sandy Lam</h6>
+								<div class="summary__body-content">
+									<div class="summary__authors">
+										<h6>Authors (10)</h6>
 
-                        Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                        Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                      </li>
+										<ul>
+											<li>
+												<h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
 
-                      <li>
-                        <h6>Maxime Lê</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
+												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
+												Ottawa, Canada Department of Innovation in Medical Education University of
+												Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of
+												Ottawa, Ottawa, Canada
+											</li>
 
-                        Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Nicole Etherington</h6>
 
-                      <li>
-                        <h6>Laurie Proulx</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
+												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
+												Ottawa, Canada
+											</li>
 
-                        Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Sandy Lam</h6>
 
-                      <li>
-                        <h6>Meghan Britton</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
+												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
+												Ottawa, Canada
+											</li>
 
-                        Main Operating Room The Ottawa Hospital, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Maxime Lê</h6>
 
-                      <li>
-                        <h6>Julie Kenna</h6>
+												Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                        Main Operating Room The Ottawa Hospital, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Laurie Proulx</h6>
 
-                      <li>
-                        <h6>Antoine Przybylak-Brouillard</h6>
+												Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                        Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-                        Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Meghan Britton</h6>
 
-                      <li>
-                        <h6>Jeremy Grimshaw</h6>
+												Main Operating Room The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                        Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-                      </li>
+											<li>
+												<h6>Julie Kenna</h6>
 
-                      <li>
-                        <h6>Teodor Grantcharov</h6>
+												Main Operating Room The Ottawa Hospital, Ottawa, Canada
+											</li>
 
-                        Department of General Surgery University of Toronto, Toronto, Canada
-                        Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
-                      </li>
+											<li>
+												<h6>Antoine Przybylak-Brouillard</h6>
 
-                      <li>
-                        <h6>Sukhbir Singh</h6>
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
+												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
+												Ottawa, Canada
+											</li>
 
-                        Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
-                      </li>
-                    </ul>
-                  </div><!-- /.summary__authors -->
-                </div><!-- /.summary__body-content -->
-              </div><!-- /.summary__body -->
-            </div><!-- /.summary__content -->
+											<li>
+												<h6>Jeremy Grimshaw</h6>
 
-            <div class="summary__aside">
-              <h4>Invite Collaborators</h4>
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa,
+												Canada
+											</li>
 
-              <ul>
-                <li>
-                  <a href="#">
-                    <span>
-                      <Icon name="invite" color="currentColor" />
-                    </span>
+											<li>
+												<h6>Teodor Grantcharov</h6>
 
-                    Send Email
-                  </a>
-                </li>
+												Department of General Surgery University of Toronto, Toronto, Canada Li Ka
+												Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
+											</li>
 
-                <li>
-                  <a href="#">
-                    <span>
-                      <Icon name="share" color="currentColor" />
-                    </span>
+											<li>
+												<h6>Sukhbir Singh</h6>
 
-                    Get A Link
-                  </a>
-                </li>
+												Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa,
+												Ottawa, Canada
+											</li>
+										</ul>
+									</div>
+									<!-- /.summary__authors -->
+								</div>
+								<!-- /.summary__body-content -->
+							</div>
+							<!-- /.summary__body -->
+						</div>
+						<!-- /.summary__content -->
 
-                <li>
-                  <a href="#">
-                    <span>
-                      <Icon name="document_view" color="currentColor" />
-                    </span>
+						<div class="summary__aside">
+							<h4>Invite Collaborators</h4>
 
-                    Open File
-                  </a>
-                </li>
-              </ul>
+							<ul>
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="invite" color="currentColor" />
+										</span>
 
-              <BtnClose @onClick='toggleSummary' label="Close Summary" />
-            </div><!-- /.summary__aside -->
-          </div><!-- /.summary__inner -->
-        </div><!-- /.shell -->
-      </div><!-- /.summary -->
-    </transition>
+										Send Email
+									</a>
+								</li>
 
-    <div class="dataset-title">
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="share" color="currentColor" />
+										</span>
 
-      <div class="dataset__inner">
-        <Icon name="document" />
-        
-        <h6 id="subheader-title" @click.prevent="toggleSummary">Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement: Case Study</h6>
+										Get A Link
+									</a>
+								</li>
 
-        <Dropdown>
-          <template #header>
-            <span class="btn-dropdown"></span>
-          </template>
+								<li>
+									<a href="#">
+										<span>
+											<Icon name="document_view" color="currentColor" />
+										</span>
 
-          <ul class="dropdown__nav">
-            <li>
-              <a href="#" @click.prevent="toggleSummary">
-                <Icon name="view_list" color="currentColor" />
-                
-                Document Summary
-              </a>
-            </li>
+										Open File
+									</a>
+								</li>
+							</ul>
 
-            <li>
+							<BtnClose @onClick="toggleSummary" label="Close Summary" />
+						</div>
+						<!-- /.summary__aside -->
+					</div>
+					<!-- /.summary__inner -->
+				</div>
+				<!-- /.shell -->
+			</div>
+			<!-- /.summary -->
+		</transition>
 
-              <a href="#">
-                <Icon name="invite" color="currentColor" />
-                
-                Invite By Email
-              </a>
-            </li>
+		<div class="dataset-title">
+			<div class="dataset__inner">
+				<Icon name="document" />
 
-            <li>
+				<h6 id="subheader-title" @click.prevent="toggleSummary">
+					Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital
+					Through Patient, Clinic Organizational Engagement: Case Study
+				</h6>
 
-              <a href="#">
-                <Icon name="share" color="currentColor" />
-                
-                Get A Share Link
-              </a>
-            </li>
+				<Dropdown>
+					<template #header>
+						<span class="btn-dropdown"></span>
+					</template>
 
-            <li>
-              <a href="#">
-                <Icon name="document_view" color="currentColor" />
-                
-                View Uploaded File
-              </a>
-            </li>
-          </ul>
-        </Dropdown>
-      </div><!-- /.dataset__inner -->
-      
-      <ul>
-        <li><strong>L. Leadauthor</strong></li>
-        
-        <li>
-          <a href="#">my_uploaded-filename.pdf</a>
-        </li>
-      </ul>
-    </div><!-- /.dataset-title -->
-  </div><!-- /.subheader__inner -->
+					<div class="dropdown__nav">
+						<ul>
+							<li>
+								<a href="#" @click.prevent="toggleSummary">
+									<Icon name="view_list" color="currentColor" />
+
+									Document Summary
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<Icon name="invite" color="currentColor" />
+
+									Invite By Email
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<Icon name="share" color="currentColor" />
+
+									Get A Share Link
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<Icon name="document_view" color="currentColor" />
+
+									View Uploaded File
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!-- /.dropdown__nav -->
+				</Dropdown>
+			</div>
+			<!-- /.dataset__inner -->
+
+			<ul>
+				<li><strong>L. Leadauthor</strong></li>
+
+				<li>
+					<a href="#">my_uploaded-filename.pdf</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /.dataset-title -->
+	</div>
+	<!-- /.subheader__inner -->
 </template>
 
 <script>
 import Icon from '@/components/icon/icon';
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown';
 import BtnClose from '@/components/btn-close/btn-close';
 
 export default {
-  name: "SubheaderDatasets",
+	name: 'SubheaderDatasets',
 
-  data: function() {
-    return {
-      showSummary: false
-    }
-  },
-  
-  components: { 
-    Icon,
-    Button,
-    Dropdown,
-    BtnClose
-  },
-  
-  methods: {
-    toggleSummary() {
-        this.showSummary = !this.showSummary;
-    }
-  }
-}
+	data: function() {
+		return {
+			showSummary: false,
+		};
+	},
+
+	components: {
+		Icon,
+		Button,
+		Dropdown,
+		BtnClose,
+	},
+
+	methods: {
+		toggleSummary() {
+			this.showSummary = !this.showSummary;
+		},
+	},
+};
 </script>

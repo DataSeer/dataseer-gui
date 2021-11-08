@@ -6,9 +6,9 @@
 	color: $c-primary;
 
 	> ul {
-		display: flex; 
+		display: flex;
 		align-items: center;
-		margin: -8px; 
+		margin: -8px;
 
 		@include breakpoint-down(mobile) {
 			flex-direction: column;
@@ -17,15 +17,15 @@
 	}
 
 	> ul > li {
-		padding: 8px; 
+		padding: 8px;
 
 		@include breakpoint-down(mobile) {
-			width: 100%; 
+			width: 100%;
 		}
 	}
 
 	> ul > li .btn {
-		width: 100%; 
+		width: 100%;
 	}
 
 	> ul > li a:not(.btn) {
@@ -35,15 +35,6 @@
 	> ul > li:hover > a:not(.btn),
 	> ul > li:focus-within > a:not(.btn) {
 		color: $c-primary-light;
-	}
-
-	.dropdown-holder .dropdown__body {
-		width: 196px; 
-
-		@include breakpoint-down(mobile) {
-			position: static; 
-			width: 100%; 
-		}
 	}
 }
 

@@ -1,29 +1,30 @@
-<template> 
-  <div class="header" :class="{'is-menu-expanded': showMobileMenu}">
-    <div tabindex="0" class="header__bar" aria-label="main header bar"> 
-      <div class="shell">
-        <div class="header__bar-inner">
-          <Logo />
+<template>
+	<div class="header" :class="{ 'is-menu-expanded': showMobileMenu }">
+		<div tabindex="0" class="header__bar" aria-label="main header bar">
+			<div class="shell">
+				<div class="header__bar-inner">
+					<Logo />
 
-          <navTrigger @onClick='toggleMenu' />
+					<navTrigger @onClick="toggleMenu" />
 
-          <nav class="nav">
-            <ul>
-              <li>
-                <a tabindex="0" href="#">Need Help?</a>
-              </li>
+					<nav class="nav">
+						<ul>
+							<li>
+								<navAccount></navAccount>
+							</li>
+						</ul>
+					</nav>
+					<!-- /.nav -->
+				</div>
+				<!-- /.header__bar-inner -->
+			</div>
+			<!-- /.shell -->
+		</div>
+		<!-- /.header__bar -->
 
-              <li>
-                <navAccount></navAccount>
-              </li>
-            </ul>
-          </nav><!-- /.nav -->
-        </div><!-- /.header__bar-inner -->
-      </div><!-- /.shell -->
-    </div><!-- /.header__bar -->
-    
-    <Subheader />
-  </div><!-- /.header --> 
+		<Subheader />
+	</div>
+	<!-- /.header -->
 </template>
 
 <script>
@@ -33,25 +34,25 @@ import navAccount from '@/components/nav-account/nav-account';
 import navTrigger from '@/components/nav-trigger/nav-trigger';
 
 export default {
-  name: 'Header',
+	name: 'Header',
 
-  data: function() {
-    return {
-      showMobileMenu: false
-    }
-  },
+	data: function() {
+		return {
+			showMobileMenu: false,
+		};
+	},
 
-  components: {
-    Logo,
-    navTrigger,
-    Subheader,
-    navAccount
-  },
-  
-  methods: {
-    toggleMenu() {
-      this.showMobileMenu = !this.showMobileMenu
-    }
-  }
-}
+	components: {
+		Logo,
+		navTrigger,
+		Subheader,
+		navAccount,
+	},
+
+	methods: {
+		toggleMenu() {
+			this.showMobileMenu = !this.showMobileMenu;
+		},
+	},
+};
 </script>
