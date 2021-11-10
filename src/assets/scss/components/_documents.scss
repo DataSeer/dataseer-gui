@@ -4,8 +4,7 @@
 
 .documents {
 	.documents__inner {
-		padding-left: 45px;
-		padding-right: 45px;
+		padding: 40px 45px;
 		background-color: $c-white;
 		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
@@ -17,11 +16,6 @@
 		&:last-child {
 			margin-bottom: auto;
 		}
-	}
-
-	.documents__table {
-		padding: 40px 0;
-		overflow-x: auto;
 	}
 
 	.document__title {
@@ -48,17 +42,21 @@
 		}
 	}
 
-	.documents__actions ul {
+	.documents__actions > ul {
 		display: flex;
 		list-style: none;
 	}
 
-	.documents__actions ul li {
+	.documents__actions > ul > li {
 		flex-shrink: 0;
 	}
 
-	.documents__actions ul li + li {
+	.documents__actions > ul > li + li {
 		margin-left: 16px;
+	}
+
+	.vgt-inner-wrap {
+		box-shadow: none;
 	}
 
 	table.vgt-table {
@@ -72,6 +70,10 @@
 		border-color: $c-gray;
 		padding: 20px 15px 23px 0;
 		vertical-align: top;
+	}
+
+	table.vgt-table tr:last-child td {
+		border-color: $c-skyblue-bc;
 	}
 
 	table.vgt-table th {

@@ -45,6 +45,9 @@ import key from './icon-key';
 import database from './icon-database';
 import refresh from './icon-refresh';
 import settings from './icon-settings';
+import angle_down from './icon-angle-down';
+import angle_left from './icon-angle-left';
+import angle_right from './icon-angle-right';
 
 export default {
 	name: 'Icon',
@@ -101,6 +104,9 @@ export default {
 		list_alt,
 		refresh,
 		settings,
+		angle_down,
+		angle_left,
+		angle_right,
 	},
 };
 </script>

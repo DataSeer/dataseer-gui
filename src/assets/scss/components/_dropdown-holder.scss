@@ -4,7 +4,6 @@
 
 .dropdown-holder {
 	position: relative;
-	z-index: 100;
 	text-align-last: left;
 
 	.dropdown__header {
@@ -17,6 +16,7 @@
 	.dropdown__body {
 		display: none;
 		position: absolute;
+		z-index: 999;
 		top: 100%;
 		right: 0;
 		margin-top: 6px;
@@ -111,6 +111,10 @@
 		padding-left: 34px;
 		text-decoration: none;
 		transition: color $t-duration;
+	}
+
+	.dropdown__nav li.is-highlighted {
+		color: $c-orange;
 	}
 
 	.dropdown__nav i {

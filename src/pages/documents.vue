@@ -12,16 +12,18 @@
 							:rows="docs"
 							:pagination-options="{
 								enabled: true,
-								mode: 'records',
+								perPage: itemsPerPage,
 							}"
 							styleClass="vgt-table"
 						>
 							>
 							<template slot="table-row" slot-scope="props">
 								<span v-if="props.column.field == 'title'" class="document__title">
-									<Icon name="document" color="CurrentCOlor"></Icon>
+									<router-link to="/report">
+										<Icon name="document" color="CurrentCOlor"></Icon>
 
-									{{ props.row.title }}
+										{{ props.row.title }}
+									</router-link>
 								</span>
 
 								<div v-else-if="props.column.field == 'action'" class="documents__actions">
@@ -35,9 +37,70 @@
 										</li>
 
 										<li>
-											<Button className="tertiary" square to="/new-document">
-												<Icon name="settings" color="currentColor" />
-											</Button>
+											<Dropdown>
+												<template #header>
+													<Button className="tertiary" square>
+														<Icon name="angle_down" color="currentColor" />
+													</Button>
+												</template>
+
+												<div class="dropdown__nav">
+													<ul>
+														<li>
+															<a href="#" @click.prevent="toggleSummary">
+																<Icon name="connect" color="currentColor" />
+
+																View/Edit Datasets
+															</a>
+														</li>
+
+														<li>
+															<a href="#">
+																<Icon name="share" color="currentColor" />
+
+																Get Public Share Link
+															</a>
+														</li>
+
+														<li>
+															<a href="#">
+																<Icon name="document_view" color="currentColor" />
+
+																View Data Report
+															</a>
+														</li>
+													</ul>
+
+													<ul>
+														<li>
+															<a href="#">
+																<Icon name="document" color="currentColor" />
+
+																Manage Document
+															</a>
+														</li>
+
+														<li>
+															<a href="#">
+																<Icon name="invite" color="currentColor" />
+
+																Contact Author
+															</a>
+														</li>
+													</ul>
+
+													<ul>
+														<li class="is-highlighted">
+															<a href="#">
+																<Icon name="trash" color="currentColor" />
+
+																Delete Document
+															</a>
+														</li>
+													</ul>
+												</div>
+												<!-- /.dropdown__nav -->
+											</Dropdown>
 										</li>
 									</ul>
 								</div>
@@ -54,6 +117,16 @@
 									{{ props.row.status }}
 									<!-- /.document__status -->
 								</span>
+							</template>
+
+							<template slot="pagination-bottom" slot-scope="props">
+								<Pagination
+									v-if="props.total > itemsPerPage"
+									@onPerPageChanged="changePerPage"
+									:totalItems="props.total"
+									:pageChanged="props.pageChanged"
+									:perPageChanged="props.perPageChanged"
+								/>
 							</template>
 						</vue-good-table>
 					</div>
@@ -79,6 +152,8 @@ import Box from '@/components/box/box';
 import Boxes from '@/components/boxes/boxes';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
+import Dropdown from '@/components/dropdown/dropdown.vue';
+import Pagination from '@/components/pagination/pagination.vue';
 
 export default {
 	name: 'Documents',
@@ -88,6 +163,8 @@ export default {
 		Icon,
 		Boxes,
 		Button,
+		Dropdown,
+		Pagination,
 	},
 
 	data: function() {
@@ -301,8 +378,25 @@ export default {
 					modified: '2021-06-12',
 					status: 'Complete',
 				},
+				{
+					id: 17,
+					title: 'This Document Has  A Very Short Title',
+					author: 'Laura Leadauthor',
+					journal: 'Journal of Medical Internet Research',
+					file: 'http://www.africau.edu/images/default/sample.pdf',
+					uploaded: '2021-06-12',
+					modified: '2021-06-12',
+					status: 'Complete',
+				},
 			],
+			itemsPerPage: 5,
 		};
+	},
+
+	methods: {
+		changePerPage(val) {
+			this.itemsPerPage = parseInt(val);
+		},
 	},
 
 	computed: {

@@ -1,0 +1,92 @@
+/* ------------------------------------------------------------ *\
+	Pagination
+\* ------------------------------------------------------------ */
+
+.pagination {
+	display: flex;
+	align-items: center;
+	margin-top: 25px;
+	text-transform: uppercase;
+	font-family: $ff-titles;
+	font-weight: 500;
+
+	.pagination__total span {
+		color: $c-primary;
+	}
+
+	.pagination__steps {
+		display: flex;
+		align-items: center;
+		margin-left: 38px;
+	}
+
+	.pagination__steps > ul {
+		display: flex;
+		align-items: center;
+		margin: 0 6px;
+		border: 4px solid $c-skyblue;
+		border-radius: 11px;
+		height: 35px;
+		padding: 0 10px;
+		list-style: none;
+	}
+
+	.pagination__steps > ul > li {
+		margin: 0 10px;
+	}
+
+	.pagination__steps > ul button {
+		color: #8cabcd;
+		background: none;
+		border: none;
+	}
+
+	.pagination__steps > ul button.is-active {
+		color: $c-primary;
+	}
+
+	.pagination__steps > button {
+		width: 35px;
+		height: 35px;
+		border-color: $c-skyblue;
+	}
+
+	.pagination__dropdown {
+		position: relative;
+		margin-left: 30px;
+	}
+
+	.pagination__dropdown i,
+	.pagination__dropdown label {
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.pagination__dropdown i {
+		position: absolute;
+		top: 50%;
+		right: 14px;
+		color: $c-primary;
+	}
+
+	.pagination__dropdown label {
+		position: absolute;
+		left: 12px;
+		top: 50%;
+		white-space: nowrap;
+		color: $c-base-ligter;
+		font-size: 14px;
+	}
+
+	.pagination__dropdown select {
+		height: 35px;
+		padding-right: 26px;
+		padding-left: 133px;
+		border: 4px solid $c-skyblue;
+		border-radius: 11px;
+		appearance: none;
+		direction: rtl;
+		font-weight: 500;
+		color: $c-primary;
+	}
+}
