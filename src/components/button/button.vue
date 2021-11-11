@@ -1,41 +1,9 @@
 <template>
-	<router-link
-		v-if="to"
-		class="btn"
+	<component
+		:is="type"
 		:to="to"
-		:class="{
-			[`btn--${className}`]: className,
-			'is-disabled': disabled,
-			'btn--small': size === 'small',
-			'btn--block': block,
-			'btn--square': square,
-		}"
-		@click="$emit('onClick')"
-	>
-		<slot />
-	</router-link>
-
-	<a
-		v-else-if="href"
-		class="btn"
 		:href="href"
-		:class="{
-			[`btn--${className}`]: className,
-			'is-disabled': disabled,
-			'btn--small': size === 'small',
-			'btn--block': block,
-			'btn--square': square,
-		}"
-		@click="$emit('onClick')"
-	>
-		<slot />
-	</a>
-
-	<button
-		v-else
-		type="button"
 		class="btn"
-		tabindex="0"
 		:class="{
 			[`btn--${className}`]: className,
 			'is-disabled': disabled,
@@ -46,7 +14,7 @@
 		@click="$emit('onClick')"
 	>
 		<slot />
-	</button>
+	</component>
 </template>
 
 <script>
@@ -62,12 +30,12 @@ export default {
 	props: {
 		to: {
 			type: String,
-			default: '',
+			default: null,
 		},
 
 		href: {
 			type: String,
-			default: '',
+			default: null,
 		},
 
 		className: {
@@ -101,6 +69,21 @@ export default {
 		square: {
 			type: Boolean,
 			default: false,
+		},
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		type() {
+			if (this.to) {
+				return 'router-link';
+			} else if (this.href) {
+				return 'a';
+			} else {
+				return 'button';
+			}
 		},
 	},
 };

@@ -1,7 +1,9 @@
 <template>
 	<div class="main main--documents">
 		<div class="shell">
-			<div class="documents-filters"></div>
+			<div v-if="getFiltersVisibility" class="documents-filters">
+				<FormFilters />
+			</div>
 			<!-- /.documents-filters -->
 
 			<div class="documents" tabindex="0" aria-label="documents">
@@ -26,7 +28,7 @@
 									</router-link>
 								</span>
 
-								<div v-else-if="props.column.field == 'action'" class="documents__actions">
+								<div v-else-if="props.column.field === 'action'" class="documents__actions">
 									<ul>
 										<li>
 											<Button className="tertiary" to="/new-document">View</Button>
@@ -154,6 +156,7 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown.vue';
 import Pagination from '@/components/pagination/pagination.vue';
+import FormFilters from '@/blocks/form-filters/form-filters.vue';
 
 export default {
 	name: 'Documents',
@@ -165,6 +168,7 @@ export default {
 		Button,
 		Dropdown,
 		Pagination,
+		FormFilters,
 	},
 
 	data: function() {
@@ -400,7 +404,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(['getDocumentView']),
+		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
 	},
 };
 </script>

@@ -15,7 +15,7 @@
 			<div class="subheader__menu">
 				<ul>
 					<li>
-						<Button className="tertiary" square to="/new-document">
+						<Button className="tertiary" square @onClick="changeFiltersVisibility(!getFiltersVisibility)">
 							<Icon name="settings" color="currentColor" />
 						</Button>
 					</li>
@@ -88,11 +88,11 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(['getDocumentView']),
+		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
 	},
 
 	methods: {
-		...mapActions(['changeView']),
+		...mapActions(['changeView', 'changeFiltersVisibility']),
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
 		},

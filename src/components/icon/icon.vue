@@ -17,6 +17,9 @@ import document from './icon-document';
 import documents from './icon-documents';
 import document_new from './icon-document-new';
 import document_view from './icon-document-view';
+import document_modify from './icon-document-modify';
+import document_upload from './icon-document-upload';
+
 import email from './icon-email';
 import grid from './icon-grid';
 import invite from './icon-invite';
@@ -48,6 +51,8 @@ import settings from './icon-settings';
 import angle_down from './icon-angle-down';
 import angle_left from './icon-angle-left';
 import angle_right from './icon-angle-right';
+import calendar from './icon-calendar';
+import ico_plus_circle from './icon-plus-circle';
 
 export default {
 	name: 'Icon',
@@ -76,6 +81,8 @@ export default {
 		documents,
 		document_new,
 		document_view,
+		document_modify,
+		document_upload,
 		email,
 		grid,
 		invite,
@@ -107,6 +114,8 @@ export default {
 		angle_down,
 		angle_left,
 		angle_right,
+		calendar,
+		ico_plus_circle,
 	},
 };
 </script>

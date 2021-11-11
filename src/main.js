@@ -9,6 +9,7 @@ import App from './App.vue';
 import store from './store';
 
 import 'vue-select/dist/vue-select.css';
+import 'vue2-datepicker/index.css';
 import 'vue-good-table/dist/vue-good-table.css';
 import '@/assets/scss/style.scss';
 
