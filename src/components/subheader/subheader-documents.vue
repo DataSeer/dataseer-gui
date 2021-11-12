@@ -25,35 +25,6 @@
 					</li>
 
 					<li>
-						<div tabindex="0" class="btn-layout" aria-label="select view">
-							<span>View</span>
-
-							<a
-								tabindex="0"
-								aria-label="list"
-								class="btn__icon"
-								:class="{ 'is-active': getDocumentView === 'list' }"
-								href="#"
-								@click.prevent="changeView('list')"
-							>
-								<Icon name="view_list" color="currentColor" />
-							</a>
-
-							<a
-								tabindex="0"
-								aria-label="grid"
-								class="btn__icon"
-								:class="{ 'is-active': getDocumentView === 'grid' }"
-								href="#"
-								@click.prevent="changeView('grid')"
-							>
-								<Icon name="view_grid" color="currentColor" />
-							</a>
-						</div>
-						<!-- /.btn-layout -->
-					</li>
-
-					<li>
 						<Button className="tertiary" to="/new-document">Upload new Document</Button>
 					</li>
 				</ul>
