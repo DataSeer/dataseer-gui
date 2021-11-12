@@ -3,10 +3,18 @@
 \* ------------------------------------------------------------ */
 
 .larger-text {
-	font-size: 20px; 
-	line-height: 1.15; 
-	font-family: $ff-titles; 
-	font-weight: 500; 
+	font-size: 20px;
+	line-height: 1.15;
+	font-family: $ff-titles;
+	font-weight: 500;
+}
+
+/* Overflow Truncate */
+
+.overflow-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /*  Clear  */
@@ -27,7 +35,7 @@
 	padding: 0;
 	margin: -1px;
 	overflow: hidden;
-	clip: rect(0,0,0,0);
+	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
 
@@ -92,7 +100,7 @@
 	}
 }
 
-@include breakpoint-between(mobile,tablet) {
+@include breakpoint-between(mobile, tablet) {
 	.hidden-sm {
 		display: none !important;
 	}
@@ -107,7 +115,7 @@
 	}
 }
 
-@include breakpoint-between(tablet,small-desktop) {
+@include breakpoint-between(tablet, small-desktop) {
 	.hidden-md {
 		display: none !important;
 	}

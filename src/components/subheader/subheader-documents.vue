@@ -15,7 +15,13 @@
 			<div class="subheader__menu">
 				<ul>
 					<li>
-						<Button className="tertiary" square @onClick="changeFiltersVisibility(!getFiltersVisibility)">
+						<Button
+							className="tertiary"
+							:active="getFiltersVisibility"
+							square
+							@onClick="changeFiltersVisibility(!getFiltersVisibility)"
+							v-tooltip.top-center="tooltips.filtersText"
+						>
 							<Icon name="settings" color="currentColor" />
 						</Button>
 					</li>
@@ -55,6 +61,9 @@ export default {
 	data: function() {
 		return {
 			showMobileMenu: false,
+			tooltips: {
+				filtersText: 'Show Advanced Filter Controls',
+			},
 		};
 	},
 

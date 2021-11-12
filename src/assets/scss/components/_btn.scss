@@ -39,7 +39,7 @@
 	}
 
 	&.is-disabled {
-		opacity: 0.55;
+		opacity: 0.5;
 		pointer-events: none;
 	}
 }
@@ -75,6 +75,19 @@
 
 	i {
 		color: $c-blue-00;
+	}
+
+	&.is-highlighted {
+		border-color: $c-skyblue;
+
+		&:focus,
+		&:hover {
+			border-color: $c-primary;
+		}
+	}
+
+	&.is-active {
+		border-color: $c-primary;
 	}
 }
 

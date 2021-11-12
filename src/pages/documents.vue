@@ -38,17 +38,17 @@
 							<div v-else-if="props.column.field === 'action'" class="table__actions">
 								<ul>
 									<li>
-										<Button size="small" className="tertiary" to="/new-document">View</Button>
+										<Button size="small" className="tertiary" to="/new-document" highlighted>View</Button>
 									</li>
 
 									<li>
-										<Button size="small" className="tertiary" to="/new-document">Report</Button>
+										<Button size="small" className="tertiary" to="/report" highlighted>Report</Button>
 									</li>
 
 									<li>
 										<Dropdown>
 											<template #header>
-												<Button size="small" className="tertiary" square>
+												<Button size="small" className="tertiary" square highlighted>
 													<Icon name="angle_down" color="currentColor" />
 												</Button>
 											</template>
@@ -113,6 +113,10 @@
 									</li>
 								</ul>
 							</div>
+
+							<span v-else-if="props.column.field == 'file'" class="table__file overflow-truncate">
+								<a :href="props.row.file.url" target="_blank">{{ props.row.file.title }}</a>
+							</span>
 							<!-- /.table__actions -->
 
 							<span
@@ -227,7 +231,10 @@ export default {
 						'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Validating',
@@ -238,7 +245,10 @@ export default {
 						'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long title That Goes  150 Characters So It Gets Cut O…',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -248,7 +258,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -258,7 +271,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -268,7 +284,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -278,7 +297,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -288,7 +310,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -298,7 +323,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -308,7 +336,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -318,7 +349,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -328,7 +362,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -338,7 +375,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -348,7 +388,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -358,7 +401,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -368,7 +414,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -378,7 +427,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -388,7 +440,10 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'my_uploaded-filename.pdf',
+					file: {
+						title: 'my_uploaded-filename.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+					},
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',

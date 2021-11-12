@@ -15,9 +15,8 @@ body {
 
 a {
 	color: inherit;
-	text-decoration-style: dotted;
+	text-decoration: $c-primary dotted underline;
 	text-underline-position: under;
-	text-decoration-color: $c-primary;
 
 	&:focus,
 	&:hover {
@@ -25,7 +24,7 @@ a {
 		text-decoration-color: $c-primary-light;
 	}
 
-	&[href^="tel"] {
+	&[href^='tel'] {
 		text-decoration: none;
 	}
 }
@@ -43,74 +42,73 @@ h5,
 .h6,
 h6 {
 	margin-bottom: calc(#{$line-height-base}em / 2);
-	font-weight: 500; 
-	font-family: $ff-titles; 
+	font-weight: 500;
+	font-family: $ff-titles;
 }
 
 .h1,
 h1 {
-	font-size: 40px; 
-	line-height: 1.15; 
+	font-size: 40px;
+	line-height: 1.15;
 
 	@include breakpoint-down(large-desktop) {
-		font-size: 36px; 
+		font-size: 36px;
 	}
 
 	@include breakpoint-down(mobile) {
-		font-size: 28px; 
+		font-size: 28px;
 	}
 
 	@include breakpoint-down(mobile-medium) {
-		font-size: 26px; 
+		font-size: 26px;
 	}
 }
 
 .h2,
 h2 {
-	font-size: 32px; 
-	line-height: 1.09; 
+	font-size: 32px;
+	line-height: 1.09;
 
 	@include breakpoint-down(mobile) {
-		font-size: 24px; 
+		font-size: 24px;
 	}
 }
 
 .h3,
 h3 {
-	font-size: 26px; 
-	line-height: 1.12; 
+	font-size: 26px;
+	line-height: 1.12;
 
 	@include breakpoint-down(mobile) {
-		font-size: 22px; 
+		font-size: 22px;
 	}
 }
 
 .h4,
 h4 {
-	font-size: 22px; 
-	line-height: 1.09; 
+	font-size: 22px;
+	line-height: 1.09;
 
 	@include breakpoint-down(mobile) {
-		font-size: 20px; 
+		font-size: 20px;
 	}
 }
 
 .h5,
 h5 {
-	font-size: 18px; 
-	line-height: 1.17; 
+	font-size: 18px;
+	line-height: 1.17;
 }
 
 .h6,
 h6 {
-	font-size: 16px; 
-	line-height: 1.17; 
+	font-size: 16px;
+	line-height: 1.17;
 
 	@include breakpoint-down(mobile-medium) {
-		font-size: 14px; 
+		font-size: 14px;
 	}
 }
-
 
 p,
 ul,

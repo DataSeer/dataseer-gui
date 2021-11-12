@@ -5,7 +5,7 @@
 		</div>
 
 		<div class="pagination__steps">
-			<Button size="small" :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
+			<Button size="small" highlighted :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
 				<Icon name="angle_left" color="currentColor" />
 			</Button>
 
@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 
-			<Button size="small" :disabled="!(currentPage < pages)" @onClick="next()" className="tertiary" square>
+			<Button size="small" highlighted :disabled="currentPage + 1 >= pages" @onClick="next()" className="tertiary" square>
 				<Icon name="angle_right" color="currentColor" />
 			</Button>
 			<!-- /.pagination__button -->
