@@ -14,16 +14,16 @@
 				multiple
 				:options="[
 					{
-						title: 'Owner 1',
+						title: 'Laura Leadauthor',
 					},
 					{
-						title: 'Owner 2',
+						title: 'Short Name',
 					},
 					{
-						title: 'Owner 3',
+						title: 'A. Nothersuper Longnameperson',
 					},
 					{
-						title: 'Owner 4',
+						title: 'Lorem ipsum dolor sit amet, consectetur',
 					},
 				]"
 			>
@@ -59,7 +59,7 @@
 
 			<div class="form__row">
 				<label class="form__label">
-					<Icon name="organization" color="currentColor" />
+					<Icon name="document_upload" color="currentColor" />
 
 					Uploaded
 				</label>
@@ -82,7 +82,7 @@
 
 			<div class="form__row">
 				<label class="form__label">
-					<Icon name="organization" color="currentColor" />
+					<Icon name="document_modify" color="currentColor" />
 
 					Modified</label
 				><!-- /.form__label -->
@@ -175,11 +175,11 @@ export default {
 			this.modifiedTo = null;
 		},
 		disableUploadedFrom(date) {
-			if (!this.uploadedTo) return true;
+			if (!this.uploadedTo) return false;
 			return date > this.uploadedTo;
 		},
 		disableUploadedTo(date) {
-			if (!this.uploadedFrom) return true;
+			if (!this.uploadedFrom) return false;
 			return date < this.uploadedFrom;
 		},
 	},

@@ -1,9 +1,16 @@
 /* ------------------------------------------------------------ *\
-	Documents Filters
+	Table Filters
 \* ------------------------------------------------------------ */
 
-.documents-filters {
+.table-filters {
+	position: relative;
 	padding: 30px 45px;
 	background: $c-bg-2;
 	box-shadow: 0 2px 9px rgba($c-blue-00, 0.12);
+
+	.btn-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
 }

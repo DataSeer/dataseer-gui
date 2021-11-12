@@ -1,26 +1,19 @@
 <template>
 	<div class="main main--documents">
 		<div class="shell">
-			<div v-if="getFiltersVisibility" class="documents-filters">
+			<div v-if="getFiltersVisibility" class="table-filters">
+				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
+
 				<FormFilters />
 			</div>
-			<!-- /.documents-filters -->
+			<!-- /.table-filters -->
 
-			<div class="documents" tabindex="0" aria-label="documents">
-				<div class="documents__inner" v-if="getDocumentView === 'list'">
-					<div class="documents__table">
-						<vue-good-table
-							:columns="fields"
-							:rows="docs"
-							:pagination-options="{
-								enabled: true,
-								perPage: itemsPerPage,
-							}"
-							styleClass="vgt-table"
-						>
+			<div class="table table--documents" tabindex="0" aria-label="documents">
+				<div class="table__inner" v-if="getDocumentView === 'list'">
+						<vue-good-table :columns="fields" :rows="docs" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 							>
 							<template slot="table-row" slot-scope="props">
-								<span v-if="props.column.field == 'title'" class="document__title">
+								<span v-if="props.column.field == 'title'" class="table__title">
 									<router-link to="/report">
 										<Icon name="document" color="CurrentCOlor"></Icon>
 
@@ -28,20 +21,20 @@
 									</router-link>
 								</span>
 
-								<div v-else-if="props.column.field === 'action'" class="documents__actions">
+								<div v-else-if="props.column.field === 'action'" class="table__actions">
 									<ul>
 										<li>
-											<Button className="tertiary" to="/new-document">View</Button>
+											<Button size="small" className="tertiary" to="/new-document">View</Button>
 										</li>
 
 										<li>
-											<Button className="tertiary" to="/new-document">Report</Button>
+											<Button size="small" className="tertiary" to="/new-document">Report</Button>
 										</li>
 
 										<li>
 											<Dropdown>
 												<template #header>
-													<Button className="tertiary" square>
+													<Button size="small" className="tertiary" square>
 														<Icon name="angle_down" color="currentColor" />
 													</Button>
 												</template>
@@ -106,41 +99,34 @@
 										</li>
 									</ul>
 								</div>
-								<!-- /.documents__actions -->
+								<!-- /.table__actions -->
 
 								<span
 									v-else-if="props.column.field == 'status'"
-									class="document__status"
+									class="table__status"
 									:class="{
 										'is-validating': props.row.status.toLowerCase() === 'validating',
 										'is-complete': props.row.status.toLowerCase() === 'complete',
 									}"
 								>
 									{{ props.row.status }}
-									<!-- /.document__status -->
+									<!-- /.table__status -->
 								</span>
 							</template>
 
 							<template slot="pagination-bottom" slot-scope="props">
-								<Pagination
-									v-if="props.total > itemsPerPage"
-									@onPerPageChanged="changePerPage"
-									:totalItems="props.total"
-									:pageChanged="props.pageChanged"
-									:perPageChanged="props.perPageChanged"
-								/>
+								<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
 							</template>
 						</vue-good-table>
-					</div>
-					<!-- /.documents__table -->
+					<!-- /.table__table -->
 				</div>
-				<!-- /.documents__inner -->
+				<!-- /.table__inner -->
 
 				<Boxes v-if="getDocumentView === 'grid'">
 					<Box v-for="doc in docs" :key="doc.id" :doc="doc"></Box>
 				</Boxes>
 			</div>
-			<!-- /.documents -->
+			<!-- /.table -->
 		</div>
 		<!-- /.shell -->
 	</div>
@@ -148,13 +134,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import Box from '@/components/box/box';
 import Boxes from '@/components/boxes/boxes';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown.vue';
+import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
 import FormFilters from '@/blocks/form-filters/form-filters.vue';
 
@@ -166,6 +153,7 @@ export default {
 		Icon,
 		Boxes,
 		Button,
+		BtnClose,
 		Dropdown,
 		Pagination,
 		FormFilters,
@@ -226,7 +214,7 @@ export default {
 						'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Validating',
@@ -237,7 +225,7 @@ export default {
 						'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long title That Goes  150 Characters So It Gets Cut O…',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -247,7 +235,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -257,7 +245,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -267,7 +255,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -277,7 +265,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -287,7 +275,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -297,7 +285,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -307,7 +295,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -317,7 +305,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -327,7 +315,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -337,7 +325,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -347,7 +335,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -357,7 +345,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -367,7 +355,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -377,7 +365,7 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
@@ -387,13 +375,12 @@ export default {
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
 					journal: 'Journal of Medical Internet Research',
-					file: 'http://www.africau.edu/images/default/sample.pdf',
+					file: 'my_uploaded-filename.pdf',
 					uploaded: '2021-06-12',
 					modified: '2021-06-12',
 					status: 'Complete',
 				},
 			],
-			itemsPerPage: 5,
 		};
 	},
 
@@ -401,6 +388,7 @@ export default {
 		changePerPage(val) {
 			this.itemsPerPage = parseInt(val);
 		},
+		...mapActions(['changeFiltersVisibility']),
 	},
 
 	computed: {

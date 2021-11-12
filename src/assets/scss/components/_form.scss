@@ -422,20 +422,17 @@
 		.vs__dropdown-toggle {
 			height: auto;
 			min-height: 44px;
+			padding-right: 52px;
 
 			&:after {
 				content: '';
 				position: absolute;
-				top: 50%;
+				top: 10px;
 				right: 14px;
-				width: 13px;
-				height: 13px;
-				margin-top: -9px;
-				background-position: center;
-				background-size: contain;
-				background-repeat: no-repeat;
-				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.559' height='13.559' viewBox='0 0 13.559 13.559'%3E%3Cpath id='Rectangle' d='M9.293,1.707A1,1,0,0,1,11,2.414V10a1,1,0,0,1-1,1H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(6.78 -1.997) rotate(45)' fill='%23444'/%3E%3C/svg%3E%0A");
-				pointer-events: none;
+				width: 24px;
+				height: 24px;
+				margin-top: 0;
+				background-image: url("data:image/svg+xml,%3Csvg width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg transform='translate(-484.000000, -228.000000)' fill='%23006AC9' fill-rule='nonzero'%3E%3Cg transform='translate(149.000000, 191.000000)'%3E%3Cg transform='translate(335.000000, 37.000000)'%3E%3Cpath d='M16.8,11.4 L12.6,11.4 L12.6,7.2 C12.6,6.8686524 12.3313476,6.6 12,6.6 C11.6686524,6.6 11.4,6.8686524 11.4,7.2 L11.4,11.4 L7.2,11.4 C6.8686524,11.4 6.6,11.6686524 6.6,12 C6.6,12.3313476 6.8686524,12.6 7.2,12.6 L11.4,12.6 L11.4,16.8006592 C11.4002197,17.1318604 11.6687988,17.4002197 12,17.4000001 L12.0007325,17.4000001 C12.3318604,17.3997803 12.6002197,17.1312012 12.6,16.8 L12.6,12.6 L16.8,12.6 C17.1313476,12.6 17.4,12.3313476 17.4,12 C17.4,11.6686524 17.1313476,11.4 16.8,11.4 Z M12,0 C5.37260748,0 0,5.37260748 0,12 C0,18.6273925 5.37260748,24 12,24 C18.6242431,23.9924561 23.9924561,18.6242431 24,12 C24,5.37260748 18.6273925,0 12,0 Z M12,22.8 C6.03530268,22.8 1.2,17.9646973 1.2,12 C1.2,6.03530268 6.03530268,1.2 12,1.2 C17.961914,1.20673824 22.7932618,6.03808596 22.8,12 C22.8,17.9646973 17.9646973,22.8 12,22.8 Z' %3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 			}
 		}
 

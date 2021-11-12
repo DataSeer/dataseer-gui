@@ -4,10 +4,11 @@
 
 .btn-close {
 	position: relative;
-	width: 36px;
-	height: 36px;
+	width: 35px;
+	height: 35px;
 	background: none;
 	border: 0;
+	transition: border $t-duration;
 
 	@include breakpoint-down(small-desktop) {
 		width: 24px;
@@ -24,15 +25,37 @@
 		width: 100%;
 		height: 1px;
 		background: $c-gray-97;
-		transition: background $t-duration;;
+		transition: background $t-duration;
 	}
-	
+
 	&:after {
 		transform: rotate(-45deg);
 	}
-	
+
 	&:before {
 		transform: rotate(45deg);
+	}
+
+	&:hover:after,
+	&:hover:before {
+		background: $c-blue-00;
+	}
+}
+
+/* Btn Close Alt */
+
+.btn-close--alt {
+	border: 3px solid $c-skyblue;
+	border-radius: 11px;
+
+	&:after,
+	&:before {
+		width: 18px;
+		margin-left: -9px;
+	}
+
+	&:hover {
+		border-color: $c-primary;
 	}
 
 	&:hover:after,

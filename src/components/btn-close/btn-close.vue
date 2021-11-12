@@ -1,20 +1,20 @@
 <template>
-	<button class="btn-close" @click="$emit('onClick')" :aria-label="label"/>
+	<button class="btn-close" :class="{ 'btn-close--alt': alt }" @click="$emit('onClick')" :aria-label="label" />
 </template>
 
 <script>
 export default {
 	/**
-	* Name
-	*/
+	 * Name
+	 */
 	name: 'BtnClose',
 
 	/**
-	* Props 
-	*/
+	 * Props
+	 */
 	props: {
-		label: String
-	}
-}
+		label: String,
+		alt: Boolean,
+	},
+};
 </script>
-

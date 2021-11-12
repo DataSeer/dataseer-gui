@@ -1,10 +1,10 @@
 /* ------------------------------------------------------------ *\
-	Documents
+	Table
 \* ------------------------------------------------------------ */
 
-.documents {
-	.documents__inner {
-		padding: 40px 45px;
+.table {
+	.table__inner {
+		padding: 40px 45px 55px;
 		background-color: $c-white;
 		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
@@ -18,21 +18,21 @@
 		}
 	}
 
-	.document__title {
+	.table__title {
 		position: relative;
 		display: block;
 		padding-left: 28px;
 		font-weight: 700;
 	}
 
-	.document__title i {
+	.table__title i {
 		content: '';
 		position: absolute;
-		top: 2px;
+		top: 4px;
 		left: 0;
 	}
 
-	.document__status {
+	.table__status {
 		&.is-validating {
 			color: $c-primary;
 		}
@@ -42,17 +42,22 @@
 		}
 	}
 
-	.documents__actions > ul {
+	.table__actions > ul {
 		display: flex;
 		list-style: none;
 	}
 
-	.documents__actions > ul > li {
+	.table__actions > ul > li {
 		flex-shrink: 0;
 	}
 
-	.documents__actions > ul > li + li {
+	.table__actions > ul > li + li {
 		margin-left: 16px;
+	}
+
+	.table__actions .btn:not(.btn--square) {
+		padding-left: 11px;
+		padding-right: 11px;
 	}
 
 	.vgt-inner-wrap {
@@ -68,8 +73,17 @@
 
 	table.vgt-table td {
 		border-color: $c-gray;
-		padding: 20px 15px 23px 0;
+		padding: 14px ​15px 14px 0;
 		vertical-align: top;
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+	table.vgt-table td > span {
+		display: block;
+		margin-top: 6px;
 	}
 
 	table.vgt-table tr:last-child td {
@@ -112,5 +126,38 @@
 		&:before {
 			bottom: 0;
 		}
+	}
+}
+
+/* Table Documents */
+
+.table--documents {
+	#col-0 {
+		width: 28.1%;
+	}
+
+	#col-1 {
+		width: 10.5%;
+	}
+
+	#col-2 {
+		width: 9.9%;
+	}
+
+	#col-3 {
+		width: 15.3%;
+	}
+
+	#col-4,
+	#col-5 {
+		width: 6.2%;
+	}
+
+	#col-6 {
+		width: 10.2%;
+	}
+	
+	#col-7 {
+		width: 19.8%;
 	}
 }

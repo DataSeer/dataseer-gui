@@ -5,7 +5,7 @@
 		</div>
 
 		<div class="pagination__steps">
-			<Button :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
+			<Button size="small" :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
 				<Icon name="angle_left" color="currentColor" />
 			</Button>
 
@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 
-			<Button :disabled="!(currentPage < pages)" @onClick="next()" className="tertiary" square>
+			<Button size="small" :disabled="!(currentPage < pages)" @onClick="next()" className="tertiary" square>
 				<Icon name="angle_right" color="currentColor" />
 			</Button>
 			<!-- /.pagination__button -->
@@ -37,12 +37,7 @@
 		<div class="pagination__dropdown">
 			<label for="items-per-page">Items Per Page</label>
 
-			<select
-				@change="onSelectChange"
-				v-model="dropdownValue"
-				name="items-per-page"
-				id="items-per-page"
-			>
+			<select @change="setItemsPerPage(dropdownValue)" v-model="dropdownValue" name="items-per-page" id="items-per-page">
 				<option :value="2">2</option>
 
 				<option :value="5">5</option>
@@ -156,18 +151,17 @@ export default {
 		next() {
 			if (this.currentPage < this.pages) this.setPage(this.currentPage + 1);
 		},
-		onSelectChange() {
-			this.$emit('onPerPageChanged', this.dropdownValue);
-			this.perPageChanged({ currentPerPage: this.dropdownValue });
-			this.calPageCount();
-		},
-		calPageCount() {
+		calcPageCount() {
 			if (this.totalItems > this.dropdownValue) {
-				this.pages = Math.round(this.totalItems / this.dropdownValue);
+				this.pages = Math.ceil(this.totalItems / this.dropdownValue);
 			} else {
 				this.pages = 1;
 				this.setPage(0);
 			}
+		},
+		setItemsPerPage(value) {
+			this.perPageChanged({ currentPerPage: value });
+			this.calcPageCount();
 		},
 	},
 
@@ -175,7 +169,8 @@ export default {
 	 * Created
 	 */
 	created() {
-		this.calPageCount();
+		this.setItemsPerPage(this.dropdownValue);
+		this.calcPageCount();
 	},
 };
 </script>
