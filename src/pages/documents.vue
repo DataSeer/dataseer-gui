@@ -10,114 +10,128 @@
 
 			<div class="table table--documents" tabindex="0" aria-label="documents">
 				<div class="table__inner" v-if="getDocumentView === 'list'">
-						<vue-good-table :columns="fields" :rows="docs" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+					<vue-good-table :columns="fields" :rows="docs" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+						<template slot="table-column" slot-scope="props">
+							<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Author'">
+								{{ props.column.label }}
+							</span>
+
+							<span v-else-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
+								{{ props.column.label }}
+							</span>
+
+							<span v-else>
+								{{ props.column.label }}
+							</span>
+						</template>
+
+						>
+						<template slot="table-row" slot-scope="props">
+							<span v-if="props.column.field == 'title'" class="table__title">
+								<router-link to="/report">
+									<Icon name="document" color="CurrentCOlor"></Icon>
+
+									{{ props.row.title }}
+								</router-link>
+							</span>
+
+							<div v-else-if="props.column.field === 'action'" class="table__actions">
+								<ul>
+									<li>
+										<Button size="small" className="tertiary" to="/new-document">View</Button>
+									</li>
+
+									<li>
+										<Button size="small" className="tertiary" to="/new-document">Report</Button>
+									</li>
+
+									<li>
+										<Dropdown>
+											<template #header>
+												<Button size="small" className="tertiary" square>
+													<Icon name="angle_down" color="currentColor" />
+												</Button>
+											</template>
+
+											<div class="dropdown__nav">
+												<ul>
+													<li>
+														<a href="#" @click.prevent="toggleSummary">
+															<Icon name="connect" color="currentColor" />
+
+															View/Edit Datasets
+														</a>
+													</li>
+
+													<li>
+														<a href="#">
+															<Icon name="share" color="currentColor" />
+
+															Get Public Share Link
+														</a>
+													</li>
+
+													<li>
+														<a href="#">
+															<Icon name="document_view" color="currentColor" />
+
+															View Data Report
+														</a>
+													</li>
+												</ul>
+
+												<ul>
+													<li>
+														<a href="#">
+															<Icon name="document" color="currentColor" />
+
+															Manage Document
+														</a>
+													</li>
+
+													<li>
+														<a href="#">
+															<Icon name="invite" color="currentColor" />
+
+															Contact Author
+														</a>
+													</li>
+												</ul>
+
+												<ul>
+													<li class="is-highlighted">
+														<a href="#">
+															<Icon name="trash" color="currentColor" />
+
+															Delete Document
+														</a>
+													</li>
+												</ul>
+											</div>
+											<!-- /.dropdown__nav -->
+										</Dropdown>
+									</li>
+								</ul>
+							</div>
+							<!-- /.table__actions -->
+
+							<span
+								v-else-if="props.column.field == 'status'"
+								class="table__status"
+								:class="{
+									'is-validating': props.row.status.toLowerCase() === 'validating',
+									'is-complete': props.row.status.toLowerCase() === 'complete',
+								}"
 							>
-							<template slot="table-row" slot-scope="props">
-								<span v-if="props.column.field == 'title'" class="table__title">
-									<router-link to="/report">
-										<Icon name="document" color="CurrentCOlor"></Icon>
+								{{ props.row.status }}
+								<!-- /.table__status -->
+							</span>
+						</template>
 
-										{{ props.row.title }}
-									</router-link>
-								</span>
-
-								<div v-else-if="props.column.field === 'action'" class="table__actions">
-									<ul>
-										<li>
-											<Button size="small" className="tertiary" to="/new-document">View</Button>
-										</li>
-
-										<li>
-											<Button size="small" className="tertiary" to="/new-document">Report</Button>
-										</li>
-
-										<li>
-											<Dropdown>
-												<template #header>
-													<Button size="small" className="tertiary" square>
-														<Icon name="angle_down" color="currentColor" />
-													</Button>
-												</template>
-
-												<div class="dropdown__nav">
-													<ul>
-														<li>
-															<a href="#" @click.prevent="toggleSummary">
-																<Icon name="connect" color="currentColor" />
-
-																View/Edit Datasets
-															</a>
-														</li>
-
-														<li>
-															<a href="#">
-																<Icon name="share" color="currentColor" />
-
-																Get Public Share Link
-															</a>
-														</li>
-
-														<li>
-															<a href="#">
-																<Icon name="document_view" color="currentColor" />
-
-																View Data Report
-															</a>
-														</li>
-													</ul>
-
-													<ul>
-														<li>
-															<a href="#">
-																<Icon name="document" color="currentColor" />
-
-																Manage Document
-															</a>
-														</li>
-
-														<li>
-															<a href="#">
-																<Icon name="invite" color="currentColor" />
-
-																Contact Author
-															</a>
-														</li>
-													</ul>
-
-													<ul>
-														<li class="is-highlighted">
-															<a href="#">
-																<Icon name="trash" color="currentColor" />
-
-																Delete Document
-															</a>
-														</li>
-													</ul>
-												</div>
-												<!-- /.dropdown__nav -->
-											</Dropdown>
-										</li>
-									</ul>
-								</div>
-								<!-- /.table__actions -->
-
-								<span
-									v-else-if="props.column.field == 'status'"
-									class="table__status"
-									:class="{
-										'is-validating': props.row.status.toLowerCase() === 'validating',
-										'is-complete': props.row.status.toLowerCase() === 'complete',
-									}"
-								>
-									{{ props.row.status }}
-									<!-- /.table__status -->
-								</span>
-							</template>
-
-							<template slot="pagination-bottom" slot-scope="props">
-								<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
-							</template>
-						</vue-good-table>
+						<template slot="pagination-bottom" slot-scope="props">
+							<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
+						</template>
+					</vue-good-table>
 					<!-- /.table__table -->
 				</div>
 				<!-- /.table__inner -->
@@ -174,7 +188,6 @@ export default {
 				{
 					field: 'author',
 					label: 'Author',
-					sortable: false,
 				},
 				{
 					field: 'journal',

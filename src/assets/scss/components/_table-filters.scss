@@ -4,6 +4,7 @@
 
 .table-filters {
 	position: relative;
+	z-index: 50;
 	padding: 30px 45px;
 	background: $c-bg-2;
 	box-shadow: 0 2px 9px rgba($c-blue-00, 0.12);

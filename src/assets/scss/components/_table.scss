@@ -3,19 +3,11 @@
 \* ------------------------------------------------------------ */
 
 .table {
+	background-color: $c-white;
+	padding: 0 45px 55px;
+	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+
 	.table__inner {
-		padding: 40px 45px 55px;
-		background-color: $c-white;
-		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
-
-		@include breakpoint-down(large-desktop) {
-			padding-left: 25px;
-			padding-right: 25px;
-		}
-
-		&:last-child {
-			margin-bottom: auto;
-		}
 	}
 
 	.table__title {
@@ -73,7 +65,7 @@
 
 	table.vgt-table td {
 		border-color: $c-gray;
-		padding: 14px ​15px 14px 0;
+		padding: 14px 15px 14px 0;
 		vertical-align: top;
 
 		&:last-child {
@@ -95,10 +87,14 @@
 	}
 
 	.vgt-table thead th {
-		padding: 0 0 6px 0;
-		background: none;
+		padding: 40px 15px 6px 0;
 		font-size: 12px;
 		color: $c-base-ligter;
+		background: none;
+
+		&:last-child {
+			padding-right: 0;
+		}
 	}
 
 	.vgt-table thead th.sortable {
@@ -117,15 +113,37 @@
 		&:before {
 			left: 0;
 			margin: 0;
+			width: 8px;
+			height: 8px;
+			border: none;
+			background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23bcd0e6'/%3E%3C/svg%3E%0A")
+				center no-repeat;
+			background-size: contain;
+			opacity: 0;
+			transition: opacity $t-duration;
 		}
 
 		&:after {
 			top: 0;
+			transform: scale(1, -1);
 		}
 
 		&:before {
 			bottom: 0;
+			top: auto;
 		}
+	}
+	.vgt-table thead th.sortable:hover button {
+		&:after,
+		&:before {
+			opacity: 1;
+		}
+	}
+
+	.vgt-table thead th.sorting-asc button:after,
+	.vgt-table thead th.sorting-desc button:before {
+		opacity: 1;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23006ac9'/%3E%3C/svg%3E%0A");
 	}
 }
 
@@ -156,8 +174,12 @@
 	#col-6 {
 		width: 10.2%;
 	}
-	
+
 	#col-7 {
 		width: 19.8%;
+	}
+
+	.vgt-table thead th:first-child {
+		padding-left: 28px;
 	}
 }
