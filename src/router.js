@@ -1,8 +1,14 @@
+/**
+ * External Dependencies
+ */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+/**
+ * Internal Dependencies
+ */
 import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
@@ -17,65 +23,65 @@ import Report from '@/pages/report';
 
 const routes = [
 	{
-		name: "Home",
+		name: 'Home',
 		path: '/',
-		component: Home
+		component: Home,
 	},
 	{
-		name: "Profile",
+		name: 'Profile',
 		path: '/profile',
-		component: Profile
+		component: Profile,
 	},
 	{
-		name: "NewDocument",
+		name: 'NewDocument',
 		path: '/new-document',
-		component: NewDocument
+		component: NewDocument,
 	},
 	{
-		name: "Datasets",
+		name: 'Datasets',
 		path: '/datasets',
-		component: Datasets
+		component: Datasets,
 	},
 	{
-		name: "DatasetsCode",
+		name: 'DatasetsCode',
 		path: '/datasets-code',
-		component: DatasetsCode
+		component: DatasetsCode,
 	},
 	{
-		name: "DatasetsMaterials",
+		name: 'DatasetsMaterials',
 		path: '/datasets-materials',
-		component: DatasetsMaterials
+		component: DatasetsMaterials,
 	},
 	{
-		name: "DatasetsProtocols",
+		name: 'DatasetsProtocols',
 		path: '/datasets-protocols',
-		component: DatasetsProtocols
+		component: DatasetsProtocols,
 	},
 	{
-		name: "Documents",
+		name: 'Documents',
 		path: '/documents',
-		component: Documents
+		component: Documents,
 	},
 	{
-		name: "SignUp",
+		name: 'SignUp',
 		path: '/sign-up',
-		component: SignUp
+		component: SignUp,
 	},
 	{
-		name: "SignIn",
+		name: 'SignIn',
 		path: '/sign-in',
 		component: SignIn,
-		props: { success: false }
+		props: { success: false },
 	},
 	{
-		name: "Report",
+		name: 'Report',
 		path: '/report',
-		component: Report
-	}
-]
+		component: Report,
+	},
+];
 
 const router = new VueRouter({
-	routes
+	routes,
 });
 
 export default router;

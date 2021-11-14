@@ -10,9 +10,7 @@
 					</li>
 
 					<li>
-						<a href="http://www.africau.edu/images/default/sample.pdf" target="_blank"
-							>my_uploaded-filename.pdf</a
-						>
+						<a href="http://www.africau.edu/images/default/sample.pdf" target="_blank">my_uploaded-filename.pdf</a>
 					</li>
 				</ul>
 
@@ -157,9 +155,6 @@ export default {
 
 			return author.join(' ');
 		},
-	},
-	mounted: function() {
-		console.log(this.doc.Status);
 	},
 };
 </script>

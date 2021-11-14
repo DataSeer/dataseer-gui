@@ -166,6 +166,15 @@ export default {
 	},
 
 	/**
+	 * Watch
+	 */
+	watch: {
+		totalItems() {
+			this.calcPageCount();
+		},
+	},
+
+	/**
 	 * Created
 	 */
 	created() {

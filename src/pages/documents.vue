@@ -4,13 +4,13 @@
 			<div v-if="getFiltersVisibility" class="table-filters">
 				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
-				<FormFilters />
+				<FormFilters @onApplyFilters="updateFilters" />
 			</div>
 			<!-- /.table-filters -->
 
 			<div class="table table--documents" tabindex="0" aria-label="documents">
-				<div class="table__inner" v-if="getDocumentView === 'list'">
-					<vue-good-table :columns="fields" :rows="docs" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<div class="table__inner">
+					<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 						<template slot="table-column" slot-scope="props">
 							<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Author'">
 								{{ props.column.label }}
@@ -25,7 +25,6 @@
 							</span>
 						</template>
 
-						>
 						<template slot="table-row" slot-scope="props">
 							<span v-if="props.column.field == 'title'" class="table__title">
 								<router-link to="/report">
@@ -139,10 +138,6 @@
 					<!-- /.table__table -->
 				</div>
 				<!-- /.table__inner -->
-
-				<Boxes v-if="getDocumentView === 'grid'">
-					<Box v-for="doc in docs" :key="doc.id" :doc="doc"></Box>
-				</Boxes>
 			</div>
 			<!-- /.table -->
 		</div>
@@ -152,10 +147,14 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
 import { mapGetters, mapActions } from 'vuex';
 
-import Box from '@/components/box/box';
-import Boxes from '@/components/boxes/boxes';
+/**
+ * Internal Dependencies
+ */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown.vue';
@@ -164,12 +163,16 @@ import Pagination from '@/components/pagination/pagination.vue';
 import FormFilters from '@/blocks/form-filters/form-filters.vue';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Documents',
 
+	/**
+	 * Components
+	 */
 	components: {
-		Box,
 		Icon,
-		Boxes,
 		Button,
 		BtnClose,
 		Dropdown,
@@ -177,9 +180,12 @@ export default {
 		FormFilters,
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
-			fields: [
+			columns: [
 				{
 					field: 'id',
 					label: 'id',
@@ -207,11 +213,17 @@ export default {
 					field: 'uploaded',
 					label: 'Uploaded',
 					sortable: false,
+					type: 'date',
+					dateInputFormat: 'T',
+					dateOutputFormat: 'yyyy-MM-dd',
 				},
 				{
 					field: 'modified',
 					label: 'Modified',
 					sortable: false,
+					type: 'date',
+					dateInputFormat: 'T',
+					dateOutputFormat: 'yyyy-MM-dd', // outputs Mar 16th 2018
 				},
 				{
 					field: 'status',
@@ -224,7 +236,7 @@ export default {
 					sortable: false,
 				},
 			],
-			docs: [
+			rows: [
 				{
 					id: 1,
 					title:
@@ -235,8 +247,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Validating',
 				},
 				{
@@ -249,8 +261,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -262,8 +274,8 @@ export default {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -275,47 +287,47 @@ export default {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 5,
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
+					journal: 'Organization 2',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 6,
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
+					journal: 'Organization 3',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 7,
 					title: 'This Document Has  A Very Short Title',
 					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
+					journal: 'Organization 2',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -327,8 +339,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -340,8 +352,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -353,8 +365,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -366,8 +378,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -379,8 +391,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -392,8 +404,8 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
@@ -405,62 +417,86 @@ export default {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 15,
 					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
+					author: 'Short Name',
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 16,
 					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
+					author: 'Short Name',
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 				{
 					id: 17,
 					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
+					author: 'Short Name',
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
 						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 					},
-					uploaded: '2021-06-12',
-					modified: '2021-06-12',
+					uploaded: 1623445200000,
+					modified: 1624395600000,
 					status: 'Complete',
 				},
 			],
+			availableFilters: null,
 		};
 	},
 
-	methods: {
-		changePerPage(val) {
-			this.itemsPerPage = parseInt(val);
+	/**
+	 * Computed
+	 */
+	computed: {
+		filteredRows: function() {
+			if (!this.availableFilters) return this.rows;
+
+			const { owner, organization, uploadedFrom, uploadedTo, modifiedFrom, modifiedTo } = this.availableFilters;
+
+			return this.rows
+				.filter((row) => owner.some((el) => el.title === row.author) || !owner.length)
+				.filter((row) => organization.some((el) => el.title === row.journal) || !organization.length)
+				.filter((row) => {
+					if (!(uploadedFrom || uploadedTo)) return true;
+					return row.uploaded > uploadedFrom || row.uploaded < uploadedTo;
+				})
+				.filter((row) => {
+					if (!(modifiedFrom || modifiedTo)) return true;
+					return row.modified > modifiedFrom || row.modified <= modifiedTo;
+				});
 		},
-		...mapActions(['changeFiltersVisibility']),
+		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
 	},
 
-	computed: {
-		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
+	/**
+	 * Methods
+	 */
+	methods: {
+		updateFilters(filters) {
+			this.availableFilters = filters;
+		},
+		...mapActions(['changeFiltersVisibility']),
 	},
 };
 </script>

@@ -1,40 +1,58 @@
 <template>
-  <div id="app">
-    <Header></Header>
+	<div id="app">
+		<Header />
 
-    <router-view></router-view>
-  </div>
+		<router-view />
+	</div>
 </template>
 
 <script>
-import Header from './components/header/header.vue'
+/**
+ * Internal Dependencies
+ */
+import Header from '@/components/header/header.vue';
 
 export default {
-  name: 'App',
+	/**
+	 * Name
+	 */
+	name: 'App',
 
-  components: {
-    Header,
-  },
+	/**
+	 * Components
+	 */
+	components: {
+		Header
+	},
 
-  methods: {
-    clearDropdowns(event) {
-      const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
+	/**
+	 * Methods
+	 */
+	methods: {
+		clearDropdowns(event) {
+			const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
 
-      if(activeDropdowns) {
-        activeDropdowns.forEach((activeDropdown) => {
-          if (activeDropdown.contains(event.target)) return;
-          activeDropdown.classList.remove('is-active');
-        })
-      }
-    }
-  },
+			if (activeDropdowns) {
+				activeDropdowns.forEach((activeDropdown) => {
+					if (activeDropdown.contains(event.target)) return;
+					activeDropdown.classList.remove('is-active');
+				});
+			}
+		}
+	},
 
-  created(){
-    window.addEventListener('click', this.clearDropdowns)
-  },
+	/**
+	 * Created
+	 */
+	created() {
+		window.addEventListener('click', this.clearDropdowns);
+	},
 
-  destroyed() {
-    window.removeEventListener('click', this.clearDropdowns)
-  }
-}
+	/**
+	 * Destroyed
+	 */
+	destroyed() {
+		window.removeEventListener('click', this.clearDropdowns);
+	}
+};
 </script>

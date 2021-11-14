@@ -6,99 +6,103 @@
 		<!-- /.form__head -->
 
 		<div class="form__body">
-			<FormRow
-				v-model.trim="owner"
-				name="owner"
-				placeholder="Document Owner"
-				FormFilters
-				multiple
-				:options="[
-					{
-						title: 'Laura Leadauthor',
-					},
-					{
-						title: 'Short Name',
-					},
-					{
-						title: 'A. Nothersuper Longnameperson',
-					},
-					{
-						title: 'Lorem ipsum dolor sit amet, consectetur',
-					},
-				]"
-			>
-				<Icon name="user" color="currentColor" />
-
-				Document Owner
-			</FormRow>
-
-			<FormRow
-				v-model.trim="organization"
-				name="organization"
-				placeholder="Include All"
-				multiple
-				:options="[
-					{
-						title: 'Organization 1',
-					},
-					{
-						title: 'Organization 2',
-					},
-					{
-						title: 'Organization 3',
-					},
-					{
-						title: 'Organization 4',
-					},
-				]"
-			>
-				<Icon name="organization" color="currentColor" />
-
-				Institution/Organization
-			</FormRow>
-
 			<div class="form__row">
-				<label class="form__label">
-					<Icon name="document_upload" color="currentColor" />
+				<div class="form__col">
+					<Field
+						v-model.trim="formData.owner"
+						name="owner"
+						placeholder="Document Owner"
+						FormFilters
+						multiple
+						:options="[
+							{
+								title: 'Laura Leadauthor'
+							},
+							{
+								title: 'Short Name'
+							},
+							{
+								title: 'A. Nothersuper Longnameperson'
+							},
+							{
+								title: 'Lorem ipsum dolor sit amet, consectetur'
+							}
+						]"
+					>
+						<Icon name="user" color="currentColor" />
 
-					Uploaded
-				</label>
-				<!-- /.form__label -->
-
-				<div class="form__range">
-					<ul>
-						<li>
-							<FormDatepicker v-model="uploadedFrom" placeholder="From" :disableFn="disableUploadedFrom" />
-						</li>
-
-						<li>
-							<FormDatepicker v-model="uploadedTo" placeholder="To" :disableFn="disableUploadedTo" />
-						</li>
-					</ul>
+						Document Owner
+					</Field>
 				</div>
-				<!-- /.form__range -->
-			</div>
-			<!-- /.form__row -->
+				<!-- /.form__col -->
 
-			<div class="form__row">
-				<label class="form__label">
-					<Icon name="document_modify" color="currentColor" />
+				<div class="form__col">
+					<Field
+						v-model.trim="formData.organization"
+						name="organization"
+						placeholder="Include All"
+						multiple
+						:options="[
+							{
+								title: 'Journal of Medical Internet Research'
+							},
+							{
+								title: 'Organization 2'
+							},
+							{
+								title: 'Organization 3'
+							},
+							{
+								title: 'Organization 4'
+							}
+						]"
+					>
+						<Icon name="organization" color="currentColor" />
 
-					Modified</label
-				><!-- /.form__label -->
-
-				<div class="form__range">
-					<ul>
-						<li>
-							<FormDatepicker v-model="modifiedFrom" placeholder="From" />
-						</li>
-
-						<li>
-							<FormDatepicker v-model="modifiedTo" placeholder="To" />
-						</li>
-					</ul>
+						Institution/Organization
+					</Field>
 				</div>
-				<!-- /.form__range -->
+				<!-- /.form__col -->
+
+				<div class="form__col">
+					<div class="form__range">
+						<ul>
+							<li>
+								<FieldDatepicker v-model="formData.uploadedFrom" placeholder="From" :disableFn="disableUploadedFrom">
+									<Icon name="document_upload" color="currentColor" />
+
+									Uploaded
+								</FieldDatepicker>
+							</li>
+
+							<li>
+								<FieldDatepicker v-model="formData.uploadedTo" placeholder="To" :disableFn="disableUploadedTo" />
+							</li>
+						</ul>
+					</div>
+					<!-- /.form__range -->
+				</div>
+				<!-- /.form__col -->
+
+				<div class="form__col">
+					<div class="form__range">
+						<ul>
+							<li>
+								<FieldDatepicker v-model="formData.modifiedFrom" placeholder="From">
+									<Icon name="document_modify" color="currentColor" />
+
+									Modified
+								</FieldDatepicker>
+							</li>
+
+							<li>
+								<FieldDatepicker v-model="formData.modifiedTo" placeholder="To" />
+							</li>
+						</ul>
+					</div>
+					<!-- /.form__range -->
+				</div>
+				<!-- /.form__col -->
 			</div>
 			<!-- /.form__row -->
 		</div>
@@ -126,8 +130,8 @@
  */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
-import FormRow from '@/components/form-row/form-row';
-import FormDatepicker from '@/components/form-datepicker/form-datepicker';
+import Field from '@/components/field/field';
+import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 
 export default {
 	/**
@@ -141,8 +145,8 @@ export default {
 	components: {
 		Icon,
 		Button,
-		FormRow,
-		FormDatepicker,
+		Field,
+		FieldDatepicker
 	},
 
 	/**
@@ -150,12 +154,14 @@ export default {
 	 */
 	data: function() {
 		return {
-			owner: [],
-			organization: [],
-			uploadedFrom: null,
-			uploadedTo: null,
-			modifiedFrom: null,
-			modifiedTo: null,
+			formData: {
+				owner: [],
+				organization: [],
+				uploadedFrom: null,
+				uploadedTo: null,
+				modifiedFrom: null,
+				modifiedTo: null
+			}
 		};
 	},
 
@@ -164,24 +170,28 @@ export default {
 	 */
 	methods: {
 		handleApplyFilters() {
-			console.log('Apply');
+			this.$emit('onApplyFilters', this.formData);
 		},
 		handleClearFilters() {
-			this.owner = [];
-			this.organization = [];
-			this.uploadedFrom = null;
-			this.uploadedTo = null;
-			this.modifiedFrom = null;
-			this.modifiedTo = null;
+			this.formData = {
+				owner: [],
+				organization: [],
+				uploadedFrom: null,
+				uploadedTo: null,
+				modifiedFrom: null,
+				modifiedTo: null
+			};
+
+			this.handleApplyFilters();
 		},
 		disableUploadedFrom(date) {
-			if (!this.uploadedTo) return false;
-			return date > this.uploadedTo;
+			if (!this.formData.uploadedTo) return false;
+			return date > this.formData.uploadedTo;
 		},
 		disableUploadedTo(date) {
-			if (!this.uploadedFrom) return false;
-			return date < this.uploadedFrom;
-		},
-	},
+			if (!this.formData.uploadedFrom) return false;
+			return date < this.formData.uploadedFrom;
+		}
+	}
 };
 </script>
