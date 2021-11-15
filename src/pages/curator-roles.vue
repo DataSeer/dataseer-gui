@@ -33,7 +33,7 @@
 							</span>
 
 							<div v-else-if="props.column.field === 'action'" class="table__actions">
-								<Button size="small" className="tertiary" to="/edit-user" highlighted block>Edit Role</Button>
+								<Button size="small" className="tertiary" to="/edit-role" highlighted block>Edit Role</Button>
 							</div>
 						</template>
 

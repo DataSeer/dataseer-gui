@@ -8,6 +8,14 @@
 			<SubheaderProfile v-if="isUserPage" />
 			<SubheaderReport v-if="isReportPage" />
 			<SubheaderRoles v-if="isRolesPage" />
+
+			<SubheaderEdit title="Manage Document" icon="organization" v-if="isEditOrganizationsPage">
+				<Button to="/documents" className="tertiary">Exit Document</Button>
+			</SubheaderEdit>
+
+			<SubheaderEdit title="Edit Role" icon="key" v-if="isEditRolePage">
+				<Button to="/curator-roles" className="tertiary">Exit Role</Button>
+			</SubheaderEdit>
 		</div>
 		<!-- /.shell -->
 	</div>
@@ -22,6 +30,8 @@ import SubheaderDatasets from './subheader-datasets';
 import SubheaderProfile from './subheader-profile';
 import SubheaderReport from './subheader-report';
 import SubheaderRoles from './subheader-roles';
+import SubheaderEdit from './subheader-edit';
+import Button from '@/components/button/button.vue';
 
 export default {
 	/**
@@ -39,13 +49,21 @@ export default {
 		SubheaderDatasets,
 		SubheaderProfile,
 		SubheaderReport,
-		SubheaderRoles
+		SubheaderRoles,
+		SubheaderEdit,
+		Button
 	},
 
 	/**
 	 * computed
 	 */
 	computed: {
+		isEditRolePage() {
+			return this.$route.path === '/edit-role';
+		},
+		isEditOrganizationsPage() {
+			return this.$route.path === '/edit-organization';
+		},
 		isOrganizationsPage() {
 			return this.$route.path === '/organizations';
 		},
@@ -74,6 +92,8 @@ export default {
 		},
 		isVisible() {
 			return (
+				this.isEditRolePage ||
+				this.isEditOrganizationsPage ||
 				this.isOrganizationsPage ||
 				this.isRolesPage ||
 				this.isAccountsPage ||
@@ -84,7 +104,14 @@ export default {
 			);
 		},
 		additionalClass() {
-			if (this.isDocumentsPage || this.isAccountsPage || this.isRolesPage || this.isOrganizationsPage) {
+			if (
+				this.isEditRolePage ||
+				this.isEditOrganizationsPage ||
+				this.isDocumentsPage ||
+				this.isAccountsPage ||
+				this.isRolesPage ||
+				this.isOrganizationsPage
+			) {
 				return 'documents';
 			} else if (this.isDatasetsPage) {
 				return 'datasets';
