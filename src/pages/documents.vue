@@ -12,11 +12,11 @@
 				<div class="table__inner">
 					<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 						<template slot="table-column" slot-scope="props">
-							<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Author'">
+							<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
 								{{ props.column.label }}
 							</span>
 
-							<span v-else-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
+							<span v-else-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Author'">
 								{{ props.column.label }}
 							</span>
 
@@ -113,7 +113,7 @@
 								</ul>
 							</div>
 
-							<span v-else-if="props.column.field == 'file'" class="table__file overflow-truncate">
+							<span v-else-if="props.column.field === 'file'" class="table__file overflow-truncate">
 								<a :href="props.row.file.url" target="_blank">{{ props.row.file.title }}</a>
 							</span>
 							<!-- /.table__actions -->
@@ -475,8 +475,8 @@ export default {
 			const { owner, organization, uploadedFrom, uploadedTo, modifiedFrom, modifiedTo } = this.availableFilters;
 
 			return this.rows
-				.filter((row) => owner.some((el) => el.title === row.author) || !owner.length)
-				.filter((row) => organization.some((el) => el.title === row.journal) || !organization.length)
+				.filter((row) => owner.some((el) => el.value === row.author) || !owner.length)
+				.filter((row) => organization.some((el) => el.value === row.journal) || !organization.length)
 				.filter((row) => {
 					if (!(uploadedFrom || uploadedTo)) return true;
 					return row.uploaded > uploadedFrom || row.uploaded < uploadedTo;

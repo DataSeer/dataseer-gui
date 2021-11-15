@@ -53,6 +53,10 @@ export default {
 			type: Number,
 			default: null
 		},
+		name: {
+			type: String,
+			default: ''
+		},
 		placeholder: {
 			type: String,
 			default: ''

@@ -31,7 +31,7 @@
 					</li>
 
 					<li>
-						<Button className="tertiary" to="/new-document">Upload new Document</Button>
+						<Button className="tertiary" to="/new-document">Add New Organization</Button>
 					</li>
 				</ul>
 			</div>

@@ -8,7 +8,7 @@
 		<div class="form__body">
 			<div class="form__row">
 				<div class="form__col">
-					<Field
+					<FieldSelect
 						v-model.trim="formData.owner"
 						name="owner"
 						placeholder="Document Owner"
@@ -16,51 +16,51 @@
 						multiple
 						:options="[
 							{
-								title: 'Laura Leadauthor'
+								value: 'Laura Leadauthor'
 							},
 							{
-								title: 'Short Name'
+								value: 'Short Name'
 							},
 							{
-								title: 'A. Nothersuper Longnameperson'
+								value: 'A. Nothersuper Longnameperson'
 							},
 							{
-								title: 'Lorem ipsum dolor sit amet, consectetur'
+								value: 'Lorem ipsum dolor sit amet, consectetur'
 							}
 						]"
 					>
 						<Icon name="user" color="currentColor" />
 
 						Document Owner
-					</Field>
+					</FieldSelect>
 				</div>
 				<!-- /.form__col -->
 
 				<div class="form__col">
-					<Field
+					<FieldSelect
 						v-model.trim="formData.organization"
 						name="organization"
 						placeholder="Include All"
 						multiple
 						:options="[
 							{
-								title: 'Journal of Medical Internet Research'
+								value: 'Journal of Medical Internet Research'
 							},
 							{
-								title: 'Organization 2'
+								value: 'Organization 2'
 							},
 							{
-								title: 'Organization 3'
+								value: 'Organization 3'
 							},
 							{
-								title: 'Organization 4'
+								value: 'Organization 4'
 							}
 						]"
 					>
 						<Icon name="organization" color="currentColor" />
 
 						Institution/Organization
-					</Field>
+					</FieldSelect>
 				</div>
 				<!-- /.form__col -->
 
@@ -130,7 +130,7 @@
  */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
-import Field from '@/components/field/field';
+import FieldSelect from '@/components/field-select/field-select';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 
 export default {
@@ -145,7 +145,7 @@ export default {
 	components: {
 		Icon,
 		Button,
-		Field,
+		FieldSelect,
 		FieldDatepicker
 	},
 
