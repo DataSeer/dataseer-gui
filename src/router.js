@@ -16,6 +16,7 @@ import Datasets from '@/pages/datasets';
 import DatasetsCode from '@/pages/datasets-code';
 import DatasetsMaterials from '@/pages/datasets-materials';
 import DatasetsProtocols from '@/pages/datasets-protocols';
+import Organizations from '@/pages/organizations';
 import Documents from '@/pages/documents';
 import Accounts from '@/pages/accounts';
 import CuratorRoles from '@/pages/curator-roles';
@@ -63,6 +64,11 @@ const routes = [
 		name: 'Documents',
 		path: '/documents',
 		component: Documents
+	},
+	{
+		name: 'Organizations',
+		path: '/organizations',
+		component: Organizations
 	},
 	{
 		name: 'Accounts',

@@ -1,6 +1,7 @@
 <template>
 	<div class="subheader" :class="{ [`subheader--${additionalClass}`]: additionalClass }" v-if="isVisible">
 		<div class="shell">
+			<SubheaderOrganizations v-if="isOrganizationsPage" />
 			<SubheaderAccounts v-if="isAccountsPage" />
 			<SubheaderDocuments v-if="isDocumentsPage" />
 			<SubheaderDatasets v-if="isDatasetsPage" />
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import SubheaderOrganizations from './subheader-organizations';
 import SubheaderDocuments from './subheader-documents';
 import SubheaderAccounts from './subheader-accounts';
 import SubheaderDatasets from './subheader-datasets';
@@ -31,6 +33,7 @@ export default {
 	 * components
 	 */
 	components: {
+		SubheaderOrganizations,
 		SubheaderDocuments,
 		SubheaderAccounts,
 		SubheaderDatasets,
@@ -43,6 +46,9 @@ export default {
 	 * computed
 	 */
 	computed: {
+		isOrganizationsPage() {
+			return this.$route.path === '/organizations';
+		},
 		isDocumentsPage() {
 			return this.$route.path === '/documents';
 		},
@@ -67,10 +73,18 @@ export default {
 			return this.$route.path === '/report';
 		},
 		isVisible() {
-			return this.isRolesPage || this.isAccountsPage || this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;
+			return (
+				this.isOrganizationsPage ||
+				this.isRolesPage ||
+				this.isAccountsPage ||
+				this.isDocumentsPage ||
+				this.isUserPage ||
+				this.isDatasetsPage ||
+				this.isReportPage
+			);
 		},
 		additionalClass() {
-			if (this.isDocumentsPage || this.isAccountsPage || this.isRolesPage) {
+			if (this.isDocumentsPage || this.isAccountsPage || this.isRolesPage || this.isOrganizationsPage) {
 				return 'documents';
 			} else if (this.isDatasetsPage) {
 				return 'datasets';

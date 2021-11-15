@@ -70,6 +70,10 @@
 		border-color: $c-skyblue-bc;
 	}
 
+	.vgt-right-align {
+		text-align: left;
+	}
+
 	table.vgt-table th {
 		border-color: $c-skyblue-bc;
 	}
@@ -121,6 +125,7 @@
 			top: auto;
 		}
 	}
+
 	.vgt-table thead th.sortable:hover button {
 		&:after,
 		&:before {
@@ -207,10 +212,6 @@
 /* Table Accounts */
 
 .table--accounts {
-	.vgt-right-align {
-		text-align: left;
-	}
-
 	#col-4,
 	#col-5,
 	#col-6 {
@@ -247,5 +248,13 @@
 		width: 19px;
 		height: 19px;
 		border-radius: 50%;
+	}
+}
+
+/* Table Organizations */
+
+.table--organizations {
+	#col-4 {
+		width: 180px;
 	}
 }
