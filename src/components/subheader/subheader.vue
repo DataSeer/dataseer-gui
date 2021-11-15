@@ -6,6 +6,7 @@
 			<SubheaderDatasets v-if="isDatasetsPage" />
 			<SubheaderProfile v-if="isUserPage" />
 			<SubheaderReport v-if="isReportPage" />
+			<SubheaderRoles v-if="isRolesPage" />
 		</div>
 		<!-- /.shell -->
 	</div>
@@ -18,6 +19,7 @@ import SubheaderAccounts from './subheader-accounts';
 import SubheaderDatasets from './subheader-datasets';
 import SubheaderProfile from './subheader-profile';
 import SubheaderReport from './subheader-report';
+import SubheaderRoles from './subheader-roles';
 
 export default {
 	/**
@@ -33,7 +35,8 @@ export default {
 		SubheaderAccounts,
 		SubheaderDatasets,
 		SubheaderProfile,
-		SubheaderReport
+		SubheaderReport,
+		SubheaderRoles
 	},
 
 	/**
@@ -45,6 +48,9 @@ export default {
 		},
 		isAccountsPage() {
 			return this.$route.path === '/accounts';
+		},
+		isRolesPage() {
+			return this.$route.path === '/curator-roles';
 		},
 		isDatasetsPage() {
 			return (
@@ -61,10 +67,10 @@ export default {
 			return this.$route.path === '/report';
 		},
 		isVisible() {
-			return this.isAccountsPage || this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;
+			return this.isRolesPage || this.isAccountsPage || this.isDocumentsPage || this.isUserPage || this.isDatasetsPage || this.isReportPage;
 		},
 		additionalClass() {
-			if (this.isDocumentsPage || this.isAccountsPage) {
+			if (this.isDocumentsPage || this.isAccountsPage || this.isRolesPage) {
 				return 'documents';
 			} else if (this.isDatasetsPage) {
 				return 'datasets';

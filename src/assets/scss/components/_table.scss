@@ -225,3 +225,27 @@
 		list-style: none;
 	}
 }
+
+/* table--roles */
+
+.table--roles {
+	#col-5 {
+		width: 100px;
+	}
+
+	.table__color {
+		position: relative;
+		padding-left: 25px;
+	}
+
+	.table__color i {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		flex-shrink: 0;
+		width: 19px;
+		height: 19px;
+		border-radius: 50%;
+	}
+}

@@ -3,24 +3,29 @@
 \* ------------------------------------------------------------ */
 
 .subheader {
-	background-color: $c-white; 
+	background-color: $c-white;
 	box-shadow: 0 2px 9px rgb(0 106 201 / 12%);
-	
+
 	.subheader__inner {
-		display: flex; 
+		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 76px; 
+		height: 76px;
 	}
 
 	.subheader__left h3 {
-		display: flex; 
+		display: flex;
 		align-items: center;
-		text-transform: uppercase; 
+		text-transform: uppercase;
 	}
 
 	.subheader__left h3 i {
-		margin-right: 10px; 
+		margin-right: 10px;
+	}
+
+	.subheader__left h3 i.ico--key {
+		width: 28px;
+		height: 28px;
 	}
 
 	.subheader__left h3 i.ico--lock {
@@ -32,34 +37,34 @@
 			height: 24px;
 		}
 	}
-	
+
 	.subheader__left .ico--documents {
-		width: 30px; 
-		height: 33px; 
+		width: 30px;
+		height: 33px;
 
 		@include breakpoint-down(mobile-medium) {
-			width: 24px; 
-			height: 27px; 
+			width: 24px;
+			height: 27px;
 		}
 	}
 
 	.subheader__left .ico--document {
-		width: 26px; 
-		height: 33px; 
+		width: 26px;
+		height: 33px;
 
 		@include breakpoint-down(mobile-medium) {
-			width: 21px; 
-			height: 27px; 
+			width: 21px;
+			height: 27px;
 		}
 	}
 
 	.subheader__left .ico--user {
 		width: 33px;
-		height: 33px; 
+		height: 33px;
 
 		@include breakpoint-down(mobile-medium) {
 			width: 26px;
-			height: 26px; 
+			height: 26px;
 		}
 	}
 }
@@ -68,10 +73,10 @@
 
 .subheader--datasets {
 	.subheader__left {
-		padding-right: 15px; 
+		padding-right: 15px;
 
 		@include breakpoint-down(tablet) {
-			padding-right: 0; 
+			padding-right: 0;
 		}
 	}
 }
@@ -80,26 +85,26 @@
 
 .subheader--documents {
 	.subheader__right {
-		display: flex; 
+		display: flex;
 		align-items: center;
 		flex-shrink: 0;
 	}
 
 	.subheader__menu {
 		@include breakpoint-down(tablet) {
-			position: absolute; 
-			top: 100%; 
-			left: 0; 
-			width: 100%; 
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
 			padding: 10px 20px 20px;
-			background-color: $c-white; 
-			display: none; 
+			background-color: $c-white;
+			display: none;
 		}
 	}
 
 	.subheader__menu ul {
-		display: flex; 
-		list-style: none; 
+		display: flex;
+		list-style: none;
 
 		@include breakpoint-down(tablet) {
 			flex-direction: column;
@@ -108,23 +113,23 @@
 	}
 
 	.subheader__menu ul li + li {
-		margin-left: 28px; 
+		margin-left: 28px;
 
 		@include breakpoint-down(tablet) {
-			margin-left: 0; 
-			margin-top: 15px; 
+			margin-left: 0;
+			margin-top: 15px;
 		}
 	}
 
 	.subheader__right.is-active .subheader__menu {
-		display: block; 
+		display: block;
 	}
 
 	.subheader__btn {
-		display: none; 
+		display: none;
 
 		@include breakpoint-down(tablet) {
-			display: block; 
+			display: block;
 		}
 	}
 }
@@ -134,7 +139,7 @@
 .subheader--profile {
 	.subheader__right {
 		@include breakpoint-down(mobile-medium) {
-			display: none; 
+			display: none;
 		}
 	}
 }
@@ -144,31 +149,31 @@
 .subheader--report {
 	.subheader__inner {
 		@include breakpoint-down(tablet) {
-			display: block; 
-			height: auto; 
-			padding: 10px 0; 
+			display: block;
+			height: auto;
+			padding: 10px 0;
 		}
 	}
 
 	.subheader__left {
-		width: 722px; 
+		width: 722px;
 
 		@include breakpoint-down(large-desktop) {
-			width: 500px; 
+			width: 500px;
 		}
 
 		@include breakpoint-down(tablet) {
-			width: 100%; 
+			width: 100%;
 		}
 	}
 
 	.subheader__right {
 		@include breakpoint-down(tablet) {
-			text-align: right; 
+			text-align: right;
 		}
 	}
 
 	.subheader__btn {
-		padding-left: 21px; 
+		padding-left: 21px;
 	}
 }
