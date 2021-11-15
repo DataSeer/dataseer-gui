@@ -7,6 +7,35 @@
 	padding: 0 45px 55px;
 	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
+	.table__title,
+	.vgt-table thead th:first-child {
+		padding-left: 28px;
+	}
+
+	.table__title {
+		position: relative;
+		display: block;
+
+		font-weight: 700;
+	}
+
+	.table__title a {
+		text-decoration: none;
+
+		&:focus,
+		&:hover {
+			color: inherit;
+			text-decoration: $c-primary dotted underline;
+		}
+	}
+
+	.table__title i {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
 	.vgt-responsive {
 		overflow: visible;
 	}
@@ -24,7 +53,7 @@
 
 	table.vgt-table td {
 		border-color: $c-gray;
-		padding: 14px 15px 14px 0;
+		padding: 15px 15px 15px 0;
 		vertical-align: top;
 
 		&:last-child {
@@ -46,7 +75,7 @@
 	}
 
 	.vgt-table thead th {
-		padding: 40px 15px 6px 0;
+		padding: 40px 15px 5px 0;
 		font-size: 12px;
 		color: $c-base-ligter;
 		background: none;
@@ -138,32 +167,8 @@
 		width: 19.8%;
 	}
 
-	.vgt-table thead th:first-child {
-		padding-left: 28px;
-	}
-
-	.table__title {
-		position: relative;
-		display: block;
-		padding-left: 28px;
-		font-weight: 700;
-	}
-
-	.table__title a {
-		text-decoration: none;
-
-		&:focus,
-		&:hover {
-			color: inherit;
-			text-decoration: $c-primary dotted underline;
-		}
-	}
-
 	.table__title i {
-		content: '';
-		position: absolute;
 		top: 4px;
-		left: 0;
 	}
 
 	.table__status {
@@ -196,5 +201,27 @@
 
 	.table__file {
 		max-width: 220px;
+	}
+}
+
+/* Table Accounts */
+
+.table--accounts {
+	.vgt-right-align {
+		text-align: left;
+	}
+
+	#col-4,
+	#col-5,
+	#col-6 {
+		white-space: nowrap;
+	}
+
+	#col-6 {
+		width: 100px;
+	}
+
+	.table__organization {
+		list-style: none;
 	}
 }

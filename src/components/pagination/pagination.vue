@@ -18,7 +18,7 @@
 						@click="setPage(pageButton.name)"
 						:disabled="pageButton.isDisabled"
 						:class="{
-							'is-active': pageButton.name === currentPage,
+							'is-active': pageButton.name === currentPage
 						}"
 						:aria-label="`Go to page number ${pageButton.name + 1} `"
 					>
@@ -78,7 +78,7 @@ export default {
 	 */
 	components: {
 		Icon,
-		Button,
+		Button
 	},
 
 	/**
@@ -87,7 +87,7 @@ export default {
 	props: {
 		totalItems: { type: Number },
 		pageChanged: { type: Function },
-		perPageChanged: { type: Function },
+		perPageChanged: { type: Function }
 	},
 
 	/**
@@ -98,7 +98,7 @@ export default {
 			currentPage: 0,
 			pages: 1,
 			maxbuttonItems: 5,
-			dropdownValue: 5,
+			dropdownValue: 50
 		};
 	},
 
@@ -129,12 +129,12 @@ export default {
 			for (let i = this.startPos; i < this.endPos; i += 1) {
 				range.push({
 					name: i,
-					isDisabled: i === this.currentPage,
+					isDisabled: i === this.currentPage
 				});
 			}
 
 			return range;
-		},
+		}
 	},
 
 	/**
@@ -162,7 +162,7 @@ export default {
 		setItemsPerPage(value) {
 			this.perPageChanged({ currentPerPage: value });
 			this.calcPageCount();
-		},
+		}
 	},
 
 	/**
@@ -171,7 +171,7 @@ export default {
 	watch: {
 		totalItems() {
 			this.calcPageCount();
-		},
+		}
 	},
 
 	/**
@@ -180,6 +180,6 @@ export default {
 	created() {
 		this.setItemsPerPage(this.dropdownValue);
 		this.calcPageCount();
-	},
+	}
 };
 </script>

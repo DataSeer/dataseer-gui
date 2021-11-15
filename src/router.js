@@ -17,6 +17,7 @@ import DatasetsCode from '@/pages/datasets-code';
 import DatasetsMaterials from '@/pages/datasets-materials';
 import DatasetsProtocols from '@/pages/datasets-protocols';
 import Documents from '@/pages/documents';
+import Accounts from '@/pages/accounts';
 import Profile from '@/pages/profile';
 import NewDocument from '@/pages/new-document';
 import Report from '@/pages/report';
@@ -25,63 +26,68 @@ const routes = [
 	{
 		name: 'Home',
 		path: '/',
-		component: Home,
+		component: Home
 	},
 	{
 		name: 'Profile',
 		path: '/profile',
-		component: Profile,
+		component: Profile
 	},
 	{
 		name: 'NewDocument',
 		path: '/new-document',
-		component: NewDocument,
+		component: NewDocument
 	},
 	{
 		name: 'Datasets',
 		path: '/datasets',
-		component: Datasets,
+		component: Datasets
 	},
 	{
 		name: 'DatasetsCode',
 		path: '/datasets-code',
-		component: DatasetsCode,
+		component: DatasetsCode
 	},
 	{
 		name: 'DatasetsMaterials',
 		path: '/datasets-materials',
-		component: DatasetsMaterials,
+		component: DatasetsMaterials
 	},
 	{
 		name: 'DatasetsProtocols',
 		path: '/datasets-protocols',
-		component: DatasetsProtocols,
+		component: DatasetsProtocols
 	},
 	{
 		name: 'Documents',
 		path: '/documents',
-		component: Documents,
+		component: Documents
+	},
+	{
+		name: 'Accounts',
+		path: '/accounts',
+		component: Accounts
 	},
 	{
 		name: 'SignUp',
 		path: '/sign-up',
-		component: SignUp,
+		component: SignUp
 	},
 	{
 		name: 'SignIn',
 		path: '/sign-in',
 		component: SignIn,
-		props: { success: false },
+		props: { success: false }
 	},
 	{
 		name: 'Report',
 		path: '/report',
-		component: Report,
-	},
+		component: Report
+	}
 ];
 
 const router = new VueRouter({
-	routes,
+	routes
 });
 
 export default router;
