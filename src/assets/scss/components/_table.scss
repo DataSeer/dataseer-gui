@@ -3,19 +3,30 @@
 \* ------------------------------------------------------------ */
 
 .table {
+	flex: 1;
+	background: gold;
+	overflow: auto;
 	background-color: $c-white;
-	padding: 0 45px 55px;
 	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+	font-size: 14px;
+	line-height: 1.57;
+	letter-spacing: 0;
 
-	.table__title,
-	.vgt-table thead th:first-child {
-		padding-left: 28px;
+	.vgt-wrap,
+	.table__pagination {
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+
+	.table__inner {
+		position: relative;
+		height: 100%;
+		padding-bottom: 85px;
 	}
 
 	.table__title {
 		position: relative;
 		display: block;
-
 		font-weight: 700;
 	}
 
@@ -36,6 +47,17 @@
 		left: 0;
 	}
 
+	.table__title,
+	.vgt-table thead th:first-child {
+		padding-left: 28px;
+	}
+
+	.vgt-wrap {
+		position: static;
+		height: 100%;
+		overflow: auto;
+	}
+
 	.vgt-responsive {
 		overflow: visible;
 	}
@@ -46,9 +68,6 @@
 
 	table.vgt-table {
 		border: none;
-		font-size: 14px;
-		line-height: 1.57;
-		letter-spacing: 0;
 	}
 
 	table.vgt-table td {
@@ -64,10 +83,6 @@
 	table.vgt-table td > span {
 		display: block;
 		margin-top: 6px;
-	}
-
-	table.vgt-table tr:last-child td {
-		border-color: $c-skyblue-bc;
 	}
 
 	.vgt-right-align {

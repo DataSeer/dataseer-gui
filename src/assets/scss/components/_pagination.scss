@@ -3,12 +3,22 @@
 \* ------------------------------------------------------------ */
 
 .pagination {
-	display: flex;
-	align-items: center;
-	margin-top: 23px;
-	text-transform: uppercase;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 	font-family: $ff-titles;
 	font-weight: 500;
+	background-color: $c-white;
+
+	.pagination__inner {
+		display: flex;
+		align-items: center;
+		text-transform: uppercase;
+		padding-bottom: 25px;
+		padding-top: 25px;
+		border-top: 1px solid $c-skyblue-bc;
+	}
 
 	.pagination__total span {
 		color: $c-primary;

@@ -1,5 +1,5 @@
 <template>
-	<div class="main main--documents">
+	<div class="main main--tables">
 		<div class="shell">
 			<div v-if="getFiltersVisibility" class="table-filters">
 				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
@@ -123,7 +123,7 @@
 								class="table__status"
 								:class="{
 									'is-validating': props.row.status.toLowerCase() === 'validating',
-									'is-complete': props.row.status.toLowerCase() === 'complete',
+									'is-complete': props.row.status.toLowerCase() === 'complete'
 								}"
 							>
 								{{ props.row.status }}
@@ -177,7 +177,7 @@ export default {
 		BtnClose,
 		Dropdown,
 		Pagination,
-		FormFilters,
+		FormFilters
 	},
 
 	/**
@@ -189,25 +189,25 @@ export default {
 				{
 					field: 'id',
 					label: 'id',
-					hidden: true,
+					hidden: true
 				},
 				{
 					field: 'title',
-					label: 'Title',
+					label: 'Title'
 				},
 				{
 					field: 'author',
-					label: 'Author',
+					label: 'Author'
 				},
 				{
 					field: 'journal',
 					label: 'Journal',
-					sortable: false,
+					sortable: false
 				},
 				{
 					field: 'file',
 					label: 'File',
-					sortable: false,
+					sortable: false
 				},
 				{
 					field: 'uploaded',
@@ -215,7 +215,7 @@ export default {
 					sortable: false,
 					type: 'date',
 					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd',
+					dateOutputFormat: 'yyyy-MM-dd'
 				},
 				{
 					field: 'modified',
@@ -223,18 +223,18 @@ export default {
 					sortable: false,
 					type: 'date',
 					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd', // outputs Mar 16th 2018
+					dateOutputFormat: 'yyyy-MM-dd' // outputs Mar 16th 2018
 				},
 				{
 					field: 'status',
 					label: 'Status',
-					sortable: false,
+					sortable: false
 				},
 				{
 					field: 'action',
 					label: 'Action',
-					sortable: false,
-				},
+					sortable: false
+				}
 			],
 			rows: [
 				{
@@ -245,11 +245,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Validating',
+					status: 'Validating'
 				},
 				{
 					id: 2,
@@ -259,11 +259,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 3,
@@ -272,11 +272,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 4,
@@ -285,11 +285,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 5,
@@ -298,11 +298,11 @@ export default {
 					journal: 'Organization 2',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 6,
@@ -311,11 +311,11 @@ export default {
 					journal: 'Organization 3',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 7,
@@ -324,11 +324,11 @@ export default {
 					journal: 'Organization 2',
 					file: {
 						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 8,
@@ -337,11 +337,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 9,
@@ -350,11 +350,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 10,
@@ -363,11 +363,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 11,
@@ -376,11 +376,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 12,
@@ -389,11 +389,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 13,
@@ -402,11 +402,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 14,
@@ -415,11 +415,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 15,
@@ -428,11 +428,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 16,
@@ -441,11 +441,11 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
+					status: 'Complete'
 				},
 				{
 					id: 17,
@@ -454,14 +454,14 @@ export default {
 					journal: 'Journal of Medical Internet Research',
 					file: {
 						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 					},
 					uploaded: 1623445200000,
 					modified: 1624395600000,
-					status: 'Complete',
-				},
+					status: 'Complete'
+				}
 			],
-			availableFilters: null,
+			availableFilters: null
 		};
 	},
 
@@ -486,7 +486,7 @@ export default {
 					return row.modified > modifiedFrom || row.modified <= modifiedTo;
 				});
 		},
-		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
+		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},
 
 	/**
@@ -496,7 +496,7 @@ export default {
 		updateFilters(filters) {
 			this.availableFilters = filters;
 		},
-		...mapActions(['changeFiltersVisibility']),
-	},
+		...mapActions(['changeFiltersVisibility'])
+	}
 };
 </script>

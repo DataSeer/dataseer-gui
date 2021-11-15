@@ -69,12 +69,18 @@
 }
 
 /* ------------------------------------------------------------ *\
-  Main Documents
+  Main Tables
 \* ------------------------------------------------------------ */
 
-.main--documents {
+.main--tables {
+	display: flex;
 	padding-top: 132px;
-	padding-bottom: 260px;
+	max-height: calc(100vh - 132px);
+
+	.shell {
+		display: flex;
+		flex-flow: column;
+	}
 }
 
 /* ------------------------------------------------------------ *\

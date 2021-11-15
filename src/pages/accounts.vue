@@ -1,5 +1,5 @@
 <template>
-	<div class="main main--documents">
+	<div class="main main--tables">
 		<div class="shell">
 			<div v-if="getFiltersVisibility" class="table-filters">
 				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />

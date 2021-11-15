@@ -1,61 +1,63 @@
 <template>
-	<div class="pagination">
-		<div class="pagination__total">
-			Items <span>{{ totalItems }}</span>
+	<div class="table__pagination pagination">
+		<div class="pagination__inner">
+			<div class="pagination__total">
+				Items <span>{{ totalItems }}</span>
+			</div>
+			<!-- /.pagination__total -->
+
+			<div class="pagination__steps">
+				<Button size="small" highlighted :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
+					<Icon name="angle_left" color="currentColor" />
+				</Button>
+
+				<ul>
+					<li>Page</li>
+
+					<li v-for="pageButton in pageButtons" :key="pageButton.name" class="pagination-item">
+						<button
+							type="button"
+							@click="setPage(pageButton.name)"
+							:disabled="pageButton.isDisabled"
+							:class="{
+								'is-active': pageButton.name === currentPage
+							}"
+							:aria-label="`Go to page number ${pageButton.name + 1} `"
+						>
+							{{ pageButton.name + 1 }}
+						</button>
+					</li>
+				</ul>
+
+				<Button size="small" highlighted :disabled="currentPage + 1 >= pages" @onClick="next()" className="tertiary" square>
+					<Icon name="angle_right" color="currentColor" />
+				</Button>
+				<!-- /.pagination__button -->
+			</div>
+			<!-- /.pagination__steps -->
+
+			<div class="pagination__dropdown">
+				<label for="items-per-page">Items Per Page</label>
+
+				<select @change="setItemsPerPage(dropdownValue)" v-model="dropdownValue" name="items-per-page" id="items-per-page">
+					<option :value="2">2</option>
+
+					<option :value="5">5</option>
+
+					<option :value="10">10</option>
+
+					<option :value="20">20</option>
+
+					<option :value="50">50</option>
+
+					<option :value="100">100</option>
+				</select>
+
+				<Icon name="angle_down" color="currentColor" />
+			</div>
+			<!-- /.pagination__dropdown -->
 		</div>
-
-		<div class="pagination__steps">
-			<Button size="small" highlighted :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
-				<Icon name="angle_left" color="currentColor" />
-			</Button>
-
-			<ul>
-				<li>Page</li>
-
-				<li v-for="pageButton in pageButtons" :key="pageButton.name" class="pagination-item">
-					<button
-						type="button"
-						@click="setPage(pageButton.name)"
-						:disabled="pageButton.isDisabled"
-						:class="{
-							'is-active': pageButton.name === currentPage
-						}"
-						:aria-label="`Go to page number ${pageButton.name + 1} `"
-					>
-						{{ pageButton.name + 1 }}
-					</button>
-				</li>
-			</ul>
-
-			<Button size="small" highlighted :disabled="currentPage + 1 >= pages" @onClick="next()" className="tertiary" square>
-				<Icon name="angle_right" color="currentColor" />
-			</Button>
-			<!-- /.pagination__button -->
-		</div>
-		<!-- /.pagination__steps -->
-
-		<div class="pagination__dropdown">
-			<label for="items-per-page">Items Per Page</label>
-
-			<select @change="setItemsPerPage(dropdownValue)" v-model="dropdownValue" name="items-per-page" id="items-per-page">
-				<option :value="2">2</option>
-
-				<option :value="5">5</option>
-
-				<option :value="10">10</option>
-
-				<option :value="20">20</option>
-
-				<option :value="50">50</option>
-
-				<option :value="100">100</option>
-			</select>
-
-			<Icon name="angle_down" color="currentColor" />
-		</div>
-		<!-- /.pagination__dropdown -->
-
-		<!-- /.pagination__total -->
+		<!-- /.pagination__inner -->
 	</div>
 	<!-- /.pagination -->
 </template>
