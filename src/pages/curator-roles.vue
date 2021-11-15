@@ -4,7 +4,7 @@
 			<div v-if="getFiltersVisibility" class="table-filters">
 				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
-				<FormFilters @onApplyFilters="updateFilters" />
+				<FormRolesFilters @onApplyFilters="updateFilters" />
 			</div>
 			<!-- /.table-filters -->
 
@@ -65,13 +65,13 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
-import FormFilters from '@/blocks/form-filters/form-filters.vue';
+import FormRolesFilters from '@/blocks/form-roles-filters/form-roles-filters.vue';
 
 export default {
 	/**
 	 * Name
 	 */
-	name: 'Accounts',
+	name: 'CuratorRoles',
 
 	/**
 	 * Components
@@ -81,7 +81,7 @@ export default {
 		Button,
 		BtnClose,
 		Pagination,
-		FormFilters
+		FormRolesFilters
 	},
 
 	/**
@@ -173,19 +173,9 @@ export default {
 		filteredRows: function() {
 			if (!this.availableFilters) return this.rows;
 
-			const { owner, organization, uploadedFrom, uploadedTo, modifiedFrom, modifiedTo } = this.availableFilters;
+			const { role } = this.availableFilters;
 
-			return this.rows
-				.filter((row) => owner.some((el) => el.title === row.author) || !owner.length)
-				.filter((row) => organization.some((el) => el.title === row.journal) || !organization.length)
-				.filter((row) => {
-					if (!(uploadedFrom || uploadedTo)) return true;
-					return row.uploaded > uploadedFrom || row.uploaded < uploadedTo;
-				})
-				.filter((row) => {
-					if (!(modifiedFrom || modifiedTo)) return true;
-					return row.modified > modifiedFrom || row.modified <= modifiedTo;
-				});
+			return this.rows.filter((row) => role.value === row.role) || !role.length;
 		},
 		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},

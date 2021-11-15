@@ -4,7 +4,7 @@
 			<div v-if="getFiltersVisibility" class="table-filters">
 				<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
-				<FormFilters @onApplyFilters="updateFilters" />
+				<FormOrganizationFilters @onApplyFilters="updateFilters" />
 			</div>
 			<!-- /.table-filters -->
 
@@ -75,13 +75,13 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
-import FormFilters from '@/blocks/form-filters/form-filters.vue';
+import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
 
 export default {
 	/**
 	 * Name
 	 */
-	name: 'Accounts',
+	name: 'Organizations',
 
 	/**
 	 * Components
@@ -91,7 +91,7 @@ export default {
 		Button,
 		BtnClose,
 		Pagination,
-		FormFilters
+		FormOrganizationFilters
 	},
 
 	/**
@@ -221,7 +221,16 @@ export default {
 	 */
 	computed: {
 		filteredRows: function() {
-			return this.rows;
+			if (!this.availableFilters) return this.rows;
+
+			const { organization, createdFrom, createdTo } = this.availableFilters;
+
+			return this.rows
+				.filter((row) => organization.some((el) => el.value === row.name) || !organization.length)
+				.filter((row) => {
+					if (!(createdFrom || createdTo)) return true;
+					return row.created > createdFrom || row.created < createdTo;
+				});
 		},
 		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},

@@ -37,7 +37,7 @@
 							<div v-else-if="props.column.field === 'action'" class="table__actions">
 								<ul>
 									<li>
-										<Button size="small" className="tertiary" to="/new-document" highlighted>View</Button>
+										<Button size="small" className="tertiary" to="/datasets" highlighted>View</Button>
 									</li>
 
 									<li>
@@ -55,7 +55,7 @@
 											<div class="dropdown__nav">
 												<ul>
 													<li>
-														<a href="#" @click.prevent="toggleSummary">
+														<a href="#">
 															<Icon name="connect" color="currentColor" />
 
 															View/Edit Datasets

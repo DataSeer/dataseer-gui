@@ -7,7 +7,7 @@
 
 		<div class="form__body">
 			<div class="form__row">
-				<div class="form__col">
+				<div class="form__col form__col--1of4">
 					<FieldSelect
 						v-model.trim="formData.owner"
 						name="owner"
@@ -36,7 +36,7 @@
 				</div>
 				<!-- /.form__col -->
 
-				<div class="form__col">
+				<div class="form__col form__col--1of4">
 					<FieldSelect
 						v-model.trim="formData.organization"
 						name="organization"
@@ -64,7 +64,7 @@
 				</div>
 				<!-- /.form__col -->
 
-				<div class="form__col">
+				<div class="form__col form__col--1of4">
 					<div class="form__range">
 						<ul>
 							<li>
@@ -84,7 +84,7 @@
 				</div>
 				<!-- /.form__col -->
 
-				<div class="form__col">
+				<div class="form__col form__col--1of4">
 					<div class="form__range">
 						<ul>
 							<li>
@@ -182,7 +182,7 @@ export default {
 				modifiedTo: null
 			};
 
-			this.handleApplyFilters();
+			this.$emit('onApplyFilters', this.formData);
 		},
 		disableUploadedFrom(date) {
 			if (!this.formData.uploadedTo) return false;
