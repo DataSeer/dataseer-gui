@@ -17,10 +17,10 @@
 		</div>
 		<!-- /.field__input -->
 
-		<div class="form__helptext">
+		<div class="field__helptext">
 			<slot name="helptext" />
 		</div>
-		<!-- /.form__helptext -->
+		<!-- /.field__helptext -->
 	</div>
 	<!-- /.form__row -->
 </template>

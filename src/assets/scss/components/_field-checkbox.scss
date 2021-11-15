@@ -9,105 +9,83 @@
 	ul {
 		list-style: none;
 	}
-}
 
-.radios--center,
-.checkboxes--center {
-	text-align: center;
-}
-
-.radio p,
-.checkbox p,
-.radio label,
-.checkbox label {
-	margin-bottom: 0;
-	position: relative;
-	display: inline-block;
-	text-align: left;
-	color: $c-base-ligter;
-}
-
-.radio p,
-.checkbox p {
-	padding-right: 15px;
-}
-
-.checkbox label,
-.radio label {
-	padding-left: 32px;
-}
-
-.radio label:before,
-.radio label:after,
-.checkbox label:before,
-.checkbox label:after {
-	content: '';
-	position: absolute;
-	left: 0;
-}
-
-.radio label:before,
-.checkbox label:before {
-	top: 0;
-}
-
-.radio label:after,
-.checkbox label:after {
-	top: 6px;
-	left: 5px;
-	width: 13px;
-	height: 9px;
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.105' height='9.297' viewBox='0 0 13.105 9.297'%3E%3Cpath d='M0,3.49,3.394,6.883,10.277,0' transform='translate(1.414 1.414)' fill='none' stroke='%23444' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='2'/%3E%3C/svg%3E%0A");
-}
-
-.checkbox label:before,
-.radio label:before {
-	width: 22px;
-	height: 22px;
-	border-radius: 7px;
-	border: 1px solid $c-skyblue-bc;
-}
-
-.checkbox label:after,
-.radio label:after {
-	display: none;
-}
-
-.checkbox input:checked + label,
-.radio input:checked + label {
-	color: $c-base;
-}
-
-.checkbox input:checked + label:after,
-.radio input:checked + label:after {
-	display: block;
-}
-
-.checkbox input:checked + label:before,
-.checkbox input + label:focus:before,
-.radio input:checked + label:before,
-.radio input + label:focus:before {
-	border-color: $c-base;
-}
-
-.checkbox input:focus + label:before,
-.radio input:focus + label:before {
-	border-color: $c-primary;
-}
-
-.radio label:before,
-.radio label:after {
-	border-radius: 100%;
-}
-
-/* Checkbox */
-
-.checkboxes {
 	> ul > li + li {
 		margin-top: 21px;
+	}
+
+	p,
+	label {
+		margin-bottom: 0;
+		position: relative;
+		display: inline-block;
+		text-align: left;
+		color: $c-base-ligter;
+	}
+
+	p {
+		padding-right: 15px;
+	}
+
+	label {
+		padding-left: 32px;
+
+		&:after,
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			border-radius: 100%;
+		}
+
+		&:before {
+			top: 0;
+			width: 22px;
+			height: 22px;
+			border-radius: 7px;
+			border: 1px solid $c-skyblue-bc;
+		}
+
+		&:after {
+			display: none;
+			top: 6px;
+			left: 5px;
+			width: 13px;
+			height: 9px;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.105' height='9.297' viewBox='0 0 13.105 9.297'%3E%3Cpath d='M0,3.49,3.394,6.883,10.277,0' transform='translate(1.414 1.414)' fill='none' stroke='%23444' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='2'/%3E%3C/svg%3E%0A");
+		}
+	}
+
+	input:checked + label {
+		color: $c-base;
+
+		&:after {
+			display: block;
+		}
+
+		&:before {
+			border-color: $c-base;
+		}
+	}
+}
+
+/* Checkboxes Vertical */
+
+.checkboxes--vertical {
+	> ul {
+		display: flex;
+		margin: -8px -32px;
+	}
+
+	> ul > li {
+		padding: 8px 32px;
+	}
+
+	> ul > li + li {
+		margin-top: 0;
 	}
 }
 
@@ -134,5 +112,50 @@
 
 	[data-title='No'] {
 		color: $c-red-ff;
+	}
+}
+
+/* Checkbox Toggle */
+
+.checkbox--toggle {
+	font-size: 12px;
+	font-weight: 700;
+
+	label {
+		padding-left: 46px;
+	}
+
+	label:after,
+	label:before {
+		transition: all 0.3s;
+	}
+
+	label:before {
+		top: -2px;
+		width: 36px;
+		height: 20px;
+		border-radius: 10px;
+		border-width: 2px;
+	}
+
+	label:after {
+		display: block;
+		top: 1px;
+		left: 4px;
+		background-color: $c-skyblue-bc;
+		background-image: none;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+	}
+
+	input:checked + label:before {
+		border-color: $c-primary;
+		background-color: $c-primary;
+	}
+
+	input:checked + label:after {
+		left: 18px;
+		background-color: $c-white;
 	}
 }

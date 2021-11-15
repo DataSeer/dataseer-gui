@@ -1,6 +1,6 @@
 <template>
 	<li>
-		<div class="checkbox" :class="{ 'has-error': error, 'checkbox--select': isDropdown }">
+		<div class="checkbox" :class="{ 'has-error': error, 'checkbox--select': isDropdown, 'checkbox--toggle': isToggle }">
 			<input
 				tabindex="0"
 				type="checkbox"
@@ -21,17 +21,8 @@
 				<slot />
 			</p>
 
-			<div class="field">
-				<vSelect
-					v-if="isDropdown"
-					:id="name"
-					placeholder="Select"
-					:clearable="false"
-					:searchable="false"
-					:options="selectOptions"
-					label="title"
-					@input="handleSelect"
-				>
+			<div class="field" v-if="isDropdown">
+				<vSelect :id="name" placeholder="Select" :clearable="false" :searchable="false" :options="selectOptions" label="title" @input="handleSelect">
 					<template #option="{ title }">
 						<span :data-title="title">
 							{{ title }}
@@ -66,6 +57,10 @@ export default {
 		error: Boolean,
 		name: String,
 		isDropdown: {
+			type: Boolean,
+			default: false
+		},
+		isToggle: {
 			type: Boolean,
 			default: false
 		}

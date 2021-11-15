@@ -23,6 +23,7 @@ import CuratorRoles from '@/pages/curator-roles';
 import Profile from '@/pages/profile';
 import NewDocument from '@/pages/new-document';
 import Report from '@/pages/report';
+import EditOrganization from '@/pages/edit-organization';
 
 const routes = [
 	{
@@ -95,6 +96,11 @@ const routes = [
 		name: 'Report',
 		path: '/report',
 		component: Report
+	},
+	{
+		name: 'Edit Organization',
+		path: '/edit-organization',
+		component: EditOrganization
 	}
 ];
 

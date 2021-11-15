@@ -102,6 +102,10 @@
 		}
 	}
 
+	.field__helptext {
+		margin-top: 10px;
+	}
+
 	&.has-error .field__label {
 		color: $c-orange;
 	}
