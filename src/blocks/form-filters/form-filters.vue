@@ -88,7 +88,7 @@
 					<div class="form__range">
 						<ul>
 							<li>
-								<FieldDatepicker v-model="formData.modifiedFrom" placeholder="From">
+								<FieldDatepicker v-model="formData.modifiedFrom" placeholder="From" :disableFn="disableModifiedFrom">
 									<Icon name="document_modify" color="currentColor" />
 
 									Modified
@@ -96,7 +96,7 @@
 							</li>
 
 							<li>
-								<FieldDatepicker v-model="formData.modifiedTo" placeholder="To" />
+								<FieldDatepicker v-model="formData.modifiedTo" placeholder="To" :disableFn="disableModifiedTo" />
 							</li>
 						</ul>
 					</div>
@@ -111,7 +111,9 @@
 		<div class="form__actions">
 			<ul>
 				<li>
-					<Button @onClick="handleApplyFilters">Apply Filters</Button>
+					<Button :className="applyButtonClass" :disabled="areFilteresApplied" @onClick="handleApplyFilters">
+						{{ applyButtonText }}
+					</Button>
 				</li>
 
 				<li>
@@ -161,8 +163,33 @@ export default {
 				uploadedTo: null,
 				modifiedFrom: null,
 				modifiedTo: null
-			}
+			},
+			areFilteresApplied: true
 		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		applyButtonText() {
+			return this.areFilteresApplied ? 'Filters Applied' : 'Apply Filters';
+		},
+		applyButtonClass() {
+			return this.areFilteresApplied ? 'tertiary' : '';
+		}
+	},
+
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.areFilteresApplied = false;
+			},
+			deep: true
+		}
 	},
 
 	/**
@@ -171,6 +198,8 @@ export default {
 	methods: {
 		handleApplyFilters() {
 			this.$emit('onApplyFilters', this.formData);
+
+			this.areFilteresApplied = true;
 		},
 		handleClearFilters() {
 			this.formData = {
@@ -182,7 +211,7 @@ export default {
 				modifiedTo: null
 			};
 
-			this.$emit('onApplyFilters', this.formData);
+			this.handleApplyFilters();
 		},
 		disableUploadedFrom(date) {
 			if (!this.formData.uploadedTo) return false;
@@ -191,6 +220,14 @@ export default {
 		disableUploadedTo(date) {
 			if (!this.formData.uploadedFrom) return false;
 			return date < this.formData.uploadedFrom;
+		},
+		disableModifiedFrom(date) {
+			if (!this.formData.modifiedTo) return false;
+			return date > this.formData.modifiedTo;
+		},
+		disableModifiedTo(date) {
+			if (!this.formData.modifiedFrom) return false;
+			return date < this.formData.modifiedFrom;
 		}
 	}
 };

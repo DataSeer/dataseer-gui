@@ -475,7 +475,7 @@ export default {
 			const { owner, organization, uploadedFrom, uploadedTo, modifiedFrom, modifiedTo } = this.availableFilters;
 
 			return this.rows
-				.filter((row) => owner.some((el) => el.value === row.author) || !owner.length)
+				.filter((row) => (owner.length ? owner.some((el) => el.value === row.author) : true))
 				.filter((row) => organization.some((el) => el.value === row.journal) || !organization.length)
 				.filter((row) => {
 					if (!(uploadedFrom || uploadedTo)) return true;
@@ -494,7 +494,7 @@ export default {
 	 */
 	methods: {
 		updateFilters(filters) {
-			this.availableFilters = filters;
+			this.availableFilters = { ...filters };
 		},
 		...mapActions(['changeFiltersVisibility'])
 	}

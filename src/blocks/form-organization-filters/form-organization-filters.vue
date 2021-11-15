@@ -77,7 +77,9 @@
 		<div class="form__actions">
 			<ul>
 				<li>
-					<Button @onClick="handleApplyFilters">Apply Filters</Button>
+					<Button :className="applyButtonClass" :disabled="areFilteresApplied" @onClick="handleApplyFilters">
+						{{ applyButtonText }}
+					</Button>
 				</li>
 
 				<li>
@@ -124,8 +126,33 @@ export default {
 				organization: [],
 				createdFrom: null,
 				createdTo: null
-			}
+			},
+			areFilteresApplied: true
 		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		applyButtonText() {
+			return this.areFilteresApplied ? 'Filters Applied' : 'Apply Filters';
+		},
+		applyButtonClass() {
+			return this.areFilteresApplied ? 'tertiary' : '';
+		}
+	},
+
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.areFilteresApplied = false;
+			},
+			deep: true
+		}
 	},
 
 	/**
@@ -134,6 +161,7 @@ export default {
 	methods: {
 		handleApplyFilters() {
 			this.$emit('onApplyFilters', this.formData);
+			this.areFilteresApplied = true;
 		},
 		handleClearFilters() {
 			this.formData = {
@@ -142,7 +170,7 @@ export default {
 				createdTo: null
 			};
 
-			this.$emit('onApplyFilters', this.formData);
+			this.handleApplyFilters();
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;

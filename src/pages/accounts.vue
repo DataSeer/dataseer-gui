@@ -295,7 +295,7 @@ export default {
 	 */
 	methods: {
 		updateFilters(filters) {
-			this.availableFilters = filters;
+			this.availableFilters = { ...filters };
 		},
 		...mapActions(['changeFiltersVisibility'])
 	}
