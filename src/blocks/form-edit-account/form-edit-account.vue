@@ -6,7 +6,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Full Name" :value="fullName" :name="name">
+						<Field placeholder="Full Name" :value="fullName" name="Full Name">
 							<Icon name="user" color="currentColor" />
 
 							Full Name

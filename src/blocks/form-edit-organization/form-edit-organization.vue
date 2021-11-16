@@ -6,7 +6,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="American Chemistry Society" :value="name" :name="name" readonly>
+						<Field :value="name" name="Organization Name" readonly>
 							<Icon name="organization" color="currentColor" />
 
 							Organization Name

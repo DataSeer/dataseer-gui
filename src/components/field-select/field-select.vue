@@ -12,8 +12,9 @@
 					:placeholder="placeholder"
 					:options="options"
 					:multiple="multiple"
-					:value="value"
+					label="value"
 					@input="handleChange"
+					:value="value"
 				>
 					<template #option="{ value, helptext }">
 						{{ value }} <i v-if="helptext">{{ helptext }}</i>

@@ -389,6 +389,24 @@
 		border-bottom: 1px solid $c-gray;
 	}
 
+	.form__row {
+		display: flex;
+		margin: -10px -20px;
+	}
+
+	.form__col {
+		width: 100%;
+		padding: 10px 20px;
+	}
+
+	.form__col--1of2 {
+		width: 50%;
+	}
+
+	.form__col--1of4 {
+		width: 25%;
+	}
+
 	.form__actions ul {
 		justify-content: flex-start;
 	}
@@ -397,5 +415,9 @@
 		&:last-child {
 			margin-left: auto;
 		}
+	}
+
+	.field + .field {
+		margin-top: 25px;
 	}
 }

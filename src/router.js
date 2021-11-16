@@ -26,6 +26,7 @@ import Report from '@/pages/report';
 import EditOrganization from '@/pages/edit-organization';
 import EditRole from '@/pages/edit-role';
 import EditAccount from '@/pages/edit-account';
+import ManageDocument from '@/pages/manage-document';
 
 const routes = [
 	{
@@ -113,6 +114,11 @@ const routes = [
 		name: 'Edit Account',
 		path: '/edit-account',
 		component: EditAccount
+	},
+	{
+		name: 'Manage Document',
+		path: '/manage-document',
+		component: ManageDocument
 	}
 ];
 

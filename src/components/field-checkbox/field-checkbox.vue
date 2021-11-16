@@ -7,13 +7,13 @@
 				ref="checkbox"
 				class="sr-only"
 				:name="name"
-				:id="name"
+				:id="toKebabCase(name)"
 				@change="handleChange"
 				:value="value"
 				:checked="value"
 			/>
 
-			<label v-if="!isDropdown" ref="label" :for="name">
+			<label v-if="!isDropdown" :for="toKebabCase(name)">
 				<slot />
 			</label>
 
@@ -22,7 +22,15 @@
 			</p>
 
 			<div class="field" v-if="isDropdown">
-				<vSelect :id="name" placeholder="Select" :clearable="false" :searchable="false" :options="selectOptions" label="title" @input="handleSelect">
+				<vSelect
+					:id="toKebabCase(name)"
+					placeholder="Select"
+					:clearable="false"
+					:searchable="false"
+					:options="selectOptions"
+					label="title"
+					@input="handleSelect"
+				>
 					<template #option="{ title }">
 						<span :data-title="title">
 							{{ title }}
@@ -43,7 +51,15 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
 import vSelect from 'vue-select';
+
+/**
+ * Internal Dependencies
+ */
+import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
 	name: 'FieldCheckbox',
@@ -93,7 +109,8 @@ export default {
 
 		handleSelect(el) {
 			this.$emit('input', el.value);
-		}
+		},
+		toKebabCase
 	}
 };
 </script>

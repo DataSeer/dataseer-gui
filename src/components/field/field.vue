@@ -1,6 +1,6 @@
 <template>
 	<div class="field" :class="{ 'has-error': error }">
-		<label v-if="this.$slots.default" :for="name" class="field__label" :class="{ 'sr-only': hideLabel }">
+		<label v-if="this.$slots.default" :for="toKebabCase(name)" class="field__label" :class="{ 'sr-only': hideLabel }">
 			<slot />
 		</label>
 
@@ -8,8 +8,8 @@
 			<component
 				:is="fieldType"
 				:type="type"
+				:id="toKebabCase(name)"
 				:name="name"
-				:id="name"
 				:tabindex="tabindex"
 				:readonly="readonly"
 				:placeholder="placeholder"
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import toKebabCase from '@/utils/str-to-kebab-case';
+
 export default {
 	name: 'Field',
 
@@ -76,10 +78,14 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		handleChange(event) {
 			this.$emit('input', event.target.value);
-		}
+		},
+		toKebabCase
 	}
 };
 </script>

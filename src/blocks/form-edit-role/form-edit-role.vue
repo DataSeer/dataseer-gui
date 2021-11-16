@@ -6,7 +6,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Name" :value="name" :name="name">
+						<Field placeholder="Role Name" :value="name" name="Role Name">
 							<Icon name="key" color="currentColor" />
 
 							Role Name
@@ -18,7 +18,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Key" :value="key" :name="name">
+						<Field placeholder="Role Key" :value="key" name="Role Key">
 							<Icon name="key" color="currentColor" />
 
 							Role Key
@@ -30,7 +30,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Weight" :value="weight" :name="name">
+						<Field placeholder="Role Weight" :value="weight" name="Role Weight">
 							<Icon name="key" color="currentColor" />
 
 							Role Weight
@@ -42,7 +42,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Color" :value="color" :name="name">
+						<Field placeholder="Role Color" :value="color" name="Role Color">
 							<Icon name="key" color="currentColor" />
 
 							Role Color
