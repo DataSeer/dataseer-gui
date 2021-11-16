@@ -2,14 +2,14 @@
 	<div class="form form--edit">
 		<div class="form__body">
 			<div class="form__group">
-				<h4>Annotator</h4>
+				<h4>johnsmith@xzynetworks.com</h4>
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Name" :value="name" :name="name">
-							<Icon name="key" color="currentColor" />
+						<Field placeholder="Full Name" :value="fullName" :name="name">
+							<Icon name="user" color="currentColor" />
 
-							Role Name
+							Full Name
 						</Field>
 					</div>
 					<!-- /.form__col -->
@@ -18,11 +18,28 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Key" :value="key" :name="name">
+						<FieldSelect
+							placeholder="Role"
+							v-model="role"
+							:options="[
+								{
+									value: 'Curator'
+								},
+								{
+									value: 'Annotator'
+								},
+								{
+									value: 'Standard User'
+								},
+								{
+									value: 'Visitor'
+								}
+							]"
+						>
 							<Icon name="key" color="currentColor" />
 
-							Role Key
-						</Field>
+							Role
+						</FieldSelect>
 					</div>
 					<!-- /.form__col -->
 				</div>
@@ -30,23 +47,35 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field placeholder="Role Weight" :value="weight" :name="name">
-							<Icon name="key" color="currentColor" />
+						<FieldSelect
+							placeholder="Role"
+							multiple
+							v-model="organization"
+							:options="[
+								{
+									value: 'University of Ottowa'
+								},
+								{
+									value: 'American Journalist'
+								},
+								{
+									value: 'DataSeer'
+								},
+								{
+									value: 'ASAP & MJFF'
+								},
+								{
+									value: 'American Chemistry Society'
+								},
+								{
+									value: 'University of Manchester'
+								}
+							]"
+						>
+							<Icon name="organization" color="currentColor" />
 
-							Role Weight
-						</Field>
-					</div>
-					<!-- /.form__col -->
-				</div>
-				<!-- /.form__row -->
-
-				<div class="form__row">
-					<div class="form__col">
-						<Field placeholder="Role Color" :value="color" :name="name">
-							<Icon name="key" color="currentColor" />
-
-							Role Color
-						</Field>
+							Role
+						</FieldSelect>
 					</div>
 					<!-- /.form__col -->
 				</div>
@@ -106,6 +135,7 @@
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
+import FieldSelect from '@/components/field-select/field-select';
 import Button from '@/components/button/button';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
@@ -113,7 +143,7 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'FormEditRole',
+	name: 'FormEditAccount',
 
 	/**
 	 * Components
@@ -122,6 +152,7 @@ export default {
 		Icon,
 		Field,
 		Button,
+		FieldSelect,
 		FieldCheckbox
 	},
 
@@ -130,10 +161,14 @@ export default {
 	 */
 	data: function() {
 		return {
-			name: 'Annotator',
-			key: 'Moderator',
-			weight: '100',
-			color: '#006AC9',
+			fullName: 'John Smith',
+			email: 'johnsmith@xzynetworks.com',
+			role: {
+				value: 'Standard User'
+			},
+			organization: {
+				value: 'University of Ottowa'
+			},
 			isActive: true,
 			isLocked: false
 		};

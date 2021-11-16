@@ -16,6 +16,10 @@
 			<SubheaderEdit title="Edit Role" icon="key" v-if="isEditRolePage">
 				<Button to="/curator-roles" className="tertiary">Exit Role</Button>
 			</SubheaderEdit>
+
+			<SubheaderEdit title="Edit Account" icon="user" v-if="isEditAccountPage">
+				<Button to="/accounts" className="tertiary">Exit Account</Button>
+			</SubheaderEdit>
 		</div>
 		<!-- /.shell -->
 	</div>
@@ -58,6 +62,9 @@ export default {
 	 * computed
 	 */
 	computed: {
+		isEditAccountPage() {
+			return this.$route.path === '/edit-account';
+		},
 		isEditRolePage() {
 			return this.$route.path === '/edit-role';
 		},
@@ -92,6 +99,7 @@ export default {
 		},
 		isVisible() {
 			return (
+				this.isEditAccountPage ||
 				this.isEditRolePage ||
 				this.isEditOrganizationsPage ||
 				this.isOrganizationsPage ||
@@ -105,6 +113,7 @@ export default {
 		},
 		additionalClass() {
 			if (
+				this.isEditAccountPage ||
 				this.isEditRolePage ||
 				this.isEditOrganizationsPage ||
 				this.isDocumentsPage ||

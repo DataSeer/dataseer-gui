@@ -21,8 +21,9 @@
 		&:focus {
 			border-color: $c-primary-light;
 		}
+	}
 
-		&:read-only,
+	.field__input {
 		&:read-only {
 			border-color: $c-gray;
 		}

@@ -12,7 +12,6 @@
 						v-model.trim="formData.owner"
 						name="owner"
 						placeholder="Document Owner"
-						FormFilters
 						multiple
 						:options="[
 							{

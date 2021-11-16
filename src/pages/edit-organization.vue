@@ -8,7 +8,7 @@
 
 				<!-- /.main__left -->
 				<div class="main__right">
-					<div class="associations">
+					<div class="widget-associations">
 						<h6>
 							<strong>12</strong>
 
@@ -20,9 +20,8 @@
 
 							View Accounts
 						</Button>
-						<!-- /.associations__actiuons -->
 					</div>
-					<!-- /.associations -->
+					<!-- /.widget-associations -->
 				</div>
 				<!-- /.main__right -->
 			</div>
