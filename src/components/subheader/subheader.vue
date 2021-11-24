@@ -20,6 +20,10 @@
 			<SubheaderEdit title="Edit Account" icon="user" v-if="isEditAccountPage">
 				<Button to="/accounts" className="tertiary">Exit Account</Button>
 			</SubheaderEdit>
+
+			<SubheaderEdit title="Manage Document" icon="document" v-if="isManageDocument">
+				<Button to="/documents" className="tertiary">Exit Document</Button>
+			</SubheaderEdit>
 		</div>
 		<!-- /.shell -->
 	</div>
@@ -83,6 +87,9 @@ export default {
 		isRolesPage() {
 			return this.$route.path === '/curator-roles';
 		},
+		isManageDocument() {
+			return this.$route.path === '/manage-document';
+		},
 		isDatasetsPage() {
 			return (
 				this.$route.path === '/datasets' ||
@@ -99,6 +106,7 @@ export default {
 		},
 		isVisible() {
 			return (
+				this.isManageDocument ||
 				this.isEditAccountPage ||
 				this.isEditRolePage ||
 				this.isEditOrganizationsPage ||
@@ -113,6 +121,7 @@ export default {
 		},
 		additionalClass() {
 			if (
+				this.isManageDocument ||
 				this.isEditAccountPage ||
 				this.isEditRolePage ||
 				this.isEditOrganizationsPage ||
