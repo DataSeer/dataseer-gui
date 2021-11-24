@@ -20,6 +20,7 @@ import document_view from './icon-document-view';
 import document_modify from './icon-document-modify';
 import document_upload from './icon-document-upload';
 
+import book from './icon-book';
 import email from './icon-email';
 import grid from './icon-grid';
 import invite from './icon-invite';
@@ -60,15 +61,16 @@ export default {
 	props: {
 		name: {
 			type: String,
-			required: true,
+			required: true
 		},
 		color: {
 			type: String,
-			default: '#444',
-		},
+			default: '#444'
+		}
 	},
 
 	components: {
+		book,
 		add,
 		arrow_down,
 		arrow_up,
@@ -115,7 +117,7 @@ export default {
 		angle_left,
 		angle_right,
 		calendar,
-		ico_plus_circle,
-	},
+		ico_plus_circle
+	}
 };
 </script>

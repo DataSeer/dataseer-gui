@@ -1,13 +1,5 @@
 <template>
-	<svg
-		width="19px"
-		height="18px"
-		viewBox="0 0 19 18"
-		version="1.1"
-		xmlns="http://www.w3.org/2000/svg"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-	>
-		<title>Shape</title>
+	<svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 			<g transform="translate(-1288.000000, -300.000000)" :fill="color" fill-rule="nonzero">
 				<g transform="translate(1264.282951, 43.000000)">
@@ -32,6 +24,6 @@ export default {
 	/**
 	 * props
 	 */
-	props: ['color'],
+	props: ['color']
 };
 </script>

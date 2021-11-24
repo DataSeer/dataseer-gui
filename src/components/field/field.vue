@@ -25,6 +25,9 @@
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
@@ -83,7 +86,7 @@ export default {
 	 */
 	methods: {
 		handleChange(event) {
-			this.$emit('input', event.target.value);
+			this.$emit('input', event.target.files);
 		},
 		toKebabCase
 	}

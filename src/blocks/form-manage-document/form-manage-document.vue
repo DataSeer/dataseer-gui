@@ -69,31 +69,30 @@
 
 							Document Owner(s)
 						</FieldSelect>
-						<!-- /# -->
 					</div>
 					<!-- /.form__col -->
 
 					<div class="form__col form__col--1of2">
 						<Field placeholder="Role Name" v-model="journal" name="Journal">
-							<Icon name="key" color="currentColor" />
+							<Icon name="book" color="currentColor" />
 
 							Journal
 						</Field>
 
 						<Field placeholder="Role Name" v-model="publisher" name="Publisher">
-							<Icon name="key" color="currentColor" />
+							<Icon name="book" color="currentColor" />
 
 							Publisher
 						</Field>
 
 						<Field placeholder="Role Name" v-model="publishDate" name="Publish Date">
-							<Icon name="key" color="currentColor" />
+							<Icon name="book" color="currentColor" />
 
 							Publish Date
 						</Field>
 
 						<Field placeholder="Role Name" v-model="doi" name="DOI">
-							<Icon name="key" color="currentColor" />
+							<Icon name="book" color="currentColor" />
 
 							DOI
 						</Field>
@@ -105,20 +104,59 @@
 			<!-- /.form__group -->
 
 			<div class="form__group">
+				<h4>Files</h4>
+
+				<div class="form__row">
+					<div class="form__col form__col--1of2">
+						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
+							<Icon name="document" color="currentColor" />
+
+							Primary File Display Name
+						</Field>
+
+						<FieldFile v-model="primaryFile" accept=".docx, .pdf" name="primaryFile" buttonText="Upload New Version" alt>
+							<template #label>
+								<Icon name="document_new" color="currentColor" />
+
+								Primary File
+							</template>
+						</FieldFile>
+					</div>
+					<!-- /.form__col form__col--1of2 -->
+
+					<div class="form__col form__col--1of2">
+						<FieldFile v-model="appendFiles" name="appendFiles" buttonText="Upload Files" multiple alt>
+							<template #label>
+								<Icon name="document_new" color="currentColor" />
+
+								Append File(s)
+							</template>
+						</FieldFile>
+					</div>
+					<!-- /.form__col form__col--1of2 -->
+				</div>
+				<!-- /.form__row -->
+			</div>
+			<!-- /.form__group -->
+
+			<div class="form__group">
 				<h4>Settings</h4>
 
 				<div class="form__row">
-					<div class="checkboxes checkboxes--vertical">
-						<ul>
-							<li>
-								<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
-							</li>
+					<div class="form__col">
+						<div class="checkboxes checkboxes--vertical">
+							<ul>
+								<li>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+								</li>
 
-							<li>
-								<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
-							</li>
-						</ul>
+								<li>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+								</li>
+							</ul>
+						</div>
 					</div>
+					<!-- /.form__col -->
 					<!-- /.checkboxes -->
 				</div>
 				<!-- /.form__row -->
@@ -156,8 +194,9 @@
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
-import FieldSelect from '@/components/field-select/field-select';
 import Button from '@/components/button/button';
+import FieldFile from '@/components/field-file/field-file';
+import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
@@ -173,6 +212,7 @@ export default {
 		Icon,
 		Field,
 		Button,
+		FieldFile,
 		FieldSelect,
 		FieldCheckbox
 	},
@@ -202,6 +242,8 @@ export default {
 				}
 			],
 			primaryFileName: 'My Changed File Name',
+			primaryFile: '',
+			appendFiles: '',
 			isActive: true,
 			isLocked: false
 		};

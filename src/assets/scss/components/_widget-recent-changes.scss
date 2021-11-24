@@ -1,0 +1,48 @@
+/* ------------------------------------------------------------ *\
+	Widget Recent Changes
+\* ------------------------------------------------------------ */
+
+.widget-recent-changes {
+	font-size: 12px;
+
+	.widget__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 27px;
+	}
+
+	.widget__head h6 {
+		margin-bottom: 0;
+		font-size: 12px;
+		font-weight: 700;
+	}
+
+	.widget__head button {
+		background: none;
+		text-transform: uppercase;
+		border: none;
+		color: $c-primary;
+		font-weight: 500;
+		font-size: 14px;
+		font-family: $ff-titles;
+	}
+
+	.widget__row {
+		display: flex;
+		margin: 0 -10px 11px;
+
+		&:last-child { 
+			margin-bottom: 0;
+		}
+	}
+
+	.widget__col {
+		width: 33.3333%;
+		padding: 0 10px;
+
+		&:last-child {
+			text-align: right;
+		}
+	}
+}	

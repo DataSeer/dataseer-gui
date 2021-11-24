@@ -17,31 +17,17 @@
 			<!-- /.form__statuses -->
 
 			<div class="form__body">
-				<FieldFile
-					:file="primaryFile"
-					accept=".docx, .pdf"
-					name="primaryFile"
-					:error="errors"
-					:text="getFileName('primaryFileText')"
-					@onChange="onFieldChange"
-					@onClear="clearField"
-				>
+				<FieldFile v-model="primaryFile" accept=".docx, .pdf" name="primaryFile" :error="errors">
 					<template #label>
 						<Icon name="document_new" color="currentColor" />
+
 						Select Your Primary File
 					</template>
 
 					<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
 				</FieldFile>
 
-				<FieldFile
-					:file="additionalFiles"
-					name="additionalFiles"
-					multiple="multiple"
-					:text="getFileName('additionalFilesText')"
-					@onChange="onFieldChange"
-					@onClear="clearField"
-				>
+				<FieldFile v-model="additionalFiles" name="additionalFiles" multiple="multiple">
 					<template #label>
 						<Icon name="documents" color="currentColor" />
 
@@ -96,10 +82,8 @@ export default {
 		return {
 			primaryFile: '',
 			additionalFiles: '',
-			primaryFileText: [],
-			additionalFilesText: [],
-			checkbox: false,
 			errorMessage: '',
+			checkbox: false,
 			errors: false
 		};
 	},
@@ -112,22 +96,9 @@ export default {
 	},
 
 	methods: {
-		getFileName(name) {
-			return this[name].join(', ');
-		},
-		onFieldChange(event) {
-			const name = event.target.name;
-			this[name] = event.target.value;
-
-			this[`${name}Text`] = Object.values(event.target.files).map((file) => file.name);
-		},
 		onCheckboxChange(event) {
 			const name = event.target.name;
 			this[name] = event.target.checked;
-		},
-		clearField(name) {
-			this[name] = '';
-			this[`${name}Text`] = [];
 		},
 		onSubmit() {
 			if (!this.primaryFile) {

@@ -23,10 +23,8 @@
 		}
 	}
 
-	.field__input {
-		&:read-only {
-			border-color: $c-gray;
-		}
+	input.field__input:read-only {
+		border-color: $c-gray;
 	}
 
 	textarea.field__input {
@@ -123,25 +121,6 @@
 /* Field Upload */
 
 .field--upload {
-	.field__input {
-		position: relative;
-		display: flex;
-		align-items: center;
-		height: auto;
-		padding: 3px 54px 3px 3px;
-		border-radius: 16px;
-
-		&:focus-within {
-			border-color: $c-skyblue !important;
-		}
-
-		&:focus-within .btn {
-			color: $c-primary;
-			background-color: transparent;
-			border-color: $c-primary;
-		}
-	}
-
 	span {
 		width: 175px;
 		padding-left: 15px;
@@ -162,10 +141,83 @@
 		z-index: 15;
 	}
 
+	.field__input {
+		position: relative;
+		display: flex;
+		align-items: center;
+		height: auto;
+		padding: 3px 54px 3px 3px;
+		border-radius: 16px;
+
+		&:focus-within {
+			border-color: $c-skyblue !important;
+		}
+
+		&:focus-within .btn {
+			color: $c-primary;
+			background-color: transparent;
+			border-color: $c-primary;
+		}
+	}
+
 	.field__text {
 		margin: 0 0 0 10px;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
+
+	.field__files {
+		position: relative;
+		z-index: 20;
+		margin-bottom: 20px;
+	}
+
+	.field__files li {
+		position: relative;
+		display: inline-block;
+		padding-right: 40px;
+		cursor: pointer;
+		@include link-decoration;
+	}
+
+	.field__files li .field__clear {
+		width: 18px;
+		height: 18px;
+		margin-top: -8px;
+
+		&:after,
+		&:before {
+			height: 1px;
+			background-color: $c-gray-97;
+		}
+
+		&:hover:after,
+		&:hover:before {
+			background-color: $c-primary;
+		}
+	}
+
+	&.is-alt {
+		.field__input {
+			display: block;
+			padding: 11px 12px;
+			border-radius: 6px;
+		}
+
+		.field__actions label {
+			display: flex;
+			align-items: center;
+			text-transform: uppercase;
+			color: $c-primary;
+			font-size: 14px;
+			font-weight: 500;
+			font-family: $ff-titles;
+		}
+
+		.field__actions span {
+			padding-right: 0;
+			padding-left: 8px;
+		}
 	}
 }

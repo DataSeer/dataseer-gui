@@ -1,15 +1,36 @@
+@mixin link-decoration {
+	text-decoration: $c-primary dotted underline;
+	text-underline-position: under;
+
+	&:focus,
+	&:hover {
+		color: $c-primary;
+		text-decoration-color: $c-primary-light;
+	}
+}
+
 @mixin input-placeholder {
-	&.placeholder { @content; }
-	&:-moz-placeholder { @content; }
-	&::-moz-placeholder { @content; }
-	&:-ms-input-placeholder { @content; }
-	&::-webkit-input-placeholder { @content; }
+	&.placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+	&::-webkit-input-placeholder {
+		@content;
+	}
 }
 
 @mixin center {
-	position: absolute; 
-	top: 50%; 
-	left: 50%; 
+	position: absolute;
+	top: 50%;
+	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
