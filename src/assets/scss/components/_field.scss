@@ -118,6 +118,22 @@
 	}
 }
 
+/* Field Medium */
+
+.field--md {
+	textarea.field__input {
+		height: 111px;
+	}
+}
+
+/* Field Large */
+
+.field--lg {
+	textarea.field__input {
+		height: 286px;
+	}
+}
+
 /* Field Upload */
 
 .field--upload {

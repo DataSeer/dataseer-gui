@@ -131,6 +131,10 @@ export default {
 			const newFileList = [...this.value];
 			newFileList.splice(index, 1);
 
+			if (!newFileList.length) {
+				this.$refs.inputFile.value = null;
+			}
+
 			this.$emit('input', newFileList.length ? newFileList : null);
 		},
 		toKebabCase

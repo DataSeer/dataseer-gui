@@ -22,6 +22,9 @@
 		</div>
 		<!-- /.header__bar -->
 
+		<div class="destination"></div>
+		<!-- /.destination -->
+
 		<Subheader />
 	</div>
 	<!-- /.header -->
@@ -38,7 +41,7 @@ export default {
 
 	data: function() {
 		return {
-			showMobileMenu: false,
+			showMobileMenu: false
 		};
 	},
 
@@ -46,13 +49,13 @@ export default {
 		Logo,
 		navTrigger,
 		Subheader,
-		navAccount,
+		navAccount
 	},
 
 	methods: {
 		toggleMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
-		},
-	},
+		}
+	}
 };
 </script>

@@ -6,7 +6,7 @@
 
 				<div class="form__row">
 					<div class="form__col form__col--1of2">
-						<Field type="textarea" placeholder="Role Name" v-model="documentTitle" name="Document Title">
+						<Field type="textarea" size="medium" placeholder="Role Name" v-model="documentTitle" name="Document Title">
 							<Icon name="document" color="currentColor" />
 
 							Document Title
@@ -85,16 +85,28 @@
 							Publisher
 						</Field>
 
-						<Field placeholder="Role Name" v-model="publishDate" name="Publish Date">
+						<FieldDatepicker v-model="publishDate" placeholder="From">
 							<Icon name="book" color="currentColor" />
 
 							Publish Date
-						</Field>
+						</FieldDatepicker>
 
 						<Field placeholder="Role Name" v-model="doi" name="DOI">
 							<Icon name="book" color="currentColor" />
 
 							DOI
+						</Field>
+					</div>
+					<!-- /.form__col -->
+				</div>
+				<!-- /.form__row -->
+
+				<div class="form__row">
+					<div class="form__col">
+						<Field type="textarea" size="large" placeholder="Authors" v-model="documentAuthors" name="Authors">
+							<Icon name="user" color="currentColor" />
+
+							Authors
 						</Field>
 					</div>
 					<!-- /.form__col -->
@@ -196,6 +208,7 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import FieldFile from '@/components/field-file/field-file';
+import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
@@ -214,7 +227,8 @@ export default {
 		Button,
 		FieldFile,
 		FieldSelect,
-		FieldCheckbox
+		FieldCheckbox,
+		FieldDatepicker
 	},
 
 	/**
@@ -224,9 +238,48 @@ export default {
 		return {
 			documentTitle:
 				'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
+			documentAuthors: `Laura Leadauthor (leadauthor@toh.ca)
+Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
+Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
+
+Nicole Etherington
+Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+
+Sandy Lam
+Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+
+Maxime Lê
+Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+
+Laurie Proulx
+Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
+
+Meghan Britton
+Main Operating Room The Ottawa Hospital, Ottawa, Canada
+
+Julie Kenna
+Main Operating Room The Ottawa Hospital, Ottawa, Canada
+
+Antoine Przybylak-Brouillard
+Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
+Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+
+Jeremy Grimshaw
+Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
+
+Teodor Grantcharov
+Department of General Surgery University of Toronto, Toronto, Canada
+Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
+
+Sukhbir Singh
+Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada`,
 			journal: 'Journal of Medical Internet Research',
 			publisher: 'JMIR Publications Inc.',
-			publishDate: '2021-03-16',
+			publishDate: 1615888800000,
 			doi: '10.2196/15443',
 			owner: [
 				{

@@ -1,12 +1,21 @@
 <template>
-	<div class="field" :class="{ 'has-error': error }">
+	<div
+		class="field"
+		:class="{
+			'has-error': error,
+			'field--textarea': this.type === 'textarea',
+			'field--sm': this.size === 'small',
+			'field--md': this.size === 'medium',
+			'field--lg': this.size === 'large'
+		}"
+	>
 		<label v-if="this.$slots.default" :for="toKebabCase(name)" class="field__label" :class="{ 'sr-only': hideLabel }">
 			<slot />
 		</label>
 
 		<div class="field__controls">
-			<component
-				:is="fieldType"
+			<textarea
+				v-if="this.type === 'textarea'"
 				:type="type"
 				:id="toKebabCase(name)"
 				:name="name"
@@ -14,7 +23,19 @@
 				:readonly="readonly"
 				:placeholder="placeholder"
 				class="field__input"
-				:class="{ 'field--textarea': this.type === 'textarea' }"
+				:value="value"
+				@input="handleChange"
+			/>
+
+			<input
+				v-else
+				:type="type"
+				:id="toKebabCase(name)"
+				:name="name"
+				:tabindex="tabindex"
+				:readonly="readonly"
+				:placeholder="placeholder"
+				class="field__input"
 				:value="value"
 				@input="handleChange"
 			/>
@@ -31,12 +52,37 @@
 import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Field',
 
+	/**
+	 * Props
+	 */
 	props: {
 		type: {
 			type: String,
 			default: 'text'
+		},
+		name: {
+			type: String,
+			default: ''
+		},
+		value: {
+			default: ''
+		},
+		placeholder: {
+			type: String,
+			default: ''
+		},
+		size: {
+			type: String,
+			default: ''
+		},
+		tabindex: {
+			type: Number,
+			default: 0
 		},
 		readonly: {
 			type: Boolean,
@@ -49,22 +95,6 @@ export default {
 		error: {
 			type: Boolean,
 			default: false
-		},
-		name: {
-			type: String,
-			default: ''
-		},
-		value: {
-			type: [String],
-			default: ''
-		},
-		placeholder: {
-			type: String,
-			default: ''
-		},
-		tabindex: {
-			type: Number,
-			default: 0
 		}
 	},
 
@@ -85,8 +115,8 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleChange(event) {
-			this.$emit('input', event.target.files);
+		handleChange(e) {
+			this.$emit('input', e.target.value);
 		},
 		toKebabCase
 	}
