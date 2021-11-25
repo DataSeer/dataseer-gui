@@ -31,10 +31,12 @@ export default {
 	},
 
 	methods: {
-		...mapActions(['login']),
+		...mapActions(['setLogin']),
+		...mapActions(['setCuretor']),
 		exitProfile(event) {
 			event.preventDefault();
-			this.login(false);
+			this.setLogin(false);
+			this.setCuretor(false);
 
 			this.$router.push({
 				name: 'Documents'

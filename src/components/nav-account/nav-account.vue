@@ -100,7 +100,7 @@
 							</li>
 
 							<li>
-								<a tabindex="0" @click.prevent="login(false)">
+								<a tabindex="0" @click.prevent="setLogin(false)">
 									<Icon name="signout" color="CurrentColor" />
 
 									Sign Out
@@ -138,16 +138,16 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
 	name: 'navAccount',
 	computed: {
-		...mapGetters(['getLogin']),
+		...mapGetters(['getLogin'])
 	},
 
 	methods: {
-		...mapActions(['login']),
+		...mapActions(['setLogin'])
 	},
 
 	components: {
 		Icon,
-		DropDown,
-	},
+		DropDown
+	}
 };
 </script>

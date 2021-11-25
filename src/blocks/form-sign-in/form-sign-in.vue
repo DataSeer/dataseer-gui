@@ -98,7 +98,8 @@ export default {
 	},
 
 	methods: {
-		...mapActions(['login']),
+		...mapActions(['setLogin']),
+		...mapActions(['setCurator']),
 		submit() {
 			this.loading = true;
 			this.$v.$touch();
@@ -106,13 +107,14 @@ export default {
 			if (this.$v.$invalid) {
 				setTimeout(() => {
 					this.loading = false;
-					console.log('FAIL');
+					console.log('FAILED LOGIN');
 				}, 500);
 			} else {
 				console.log('SUCCESS');
 				this.loading = false;
 
-				this.login(true);
+				this.setCurator(this.email === 'curator@test.com');
+				this.setLogin(true);
 				this.$router.push({
 					name: 'Documents'
 				});

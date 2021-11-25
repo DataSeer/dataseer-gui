@@ -30,6 +30,7 @@ import password from './icon-password';
 import search from './icon-search';
 import share from './icon-share';
 import texts from './icon-text';
+import texts_add from './icon-texts-add';
 import signout from './icon-signout';
 import trash from './icon-trash';
 import user from './icon-user';
@@ -54,6 +55,7 @@ import angle_left from './icon-angle-left';
 import angle_right from './icon-angle-right';
 import calendar from './icon-calendar';
 import ico_plus_circle from './icon-plus-circle';
+import flag from './icon-flag';
 
 export default {
 	name: 'Icon',
@@ -95,6 +97,7 @@ export default {
 		share,
 		signout,
 		texts,
+		texts_add,
 		trash,
 		user,
 		view_grid,
@@ -117,7 +120,8 @@ export default {
 		angle_left,
 		angle_right,
 		calendar,
-		ico_plus_circle
+		ico_plus_circle,
+		flag
 	}
 };
 </script>

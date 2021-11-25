@@ -6,8 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		documentView: 'list',
-		isloggedIn: false,
-		filtersVisibility: false,
+		isloggedIn: true,
+		isCurator: true,
+		filtersVisibility: false
 	},
 
 	mutations: {
@@ -17,26 +18,33 @@ export default new Vuex.Store({
 		CHANGE_LOGIN: (state, payload) => {
 			state.isloggedIn = payload;
 		},
+		CHANGE_CURATOR: (state, payload) => {
+			state.isCurator = payload;
+		},
 		CHANGE_FILTERS: (state, payload) => {
 			state.filtersVisibility = payload;
-		},
+		}
 	},
 
 	actions: {
 		changeView({ commit }, value) {
 			commit('CHANGE_VIEW', value);
 		},
-		login({ commit }, value) {
+		setlogin({ commit }, value) {
 			commit('CHANGE_LOGIN', value);
+		},
+		setCurator({ commit }, value) {
+			commit('CHANGE_CURATOR', value);
 		},
 		changeFiltersVisibility({ commit }, value) {
 			commit('CHANGE_FILTERS', value);
-		},
+		}
 	},
 
 	getters: {
 		getDocumentView: (state) => state.documentView,
 		getLogin: (state) => state.isloggedIn,
-		getFiltersVisibility: (state) => state.filtersVisibility,
-	},
+		getCurator: (state) => state.isCurator,
+		getFiltersVisibility: (state) => state.filtersVisibility
+	}
 });

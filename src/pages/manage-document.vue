@@ -13,7 +13,7 @@
 							<ul>
 								<li>
 									<a href="#">
-										<Icon name="texts" color="currentColor" />
+										<Icon name="texts_add" color="currentColor" />
 
 										View/Edit Document
 									</a>

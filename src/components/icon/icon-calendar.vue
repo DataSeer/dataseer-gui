@@ -1,7 +1,7 @@
 <template>
 	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="22px" viewBox="0 0 20 22" version="1.1">
 		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-			<g transform="translate(-1112.000000, -228.000000)" :fill="color" fill-rule="nonzero">
+			<g transform="translate(-1112.000000, -228.000000)" :fill="color" fill-rulea="nonzero">
 				<g transform="translate(965.000000, 191.000000)">
 					<g transform="translate(147.000000, 37.000000)">
 						<path
@@ -24,6 +24,6 @@ export default {
 	/**
 	 * color
 	 */
-	props: ['color'],
+	props: ['color']
 };
 </script>

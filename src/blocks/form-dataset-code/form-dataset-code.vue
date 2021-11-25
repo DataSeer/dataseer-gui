@@ -201,8 +201,8 @@
 					</div>
 				</div>
 
-				<div class="form__row">
-					<Field v-if="repo" v-model.trim="permalink" name="permalink" type="text" placeholder="https://">
+				<div v-if="repo" class="form__row">
+					<Field v-model.trim="permalink" name="permalink" type="text" placeholder="https://">
 						<Icon name="chain" color="currentColor" />
 
 						DOI or Permalink
@@ -228,7 +228,7 @@
 					</div>
 					<!-- /.form__cta-col -->
 
-					<div class="form__cta-col">
+					<div v-if="!getCurator" class="form__cta-col">
 						<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
 							<Icon name="connect" />
 
@@ -242,6 +242,25 @@
 						</Button>
 					</div>
 					<!-- /.form-__cta-col -->
+
+					<div v-if="getCurator" class="form__cta-col">
+						<Button className="tertiary" square v-tooltip.top-center="tooltips.flagText">
+							<Icon name="flag" />
+						</Button>
+
+						<Button className="tertiary" square v-tooltip.top-center="tooltips.connectText">
+							<Icon name="connect" />
+						</Button>
+
+						<Button className="tertiary" square v-tooltip.top-center="tooltips.connectText">
+							<Icon name="documents" />
+						</Button>
+
+						<Button className="tertiary" square v-tooltip.top-center="tooltips.deleteText" @onClick="handleDelete">
+							<Icon name="trash" />
+						</Button>
+					</div>
+					<!-- /.form-__cta-col -->
 				</div>
 				<!-- /.form__cta-row -->
 			</div>
@@ -252,8 +271,15 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 
+/**
+ * Internal Dependencies
+ */
 import Field from '@/components/field/field';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
@@ -261,8 +287,14 @@ import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import HiddenText from '@/components/hidden-text/hidden-text';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormDatasetCode',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Field,
 		Icon,
@@ -271,6 +303,9 @@ export default {
 		HiddenText
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			version: '',
@@ -284,12 +319,23 @@ export default {
 			permalink: '',
 			instructions: '',
 			tooltips: {
+				flagText: 'Flag Issues For Author',
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
 			}
 		};
 	},
 
+	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters(['getCurator'])
+	},
+
+	/**
+	 * Validations
+	 */
 	validations: {
 		type: {
 			required
@@ -302,6 +348,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
