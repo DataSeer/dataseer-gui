@@ -4,8 +4,8 @@
 			<div class="form__group">
 				<h4>Document Info</h4>
 
-				<div class="form__row">
-					<div class="form__col form__col--1of2">
+				<Grid columnGap="large" rowGap="small">
+					<GridColumn size="half">
 						<Field type="textarea" size="medium" placeholder="Role Name" v-model="documentTitle" name="Document Title">
 							<Icon name="document" color="currentColor" />
 
@@ -70,10 +70,9 @@
 
 							Document Owner(s)
 						</FieldSelect>
-					</div>
-					<!-- /.form__col -->
+					</GridColumn>
 
-					<div class="form__col form__col--1of2">
+					<GridColumn size="half">
 						<Field placeholder="Role Name" v-model="journal" name="Journal">
 							<Icon name="book" color="currentColor" />
 
@@ -97,30 +96,24 @@
 
 							DOI
 						</Field>
-					</div>
-					<!-- /.form__col -->
-				</div>
-				<!-- /.form__row -->
+					</GridColumn>
 
-				<div class="form__row">
-					<div class="form__col">
+					<GridColumn>
 						<Field type="textarea" size="large" placeholder="Authors" v-model="documentAuthors" name="Authors">
 							<Icon name="user" color="currentColor" />
 
 							Authors
 						</Field>
-					</div>
-					<!-- /.form__col -->
-				</div>
-				<!-- /.form__row -->
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Files</h4>
 
-				<div class="form__row">
-					<div class="form__col form__col--1of2">
+				<Grid columnGap="large" rowGap="small">
+					<GridColumn size="half">
 						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
 							<Icon name="document" color="currentColor" />
 
@@ -134,10 +127,9 @@
 								Primary File
 							</template>
 						</FieldFile>
-					</div>
-					<!-- /.form__col form__col--1of2 -->
+					</GridColumn>
 
-					<div class="form__col form__col--1of2">
+					<GridColumn size="half">
 						<FieldFile v-model="appendFiles" name="appendFiles" buttonText="Upload Files" multiple alt>
 							<template #label>
 								<Icon name="document_new" color="currentColor" />
@@ -145,34 +137,25 @@
 								Append File(s)
 							</template>
 						</FieldFile>
-					</div>
-					<!-- /.form__col form__col--1of2 -->
-				</div>
-				<!-- /.form__row -->
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Settings</h4>
 
-				<div class="form__row">
-					<div class="form__col">
-						<div class="checkboxes checkboxes--vertical">
-							<ul>
-								<li>
-									<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
-								</li>
+				<div class="checkboxes checkboxes--vertical">
+					<ul>
+						<li>
+							<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+						</li>
 
-								<li>
-									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /.form__col -->
-					<!-- /.checkboxes -->
+						<li>
+							<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+						</li>
+					</ul>
 				</div>
-				<!-- /.form__row -->
 			</div>
 			<!-- /.form__group -->
 		</div>
@@ -191,6 +174,7 @@
 				<li>
 					<Button className="tertiary">
 						<Icon name="trash" color="#E36329" />
+
 						Delete Role
 					</Button>
 				</li>
@@ -206,6 +190,7 @@
  * Internal Dependencies
  */
 import Icon from '@/components/icon/icon';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import FieldFile from '@/components/field-file/field-file';
@@ -224,6 +209,8 @@ export default {
 	 */
 	components: {
 		Icon,
+		Grid,
+		GridColumn,
 		Field,
 		Button,
 		FieldFile,

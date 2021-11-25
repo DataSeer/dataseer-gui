@@ -4,7 +4,49 @@
 
 .grid {
 	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
 
-	.grid__column {
+	&.gap-x-sm {
+		column-gap: 10px;
+	}
+
+	&.gap-x-md {
+		column-gap: 40px;
+	}
+
+	&.gap-x-lg {
+		column-gap: 60px;
+	}
+
+	&.gap-y-sm {
+		row-gap: 25px;
+	}
+
+	&.gap-y-md {
+		row-gap: 40px;
+	}
+
+	&.gap-y-lg {
+		row-gap: 70px;
+	}
+
+	.grid__col {
+		grid-column: span 12 / span 12;
+	}
+
+	.grid__col--half {
+		grid-column: span 6 / span 6;
+	}
+
+	.grid__col--half {
+		grid-column: span 6 / span 6;
+	}
+
+	.grid__col--third {
+		grid-column: span 4 / span 4;
+	}
+
+	.grid__col--quarter {
+		grid-column: span 3 / span 3;
 	}
 }

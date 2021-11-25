@@ -3,15 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .widgets {
-	> ul {
-		list-style: none;
-	}
-
-	> ul > li {
-		margin-bottom: 53px;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
+	> * + * {
+		margin-top: 50px;
 	}
 }
