@@ -6,7 +6,7 @@
 
 				<div class="form__row">
 					<div class="form__col">
-						<Field :value="name" name="Organization Name" readonly>
+						<Field :value="name" name="Organization Name">
 							<Icon name="organization" color="currentColor" />
 
 							Organization Name
@@ -22,18 +22,21 @@
 				<h4>Settings</h4>
 
 				<div class="form__row">
-					<div class="checkboxes checkboxes--vertical">
-						<ul>
-							<li>
-								<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
-							</li>
+					<div class="form__col">
+						<div class="checkboxes checkboxes--vertical">
+							<ul>
+								<li>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+								</li>
 
-							<li>
-								<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
-							</li>
-						</ul>
+								<li>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+								</li>
+							</ul>
+						</div>
+						<!-- /.checkboxes -->
 					</div>
-					<!-- /.checkboxes -->
+					<!-- /.form__col -->
 				</div>
 				<!-- /.form__row -->
 			</div>

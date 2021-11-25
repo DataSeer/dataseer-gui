@@ -13,6 +13,9 @@
 						</Field>
 
 						<FieldSelect
+							placeholder="Select Owner"
+							multiple
+							v-model="owner"
 							:options="[
 								{
 									value: 'Laura Leadauthor'
@@ -33,8 +36,6 @@
 									value: 'Owner 6'
 								}
 							]"
-							multiple
-							v-model="owner"
 						>
 							<Icon name="document" color="currentColor" />
 

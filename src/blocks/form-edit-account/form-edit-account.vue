@@ -87,18 +87,21 @@
 				<h4>Settings</h4>
 
 				<div class="form__row">
-					<div class="checkboxes checkboxes--vertical">
-						<ul>
-							<li>
-								<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
-							</li>
+					<div class="form__col">
+						<div class="checkboxes checkboxes--vertical">
+							<ul>
+								<li>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+								</li>
 
-							<li>
-								<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
-							</li>
-						</ul>
+								<li>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+								</li>
+							</ul>
+						</div>
+						<!-- /.checkboxes -->
 					</div>
-					<!-- /.checkboxes -->
+					<!-- /.form__col -->
 				</div>
 				<!-- /.form__row -->
 			</div>
@@ -166,9 +169,11 @@ export default {
 			role: {
 				value: 'Standard User'
 			},
-			organization: {
-				value: 'University of Ottowa'
-			},
+			organization: [
+				{
+					value: 'University of Ottowa'
+				}
+			],
 			isActive: true,
 			isLocked: false
 		};

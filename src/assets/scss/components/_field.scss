@@ -30,6 +30,7 @@
 	textarea.field__input {
 		width: 100% !important;
 		height: 80px;
+		resize: none;
 		padding-top: 8px;
 		padding-bottom: 8px;
 	}
@@ -217,7 +218,7 @@
 	&.is-alt {
 		.field__input {
 			display: block;
-			padding: 11px 12px;
+			padding: 6px 12px;
 			border-radius: 6px;
 		}
 
