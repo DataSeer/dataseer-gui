@@ -1,0 +1,213 @@
+<template>
+	<div class="form form--flags">
+		<form action="?" method="post">
+			<div class="form__head">
+				<h6><Dot :size="14" /> Flag issues</h6>
+
+				<Button className="tertiary" size="small" :active="isIssuesDropdownVisible" @onClick="toggleIssuesDropdown">
+					<Icon name="plus" />
+
+					Select issues
+				</Button>
+			</div>
+			<!-- /.form__head -->
+
+			<div v-if="isIssuesDropdownVisible" class="form__issues">
+				<FieldIssues text="Select all that apply…" :issues="issues" @change="handeIssuesChange" />
+			</div>
+			<!-- /.form__issues -->
+
+			<div class="form__body">
+				<div class="checkboxes">
+					<ul>
+						<li v-for="activeIssue in activeIssues" :key="activeIssue.id">
+							<FieldIssue :issue="activeIssue" @change="updateIssue" />
+						</li>
+					</ul>
+				</div>
+				<!-- /.checkbox -->
+
+				<Field name="Additional Comments" type="textarea" placeholder="Additional Comments" v-model="additionalComments" />
+			</div>
+			<!-- /.form__body -->
+
+			<div class="form__actions">
+				<ul>
+					<li>
+						<Button size="small">
+							Save issues
+						</Button>
+					</li>
+
+					<li>
+						<ButtonLink>Cancel</ButtonLink>
+					</li>
+				</ul>
+			</div>
+			<!-- /.form__actions -->
+		</form>
+	</div>
+	<!-- /.form form--dataset -->
+</template>
+
+<script>
+/**
+ * Internal Dependencies
+ */
+
+import Dot from '@/components/dot/dot';
+import Icon from '@/components/icon/icon';
+import Field from '@/components/field/field';
+import Button from '@/components/button/button';
+import ButtonLink from '@/components/button-link/button-link';
+import FieldIssue from '@/components/field-issue/field-issue';
+import FieldIssues from '@/components/field-issues/field-issues';
+
+export default {
+	/**
+	 * Name
+	 */
+	name: 'FormIssues',
+
+	/**
+	 * Components
+	 */
+	components: {
+		Dot,
+		Icon,
+		Field,
+		Button,
+		ButtonLink,
+		FieldIssue,
+		FieldIssues
+	},
+
+	/**
+	 * Data
+	 */
+
+	data() {
+		return {
+			isIssuesDropdownVisible: false,
+			additionalComments: '',
+			issues: [
+				{
+					id: 'issue1',
+					label: 'A particular issue number one',
+					required: true,
+					recommended: true,
+					completed: true,
+					active: false
+				},
+
+				{
+					id: 'issue2',
+					label: 'Needs Citation (Required)',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue3',
+					label: 'Needs Citation (Recommended)',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue4',
+					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue5',
+					label: 'Missing Support Files',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+				{
+					id: 'issue6',
+					label: 'A particular issue number one',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+				{
+					id: 'issue7',
+					label: 'Different issue',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue8',
+					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue9',
+					label: 'One more issue down here',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				},
+
+				{
+					id: 'issue10',
+					label: 'Other (Described in comments below)',
+					required: true,
+					recommended: true,
+					completed: false,
+					active: false
+				}
+			]
+		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		activeIssues: function() {
+			return this.issues.filter((issue) => issue.active);
+		}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		toggleIssuesDropdown(e) {
+			e.preventDefault();
+
+			this.isIssuesDropdownVisible = !this.isIssuesDropdownVisible;
+		},
+		handeIssuesChange(e) {
+			const issueIndex = this.issues.findIndex((issue) => issue.id == e.target.id);
+			this.issues[issueIndex].active = e.target.checked;
+		},
+		updateIssue(id, key, value) {
+			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
+			this.issues[issueIndex][key] = value;
+		}
+	}
+};
+</script>

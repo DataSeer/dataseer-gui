@@ -18,9 +18,11 @@ export default {
 	name: 'Dropdown',
 
 	methods: {
-		handleClick() {
+		handleClick(e) {
+			e.preventDefault();
+
 			this.$refs.dropdown.classList.toggle('is-active');
-		},
-	},
+		}
+	}
 };
 </script>

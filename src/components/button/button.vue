@@ -11,9 +11,9 @@
 			'btn--square': square,
 			'is-disabled': disabled,
 			'is-highlighted': highlighted,
-			'is-active': active,
+			'is-active': active
 		}"
-		@click="$emit('onClick')"
+		@click="$emit('onClick', $event)"
 	>
 		<slot />
 	</component>
@@ -32,11 +32,11 @@ export default {
 	props: {
 		to: {
 			type: String,
-			default: null,
+			default: null
 		},
 		href: {
 			type: String,
-			default: null,
+			default: null
 		},
 		className: {
 			type: String,
@@ -44,11 +44,11 @@ export default {
 			validator: function(value) {
 				// The value must match one of these strings
 				return ['', 'secondary', 'tertiary'].indexOf(value) !== -1;
-			},
+			}
 		},
 		block: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
 		size: {
 			type: String,
@@ -56,24 +56,24 @@ export default {
 			validator: function(value) {
 				// The value must match one of these strings
 				return ['', 'small'].indexOf(value) !== -1;
-			},
+			}
 		},
 		disabled: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
 		highlighted: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
 		active: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
 		square: {
 			type: Boolean,
-			default: false,
-		},
+			default: false
+		}
 	},
 
 	/**
@@ -88,7 +88,7 @@ export default {
 			} else {
 				return 'button';
 			}
-		},
-	},
+		}
+	}
 };
 </script>

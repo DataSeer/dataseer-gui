@@ -29,7 +29,7 @@
 					:searchable="false"
 					:options="selectOptions"
 					label="title"
-					@input="handleSelect"
+					@input="handleSelectChange"
 				>
 					<template #option="{ title }">
 						<span :data-title="title">
@@ -70,8 +70,11 @@ export default {
 
 	props: {
 		value: Boolean || null,
-		error: Boolean,
 		name: String,
+		error: {
+			type: Boolean,
+			default: false
+		},
 		isDropdown: {
 			type: Boolean,
 			default: false
@@ -107,7 +110,7 @@ export default {
 			this.$emit('input', event.target.checked);
 		},
 
-		handleSelect(el) {
+		handleSelectChange(el) {
 			this.$emit('input', el.value);
 		},
 		toKebabCase

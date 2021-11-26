@@ -3,7 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .dataset-primary {
-	height: calc(100vh - 132px); 
+	height: calc(100vh - 132px);
 
 	.dataset__row,
 	.dataset__left,
@@ -20,11 +20,11 @@
 		width: calc(40.5% - 46px);
 		flex: 0 0 calc(40.5% - 46px);
 		margin-left: 46px;
-		box-shadow: 0 1px 9px rgba($c-primary, .22);
+		box-shadow: 0 1px 9px rgba($c-primary, 0.22);
 	}
 
 	.dataset__left-inner {
-		height: 100%; 
+		height: 100%;
 		padding: 0 20px 0 30px;
 		overflow-x: auto;
 		background: $c-white;
@@ -40,14 +40,13 @@
 		top: 0;
 		display: flex;
 		justify-content: space-between;
-		padding: 25px 0 10px;
+		padding: 25px 0 15px;
 		border-bottom: 1px solid $c-skyblue-bc;
 		background: #fff;
 		font-size: 12px;
 		font-family: $ff-sans-serif;
-	
 	}
-	
+
 	.form__heading h5 {
 		font-weight: 700;
 		font-family: inherit;
@@ -56,7 +55,7 @@
 
 /* Dataset Primary Code */
 
-[data-dataset="code"] {
+[data-dataset='code'] {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-purple-72;
 		border-color: $c-purple-72;
@@ -64,8 +63,8 @@
 		&:focus,
 		&:hover {
 			color: $c-white;
-			background-color: darken($c-purple-72, 8); 
-			border-color: darken($c-purple-72, 8); 
+			background-color: darken($c-purple-72, 8);
+			border-color: darken($c-purple-72, 8);
 		}
 	}
 
@@ -76,7 +75,7 @@
 
 	.form .field:focus,
 	.form .v-select.vs--open .vs__dropdown-toggle {
-		border-color: $c-purple-72;		
+		border-color: $c-purple-72;
 	}
 
 	.intro .intro__head h3 span {
@@ -86,7 +85,7 @@
 
 /* Dataset Primary Materials */
 
-[data-dataset="materials"] {
+[data-dataset='materials'] {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-orange-d2;
 		border-color: $c-orange-d2;
@@ -94,14 +93,14 @@
 		&:focus,
 		&:hover {
 			color: $c-white;
-			background-color: darken($c-orange-d2, 8); 
-			border-color: darken($c-orange-d2, 8); 
+			background-color: darken($c-orange-d2, 8);
+			border-color: darken($c-orange-d2, 8);
 		}
 	}
 
 	.tabs .tabs__link span {
 		border-color: $c-orange-d2;
-    	background-color: $c-orange-d2;
+		background-color: $c-orange-d2;
 	}
 
 	.form .field:focus,
@@ -116,7 +115,7 @@
 
 /* Dataset Primary Protocols */
 
-[data-dataset="protocols"] {
+[data-dataset='protocols'] {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-green-40;
 		border-color: $c-green-40;
@@ -124,14 +123,14 @@
 		&:focus,
 		&:hover {
 			color: $c-white;
-			background-color: darken($c-green-40, 8); 
-			border-color: darken($c-green-40, 8); 
+			background-color: darken($c-green-40, 8);
+			border-color: darken($c-green-40, 8);
 		}
 	}
 
 	.tabs .tabs__link span {
 		border-color: $c-green-40;
-    	background-color: $c-green-40;
+		background-color: $c-green-40;
 	}
 
 	.form .field:focus,

@@ -56,6 +56,7 @@ import angle_right from './icon-angle-right';
 import calendar from './icon-calendar';
 import ico_plus_circle from './icon-plus-circle';
 import flag from './icon-flag';
+import plus from './icon-plus';
 
 export default {
 	name: 'Icon',
@@ -121,7 +122,8 @@ export default {
 		angle_right,
 		calendar,
 		ico_plus_circle,
-		flag
+		flag,
+		plus
 	}
 };
 </script>

@@ -1,67 +1,92 @@
 <template>
-  <div class="tabs">
-    <div class="tabs__links">
-      <ul>
-        <li
-          v-for="(tab, index) in tabs"
-          :key="index"
-          @click="selectTab(index)"
-          class="tabs__link"
-          :class="{
-            'is-active': index === activeIndex,
-            'is-completed': tab.completed,
-          }"
-        >
-          <span
-            @click="selectTab(index)"
-            v-tooltip.right="tabTooltips[index]"
-          ></span>
-        </li>
-      </ul>
-    </div>
-    <!-- /.tabs__links -->
+	<div class="tabs">
+		<div class="tabs__links">
+			<ul>
+				<li
+					v-for="(tab, index) in tabs"
+					:key="index"
+					@click="selectTab(index)"
+					class="tabs__link"
+					:class="{
+						'is-active': index === activeIndex,
+						'is-completed': tab.completed
+					}"
+				>
+					<Dot v-if="tab.flagged" />
+					<span @click="selectTab(index)" v-tooltip.right="tabTooltips[index]" />
+				</li>
+			</ul>
+		</div>
+		<!-- /.tabs__links -->
 
-    <div class="tabs__contents">
-      <slot :activeIndex="activeIndex" />
-    </div>
-    <!-- /.tabs__content -->
-  </div>
-  <!-- /.tabs -->
+		<div class="tabs__contents">
+			<slot :activeIndex="activeIndex" />
+		</div>
+		<!-- /.tabs__content -->
+	</div>
+	<!-- /.tabs -->
 </template>
 
 <script>
+import Dot from '@/components/dot/dot';
+
 export default {
-  name: "Tabs",
+	/**
+	 * Name
+	 */
+	name: 'Tabs',
 
-  data: function() {
-    return {
-      tabs: [],
-      activeIndex: 0,
-    };
-  },
+	/**
+	 * Components
+	 */
+	components: {
+		Dot
+	},
 
-  computed: {
-    tabTooltips() {
-      return this.tabs.map((item) => item.tooltip);
-    },
-  },
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			tabs: [],
+			activeIndex: 0
+		};
+	},
 
-  methods: {
-    selectTab(i) {
-      this.activeIndex = i;
+	/**
+	 * Computed
+	 */
+	computed: {
+		tabTooltips() {
+			return this.tabs.map((item) => item.tooltip);
+		}
+	},
 
-      this.tabs.forEach((tab, index) => {
-        tab.isActive = index === i;
-      });
-    },
-  },
+	/**
+	 * Methods
+	 */
+	methods: {
+		selectTab(i) {
+			this.activeIndex = i;
 
-  created() {
-    this.tabs = this.$children;
-  },
+			this.tabs.forEach((tab, index) => {
+				tab.isActive = index === i;
+			});
+		}
+	},
 
-  mounted() {
-    this.selectTab(0);
-  },
+	/**
+	 * Created
+	 */
+	created() {
+		this.tabs = this.$children;
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted() {
+		this.selectTab(0);
+	}
 };
 </script>

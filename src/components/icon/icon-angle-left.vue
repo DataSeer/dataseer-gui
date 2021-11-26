@@ -20,6 +20,6 @@ export default {
 	/**
 	 * color
 	 */
-	props: ['color'],
+	props: ['color']
 };
 </script>

@@ -21,10 +21,6 @@
 		padding: 0 10px;
 	}
 
-	i {
-		margin-right: 8px;
-	}
-	
 	a {
 		position: relative;
 		display: block;
@@ -42,11 +38,11 @@
 			width: 6px;
 			height: 100%;
 		}
-		
+
 		&.router-link-active {
 			color: $c-base;
 		}
-		
+
 		&:focus,
 		&:hover {
 			color: $c-base;
@@ -54,10 +50,22 @@
 		}
 	}
 
+	.ico {
+		margin-right: 8px;
+	}
+
+	.dot {
+		position: absolute;
+		top: 6px;
+		right: 6px;
+		width: 12px;
+		height: 12px;
+	}
+
 	li:nth-child(1) .router-link-active {
-		box-shadow: 0 2px 2px 0px rgba(25,101,176,0.15) inset;
-		background-color: $c-skyblue-fa;			
-		
+		box-shadow: 0 2px 2px 0px rgba(25, 101, 176, 0.15) inset;
+		background-color: $c-skyblue-fa;
+
 		&:before {
 			background-color: $c-blue-19;
 		}
@@ -65,8 +73,8 @@
 
 	li:nth-child(2) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
-		background-color: #FAF7FF;			
-		
+		background-color: #faf7ff;
+
 		&:before {
 			background-color: $c-purple-72;
 		}
@@ -74,8 +82,8 @@
 
 	li:nth-child(3) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
-		background-color: rgba(#FFF7F4, 0.15);			
-		
+		background-color: rgba(#fff7f4, 0.15);
+
 		&:before {
 			background-color: $c-orange-d2;
 		}
@@ -83,8 +91,8 @@
 
 	li:nth-child(4) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
-		background-color: #F5FCF8;			
-		
+		background-color: #f5fcf8;
+
 		&:before {
 			background-color: $c-green-40;
 		}

@@ -167,7 +167,7 @@
 		border-radius: 16px;
 
 		&:focus-within {
-			border-color: $c-skyblue !important;
+			border-color: $c-skyblue;
 		}
 
 		&:focus-within .btn {

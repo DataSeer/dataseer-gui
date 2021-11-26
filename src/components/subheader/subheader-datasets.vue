@@ -13,6 +13,7 @@
 
 					<li>
 						<router-link to="/datasets-code">
+							<Dot />
 							<Icon name="brackets" color="currentColor" />
 
 							Code
@@ -42,7 +43,7 @@
 
 		<div class="subheader__right">
 			<Button to="/report" className="tertiary">
-				<Icon name="lock" color="#006AC9" />
+				<Icon name="lock" color="currentColor" />
 
 				Open Science Report
 			</Button>
@@ -66,9 +67,8 @@
 											<h6>Title</h6>
 
 											<p>
-												Implementation of the Operating Room Black Box Research Program at the
-												Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case
-												Study
+												Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational
+												Engagement: Case Study
 											</p>
 										</li>
 
@@ -103,27 +103,23 @@
 											<li>
 												<h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
 
-												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-												Ottawa, Canada Department of Innovation in Medical Education University of
-												Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of
-												Ottawa, Ottawa, Canada
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa
+												Hospital Research Institute, Ottawa, Canada Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
+												Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
 											</li>
 
 											<li>
 												<h6>Nicole Etherington</h6>
 
-												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-												Ottawa, Canada
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa
+												Hospital Research Institute, Ottawa, Canada
 											</li>
 
 											<li>
 												<h6>Sandy Lam</h6>
 
-												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-												Ottawa, Canada
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa
+												Hospital Research Institute, Ottawa, Canada
 											</li>
 
 											<li>
@@ -153,30 +149,27 @@
 											<li>
 												<h6>Antoine Przybylak-Brouillard</h6>
 
-												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-												Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-												Ottawa, Canada
+												Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa
+												Hospital Research Institute, Ottawa, Canada
 											</li>
 
 											<li>
 												<h6>Jeremy Grimshaw</h6>
 
-												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa,
-												Canada
+												Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
 											</li>
 
 											<li>
 												<h6>Teodor Grantcharov</h6>
 
-												Department of General Surgery University of Toronto, Toronto, Canada Li Ka
-												Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
+												Department of General Surgery University of Toronto, Toronto, Canada Li Ka Shing Knowledge Institute St. Michael's Hospital,
+												Toronto, Canada
 											</li>
 
 											<li>
 												<h6>Sukhbir Singh</h6>
 
-												Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa,
-												Ottawa, Canada
+												Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada
 											</li>
 										</ul>
 									</div>
@@ -239,8 +232,8 @@
 				<Icon name="document" />
 
 				<h6 id="subheader-title" @click.prevent="toggleSummary">
-					Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital
-					Through Patient, Clinic Organizational Engagement: Case Study
+					Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital Through Patient, Clinic Organizational Engagement:
+					Case Study
 				</h6>
 
 				<Dropdown>
@@ -302,6 +295,7 @@
 </template>
 
 <script>
+import Dot from '@/components/dot/dot';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown';
@@ -312,21 +306,22 @@ export default {
 
 	data: function() {
 		return {
-			showSummary: false,
+			showSummary: false
 		};
 	},
 
 	components: {
+		Dot,
 		Icon,
 		Button,
 		Dropdown,
-		BtnClose,
+		BtnClose
 	},
 
 	methods: {
 		toggleSummary() {
 			this.showSummary = !this.showSummary;
-		},
-	},
+		}
+	}
 };
 </script>

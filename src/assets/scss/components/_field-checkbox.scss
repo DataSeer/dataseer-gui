@@ -13,7 +13,36 @@
 	> ul > li + li {
 		margin-top: 21px;
 	}
+}
 
+/* Checkboxes Vertical */
+
+.checkboxes--vertical {
+	> ul {
+		display: flex;
+		margin: -8px -32px;
+	}
+
+	> ul > li {
+		padding: 8px 32px;
+	}
+
+	> ul > li + li {
+		margin-top: 0;
+	}
+}
+
+/* Checkboxes Center */
+
+.checkboxes--center {
+	text-align: center;
+}
+
+/* ------------------------------------------------------------ *\
+	Checkbox
+\* ------------------------------------------------------------ */
+
+.checkbox {
 	p,
 	label {
 		margin-bottom: 0;
@@ -70,29 +99,6 @@
 			border-color: $c-base;
 		}
 	}
-}
-
-/* Checkboxes Vertical */
-
-.checkboxes--vertical {
-	> ul {
-		display: flex;
-		margin: -8px -32px;
-	}
-
-	> ul > li {
-		padding: 8px 32px;
-	}
-
-	> ul > li + li {
-		margin-top: 0;
-	}
-}
-
-/* Checkboxes Center */
-
-.checkboxes--center {
-	text-align: center;
 }
 
 /* Checkbox Select */

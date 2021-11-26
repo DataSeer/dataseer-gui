@@ -7,19 +7,6 @@
 						<div class="dataset__left-inner">
 							<Tabs>
 								<Tab completed tooltip="This Dataset Name Is Too Lon…">
-									<div class="form__heading">
-										<div class="form__heading-col">
-											<h5>R v4.2.1</h5>
-										</div>
-										<!-- /.form__heading-col -->
-
-										<div class="form__heading-col">
-											Code/Software
-										</div>
-										<!-- /.form__heading-col -->
-									</div>
-									<!-- /.form__heading -->
-
 									<FormDatasetCode />
 								</Tab>
 
@@ -53,19 +40,21 @@
 									<!-- /.form__heading -->
 								</Tab>
 
-								<Tab tooltip="This Dataset Name Is Too Lon…">
+								<Tab flagged tooltip="This Dataset Name Is Too Lon…">
 									<div class="form__heading">
 										<div class="form__heading-col">
-											<h5>How much we do it for</h5>
+											<h5>Code-3-Has-Issues</h5>
 										</div>
 										<!-- /.form__heading-col -->
 
 										<div class="form__heading-col">
-											Code/Software
+											Python
 										</div>
 										<!-- /.form__heading-col -->
 									</div>
 									<!-- /.form__heading -->
+
+									<FormIssues />
 								</Tab>
 
 								<Tab tooltip="This Dataset Name Is Too Lon…">
@@ -138,18 +127,22 @@
 </template>
 
 <script>
-import Tabs from '@/components/tabs/tabs';
+import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
-import FormDatasetCode from '@/blocks/form-dataset-code/form-dataset-code.vue';
-import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
-import PDF from '@/blocks/pdf/pdf.vue';
+import Tabs from '@/components/tabs/tabs';
+import FormIssues from '@/blocks/form-issues/form-issues';
+import DatasetUtils from '@/components/datasets-utils/datasets-utils';
+import FormDatasetCode from '@/blocks/form-dataset-code/form-dataset-code';
 
 export default {
 	/**
-	 * Datasets
+	 * Name
 	 */
 	name: 'Datasets',
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			source: '/test.pdf',
@@ -157,12 +150,16 @@ export default {
 		};
 	},
 
+	/**
+	 * Components
+	 */
 	components: {
-		Tabs,
+		PDF,
 		Tab,
-		FormDatasetCode,
+		Tabs,
+		FormIssues,
 		DatasetUtils,
-		PDF
+		FormDatasetCode
 	}
 };
 </script>
