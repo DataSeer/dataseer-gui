@@ -30,7 +30,7 @@ export default new Vuex.Store({
 		changeView({ commit }, value) {
 			commit('CHANGE_VIEW', value);
 		},
-		setlogin({ commit }, value) {
+		setLogin({ commit }, value) {
 			commit('CHANGE_LOGIN', value);
 		},
 		setCurator({ commit }, value) {

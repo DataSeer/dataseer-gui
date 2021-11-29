@@ -68,28 +68,18 @@
 	}
 }
 
-/* Main Tables */
+/* Main No Rightside */
 
-.main--tables {
-	display: flex;
-	padding-top: 132px;
-	max-height: calc(100vh - 132px);
-
-	.shell {
-		display: flex;
-		flex-flow: column;
+.main--no-rightside {
+	.main__left {
+		width: 100%;
+		margin-right: 0;
 	}
 }
 
-/* Main Profile */
+/* Main has Subheader */
 
-.main--profile {
-	padding-top: 132px;
-}
-
-/* Main Datasets */
-
-.main--datasets {
+.main--has-subheader {
 	padding-top: 132px;
 
 	@include breakpoint-down(tablet) {
@@ -99,16 +89,52 @@
 	@include breakpoint-down(mobile) {
 		padding-top: 170px;
 	}
+}
 
-	&[data-dataset='code'] {
+/* Main Tables */
+
+.main--table {
+	height: 100vh;
+
+	.shell,
+	.main__inner {
+		height: 100%;
+	}
+
+	.main__inner {
+		position: relative;
+	}
+
+	.main__left {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		display: flex;
+		flex-flow: column;
+	}
+}
+
+/* Main Datasets */
+
+.main--datasets {
+	.main__left {
+		padding: 0;
+		background: none;
+		box-shadow: none;
+	}
+
+	&-code {
 		background-color: $c-purple-fa;
 	}
 
-	&[data-dataset='materials'] {
+	&-materials {
 		background-color: $c-orange-ff;
 	}
 
-	&[data-dataset='protocols'] {
+	&-protocols {
 		background-color: rgba($c-green-40, 0.08);
 	}
 }
@@ -116,29 +142,6 @@
 /* Main Report */
 
 .main--report {
-	padding-top: 132px;
-
-	@include breakpoint-down(tablet) {
-		padding-top: 160px;
-	}
-
-	@include breakpoint-down(mobile) {
-		padding-top: 175px;
-	}
-
-	.main__inner {
-		@include breakpoint-down(small-desktop) {
-			flex-wrap: wrap;
-		}
-	}
-
-	.main__left,
-	.main__right {
-		@include breakpoint-down(small-desktop) {
-			width: 100%;
-		}
-	}
-
 	.main__left {
 		padding-top: 25px;
 
@@ -164,10 +167,4 @@
 			padding-right: 15px;
 		}
 	}
-}
-
-/* main--edit */
-
-.main--edit {
-	padding-top: 132px;
 }

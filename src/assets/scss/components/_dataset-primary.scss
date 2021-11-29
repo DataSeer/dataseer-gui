@@ -55,7 +55,7 @@
 
 /* Dataset Primary Code */
 
-[data-dataset='code'] {
+.main--datasets-code {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-purple-72;
 		border-color: $c-purple-72;
@@ -85,7 +85,7 @@
 
 /* Dataset Primary Materials */
 
-[data-dataset='materials'] {
+.main--datasets-materials {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-orange-d2;
 		border-color: $c-orange-d2;
@@ -115,7 +115,7 @@
 
 /* Dataset Primary Protocols */
 
-[data-dataset='protocols'] {
+.main--datasets-protocols {
 	.form .form__cta .btn:not(.btn--tertiary) {
 		background-color: $c-green-40;
 		border-color: $c-green-40;

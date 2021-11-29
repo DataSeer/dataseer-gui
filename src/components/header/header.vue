@@ -1,7 +1,7 @@
 <template>
 	<div class="header" :class="{ 'is-menu-expanded': showMobileMenu }">
 		<div tabindex="0" class="header__bar" aria-label="main header bar">
-			<div class="shell">
+			<Shell>
 				<div class="header__bar-inner">
 					<Logo />
 
@@ -17,7 +17,7 @@
 					<!-- /.nav -->
 				</div>
 				<!-- /.header__bar-inner -->
-			</div>
+			</Shell>
 			<!-- /.shell -->
 		</div>
 		<!-- /.header__bar -->
@@ -32,6 +32,7 @@
 
 <script>
 import Logo from '@/components/logo/logo';
+import Shell from '@/components/shell/shell';
 import Subheader from '@/components/subheader/subheader';
 import navAccount from '@/components/nav-account/nav-account';
 import navTrigger from '@/components/nav-trigger/nav-trigger';
@@ -47,6 +48,7 @@ export default {
 
 	components: {
 		Logo,
+		Shell,
 		navTrigger,
 		Subheader,
 		navAccount

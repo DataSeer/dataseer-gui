@@ -1,8 +1,8 @@
 <template>
-	<div class="widgets">
-		<slot></slot>
+	<div class="form__message">
+		<slot />
 	</div>
-	<!-- /.widgets -->
+	<!-- /.form__message -->
 </template>
 
 <script>
@@ -10,6 +10,6 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'Widgets'
+	vname: 'FormMessage'
 };
 </script>

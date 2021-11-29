@@ -1,39 +1,37 @@
 .datasets-utils {
-  position: absolute;
-  bottom: 0;
-  right: 100%;
-  list-style: none; 
+	position: absolute;
+	bottom: 0;
+	right: 100%;
+	list-style: none;
 
-  li {
-    margin-top: 2px;
-  }
+	li {
+		margin-top: 2px;
+	}
 
-  a {
-    display: flex;
-    width: 46px;
-    height: 46px;
-    align-items: center;
-    justify-content: center;
-    background-color: $c-skyblue;
-    border-radius: 3px;
-    transition: opacity 0.3s;
-    
-    [data-dataset="code"] & {
-      background-color: rgba($c-purple-65, 0.06)
-    }
-    
-    [data-dataset="materials"] & {
-      background-color: $c-orange-fff;  
-    }
-    
-    [data-dataset="protocols"] & {
-      background-color: $c-green-f5;
-    }
+	a {
+		display: flex;
+		width: 46px;
+		height: 46px;
+		align-items: center;
+		justify-content: center;
+		background-color: $c-skyblue;
+		border-radius: 3px;
+		transition: opacity 0.3s;
 
-    &:hover {
-      opacity: .7;
-    }
-  }
+		.main--datasets-code & {
+			background-color: rgba($c-purple-65, 0.06);
+		}
+
+		.main--datasets-materials & {
+			background-color: $c-orange-fff;
+		}
+
+		.main--datasets-protocols & {
+			background-color: $c-green-f5;
+		}
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
 }
-
-

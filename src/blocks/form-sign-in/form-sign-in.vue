@@ -1,83 +1,87 @@
 <template>
-	<div class="form form--sm">
-		<form action="?" method="post" @submit.prevent="submit">
-			<div class="form__head" tabindex="0">
-				<h2>Sign In</h2>
+	<Form className="form--sm" @submit.prevent="submit">
+		<FormHead centered>
+			<h2>Sign In</h2>
 
-				<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
-			</div>
-			<!-- /.form__head -->
+			<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
+		</FormHead>
 
-			<div class="form__statuses" v-if="$route.params.success">
-				<div class="form__status form__status--success">
-					<p>Great! Your account is created, please sign in</p>
-				</div>
-				<!-- /.form__status -->
-			</div>
-			<!-- /.form__status -->
+		<div class="form__status form__status--success" v-if="$route.params.success">
+			<p>Great! Your account is created, please sign in</p>
+		</div>
+		<!-- /.form__status -->
 
-			<div class="form__body">
-				<div class="form__row">
-					<Field :error="$v.email.$error" name="email" v-model.trim="email" type="text" placeholder="Email Address">
-						<Icon name="email" color="currentColor" />
+		<FormBody>
+			<Field :error="$v.email.$error" name="email" v-model.trim="email" type="text" placeholder="Email Address">
+				<Icon name="email" color="currentColor" />
 
-						Email Address
-					</Field>
-				</div>
-				<!-- /.form__row -->
+				Email Address
+			</Field>
 
-				<div class="form__row">
-					<Field :error="$v.password.$error" name="password" v-model.trim="password" type="password" placeholder="Enter">
-						<Icon name="password" color="currentColor" />
+			<Field :error="$v.password.$error" name="password" v-model.trim="password" type="password" placeholder="Enter">
+				<Icon name="password" color="currentColor" />
 
-						Password <span>minimum 8 characters</span>
-					</Field>
-				</div>
-				<!-- /.form__row -->
-			</div>
-			<!-- /.form__body -->
+				Password <span>minimum 8 characters</span>
+			</Field>
+		</FormBody>
 
-			<div class="form__actions">
-				<ul>
-					<li>
-						<Button tabindex="0" type="submit">Sign In</Button>
-					</li>
+		<FormActions centered>
+			<li>
+				<Button tabindex="0" type="submit">Sign In</Button>
+			</li>
 
-					<li>
-						<Button tabindex="0" className="tertiary">Cancel</Button>
-					</li>
-				</ul>
-			</div>
-			<!-- /.form__actions -->
+			<li>
+				<Button tabindex="0" className="tertiary">Cancel</Button>
+			</li>
+		</FormActions>
 
-			<div class="form__message">
-				<p>Forgot your password? <a href="#">Reset it</a></p>
+		<FormMessage>
+			<p>Forgot your password? <a href="#">Reset it</a></p>
 
-				<p>Need an account? <router-link tabindex="0" to="/sign-up">Sign Up</router-link></p>
-			</div>
-			<!-- /.form__message -->
-		</form>
-	</div>
-	<!-- /.form -->
+			<p>Need an account? <router-link tabindex="0" to="/sign-up">Sign Up</router-link></p>
+		</FormMessage>
+		<!-- /.form__message -->
+	</Form>
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 
+/**
+ * Internal Dependencies
+ */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Field from '@/components/field/field';
+import Form, { FormActions, FormMessage, FormHead, FormBody } from '@/components/form/form';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormSignIn',
 
+	/**
+	 * Components
+	 */
 	components: {
-		Button,
+		Icon,
 		Field,
-		Icon
+		Button,
+		Form,
+		FormHead,
+		FormBody,
+		FormMessage,
+		FormActions
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			email: '',
@@ -86,6 +90,9 @@ export default {
 		};
 	},
 
+	/**
+	 * Validations
+	 */
 	validations: {
 		email: {
 			required,
@@ -97,6 +104,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		...mapActions(['setLogin']),
 		...mapActions(['setCurator']),

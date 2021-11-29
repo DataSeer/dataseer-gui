@@ -1,13 +1,13 @@
 <template>
-	<div class="form form--filters">
+	<Form className="form--filters">
 		<div class="form__head">
 			<h4>Advanced Filters</h4>
 		</div>
 		<!-- /.form__head -->
 
 		<div class="form__body">
-			<div class="form__row">
-				<div class="form__col form__col--1of4">
+			<Grid columnGap="medium" rowGap="small">
+				<GridColumn size="quarter">
 					<FieldSelect
 						v-model.trim="formData.owner"
 						name="owner"
@@ -32,10 +32,9 @@
 
 						Document Owner
 					</FieldSelect>
-				</div>
-				<!-- /.form__col -->
+				</GridColumn>
 
-				<div class="form__col form__col--1of4">
+				<GridColumn size="quarter">
 					<FieldSelect
 						v-model.trim="formData.organization"
 						name="organization"
@@ -60,10 +59,9 @@
 
 						Institution/Organization
 					</FieldSelect>
-				</div>
-				<!-- /.form__col -->
+				</GridColumn>
 
-				<div class="form__col form__col--1of4">
+				<GridColumn size="quarter">
 					<div class="form__range">
 						<ul>
 							<li>
@@ -80,10 +78,9 @@
 						</ul>
 					</div>
 					<!-- /.form__range -->
-				</div>
-				<!-- /.form__col -->
+				</GridColumn>
 
-				<div class="form__col form__col--1of4">
+				<GridColumn size="quarter">
 					<div class="form__range">
 						<ul>
 							<li>
@@ -100,10 +97,8 @@
 						</ul>
 					</div>
 					<!-- /.form__range -->
-				</div>
-				<!-- /.form__col -->
-			</div>
-			<!-- /.form__row -->
+				</GridColumn>
+			</Grid>
 		</div>
 		<!-- /.form__body -->
 
@@ -121,14 +116,15 @@
 			</ul>
 		</div>
 		<!-- /.form__actions -->
-	</div>
-	<!-- /.form form--filters -->
+	</Form>
 </template>
 
 <script>
 /**
  * Internal Dependencies
  */
+import Form from '@/components/form/form';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
@@ -144,8 +140,11 @@ export default {
 	 * Components
 	 */
 	components: {
+		Form,
+		Grid,
 		Icon,
 		Button,
+		GridColumn,
 		FieldSelect,
 		FieldDatepicker
 	},

@@ -1,8 +1,8 @@
 <template>
-	<div class="widgets">
-		<slot></slot>
+	<div class="shell">
+		<slot />
 	</div>
-	<!-- /.widgets -->
+	<!-- /.shell -->
 </template>
 
 <script>
@@ -10,6 +10,6 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'Widgets'
+	name: 'Shell'
 };
 </script>

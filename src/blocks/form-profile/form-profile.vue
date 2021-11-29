@@ -1,48 +1,37 @@
 <template>
-	<div class="form form--profile">
-		<form action="?" method="post">
-			<div class="form__head" :tabindex="0">
-				<h5>Your Profile</h5>
-			</div>
-			<!-- /.form__head -->
+	<Form className="form--profile">
+		<FormHead>
+			<h5>Your Profile</h5>
+		</FormHead>
 
-			<div class="form__body">
-				<div class="form__row">
-					<Field name="full-name" :tabindex="0" readonly type="text" :value="fullName">
-						<Icon name="user" color="currentColor" />
+		<FormBody>
+			<Field name="full-name" :tabindex="0" readonly type="text" :value="fullName">
+				<Icon name="user" color="currentColor" />
 
-						Full Name
-					</Field>
-				</div>
-				<!-- /.form__row -->
+				Full Name
+			</Field>
 
-				<div class="form__row">
-					<Field name="email" :tabindex="0" readonly type="text" :value="userData.email">
-						<Icon name="email" color="currentColor" />
+			<Field name="email" :tabindex="0" readonly type="text" :value="userData.email">
+				<Icon name="email" color="currentColor" />
 
-						Email Address
-					</Field>
-				</div>
-				<!-- /.form__row -->
+				Email Address
+			</Field>
 
-				<div class="form__row">
-					<Field name="organization" :tabindex="0" readonly type="text" :value="userData.organization">
-						<Icon name="organization" color="currentColor" />
+			<Field name="organization" :tabindex="0" readonly type="text" :value="userData.organization">
+				<Icon name="organization" color="currentColor" />
 
-						Institution/Organization
-					</Field>
-				</div>
-				<!-- /.form__row -->
-			</div>
-			<!-- /.form__body -->
-		</form>
-	</div>
+				Institution/Organization
+			</Field>
+		</FormBody>
+		<!-- /.form__body -->
+	</Form>
 	<!-- /.form -->
 </template>
 
 <script>
 import Field from '@/components/field/field';
 import Icon from '@/components/icon/icon';
+import Form, { FormHead, FormBody } from '@/components/form/form';
 
 export default {
 	name: 'FormProfile',
@@ -62,8 +51,11 @@ export default {
 		}
 	},
 	components: {
+		Icon,
+		Form,
 		Field,
-		Icon
+		FormHead,
+		FormBody
 	}
 };
 </script>

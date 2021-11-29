@@ -1,168 +1,157 @@
 <template>
-	<div class="main main--edit">
-		<div class="shell">
-			<div class="main__inner">
-				<div class="main__left">
-					<FormEditAccount />
+	<Main hasSubheader>
+		<FormEditAccount />
+
+		<template #right>
+			<Widgets>
+				<div class="widget-associations">
+					<h6>
+						<strong>5</strong>
+
+						Associated Documents
+					</h6>
+
+					<Button to="/accounts" className="secondary">
+						<Icon name="documents" color="currentColor" />
+
+						View Documents
+					</Button>
 				</div>
 
-				<!-- /.main__left -->
-				<div class="main__right">
-					<Widgets>
-						<div class="widget-associations">
-							<h6>
-								<strong>5</strong>
+				<div class="widget-recent-changes">
+					<div class="widget__head">
+						<h6>Recent Changes</h6>
 
-								Associated Documents
-							</h6>
+						<button>Show All</button>
+					</div>
+					<!-- /.widget__head -->
 
-							<Button to="/accounts" className="secondary">
-								<Icon name="documents" color="currentColor" />
+					<div class="widget__rows">
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
 
-								View Documents
-							</Button>
+							<div class="widget__col">update dataset-4</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:31:45 PM</div>
+							<!-- /.widget__col -->
 						</div>
+						<!-- /.widget__row -->
 
-						<div class="widget-recent-changes">
-							<div class="widget__head">
-								<h6>Recent Changes</h6>
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
 
-								<button>Show All</button>
-							</div>
-							<!-- /.widget__head -->
+							<div class="widget__col">create dataset-4</div>
+							<!-- /.widget__col -->
 
-							<div class="widget__rows">
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update dataset-4</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:31:45 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">create dataset-4</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:31:11 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update dataset-3</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:30:38 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">anotherperson@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">create dataset-3</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:30:09 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update dataset-2</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:29:52 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">create dataset-2</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:29:38 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update dataset-1</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:30:01 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">create dataset-1</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:29:27 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update validateMetadata</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:27:39 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-
-								<div class="widget__row">
-									<div class="widget__col">swad31415@gmail.com</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">update refreshToken</div>
-									<!-- /.widget__col -->
-
-									<div class="widget__col">9/8/2021 4:26:26 PM</div>
-									<!-- /.widget__col -->
-								</div>
-								<!-- /.widget__row -->
-							</div>
-							<!-- /.widget__rows -->
+							<div class="widget__col">9/8/2021 4:31:11 PM</div>
+							<!-- /.widget__col -->
 						</div>
-					</Widgets>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">update dataset-3</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:30:38 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">anotherperson@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">create dataset-3</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:30:09 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">update dataset-2</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:29:52 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">create dataset-2</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:29:38 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">update dataset-1</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:30:01 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">create dataset-1</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:29:27 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">update validateMetadata</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:27:39 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+
+						<div class="widget__row">
+							<div class="widget__col">swad31415@gmail.com</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">update refreshToken</div>
+							<!-- /.widget__col -->
+
+							<div class="widget__col">9/8/2021 4:26:26 PM</div>
+							<!-- /.widget__col -->
+						</div>
+						<!-- /.widget__row -->
+					</div>
+					<!-- /.widget__rows -->
 				</div>
-				<!-- /.main__right -->
-			</div>
-			<!-- /.main__inner -->
-		</div>
-		<!-- /.shell -->
-	</div>
-	<!-- /.main -->
+			</Widgets>
+		</template>
+	</Main>
 </template>
 
 <script>
@@ -173,6 +162,7 @@ import FormEditAccount from '@/blocks/form-edit-account/form-edit-account';
 import Widgets from '@/components/widgets/widgets';
 import Button from '@/components/button/button';
 import Icon from '@/components/icon/icon';
+import Main from '@/components/main/main';
 
 export default {
 	/**
@@ -184,6 +174,7 @@ export default {
 	 * Components
 	 */
 	components: {
+		Main,
 		Icon,
 		Button,
 		Widgets,

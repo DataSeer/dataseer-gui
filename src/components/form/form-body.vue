@@ -1,8 +1,8 @@
 <template>
-	<div class="widgets">
-		<slot></slot>
+	<div class="form__body">
+		<slot />
 	</div>
-	<!-- /.widgets -->
+	<!-- /.form__body -->
 </template>
 
 <script>
@@ -10,6 +10,6 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'Widgets'
+	name: 'FormBody'
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<div class="form form--lg form--new-document">
+	<div class="form form--new-document">
 		<form action="?" method="post" @submit.prevent="onSubmit">
 			<div class="form__head form__head--center">
 				<h2>Upload Your Research Text</h2>

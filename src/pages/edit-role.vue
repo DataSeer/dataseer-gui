@@ -1,44 +1,34 @@
 <template>
-	<div class="main main--edit">
-		<div class="shell">
-			<div class="main__inner">
-				<div class="main__left">
-					<FormEditRole />
-				</div>
+	<Main hasSubheader>
+		<FormEditRole />
 
-				<!-- /.main__left -->
-				<div class="main__right">
-					<div class="widget-associations">
-						<h6>
-							<strong>5</strong>
+		<template #right>
+			<div class="widget-associations">
+				<h6>
+					<strong>5</strong>
 
-							Associated Accounts
-						</h6>
+					Associated Accounts
+				</h6>
 
-						<Button to="/accounts" className="secondary">
-							<Icon name="user" color="currentColor" />
+				<Button to="/accounts" className="secondary">
+					<Icon name="user" color="currentColor" />
 
-							View Accounts
-						</Button>
-					</div>
-					<!-- /.widget-associations -->
-				</div>
-				<!-- /.main__right -->
+					View Accounts
+				</Button>
 			</div>
-			<!-- /.main__inner -->
-		</div>
-		<!-- /.shell -->
-	</div>
-	<!-- /.main -->
+			<!-- /.widget-associations -->
+		</template>
+	</Main>
 </template>
 
 <script>
 /**
  * Internal Dependencies
  */
-import FormEditRole from '@/blocks/form-edit-role/form-edit-role';
-import Button from '@/components/button/button';
+import Main from '@/components/main/main';
 import Icon from '@/components/icon/icon';
+import Button from '@/components/button/button';
+import FormEditRole from '@/blocks/form-edit-role/form-edit-role';
 
 export default {
 	/**
@@ -50,6 +40,7 @@ export default {
 	 * Components
 	 */
 	components: {
+		Main,
 		Icon,
 		Button,
 		FormEditRole

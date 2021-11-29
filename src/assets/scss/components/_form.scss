@@ -6,7 +6,6 @@
 	/* Form Head */
 	.form__head {
 		margin-bottom: 20px;
-		text-align: center;
 		font-family: $ff-titles;
 	}
 
@@ -29,6 +28,10 @@
 		@include breakpoint-down(mobile) {
 			font-size: 18px;
 		}
+	}
+
+	.form__head--centered {
+		text-align: center;
 	}
 
 	/* Form Body */
@@ -93,25 +96,12 @@
 		}
 	}
 
-	/* Form Row */
-	.form__row {
-		margin-bottom: 18px;
-
-		&--space-top {
-			margin-top: 26px;
-		}
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
 	/* Form Actions */
 	.form__actions {
-		margin-bottom: 29px;
+		margin-bottom: 30px;
 
 		@include breakpoint-down(tablet) {
-			margin-bottom: 18px;
+			margin-bottom: 15px;
 		}
 
 		&:last-child {
@@ -195,36 +185,6 @@
 	}
 }
 
-/* Form Large */
-
-.form--lg {
-	max-width: 744px;
-	padding: 50px 0;
-	margin: 0 auto;
-
-	@include breakpoint-down(tablet) {
-		padding: 35px 0;
-	}
-
-	@include breakpoint-down(mobile) {
-		padding: 0;
-	}
-
-	.form__head {
-		max-width: 630px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.form__body {
-		margin: 50px 0 35px;
-	}
-
-	.form__row {
-		margin-bottom: 67px;
-	}
-}
-
 /* Form Search */
 
 .form--search {
@@ -266,31 +226,39 @@
 
 .form--profile {
 	.form__head {
-		text-align: left;
-		margin-bottom: 20px;
-	}
-
-	.form__head {
-		text-align: left;
 		margin-bottom: 35px;
 
 		@include breakpoint-down(mobile) {
 			margin-bottom: 20px;
 		}
 	}
-
-	.form__actions ul {
-		justify-content: flex-start;
-	}
-
-	.form__statuses {
-		text-align: left;
-	}
 }
 
 /* Form New Document */
 
 .form--new-document {
+	max-width: 744px;
+	padding: 50px 0;
+	margin: 0 auto;
+
+	@include breakpoint-down(tablet) {
+		padding: 35px 0;
+	}
+
+	@include breakpoint-down(mobile) {
+		padding: 0;
+	}
+
+	.form__head {
+		max-width: 630px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.form__body {
+		margin: 50px 0 65px;
+	}
+
 	.field__label,
 	.field__helptext {
 		padding-left: 10px;
@@ -350,37 +318,7 @@
 
 .form--filters {
 	.form__head {
-		text-align: left;
-	}
-
-	.form__actions ul {
-		justify-content: flex-start;
-	}
-}
-
-/* Form Filters */
-
-.form--filters {
-	.form__head {
 		text-transform: uppercase;
-	}
-
-	.form__row {
-		display: flex;
-		margin: -10px -20px;
-	}
-
-	.form__col {
-		width: 100%;
-		padding: 10px 20px;
-	}
-
-	.form__col--1of2 {
-		width: 50%;
-	}
-
-	.form__col--1of4 {
-		width: 25%;
 	}
 }
 
@@ -391,28 +329,6 @@
 		margin-bottom: 50px;
 		padding-bottom: 50px;
 		border-bottom: 1px solid $c-gray;
-	}
-
-	.form__row {
-		display: flex;
-		margin: -10px -20px;
-	}
-
-	.form__col {
-		width: 100%;
-		padding: 10px 20px;
-	}
-
-	.form__col--1of2 {
-		width: 50%;
-	}
-
-	.form__col--1of4 {
-		width: 25%;
-	}
-
-	.form__actions ul {
-		justify-content: flex-start;
 	}
 
 	.form__actions ul li {

@@ -5,10 +5,7 @@
 		</div>
 		<!-- /.form__head -->
 
-		<div class="form__body">
-			<div class="form__row"></div>
-			<!-- /.form__row -->
-		</div>
+		<div class="form__body"></div>
 		<!-- /.form__body -->
 
 		<div class="form__actions">

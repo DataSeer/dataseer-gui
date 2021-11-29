@@ -15,7 +15,7 @@
 					<div class="dropdown__nav">
 						<ul>
 							<li>
-								<router-link tabindex="0" to="/profile">
+								<router-link tabindex="0" to="/accounts">
 									<Icon name="user" color="CurrentColor" />
 
 									Accounts
@@ -23,7 +23,7 @@
 							</li>
 
 							<li>
-								<router-link tabindex="0" to="/profile">
+								<router-link tabindex="0" to="/curator-roles">
 									<Icon name="key" color="CurrentColor" />
 
 									Roles
@@ -31,7 +31,7 @@
 							</li>
 
 							<li>
-								<router-link tabindex="0" to="/profile">
+								<router-link tabindex="0" to="/organizations">
 									<Icon name="organization" color="CurrentColor" />
 
 									Organizations

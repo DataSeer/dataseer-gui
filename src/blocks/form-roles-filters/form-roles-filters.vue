@@ -6,8 +6,8 @@
 		<!-- /.form__head -->
 
 		<div class="form__body">
-			<div class="form__row">
-				<div class="form__col form__col--1of4">
+			<Grid columnGap="medium" rowGap="small">
+				<GridColumn size="quarter">
 					<FieldSelect
 						v-model.trim="formData.role"
 						name="Role"
@@ -31,9 +31,9 @@
 
 						Role
 					</FieldSelect>
-				</div>
+				</GridColumn>
 				<!-- /.form__col -->
-			</div>
+			</Grid>
 			<!-- /.form__row -->
 		</div>
 		<!-- /.form__body -->
@@ -62,6 +62,7 @@
  */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldSelect from '@/components/field-select/field-select';
 
 export default {
@@ -74,8 +75,10 @@ export default {
 	 * Components
 	 */
 	components: {
+		Grid,
 		Icon,
 		Button,
+		GridColumn,
 		FieldSelect
 	},
 
