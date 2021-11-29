@@ -8,15 +8,15 @@
 					tabindex="0"
 					type="checkbox"
 					class="sr-only"
-					:name="issue.id"
-					:id="issue.id"
+					:name="issue.id + '-active'"
+					:id="issue.id + '-active'"
 					:value="issue.active"
 					:checked="issue.active"
 					@change="handleChange"
 				/>
 
-				<label :for="issue.id">
-					{{ issue.label }}
+				<label :for="issue.id + '-active'">
+					{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
 				</label>
 			</li>
 		</ul>
@@ -48,8 +48,12 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleChange(event) {
-			this.$emit('change', event);
+		handleChange(e) {
+			const issueID = e.target.name.split('-')[0];
+			const issueKey = e.target.name.split('-').at(-1);
+			const issueValue = e.target.checked;
+
+			this.$emit('change', issueID, issueKey, issueValue);
 		}
 	}
 };

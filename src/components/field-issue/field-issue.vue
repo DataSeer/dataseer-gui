@@ -1,13 +1,40 @@
 <template>
 	<div class="field-issue">
-		<FieldCheckbox :name="issue.id + '-completed'" :value="issue.completed" @onChange="handleChange">Organization Is Active</FieldCheckbox>
+		<ul>
+			<FieldCheckbox :name="issue.id + '-completed'" :value="issue.completed" @onChange="handleChange">
+				{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
+			</FieldCheckbox>
 
-		<!-- <FieldCheckbox name="required" :value="required" isToggle>Required</FieldCheckbox> -->
+			<FieldCheckbox
+				v-if="issue.type === 'required'"
+				className="is-required"
+				:name="`${issue.id}-required`"
+				:value="issue.required"
+				isToggle
+				@onChange="handleChange"
+			>
+				Required
+			</FieldCheckbox>
+
+			<FieldCheckbox
+				v-if="issue.type === 'recommended'"
+				className="is-recommended"
+				:name="`${issue.id}-recommended`"
+				:value="issue.recommended"
+				isToggle
+				@onChange="handleChange"
+			>
+				Recommended
+			</FieldCheckbox>
+		</ul>
 	</div>
 	<!-- /.field-issue -->
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
@@ -33,20 +60,11 @@ export default {
 	},
 
 	/**
-	 * data
-	 */
-	data() {
-		return {
-			issueId: this.issue.id
-		};
-	},
-
-	/**
 	 * Methods
 	 */
 	methods: {
 		handleChange(e) {
-			const issueID = this.issueId;
+			const issueID = this.issue.id;
 			const issueKey = e.target.name.split('-').at(-1);
 			const issueValue = e.target.checked;
 

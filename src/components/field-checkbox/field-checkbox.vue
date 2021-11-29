@@ -1,6 +1,6 @@
 <template>
 	<li>
-		<div class="checkbox" :class="{ 'has-error': error, 'checkbox--select': isDropdown, 'checkbox--toggle': isToggle }">
+		<div class="checkbox" :class="{ [className]: className, 'has-error': error, 'checkbox--select': isDropdown, 'checkbox--toggle': isToggle }">
 			<input
 				tabindex="0"
 				type="checkbox"
@@ -71,6 +71,7 @@ export default {
 	props: {
 		value: Boolean || null,
 		name: String,
+		className: String,
 		error: {
 			type: Boolean,
 			default: false

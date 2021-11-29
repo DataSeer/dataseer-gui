@@ -1,0 +1,92 @@
+/* ------------------------------------------------------------ *\
+	field-issue
+\* ------------------------------------------------------------ */
+
+.field-issue {
+	margin-bottom: 10px;
+	font-size: 12px;
+	line-height: 22px;
+
+	ul {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		list-style: none;
+	}
+
+	> ul > li {
+		&:first-child {
+			padding-right: 15px;
+		}
+		&:last-child {
+			flex-shrink: 0;
+		}
+	}
+
+	.checkbox label:before {
+		background-color: #fff;
+		border-width: 2px;
+		border-color: #e9dad6;
+	}
+
+	.checkbox--toggle {
+		font-weight: inherit;
+	}
+
+	.checkbox--toggle label {
+		padding-right: 46px;
+		padding-left: 0;
+
+		&:after,
+		&:before {
+			left: auto;
+		}
+
+		&:before {
+			right: 0;
+		}
+
+		&:after {
+			right: 18px;
+		}
+	}
+
+	.checkbox--toggle input:checked + label:after {
+		left: auto;
+		right: 4px;
+	}
+
+	.checkbox--toggle.is-required label {
+		&:before {
+			border-color: #8d2424;
+		}
+
+		&:after {
+			background-color: #8d2424;
+		}
+	}
+
+	.checkbox--toggle input:checked + label:after {
+		background-color: $c-white;
+	}
+
+	.checkbox--toggle.is-required input:checked + label:before {
+		border-color: #8d2424;
+		background-color: #8d2424;
+	}
+
+	.checkbox--toggle.is-recommended label {
+		&:before {
+			border-color: #ff8b56;
+		}
+
+		&:after {
+			background-color: #ff8b56;
+		}
+	}
+
+	.checkbox--toggle.is-recommended input:checked + label:before {
+		border-color: #ff8b56;
+		background-color: #ff8b56;
+	}
+}

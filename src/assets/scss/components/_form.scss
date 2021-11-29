@@ -351,6 +351,7 @@
 	border-radius: 6px;
 
 	.form__head {
+		margin-bottom: 8px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -359,8 +360,10 @@
 	.form__head h6 {
 		position: relative;
 		padding-left: 20px;
+		font-size: 14px;
 		margin-bottom: 0;
 		color: $c-red-8d;
+		font-family: $ff-sans-serif;
 		font-weight: 700;
 
 		i {
