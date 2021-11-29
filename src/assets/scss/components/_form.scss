@@ -19,17 +19,6 @@
 		font-family: $ff-sans-serif;
 	}
 
-	.form__head p {
-		color: $c-primary;
-		font-weight: 500;
-		font-size: 20px;
-		line-height: 1.2;
-
-		@include breakpoint-down(mobile) {
-			font-size: 18px;
-		}
-	}
-
 	.form__head--centered {
 		text-align: center;
 	}
@@ -167,6 +156,18 @@
 
 	@include breakpoint-down(mobile) {
 		padding: 0;
+	}
+
+	/* Form Head */
+	.form__head p {
+		color: $c-primary;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 1.2;
+
+		@include breakpoint-down(mobile) {
+			font-size: 18px;
+		}
 	}
 
 	/* Form Body */
@@ -342,9 +343,9 @@
 	}
 }
 
-/* Form Flags */
+/* Form Issues */
 
-.form--flags {
+.form--issues {
 	padding: 15px 19px;
 	margin-top: 15px;
 	background-color: rgba(#ff0000, 0.04);
@@ -353,8 +354,14 @@
 	.form__head {
 		margin-bottom: 8px;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		font-size: 12px;
+		font-family: inherit;
+	}
+
+	.form__author,
+	.form__head h6 {
+		color: $c-red-8d;
 	}
 
 	.form__head h6 {
@@ -362,7 +369,6 @@
 		padding-left: 20px;
 		font-size: 14px;
 		margin-bottom: 0;
-		color: $c-red-8d;
 		font-family: $ff-sans-serif;
 		font-weight: 700;
 
@@ -374,9 +380,32 @@
 		}
 	}
 
+	.form__body {
+		margin-bottom: 10px;
+	}
+
+	.form__date,
+	.form__author {
+		margin-bottom: 0;
+		padding-left: 5px;
+	}
+
+	.form__date {
+		color: $c-base-ligter;
+		font-style: italic;
+	}
+
+	.form__head .btn {
+		margin-left: auto;
+	}
+
 	.form__issues {
 		position: relative;
 		z-index: 100;
+	}
+
+	.form__comment {
+		padding: 0 7px;
 	}
 
 	.field-issues {
@@ -392,19 +421,13 @@
 		color: inherit;
 		border-color: #e9dad6;
 		background-color: #e9dad6;
-	}
 
-	.btn--tertiary {
-		border-color: #e9dad6;
-		background-color: $c-white;
-
-		&.is-active {
+		&:hover,
+		&:focus {
+			color: $c-white;
 			border-color: #8d2424;
+			background-color: #8d2424;
 		}
-	}
-
-	.btn-link {
-		color: #9a7c74;
 	}
 
 	.field .field__input {
@@ -417,5 +440,29 @@
 		&:focus-within {
 			border-color: #9a7c74;
 		}
+	}
+
+	.btn--tertiary {
+		border-color: #e9dad6;
+		background-color: $c-white;
+
+		&.is-active {
+			border-color: #8d2424;
+		}
+
+		&:hover,
+		&:focus {
+			color: $c-base;
+			border-color: #8d2424;
+			background-color: $c-white;
+		}
+	}
+
+	.btn--tertiary i {
+		color: inherit;
+	}
+
+	.btn-link {
+		color: #9a7c74;
 	}
 }

@@ -68,7 +68,7 @@ export default {
 		},
 		color: {
 			type: String,
-			default: '#444'
+			default: 'currentColor'
 		}
 	},
 

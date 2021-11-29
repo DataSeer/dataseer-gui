@@ -1,30 +1,29 @@
 <template>
-	<div class="field-issue">
+	<div
+		class="field-issue"
+		:class="{
+			'is-curator': isCurator,
+			'is-required': issue.type === 'required',
+			'is-recommended': issue.type === 'recommended'
+		}"
+	>
 		<ul>
-			<FieldCheckbox :name="issue.id + '-completed'" :value="issue.completed" @onChange="handleChange">
-				{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
+			<FieldCheckbox
+				:name="issue.id + '-completed'"
+				:value="issue.completed"
+				@onChange="handleChange"
+			>
+				{{ issue.label }} <span v-if="issue.type && !isCurator">({{ issue.type }})</span>
 			</FieldCheckbox>
 
 			<FieldCheckbox
-				v-if="issue.type === 'required'"
-				className="is-required"
-				:name="`${issue.id}-required`"
-				:value="issue.required"
+				v-if="isCurator && issue.type"
+				:name="`${issue.id}-${issue.type}`"
+				:value="issue[issue.type]"
 				isToggle
 				@onChange="handleChange"
 			>
-				Required
-			</FieldCheckbox>
-
-			<FieldCheckbox
-				v-if="issue.type === 'recommended'"
-				className="is-recommended"
-				:name="`${issue.id}-recommended`"
-				:value="issue.recommended"
-				isToggle
-				@onChange="handleChange"
-			>
-				Recommended
+				{{ issue.type }}
 			</FieldCheckbox>
 		</ul>
 	</div>
@@ -56,6 +55,10 @@ export default {
 	props: {
 		issue: {
 			type: Object
+		},
+		isCurator: {
+			type: Boolean,
+			value: false
 		}
 	},
 

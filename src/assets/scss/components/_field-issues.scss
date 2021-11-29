@@ -13,12 +13,12 @@
 		font-size: 14px;
 	}
 
-	ul {
+	> ul {
 		list-style: none;
 	}
 
-	li + li {
-		margin-top: 10px;
+	> ul > li + li {
+		margin-top: 8px;
 	}
 
 	label {

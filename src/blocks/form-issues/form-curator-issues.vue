@@ -2,40 +2,45 @@
 	<div class="form form--issues">
 		<form action="?" method="post">
 			<div class="form__head">
-				<h6 class="form__title"><Dot :size="16" /> Curator Issues</h6>
+				<h6 class="form__title"><Dot :size="16" /> Flag issues</h6>
 
-				<p class="form__author">from Carli C.</p>
+				<Button className="tertiary" size="small" :active="isIssuesDropdownVisible" @onClick.prevent="toggleIssuesDropdown">
+					<Icon name="plus" />
 
-				<p class="form__date">3 Days Ago</p>
+					Select issues
+				</Button>
 			</div>
-			<!-- /.form__heading -->
+			<!-- /.form__head -->
+
+			<div v-if="isIssuesDropdownVisible" class="form__issues">
+				<FieldIssues text="Select all that apply…" :issues="issues" @change="updateIssue" />
+			</div>
+			<!-- /.form__issues -->
 
 			<div class="form__body">
-				<FieldIssue v-for="activeIssue in activeIssues" :key="activeIssue.id" :issue="activeIssue" @change="updateIssue" />
+				<FieldIssue v-for="activeIssue in activeIssues" :key="activeIssue.id" :issue="activeIssue" isCurator @change="updateIssue" />
 
-				<div class="form__comment">
-					{{ additionalComments }}
-				</div>
-				<!-- /.form__comment -->
+				<Field name="Additional Comments" type="textarea" placeholder="Additional Comments" v-model="additionalComments" />
 			</div>
 			<!-- /.form__body -->
 
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small" className="tertiary">
-							All Issues Addressed
+						<Button size="small">
+							Save issues
 						</Button>
 					</li>
 
 					<li>
-						<ButtonLink>Message Curator</ButtonLink>
+						<ButtonLink>Cancel</ButtonLink>
 					</li>
 				</ul>
 			</div>
 			<!-- /.form__actions -->
 		</form>
 	</div>
+	<!-- /.form form--dataset -->
 </template>
 
 <script>
@@ -43,32 +48,40 @@
  * Internal Dependencies
  */
 import Dot from '@/components/dot/dot';
+import Icon from '@/components/icon/icon';
+import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import ButtonLink from '@/components/button-link/button-link';
 import FieldIssue from '@/components/field-issue/field-issue';
+import FieldIssues from '@/components/field-issues/field-issues';
 
 export default {
 	/**
 	 * Name
 	 */
-	name: 'FormIssues',
+	name: 'formCuratorIssues',
 
 	/**
 	 * Components
 	 */
 	components: {
 		Dot,
+		Icon,
+		Field,
 		Button,
 		ButtonLink,
-		FieldIssue
+		FieldIssue,
+		FieldIssues
 	},
 
 	/**
 	 * Data
 	 */
+
 	data() {
 		return {
-			additionalComments: 'In addition to the 2 issues above, please also link to the abc-xyz set. Thanks!',
+			isIssuesDropdownVisible: false,
+			additionalComments: '',
 			issues: [
 				{
 					id: 'issue1',
@@ -76,7 +89,7 @@ export default {
 					type: undefined,
 					required: false,
 					recommended: false,
-					completed: false,
+					completed: true,
 					active: false
 				},
 
@@ -87,7 +100,7 @@ export default {
 					required: false,
 					recommended: false,
 					completed: false,
-					active: true
+					active: false
 				},
 
 				{
@@ -97,7 +110,7 @@ export default {
 					required: false,
 					recommended: false,
 					completed: false,
-					active: true
+					active: false
 				},
 
 				{
@@ -177,6 +190,19 @@ export default {
 	computed: {
 		activeIssues: function() {
 			return this.issues.filter((issue) => issue.active);
+		}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		toggleIssuesDropdown() {
+			this.isIssuesDropdownVisible = !this.isIssuesDropdownVisible;
+		},
+		updateIssue(id, key, value) {
+			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
+			this.issues[issueIndex][key] = value;
 		}
 	}
 };

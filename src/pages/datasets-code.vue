@@ -53,7 +53,9 @@
 								</div>
 								<!-- /.form__heading -->
 
-								<FormIssues />
+								<FormCuratorIssues v-if="false" />
+
+								<FormIssues v-if="true" />
 							</Tab>
 
 							<Tab tooltip="This Dataset Name Is Too Lon…">
@@ -128,6 +130,7 @@ import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
 import Main from '@/components/main/main';
 import FormIssues from '@/blocks/form-issues/form-issues';
+import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 import FormDatasetCode from '@/blocks/form-dataset-code/form-dataset-code';
 
@@ -157,7 +160,8 @@ export default {
 		Tabs,
 		FormIssues,
 		DatasetUtils,
-		FormDatasetCode
+		FormDatasetCode,
+		FormCuratorIssues
 	}
 };
 </script>
