@@ -5,102 +5,62 @@
 				<div class="dataset__left">
 					<div class="dataset__left-inner">
 						<Tabs>
-							<Tab completed tooltip="This Dataset Name Is Too Lon…">
+							<Tab
+								completed
+								title="How much we do it for"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
 								<FormDatasetCode />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>How much we do it for</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="How much we do it for"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="Why we do it"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode />
 							</Tab>
 
-							<Tab flagged tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Code-3-Has-Issues</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Python
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
-
-								<FormCuratorIssues v-if="false" />
-
-								<FormIssues v-if="true" />
+							<Tab
+								title="Code-3-Has-Issues"
+								subtitle="Python"
+								flagged
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode flagged />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="Why we do it"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>How much we do it for</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="How much we do it for"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="Why we do it"
+								subtitle="Code/Software"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDatasetCode />
 							</Tab>
 						</Tabs>
 					</div>
@@ -125,12 +85,14 @@
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
 import Main from '@/components/main/main';
-import FormIssues from '@/blocks/form-issues/form-issues';
-import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
+
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 import FormDatasetCode from '@/blocks/form-dataset-code/form-dataset-code';
 
@@ -141,16 +103,6 @@ export default {
 	name: 'Datasets',
 
 	/**
-	 * Data
-	 */
-	data: function() {
-		return {
-			source: '/test.pdf',
-			intro: false
-		};
-	},
-
-	/**
 	 * Components
 	 */
 	components: {
@@ -158,10 +110,18 @@ export default {
 		Tab,
 		Main,
 		Tabs,
-		FormIssues,
 		DatasetUtils,
-		FormDatasetCode,
-		FormCuratorIssues
+		FormDatasetCode
+	},
+
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			source: '/test.pdf',
+			intro: false
+		};
 	}
 };
 </script>

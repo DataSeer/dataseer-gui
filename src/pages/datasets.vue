@@ -21,17 +21,23 @@
 							<div class="intro__body">
 								<div class="intro__text">
 									<Icon name="arrow_up" color="#8CABCD" />
-									<p>These swatches represent passages in the document which DataSeer thinks need a reference dataset</p>
+									<p>
+										These swatches represent passages in the document which DataSeer thinks need a
+										reference dataset
+									</p>
 									<p>Click on one, then review the corresponding form to complete each dataset</p>
 								</div>
 								<!-- /.intro__text -->
 
 								<div class="intro__text">
 									<Icon name="arrow_down" color="#8CABCD" />
-									<p>If you want to merge datasets together, or add new datasets, use these tools at the bottom</p>
 									<p>
-										Finally, once all the datasets are accounted for, you can Complete Document in the top right to review your Data Availability
-										Report.
+										If you want to merge datasets together, or add new datasets, use these tools at
+										the bottom
+									</p>
+									<p>
+										Finally, once all the datasets are accounted for, you can Complete Document in
+										the top right to review your Data Availability Report.
 									</p>
 								</div>
 								<!-- /.intro__text -->
@@ -53,44 +59,61 @@
 						<!-- /.intro -->
 
 						<Tabs>
-							<Tab completed tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Dataset-6</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col status">
-										Tabular Data
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab
+								title="Dataset-1"
+								subtitle="Tabular Data"
+								completed
+								tooltip="This Dataset Name Is Too Lon…"
+							>
 								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>How much we do it for</h1>
+							<Tab
+								title="Dataset-2"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>Why we do it</h1>
+							<Tab
+								title="Dataset-3"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>How much we do it for</h1>
+							<Tab
+								title="Dataset-4"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>Why we do it</h1>
+							<Tab
+								title="Dataset-5"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>How much we do it for</h1>
+							<Tab
+								title="Dataset-6"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<h1>Why we do it</h1>
+							<Tab
+								title="Dataset-7"
+								subtitle="Tabular Data"
+								tooltip="This Dataset Name Is Too Lon…"
+							>
+								<FormDataset />
 							</Tab>
 						</Tabs>
 					</div>

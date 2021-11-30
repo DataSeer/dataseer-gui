@@ -1,5 +1,9 @@
 <template>
-	<div class="subheader" :class="{ [`subheader--${additionalClass}`]: additionalClass }" v-if="isVisible">
+	<div
+		class="subheader"
+		:class="{ [`subheader--${additionalClass}`]: additionalClass }"
+		v-if="isVisible"
+	>
 		<div class="shell">
 			<SubheaderOrganizations v-if="isOrganizationsPage" />
 			<SubheaderAccounts v-if="isAccountsPage" />
@@ -9,7 +13,7 @@
 			<SubheaderReport v-if="isReportPage" />
 			<SubheaderRoles v-if="isRolesPage" />
 
-			<SubheaderEdit title="Manage Document" icon="organization" v-if="isEditOrganizationsPage">
+			<SubheaderEdit title="Edit Organization" icon="organization" v-if="isEditOrganizationsPage">
 				<Button to="/documents" className="tertiary">Exit Document</Button>
 			</SubheaderEdit>
 

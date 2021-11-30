@@ -1,0 +1,28 @@
+/* ------------------------------------------------------------ *\
+	Tab
+\* ------------------------------------------------------------ */
+
+.tab {
+	.tab__heading {
+		position: sticky;
+		z-index: 1;
+		top: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		padding: 25px 0 15px;
+		border-bottom: 1px solid $c-skyblue-bc;
+		background: #fff;
+		font-size: 12px;
+		font-family: $ff-sans-serif;
+	}
+
+	.tab__heading h5 {
+		margin-bottom: 0;
+		font-weight: 700;
+		font-family: inherit;
+	}
+
+	.tab__heading p {
+	}
+}

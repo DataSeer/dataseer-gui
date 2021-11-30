@@ -2,76 +2,76 @@
 	<div class="form form--dataset">
 		<form action="?" method="post">
 			<div class="form__body">
-				<div class="form__row">
-					<Field
-						:error="$v.type.$error"
-						:options="[
-							{
-								title: 'Material 1'
-							},
-							{
-								title: 'Material 2'
-							},
-							{
-								title: 'Material 3'
-							},
-							{
-								title: 'Material 4'
-							}
-						]"
-						name="material"
-						v-model.trim="material"
-						placeholder="Material Type"
-					>
-						<Icon name="grid" color="currentColor" />
+				<Field
+					:error="$v.type.$error"
+					:options="[
+						{
+							title: 'Material 1'
+						},
+						{
+							title: 'Material 2'
+						},
+						{
+							title: 'Material 3'
+						},
+						{
+							title: 'Material 4'
+						}
+					]"
+					name="material"
+					v-model.trim="material"
+					placeholder="Material Type"
+				>
+					<Icon name="grid" color="currentColor" />
 
-						Material Type <a href="#">Type Definitions</a>
-					</Field>
+					Material Type <a href="#">Type Definitions</a>
+				</Field>
+
+				<div class="checkboxes">
+					<ul>
+						<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
+							This material is re-used from another public or private source
+						</FieldCheckbox>
+
+						<FieldCheckbox name="practices" v-model="practices" isDropdown v-if="reuse !== null">
+							<a href="#">Best practices</a> for this material type have been followed
+
+							<button
+								tabindex="0"
+								type="button"
+								class="text-toggle"
+								@click="practices_text = !practices_text"
+							>
+								{{ textToggle(practices_text) }}
+							</button>
+						</FieldCheckbox>
+
+						<HiddenText v-if="practices_text">
+							<p>
+								Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum
+								ipsam nostrum atque dolore eum cumque vero vel perferendis.
+							</p>
+						</HiddenText>
+					</ul>
 				</div>
-				<!-- /.form__row -->
 
-				<div class="form__row">
-					<div class="checkboxes">
-						<ul>
-							<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
-								This material is re-used from another public or private source
-							</FieldCheckbox>
+				<Field
+					v-if="reuse !== null"
+					name="rrid"
+					v-model.trim="rrid"
+					type="text"
+					placeholder="https://"
+				>
+					<Icon name="chain" color="currentColor" />
 
-							<FieldCheckbox name="practices" v-model="practices" isDropdown v-if="reuse !== null">
-								<a href="#">Best practices</a> for this material type have been followed
+					RRID
+				</Field>
 
-								<button tabindex="0" type="button" class="text-toggle" @click="practices_text = !practices_text">
-									{{ textToggle(practices_text) }}
-								</button>
-							</FieldCheckbox>
+				<Field name="instructions" type="textarea" v-model="instructions">
+					<Icon name="comment" />
 
-							<HiddenText v-if="practices_text">
-								<p>
-									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum ipsam nostrum atque dolore eum cumque vero vel
-									perferendis.
-								</p>
-							</HiddenText>
-						</ul>
-					</div>
-				</div>
-
-				<div class="form__row">
-					<Field v-if="reuse !== null" name="rrid" v-model.trim="rrid" type="text" placeholder="https://">
-						<Icon name="chain" color="currentColor" />
-
-						RRID
-					</Field>
-				</div>
-				<!-- /.form__row -->
-
-				<div class="form__row">
-					<Field name="instructions" type="textarea" v-model="instructions">
-						<Icon name="comment" />
-
-						Additional Comments or Instructions
-					</Field>
-				</div>
-				<!-- /.form__row -->
+					Additional Comments or Instructions
+				</Field>
 			</div>
 			<!-- /.form__body -->
 
@@ -89,7 +89,11 @@
 							Connect Text
 						</Button>
 
-						<Button className="tertiary" v-tooltip.top-center="tooltips.deleteText" @onClick="handleDelete">
+						<Button
+							className="tertiary"
+							v-tooltip.top-center="tooltips.deleteText"
+							@onClick="handleDelete"
+						>
 							<Icon name="trash" />
 
 							Delete

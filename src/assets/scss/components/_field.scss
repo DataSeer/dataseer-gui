@@ -120,6 +120,10 @@
 	&.has-error .field__label i {
 		fill: $c-orange;
 	}
+
+	&:first-child .field__label {
+		margin-top: 0;
+	}
 }
 
 /* Field Medium */

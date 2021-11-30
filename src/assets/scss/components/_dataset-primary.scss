@@ -33,25 +33,6 @@
 	.dataset__right {
 		flex: 0 0 59.5%;
 	}
-
-	.form__heading {
-		position: sticky;
-		z-index: 1;
-		top: 0;
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		padding: 25px 0 15px;
-		border-bottom: 1px solid $c-skyblue-bc;
-		background: #fff;
-		font-size: 12px;
-		font-family: $ff-sans-serif;
-	}
-
-	.form__heading h5 {
-		font-weight: 700;
-		font-family: inherit;
-	}
 }
 
 /* Dataset Primary Code */
@@ -74,8 +55,9 @@
 		background-color: $c-purple-72;
 	}
 
-	.form .field:focus,
-	.form .v-select.vs--open .vs__dropdown-toggle {
+	.field .field__input:focus,
+	.field .vs__dropdown-toggle:focus,
+	.v-select.vs--open .vs__dropdown-toggle {
 		border-color: $c-purple-72;
 	}
 
@@ -104,8 +86,9 @@
 		background-color: $c-orange-d2;
 	}
 
-	.form .field:focus,
-	.form .v-select.vs--open .vs__dropdown-toggle {
+	.field .field__input:focus,
+	.field .vs__dropdown-toggle:focus,
+	.v-select.vs--open .vs__dropdown-toggle {
 		border-color: $c-orange-d2;
 	}
 
@@ -134,8 +117,9 @@
 		background-color: $c-green-40;
 	}
 
-	.form .field:focus,
-	.form .v-select.vs--open .vs__dropdown-toggle {
+	.field .field__input:focus,
+	.field .vs__dropdown-toggle:focus,
+	.v-select.vs--open .vs__dropdown-toggle {
 		border-color: $c-green-40;
 
 		.intro .intro__head h3 span {

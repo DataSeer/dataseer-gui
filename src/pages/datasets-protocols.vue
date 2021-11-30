@@ -23,8 +23,8 @@
 									<p>Our AI has not detected any Materials in this document.</p>
 
 									<p>
-										<Icon name="arrow_up" color="#8CABCD" /> If you want to add some, first select a text passage in the document which references
-										Materials
+										<Icon name="arrow_up" color="#8CABCD" /> If you want to add some, first select a
+										text passage in the document which references Materials
 									</p>
 
 									<p>
@@ -42,9 +42,15 @@
 								<div class="intro__tip">
 									<h6>Pro-Tip</h6>
 
-									<p>If multiple text passages make reference to the same Materials, you can shift+click to select more than one</p>
+									<p>
+										If multiple text passages make reference to the same Materials, you can
+										shift+click to select more than one
+									</p>
 
-									<p>Additionally, you can add more text passgaes later by using the “Connect Text” button</p>
+									<p>
+										Additionally, you can add more text passgaes later by using the “Connect Text”
+										button
+									</p>
 								</div>
 								<!-- /.intro__tip -->
 							</div>
@@ -53,106 +59,36 @@
 						<!-- /.intro -->
 
 						<Tabs v-if="!intro">
-							<Tab completed tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Protocol Section Heading Text</h5>
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
-
+							<Tab
+								title="Protocol Section Heading Text"
+								completed
+								tooltip="This Dataset Name Is Too Lon…"
+							>
 								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>How much we do it for</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>How much we do it for</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>How much we do it for</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 
-							<Tab tooltip="This Dataset Name Is Too Lon…">
-								<div class="form__heading">
-									<div class="form__heading-col">
-										<h5>Why we do it</h5>
-									</div>
-									<!-- /.form__heading-col -->
-
-									<div class="form__heading-col">
-										Code/Software
-									</div>
-									<!-- /.form__heading-col -->
-								</div>
-								<!-- /.form__heading -->
+							<Tab title="Protocol Section Heading Text" tooltip="This Dataset Name Is Too Lon…">
+								<FormDatasetProtocols />
 							</Tab>
 						</Tabs>
 					</div>
