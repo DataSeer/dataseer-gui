@@ -5,6 +5,10 @@
 				<Icon name="lock" />
 
 				Open Science Report
+
+				<Button v-if="getCurator" tabindex="0" to="/datasets" className="tertiary">
+					export curator report
+				</Button>
 			</h3>
 		</div>
 		<!-- /.subheader__left -->
@@ -22,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 
@@ -29,16 +34,7 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'subheaderReport',
-
-	/**
-	 * Data
-	 */
-	data: function() {
-		return {
-			showSummary: false
-		};
-	},
+	name: 'SubheaderReport',
 
 	/**
 	 * Components
@@ -49,12 +45,10 @@ export default {
 	},
 
 	/**
-	 * Methods
+	 * Computed
 	 */
-	methods: {
-		toggleSummary() {
-			this.showSummary = !this.showSummary;
-		}
+	computed: {
+		...mapGetters(['getCurator'])
 	}
 };
 </script>

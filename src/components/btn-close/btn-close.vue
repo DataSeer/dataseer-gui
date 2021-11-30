@@ -1,5 +1,10 @@
 <template>
-	<button class="btn-close" :class="{ 'btn-close--alt': alt }" @click="$emit('onClick')" :aria-label="label" />
+	<button
+		class="btn-close"
+		:class="{ 'btn-close--alt': alt }"
+		@click.prevent="$emit('onClick')"
+		:aria-label="label"
+	/>
 </template>
 
 <script>
@@ -14,7 +19,7 @@ export default {
 	 */
 	props: {
 		label: String,
-		alt: Boolean,
-	},
+		alt: Boolean
+	}
 };
 </script>
