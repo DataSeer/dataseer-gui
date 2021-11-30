@@ -3,15 +3,19 @@
 \* ------------------------------------------------------------ */
 
 .popup {
-	.v--modal {
-		border-radius: 0;
+	.v--modal-box,
+	.v--modal-box figure {
+		border-radius: 10px;
 	}
 
 	.v--modal-box {
-		border-radius: 10px;
 		padding: 27px 32px 32px;
 		background-color: #f8fbfe;
-		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+		box-shadow: 0 2px 9px rgba($c-primary, 0.15);
+	}
+
+	.v--modal-box figure {
+		margin-top: 35px;
 	}
 
 	.v--modal-overlay {

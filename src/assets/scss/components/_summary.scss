@@ -201,8 +201,21 @@
 		flex-grow: 1;
 	}
 
+	.richtext-entry {
+		font-size: 14px;
+		line-height: 1.57;
+	}
+
+	.richtext-entry .richtext__label {
+		margin-bottom: 5px;
+		padding-left: 33px;
+	}
+
+	.richtext-entry .richtext__body {
+		padding: 18px 30px;
+	}
+
 	.btn-close {
-		position: absolute;
 		top: 20px;
 		right: 20px;
 	}

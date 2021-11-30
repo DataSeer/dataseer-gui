@@ -29,10 +29,9 @@
 		<!-- /.report__content -->
 
 		<Popup ref="reportChartPopup" name="report-chart-popup">
-			<div class="report__popup-graph">
+			<figure>
 				<img src="@/assets/images/larger-graph.jpg" alt="Chart" />
-			</div>
-			<!-- /.report__popup-graph -->
+			</figure>
 		</Popup>
 	</div>
 	<!-- /.report-chart -->
