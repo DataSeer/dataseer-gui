@@ -6,8 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		documentView: 'list',
-		isloggedIn: false,
-		isCurator: false,
+		isloggedIn: true,
+		isCurator: true,
 		filtersVisibility: false
 	},
 

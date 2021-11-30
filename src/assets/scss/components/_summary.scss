@@ -201,62 +201,6 @@
 		flex-grow: 1;
 	}
 
-	.summary__authors {
-		height: 100%;
-		font-size: 14px;
-		line-height: 1.58;
-	}
-
-	.summary__authors > h6 {
-		padding-left: 35px;
-		margin-bottom: 5px;
-		font-size: 12px;
-		line-height: 1.17;
-
-		@include breakpoint-down(small-desktop) {
-			padding-left: 25px;
-		}
-	}
-
-	.summary__authors ul {
-		max-height: 625px;
-		overflow: auto;
-		padding: 20px 30px;
-		border-radius: 14px;
-		border: 3px solid $c-skyblue;
-		list-style: none;
-
-		@include breakpoint-down(small-desktop) {
-			max-height: 500px;
-			padding-left: 20px;
-			padding-right: 20px;
-		}
-
-		@include breakpoint-down(tablet) {
-			max-height: 200px;
-		}
-	}
-
-	.summary__authors li {
-		margin-bottom: 23px;
-
-		@include breakpoint-down(small-desktop) {
-			margin-bottom: 15px;
-		}
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	.summary__authors h6 {
-		margin-bottom: 3px;
-	}
-
-	.summary__authors h6 span {
-		font-weight: 400;
-	}
-
 	.btn-close {
 		position: absolute;
 		top: 20px;

@@ -52,9 +52,7 @@
 							<!-- /.summary__body-aside -->
 
 							<div class="summary__body-content">
-								<div class="summary__authors">
-									<h6>Authors (10)</h6>
-
+								<RichtextEntry label="Authors (10)">
 									<ul>
 										<li>
 											<h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
@@ -135,8 +133,7 @@
 											Ottawa, Canada
 										</li>
 									</ul>
-								</div>
-								<!-- /.summary__authors -->
+								</RichtextEntry>
 							</div>
 							<!-- /.summary__body-content -->
 						</div>
@@ -203,6 +200,7 @@ import { mapGetters } from 'vuex';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import BtnClose from '@/components/btn-close/btn-close';
+import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 
 export default {
 	/**
@@ -216,7 +214,8 @@ export default {
 	components: {
 		Icon,
 		Button,
-		BtnClose
+		BtnClose,
+		RichtextEntry
 	},
 
 	/**

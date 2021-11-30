@@ -291,12 +291,17 @@
 								<Icon name="flag" />
 							</Button>
 
-							<Button className="tertiary" square v-tooltip.top-center="tooltips.connectText">
-								<Icon name="connect" />
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.show"
+								@onClick="openPopup"
+							>
+								<Icon name="documents" />
 							</Button>
 
 							<Button className="tertiary" square v-tooltip.top-center="tooltips.connectText">
-								<Icon name="documents" />
+								<Icon name="connect" />
 							</Button>
 
 							<Button
@@ -316,6 +321,24 @@
 			</form>
 		</div>
 		<!-- /.form -->
+
+		<Popup ref="textPassagePopup" name="text-passage-popup" size="small">
+			<RichtextEntry label="Connected Text Passages" icon="documents">
+				<p>
+					Methods: Our implementation approach included seeking support from hospital leadership;
+					building frontline support and a team of champions among patients, nurses,
+					anesthesiologists, and surgeons; accounting for stakeholder perceptions using
+					theory-informed qualitative interviews; engaging patients; and documenting the
+					implementation process, including barriers and facilitators, using the consolidated
+					framework for implementation research.
+				</p>
+
+				<p>
+					Results: During the 12-month implementation period, we conducted 23 stakeholder engagement
+					activities with over 200 participants.
+				</p>
+			</RichtextEntry>
+		</Popup>
 	</div>
 </template>
 
@@ -329,13 +352,15 @@ import { required } from 'vuelidate/lib/validators';
 /**
  * Internal Dependencies
  */
-import Field from '@/components/field/field';
 import Icon from '@/components/icon/icon';
+import Field from '@/components/field/field';
+import Popup from '@/components/popup/popup';
 import Button from '@/components/button/button';
-import HiddenText from '@/components/hidden-text/hidden-text';
 import FormIssues from '@/blocks/form-issues/form-issues';
-import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
+import HiddenText from '@/components/hidden-text/hidden-text';
+import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
 	/**
@@ -347,11 +372,13 @@ export default {
 	 * Components
 	 */
 	components: {
-		Field,
 		Icon,
+		Field,
+		Popup,
 		Button,
-		HiddenText,
 		FormIssues,
+		HiddenText,
+		RichtextEntry,
 		FieldCheckbox,
 		FormCuratorIssues
 	},
@@ -359,13 +386,13 @@ export default {
 	/**
 	 * Props
 	 */
-
 	props: {
 		flagged: {
 			type: Boolean,
 			default: false
 		}
 	},
+
 	/**
 	 * Data
 	 */
@@ -384,7 +411,8 @@ export default {
 			tooltips: {
 				flagText: 'Flag Issues For Author',
 				connectText: 'Select additional sentences from the document to connect to this dataset',
-				deleteText: 'Delete this Dataset'
+				deleteText: 'Delete this Dataset',
+				show: 'Show Text Passage'
 			},
 			isIssuesFormVisible: false
 		};
@@ -423,10 +451,13 @@ export default {
 			e.preventDefault();
 			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
-
 		handleDelete(e) {
 			e.preventDefault(e);
 			window.confirm('Are you sure you want to delete this dataset?');
+		},
+		openPopup(e) {
+			e.preventDefault(e);
+			this.$refs.textPassagePopup.showModal();
 		}
 	}
 };

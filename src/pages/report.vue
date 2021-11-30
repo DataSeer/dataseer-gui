@@ -3,8 +3,8 @@
 		<div class="report-group">
 			<div class="report-title">
 				<h1>
-					Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement:
-					Case Study
+					Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital
+					Through Patient, Clinic Organizational Engagement: Case Study
 				</h1>
 
 				<p>
@@ -127,7 +127,11 @@
 
 						<ContentToggle labelClosed="Show All Authors" labelOpened="Hide All Authors">
 							<Authors>
-								<Author v-for="(author, index) in nonLeadAuthors" :key="index" :author="author"></Author>
+								<Author
+									v-for="(author, index) in nonLeadAuthors"
+									:key="index"
+									:author="author"
+								></Author>
 							</Authors>
 						</ContentToggle>
 					</li>
@@ -203,7 +207,8 @@ export default {
 					{
 						title: 'Named Data',
 						isPrivate: false,
-						url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
+						url:
+							'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
 					},
 					{
 						title: 'My Private Dataset',
@@ -228,7 +233,8 @@ export default {
 					{
 						title: 'Named Data',
 						isPrivate: false,
-						url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
+						url:
+							'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
 					},
 					{
 						title: 'My Private Dataset',
@@ -265,7 +271,8 @@ export default {
 					{
 						title: 'Named Data',
 						isPrivate: false,
-						url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
+						url:
+							'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
 					},
 					{
 						title: 'My Private Dataset',
@@ -290,7 +297,8 @@ export default {
 					{
 						title: 'Named Data',
 						isPrivate: false,
-						url: 'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
+						url:
+							'www.another-repo.com/HEied382-CA293/IDHEied382-CA293/xsdwdw wddwdw/445-2344-245.html#442r23'
 					},
 					{
 						title: 'My Private Dataset',

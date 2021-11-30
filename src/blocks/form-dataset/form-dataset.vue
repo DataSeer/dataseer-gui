@@ -24,6 +24,7 @@
 					placeholder="Tabular Data"
 				>
 					<Icon name="grid" />
+
 					Data Type <a href="#">Type Definitions</a>
 				</FieldSelect>
 

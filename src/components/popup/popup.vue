@@ -1,26 +1,19 @@
 <template>
 	<div class="popup">
-		<slot name="header" :showModal="showModal" />
-
-		<modal 
-			:name="name"
-			height="auto"
-			width="1200px"
-			adaptive
-			scrollable
-		>
+		<modal :name="name" height="auto" :width="width[size]" adaptive scrollable>
 			<BtnClose @onClick="hideModal" />
-		
+
 			<slot />
-    </modal>
-	</div><!-- /.popup -->
+		</modal>
+	</div>
+	<!-- /.popup -->
 </template>
 
 <script>
 /**
  * Internal Dependencies
  */
-import BtnClose from '@/components/btn-close/btn-close'
+import BtnClose from '@/components/btn-close/btn-close';
 
 export default {
 	/**
@@ -39,19 +32,35 @@ export default {
 	 * Props
 	 */
 	props: {
-		name: String
+		name: String,
+		size: {
+			type: String,
+			default: 'large'
+		}
 	},
-	
+
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			width: {
+				large: '1200px',
+				small: '650px'
+			}
+		};
+	},
+
 	/**
 	 * Methods
 	 */
 	methods: {
-		showModal () {
-				this.$modal.show(this.name);
+		showModal() {
+			this.$modal.show(this.name);
 		},
-		hideModal () {
-				this.$modal.hide(this.name);
+		hideModal() {
+			this.$modal.hide(this.name);
 		}
 	}
-}
+};
 </script>

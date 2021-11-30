@@ -3,21 +3,21 @@
 \* ------------------------------------------------------------ */
 
 .header {
-	position: fixed; 
-	top: 0; 
-	left: 0; 
-	z-index: 999; 
-	width: 100%; 
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 899;
+	width: 100%;
 	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
 	.header__bar {
-		position: relative; 
-		background-color: $c-white; 
+		position: relative;
+		background-color: $c-white;
 	}
 
 	.header__bar-inner {
-		display: flex; 
-		height: 56px; 
+		display: flex;
+		height: 56px;
 		justify-content: space-between;
 		align-items: center;
 	}
