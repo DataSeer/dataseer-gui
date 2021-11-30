@@ -1,11 +1,11 @@
 <template>
 	<Main className="main--profile" hasSubheader>
-		<Grid columnGap="large" rowGap="small">
-			<GridColumn size="half">
+		<Grid columnGap="large" rowGap="small" columnSize="half">
+			<GridColumn>
 				<FormProfile />
 			</GridColumn>
 
-			<GridColumn size="half">
+			<GridColumn>
 				<FormResetPasswod />
 			</GridColumn>
 		</Grid>

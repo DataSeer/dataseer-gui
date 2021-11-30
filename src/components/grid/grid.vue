@@ -2,6 +2,9 @@
 	<div
 		class="grid"
 		:class="{
+			'grid-cols-2': columnSize === 'half',
+			'grid-cols-3': columnSize === 'third',
+			'grid-cols-4': columnSize === 'quarter',
 			'gap-x-sm': columnGap === 'small',
 			'gap-x-md': columnGap === 'medium',
 			'gap-x-lg': columnGap === 'large',
@@ -30,6 +33,10 @@ export default {
 	 * Props
 	 */
 	props: {
+		columnSize: {
+			type: String,
+			default: ''
+		},
 		columnGap: {
 			type: String,
 			default: 'medium'

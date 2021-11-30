@@ -1,12 +1,5 @@
 <template>
-	<div
-		class="grid__col"
-		:class="{
-			'grid__col--half': size === 'half',
-			'grid__col--third': size === 'third',
-			'grid__col--quarter': size === 'quarter'
-		}"
-	>
+	<div class="grid__col">
 		<slot />
 	</div>
 	<!-- /.grid -->
@@ -17,16 +10,6 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'GridColumn',
-
-	/**
-	 * Props
-	 */
-	props: {
-		size: {
-			type: String,
-			default: 'grid__col--full'
-		}
-	}
+	name: 'GridColumn'
 };
 </script>

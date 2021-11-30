@@ -6,8 +6,8 @@
 		<!-- /.form__head -->
 
 		<div class="form__body">
-			<Grid columnGap="medium" rowGap="small">
-				<GridColumn size="quarter">
+			<Grid columnGap="medium" rowGap="small" columnSize="quarter">
+				<GridColumn>
 					<FieldSelect
 						v-model.trim="formData.role"
 						name="Role"
@@ -41,7 +41,11 @@
 		<div class="form__actions">
 			<ul>
 				<li>
-					<Button :className="applyButtonClass" :disabled="areFilteresApplied" @onClick="handleApplyFilters">
+					<Button
+						:className="applyButtonClass"
+						:disabled="areFilteresApplied"
+						@onClick="handleApplyFilters"
+					>
 						{{ applyButtonText }}
 					</Button>
 				</li>

@@ -4,9 +4,15 @@
 			<div class="form__group">
 				<h4>Document Info</h4>
 
-				<Grid columnGap="large" rowGap="small">
-					<GridColumn size="half">
-						<Field type="textarea" size="medium" placeholder="Role Name" v-model="documentTitle" name="Document Title">
+				<Grid columnGap="large" rowGap="small" columnSize="half">
+					<GridColumn>
+						<Field
+							type="textarea"
+							size="medium"
+							placeholder="Role Name"
+							v-model="documentTitle"
+							name="Document Title"
+						>
 							<Icon name="document" color="currentColor" />
 
 							Document Title
@@ -72,7 +78,7 @@
 						</FieldSelect>
 					</GridColumn>
 
-					<GridColumn size="half">
+					<GridColumn>
 						<Field placeholder="Role Name" v-model="journal" name="Journal">
 							<Icon name="book" color="currentColor" />
 
@@ -99,7 +105,13 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field type="textarea" size="large" placeholder="Authors" v-model="documentAuthors" name="Authors">
+						<Field
+							type="textarea"
+							size="large"
+							placeholder="Authors"
+							v-model="documentAuthors"
+							name="Authors"
+						>
 							<Icon name="user" color="currentColor" />
 
 							Authors
@@ -113,14 +125,20 @@
 				<h4>Files</h4>
 
 				<Grid columnGap="large" rowGap="small">
-					<GridColumn size="half">
+					<GridColumn>
 						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
 							<Icon name="document" color="currentColor" />
 
 							Primary File Display Name
 						</Field>
 
-						<FieldFile v-model="primaryFile" accept=".docx, .pdf" name="primaryFile" buttonText="Upload New Version" alt>
+						<FieldFile
+							v-model="primaryFile"
+							accept=".docx, .pdf"
+							name="primaryFile"
+							buttonText="Upload New Version"
+							alt
+						>
 							<template #label>
 								<Icon name="document_new" color="currentColor" />
 
@@ -129,8 +147,14 @@
 						</FieldFile>
 					</GridColumn>
 
-					<GridColumn size="half">
-						<FieldFile v-model="appendFiles" name="appendFiles" buttonText="Upload Files" multiple alt>
+					<GridColumn>
+						<FieldFile
+							v-model="appendFiles"
+							name="appendFiles"
+							buttonText="Upload Files"
+							multiple
+							alt
+						>
 							<template #label>
 								<Icon name="document_new" color="currentColor" />
 
@@ -148,11 +172,15 @@
 				<div class="checkboxes checkboxes--vertical">
 					<ul>
 						<li>
-							<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+							<FieldCheckbox name="isActive" v-model="isActive" isToggle
+								>Organization Is Active</FieldCheckbox
+							>
 						</li>
 
 						<li>
-							<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+							<FieldCheckbox name="isLocked" v-model="isLocked" isToggle
+								>Organization Is Not Locked</FieldCheckbox
+							>
 						</li>
 					</ul>
 				</div>

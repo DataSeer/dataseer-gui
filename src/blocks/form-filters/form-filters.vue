@@ -6,8 +6,8 @@
 		<!-- /.form__head -->
 
 		<div class="form__body">
-			<Grid columnGap="medium" rowGap="small">
-				<GridColumn size="quarter">
+			<Grid columnGap="medium" rowGap="small" columnSize="quarter">
+				<GridColumn>
 					<FieldSelect
 						v-model.trim="formData.owner"
 						name="owner"
@@ -34,7 +34,7 @@
 					</FieldSelect>
 				</GridColumn>
 
-				<GridColumn size="quarter">
+				<GridColumn>
 					<FieldSelect
 						v-model.trim="formData.organization"
 						name="organization"
@@ -61,11 +61,15 @@
 					</FieldSelect>
 				</GridColumn>
 
-				<GridColumn size="quarter">
+				<GridColumn>
 					<div class="form__range">
 						<ul>
 							<li>
-								<FieldDatepicker v-model="formData.uploadedFrom" placeholder="From" :disableFn="disableUploadedFrom">
+								<FieldDatepicker
+									v-model="formData.uploadedFrom"
+									placeholder="From"
+									:disableFn="disableUploadedFrom"
+								>
 									<Icon name="document_upload" color="currentColor" />
 
 									Uploaded
@@ -73,18 +77,26 @@
 							</li>
 
 							<li>
-								<FieldDatepicker v-model="formData.uploadedTo" placeholder="To" :disableFn="disableUploadedTo" />
+								<FieldDatepicker
+									v-model="formData.uploadedTo"
+									placeholder="To"
+									:disableFn="disableUploadedTo"
+								/>
 							</li>
 						</ul>
 					</div>
 					<!-- /.form__range -->
 				</GridColumn>
 
-				<GridColumn size="quarter">
+				<GridColumn>
 					<div class="form__range">
 						<ul>
 							<li>
-								<FieldDatepicker v-model="formData.modifiedFrom" placeholder="From" :disableFn="disableModifiedFrom">
+								<FieldDatepicker
+									v-model="formData.modifiedFrom"
+									placeholder="From"
+									:disableFn="disableModifiedFrom"
+								>
 									<Icon name="document_modify" color="currentColor" />
 
 									Modified
@@ -92,7 +104,11 @@
 							</li>
 
 							<li>
-								<FieldDatepicker v-model="formData.modifiedTo" placeholder="To" :disableFn="disableModifiedTo" />
+								<FieldDatepicker
+									v-model="formData.modifiedTo"
+									placeholder="To"
+									:disableFn="disableModifiedTo"
+								/>
 							</li>
 						</ul>
 					</div>
@@ -105,7 +121,11 @@
 		<div class="form__actions">
 			<ul>
 				<li>
-					<Button :className="applyButtonClass" :disabled="areFilteresApplied" @onClick="handleApplyFilters">
+					<Button
+						:className="applyButtonClass"
+						:disabled="areFilteresApplied"
+						@onClick="handleApplyFilters"
+					>
 						{{ applyButtonText }}
 					</Button>
 				</li>
