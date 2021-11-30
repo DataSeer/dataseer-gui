@@ -3,7 +3,16 @@
 \* ------------------------------------------------------------ */
 
 .tabs {
+	position: relative;
 	height: 100%;
+	padding-bottom: 109px;
+
+	.tabs__contents {
+		height: 100%;
+		overflow-x: auto;
+		padding-left: 24px;
+		padding-right: 24px;
+	}
 
 	.tabs__links {
 		position: absolute;

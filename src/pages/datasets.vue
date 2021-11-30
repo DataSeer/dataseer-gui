@@ -1,151 +1,105 @@
 <template>
 	<Main className="main--datasets" hasSubheader>
-		<div class="dataset-primary">
-			<div class="dataset__row">
-				<div class="dataset__left">
-					<div class="dataset__left-inner">
-						<div class="intro" v-if="intro">
-							<div class="intro__head">
-								<h3>
-									No Materials Yet
+		<div class="intro" v-if="intro">
+			<div class="intro__head">
+				<h3>
+					No Materials Yet
 
-									<span>Need to Add Some?</span>
-								</h3>
+					<span>Need to Add Some?</span>
+				</h3>
 
-								<figure>
-									<img src="@/assets/images/intro-img@2x.png" alt="Example Image Title" />
-								</figure>
-							</div>
-							<!-- /.intro__head -->
-
-							<div class="intro__body">
-								<div class="intro__text">
-									<Icon name="arrow_up" color="#8CABCD" />
-									<p>
-										These swatches represent passages in the document which DataSeer thinks need a
-										reference dataset
-									</p>
-									<p>Click on one, then review the corresponding form to complete each dataset</p>
-								</div>
-								<!-- /.intro__text -->
-
-								<div class="intro__text">
-									<Icon name="arrow_down" color="#8CABCD" />
-									<p>
-										If you want to merge datasets together, or add new datasets, use these tools at
-										the bottom
-									</p>
-									<p>
-										Finally, once all the datasets are accounted for, you can Complete Document in
-										the top right to review your Data Availability Report.
-									</p>
-								</div>
-								<!-- /.intro__text -->
-								<div class="intro__cta">
-									<ul>
-										<li>
-											<Button>Great! Let’s Go</Button>
-										</li>
-
-										<li>
-											<Button className="tertiary">I need some help</Button>
-										</li>
-									</ul>
-								</div>
-								<!-- /.intro__cta -->
-							</div>
-							<!-- /.intro__body -->
-						</div>
-						<!-- /.intro -->
-
-						<Tabs>
-							<Tab
-								title="Dataset-1"
-								subtitle="Tabular Data"
-								completed
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-2"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-3"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-4"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-5"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-6"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-
-							<Tab
-								title="Dataset-7"
-								subtitle="Tabular Data"
-								tooltip="This Dataset Name Is Too Lon…"
-							>
-								<FormDataset />
-							</Tab>
-						</Tabs>
-					</div>
-					<!-- /.dataset__left-inner -->
-
-					<DatasetUtils />
-				</div>
-				<!-- /.dataset__left -->
-
-				<div class="dataset__right">
-					<div class="pdf-holder">
-						<PDF />
-					</div>
-					<!-- /.pdf-holder -->
-				</div>
-				<!-- /.dataset__right -->
+				<figure>
+					<img src="@/assets/images/intro-img@2x.png" alt="Example Image Title" />
+				</figure>
 			</div>
-			<!-- /.dataset__row -->
+			<!-- /.intro__head -->
+
+			<div class="intro__body">
+				<div class="intro__about">
+					<p>Our AI has not detected any Materials in this document.</p>
+
+					<p>
+						<Icon name="arrow_up" color="#8CABCD" /> If you want to add some, first select a text
+						passage in the document which references Materials
+					</p>
+
+					<p>
+						<Icon name="arrow_down" color="#8CABCD" />
+
+						Then click the <Icon name="add" color="currentColor" /> “Add” button below
+					</p>
+
+					<p>
+						<Button className="tertiary">I need more help</Button>
+					</p>
+				</div>
+				<!-- /.intro__about -->
+
+				<div class="intro__tip">
+					<h6>Pro-Tip</h6>
+
+					<p>
+						If multiple text passages make reference to the same Materials, you can shift+click to
+						select more than one
+					</p>
+
+					<p>
+						Additionally, you can add more text passgaes later by using the “Connect Text” button
+					</p>
+				</div>
+				<!-- /.intro__tip -->
+			</div>
+			<!-- /.intro__body -->
 		</div>
-		<!-- /.dataset-primary -->
+		<!-- /.intro -->
+
+		<Tabs>
+			<Tab title="Dataset-1" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-2" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-3" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-4" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-5" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-6" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+
+			<Tab title="Dataset-7" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset />
+			</Tab>
+		</Tabs>
+
+		<DatasetUtils />
+
+		<template #right>
+			<PDF />
+		</template>
 	</Main>
 </template>
 
 <script>
-import PDF from '@/blocks/pdf/pdf.vue';
+import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
-import Icon from '@/components/icon/icon.vue';
+import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button';
-import FormDataset from '@/blocks/form-dataset/form-dataset.vue';
-import DatasetUtils from '@/components/datasets-utils/datasets-utils.vue';
+import FormDataset from '@/blocks/form-dataset/form-dataset';
+import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 
 export default {
 	name: 'Datasets',

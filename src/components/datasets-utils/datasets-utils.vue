@@ -1,34 +1,47 @@
 <template>
-  <ul class="datasets-utils">
-    <li>
-      <a href="#" v-tooltip.right="mergeText" tabindex="0" :aria-label="mergeText" @click="$emit('onMergeClick')">
-        <Icon name="merge" color="#006AC9" />
-      </a>
-    </li>
-    
-    <li>
-      <a href="#" v-tooltip.right="addText" tabindex="0" :aria-label="addText" @click="$emit('onAddClick')">
-        <Icon name="add" color="#006AC9" />
-      </a>
-    </li>
-  </ul><!-- /.datasets-utils -->
+	<ul class="datasets-utils">
+		<li>
+			<button
+				href="#"
+				v-tooltip.right="mergeText"
+				tabindex="0"
+				:aria-label="mergeText"
+				@click.prevent="$emit('mergeButtonClick')"
+			>
+				<Icon name="merge" />
+			</button>
+		</li>
+
+		<li>
+			<button
+				href="#"
+				v-tooltip.right="addText"
+				tabindex="0"
+				:aria-label="addText"
+				@click.prevent="$emit('addButtonClick')"
+			>
+				<Icon name="add" />
+			</button>
+		</li>
+	</ul>
+	<!-- /.datasets-utils -->
 </template>
 
 <script>
 import Icon from '@/components/icon/icon.vue';
 
 export default {
-  name: "DatasetsUtils",
+	name: 'DatasetsUtils',
 
-  components: {
-    Icon
-  },
+	components: {
+		Icon
+	},
 
-  data: function() {
-    return {
-      mergeText: 'Merge existing datasets',
-      addText: 'Add New Dataset'
-    }
-  }
-}
+	data: function() {
+		return {
+			mergeText: 'Merge existing datasets',
+			addText: 'Add New Dataset'
+		};
+	}
+};
 </script>

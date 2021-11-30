@@ -1,5 +1,5 @@
 <template>
-	<Main hasSubheader>
+	<Main>
 		<FormNewDocument />
 
 		<template #right>

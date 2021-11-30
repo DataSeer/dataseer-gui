@@ -120,22 +120,138 @@
 /* Main Datasets */
 
 .main--datasets {
-	.main__left {
-		padding: 0;
-		background: none;
-		box-shadow: none;
+	height: 100vh;
+
+	.shell,
+	.main__inner {
+		height: 100%;
 	}
+
+	.main__left,
+	.main__right {
+		height: 100%;
+		padding: 0;
+	}
+
+	.main__left {
+		position: relative;
+		width: 634px;
+		flex: 0 0 634px;
+		margin-left: 46px;
+
+		@include breakpoint-down(small-desktop) {
+			width: 454px;
+			flex: 0 0 454px;
+		}
+	}
+
+	.main__right {
+		width: calc(100% - 680px);
+		flex: 0 0 calc(100% - 680px);
+
+		@include breakpoint-down(small-desktop) {
+			width: calc(100% - 500px);
+			flex: 0 0 calc(100% - 500px);
+		}
+	}
+
+	/* Dataset Primary Code */
 
 	&-code {
 		background-color: $c-purple-fa;
+
+		.form .form__cta .btn:not(.btn--tertiary) {
+			background-color: $c-purple-72;
+			border-color: $c-purple-72;
+
+			&:focus,
+			&:hover {
+				color: $c-white;
+				background-color: darken($c-purple-72, 8);
+				border-color: darken($c-purple-72, 8);
+			}
+		}
+
+		.tabs .tabs__link span {
+			border-color: $c-purple-72;
+			background-color: $c-purple-72;
+		}
+
+		.field .field__input:focus,
+		.field .vs__dropdown-toggle:focus,
+		.v-select.vs--open .vs__dropdown-toggle {
+			border-color: $c-purple-72;
+		}
+
+		.intro .intro__head h3 span {
+			color: $c-purple-72;
+		}
 	}
+
+	/* Dataset Primary Materials */
 
 	&-materials {
 		background-color: $c-orange-ff;
+
+		.form .form__cta .btn:not(.btn--tertiary) {
+			background-color: $c-orange-d2;
+			border-color: $c-orange-d2;
+
+			&:focus,
+			&:hover {
+				color: $c-white;
+				background-color: darken($c-orange-d2, 8);
+				border-color: darken($c-orange-d2, 8);
+			}
+		}
+
+		.tabs .tabs__link span {
+			border-color: $c-orange-d2;
+			background-color: $c-orange-d2;
+		}
+
+		.field .field__input:focus,
+		.field .vs__dropdown-toggle:focus,
+		.v-select.vs--open .vs__dropdown-toggle {
+			border-color: $c-orange-d2;
+		}
+
+		.intro .intro__head h3 span {
+			color: $c-orange-d2;
+		}
 	}
+
+	/* Dataset Primary Protocols */
 
 	&-protocols {
 		background-color: rgba($c-green-40, 0.08);
+
+		.form .form__cta .btn:not(.btn--tertiary) {
+			background-color: $c-green-40;
+			border-color: $c-green-40;
+
+			&:focus,
+			&:hover {
+				color: $c-white;
+				background-color: darken($c-green-40, 8);
+				border-color: darken($c-green-40, 8);
+			}
+		}
+
+		.tabs .tabs__link span {
+			border-color: $c-green-40;
+			background-color: $c-green-40;
+		}
+
+		.field .field__input:focus,
+		.field .vs__dropdown-toggle:focus,
+		.v-select.vs--open .vs__dropdown-toggle {
+			border-color: $c-green-40;
+
+			.intro .intro__head h3 span {
+				color: $c-green-40;
+			}
+		}
 	}
 }
 

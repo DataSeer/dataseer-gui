@@ -12,7 +12,8 @@
 						'is-completed': tab.completed
 					}"
 				>
-					<Dot v-if="tab.flagged" />
+					<i v-if="tab.flagged" class="dot" />
+
 					<span @click="selectTab(index)" v-tooltip.right="tabTooltips[index]" />
 				</li>
 			</ul>
@@ -28,20 +29,11 @@
 </template>
 
 <script>
-import Dot from '@/components/dot/dot';
-
 export default {
 	/**
 	 * Name
 	 */
 	name: 'Tabs',
-
-	/**
-	 * Components
-	 */
-	components: {
-		Dot
-	},
 
 	/**
 	 * Data
@@ -58,7 +50,7 @@ export default {
 	 */
 	computed: {
 		tabTooltips() {
-			return this.tabs.map((item) => item.tooltip);
+			return this.tabs.map((tab) => tab.tooltip);
 		}
 	},
 
@@ -69,9 +61,7 @@ export default {
 		selectTab(i) {
 			this.activeIndex = i;
 
-			this.tabs.forEach((tab, index) => {
-				tab.isActive = index === i;
-			});
+			this.tabs.map((tab, index) => (tab.isActive = index === i));
 		}
 	},
 

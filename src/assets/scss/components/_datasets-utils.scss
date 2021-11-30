@@ -8,7 +8,7 @@
 		margin-top: 2px;
 	}
 
-	a {
+	button {
 		display: flex;
 		width: 46px;
 		height: 46px;
@@ -16,6 +16,8 @@
 		justify-content: center;
 		background-color: $c-skyblue;
 		border-radius: 3px;
+		color: $c-primary;
+		border: none;
 		transition: opacity 0.3s;
 
 		.main--datasets-code & {

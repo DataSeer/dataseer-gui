@@ -1,12 +1,14 @@
 <template>
-  <div id="documentView">
-    <div id="documentView.screen">
-      <div id="documentView.screen.container" class="documentView">
-        <div id="pdf"></div><!-- /#pdf -->
-        <div id="xml" style="display: none"></div><!-- /#xml -->
-      </div>
-    </div><!-- /#documentView.screen -->
-  </div><!-- /#documentView -->
+	<div class="pdf-holder">
+		<div id="documentView">
+			<div id="documentView.screen">
+				<div id="documentView.screen.container" class="documentView">
+					<div id="pdf"></div><!-- /#pdf -->
+					<div id="xml" style="display: none"></div><!-- /#xml -->
+				</div>
+			</div><!-- /#documentView.screen -->
+		</div><!-- /#documentView -->
+	</div><!-- /.pdf-holder -->
 </template>
 
 <script>

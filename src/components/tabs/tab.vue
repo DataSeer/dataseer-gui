@@ -34,10 +34,7 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		selected: {
-			type: Boolean,
-			default: false
-		},
+
 		tooltip: {
 			type: String,
 			default: ''
@@ -63,13 +60,6 @@ export default {
 		hasHeading() {
 			return this.title || this.subtitle;
 		}
-	},
-
-	/**
-	 * Mounted
-	 */
-	mounted() {
-		this.isActive = this.selected;
 	}
 };
 </script>

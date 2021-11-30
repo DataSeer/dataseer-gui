@@ -6,6 +6,7 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);
 
+	/* grid cols */
 	&.grid-cols-2 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
@@ -18,8 +19,9 @@
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 
+	/* gap X */
 	&.gap-x-sm {
-		column-gap: 10px;
+		column-gap: 15px;
 	}
 
 	&.gap-x-md {
@@ -30,6 +32,7 @@
 		column-gap: 85px;
 	}
 
+	/* gap Y */
 	&.gap-y-sm {
 		row-gap: 25px;
 	}
