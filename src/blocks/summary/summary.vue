@@ -43,7 +43,7 @@
 								<div class="summary__body-actions">
 									<Button className="tertiary" block>This data is incorrect</Button>
 
-									<Button v-if="!getCurator" to="/manage-document" className="tertiary" block>
+									<Button v-if="getCurator" to="/manage-document" className="tertiary" block>
 										Manage Document
 									</Button>
 								</div>

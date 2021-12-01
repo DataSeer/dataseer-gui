@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<FormIssues v-if="flagged && !getCurator" />
-		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" />
+		<FormIssues v-if="flagged" />
+		<FormCuratorIssues v-if="!flagged && isIssuesFormVisible" />
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
@@ -356,10 +356,10 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Popup from '@/components/popup/popup';
 import Button from '@/components/button/button';
-import FormIssues from '@/blocks/form-issues/form-issues';
 import HiddenText from '@/components/hidden-text/hidden-text';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {

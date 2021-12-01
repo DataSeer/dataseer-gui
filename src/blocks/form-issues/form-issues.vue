@@ -11,7 +11,12 @@
 			<!-- /.form__heading -->
 
 			<div class="form__body">
-				<FieldIssue v-for="activeIssue in activeIssues" :key="activeIssue.id" :issue="activeIssue" @change="updateIssue" />
+				<FieldIssue
+					v-for="activeIssue in activeIssues"
+					:key="activeIssue.id"
+					:issue="activeIssue"
+					@change="updateIssue"
+				/>
 
 				<div class="form__comment">
 					{{ additionalComments }}
@@ -68,10 +73,11 @@ export default {
 	 */
 	data() {
 		return {
-			additionalComments: 'In addition to the 2 issues above, please also link to the abc-xyz set. Thanks!',
+			additionalComments:
+				'In addition to the 2 issues above, please also link to the abc-xyz set. Thanks!',
 			issues: [
 				{
-					id: 'issue1',
+					id: 'issue11',
 					label: 'A particular issue number one',
 					type: undefined,
 					required: false,
@@ -81,7 +87,7 @@ export default {
 				},
 
 				{
-					id: 'issue2',
+					id: 'issue12',
 					label: 'Needs Citation',
 					type: 'required',
 					required: false,
@@ -91,7 +97,7 @@ export default {
 				},
 
 				{
-					id: 'issue3',
+					id: 'issue13',
 					label: 'Needs Citation',
 					type: 'recommended',
 					required: false,
@@ -101,8 +107,9 @@ export default {
 				},
 
 				{
-					id: 'issue4',
-					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
+					id: 'issue14',
+					label:
+						'A really bad issue that is a bit longer and wraps to two or more lines of written text',
 					type: undefined,
 					required: false,
 					recommended: false,
@@ -111,7 +118,7 @@ export default {
 				},
 
 				{
-					id: 'issue5',
+					id: 'issue15',
 					label: 'Missing Support Files',
 					type: undefined,
 					required: false,
@@ -120,7 +127,7 @@ export default {
 					active: false
 				},
 				{
-					id: 'issue6',
+					id: 'issue16',
 					label: 'A particular issue number one',
 					type: undefined,
 					required: false,
@@ -129,7 +136,7 @@ export default {
 					active: false
 				},
 				{
-					id: 'issue7',
+					id: 'issue17',
 					label: 'Different issue',
 					type: undefined,
 					required: false,
@@ -139,8 +146,9 @@ export default {
 				},
 
 				{
-					id: 'issue8',
-					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
+					id: 'issue18',
+					label:
+						'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
 					type: undefined,
 					required: false,
 					recommended: false,
@@ -149,7 +157,7 @@ export default {
 				},
 
 				{
-					id: 'issue9',
+					id: 'issue19',
 					label: 'One more issue down here',
 					type: undefined,
 					required: false,
@@ -159,7 +167,7 @@ export default {
 				},
 
 				{
-					id: 'issue10',
+					id: 'issue20',
 					label: 'Other (Described in comments below)',
 					type: undefined,
 					required: false,
@@ -177,6 +185,19 @@ export default {
 	computed: {
 		activeIssues: function() {
 			return this.issues.filter((issue) => issue.active);
+		}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		toggleIssuesDropdown() {
+			this.isIssuesDropdownVisible = !this.isIssuesDropdownVisible;
+		},
+		updateIssue(id, key, value) {
+			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
+			this.issues[issueIndex][key] = value;
 		}
 	}
 };
