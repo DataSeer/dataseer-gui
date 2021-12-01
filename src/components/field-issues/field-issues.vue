@@ -49,8 +49,8 @@ export default {
 	 */
 	methods: {
 		handleChange(e) {
-			const issueID = e.target.name.split('-')[0];
-			const issueKey = e.target.name.split('-').at(-1);
+			const issueID = e.target.id.split('-')[0];
+			const issueKey = e.target.id.split('-')[1];
 			const issueValue = e.target.checked;
 
 			this.$emit('change', issueID, issueKey, issueValue);

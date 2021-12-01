@@ -5,7 +5,7 @@
 		</FormHead>
 
 		<FormBody>
-			<Grid rowGap="small">
+			<Grid>
 				<GridColumn>
 					<Field name="full-name" :tabindex="0" readonly type="text" :value="fullName">
 						<Icon name="user" color="currentColor" />

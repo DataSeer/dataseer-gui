@@ -20,7 +20,7 @@
 			<!-- /.form__statuses -->
 
 			<div class="form__body">
-				<Grid rowGap="medium">
+				<Grid rowGap="extralarge">
 					<GridColumn>
 						<FieldFile
 							v-model="primaryFile"
@@ -51,19 +51,18 @@
 							</template>
 						</FieldFile>
 					</GridColumn>
-				</Grid>
 
-				<div class="form__row">
-					<div class="checkboxes checkboxes--center">
-						<ul>
-							<FieldCheckbox name="checkbox" @onChange="onCheckboxChange">
-								This is a new version of an article DataSeer has already assessed
-							</FieldCheckbox>
-						</ul>
-					</div>
-					<!-- /.checkboxes -->
-				</div>
-				<!-- /.form__row -->
+					<GridColumn>
+						<div class="checkboxes checkboxes--center">
+							<ul>
+								<FieldCheckbox name="checkbox" @onChange="onCheckboxChange">
+									This is a new version of an article DataSeer has already assessed
+								</FieldCheckbox>
+							</ul>
+						</div>
+						<!-- /.checkboxes -->
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__body -->
 

@@ -394,7 +394,8 @@ export default {
 			tooltips: {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
-			}
+			},
+			isIssuesFormVisible: false
 		};
 	},
 
@@ -417,13 +418,24 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
 		},
-
-		handleDelete() {
+		toggleIssuesForm(e) {
+			e.preventDefault();
+			this.isIssuesFormVisible = !this.isIssuesFormVisible;
+		},
+		handleDelete(e) {
+			e.preventDefault(e);
 			window.confirm('Are you sure you want to delete this dataset?');
+		},
+		openPopup(e) {
+			e.preventDefault(e);
+			this.$refs.textPassagePopup.showModal();
 		}
 	}
 };
