@@ -3,7 +3,9 @@
 		<FormHead centered>
 			<h2>Sign In</h2>
 
-			<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
+			<p>
+				DataSeer promotes open data sharing with AI powered tools for linking data to research texts
+			</p>
 		</FormHead>
 
 		<div class="form__status form__status--success" v-if="$route.params.success">
@@ -12,17 +14,35 @@
 		<!-- /.form__status -->
 
 		<FormBody>
-			<Field :error="$v.email.$error" name="email" v-model.trim="email" type="text" placeholder="Email Address">
-				<Icon name="email" color="currentColor" />
+			<Grid rowGap="small">
+				<GridColumn>
+					<Field
+						:error="$v.email.$error"
+						name="email"
+						v-model.trim="email"
+						type="text"
+						placeholder="Email Address"
+					>
+						<Icon name="email" color="currentColor" />
 
-				Email Address
-			</Field>
+						Email Address
+					</Field>
+				</GridColumn>
 
-			<Field :error="$v.password.$error" name="password" v-model.trim="password" type="password" placeholder="Enter">
-				<Icon name="password" color="currentColor" />
+				<GridColumn>
+					<Field
+						:error="$v.password.$error"
+						name="password"
+						v-model.trim="password"
+						type="password"
+						placeholder="Enter"
+					>
+						<Icon name="password" color="currentColor" />
 
-				Password <span>minimum 8 characters</span>
-			</Field>
+						Password <span>minimum 8 characters</span>
+					</Field>
+				</GridColumn>
+			</Grid>
 		</FormBody>
 
 		<FormActions centered>
@@ -57,6 +77,7 @@ import { mapActions } from 'vuex';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Field from '@/components/field/field';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormActions, FormMessage, FormHead, FormBody } from '@/components/form/form';
 
 export default {
@@ -72,6 +93,8 @@ export default {
 		Icon,
 		Field,
 		Button,
+		Grid,
+		GridColumn,
 		Form,
 		FormHead,
 		FormBody,

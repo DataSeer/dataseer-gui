@@ -259,6 +259,18 @@
 		max-width: 630px;
 		margin-left: auto;
 		margin-right: auto;
+		text-align: center;
+	}
+
+	.form__head p {
+		color: $c-primary;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 1.2;
+
+		@include breakpoint-down(mobile) {
+			font-size: 18px;
+		}
 	}
 
 	.form__body {

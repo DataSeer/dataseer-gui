@@ -4,41 +4,41 @@
 			<div class="form__group">
 				<h4>American Chemistry Society</h4>
 
-				<div class="form__row">
-					<div class="form__col">
+				<Grid columnGap="large">
+					<GridColumn>
 						<Field :value="name" name="Organization Name">
 							<Icon name="organization" color="currentColor" />
 
 							Organization Name
 						</Field>
-					</div>
-					<!-- /.form__col -->
-				</div>
-				<!-- /.form__row -->
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Settings</h4>
 
-				<div class="form__row">
-					<div class="form__col">
+				<Grid columnGap="large">
+					<GridColumn>
 						<div class="checkboxes checkboxes--vertical">
 							<ul>
 								<li>
-									<FieldCheckbox name="isActive" v-model="isActive" isToggle>Organization Is Active</FieldCheckbox>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle>
+										Organization Is Active
+									</FieldCheckbox>
 								</li>
 
 								<li>
-									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>Organization Is Not Locked</FieldCheckbox>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
+										Organization Is Not Locked
+									</FieldCheckbox>
 								</li>
 							</ul>
 						</div>
 						<!-- /.checkboxes -->
-					</div>
-					<!-- /.form__col -->
-				</div>
-				<!-- /.form__row -->
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__group -->
 		</div>
@@ -74,6 +74,7 @@
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
@@ -88,7 +89,9 @@ export default {
 	components: {
 		Icon,
 		Field,
+		Grid,
 		Button,
+		GridColumn,
 		FieldCheckbox
 	},
 

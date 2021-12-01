@@ -3,10 +3,8 @@
 \* ------------------------------------------------------------ */
 
 .field {
-	margin-bottom: 15px;
-
-	&:last-child {
-		margin-bottom: 0;
+	+ .field {
+		margin-top: 8px;
 	}
 
 	.field__input,
@@ -45,7 +43,6 @@
 		display: block;
 		align-items: center;
 		justify-content: flex-start;
-		margin-top: 25px;
 		margin-bottom: 8px;
 		font-weight: 700;
 		font-size: 12px;

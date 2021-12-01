@@ -10,7 +10,8 @@
 			'gap-x-lg': columnGap === 'large',
 			'gap-y-sm': rowGap === 'small',
 			'gap-y-md': rowGap === 'medium',
-			'gap-y-lg': rowGap === 'large'
+			'gap-y-lg': rowGap === 'large',
+			'gap-y-xlg': rowGap === 'extralarge'
 		}"
 	>
 		<slot />

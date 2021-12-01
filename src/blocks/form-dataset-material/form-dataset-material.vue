@@ -2,76 +2,91 @@
 	<div class="form form--dataset">
 		<form action="?" method="post">
 			<div class="form__body">
-				<Field
-					:error="$v.type.$error"
-					:options="[
-						{
-							title: 'Material 1'
-						},
-						{
-							title: 'Material 2'
-						},
-						{
-							title: 'Material 3'
-						},
-						{
-							title: 'Material 4'
-						}
-					]"
-					name="material"
-					v-model.trim="material"
-					placeholder="Material Type"
-				>
-					<Icon name="grid" color="currentColor" />
+				<Grid rowGap="medium">
+					<GridColumn>
+						<Field
+							:error="$v.type.$error"
+							:options="[
+								{
+									title: 'Material 1'
+								},
+								{
+									title: 'Material 2'
+								},
+								{
+									title: 'Material 3'
+								},
+								{
+									title: 'Material 4'
+								}
+							]"
+							name="material"
+							v-model.trim="material"
+							placeholder="Material Type"
+						>
+							<Icon name="grid" color="currentColor" />
 
-					Material Type <a href="#">Type Definitions</a>
-				</Field>
+							Material Type <a href="#">Type Definitions</a>
+						</Field>
+					</GridColumn>
 
-				<div class="checkboxes">
-					<ul>
-						<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
-							This material is re-used from another public or private source
-						</FieldCheckbox>
+					<GridColumn>
+						<div class="checkboxes">
+							<ul>
+								<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
+									This material is re-used from another public or private source
+								</FieldCheckbox>
 
-						<FieldCheckbox name="practices" v-model="practices" isDropdown v-if="reuse !== null">
-							<a href="#">Best practices</a> for this material type have been followed
+								<FieldCheckbox
+									name="practices"
+									v-model="practices"
+									isDropdown
+									v-if="reuse !== null"
+								>
+									<a href="#">Best practices</a> for this material type have been followed
 
-							<button
-								tabindex="0"
-								type="button"
-								class="text-toggle"
-								@click="practices_text = !practices_text"
-							>
-								{{ textToggle(practices_text) }}
-							</button>
-						</FieldCheckbox>
+									<button
+										tabindex="0"
+										type="button"
+										class="text-toggle"
+										@click="practices_text = !practices_text"
+									>
+										{{ textToggle(practices_text) }}
+									</button>
+								</FieldCheckbox>
 
-						<HiddenText v-if="practices_text">
-							<p>
-								Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum
-								ipsam nostrum atque dolore eum cumque vero vel perferendis.
-							</p>
-						</HiddenText>
-					</ul>
-				</div>
+								<HiddenText v-if="practices_text">
+									<p>
+										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum
+										ipsam nostrum atque dolore eum cumque vero vel perferendis.
+									</p>
+								</HiddenText>
+							</ul>
+						</div>
+					</GridColumn>
 
-				<Field
-					v-if="reuse !== null"
-					name="rrid"
-					v-model.trim="rrid"
-					type="text"
-					placeholder="https://"
-				>
-					<Icon name="chain" color="currentColor" />
+					<GridColumn>
+						<Field
+							v-if="reuse !== null"
+							name="rrid"
+							v-model.trim="rrid"
+							type="text"
+							placeholder="https://"
+						>
+							<Icon name="chain" color="currentColor" />
 
-					RRID
-				</Field>
+							RRID
+						</Field>
+					</GridColumn>
 
-				<Field name="instructions" type="textarea" v-model="instructions">
-					<Icon name="comment" />
+					<GridColumn>
+						<Field name="instructions" type="textarea" v-model="instructions">
+							<Icon name="comment" />
 
-					Additional Comments or Instructions
-				</Field>
+							Additional Comments or Instructions
+						</Field>
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__body -->
 
@@ -115,13 +130,16 @@ import { required } from 'vuelidate/lib/validators';
 import Field from '@/components/field/field';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
-import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import HiddenText from '@/components/hidden-text/hidden-text';
+import Grid, { GridColumn } from '@/components/grid/grid';
+import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
 	name: 'FormDatasetMaterial',
 
 	components: {
+		Grid,
+		GridColumn,
 		Field,
 		Icon,
 		Button,

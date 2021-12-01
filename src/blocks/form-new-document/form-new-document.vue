@@ -4,7 +4,10 @@
 			<div class="form__head form__head--center">
 				<h2>Upload Your Research Text</h2>
 
-				<p>DataSeer will process the document and highlight passages which may need links to a dataset, code, lab materials, or protocol</p>
+				<p>
+					DataSeer will process the document and highlight passages which may need links to a
+					dataset, code, lab materials, or protocol
+				</p>
 			</div>
 			<!-- /.form__head -->
 
@@ -17,27 +20,38 @@
 			<!-- /.form__statuses -->
 
 			<div class="form__body">
-				<FieldFile v-model="primaryFile" accept=".docx, .pdf" name="primaryFile" :error="errors">
-					<template #label>
-						<Icon name="document_new" color="currentColor" />
+				<Grid rowGap="medium">
+					<GridColumn>
+						<FieldFile
+							v-model="primaryFile"
+							accept=".docx, .pdf"
+							name="primaryFile"
+							:error="errors"
+						>
+							<template #label>
+								<Icon name="document_new" color="currentColor" />
 
-						Select Your Primary File
-					</template>
+								Select Your Primary File
+							</template>
 
-					<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
-				</FieldFile>
+							<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
+						</FieldFile>
+					</GridColumn>
 
-				<FieldFile v-model="additionalFiles" name="additionalFiles" multiple="multiple">
-					<template #label>
-						<Icon name="documents" color="currentColor" />
+					<GridColumn>
+						<FieldFile v-model="additionalFiles" name="additionalFiles" multiple="multiple">
+							<template #label>
+								<Icon name="documents" color="currentColor" />
 
-						Select Additional Support Files <em>Optional</em>
-					</template>
+								Select Additional Support Files <em>Optional</em>
+							</template>
 
-					<template #helptext>
-						All file formats supported
-					</template>
-				</FieldFile>
+							<template #helptext>
+								All file formats supported
+							</template>
+						</FieldFile>
+					</GridColumn>
+				</Grid>
 
 				<div class="form__row">
 					<div class="checkboxes checkboxes--center">
@@ -74,10 +88,12 @@
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import FieldFile from '@/components/field-file/field-file';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
 	name: 'FormNewDocument',
+
 	data: function() {
 		return {
 			primaryFile: '',
@@ -89,6 +105,8 @@ export default {
 	},
 
 	components: {
+		Grid,
+		GridColumn,
 		Icon,
 		Button,
 		FieldFile,

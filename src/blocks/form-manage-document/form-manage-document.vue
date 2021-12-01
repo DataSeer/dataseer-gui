@@ -4,7 +4,7 @@
 			<div class="form__group">
 				<h4>Document Info</h4>
 
-				<Grid columnGap="large" rowGap="small" columnSize="half">
+				<Grid columnGap="large" columnSize="half">
 					<GridColumn>
 						<Field
 							type="textarea"
@@ -124,7 +124,7 @@
 			<div class="form__group">
 				<h4>Files</h4>
 
-				<Grid columnGap="large" rowGap="small" columnSize="half">
+				<Grid columnGap="large" columnSize="half">
 					<GridColumn>
 						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
 							<Icon name="document" color="currentColor" />
@@ -168,7 +168,7 @@
 
 			<div class="form__group">
 				<h4>Settings</h4>
-				<Grid columnGap="large" rowGap="small" columnSize="half">
+				<Grid columnGap="large" columnSize="half">
 					<GridColumn fullwidth>
 						<div class="checkboxes checkboxes--vertical">
 							<ul>

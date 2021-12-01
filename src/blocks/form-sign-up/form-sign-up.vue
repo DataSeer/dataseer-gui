@@ -3,7 +3,9 @@
 		<FormHead centered>
 			<h2>Sign Up</h2>
 
-			<p>DataSeer promotes open data sharing with AI powered tools for linking data to research texts</p>
+			<p>
+				DataSeer promotes open data sharing with AI powered tools for linking data to research texts
+			</p>
 		</FormHead>
 
 		<div class="form__status form__status--error" v-if="submitStatus === 'ERROR' && !loading">
@@ -12,48 +14,81 @@
 		<!-- /.form__status -->
 
 		<FormBody>
-			<Field :error="$v.name.$error" name="full-name" v-model.trim="name" type="text" placeholder="Enter">
-				<Icon name="user" color="currentColor" />
+			<Grid rowGap="small">
+				<GridColumn>
+					<Field
+						:error="$v.name.$error"
+						name="full-name"
+						v-model.trim="name"
+						type="text"
+						placeholder="Enter"
+					>
+						<Icon name="user" color="currentColor" />
 
-				Full Name
-			</Field>
+						Full Name
+					</Field>
+				</GridColumn>
+				<Field
+					:error="$v.email.$error"
+					name="email"
+					v-model.trim="email"
+					type="text"
+					placeholder="Enter"
+				>
+					<Icon name="email" color="currentColor" />
 
-			<Field :error="$v.email.$error" name="email" v-model.trim="email" type="text" placeholder="Enter">
-				<Icon name="email" color="currentColor" />
+					Email Address
+				</Field>
 
-				Email Address
-			</Field>
+				<GridColumn>
+					<Field
+						:error="$v.password.$error || $v.password_confirm.$error"
+						name="password"
+						v-model.trim="password"
+						type="password"
+						placeholder="Enter"
+					>
+						<Icon name="password" color="currentColor" />
 
-			<Field :error="$v.password.$error || $v.password_confirm.$error" name="password" v-model.trim="password" type="password" placeholder="Enter">
-				<Icon name="password" color="currentColor" />
+						Password <span>minimum 8 characters</span>
+					</Field>
 
-				Password <span>minimum 8 characters</span>
-			</Field>
+					<Field
+						:error="$v.password_confirm.$error"
+						name="password-confirm"
+						v-model.trim="password_confirm"
+						type="password"
+						placeholder="Confirm"
+					>
+					</Field>
+				</GridColumn>
 
-			<Field :error="$v.password_confirm.$error" name="password-confirm" v-model.trim="password_confirm" type="password" placeholder="Confirm">
-			</Field>
+				<GridColumn> </GridColumn>
 
-			<FieldSelect
-				:error="$v.organization.$error"
-				name="organization"
-				v-model.trim="organization"
-				:options="[
-					{
-						value: 'Organization 0'
-					},
-					{
-						value: 'Organization 1'
-					},
-					{
-						value: 'Organization 2'
-					}
-				]"
-				placeholder="Select"
-			>
-				<Icon name="organization" color="currentColor" />
+				<GridColumn>
+					<FieldSelect
+						:error="$v.organization.$error"
+						name="organization"
+						v-model.trim="organization"
+						:options="[
+							{
+								value: 'Organization 0'
+							},
+							{
+								value: 'Organization 1'
+							},
+							{
+								value: 'Organization 2'
+							}
+						]"
+						placeholder="Select"
+					>
+						<Icon name="organization" color="currentColor" />
 
-				Institution/Organization
-			</FieldSelect>
+						Institution/Organization
+					</FieldSelect>
+				</GridColumn>
+			</Grid>
 		</FormBody>
 
 		<FormActions centered>
@@ -89,6 +124,7 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormActions, FormMessage, FormHead, FormBody } from '@/components/form/form';
 
 export default {
@@ -101,6 +137,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Grid,
+		GridColumn,
 		Icon,
 		Form,
 		Field,

@@ -10,20 +10,30 @@
 		<!-- /.form__status -->
 
 		<FormBody>
-			<Field
-				:error="$v.password_current.$error || $v.password_new.$error"
-				name="password"
-				v-model.trim="password_current"
-				type="password"
-				placeholder="Enter Current Password"
-			>
-				<Icon name="password" color="currentColor" />
+			<Grid rowGap="small">
+				<GridColumn>
+					<Field
+						:error="$v.password_current.$error || $v.password_new.$error"
+						name="password"
+						v-model.trim="password_current"
+						type="password"
+						placeholder="Enter Current Password"
+					>
+						<Icon name="password" color="currentColor" />
 
-				Password <span>minimum 8 characters</span>
-			</Field>
+						Password <span>minimum 8 characters</span>
+					</Field>
 
-			<Field :error="$v.password_new.$error" name="password-confirm" v-model.trim="password_new" type="password" placeholder="Enter New Password">
-			</Field>
+					<Field
+						:error="$v.password_new.$error"
+						name="password-confirm"
+						v-model.trim="password_new"
+						type="password"
+						placeholder="Enter New Password"
+					>
+					</Field>
+				</GridColumn>
+			</Grid>
 		</FormBody>
 
 		<FormActions>
@@ -44,12 +54,15 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Field from '@/components/field/field';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormHead, FormBody, FormActions } from '@/components/form/form';
 
 export default {
 	name: 'formResetPassword',
 
 	components: {
+		Grid,
+		GridColumn,
 		Icon,
 		Button,
 		Field,

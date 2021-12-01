@@ -96,7 +96,7 @@ export default {
 		},
 		trailingIcon: {
 			type: String,
-			default: 'text'
+			default: ''
 		},
 		size: {
 			type: String,

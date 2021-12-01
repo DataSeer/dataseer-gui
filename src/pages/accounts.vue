@@ -9,7 +9,12 @@
 
 		<div class="table table--accounts" tabindex="0" aria-label="accounts">
 			<div class="table__inner">
-				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<vue-good-table
+					:columns="columns"
+					:rows="filteredRows"
+					:pagination-options="{ enabled: true }"
+					styleClass="vgt-table"
+				>
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Username'">
 							{{ props.column.label }}
@@ -53,12 +58,18 @@
 						</span>
 
 						<div v-else-if="props.column.field === 'action'" class="table__actions">
-							<Button size="small" className="tertiary" to="/edit-user" highlighted block>Edit User</Button>
+							<Button size="small" className="tertiary" to="/edit-account" highlighted block
+								>Edit User</Button
+							>
 						</div>
 					</template>
 
 					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
+						<Pagination
+							:totalItems="props.total"
+							:pageChanged="props.pageChanged"
+							:perPageChanged="props.perPageChanged"
+						/>
 					</template>
 				</vue-good-table>
 				<!-- /.table__table -->

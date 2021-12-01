@@ -11,7 +11,7 @@
 						Associated Documents
 					</h6>
 
-					<Button to="/accounts" className="secondary">
+					<Button to="/documents" className="secondary">
 						<Icon name="documents" color="currentColor" />
 
 						View Documents
