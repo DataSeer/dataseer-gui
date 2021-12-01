@@ -1,5 +1,5 @@
 <template>
-	<div class="grid__col">
+	<div class="grid__col" :class="{ fullwidth }">
 		<slot />
 	</div>
 	<!-- /.grid -->
@@ -10,6 +10,16 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'GridColumn'
+	name: 'GridColumn',
+
+	/**
+	 * Props
+	 */
+	props: {
+		fullwidth: {
+			type: Boolean,
+			default: false
+		}
+	}
 };
 </script>

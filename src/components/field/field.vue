@@ -3,13 +3,19 @@
 		class="field"
 		:class="{
 			'has-error': error,
+			'has-trailing-icon': trailingIcon,
 			'field--textarea': this.type === 'textarea',
 			'field--sm': this.size === 'small',
 			'field--md': this.size === 'medium',
 			'field--lg': this.size === 'large'
 		}"
 	>
-		<label v-if="this.$slots.default" :for="toKebabCase(name)" class="field__label" :class="{ 'sr-only': hideLabel }">
+		<label
+			v-if="this.$slots.default"
+			:for="toKebabCase(name)"
+			class="field__label"
+			:class="{ 'sr-only': hideLabel }"
+		>
 			<slot />
 		</label>
 
@@ -39,6 +45,10 @@
 				:value="value"
 				@input="handleChange"
 			/>
+
+			<div v-if="trailingIcon" class="field__trailing-icon">
+				<Icon :name="trailingIcon" />
+			</div>
 		</div>
 		<!-- /.field__controls -->
 	</div>
@@ -49,6 +59,7 @@
 /**
  * Internal Dependencies
  */
+import Icon from '@/components/icon/icon';
 import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
@@ -56,6 +67,13 @@ export default {
 	 * Name
 	 */
 	name: 'Field',
+
+	/**
+	 * Components
+	 */
+	components: {
+		Icon
+	},
 
 	/**
 	 * Props
@@ -75,6 +93,10 @@ export default {
 		placeholder: {
 			type: String,
 			default: ''
+		},
+		trailingIcon: {
+			type: String,
+			default: 'text'
 		},
 		size: {
 			type: String,

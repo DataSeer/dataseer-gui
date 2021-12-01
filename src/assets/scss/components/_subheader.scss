@@ -160,18 +160,6 @@
 		}
 	}
 
-	.subheader__left {
-		width: 722px;
-
-		@include breakpoint-down(large-desktop) {
-			width: 500px;
-		}
-
-		@include breakpoint-down(tablet) {
-			width: 100%;
-		}
-	}
-
 	.subheader__right {
 		@include breakpoint-down(tablet) {
 			text-align: right;

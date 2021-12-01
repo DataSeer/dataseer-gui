@@ -97,14 +97,14 @@
 							Publish Date
 						</FieldDatepicker>
 
-						<Field placeholder="Role Name" v-model="doi" name="DOI">
+						<Field placeholder="Role Name" v-model="doi" name="DOI" trailingIcon="refresh">
 							<Icon name="book" color="currentColor" />
 
 							DOI
 						</Field>
 					</GridColumn>
 
-					<GridColumn>
+					<GridColumn fullwidth>
 						<Field
 							type="textarea"
 							size="large"
@@ -124,7 +124,7 @@
 			<div class="form__group">
 				<h4>Files</h4>
 
-				<Grid columnGap="large" rowGap="small">
+				<Grid columnGap="large" rowGap="small" columnSize="half">
 					<GridColumn>
 						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
 							<Icon name="document" color="currentColor" />
@@ -168,22 +168,25 @@
 
 			<div class="form__group">
 				<h4>Settings</h4>
+				<Grid columnGap="large" rowGap="small" columnSize="half">
+					<GridColumn fullwidth>
+						<div class="checkboxes checkboxes--vertical">
+							<ul>
+								<li>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle
+										>Organization Is Active</FieldCheckbox
+									>
+								</li>
 
-				<div class="checkboxes checkboxes--vertical">
-					<ul>
-						<li>
-							<FieldCheckbox name="isActive" v-model="isActive" isToggle
-								>Organization Is Active</FieldCheckbox
-							>
-						</li>
-
-						<li>
-							<FieldCheckbox name="isLocked" v-model="isLocked" isToggle
-								>Organization Is Not Locked</FieldCheckbox
-							>
-						</li>
-					</ul>
-				</div>
+								<li>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle
+										>Organization Is Not Locked</FieldCheckbox
+									>
+								</li>
+							</ul>
+						</div>
+					</GridColumn>
+				</Grid>
 			</div>
 			<!-- /.form__group -->
 		</div>

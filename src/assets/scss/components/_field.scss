@@ -74,6 +74,22 @@
 		margin: 0 6px;
 	}
 
+	.field__controls {
+		position: relative;
+	}
+
+	.field__trailing-icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 13px;
+		color: $c-primary;
+		pointer-events: none;
+	}
+
 	.field__clear {
 		position: absolute;
 		top: 50%;
@@ -111,6 +127,10 @@
 
 	.field__helptext {
 		margin-top: 10px;
+	}
+
+	&.has-trailing-icon .field__input {
+		padding-right: 50px;
 	}
 
 	&.has-error .field__label {
