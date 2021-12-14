@@ -118,8 +118,7 @@
 						</Field>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
+			</div><!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Files</h4>
@@ -163,34 +162,32 @@
 						</FieldFile>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
+			</div><!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Settings</h4>
+				
 				<Grid columnGap="large" columnSize="half">
 					<GridColumn fullwidth>
 						<div class="checkboxes checkboxes--vertical">
 							<ul>
 								<li>
-									<FieldCheckbox name="isActive" v-model="isActive" isToggle
-										>Organization Is Active</FieldCheckbox
-									>
+									<FieldCheckbox name="isActive" v-model="isActive" isToggle>
+										Document Is {{ isActive ? 'Active' : 'Inactive'}}
+									</FieldCheckbox>
 								</li>
 
 								<li>
-									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle
-										>Organization Is Not Locked</FieldCheckbox
-									>
+									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
+										Document Is {{ isLocked ? 'Locked' : 'Not Locked'}}
+									</FieldCheckbox>
 								</li>
 							</ul>
 						</div>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
-		</div>
-		<!-- /.form__body -->
+			</div><!-- /.form__group -->
+		</div><!-- /.form__body -->
 
 		<div class="form__actions">
 			<ul>
@@ -210,10 +207,8 @@
 					</Button>
 				</li>
 			</ul>
-		</div>
-		<!-- /.form__actions -->
-	</div>
-	<!-- /.form -->
+		</div><!-- /.form__actions -->
+	</div><!-- /.form -->
 </template>
 
 <script>
@@ -255,8 +250,7 @@ export default {
 	 */
 	data: function() {
 		return {
-			documentTitle:
-				'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
+			documentTitle: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
 			documentAuthors: `Laura Leadauthor (leadauthor@toh.ca)
 Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
 Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada

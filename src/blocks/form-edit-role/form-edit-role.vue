@@ -49,13 +49,13 @@
 							<ul>
 								<li>
 									<FieldCheckbox name="isActive" v-model="isActive" isToggle>
-										Organization Is Active
+										Role Is {{ isActive ? 'Active' : 'Inactive'}}
 									</FieldCheckbox>
 								</li>
 
 								<li>
 									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
-										Organization Is Not Locked
+										Role Is {{ isLocked ? 'Locked' : 'Not Locked'}}
 									</FieldCheckbox>
 								</li>
 							</ul>
