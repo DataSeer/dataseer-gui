@@ -23,7 +23,8 @@
 
 	a {
 		position: relative;
-		display: block;
+		display: flex;
+		align-items: center;
 		padding: 11px 15px;
 		border-radius: 7px;
 		text-decoration: none;
@@ -51,6 +52,7 @@
 	}
 
 	.ico {
+		flex-shrink: 0;
 		margin-right: 8px;
 	}
 
@@ -63,7 +65,7 @@
 	}
 
 	li:nth-child(1) .router-link-active {
-		box-shadow: 0 2px 2px 0px rgba(25, 101, 176, 0.15) inset;
+		box-shadow: 0 2px 2px 0px rgba($c-blue-19, 0.15) inset;
 		background-color: $c-skyblue-fa;
 
 		&:before {
@@ -73,7 +75,7 @@
 
 	li:nth-child(2) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
-		background-color: #faf7ff;
+		background-color: $c-purple-fa;
 
 		&:before {
 			background-color: $c-purple-72;
@@ -82,7 +84,7 @@
 
 	li:nth-child(3) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
-		background-color: rgba(#fff7f4, 0.15);
+		background-color: $c-orange-fff;
 
 		&:before {
 			background-color: $c-orange-d2;
@@ -91,7 +93,7 @@
 
 	li:nth-child(4) .router-link-active {
 		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
-		background-color: #f5fcf8;
+		background-color: $c-green-f5;
 
 		&:before {
 			background-color: $c-green-40;
