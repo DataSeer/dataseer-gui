@@ -4,8 +4,7 @@
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
 			<FormFilters @onApplyFilters="updateFilters" />
-		</div>
-		<!-- /.table-filters -->
+		</div><!-- /.table-filters -->
 
 		<div class="table table--documents" tabindex="0" aria-label="documents">
 			<div class="table__inner">
@@ -187,11 +186,13 @@ export default {
 				{
 					field: 'id',
 					label: 'id',
-					hidden: true
+					hidden: true,
+					sortable: false,
 				},
 				{
 					field: 'title',
 					label: 'Title'
+					
 				},
 				{
 					field: 'author',
@@ -200,33 +201,31 @@ export default {
 				{
 					field: 'journal',
 					label: 'Journal',
-					sortable: false
 				},
 				{
 					field: 'file',
 					label: 'File',
-					sortable: false
+					sortFn: this.soryByFIleName,
 				},
 				{
 					field: 'uploaded',
 					label: 'Uploaded',
-					sortable: false,
 					type: 'date',
 					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd'
+					dateOutputFormat: 'yyyy-MM-dd',
+					sortFn: this.soryByUploadedDate,
 				},
 				{
 					field: 'modified',
 					label: 'Modified',
-					sortable: false,
 					type: 'date',
 					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd' // outputs Mar 16th 2018
+					dateOutputFormat: 'yyyy-MM-dd', // outputs Mar 16th 2018
+					sortFn: this.soryByModifiedDate,
 				},
 				{
 					field: 'status',
 					label: 'Status',
-					sortable: false
 				},
 				{
 					field: 'action',
@@ -493,6 +492,9 @@ export default {
 	methods: {
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
+		},
+		soryByFIleName(x, y) {
+			return (x.title < y.title ? -1 : (x.title > y.title ? 1 : 0));
 		},
 		...mapActions(['changeFiltersVisibility'])
 	}

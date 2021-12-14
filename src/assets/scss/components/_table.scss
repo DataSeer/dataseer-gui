@@ -123,7 +123,8 @@
 		}
 	}
 
-	.vgt-table thead th.sortable {
+	.vgt-table thead th.sorting-asc,
+	.vgt-table thead th.sorting-desc {
 		color: $c-primary;
 	}
 
