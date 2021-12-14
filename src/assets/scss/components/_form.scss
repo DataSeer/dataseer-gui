@@ -291,7 +291,33 @@
 
 .form--dataset {
 	letter-spacing: normal;
-	padding-top: 25px;
+	
+	.form__head {
+		position: absolute;;
+		z-index: 50;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding-left: 24px;
+		padding-right: 24px;
+		background: #fff;
+		font-size: 12px;
+		font-family: $ff-sans-serif;
+	}
+	
+	.form__head-inner {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		padding: 24px 0 15px;
+		border-bottom: 1px solid $c-skyblue-bc;
+	}
+
+	.form__head h5 {
+		margin-bottom: 0;
+		font-weight: 700;
+		font-family: inherit;
+	}
 
 	.form__cta {
 		position: absolute;
@@ -359,7 +385,7 @@
 
 .form--issues {
 	padding: 15px 19px;
-	margin-top: 15px;
+	margin-bottom: 20px;
 	background-color: rgba(#ff0000, 0.04);
 	border-radius: 6px;
 

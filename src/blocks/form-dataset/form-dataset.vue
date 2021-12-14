@@ -5,6 +5,14 @@
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
+				<div class="form__head">
+					<div class="form__head-inner">
+						<h5 v-if="title">{{ title }}</h5>
+
+						<p>{{type.value ||' Undefined Type'}}</p>
+					</div><!-- /.form__head-inner -->
+				</div>
+
 				<div class="form__body">
 					<Grid rowGap="medium">
 						<GridColumn>
@@ -360,6 +368,10 @@ export default {
 	name: 'FormDataset',
 
 	props: {
+		title: {
+			type: String,
+			default: ''
+		},
 		flagged: {
 			type: Boolean,
 			default: false

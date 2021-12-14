@@ -1,6 +1,14 @@
 <template>
 	<div class="form form--dataset">
 		<form action="?" method="post">
+			<div class="form__head">
+				<div class="form__head-inner">
+					<h5 v-if="title">{{ title }}</h5>
+
+					<p>{{material.value || 'Undefined Type'}}</p>
+				</div><!-- /.form__head-inner -->
+			</div>
+			
 			<div class="form__body">
 				<Grid rowGap="medium">
 					<GridColumn>
@@ -102,7 +110,8 @@
 					<!-- /.form__cta-col -->
 
 					<div class="form__cta-col">
-						<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
+						<Button clas
+						sName="tertiary" v-tooltip.top-center="tooltips.connectText">
 							<Icon name="connect" />
 
 							Connect Text
@@ -151,6 +160,13 @@ export default {
 		GridColumn,
 		FieldSelect,
 		FieldCheckbox
+	},
+	
+	props: {
+		title: {
+			type: String,
+			default: ''
+		},
 	},
 
 	data: function() {

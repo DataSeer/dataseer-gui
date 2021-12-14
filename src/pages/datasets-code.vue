@@ -54,21 +54,12 @@
 		<!-- /.intro -->
 
 		<Tabs>
-			<Tab 
-				title="Code-1"
-				subtitle="Code/Software"
-				tooltip="This Dataset Name Is Too Lon…"
-			>
-				<FormDatasetCode />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDatasetCode title="Code-1" />
 			</Tab>
 
-			<Tab
-				flagged
-				title="Code-2"
-				subtitle="Code/Software"
-				tooltip="This Dataset Name Is Too Lon…"
-			>
-				<FormDatasetCode flagged />
+			<Tab flagged tooltip="This Dataset Name Is Too Lon…" >
+				<FormDatasetCode title="Code-2" flagged />
 			</Tab>
 		</Tabs>
 

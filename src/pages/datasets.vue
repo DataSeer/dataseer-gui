@@ -54,32 +54,32 @@
 		<!-- /.intro -->
 
 		<Tabs>
-			<Tab title="Dataset-1" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-1" />
 			</Tab>
 
-			<Tab title="Dataset-2" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-2" />
 			</Tab>
 
-			<Tab title="Dataset-3" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-3" />
 			</Tab>
 
-			<Tab title="Dataset-4" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-4" />
 			</Tab>
 
-			<Tab title="Dataset-5" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-5" />
 			</Tab>
 
-			<Tab title="Dataset-6" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-6" />
 			</Tab>
 
-			<Tab title="Dataset-7" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
-				<FormDataset />
+			<Tab tooltip="This Dataset Name Is Too Lon…">
+				<FormDataset title="Dataset-7" />
 			</Tab>
 		</Tabs>
 

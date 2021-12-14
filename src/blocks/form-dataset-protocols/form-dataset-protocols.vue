@@ -1,6 +1,12 @@
 <template>
 	<div class="form form--dataset">
 		<form action="?" method="post">
+			<div class="form__head">
+				<div class="form__head-inner">
+					<h5 v-if="title">{{ title }}</h5>
+				</div><!-- /.form__head-inner -->
+			</div>
+			
 			<div class="form__body">
 				<Grid rowGap="medium">
 					<GridColumn>
@@ -297,6 +303,13 @@ export default {
 		Checkboxes,
 		FieldCheckbox,
 		HiddenText
+	},
+
+	props: {
+		title: {
+			type: String,
+			default: ''
+		},
 	},
 
 	data: function() {
