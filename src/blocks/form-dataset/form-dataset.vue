@@ -9,7 +9,7 @@
 					<div class="form__head-inner">
 						<h5 v-if="title">{{ title }}</h5>
 
-						<p>{{type.value ||' Undefined Type'}}</p>
+						<p>{{formData.type.value ||' Undefined Type'}}</p>
 					</div><!-- /.form__head-inner -->
 				</div>
 
@@ -34,7 +34,7 @@
 									}
 								]"
 								name="type"
-								v-model.trim="type"
+								v-model.trim="formData.type"
 								placeholder="Tabular Data"
 							>
 								<Icon name="grid" />
@@ -62,7 +62,7 @@
 									}
 								]"
 								name="organization"
-								v-model.trim="subtype"
+								v-model.trim="formData.subtype"
 								placeholder="Select"
 							>
 								<Icon name="grid" />
@@ -74,24 +74,24 @@
 						<GridColumn>
 							<div class="checkboxes">
 								<ul>
-									<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
+									<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
 										This dataset is re-used from another public or private source
 									</FieldCheckbox>
 
 									<FieldCheckbox
 										name="publicly"
-										v-model="publicly"
+										v-model="formData.publicly"
 										isDropdown
-										v-if="reuse === false"
+										v-if="formData.reuse === false"
 									>
 										This dataset cannot be shared publicly
 									</FieldCheckbox>
 
 									<FieldCheckbox
 										name="practices"
-										v-model="practices"
+										v-model="formData.practices"
 										isDropdown
-										v-if="publicly === true"
+										v-if="formData.publicly === true"
 									>
 										<a href="#">Best practices</a> for this data type have been followed
 										<button
@@ -186,7 +186,7 @@
 										</p>
 									</HiddenText>
 
-									<FieldCheckbox name="repo" v-model="repo" isDropdown v-if="publicly === true">
+									<FieldCheckbox name="repo" v-model="formData.repo" isDropdown v-if="formData.publicly === true">
 										A <a href="#">suitable repository</a> has been used to host this data
 
 										<button
@@ -284,12 +284,11 @@
 							</div>
 						</GridColumn>
 
-						<GridColumn>
+						<GridColumn v-if="formData.repo">
 							<Field
-								v-if="repo"
 								name="permalink"
 								type="text"
-								v-model.trim="permalink"
+								v-model.trim="formData.permalink"
 								placeholder="https://"
 							>
 								<Icon name="chain" color="currentColor" />
@@ -299,7 +298,7 @@
 						</GridColumn>
 
 						<GridColumn>
-							<Field name="instructions" type="textarea" v-model="instructions">
+							<Field name="instructions" type="textarea" v-model="formData.instructions">
 								<Icon name="comment" />
 
 								Additional Comments or Instructions
@@ -312,7 +311,7 @@
 				<div class="form__cta">
 					<div class="form__cta-row">
 						<div class="form__cta-col">
-							<Button>Complete This Dataset</Button>
+							<Button @onClick="handleComplete">Complete This Dataset</Button>
 						</div>
 						<!-- /.form__cta-col -->
 
@@ -365,8 +364,14 @@ import Grid, { GridColumn } from '@/components/grid/grid';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormDataset',
 
+	/**
+	 * Props
+	 */
 	props: {
 		title: {
 			type: String,
@@ -378,6 +383,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Components
+	 */
 	components: {
 		Grid,
 		GridColumn,
@@ -391,16 +399,21 @@ export default {
 		FormCuratorIssues
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
-			type: '',
-			subtype: '',
-			permalink: '',
-			instructions: '',
-			reuse: null,
-			publicly: null,
-			practices: null,
-			repo: null,
+			formData: {
+				type: '',
+				subtype: '',
+				permalink: '',
+				instructions: '',
+				reuse: null,
+				publicly: null,
+				practices: null,
+				repo: null,
+			},
 			practices_text: false,
 			repo_text: false,
 			tooltips: {
@@ -410,6 +423,18 @@ export default {
 			isIssuesFormVisible: false
 		};
 	},
+	
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.$emit('onDatasetComplete', false)
+			},
+			deep: true
+		}
+	},
 
 	/**
 	 * Computed
@@ -418,6 +443,9 @@ export default {
 		...mapGetters(['getCurator'])
 	},
 
+	/**
+	 * Validations
+	 */
 	validations: {
 		type: {
 			required
@@ -443,11 +471,19 @@ export default {
 		},
 		handleDelete(e) {
 			e.preventDefault(e);
-			window.confirm('Are you sure you want to delete this dataset?');
+			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
+
+			if (confirmDelete) {
+				this.$emit('onDatasetDelete')
+			}
 		},
 		openPopup(e) {
 			e.preventDefault(e);
 			this.$refs.textPassagePopup.showModal();
+		},
+		handleComplete(e) {
+			e.preventDefault(e);
+			this.$emit('onDatasetComplete', true)
 		}
 	}
 };

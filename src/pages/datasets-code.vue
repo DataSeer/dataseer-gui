@@ -50,8 +50,7 @@
 				<!-- /.intro__tip -->
 			</div>
 			<!-- /.intro__body -->
-		</div>
-		<!-- /.intro -->
+		</div><!-- /.intro -->
 
 		<Tabs>
 			<Tab tooltip="This Dataset Name Is Too Lon…">
