@@ -43,7 +43,7 @@
 							</Field>
 						</GridColumn>
 
-						<GridColumn>
+						<GridColumn>	
 							<Field name="script" type="text" placeholder="Script DOI /PID">
 								<Icon name="brackets" color="currentColor" />
 
@@ -283,7 +283,7 @@
 				<div class="form__cta">
 					<div class="form__cta-row">
 						<div class="form__cta-col">
-							<Button>Complete This Dataset</Button>
+							<Button>Complete This Code</Button>
 						</div>
 						<!-- /.form__cta-col -->
 

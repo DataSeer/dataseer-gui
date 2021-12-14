@@ -4,19 +4,23 @@
 			<div class="form__body">
 				<Grid rowGap="medium">
 					<GridColumn>
-						<Field
+						<FieldSelect
 							:error="$v.type.$error"
 							:options="[
-								{
+								{	
+									value: 'material-1',
 									title: 'Material 1'
 								},
 								{
+									value: 'material-2',
 									title: 'Material 2'
 								},
 								{
+									value: 'material-3',
 									title: 'Material 3'
 								},
 								{
+									value: 'material-4',
 									title: 'Material 4'
 								}
 							]"
@@ -24,10 +28,10 @@
 							v-model.trim="material"
 							placeholder="Material Type"
 						>
-							<Icon name="grid" color="currentColor" />
+							<Icon name="flask" />
 
 							Material Type <a href="#">Type Definitions</a>
-						</Field>
+						</FieldSelect>
 					</GridColumn>
 
 					<GridColumn>
@@ -93,7 +97,7 @@
 			<div class="form__cta">
 				<div class="form__cta-row">
 					<div class="form__cta-col">
-						<Button>Complete This Dataset</Button>
+						<Button>Complete This Material</Button>
 					</div>
 					<!-- /.form__cta-col -->
 
@@ -128,6 +132,7 @@
 import { required } from 'vuelidate/lib/validators';
 
 import Field from '@/components/field/field';
+import FieldSelect from '@/components/field-select/field-select';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import HiddenText from '@/components/hidden-text/hidden-text';
@@ -138,13 +143,14 @@ export default {
 	name: 'FormDatasetMaterial',
 
 	components: {
-		Grid,
-		GridColumn,
-		Field,
 		Icon,
+		Grid,
+		Field,
 		Button,
-		FieldCheckbox,
-		HiddenText
+		HiddenText,
+		GridColumn,
+		FieldSelect,
+		FieldCheckbox
 	},
 
 	data: function() {

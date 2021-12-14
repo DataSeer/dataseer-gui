@@ -54,7 +54,7 @@
 		<!-- /.intro -->
 
 		<Tabs v-if="!intro">
-			<Tab title="Dataset-1" subtitle="Tabular Data" tooltip="This Dataset Name Is Too Lon…">
+			<Tab title="Material-1" subtitle="Undefined Type" tooltip="This Dataset Name Is Too Lon…">
 				<FormDatasetMaterial />
 			</Tab>
 		</Tabs>
