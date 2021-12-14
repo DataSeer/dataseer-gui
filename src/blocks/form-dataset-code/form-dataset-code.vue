@@ -291,11 +291,11 @@
 				<div class="form__cta">
 					<div class="form__cta-row">
 						<div class="form__cta-col">
-							<Button>Complete This Code</Button>
+							<Button @onClick="handleComplete">Complete This Dataset</Button>
 						</div>
 						<!-- /.form__cta-col -->
 
-						<div v-if="!getCurator" class="form__cta-col">
+						<div class="form__cta-col">
 							<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
 								<Icon name="connect" />
 
@@ -310,40 +310,6 @@
 								<Icon name="trash" />
 
 								Delete
-							</Button>
-						</div>
-						<!-- /.form-__cta-col -->
-
-						<div v-if="getCurator" class="form__cta-col">
-							<Button
-								className="tertiary"
-								square
-								v-tooltip.top-center="tooltips.flagText"
-								@onClick="toggleIssuesForm"
-							>
-								<Icon name="flag" />
-							</Button>
-
-							<Button
-								className="tertiary"
-								square
-								v-tooltip.top-center="tooltips.show"
-								@onClick="openPopup"
-							>
-								<Icon name="documents" />
-							</Button>
-
-							<Button className="tertiary" square v-tooltip.top-center="tooltips.connectText">
-								<Icon name="connect" />
-							</Button>
-
-							<Button
-								className="tertiary"
-								square
-								v-tooltip.top-center="tooltips.deleteText"
-								@onClick="handleDelete"
-							>
-								<Icon name="trash" />
 							</Button>
 						</div>
 						<!-- /.form-__cta-col -->
@@ -459,6 +425,18 @@ export default {
 	},
 
 	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.$emit('onDatasetComplete', false)
+			},
+			deep: true
+		}
+	},
+
+	/**
 	 * Computed
 	 */
 	computed: {
@@ -493,11 +471,19 @@ export default {
 		},
 		handleDelete(e) {
 			e.preventDefault(e);
-			window.confirm('Are you sure you want to delete this dataset?');
+			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
+
+			if (confirmDelete) {
+				this.$emit('onDatasetDelete')
+			}
 		},
 		openPopup(e) {
 			e.preventDefault(e);
 			this.$refs.textPassagePopup.showModal();
+		},
+		handleComplete(e) {
+			e.preventDefault(e);
+			this.$emit('onDatasetComplete', true)
 		}
 	}
 };
