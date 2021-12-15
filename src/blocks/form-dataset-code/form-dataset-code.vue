@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<FormIssues v-if="flagged" />
+		<FormIssues v-if="flagged && isIssuesFormVisible" />
 		<FormCuratorIssues v-if="!flagged && isIssuesFormVisible" />
 
 		<div class="form form--dataset">
@@ -430,7 +430,7 @@ export default {
 			},
 			repo_text: false,
 			practices_text: false,
-			isIssuesFormVisible: false
+			isIssuesFormVisible: true
 		};
 	},
 
