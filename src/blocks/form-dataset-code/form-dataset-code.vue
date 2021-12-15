@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<FormIssues v-if="flagged && isIssuesFormVisible" />
-		<FormCuratorIssues v-if="!flagged && isIssuesFormVisible" />
+		<FormIssues v-if="flagged" />
+		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" />
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
@@ -78,7 +78,7 @@
 									name="practices"
 									v-model="formData.practices"
 									isDropdown
-									v-if="reuse !== null"
+									v-if="formData.reuse !== null"
 								>
 									<a href="#">Best practices</a> for this code type have been followed
 
@@ -297,11 +297,10 @@
 				<div class="form__cta">
 					<div class="form__cta-row">
 						<div class="form__cta-col">
-							<Button @onClick="handleComplete">Complete This Dataset</Button>
-						</div>
-						<!-- /.form__cta-col -->
+							<Button @onClick="handleComplete">Complete This Code</Button>
+						</div><!-- /.form__cta-col -->
 
-						<div class="form__cta-col">
+						<div v-if="!getCurator" class="form__cta-col">
 							<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
 								<Icon name="connect" />
 
@@ -317,8 +316,45 @@
 
 								Delete
 							</Button>
-						</div>
-						<!-- /.form-__cta-col -->
+						</div><!-- /.form-__cta-col -->
+
+						<div v-if="getCurator" class="form__cta-col">
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.flagText"
+								@onClick="toggleIssuesForm"
+							>
+								<Icon name="flag" />
+							</Button>
+
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.show"
+								@onClick="openPopup"
+							>
+								<Icon name="documents" />
+							</Button>
+
+							<Button 
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.connectText"
+								@onClick="handleSelectAdditionalText"
+							>
+								<Icon name="connect" />
+							</Button>
+
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.deleteText"
+								@onClick="handleDelete"
+							>
+								<Icon name="trash" />
+							</Button>
+						</div><!-- /.form-__cta-col -->
 					</div>
 					<!-- /.form__cta-row -->
 				</div>
@@ -430,7 +466,7 @@ export default {
 			},
 			repo_text: false,
 			practices_text: false,
-			isIssuesFormVisible: true
+			isIssuesFormVisible: false
 		};
 	},
 
@@ -480,19 +516,22 @@ export default {
 			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
 		handleDelete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
 			if (confirmDelete) {
 				this.$emit('onDatasetDelete')
 			}
 		},
+		handleSelectAdditionalText(e) {
+			e.preventDefault();
+		},
 		openPopup(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$refs.textPassagePopup.showModal();
 		},
 		handleComplete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$emit('onDatasetComplete', true)
 		}
 	}

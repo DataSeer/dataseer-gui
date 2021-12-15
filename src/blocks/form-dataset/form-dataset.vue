@@ -470,7 +470,7 @@ export default {
 			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
 		handleDelete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
 			if (confirmDelete) {
@@ -478,11 +478,11 @@ export default {
 			}
 		},
 		openPopup(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$refs.textPassagePopup.showModal();
 		},
 		handleComplete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$emit('onDatasetComplete', true)
 		}
 	}

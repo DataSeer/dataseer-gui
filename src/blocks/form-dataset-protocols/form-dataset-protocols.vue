@@ -242,7 +242,7 @@
 			<div class="form__cta">
 				<div class="form__cta-row">
 					<div class="form__cta-col">
-						<Button @onClick="handleComplete">Complete This Dataset</Button>
+						<Button @onClick="handleComplete">Complete This Protocol</Button>
 					</div>
 					<!-- /.form__cta-col -->
 
@@ -382,7 +382,7 @@ export default {
 			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
 		handleDelete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
 			if (confirmDelete) {
@@ -390,11 +390,11 @@ export default {
 			}
 		},
 		openPopup(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$refs.textPassagePopup.showModal();
 		},
 		handleComplete(e) {
-			e.preventDefault(e);
+			e.preventDefault();
 			this.$emit('onDatasetComplete', true)
 		}
 	}

@@ -27,13 +27,13 @@
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small">
+						<Button size="small" @onClick="saveIssues">
 							Save issues
 						</Button>
 					</li>
 
 					<li>
-						<ButtonLink>Cancel</ButtonLink>
+						<ButtonLink @onClick="cancel">Cancel</ButtonLink>
 					</li>
 				</ul>
 			</div>
@@ -203,6 +203,12 @@ export default {
 		updateIssue(id, key, value) {
 			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
 			this.issues[issueIndex][key] = value;
+		},
+		saveIssues(e) {
+			e.preventDefault()
+		},
+		cancel(e) {
+			e.preventDefault()
 		}
 	}
 };

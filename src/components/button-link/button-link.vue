@@ -8,7 +8,7 @@
 			[`btn-link--${className}`]: className,
 			'is-disabled': disabled
 		}"
-		@click="$emit('onClick')"
+		@click="$emit('onClick', $event)"
 	>
 		<slot />
 	</component>

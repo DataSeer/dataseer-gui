@@ -11,7 +11,7 @@
 			</Tab>
 		</Tabs>
 
-		<DatasetUtils />
+		<DatasetUtils @addButtonClick="addDataset" />
 
 		<template #right>
 			<PDF />
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
@@ -45,6 +48,9 @@ export default {
 		DatasetUtils
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			tabs: [
@@ -73,6 +79,13 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		addDataset() {
+			this.tabs.push({
+				tooltip: 'This Dataset Name Is Too Lon…',
+				completed: false,
+				flagged: false,
+			})
+		},
 		completeDataset(index, value) {
 			this.tabs[index].completed = value;
 		},

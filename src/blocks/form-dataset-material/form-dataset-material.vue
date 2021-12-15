@@ -103,13 +103,12 @@
 			<div class="form__cta">
 				<div class="form__cta-row">
 					<div class="form__cta-col">
-						<Button>Complete This Material</Button>
+						<Button @onClick="handleComplete">Complete This Material</Button>
 					</div>
 					<!-- /.form__cta-col -->
 
 					<div class="form__cta-col">
-						<Button clas
-						sName="tertiary" v-tooltip.top-center="tooltips.connectText">
+						<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
 							<Icon name="connect" />
 
 							Connect Text
@@ -233,9 +232,25 @@ export default {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
 		},
+		toggleIssuesForm(e) {
+			e.preventDefault();
+			this.isIssuesFormVisible = !this.isIssuesFormVisible;
+		},
+		handleDelete(e) {
+			e.preventDefault();
+			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
-		handleDelete() {
-			window.confirm('Are you sure you want to delete this dataset?');
+			if (confirmDelete) {
+				this.$emit('onDatasetDelete')
+			}
+		},
+		openPopup(e) {
+			e.preventDefault();
+			this.$refs.textPassagePopup.showModal();
+		},
+		handleComplete(e) {
+			e.preventDefault();
+			this.$emit('onDatasetComplete', true)
 		}
 	}
 };

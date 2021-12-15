@@ -10,7 +10,7 @@
 			</Tab>
 		</Tabs>
 
-		<DatasetUtils />
+		<DatasetUtils @addButtonClick="addDataset" />
 
 		<template #right>
 			<PDF />
@@ -115,6 +115,13 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		addDataset() {
+			this.tabs.push({
+				tooltip: 'This Dataset Name Is Too Lon…',
+				completed: false,
+				flagged: false,
+			})
+		},
 		completeDataset(index, value) {
 			this.tabs[index].completed = value;
 		},

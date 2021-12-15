@@ -1,6 +1,6 @@
 <template>
 	<Main className="main--datasets main--datasets-materials" hasSubheader>
-		<div class="intro" v-if="intro">
+		<div class="intro" v-if="!tabs.length">
 			<div class="intro__head">
 				<h3>
 					No Materials Yet
@@ -52,7 +52,7 @@
 			<!-- /.intro__body -->
 		</div><!-- /.intro -->
 
-		<Tabs v-if="!intro">
+		<Tabs v-if="tabs.length">
 			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
 				<FormDatasetMaterial
 					:title="`Dataset-${index + 1}`"
@@ -62,7 +62,7 @@
 			</Tab>
 		</Tabs>
 
-		<DatasetUtils @addButtonClick="intro = false" />
+		<DatasetUtils @addButtonClick="addDataset" />
 
 		<template #right>
 			<PDF />
@@ -91,18 +91,8 @@ export default {
 	 */
 	data: function() {
 		return {
-			tabs: [
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-			],
+			tabs: [],
 			source: '/test.pdf',
-			intro: true
 		};
 	},
 
@@ -124,6 +114,13 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		addDataset() {
+			this.tabs.push({
+				tooltip: 'This Dataset Name Is Too Lon…',
+				completed: false,
+				flagged: false,
+			})
+		},
 		completeDataset(index, value) {
 			this.tabs[index].completed = value;
 		},

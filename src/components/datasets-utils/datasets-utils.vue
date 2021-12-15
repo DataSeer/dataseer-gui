@@ -2,9 +2,8 @@
 	<ul class="datasets-utils">
 		<li>
 			<button
-				href="#"
-				v-tooltip.right="mergeText"
 				tabindex="0"
+				v-tooltip.right="mergeText"
 				:aria-label="mergeText"
 				@click.prevent="$emit('mergeButtonClick')"
 			>
@@ -14,9 +13,8 @@
 
 		<li>
 			<button
-				href="#"
-				v-tooltip.right="addText"
 				tabindex="0"
+				v-tooltip.right="addText"
 				:aria-label="addText"
 				@click.prevent="$emit('addButtonClick')"
 			>

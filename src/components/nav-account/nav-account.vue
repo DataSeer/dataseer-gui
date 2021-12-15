@@ -100,7 +100,7 @@
 							</li>
 
 							<li>
-								<a tabindex="0" @click.prevent="setLogin(false)">
+								<a tabindex="0" @click.prevent="handleSignout">
 									<Icon name="signout" color="CurrentColor" />
 
 									Sign Out
@@ -131,23 +131,52 @@
 </template>
 
 <script>
-import DropDown from '@/components/dropdown/dropdown';
-import Icon from '@/components/icon/icon';
+/**
+ * External Dependencies
+ */
 import { mapGetters, mapActions } from 'vuex';
 
+/**
+ * Internal Dependencies
+ */
+import DropDown from '@/components/dropdown/dropdown';
+import Icon from '@/components/icon/icon';
+
 export default {
+	/**
+	 * Name
+	 */
 	name: 'navAccount',
+	
+	/**
+	 * Components
+	 */
+	components: {
+		Icon,
+		DropDown
+	},
+	
+	/**
+	 * Computed
+	 */
 	computed: {
 		...mapGetters(['getLogin'])
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
-		...mapActions(['setLogin'])
+		...mapActions(['setLogin']),
+		...mapActions(['setCurator']),
+		handleSignout() {
+			this.setLogin(false);
+			this.setCurator(false);
+			
+			this.$router.push({
+				name: 'SignIn'
+			});
+		}
 	},
-
-	components: {
-		Icon,
-		DropDown
-	}
 };
 </script>
