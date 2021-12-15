@@ -53,32 +53,12 @@
 		</div><!-- /.intro -->
 
 		<Tabs>
-			<Tab completed tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-1" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-2" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-3" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-4" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-5" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-6" />
-			</Tab>
-
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetProtocols title="Protocol-7" />
+			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
+				<FormDatasetProtocols
+					:title="`Dataset-${index + 1}`"
+					@onDatasetDelete="deleteDataset(index)" 
+					@onDatasetComplete="(value) => completeDataset(index, value)"
+				/>
 			</Tab>
 		</Tabs>
 
@@ -101,15 +81,14 @@ import FormDatasetProtocols from '@/blocks/form-dataset-protocols/form-dataset-p
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Datasets',
 
-	data: function() {
-		return {
-			source: '/test.pdf',
-			intro: false
-		};
-	},
-
+	/**
+	 * Components
+	 */
 	components: {
 		PDF,
 		Tab,
@@ -119,6 +98,86 @@ export default {
 		Button,
 		DatasetUtils,
 		FormDatasetProtocols
-	}
+	},
+
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			tabs: [
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+			],
+			source: '/test.pdf',
+			intro: false
+		};
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		completeDataset(index, value) {
+			this.tabs[index].completed = value;
+		},
+		deleteDataset(index) {
+			this.tabs.splice(index, 1);
+		}
+	},
 };
 </script>

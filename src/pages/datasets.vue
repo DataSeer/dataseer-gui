@@ -3,7 +3,7 @@
 		<Tabs>
 			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
 				<FormDataset
-					:title="`Dataset-${index}`"
+					:title="`Dataset-${index + 1}`"
 					@onDatasetDelete="deleteDataset(index)" 
 					@onDatasetComplete="(value) => completeDataset(index, value)"
 				/>

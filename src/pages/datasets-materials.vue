@@ -50,12 +50,15 @@
 				<!-- /.intro__tip -->
 			</div>
 			<!-- /.intro__body -->
-		</div>
-		<!-- /.intro -->
+		</div><!-- /.intro -->
 
 		<Tabs v-if="!intro">
-			<Tab tooltip="This Dataset Name Is Too Lon…">
-				<FormDatasetMaterial title="Material-1" />
+			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
+				<FormDatasetMaterial
+					:title="`Dataset-${index + 1}`"
+					@onDatasetDelete="deleteDataset(index)" 
+					@onDatasetComplete="(value) => completeDataset(index, value)"
+				/>
 			</Tab>
 		</Tabs>
 
@@ -78,15 +81,34 @@ import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 import FormDatasetMaterial from '@/blocks/form-dataset-material/form-dataset-material';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Datasets',
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
+			tabs: [
+				{
+					tooltip: 'This Dataset Name Is Too Lon…',
+					completed: false,
+					flagged: false,
+					formData: {
+
+					}
+				},
+			],
 			source: '/test.pdf',
 			intro: true
 		};
 	},
 
+	/**
+	 * Components
+	 */
 	components: {
 		PDF,
 		Tab,
@@ -96,6 +118,18 @@ export default {
 		Button,
 		DatasetUtils,
 		FormDatasetMaterial
-	}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		completeDataset(index, value) {
+			this.tabs[index].completed = value;
+		},
+		deleteDataset(index) {
+			this.tabs.splice(index, 1);
+		}
+	},
 };
 </script>

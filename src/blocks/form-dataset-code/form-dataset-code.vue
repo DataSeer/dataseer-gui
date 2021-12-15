@@ -435,6 +435,13 @@ export default {
 	},
 
 	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters(['getCurator'])
+	},
+
+	/**
 	 * Watch
 	 */
 	watch: {
@@ -444,13 +451,6 @@ export default {
 			},
 			deep: true
 		}
-	},
-
-	/**
-	 * Computed
-	 */
-	computed: {
-		...mapGetters(['getCurator'])
 	},
 
 	/**

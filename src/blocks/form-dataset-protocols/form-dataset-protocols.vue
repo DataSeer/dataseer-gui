@@ -11,15 +11,15 @@
 				<Grid rowGap="medium">
 					<GridColumn>
 						<Checkboxes>
-							<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
+							<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
 								This dataset is re-used from another public or private source
 							</FieldCheckbox>
 
 							<FieldCheckbox
 								name="practices"
-								v-model="practices"
+								v-model="formData.practices"
 								isDropdown
-								v-if="reuse !== null"
+								v-if="formData.reuse !== null"
 							>
 								<a href="#">Best practices</a> for this data type have been followed
 								<button
@@ -32,7 +32,7 @@
 								</button>
 							</FieldCheckbox>
 
-							<FieldCheckbox name="publicly" v-model="publicly" isDropdown v-if="reuse !== null">
+							<FieldCheckbox name="publicly" v-model="formData.publicly" isDropdown v-if="formData.reuse !== null">
 								This dataset cannot be shared publicly
 							</FieldCheckbox>
 
@@ -202,12 +202,12 @@
 						</Checkboxes>
 					</GridColumn>
 
-					<GridColumn v-if="reuse === false">
+					<GridColumn v-if="formData.reuse === false">
 						<Field
 							name="doi"
 							type="text"
 							placeholder="https://"
-							v-model.trim="doi"
+							v-model.trim="formData.doi"
 						>
 							<Icon name="chain" color="currentColor" />
 
@@ -215,10 +215,10 @@
 						</Field>
 					</GridColumn>
 
-					<GridColumn v-if="reuse === true">
+					<GridColumn v-if="formData.reuse === true">
 						<Field
 							name="permalink"
-							v-model.trim="permalink"
+							v-model.trim="formData.permalink"
 							type="text"
 							placeholder="https://"
 						>
@@ -229,7 +229,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field name="instructions" type="textarea" v-model="instructions">
+						<Field name="instructions" type="textarea" v-model="formData.instructions">
 							<Icon name="comment" />
 
 							Additional Comments or Instructions
@@ -242,7 +242,7 @@
 			<div class="form__cta">
 				<div class="form__cta-row">
 					<div class="form__cta-col">
-						<Button>Complete This Protocol</Button>
+						<Button @onClick="handleComplete">Complete This Dataset</Button>
 					</div>
 					<!-- /.form__cta-col -->
 
@@ -292,8 +292,14 @@ import HiddenText from '@/components/hidden-text/hidden-text';
 import Grid, { GridColumn } from '@/components/grid/grid';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormDatasetProtocols',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Grid,
 		GridColumn,
@@ -305,6 +311,9 @@ export default {
 		HiddenText
 	},
 
+	/**
+	 * Props
+	 */
 	props: {
 		title: {
 			type: String,
@@ -312,23 +321,31 @@ export default {
 		},
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
-			reuse: null,
-			publicly: null,
-			practices: null,
-			practices_text: false,
-			repo_text: false,
-			doi: '',
-			permalink: '',
-			instructions: '',
+			formData: {
+				reuse: null,
+				publicly: null,
+				practices: null,
+				doi: '',
+				permalink: '',
+				instructions: '',
+			},
 			tooltips: {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
-			}
+			},
+			practices_text: false,
+			repo_text: false
 		};
 	},
 
+	/**
+	 * Validations
+	 */
 	validations: {
 		type: {
 			required
@@ -341,13 +358,44 @@ export default {
 		}
 	},
 
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.$emit('onDatasetComplete', false)
+			},
+			deep: true
+		}
+	},
+
+	/**
+	 * Methods
+	 */
 	methods: {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
 		},
+		toggleIssuesForm(e) {
+			e.preventDefault();
+			this.isIssuesFormVisible = !this.isIssuesFormVisible;
+		},
+		handleDelete(e) {
+			e.preventDefault(e);
+			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
-		handleDelete() {
-			window.confirm('Are you sure you want to delete this dataset?');
+			if (confirmDelete) {
+				this.$emit('onDatasetDelete')
+			}
+		},
+		openPopup(e) {
+			e.preventDefault(e);
+			this.$refs.textPassagePopup.showModal();
+		},
+		handleComplete(e) {
+			e.preventDefault(e);
+			this.$emit('onDatasetComplete', true)
 		}
 	}
 };

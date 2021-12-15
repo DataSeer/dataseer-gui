@@ -5,7 +5,7 @@
 				<div class="form__head-inner">
 					<h5 v-if="title">{{ title }}</h5>
 
-					<p>{{material.value || 'Undefined Type'}}</p>
+					<p>{{formData.material.value || 'Undefined Type'}}</p>
 				</div><!-- /.form__head-inner -->
 			</div>
 			
@@ -33,7 +33,7 @@
 								}
 							]"
 							name="material"
-							v-model.trim="material"
+							v-model.trim="formData.material"
 							placeholder="Material Type"
 						>
 							<Icon name="flask" />
@@ -43,45 +43,43 @@
 					</GridColumn>
 
 					<GridColumn>
-						<div class="checkboxes">
-							<ul>
-								<FieldCheckbox name="reuse" v-model="reuse" isDropdown>
-									This material is re-used from another public or private source
-								</FieldCheckbox>
+						<Checkboxes>
+							<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
+								This material is re-used from another public or private source
+							</FieldCheckbox>
 
-								<FieldCheckbox
-									name="practices"
-									v-model="practices"
-									isDropdown
-									v-if="reuse !== null"
+							<FieldCheckbox
+								name="practices"
+								v-model="formData.practices"
+								isDropdown
+								v-if="formData.reuse !== null"
+							>
+								<a href="#">Best practices</a> for this material type have been followed
+
+								<button
+									tabindex="0"
+									type="button"
+									class="text-toggle"
+									@click="practices_text = !practices_text"
 								>
-									<a href="#">Best practices</a> for this material type have been followed
+									{{ textToggle(practices_text) }}
+								</button>
+							</FieldCheckbox>
 
-									<button
-										tabindex="0"
-										type="button"
-										class="text-toggle"
-										@click="practices_text = !practices_text"
-									>
-										{{ textToggle(practices_text) }}
-									</button>
-								</FieldCheckbox>
-
-								<HiddenText v-if="practices_text">
-									<p>
-										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum
-										ipsam nostrum atque dolore eum cumque vero vel perferendis.
-									</p>
-								</HiddenText>
-							</ul>
-						</div>
+							<HiddenText v-if="practices_text">
+								<p>
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit labore, laborum
+									ipsam nostrum atque dolore eum cumque vero vel perferendis.
+								</p>
+							</HiddenText>
+						</Checkboxes>
 					</GridColumn>
 
 					<GridColumn>
 						<Field
-							v-if="reuse !== null"
+							v-if="formData.reuse !== null"
 							name="rrid"
-							v-model.trim="rrid"
+							v-model.trim="formData.rrid"
 							type="text"
 							placeholder="https://"
 						>
@@ -92,7 +90,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field name="instructions" type="textarea" v-model="instructions">
+						<Field name="instructions" type="textarea" v-model="formData.instructions">
 							<Icon name="comment" />
 
 							Additional Comments or Instructions
@@ -146,22 +144,33 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import HiddenText from '@/components/hidden-text/hidden-text';
 import Grid, { GridColumn } from '@/components/grid/grid';
+import Checkboxes from '@/components/checkboxes/checkboxes';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormDatasetMaterial',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Icon,
 		Grid,
 		Field,
 		Button,
+		Checkboxes,
 		HiddenText,
 		GridColumn,
 		FieldSelect,
 		FieldCheckbox
 	},
 	
+	/**
+	 * Props
+	 */
 	props: {
 		title: {
 			type: String,
@@ -169,15 +178,20 @@ export default {
 		},
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
-			material: '',
-			reuse: null,
-			practices: null,
+			formData: {
+				material: '',
+				reuse: null,
+				practices: null,
+				rrid: '',
+				permalink: '',
+				instructions: '',
+			},
 			practices_text: false,
-			rrid: '',
-			permalink: '',
-			instructions: '',
 			tooltips: {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
@@ -185,6 +199,21 @@ export default {
 		};
 	},
 
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler() {
+				this.$emit('onDatasetComplete', false)
+			},
+			deep: true
+		}
+	},
+
+	/**
+	 * Validations
+	 */
 	validations: {
 		type: {
 			required
@@ -197,6 +226,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
