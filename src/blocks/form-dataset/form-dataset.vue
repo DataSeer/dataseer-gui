@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<FormIssues v-if="flagged && !getCurator" />
-		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" @cancelClick="handleIssuesCancel" />
+		<FormCuratorIssues v-if="(flagged || isIssuesFormVisible) && getCurator" @cancelClick="handleIssuesCancel" />
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
