@@ -1,5 +1,7 @@
 <template>
 	<Main className="main--datasets" hasSubheader>
+		<Intro v-if="!tabs.length" />
+
 		<Tabs>
 			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
 				<FormDataset
@@ -23,6 +25,7 @@ import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
 import Main from '@/components/main/main';
+import Intro from '@/components/intro/intro'
 import FormDataset from '@/blocks/form-dataset/form-dataset';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 
@@ -107,6 +110,7 @@ export default {
 		Tab,
 		Tabs,
 		Main,
+		Intro,
 		FormDataset,
 		DatasetUtils
 	},

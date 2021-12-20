@@ -183,6 +183,11 @@
 			border-color: $c-purple-72;
 		}
 
+		.intro .intro__head {
+			background-color: $c-purple-fa;
+		}
+
+
 		.intro .intro__head h3 span {
 			color: $c-purple-72;
 		}
@@ -216,6 +221,10 @@
 			border-color: $c-orange-d2;
 		}
 
+		.intro .intro__head {
+			background-color: $c-orange-fff;
+		}
+
 		.intro .intro__head h3 span {
 			color: $c-orange-d2;
 		}
@@ -247,10 +256,14 @@
 		.field .vs__dropdown-toggle:focus,
 		.v-select.vs--open .vs__dropdown-toggle {
 			border-color: $c-green-40;
+		}
 
-			.intro .intro__head h3 span {
-				color: $c-green-40;
-			}
+		.intro .intro__head {
+			background-color: $c-green-f5;
+		}
+
+		.intro .intro__head h3 span {
+			color: $c-green-40;
 		}
 	}
 }
