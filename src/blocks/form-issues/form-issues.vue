@@ -77,101 +77,79 @@ export default {
 				'In addition to the 2 issues above, please also link to the abc-xyz set. Thanks!',
 			issues: [
 				{
-					id: 'issue11',
+					id: 'issue1',
 					label: 'A particular issue number one',
-					type: undefined,
-					required: false,
-					recommended: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue12',
-					label: 'Needs Citation',
-					type: 'required',
-					required: false,
-					recommended: false,
+					required: true,
 					completed: false,
 					active: true
 				},
 
 				{
-					id: 'issue13',
+					id: 'issue2',
 					label: 'Needs Citation',
-					type: 'recommended',
 					required: false,
-					recommended: false,
 					completed: false,
 					active: true
 				},
 
 				{
-					id: 'issue14',
-					label:
-						'A really bad issue that is a bit longer and wraps to two or more lines of written text',
-					type: undefined,
+					id: 'issue3',
+					label: 'Needs Citation',
 					required: false,
-					recommended: false,
+					completed: false,
+					active: true
+				},
+
+				{
+					id: 'issue4',
+					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
+					required: false,
 					completed: false,
 					active: false
 				},
 
 				{
-					id: 'issue15',
+					id: 'issue5',
 					label: 'Missing Support Files',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 				{
-					id: 'issue16',
+					id: 'issue6',
 					label: 'A particular issue number one',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 				{
-					id: 'issue17',
+					id: 'issue7',
 					label: 'Different issue',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 
 				{
-					id: 'issue18',
-					label:
-						'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
-					type: undefined,
+					id: 'issue8',
+					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 
 				{
-					id: 'issue19',
+					id: 'issue9',
 					label: 'One more issue down here',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 
 				{
-					id: 'issue20',
+					id: 'issue10',
 					label: 'Other (Described in comments below)',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				}

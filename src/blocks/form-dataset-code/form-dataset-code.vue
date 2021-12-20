@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<FormIssues v-if="flagged" />
-		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" />
+		<FormIssues v-if="flagged && !getCurator" />
+		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" @cancelClick="handleIssuesCancel" />
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
@@ -401,8 +401,8 @@ import Checkboxes from '@/components/checkboxes/checkboxes';
 import HiddenText from '@/components/hidden-text/hidden-text';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
-import FormIssues from '@/blocks/form-issues/form-issues';
 import Grid, { GridColumn } from '@/components/grid/grid';
+import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
@@ -533,6 +533,9 @@ export default {
 		handleComplete(e) {
 			e.preventDefault();
 			this.$emit('onDatasetComplete', true)
+		},
+		handleIssuesCancel() {
+			this.isIssuesFormVisible = false;
 		}
 	}
 };

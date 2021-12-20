@@ -55,7 +55,7 @@
 		<Tabs v-if="tabs.length">
 			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
 				<FormDatasetMaterial
-					:title="`Dataset-${index + 1}`"
+					:title="`Material-${index + 1}`"
 					@onDatasetDelete="deleteDataset(index)" 
 					@onDatasetComplete="(value) => completeDataset(index, value)"
 				/>

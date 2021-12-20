@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<FormIssues v-if="flagged && !getCurator" />
-		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" />
+		<FormCuratorIssues v-if="isIssuesFormVisible && getCurator" @cancelClick="handleIssuesCancel" />
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
@@ -312,10 +312,9 @@
 					<div class="form__cta-row">
 						<div class="form__cta-col">
 							<Button @onClick="handleComplete">Complete This Dataset</Button>
-						</div>
-						<!-- /.form__cta-col -->
+						</div><!-- /.form__cta-col -->
 
-						<div class="form__cta-col">
+						<div v-if="!getCurator" class="form__cta-col">
 							<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
 								<Icon name="connect" />
 
@@ -331,8 +330,45 @@
 
 								Delete
 							</Button>
-						</div>
-						<!-- /.form-__cta-col -->
+						</div><!-- /.form-__cta-col -->
+
+						<div v-if="getCurator" class="form__cta-col">
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.flagText"
+								@onClick="toggleIssuesForm"
+							>
+								<Icon name="flag" />
+							</Button>
+
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.show"
+								@onClick="openPopup"
+							>
+								<Icon name="documents" />
+							</Button>
+
+							<Button 
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.connectText"
+								@onClick="handleSelectAdditionalText"
+							>
+								<Icon name="connect" />
+							</Button>
+
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.deleteText"
+								@onClick="handleDelete"
+							>
+								<Icon name="trash" />
+							</Button>
+						</div><!-- /.form-__cta-col -->
 					</div>
 					<!-- /.form__cta-row -->
 				</div>
@@ -359,8 +395,8 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import HiddenText from '@/components/hidden-text/hidden-text';
-import FormIssues from '@/blocks/form-issues/form-issues';
 import Grid, { GridColumn } from '@/components/grid/grid';
+import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
@@ -477,6 +513,9 @@ export default {
 				this.$emit('onDatasetDelete')
 			}
 		},
+		handleSelectAdditionalText(e) {
+			e.preventDefault();
+		},
 		openPopup(e) {
 			e.preventDefault();
 			this.$refs.textPassagePopup.showModal();
@@ -484,6 +523,9 @@ export default {
 		handleComplete(e) {
 			e.preventDefault();
 			this.$emit('onDatasetComplete', true)
+		},
+		handleIssuesCancel() {
+			this.isIssuesFormVisible = false;
 		}
 	}
 };

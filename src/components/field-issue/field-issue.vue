@@ -2,9 +2,7 @@
 	<div
 		class="field-issue"
 		:class="{
-			'is-curator': isCurator,
-			'is-required': issue.type === 'required',
-			'is-recommended': issue.type === 'recommended'
+			'is-required': issue.required,
 		}"
 	>
 		<ul>
@@ -13,17 +11,17 @@
 				:value="issue.completed"
 				@onChange="handleChange"
 			>
-				{{ issue.label }} <span v-if="issue.type && !isCurator">({{ issue.type }})</span>
+				{{ issue.label }} <span v-if="!getCurator">{{ type }}</span>
 			</FieldCheckbox>
 
 			<FieldCheckbox
-				v-if="isCurator && issue.type"
-				:name="`${issue.id}-${issue.type}`"
-				:value="issue[issue.type]"
+				v-if="getCurator"
+				:name="`${issue.id}-required`"
+				:value="issue.required"
 				isToggle
 				@onChange="handleChange"
 			>
-				{{ issue.type }}
+				{{ type }}
 			</FieldCheckbox>
 		</ul>
 	</div>
@@ -31,6 +29,11 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex'
+
 /**
  * Internal Dependencies
  */
@@ -55,12 +58,19 @@ export default {
 	props: {
 		issue: {
 			type: Object
-		},
-		isCurator: {
-			type: Boolean,
-			value: false
 		}
 	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters(['getCurator']),
+		type() {
+			return this.issue.required ? 'Required' : 'Recommended'
+		}
+	},
+	
 
 	/**
 	 * Methods

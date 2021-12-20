@@ -2,27 +2,43 @@
 	<div class="form form--issues">
 		<form action="?" method="post">
 			<div class="form__head">
-				<h6 class="form__title"><Dot :size="16" /> Flag issues</h6>
+				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
 
-				<Button className="tertiary" size="small" :active="isIssuesDropdownVisible" @onClick.prevent="toggleIssuesDropdown">
+				<Button
+					className="tertiary"
+					size="small"
+					:active="isIssuesDropdownVisible"
+					@onClick.prevent="toggleIssuesDropdown"
+				>
 					<Icon name="plus" />
 
 					Select issues
 				</Button>
-			</div>
-			<!-- /.form__head -->
+			</div><!-- /.form__head -->
 
 			<div v-if="isIssuesDropdownVisible" class="form__issues">
-				<FieldIssues text="Select all that apply…" :issues="issues" @change="updateIssue" />
-			</div>
-			<!-- /.form__issues -->
+				<FieldIssues
+					text="Select all that apply…"
+					:issues="issues"
+					@change="updateIssue"
+				/>
+			</div><!-- /.form__issues -->
 
 			<div class="form__body">
-				<FieldIssue v-for="activeIssue in activeIssues" :key="activeIssue.id" :issue="activeIssue" isCurator @change="updateIssue" />
+				<FieldIssue
+					v-for="activeIssue in activeIssues"
+					:key="activeIssue.id"
+					:issue="activeIssue"
+					isCurator @change="updateIssue" 
+				/>
 
-				<Field name="Additional Comments" type="textarea" placeholder="Additional Comments" v-model="additionalComments" />
-			</div>
-			<!-- /.form__body -->
+				<Field
+					name="Additional Comments"
+					type="textarea"
+					placeholder="Additional Comments"
+					v-model="additionalComments"
+				/>
+			</div><!-- /.form__body -->
 
 			<div class="form__actions">
 				<ul>
@@ -36,11 +52,9 @@
 						<ButtonLink @onClick="cancel">Cancel</ButtonLink>
 					</li>
 				</ul>
-			</div>
-			<!-- /.form__actions -->
+			</div><!-- /.form__actions -->
 		</form>
-	</div>
-	<!-- /.form form--dataset -->
+	</div><!-- /.form form--dataset -->
 </template>
 
 <script>
@@ -86,9 +100,7 @@ export default {
 				{
 					id: 'issue1',
 					label: 'A particular issue number one',
-					type: undefined,
-					required: false,
-					recommended: false,
+					required: true,
 					completed: true,
 					active: false
 				},
@@ -96,9 +108,7 @@ export default {
 				{
 					id: 'issue2',
 					label: 'Needs Citation',
-					type: 'required',
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -106,9 +116,7 @@ export default {
 				{
 					id: 'issue3',
 					label: 'Needs Citation',
-					type: 'recommended',
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -116,9 +124,7 @@ export default {
 				{
 					id: 'issue4',
 					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -126,27 +132,21 @@ export default {
 				{
 					id: 'issue5',
 					label: 'Missing Support Files',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 				{
 					id: 'issue6',
 					label: 'A particular issue number one',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
 				{
 					id: 'issue7',
 					label: 'Different issue',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -154,9 +154,7 @@ export default {
 				{
 					id: 'issue8',
 					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -164,9 +162,7 @@ export default {
 				{
 					id: 'issue9',
 					label: 'One more issue down here',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				},
@@ -174,9 +170,7 @@ export default {
 				{
 					id: 'issue10',
 					label: 'Other (Described in comments below)',
-					type: undefined,
 					required: false,
-					recommended: false,
 					completed: false,
 					active: false
 				}
@@ -205,10 +199,11 @@ export default {
 			this.issues[issueIndex][key] = value;
 		},
 		saveIssues(e) {
-			e.preventDefault()
+			e.preventDefault();
 		},
 		cancel(e) {
-			e.preventDefault()
+			e.preventDefault();
+			this.$emit('cancelClick')
 		}
 	}
 };
