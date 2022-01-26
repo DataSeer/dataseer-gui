@@ -28,6 +28,8 @@ import EditRole from '@/pages/edit-role';
 import EditAccount from '@/pages/edit-account';
 import ManageDocument from '@/pages/manage-document';
 
+import accountService from '@/services/account/auth-account';
+
 const routes = [
 	{
 		name: 'Home',
@@ -92,7 +94,7 @@ const routes = [
 	{
 		name: 'SignIn',
 		path: '/sign-in',
-		component: SignIn,
+		component: SignIn
 	},
 	{
 		name: 'Report',
@@ -118,11 +120,42 @@ const routes = [
 		name: 'Manage Document',
 		path: '/manage-document',
 		component: ManageDocument
-	}
+	},
+
+	// otherwise redirect to home
+	{ path: '*', redirect: '/' }
 ];
 
 const router = new VueRouter({
 	routes
+});
+
+router.beforeEach((to, from, next) => {
+	// redirect to login page if not logged in and trying to access a restricted page
+	const path = to.path;
+	const publicPages = ['/sign-in', '/sign-up'];
+	const authRequired = !publicPages.includes(path);
+
+	accountService.getCurrentUser().then(data => {
+		const isLoggedIn = data.status === 200 && !data.data.err;
+		
+		if (path !== '/sign-in') {
+			if (authRequired && !isLoggedIn) {
+				next('/sign-in');
+			} else {
+				next();
+			}
+		} else {
+			next();
+		}
+	}).catch(err => {
+		console.log(err);
+		if (path !== '/sign-in' && authRequired) {
+			next('/sign-in');
+		} else {
+			next();
+		}
+	})
 });
 
 export default router;
