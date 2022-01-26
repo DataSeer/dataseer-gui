@@ -93,7 +93,6 @@ const routes = [
 		name: 'SignIn',
 		path: '/sign-in',
 		component: SignIn,
-		props: { success: false }
 	},
 	{
 		name: 'Report',

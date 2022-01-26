@@ -7,6 +7,12 @@
 </template>
 
 <script>
+
+/**
+ * External Dependencies
+ */
+import { mapActions } from 'vuex';
+
 /**
  * Internal Dependencies
  */
@@ -29,6 +35,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		...mapActions('account', ['getCurrentUser']),
 		clearDropdowns(event) {
 			const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
 
@@ -45,6 +52,7 @@ export default {
 	 * Created
 	 */
 	created() {
+		this.getCurrentUser();
 		window.addEventListener('click', this.clearDropdowns);
 	},
 

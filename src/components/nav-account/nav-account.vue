@@ -1,12 +1,12 @@
 <template>
-	<nav class="nav-account" :class="{ 'is-logged-in': getLogin }">
-		<ul v-if="getLogin">
+	<nav class="nav-account" :class="{ 'is-logged-in': isLoggedIn }">
+		<ul v-if="isLoggedIn">
 			<li>
 				<DropDown>
 					<template #header>
 						<div class="dropdown__account">
 							Administration
-
+7
 							<span class="dropdown__arrow"></span>
 						</div>
 						<!-- /.dropdown__account -->
@@ -100,15 +100,14 @@
 							</li>
 
 							<li>
-								<a tabindex="0" @click.prevent="handleSignout">
+								<a tabindex="0" @click.prevent="logout">
 									<Icon name="signout" color="CurrentColor" />
 
 									Sign Out
 								</a>
 							</li>
 						</ul>
-					</div>
-					<!-- /.dropdown__nav -->
+					</div><!-- /.dropdown__nav -->
 				</DropDown>
 			</li>
 		</ul>
@@ -126,15 +125,15 @@
 				</router-link>
 			</li>
 		</ul>
-	</nav>
-	<!-- /.nav -->
+	</nav><!-- /.nav -->
 </template>
 
 <script>
 /**
  * External Dependencies
  */
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
+
 
 /**
  * Internal Dependencies
@@ -155,28 +154,23 @@ export default {
 		Icon,
 		DropDown
 	},
-	
-	/**
-	 * Computed
-	 */
-	computed: {
-		...mapGetters(['getLogin'])
-	},
 
+	computed: {
+		isLoggedIn() {
+			return this.$store.state.account.status.loggedIn 
+		}
+	},
+	
 	/**
 	 * Methods
 	 */
 	methods: {
-		...mapActions(['setLogin']),
-		...mapActions(['setCurator']),
+		...mapActions('account', ['logout']),
 		handleSignout() {
-			this.setLogin(false);
-			this.setCurator(false);
-			
 			this.$router.push({
 				name: 'SignIn'
 			});
 		}
-	},
+	}
 };
 </script>

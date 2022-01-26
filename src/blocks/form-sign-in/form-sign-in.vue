@@ -1,17 +1,16 @@
 <template>
-	<Form className="form--sm" @submit.prevent="submit">
+	<Form className="form--sm" @submit.prevent="handleSubmit" :loading="loading">
 		<FormHead centered>
-			<h2>Sign In</h2>
+			<h2>Sign In</h2> 
 
 			<p>
 				DataSeer promotes open data sharing with AI powered tools for linking data to research texts
 			</p>
 		</FormHead>
 
-		<div class="form__status form__status--success" v-if="$route.params.success">
+		<div class="form__status form__status--success" v-if="$store.state.error">
 			<p>Great! Your account is created, please sign in</p>
-		</div>
-		<!-- /.form__status -->
+		</div><!-- /.form__status -->
 
 		<FormBody>
 			<Grid rowGap="small">
@@ -51,7 +50,7 @@
 			</li>
 
 			<li>
-				<Button tabindex="0" className="tertiary">Cancel</Button>
+				<Button tabindex="0" className="tertiary" type="button" @onClick="handleLogout">Cancel</Button>
 			</li>
 		</FormActions>
 
@@ -59,8 +58,7 @@
 			<p>Forgot your password? <a href="#">Reset it</a></p>
 
 			<p>Need an account? <router-link tabindex="0" to="/sign-up">Sign Up</router-link></p>
-		</FormMessage>
-		<!-- /.form__message -->
+		</FormMessage><!-- /.form__message -->
 	</Form>
 </template>
 
@@ -107,8 +105,8 @@ export default {
 	 */
 	data: function() {
 		return {
-			email: '',
-			password: '',
+			email: 'annotator.dataseer@htmlbox.net',
+			password: 'gsUsHWLqeHNz4xT',
 			loading: false
 		};
 	},
@@ -131,26 +129,22 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions(['setLogin']),
-		...mapActions(['setCurator']),
-		submit() {
+		...mapActions('account', ['login']),
+		handleLogout() {
+			this.loading = true;
+			this.logout();
+		},
+		async handleSubmit() {
 			this.loading = true;
 			this.$v.$touch();
+			
+			if (!this.$v.$invalid) {
+				await this.login({
+					username: this.email,
+					password: this.password
+				})
 
-			if (this.$v.$invalid) {
-				setTimeout(() => {
-					this.loading = false;
-					console.log('FAILED LOGIN');
-				}, 500);
-			} else {
-				console.log('SUCCESS');
 				this.loading = false;
-
-				this.setCurator(this.email === 'curator@test.com');
-				this.setLogin(true);
-				this.$router.push({
-					name: 'Documents'
-				});
 			}
 		}
 	}

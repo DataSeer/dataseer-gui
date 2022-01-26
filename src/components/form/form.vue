@@ -1,5 +1,11 @@
 <template>
-	<div class="form" :class="className">
+	<div
+		class="form"
+		:class="{
+			[className]: className,
+			'is-loading': loading
+		}"
+	>
 		<form action="?" method="post" @submit="$emit('submit', $event)">
 			<slot />
 		</form>
@@ -29,6 +35,10 @@ export default {
 		className: {
 			type: String,
 			default: ''
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		}
 	}
 };
