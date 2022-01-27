@@ -6,7 +6,7 @@
 					<template #header>
 						<div class="dropdown__account">
 							Administration
-7
+
 							<span class="dropdown__arrow"></span>
 						</div>
 						<!-- /.dropdown__account -->
@@ -166,11 +166,6 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
-		handleSignout() {
-			this.$router.push({
-				name: 'SignIn'
-			});
-		}
 	}
 };
 </script>

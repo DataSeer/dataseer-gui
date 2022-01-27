@@ -3,7 +3,9 @@ import router from '@/router';
 
 // State
 const state = {
-	status: {},
+	status: {
+		loggedIn: false
+	},
 	user: null
 }
 
@@ -13,29 +15,36 @@ const getters = {}
 // Actions
 const actions = {
 	async login({ commit }, { username, password }) {
-		commit('loginRequest', { username });		
-
 		await accountService.login(username, password)
             .then(
-                user => {
-                    return commit('loginSuccess', user);
-                },
+                () => {
+					
+					commit('loginSuccess')
+				},
                 error => {
-                    return commit('loginFailure', error);
-                }
+					commit('loginFailure', error)
+				}
             );
 	},
-	logout({ commit }) {
-		accountService.logout().then(() => commit('logout'))
+	async logout({ commit }) {
+		await accountService.logout().then(() => commit('logout'))
 
 		router.push('/sign-in')
 	},
-	getCurrentUser({ commit }) {
+	async getCurrentUser({ commit }) {
+		await accountService.getCurrentUser().then(
+			res => {
+				commit('loginSuccess', res.data.res);
+			},
+			() => {
+				commit('userSuccess', null);
+			}
+		);
+	},
+	authenticateUser({ commit }) {
 		accountService.getCurrentUser().then(
 			res => {
-				if (!res.data.err && res.status) {
-					commit('loginSuccess', res.data.res);
-				}
+				commit('loginSuccess', res.data.res);
 			},
 			error => {
 				commit('loginFailure', error);
@@ -46,23 +55,24 @@ const actions = {
 
 // Mutations
 const mutations = {
-    loginRequest(state, user) {
-        state.status = { loggingIn: true };
-        state.user = user;
-    },
     loginSuccess(state, user) {
-        state.status = { loggedIn: true };
-        state.user = user;
+        state.status = {
+			loggedIn: true
+		};
+		state.user = user
     },
-    loginFailure(state) {
+    loginFailure(state, error) {
         state.status = { 
 			loggedIn: false,
 			failedLogin: true,
+			message: error.message,
 		};
         state.user = null;
     },
 	logout(state) {
-        state.status = {};
+        state.status = {
+			loggedIn: false
+		};
         state.user = null;
     },
 };

@@ -13,7 +13,9 @@
 
 			<div class="form__statuses" v-if="errors">
 				<div class="form__status form__status--error">
-					<p>{{ errorMessage }}</p>
+					<div class="form__status-inner">
+						<p>{{ errorMessage }}</p>
+					</div><!-- /.form__status-inner -->
 				</div>
 				<!-- /.form__status -->
 			</div>

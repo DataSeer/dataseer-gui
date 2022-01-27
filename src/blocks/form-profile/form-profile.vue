@@ -15,7 +15,7 @@
 				</GridColumn>
 
 				<GridColumn>
-					<Field name="email" :tabindex="0" readonly type="text" :value="userData.email">
+					<Field name="email" :tabindex="0" readonly type="text" :value="email">
 						<Icon name="email" color="currentColor" />
 
 						Email Address
@@ -28,7 +28,7 @@
 						:tabindex="0"
 						readonly
 						type="text"
-						:value="userData.organization"
+						:value="organization"
 					>
 						<Icon name="organization" color="currentColor" />
 
@@ -49,20 +49,15 @@ import Form, { FormHead, FormBody } from '@/components/form/form';
 export default {
 	name: 'FormProfile',
 
-	data: function() {
-		return {
-			userData: {
-				firstname: 'Laura',
-				lastname: 'Leadauthor',
-				email: 'leadauthor@toh.ca',
-				organization: 'University of Ottawa'
-			}
-		};
-	},
-
 	computed: {
 		fullName: function() {
-			return this.userData.firstname + ' ' + this.userData.lastname;
+			return this.$store.state.account.user?.fullname || ''
+		},
+		email: function() {
+			return this.$store.state.account.user?.username || ''
+		},
+		organization: function() {
+			return this.$store.state.account.user?.organizations[0].name || ''
 		}
 	},
 
@@ -74,6 +69,6 @@ export default {
 		Field,
 		FormHead,
 		FormBody
-	}
+	},
 };
 </script>

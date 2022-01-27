@@ -35,7 +35,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('account', ['getCurrentUser']),
+		...mapActions('account', ['logout']),
 		clearDropdowns(event) {
 			const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
 
@@ -52,7 +52,6 @@ export default {
 	 * Created
 	 */
 	created() {
-		this.getCurrentUser();
 		window.addEventListener('click', this.clearDropdowns);
 	},
 

@@ -34,11 +34,14 @@
 
 	/* Form Status */
 	.form__status {
-		position: relative;
-		display: inline-block;
 		text-align: center;
 		margin-bottom: 47px;
 		line-height: 1.06;
+	}
+
+	.form__status-inner {
+		position: relative;
+		display: inline-block;
 		padding: 9px 23px;
 		border-radius: 17px;
 		text-align: left;
@@ -54,7 +57,7 @@
 		}
 	}
 
-	.form__status--error {
+	.form__status--error .form__status-inner {
 		color: $c-orange;
 		background-color: $c-orange-bg;
 		padding-left: 55px;
@@ -65,7 +68,7 @@
 		}
 	}
 
-	.form__status--success {
+	.form__status--success .form__status-inner {
 		color: $c-green;
 		background-color: rgba($c-green, 0.15);
 		padding-left: 42px;

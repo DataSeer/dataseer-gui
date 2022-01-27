@@ -9,7 +9,9 @@
 		</FormHead>
 
 		<div class="form__status form__status--error" v-if="submitStatus === 'ERROR' && !loading">
-			<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+			<div class="form__status-inner">
+				<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+			</div><!-- /.form__status-inner -->
 		</div>
 		<!-- /.form__status -->
 

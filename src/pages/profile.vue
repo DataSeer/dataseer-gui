@@ -2,11 +2,11 @@
 	<Main className="main--profile" hasSubheader>
 		<Grid columnGap="large" rowGap="small" columnSize="half">
 			<GridColumn>
-				<FormProfile />
+			<FormProfile />
 			</GridColumn>
 
 			<GridColumn>
-				<FormResetPasswod />
+				<FormResetPassword />
 			</GridColumn>
 		</Grid>
 
@@ -32,7 +32,7 @@ import Main from '@/components/main/main';
 import Banner from '@/components/banner/banner';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FormProfile from '@/blocks/form-profile/form-profile.vue';
-import FormResetPasswod from '@/blocks/form-reset-password/form-reset-password';
+import FormResetPassword from '@/blocks/form-reset-password/form-reset-password';
 
 export default {
 	name: 'Profile',
@@ -43,7 +43,7 @@ export default {
 		Banner,
 		GridColumn,
 		FormProfile,
-		FormResetPasswod
+		FormResetPassword
 	}
 };
 </script>

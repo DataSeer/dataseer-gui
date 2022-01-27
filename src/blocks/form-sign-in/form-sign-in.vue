@@ -8,8 +8,13 @@
 			</p>
 		</FormHead>
 
-		<div class="form__status form__status--success" v-if="$store.state.error">
-			<p>Great! Your account is created, please sign in</p>
+		<div
+			v-if="this.$store.state.account.status.failedLogin"
+			class="form__status form__status--error"
+		>
+			<div class="form__status-inner">
+				<p>{{this.$store.state.account.status.message}}</p>
+			</div><!-- /.form__Status-inner -->
 		</div><!-- /.form__status -->
 
 		<FormBody>
@@ -50,7 +55,7 @@
 			</li>
 
 			<li>
-				<Button tabindex="0" className="tertiary" type="button" @onClick="handleLogout">Cancel</Button>
+				<Button tabindex="0" className="tertiary" type="button">Cancel</Button>
 			</li>
 		</FormActions>
 
@@ -68,6 +73,7 @@
  */
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
+import router from '@/router';
 
 /**
  * Internal Dependencies
@@ -105,10 +111,19 @@ export default {
 	 */
 	data: function() {
 		return {
-			email: 'annotator.dataseer@htmlbox.net',
-			password: 'gsUsHWLqeHNz4xT',
+			email: '',
+			password: '',
 			loading: false
 		};
+	},
+
+	/**
+	 * Com
+	 */
+	computed: {
+		failedLogin() {
+			return this.$store.state.account.status.failedLogin
+		}
 	},
 
 	/**
@@ -145,8 +160,12 @@ export default {
 				})
 
 				this.loading = false;
+				
+				if (!this.failedLogin) {
+					router.push('/profile');
+				}
 			}
 		}
-	}
+	},
 };
 </script>

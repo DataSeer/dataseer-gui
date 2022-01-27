@@ -25,7 +25,9 @@
 	line-height: 1.2;
 	font-family: $ff-titles;
 	border-radius: 11px;
-	transition: background $t-duration, color $t-duration, border $t-duration;
+	transition-property: background, color, border-color;
+	transition-duration: $t-duration;
+	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
 	&:focus,
 	&:hover {

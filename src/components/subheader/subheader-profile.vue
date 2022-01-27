@@ -6,15 +6,12 @@
 
 				User Profile
 			</h3>
-		</div>
-		<!-- /.subheader__left -->
+		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button className="tertiary" @click="exitProfile">Exit Profile</Button>
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+			<Button className="tertiary" @onClick="logout">Exit Profile</Button>
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>
@@ -31,17 +28,7 @@ export default {
 	},
 
 	methods: {
-		...mapActions(['setLogin']),
-		...mapActions(['setCuretor']),
-		exitProfile(event) {
-			event.preventDefault();
-			this.setLogin(false);
-			this.setCuretor(false);
-
-			this.$router.push({
-				name: 'Documents'
-			});
-		}
+		...mapActions('account', ['logout'])
 	}
 };
 </script>
