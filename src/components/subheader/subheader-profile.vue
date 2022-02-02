@@ -9,7 +9,7 @@
 		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button className="tertiary" @onClick="logout">Exit Profile</Button>
+			<Button className="tertiary" @onClick="handleLogout">Exit Profile</Button>
 		</div> <!-- /.subheader__right -->
 	</div> <!-- /.subheader__inner -->
 </template>
@@ -27,8 +27,18 @@ export default {
 		Icon
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
-		...mapActions('account', ['logout'])
+		...mapActions('account', ['logout']),
+		async handleLogout(e) {
+			e.preventDefault();
+			await this.logout();
+
+			this.$router.push('/sign-in')
+		}
 	}
+		
 };
 </script>

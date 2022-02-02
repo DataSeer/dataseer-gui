@@ -4,6 +4,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+/**
+ * Internal Dependencies
+ */
+import accountService from '@/services/account/auth-account';
+
 Vue.use(VueRouter);
 
 /**
@@ -129,18 +134,25 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const isLoggedIn = router.app.$store?.state.account.status.loggedIn || false;
 	const path = to.path;
-	const publicPages = ['/sign-in', '/sign-up'];
+	const publicPages = ['/sign-in', '/sign-up', '/'];
 	const authRequired = !publicPages.includes(path);
+	
+	accountService.getUserData().then(res => {
+		if (res.status === 200 ) {
+			next();
+		} 
 
-	if (isLoggedIn && !authRequired) next('/profile');
-
-	if (!isLoggedIn && authRequired) {
-		return next('/sign-in');
-	} else {
-		return next()
-	}
+		if (!authRequired) {
+			next('/profile')
+		}
+	}).catch(()=>{
+		if (authRequired) {
+			next('/sign-in');
+		} else {
+			next()
+		}
+	})
 });
 
 export default router;

@@ -1,74 +1,90 @@
 import accountService from '@/services/account/auth-account';
-import router from '@/router';
 
 // State
 const state = {
 	status: {
+		loading: true,
+		error: false,
+		failedLogin: false,
 		loggedIn: false
 	},
 	user: null
 }
 
 // Getters
-const getters = {}
+const getters = {
+	loggedIn: state => state.status.loggedIn,
+}
 
 // Actions
 const actions = {
-	async login({ commit }, { username, password }) {
-		await accountService.login(username, password)
-            .then(
-                () => {
+	async signin({ commit, dispatch }, { username, password }) {		
+		const res = await accountService.signin(username, password)
+		if (res.status !== 200)  {
+			throw new Error(res.statusText)
+		}
+		
+		if (res.data.err) {
+			throw new Error(res.data.res)
+		}
 					
-					commit('loginSuccess')
-				},
-                error => {
-					commit('loginFailure', error)
-				}
-            );
+		await dispatch('getUserData')
+				
+		commit('loginSuccess')
 	},
-	async logout({ commit }) {
-		await accountService.logout().then(() => commit('logout'))
-
-		router.push('/sign-in')
+	async getUserData({commit}) {
+		try {
+			const result = await accountService.getUserData()
+			if (result.err) throw new Error(result.ree)
+			
+			commit('AuthenticateUser', result.data.res)
+		} catch (e) {
+			return e
+		}
 	},
-	async getCurrentUser({ commit }) {
-		await accountService.getCurrentUser().then(
-			res => {
-				commit('loginSuccess', res.data.res);
-			},
-			() => {
-				commit('userSuccess', null);
-			}
-		);
+	
+	async logout({commit}) {
+		try {
+			await accountService.logout();
+			commit('logout');
+		} catch (e) {
+			console.log(e);
+		}
 	},
-	authenticateUser({ commit }) {
-		accountService.getCurrentUser().then(
-			res => {
-				commit('loginSuccess', res.data.res);
-			},
-			error => {
-				commit('loginFailure', error);
-			}
-		);
+	
+	async resetPassword({commit}, { username, currentPassword, newPassword, confirmNewPassword }) {
+		await accountService.resetPassword(username, currentPassword, newPassword, confirmNewPassword)
+			.then((result) => {
+				console.log(result);
+				commit('passwordReset')
+			},(error) => {
+				console.log(error);
+				commit('passwordReset')
+			})
 	}
 }
 
 // Mutations
 const mutations = {
-    loginSuccess(state, user) {
+    loginSuccess(state) {
         state.status = {
 			loggedIn: true
 		};
-		state.user = user
     },
-    loginFailure(state, error) {
+    loginFailure(state, message) {
         state.status = { 
 			loggedIn: false,
 			failedLogin: true,
-			message: error.message,
+			message: message,
 		};
         state.user = null;
     },
+	AuthenticateUser(state, user) {
+        state.user = user;
+    },
+	passwordReset(state){
+		state.status.error = false
+	},
 	logout(state) {
         state.status = {
 			loggedIn: false

@@ -35,7 +35,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('account', ['logout']),
+		...mapActions('account', ['getUserData']),
 		clearDropdowns(event) {
 			const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
 

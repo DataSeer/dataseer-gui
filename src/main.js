@@ -7,6 +7,8 @@ import VModal from 'vue-js-modal';
 import router from './router.js';
 import App from './App.vue';
 import store from './store';
+import VueCookies from 'vue-cookies'
+
 
 import 'vue-select/dist/vue-select.css';
 import 'vue2-datepicker/index.css';
@@ -18,6 +20,7 @@ Vue.use(vSelect);
 Vue.use(VTooltip);
 Vue.use(VModal);
 Vue.use(VueGoodTablePlugin);
+Vue.use(VueCookies)
 
 Vue.config.productionTip = false;
 

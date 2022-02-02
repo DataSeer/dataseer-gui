@@ -9,11 +9,11 @@
 		</FormHead>
 
 		<div
-			v-if="this.$store.state.account.status.failedLogin"
+			v-if="error"
 			class="form__status form__status--error"
 		>
 			<div class="form__status-inner">
-				<p>{{this.$store.state.account.status.message}}</p>
+				<p>{{message}}</p>
 			</div><!-- /.form__Status-inner -->
 		</div><!-- /.form__status -->
 
@@ -21,9 +21,9 @@
 			<Grid rowGap="small">
 				<GridColumn>
 					<Field
-						:error="$v.email.$error"
+						:error="$v.formData.email.$error"
 						name="email"
-						v-model.trim="email"
+						v-model.trim="formData.email"
 						type="text"
 						placeholder="Email Address"
 					>
@@ -35,9 +35,9 @@
 
 				<GridColumn>
 					<Field
-						:error="$v.password.$error"
+						:error="$v.formData.password.$error"
 						name="password"
-						v-model.trim="password"
+						v-model.trim="formData.password"
 						type="password"
 						placeholder="Enter"
 					>
@@ -73,7 +73,6 @@
  */
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import router from '@/router';
 
 /**
  * Internal Dependencies
@@ -111,18 +110,23 @@ export default {
 	 */
 	data: function() {
 		return {
-			email: '',
-			password: '',
-			loading: false
+			formData: {
+				email: '',
+				password: ''
+			},
+			success: false,
+			error: false,
+			loading: false,
+			message: ''
 		};
 	},
 
 	/**
-	 * Com
+	 * Computed
 	 */
 	computed: {
 		failedLogin() {
-			return this.$store.state.account.status.failedLogin
+			return this.$store.state.account.status.failedLogin || false
 		}
 	},
 
@@ -130,13 +134,15 @@ export default {
 	 * Validations
 	 */
 	validations: {
-		email: {
-			required,
-			email
-		},
-		password: {
-			required,
-			minLength: minLength(8)
+		formData: {
+			email: {
+				required,
+				email
+			},
+			password: {
+				required,
+				minLength: minLength(8)
+			}
 		}
 	},
 
@@ -144,27 +150,27 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('account', ['login']),
-		handleLogout() {
-			this.loading = true;
-			this.logout();
-		},
+		...mapActions('account', ['signin']),
 		async handleSubmit() {
 			this.loading = true;
 			this.$v.$touch();
 			
-			if (!this.$v.$invalid) {
-				await this.login({
-					username: this.email,
-					password: this.password
+			if (this.$v.$invalid) return
+
+			try {
+				await this.signin({
+					username: this.formData.email,
+					password: this.formData.password
 				})
 
-				this.loading = false;
-				
-				if (!this.failedLogin) {
-					router.push('/profile');
-				}
+				this.success = true,
+				this.$router.push('/profile')
+			} catch(e) {
+				this.error = true
+				this.message = e.message
 			}
+			
+			this.loading = false;
 		}
 	},
 };

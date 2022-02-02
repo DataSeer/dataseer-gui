@@ -1,29 +1,59 @@
-import axiosInstance from '@/services/http';
+/**
+ * Internal Dependencies
+ */
+import axiosInstance from '@/services/http.js';
 
-function login(username, password) {
-	return axiosInstance
-		.post('/signin', { username, password })
-		.then(res => {
-			if (res.status === 200 && !res.data.err) {
-				return res
-			}
-			
-			if (res.data.err) {
-				throw new Error(res.data.res);
-			}
-		})
+function signin(username, password) {
+	return axiosInstance.post('/signin', { username, password });
 }
 
 function logout() {
-	return axiosInstance.get('/signout')
+	axiosInstance.get('/signout');
 }
 
-function getCurrentUser() {
-	return axiosInstance.get('/currentUser').then((res) => res)
+function signup(data) {
+	console.log(data);
+	axiosInstance.post('/signup');
+}
+
+function getUserData() {
+	return axiosInstance.get('/currentUser');
+}
+
+function resetPassword(username, currentPassword, newPassword, confirmNewPassword) {
+	console.log(username, currentPassword, newPassword, confirmNewPassword);
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			username: username,
+			current_password: currentPassword,
+			new_password: newPassword,
+			confirm_new_password: confirmNewPassword
+		})
+	};
+
+	return fetch(
+		'https://cloud.science-miner.com/dataseer-dev/api/resetPassword',
+		requestOptions
+	).then((res) => handleResponse(res));
+}
+
+function handleResponse(response) {
+	if (!response.ok) {
+		const error = new Error('Something went wrong...');
+		return Promise.reject(error);
+	}
+
+	return response.json().then((data) => data);
 }
 
 export default {
-	login,
+	signin,
+	signup,
 	logout,
-	getCurrentUser
+	getUserData,
+	resetPassword
 };

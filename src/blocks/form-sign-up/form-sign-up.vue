@@ -12,16 +12,15 @@
 			<div class="form__status-inner">
 				<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
 			</div><!-- /.form__status-inner -->
-		</div>
-		<!-- /.form__status -->
+		</div> <!-- /.form__status -->
 
 		<FormBody>
 			<Grid rowGap="small">
 				<GridColumn>
 					<Field
-						:error="$v.name.$error"
-						name="full-name"
-						v-model.trim="name"
+						:error="$v.formData.fullname.$error"
+						name="fullname"
+						v-model.trim="formData.fullname"
 						type="text"
 						placeholder="Enter"
 					>
@@ -30,10 +29,11 @@
 						Full Name
 					</Field>
 				</GridColumn>
+				
 				<Field
-					:error="$v.email.$error"
-					name="email"
-					v-model.trim="email"
+					:error="$v.formData.username.$error"
+					name="username"
+					v-model.trim="formData.username"
 					type="text"
 					placeholder="Enter"
 				>
@@ -44,9 +44,9 @@
 
 				<GridColumn>
 					<Field
-						:error="$v.password.$error || $v.password_confirm.$error"
+						:error="$v.formData.password.$error || $v.formData.confirm_password.$error"
 						name="password"
-						v-model.trim="password"
+						v-model.trim="formData.password"
 						type="password"
 						placeholder="Enter"
 					>
@@ -56,33 +56,20 @@
 					</Field>
 
 					<Field
-						:error="$v.password_confirm.$error"
 						name="password-confirm"
-						v-model.trim="password_confirm"
+						v-model.trim="formData.confirm_password"
 						type="password"
 						placeholder="Confirm"
 					>
 					</Field>
 				</GridColumn>
 
-				<GridColumn> </GridColumn>
-
 				<GridColumn>
 					<FieldSelect
-						:error="$v.organization.$error"
+						:error="$v.formData.organization.$error"
 						name="organization"
-						v-model.trim="organization"
-						:options="[
-							{
-								value: 'Organization 0'
-							},
-							{
-								value: 'Organization 1'
-							},
-							{
-								value: 'Organization 2'
-							}
-						]"
+						v-model.trim="formData.organization"
+						:options="organizations"
 						placeholder="Select"
 					>
 						<Icon name="organization" color="currentColor" />
@@ -118,6 +105,7 @@
  * External Dependencies
  */
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -128,6 +116,7 @@ import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormActions, FormMessage, FormHead, FormBody } from '@/components/form/form';
+import organizationsService from '@/services/organizations/organizations';
 
 export default {
 	/**
@@ -157,14 +146,20 @@ export default {
 	 */
 	data: function() {
 		return {
-			name: '',
-			email: '',
-			password: '',
-			password_confirm: '',
-			organization: '',
+			formData: {
+				fullname: '',
+				username: '',
+				password: '',
+				confirm_password: '',
+				organization: '',
+			},
+			organizations: [{
+				value: ''
+			}],
 			submitStatus: null,
+			error: false,
 			loading: false,
-			errors: ['Oops! This email address is already registered']
+			message: ''
 		};
 	},
 
@@ -172,24 +167,26 @@ export default {
 	 * Validations
 	 */
 	validations: {
-		name: {
-			required,
-			minLength: minLength(2)
-		},
-		email: {
-			required,
-			email
-		},
-		password: {
-			required,
-			minLength: minLength(8)
-		},
-		password_confirm: {
-			required,
-			sameAsPassword: sameAs('password')
-		},
-		organization: {
-			required
+		formData: {
+			fullname: {
+				required,
+				minLength: minLength(2)
+			},
+			username: {
+				required,
+				email
+			},
+			password: {
+				required,
+				minLength: minLength(8)
+			},
+			confirm_password: {
+				required,
+				sameAsPassword: sameAs('password')
+			},
+			organization: {
+				required
+			}
 		}
 	},
 
@@ -197,22 +194,32 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		submit() {
+		...mapActions('account', ['signup']),
+		async submit() {
 			this.$v.$touch();
+			
 			if (this.$v.$invalid) {
 				this.submitStatus = 'ERROR';
 			} else {
 				this.loading = true;
-				setTimeout(() => {
-					this.submitStatus = 'OK';
-					this.loading = false;
-					this.$router.push({
-						name: 'SignIn',
-						params: { success: true }
-					});
-				}, 500);
+				await this.ssignup(this.FormData);
 			}
+		},
+		async getOrganizations() {
+			const organizations = await organizationsService.getOrganizations()
+			this.organizations = organizations.map(organization => {
+				return {
+					value: organization.name
+				}
+			});
 		}
-	}
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.getOrganizations();
+	},
 };
 </script>

@@ -77,16 +77,14 @@
 				<DropDown>
 					<template #header>
 						<div class="dropdown__account">
-							Carli C.
+							{{username}} lorem
 
 							<div class="dropdown__button">
 								L
 
 								<span class="dropdown__arrow"></span>
-							</div>
-							<!-- /.dropdown__button -->
-						</div>
-						<!-- /.dropdown__account -->
+							</div> <!-- /.dropdown__button -->
+						</div> <!-- /.dropdown__account -->
 					</template>
 
 					<div class="dropdown__nav">
@@ -100,7 +98,7 @@
 							</li>
 
 							<li>
-								<a tabindex="0" @click.prevent="logout">
+								<a tabindex="0" @click.prevent="handleLogout">
 									<Icon name="signout" color="CurrentColor" />
 
 									Sign Out
@@ -134,7 +132,6 @@
  */
 import { mapActions } from 'vuex';
 
-
 /**
  * Internal Dependencies
  */
@@ -154,10 +151,16 @@ export default {
 		Icon,
 		DropDown
 	},
-
+	
+	/**
+	 * Computed
+	 */
 	computed: {
 		isLoggedIn() {
-			return this.$store.state.account.status.loggedIn 
+			return this.$store.state.account.status?.loggedIn
+		},
+		username() {
+			return this.$store.state.account.user?.fullname || ''
 		}
 	},
 	
@@ -166,6 +169,9 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
+		handleLogout() {
+			this.logout();
+		}
 	}
 };
 </script>

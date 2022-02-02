@@ -2,7 +2,7 @@
 	<Main className="main--profile" hasSubheader>
 		<Grid columnGap="large" rowGap="small" columnSize="half">
 			<GridColumn>
-			<FormProfile />
+				<FormProfile />
 			</GridColumn>
 
 			<GridColumn>

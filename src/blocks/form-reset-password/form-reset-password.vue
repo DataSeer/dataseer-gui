@@ -1,11 +1,13 @@
 <template>
-	<Form className="form--profile" @submit.prevent="submit">
+	<Form className="form--profile" @submit.prevent="handleSubmit" :loading="loading">
 		<FormHead>
 			<h5>Reset Your Password</h5>
 		</FormHead>
 
 		<div class="form__status form__status--error" v-if="submitStatus === 'ERROR'">
-			<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+			<div class="form__status-inner">
+				<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+			</div><!-- /.form__status__inner -->
 		</div>
 		<!-- /.form__status -->
 
@@ -13,7 +15,7 @@
 			<Grid rowGap="small">
 				<GridColumn>
 					<Field
-						:error="$v.password_current.$error || $v.password_new.$error"
+						:error="formHasError"
 						name="password"
 						v-model.trim="password_current"
 						type="password"
@@ -26,12 +28,19 @@
 
 					<Field
 						:error="$v.password_new.$error"
-						name="password-confirm"
+						name="password-new"
 						v-model.trim="password_new"
 						type="password"
 						placeholder="Enter New Password"
-					>
-					</Field>
+					/>
+
+					<Field
+						:error="$v.password_confirm.$error"
+						name="password-confirm-new"
+						v-model.trim="password_confirm"
+						type="password"
+						placeholder="Confirm New Password"
+					/>
 				</GridColumn>
 			</Grid>
 		</FormBody>
@@ -42,15 +51,22 @@
 			</li>
 
 			<li>
-				<Button :tabindex="0" className="tertiary">Cancel</Button>
+				<Button :tabindex="0" className="tertiary" type="button">Cancel</Button>
 			</li>
 		</FormActions>
 	</Form>
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators';
+/**
+ * External Dependencies
+ */
+import { required, minLength, sameAs } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex';
 
+/**
+ * Internal Dependencies
+ */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Field from '@/components/field/field';
@@ -76,10 +92,16 @@ export default {
 		return {
 			password_current: '',
 			password_new: '',
+			password_confirm: '',
 			submitStatus: null,
 			loading: false,
 			errors: ['This is example error message']
 		};
+	},
+	computed: {
+		formHasError() {
+			return this.$v.password_current.$error || this.$v.password_new.$error || this.$v.password_confirm.$error
+		}
 	},
 
 	validations: {
@@ -89,25 +111,29 @@ export default {
 		password_new: {
 			required,
 			minLength: minLength(8)
+		},
+		password_confirm: {
+			sameAsPassword: sameAs('password_new')
 		}
 	},
 
 	methods: {
-		submit() {
+		...mapActions('account', ['resetPassword']),
+		async handleSubmit() {
 			this.$v.$touch();
 
-			if (this.$v.$invalid) {
-				this.submitStatus = 'ERROR';
-			} else {
+			if (!this.$v.$invalid) {
 				this.loading = true;
+				
+				await this.resetPassword({
+					username: this.$store.state.account.user?.fullname,
+					currentPassword: this.password_current,
+					newPassword: this.password_new,
+					confirmNewPassword: this.password_confirm
+				});
+			} 
 
-				setTimeout(() => {
-					this.loading = false;
-					this.$router.push({
-						name: 'SignIn'
-					});
-				}, 1000);
-			}
+			this.loading = false;
 		}
 	}
 };
