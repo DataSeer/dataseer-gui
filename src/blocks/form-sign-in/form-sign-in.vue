@@ -60,7 +60,7 @@
 		</FormActions>
 
 		<FormMessage>
-			<p>Forgot your password? <a href="#">Reset it</a></p>
+			<p>Forgot your password? <router-link tabindex="0" to="/forgot-password">Reset it</router-link></p>
 
 			<p>Need an account? <router-link tabindex="0" to="/sign-up">Sign Up</router-link></p>
 		</FormMessage><!-- /.form__message -->

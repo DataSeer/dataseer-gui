@@ -49,10 +49,8 @@
 			<div v-if="trailingIcon" class="field__trailing-icon">
 				<Icon :name="trailingIcon" />
 			</div>
-		</div>
-		<!-- /.field__controls -->
-	</div>
-	<!-- /.field -->
+		</div> <!-- /.field__controls -->
+	</div> <!-- /.field -->
 </template>
 
 <script>

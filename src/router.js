@@ -11,6 +11,7 @@ import accountService from '@/services/account/auth-account';
 import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
+import ForgotPassword from '@/pages/forgot-password';
 import Datasets from '@/pages/datasets';
 import DatasetsCode from '@/pages/datasets-code';
 import DatasetsMaterials from '@/pages/datasets-materials';
@@ -96,6 +97,11 @@ const routes = [
 		component: SignIn
 	},
 	{
+		name: 'Forgot Password',
+		path: '/forgot-password',
+		component: ForgotPassword
+	},
+	{
 		name: 'Report',
 		path: '/report',
 		component: Report
@@ -131,7 +137,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	const path = to.path;
-	const publicPages = ['/sign-in', '/sign-up', '/'];
+	const publicPages = ['/sign-in', '/sign-up', '/forgot-password', '/'];
 	const authRequired = !publicPages.includes(path);
 	
 	accountService.getUserData().then(res => {

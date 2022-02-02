@@ -24,10 +24,15 @@ function resetPassword(data) {
 	return axiosInstance.post('/resetPassword', data)
 }
 
+function forgetPassword(username) {
+	return axiosInstance.post('/forgotPassword', {username})
+}
+
 export default {
 	signin,
 	signup,
 	logout,
 	getUserData,
-	resetPassword
+	resetPassword,
+	forgetPassword
 };
