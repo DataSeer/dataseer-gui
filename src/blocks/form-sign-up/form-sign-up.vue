@@ -1,5 +1,5 @@
 <template>
-	<Form className="form--sm" @submit.prevent="submit">
+	<Form className="form--sm" @submit.prevent="handleSubmit" :loading="loading">
 		<FormHead centered>
 			<h2>Sign Up</h2>
 
@@ -8,10 +8,10 @@
 			</p>
 		</FormHead>
 
-		<div class="form__status form__status--error" v-if="submitStatus === 'ERROR' && !loading">
+		<div class="form__status form__status--error" v-if="error">
 			<div class="form__status-inner">
-				<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
-			</div><!-- /.form__status-inner -->
+				<p>{{message}}</p>
+			</div><!-- /.form__status__inner -->
 		</div> <!-- /.form__status -->
 
 		<FormBody>
@@ -34,7 +34,7 @@
 					:error="$v.formData.username.$error"
 					name="username"
 					v-model.trim="formData.username"
-					type="text"
+					type="email"
 					placeholder="Enter"
 				>
 					<Icon name="email" color="currentColor" />
@@ -66,10 +66,9 @@
 
 				<GridColumn>
 					<FieldSelect
-						:error="$v.formData.organization.$error"
 						name="organization"
-						v-model.trim="formData.organization"
-						:options="organizations"
+						v-model.trim="formData.organizations"
+						:options="organizationsList"
 						placeholder="Select"
 					>
 						<Icon name="organization" color="currentColor" />
@@ -105,7 +104,6 @@
  * External Dependencies
  */
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -116,6 +114,7 @@ import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormActions, FormMessage, FormHead, FormBody } from '@/components/form/form';
+import accountService from '@/services/account/auth-account';
 import organizationsService from '@/services/organizations/organizations';
 
 export default {
@@ -147,16 +146,16 @@ export default {
 	data: function() {
 		return {
 			formData: {
-				fullname: '',
-				username: '',
-				password: '',
-				confirm_password: '',
-				organization: '',
+				username: 'nobody@nobody.com',
+				fullname: 'dev.bpdi@htmlbox.net',
+				password: 'n0passwd',
+				confirm_password: 'n0passwd',
+				organizations: 'None',
 			},
-			organizations: [{
-				value: ''
+			organizationsList: [{
+				value: "None"
 			}],
-			submitStatus: null,
+			success: false,
 			error: false,
 			loading: false,
 			message: ''
@@ -184,9 +183,6 @@ export default {
 				required,
 				sameAsPassword: sameAs('password')
 			},
-			organization: {
-				required
-			}
 		}
 	},
 
@@ -194,24 +190,47 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('account', ['signup']),
-		async submit() {
+		resetForm() {
+			this.loading = false;
+			this.success = false;
+			this.error = false;
+		},
+		async handleSubmit() {
 			this.$v.$touch();
-			
-			if (this.$v.$invalid) {
-				this.submitStatus = 'ERROR';
-			} else {
+
+			if (!this.$v.$invalid) {
 				this.loading = true;
-				await this.ssignup(this.FormData);
-			}
+				const data = {
+					username: this.formData.username,
+					fullname: this.formData.fullname,
+					password: this.formData.password,
+					confirm_password: this.formData.confirm_password,
+					organizations: this.formData.organizations
+				}
+												
+				try {
+					await accountService.signup(data);
+									
+					this.success = true;
+					this.message = `An email has been sent at the following address: ${this.formData.username}`;
+					
+				} catch(e) {
+					this.error = true;
+					this.message = e.message;
+				}
+			} 
+
+			this.loading = false;
 		},
 		async getOrganizations() {
 			const organizations = await organizationsService.getOrganizations()
-			this.organizations = organizations.map(organization => {
+			const organizationsValues = organizations.map(organization => {
 				return {
 					value: organization.name
 				}
 			});
+			
+			this.organizationsList = [...this.organizationsList, ...organizationsValues]
 		}
 	},
 

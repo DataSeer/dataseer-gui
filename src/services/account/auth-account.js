@@ -16,8 +16,16 @@ function logout() {
 }
 
 function signup(data) {
-	console.log(data);
-	axiosInstance.post('/signup');
+	return axiosInstance.post('/signup', data)
+		.then(res =>{
+			if (res.status !== 200)  {
+				throw new Error(res.statusText)
+			}
+			
+			if (res.data.err) {
+				throw new Error(res.data.res)
+			}
+		})
 }
 
 function resetPassword(data) {

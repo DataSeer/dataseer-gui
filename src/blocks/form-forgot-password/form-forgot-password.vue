@@ -104,7 +104,6 @@ export default {
 		},
 		async handleSubmit() {
 			this.$v.$touch();
-			console.log(this.$v.formData.username.$error);
 
 			if (!this.$v.$invalid) {
 				this.loading = true;
