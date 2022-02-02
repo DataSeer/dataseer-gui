@@ -20,6 +20,7 @@ const getters = {
 const actions = {
 	async signin({ commit, dispatch }, { username, password }) {		
 		const res = await accountService.signin(username, password)
+		
 		if (res.status !== 200)  {
 			throw new Error(res.statusText)
 		}
@@ -42,7 +43,6 @@ const actions = {
 			return e
 		}
 	},
-	
 	async logout({commit}) {
 		try {
 			await accountService.logout();
@@ -50,17 +50,6 @@ const actions = {
 		} catch (e) {
 			console.log(e);
 		}
-	},
-	
-	async resetPassword({commit}, { username, currentPassword, newPassword, confirmNewPassword }) {
-		await accountService.resetPassword(username, currentPassword, newPassword, confirmNewPassword)
-			.then((result) => {
-				console.log(result);
-				commit('passwordReset')
-			},(error) => {
-				console.log(error);
-				commit('passwordReset')
-			})
 	}
 }
 
@@ -82,9 +71,6 @@ const mutations = {
 	AuthenticateUser(state, user) {
         state.user = user;
     },
-	passwordReset(state){
-		state.status.error = false
-	},
 	logout(state) {
         state.status = {
 			loggedIn: false

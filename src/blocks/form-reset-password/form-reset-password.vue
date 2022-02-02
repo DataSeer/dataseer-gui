@@ -4,20 +4,25 @@
 			<h5>Reset Your Password</h5>
 		</FormHead>
 
-		<div class="form__status form__status--error" v-if="submitStatus === 'ERROR'">
+		<div class="form__status form__status--error" v-if="error">
 			<div class="form__status-inner">
-				<p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+				<p>{{message}}</p>
 			</div><!-- /.form__status__inner -->
-		</div>
-		<!-- /.form__status -->
+		</div> <!-- /.form__status -->
+
+		<div class="form__status form__status--success" v-if="success">
+			<div class="form__status-inner">
+				<p>{{message}}</p>
+			</div><!-- /.form__status__inner -->
+		</div> <!-- /.form__status -->
 
 		<FormBody>
 			<Grid rowGap="small">
 				<GridColumn>
 					<Field
-						:error="formHasError"
-						name="password"
-						v-model.trim="password_current"
+						:error="$v.formData.$anyDirty"
+						name="current_password"
+						v-model.trim="formData.current_password"
 						type="password"
 						placeholder="Enter Current Password"
 					>
@@ -27,17 +32,17 @@
 					</Field>
 
 					<Field
-						:error="$v.password_new.$error"
-						name="password-new"
-						v-model.trim="password_new"
+						:error="$v.formData.new_password.$error"
+						name="new_password"
+						v-model.trim="formData.new_password"
 						type="password"
 						placeholder="Enter New Password"
 					/>
 
 					<Field
-						:error="$v.password_confirm.$error"
-						name="password-confirm-new"
-						v-model.trim="password_confirm"
+						:error="$v.formData.confirm_new_password.$error"
+						name="confirm_new_password"
+						v-model.trim="formData.confirm_new_password"
 						type="password"
 						placeholder="Confirm New Password"
 					/>
@@ -62,7 +67,6 @@
  * External Dependencies
  */
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -72,6 +76,7 @@ import Button from '@/components/button/button';
 import Field from '@/components/field/field';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormHead, FormBody, FormActions } from '@/components/form/form';
+import accountService from '@/services/account/auth-account';
 
 export default {
 	name: 'formResetPassword',
@@ -90,47 +95,58 @@ export default {
 
 	data: function() {
 		return {
-			password_current: '',
-			password_new: '',
-			password_confirm: '',
-			submitStatus: null,
+			formData: {
+				current_password: '',
+				new_password: '',
+				confirm_new_password: ''
+			},
+			success: false,
+			error: false,
 			loading: false,
-			errors: ['This is example error message']
+			message: ''
 		};
-	},
-	computed: {
-		formHasError() {
-			return this.$v.password_current.$error || this.$v.password_new.$error || this.$v.password_confirm.$error
-		}
 	},
 
 	validations: {
-		password_current: {
-			required
-		},
-		password_new: {
-			required,
-			minLength: minLength(8)
-		},
-		password_confirm: {
-			sameAsPassword: sameAs('password_new')
+		formData: {
+			current_password: {
+				required
+			},
+			new_password: {
+				required,
+				minLength: minLength(8)
+			},
+			confirm_new_password: {
+				sameAsPassword: sameAs('new_password')
+			}
 		}
 	},
 
 	methods: {
-		...mapActions('account', ['resetPassword']),
+		resetForm() {
+			this.loading = false;
+			this.success = false;
+			this.error = false;
+		},
 		async handleSubmit() {
 			this.$v.$touch();
+			this.resetForm();
 
 			if (!this.$v.$invalid) {
 				this.loading = true;
-				
-				await this.resetPassword({
-					username: this.$store.state.account.user?.fullname,
-					currentPassword: this.password_current,
-					newPassword: this.password_new,
-					confirmNewPassword: this.password_confirm
-				});
+				const data = {
+					username: this.$store.state.account.user?.username,
+					...this.formData
+				}
+								
+				try {
+					await accountService.resetPassword(data);
+					this.success = true;
+					this.message = "Password changed successfully.";
+				} catch(e) {
+					this.error = true;
+					this.message = e.message;
+				}
 			} 
 
 			this.loading = false;

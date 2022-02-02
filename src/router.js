@@ -8,12 +8,6 @@ import VueRouter from 'vue-router';
  * Internal Dependencies
  */
 import accountService from '@/services/account/auth-account';
-
-Vue.use(VueRouter);
-
-/**
- * Internal Dependencies
- */
 import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
@@ -32,6 +26,8 @@ import EditOrganization from '@/pages/edit-organization';
 import EditRole from '@/pages/edit-role';
 import EditAccount from '@/pages/edit-account';
 import ManageDocument from '@/pages/manage-document';
+
+Vue.use(VueRouter);
 
 const routes = [
 	{

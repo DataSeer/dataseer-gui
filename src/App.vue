@@ -52,6 +52,7 @@ export default {
 	 * Created
 	 */
 	created() {
+		this.getUserData();
 		window.addEventListener('click', this.clearDropdowns);
 	},
 
