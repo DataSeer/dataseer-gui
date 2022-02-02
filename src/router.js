@@ -148,7 +148,7 @@ router.beforeEach((to, from, next) => {
 		if (!authRequired) {
 			next('/profile')
 		}
-	}).catch(()=>{
+	}).catch(() =>{
 		if (authRequired) {
 			next('/sign-in');
 		} else {

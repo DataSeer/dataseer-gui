@@ -14,6 +14,12 @@
 			</div><!-- /.form__status__inner -->
 		</div> <!-- /.form__status -->
 
+		<div class="form__status form__status--success" v-if="success">
+			<div class="form__status-inner">
+				<p>{{message}}</p>
+			</div><!-- /.form__status__inner -->
+		</div> <!-- /.form__status -->
+
 		<FormBody>
 			<Grid rowGap="small">
 				<GridColumn>
@@ -146,11 +152,11 @@ export default {
 	data: function() {
 		return {
 			formData: {
-				username: 'nobody@nobody.com',
-				fullname: 'dev.bpdi@htmlbox.net',
-				password: 'n0passwd',
-				confirm_password: 'n0passwd',
-				organizations: 'None',
+				username: '',
+				fullname: '',
+				password: '',
+				confirm_password: '',
+				organizations: '',
 			},
 			organizationsList: [{
 				value: "None"
@@ -197,7 +203,7 @@ export default {
 		},
 		async handleSubmit() {
 			this.$v.$touch();
-
+						
 			if (!this.$v.$invalid) {
 				this.loading = true;
 				const data = {
@@ -205,15 +211,19 @@ export default {
 					fullname: this.formData.fullname,
 					password: this.formData.password,
 					confirm_password: this.formData.confirm_password,
-					organizations: this.formData.organizations
+					// organizations: this.formData.organizations,
+					'g-recaptcha-response': ''
 				}
-												
+				
+				await window.grecaptcha.execute('6LfqazQeAAAAAM8oJnxDYOdca9iO_gnWUOZwvgku', {action: 'submit'})
+					.then(token => {
+					data['g-recaptcha-response'] = token;
+				});
+				
 				try {
 					await accountService.signup(data);
-									
 					this.success = true;
-					this.message = `An email has been sent at the following address: ${this.formData.username}`;
-					
+					this.message = `Sign up has been completed! You can signin with username ${data.username} !`;
 				} catch(e) {
 					this.error = true;
 					this.message = e.message;

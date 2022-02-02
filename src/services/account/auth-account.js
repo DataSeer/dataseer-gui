@@ -16,7 +16,8 @@ function logout() {
 }
 
 function signup(data) {
-	return axiosInstance.post('/signup', data)
+	const queryString = new URLSearchParams(data).toString();
+	return axiosInstance.post('/signup', queryString)
 		.then(res =>{
 			if (res.status !== 200)  {
 				throw new Error(res.statusText)

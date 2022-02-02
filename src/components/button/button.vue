@@ -13,6 +13,7 @@
 			'is-highlighted': highlighted,
 			'is-active': active
 		}"
+		v-bind="$attrs"
 		@click="$emit('onClick', $event)"
 	>
 		<slot />
