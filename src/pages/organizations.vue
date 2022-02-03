@@ -1,15 +1,14 @@
 <template>
 	<Main hasSubheader className="main--table">
-		<div v-if="getFiltersVisibility" class="table-filters">
+		<div v-if="false" class="table-filters">
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
 			<FormOrganizationFilters @onApplyFilters="updateFilters" />
-		</div>
-		<!-- /.table-filters -->
+		</div> <!-- /.table-filters -->
 
 		<div class="table table--organizations" tabindex="0" aria-label="organizations">
 			<div class="table__inner">
-				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<vue-good-table :columns="columns" :rows="organizations" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Name'" v-tooltip.top-center="'Sort By Name'">
 							{{ props.column.label }}
@@ -22,7 +21,7 @@
 
 					<template slot="table-row" slot-scope="props">
 						<span v-if="props.column.field == 'name'" class="table__title">
-							<Icon name="organization" :color="props.row.isActive ? 'currentColor' : '#8CABCD'" />
+							<Icon name="organization" :color="props.row.visible ? 'currentColor' : '#8CABCD'" />
 
 							{{ props.row.name }}
 						</span>
@@ -35,8 +34,8 @@
 							</ul>
 						</span>
 
-						<span v-else-if="props.column.field === 'isActive'">
-							<span style="color: #006AC9" v-if="props.row.isActive">Active</span>
+						<span v-else-if="props.column.field === 'visible'">
+							<span style="color: #006AC9" v-if="props.row.visible">Active</span>
 
 							<span style="color: #8CABCD" v-else>Inactive</span>
 						</span>
@@ -62,7 +61,7 @@
 /**
  * External Dependencies
  */
-import { mapGetters, mapActions } from 'vuex';
+import { format } from 'date-fns'
 
 /**
  * Internal Dependencies
@@ -73,6 +72,7 @@ import Button from '@/components/button/button.vue';
 import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
 import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
+import organizationsService from '@/services/organizations/organizations';
 
 export default {
 	/**
@@ -99,8 +99,7 @@ export default {
 		return {
 			columns: [
 				{
-					field: 'id',
-					label: 'id',
+					field: '_id',
 					hidden: true
 				},
 				{
@@ -113,103 +112,23 @@ export default {
 					sortable: false
 				},
 				{
-					field: 'created',
+					field: 'createdAt',
 					label: 'Created',
-					type: 'date',
-					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd',
+					formatFn: this.formatDate,
 					sortable: false
 				},
 				{
-					field: 'isActive',
+					field: 'visible',
 					label: 'Status',
 					sortable: false
 				},
 				{
 					field: 'action',
-					label: 'Action',
 					sortable: false
 				}
 			],
-			rows: [
-				{
-					id: 0,
-					name: 'American Chemistry Society',
-					accounts: 12,
-					created: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 1,
-					name: 'ASAP & MJFF',
-					accounts: 3,
-					created: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 2,
-					name: 'Another Organization',
-					accounts: 11,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 3,
-					name: 'Alphabetical Org',
-					accounts: 3,
-					created: 1623456000000,
-					isActive: false
-				},
-
-				{
-					id: 4,
-					name: 'DataSeer',
-					accounts: 2,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 5,
-					name: 'University of Manchester',
-					accounts: 5,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 6,
-					name: 'University of Ottowa',
-					accounts: 4,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 7,
-					name: 'University of Washington',
-					accounts: 2,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 8,
-					name: 'Washington State University',
-					accounts: 22,
-					created: 1623456000000,
-					isActive: true
-				},
-
-				{
-					id: 9,
-					name: 'Yale University',
-					accounts: 3,
-					created: 1623456000000,
-					isActive: true
-				}
-			],
+			organizations:[],
+			loading: true,
 			availableFilters: null
 		};
 	},
@@ -230,7 +149,6 @@ export default {
 					return row.created > createdFrom || row.created < createdTo;
 				});
 		},
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},
 
 	/**
@@ -240,7 +158,21 @@ export default {
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
-		...mapActions(['changeFiltersVisibility'])
-	}
+		async getOrganizations() {
+			const organizations = await organizationsService.getOrganizations()
+			
+			this.loading = false;
+			this.organizations = organizations;
+		},
+		formatDate: function(date) {
+			return format(new Date(date), 'yyyy-MM-dd');
+		}
+	},
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.getOrganizations();
+	},
 };
 </script>
