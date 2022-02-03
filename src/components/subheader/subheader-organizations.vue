@@ -6,8 +6,7 @@
 
 				Organizations
 			</h3>
-		</div>
-		<!-- /.subheader__left -->
+		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right" :class="{ 'is-active': showMobileMenu }">
 			<button class="subheader__btn btn-dropdown" @click="toggleMobileMenu"></button>
@@ -17,9 +16,9 @@
 					<li>
 						<Button
 							className="tertiary"
-							:active="getFiltersVisibility"
 							square
-							@onClick="changeFiltersVisibility(!getFiltersVisibility)"
+							:active="getFiltersVisibility"
+							@onClick="$emit('filtersButtonClick')"
 							v-tooltip.top-center="tooltips.filtersText"
 						>
 							<Icon name="settings" color="currentColor" />
@@ -34,12 +33,9 @@
 						<Button className="tertiary" to="/new-document">Add New Organization</Button>
 					</li>
 				</ul>
-			</div>
-			<!-- /.subheader__menu -->
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+			</div> <!-- /.subheader__menu -->
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>

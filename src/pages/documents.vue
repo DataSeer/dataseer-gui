@@ -1,6 +1,6 @@
 <template>
 	<Main hasSubheader className="main--table">
-		<div v-if="getFiltersVisibility" class="table-filters">
+		<div class="table-filters">
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
 			<FormFilters @onApplyFilters="updateFilters" />

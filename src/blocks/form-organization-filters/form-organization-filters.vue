@@ -2,12 +2,11 @@
 	<div class="form form--filters">
 		<div class="form__head">
 			<h4>Advanced Filters</h4>
-		</div>
-		<!-- /.form__head -->
+		</div><!-- /.form__head -->
 
 		<div class="form__body">
-			<div class="form__row">
-				<div class="form__col form__col--1of2">
+			<Grid columnGap="medium" rowGap="small" columnSize="half">
+				<GridColumn>
 					<FieldSelect
 						v-model.trim="formData.organization"
 						name="organization"
@@ -47,10 +46,9 @@
 
 						Institution/Organization
 					</FieldSelect>
-				</div>
-				<!-- /.form__col -->
+				</GridColumn>
 
-				<div class="form__col form__col--1of2">
+				<GridColumn>
 					<div class="form__range">
 						<ul>
 							<li>
@@ -65,14 +63,10 @@
 								<FieldDatepicker v-model="formData.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
 							</li>
 						</ul>
-					</div>
-					<!-- /.form__range -->
-				</div>
-				<!-- /.form__col -->
-			</div>
-			<!-- /.form__row -->
-		</div>
-		<!-- /.form__body -->
+					</div> <!-- /.form__range -->
+				</GridColumn>
+			</Grid>
+		</div> <!-- /.form__body -->
 
 		<div class="form__actions">
 			<ul>
@@ -86,10 +80,8 @@
 					<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
 				</li>
 			</ul>
-		</div>
-		<!-- /.form__actions -->
-	</div>
-	<!-- /.form form--filters -->
+		</div> <!-- /.form__actions -->
+	</div> <!-- /.form form--filters -->
 </template>
 
 <script>
@@ -98,6 +90,7 @@
  */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
+import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 
@@ -112,6 +105,8 @@ export default {
 	 */
 	components: {
 		Icon,
+		Grid,
+		GridColumn,
 		Button,
 		FieldSelect,
 		FieldDatepicker

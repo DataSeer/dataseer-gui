@@ -1,59 +1,66 @@
 <template>
 	<Main hasSubheader className="main--table">
-		<div v-if="false" class="table-filters">
-			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
+		<portal to="subheader">
+			<div class="subheader subheader--documents">
+				<Shell>
+					<SubheaderOrganizations title="Edit Organization" icon="organization" @filtersButtonClick="setFiltersVisibility(true)" />
+				</Shell>
+			</div><!-- /.subheader -->
+		</portal>
 
+		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)">
 			<FormOrganizationFilters @onApplyFilters="updateFilters" />
-		</div> <!-- /.table-filters -->
+		</TableFilters>
+				
+		<Table v-if="!this.loading" modifier="organizations">
+			<vue-good-table
+				:columns="columns"
+				:rows="organizations"
+				:pagination-options="{ enabled: true }"
+				styleClass="vgt-table"
+				@on-sort-change="onSortChange">
+			>
+				<template slot="table-column" slot-scope="props">
+					<span v-if="props.column.label == 'Name'" v-tooltip.top-center="'Sort By Name'">
+						{{ props.column.label }}
+					</span>
 
-		<div class="table table--organizations" tabindex="0" aria-label="organizations">
-			<div class="table__inner">
-				<vue-good-table :columns="columns" :rows="organizations" :pagination-options="{ enabled: true }" styleClass="vgt-table">
-					<template slot="table-column" slot-scope="props">
-						<span v-if="props.column.label == 'Name'" v-tooltip.top-center="'Sort By Name'">
-							{{ props.column.label }}
-						</span>
+					<span v-else>
+						{{ props.column.label }}
+					</span>
+				</template>
 
-						<span v-else>
-							{{ props.column.label }}
-						</span>
-					</template>
+				<template slot="table-row" slot-scope="props">
+					<span v-if="props.column.field == 'name'" class="table__title">
+						<Icon name="organization" :color="props.row.visible ? 'currentColor' : '#8CABCD'" />
 
-					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'name'" class="table__title">
-							<Icon name="organization" :color="props.row.visible ? 'currentColor' : '#8CABCD'" />
+						{{ props.row.name }}
+					</span>
 
-							{{ props.row.name }}
-						</span>
+					<span v-else-if="props.column.field === 'organization'">
+						<ul class="table__organization">
+							<li v-for="organization in props.row.organization" :key="organization">
+								{{ organization }}
+							</li>
+						</ul>
+					</span>
 
-						<span v-else-if="props.column.field === 'organization'">
-							<ul class="table__organization">
-								<li v-for="organization in props.row.organization" :key="organization">
-									{{ organization }}
-								</li>
-							</ul>
-						</span>
+					<span v-else-if="props.column.field === 'visible'">
+						<span style="color: #006AC9" v-if="props.row.visible">Active</span>
 
-						<span v-else-if="props.column.field === 'visible'">
-							<span style="color: #006AC9" v-if="props.row.visible">Active</span>
+						<span style="color: #8CABCD" v-else>Inactive</span>
+					</span>
 
-							<span style="color: #8CABCD" v-else>Inactive</span>
-						</span>
+					<div v-else-if="props.column.field === 'action'" class="table__actions">
+						<Button size="small" className="tertiary" to="/edit-organization" highlighted block>Edit Organization</Button>
+					</div>
+				</template>
 
-						<div v-else-if="props.column.field === 'action'" class="table__actions">
-							<Button size="small" className="tertiary" to="/edit-organization" highlighted block>Edit Organization</Button>
-						</div>
-					</template>
-
-					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
-					</template>
-				</vue-good-table>
-				<!-- /.table__table -->
-			</div>
-			<!-- /.table__inner -->
-		</div>
-		<!-- /.table -->
+				<template slot="pagination-bottom" slot-scope="props">
+					<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
+				</template>
+			</vue-good-table>
+		</Table>
 	</Main>
 </template>
 
@@ -66,13 +73,16 @@ import { format } from 'date-fns'
 /**
  * Internal Dependencies
  */
+import Shell from '@/components/shell/shell';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
+import Table from '@/components/table/table';
+import TableFilters from '@/components/table/table-filters';
 import Button from '@/components/button/button.vue';
-import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
-import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
 import organizationsService from '@/services/organizations/organizations';
+import SubheaderOrganizations from '@/components/subheader/subheader-organizations';
+import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
 
 export default {
 	/**
@@ -84,11 +94,14 @@ export default {
 	 * Components
 	 */
 	components: {
+		Shell,
 		Icon,
 		Main,
 		Button,
-		BtnClose,
 		Pagination,
+		Table,
+		TableFilters,
+		SubheaderOrganizations,
 		FormOrganizationFilters
 	},
 
@@ -129,7 +142,8 @@ export default {
 			],
 			organizations:[],
 			loading: true,
-			availableFilters: null
+			filters: null,
+			filtersVisibility: true
 		};
 	},
 
@@ -138,9 +152,9 @@ export default {
 	 */
 	computed: {
 		filteredRows: function() {
-			if (!this.availableFilters) return this.rows;
+			if (!this.filters) return this.rows;
 
-			const { organization, createdFrom, createdTo } = this.availableFilters;
+			const { organization, createdFrom, createdTo } = this.filters;
 
 			return this.rows
 				.filter((row) => organization.some((el) => el.value === row.name) || !organization.length)
@@ -156,18 +170,26 @@ export default {
 	 */
 	methods: {
 		updateFilters(filters) {
-			this.availableFilters = { ...filters };
+			this.filters = { ...filters };
 		},
 		async getOrganizations() {
+			this.loading = true;
 			const organizations = await organizationsService.getOrganizations()
 			
 			this.loading = false;
 			this.organizations = organizations;
 		},
-		formatDate: function(date) {
+		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
+		},
+		onSortChange(params) {
+			console.log(params[0].type);
+		},
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
 		}
 	},
+	
 	/**
 	 * Mounted
 	 */

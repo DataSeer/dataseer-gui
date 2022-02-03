@@ -5,7 +5,6 @@
 		v-if="isVisible"
 	>
 		<div class="shell">
-			<SubheaderOrganizations v-if="isOrganizationsPage" />
 			<SubheaderAccounts v-if="isAccountsPage" />
 			<SubheaderDocuments v-if="isDocumentsPage" />
 			<SubheaderDatasets v-if="isDatasetsPage" />
@@ -35,7 +34,6 @@
 </template>
 
 <script>
-import SubheaderOrganizations from './subheader-organizations';
 import SubheaderDocuments from './subheader-documents';
 import SubheaderAccounts from './subheader-accounts';
 import SubheaderDatasets from './subheader-datasets';
@@ -55,7 +53,6 @@ export default {
 	 * components
 	 */
 	components: {
-		SubheaderOrganizations,
 		SubheaderDocuments,
 		SubheaderAccounts,
 		SubheaderDatasets,

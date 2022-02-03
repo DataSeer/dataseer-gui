@@ -22,9 +22,8 @@
 		</div>
 		<!-- /.header__bar -->
 
-		<div class="destination"></div>
-		<!-- /.destination -->
-
+		<portal-target name="subheader" />
+		
 		<Subheader />
 	</div>
 	<!-- /.header -->
