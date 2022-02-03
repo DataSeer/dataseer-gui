@@ -12,35 +12,7 @@
 						name="organization"
 						placeholder="Include All"
 						multiple
-						:options="[
-							{
-								value: 'American Chemistry Society'
-							},
-							{
-								value: 'ASAP & MJFF'
-							},
-							{
-								value: 'Another Organization'
-							},
-							{
-								value: 'Alphabetical Org'
-							},
-							{
-								value: 'DataSeer'
-							},
-							{
-								value: 'University of Manchester'
-							},
-							{
-								value: 'University of Ottowa'
-							},
-							{
-								value: 'University of Washington'
-							},
-							{
-								value: 'Washington State University'
-							}
-						]"
+						:options="organizationNames"
 					>
 						<Icon name="organization" color="currentColor" />
 
@@ -71,7 +43,7 @@
 		<div class="form__actions">
 			<ul>
 				<li>
-					<Button :className="applyButtonClass" :disabled="areFilteresApplied" @onClick="handleApplyFilters">
+					<Button :className="applyButtonClass" :disabled="areFiltersApplied" @onClick="handleApplyFilters">
 						{{ applyButtonText }}
 					</Button>
 				</li>
@@ -113,6 +85,18 @@ export default {
 	},
 
 	/**
+	 * Props
+	 */
+	props: {
+		organizationNames: {
+			type: Array,
+			default: () => [{
+				value: 'None'
+			}]
+		},
+	},
+
+	/**
 	 * Data
 	 */
 	data: function() {
@@ -122,7 +106,7 @@ export default {
 				createdFrom: null,
 				createdTo: null
 			},
-			areFilteresApplied: true
+			areFiltersApplied: true
 		};
 	},
 
@@ -131,10 +115,10 @@ export default {
 	 */
 	computed: {
 		applyButtonText() {
-			return this.areFilteresApplied ? 'Filters Applied' : 'Apply Filters';
+			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
 		},
 		applyButtonClass() {
-			return this.areFilteresApplied ? 'tertiary' : '';
+			return this.areFiltersApplied ? 'tertiary' : '';
 		}
 	},
 
@@ -144,7 +128,7 @@ export default {
 	watch: {
 		formData: {
 			handler() {
-				this.areFilteresApplied = false;
+				this.areFiltersApplied = false;
 			},
 			deep: true
 		}
@@ -156,7 +140,7 @@ export default {
 	methods: {
 		handleApplyFilters() {
 			this.$emit('onApplyFilters', this.formData);
-			this.areFilteresApplied = true;
+			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
 			this.formData = {
@@ -175,6 +159,10 @@ export default {
 			if (!this.formData.createdFrom) return false;
 			return date < this.formData.createdFrom;
 		}
-	}
+	},
+
+	mounted () {
+		console.log(this.organizationNames);
+	},
 };
 </script>

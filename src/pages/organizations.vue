@@ -1,20 +1,29 @@
 <template>
 	<Main hasSubheader className="main--table">
 		<Subheader>
-			<SubheaderOrganizations title="Edit Organization" icon="organization" @filtersButtonClick="setFiltersVisibility(true)" />
+			<SubheaderOrganizations
+				title="Edit Organization"
+				icon="organization"
+				@filtersButtonClick="setFiltersVisibility(true)"
+			/>
 		</Subheader>
 
-		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)">
-			<FormOrganizationFilters @onApplyFilters="updateFilters" />
+		<TableFilters
+			v-if="filtersVisibility"
+			@closeButtonClick="setFiltersVisibility(false)"
+		>
+			<FormOrganizationFilters
+				:organizationNames="organizationNames"
+				@onApplyFilters="updateFilters"
+			/>
 		</TableFilters>
 				
 		<Table v-if="!this.loading" modifier="organizations">
 			<vue-good-table
 				:columns="columns"
-				:rows="organizations"
+				:rows="filteredRows"
 				:pagination-options="{ enabled: true }"
 				styleClass="vgt-table"
-				@on-sort-change="onSortChange">
 			>
 				<template slot="table-column" slot-scope="props">
 					<span v-if="props.column.label == 'Name'" v-tooltip.top-center="'Sort By Name'">
@@ -64,7 +73,7 @@
 /**
  * External Dependencies
  */
-import { format } from 'date-fns'
+import { parseISO, format, isBefore, isAfter } from 'date-fns'
 
 /**
  * Internal Dependencies
@@ -136,7 +145,7 @@ export default {
 					sortable: false
 				}
 			],
-			organizations:[],
+			rows: [],
 			loading: true,
 			filters: null,
 			filtersVisibility: false
@@ -151,36 +160,55 @@ export default {
 			if (!this.filters) return this.rows;
 
 			const { organization, createdFrom, createdTo } = this.filters;
-
+			
 			return this.rows
-				.filter((row) => organization.some((el) => el.value === row.name) || !organization.length)
 				.filter((row) => {
-					if (!(createdFrom || createdTo)) return true;
-					return row.created > createdFrom || row.created < createdTo;
+					return organization.some((el) => el.value === row.name) || !organization.length
+				})
+				.filter((row) => {
+					const rowDate = parseISO(row.createdAt);
+					
+					if (createdFrom && !createdTo) {					
+						return isAfter(rowDate, createdFrom); 
+					}
+
+					if (!createdFrom && createdTo) {
+						return isBefore(rowDate, createdTo); 
+					}
+
+					if (createdFrom && createdTo) {
+						return isBefore(rowDate, createdTo) && isAfter(rowDate, createdFrom);
+					}
+					
+					return true
 				});
 		},
+		organizationNames: function() {
+			return this.rows.map(row => {
+				return {
+					value: row.name
+				}
+			})
+		},
 	},
+
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		async getOrganizations() {
+			this.loading = true;
+			const organizations = await organizationsService.getOrganizations();
+						
+			this.loading = false;
+			this.rows = organizations;
+		},
 		updateFilters(filters) {
 			this.filters = { ...filters };
 		},
-		async getOrganizations() {
-			this.loading = true;
-			const organizations = await organizationsService.getOrganizations()
-			
-			
-			this.loading = false;
-			this.organizations = organizations;
-		},
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
-		},
-		onSortChange() {
-			console.log('test');
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
