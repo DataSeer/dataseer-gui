@@ -20,7 +20,7 @@
 			<Grid rowGap="small">
 				<GridColumn>
 					<Field
-						:error="$v.formData.$anyDirty"
+						:error="$v.formData.$anyError"
 						name="current_password"
 						v-model.trim="formData.current_password"
 						type="password"

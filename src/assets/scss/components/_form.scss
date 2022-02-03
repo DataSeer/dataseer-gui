@@ -3,6 +3,12 @@
 \* ------------------------------------------------------------ */
 
 .form {
+	position: relative;
+
+	form {
+		transition: opacity $t-duration;
+	}
+	
 	/* Form Head */
 	.form__head {
 		margin-bottom: 20px;
@@ -148,6 +154,30 @@
 	.form__range > ul > li {
 		width: 50%;
 		padding: 5px;
+	}
+
+	.spinner {
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		opacity: 0;
+		visibility: hidden;
+		transition-delay: 0.2s;
+		transition: opacity $t-duration, visibility $t-duration;
+	}
+}
+
+/* Form Is Loading */
+
+.form.is-loading {
+	> form {
+		opacity: 0.4;
+	}
+
+	.spinner {
+		opacity: 1;
+		visibility: visible;
 	}
 }
 

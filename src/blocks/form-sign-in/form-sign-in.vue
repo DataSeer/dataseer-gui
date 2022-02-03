@@ -152,10 +152,10 @@ export default {
 	methods: {
 		...mapActions('account', ['signin']),
 		async handleSubmit() {
-			this.loading = true;
 			this.$v.$touch();
-			
 			if (this.$v.$invalid) return
+			
+			this.loading = true;
 
 			try {
 				await this.signin({

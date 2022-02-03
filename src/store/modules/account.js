@@ -14,11 +14,13 @@ const state = {
 // Getters
 const getters = {
 	loggedIn: state => state.status.loggedIn,
+	userRole: state => state.user.role.key,
+	username: state => state.user.fullname.split('@')[0],
 }
 
 // Actions
 const actions = {
-	async signin({ commit, dispatch }, { username, password }) {		
+	async signin({ dispatch }, { username, password }) {		
 		const res = await accountService.signin(username, password)
 		
 		if (res.status !== 200)  {
@@ -30,8 +32,6 @@ const actions = {
 		}
 					
 		await dispatch('getUserData')
-				
-		commit('loginSuccess')
 	},
 	async getUserData({commit}) {
 		try {
