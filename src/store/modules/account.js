@@ -38,6 +38,7 @@ const actions = {
 			const result = await accountService.getUserData()
 			if (result.err) throw new Error(result.ree)
 			
+			commit('loginSuccess')
 			commit('AuthenticateUser', result.data.res)
 		} catch (e) {
 			return e

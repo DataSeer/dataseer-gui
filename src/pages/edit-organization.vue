@@ -1,5 +1,11 @@
 <template>
 	<Main hasSubheader>
+		<Subheader>
+			<SubheaderEdit title="Edit Organization" icon="organization">
+				<Button to="/organizations" className="tertiary">Exit Organization</Button>
+			</SubheaderEdit>
+		</Subheader>
+		
 		<FormEditOrganization />
 
 		<template #right>
@@ -15,8 +21,7 @@
 
 					View Accounts
 				</Button>
-			</div>
-			<!-- /.widget-associations -->
+			</div> <!-- /.widget-associations -->
 		</template>
 	</Main>
 </template>
@@ -25,6 +30,8 @@
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderEdit from '@/components/subheader/subheader-edit';
 import Main from '@/components/main/main';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
@@ -40,6 +47,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderEdit,
 		Main,
 		Icon,
 		Button,

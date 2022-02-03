@@ -5,7 +5,7 @@
 		:class="{
 			[`btn--${modifier}`]: modifier,
 		}"
-		:aria-label="organizations"
+		:aria-label="modifier"
 	>
 		<div class="table__inner">
 			<slot />

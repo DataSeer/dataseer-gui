@@ -1,11 +1,14 @@
 <template>
 	<Main class="main main--table" hasSubheader>
+		<Subheader>
+			<SubheaderAccounts />
+		</Subheader>
+
 		<div v-if="getFiltersVisibility" class="table-filters">
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
 			<FormAccountsFilters @onApplyFilters="updateFilters" />
-		</div>
-		<!-- /.table-filters -->
+		</div> <!-- /.table-filters -->
 
 		<div class="table table--accounts" tabindex="0" aria-label="accounts">
 			<div class="table__inner">
@@ -89,11 +92,13 @@ import { mapGetters, mapActions } from 'vuex';
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button.vue';
 import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
+import SubheaderAccounts from '@/components/subheader/subheader-accounts';
 import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters.vue';
 
 export default {
@@ -111,6 +116,8 @@ export default {
 		Button,
 		BtnClose,
 		Pagination,
+		Subheader,
+		SubheaderAccounts,
 		FormAccountsFilters
 	},
 

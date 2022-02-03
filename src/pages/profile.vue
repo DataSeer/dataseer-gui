@@ -1,5 +1,9 @@
 <template>
 	<Main className="main--profile" hasSubheader>
+		<Subheader>
+			<SubheaderProfile />
+		</Subheader>
+		
 		<Grid columnGap="large" rowGap="small" columnSize="half">
 			<GridColumn>
 				<FormProfile />
@@ -33,6 +37,8 @@ import Banner from '@/components/banner/banner';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FormProfile from '@/blocks/form-profile/form-profile.vue';
 import FormResetPassword from '@/blocks/form-reset-password/form-reset-password';
+import Subheader from '@/components/subheader/subheader';
+import SubheaderProfile from '@/components/subheader/subheader-profile';
 
 export default {
 	name: 'Profile',
@@ -40,9 +46,11 @@ export default {
 	components: {
 		Main,
 		Grid,
+		Subheader,
 		Banner,
 		GridColumn,
 		FormProfile,
+		SubheaderProfile,
 		FormResetPassword
 	}
 };

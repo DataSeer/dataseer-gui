@@ -1,5 +1,11 @@
 <template>
 	<Main hasSubheader>
+		<Subheader>
+			<SubheaderEdit title="Manage Document" icon="document">
+				<Button to="/documents" className="tertiary">Exit Document</Button>
+			</SubheaderEdit>
+		</Subheader>
+
 		<FormManageDocument />
 
 		<template #right>
@@ -193,7 +199,9 @@
 /**
  * Internal Dependencies
  */
-import Main from '@/components/main/main';
+import Subheader from '@/components/subheader/subheader';
+import SubheaderEdit from '@/components/subheader/subheader-edit';
+import Main from '@/components/main/main.vue';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Widgets from '@/components/widgets/widgets';
@@ -209,6 +217,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderEdit,
 		Main,
 		Icon,
 		Button,

@@ -5,13 +5,7 @@ import axiosInstance from '@/services/http.js';
 
 
 const getOrganizations = () => {
-	const params = {
-		sort: 'asc'
-	};
-	
-	return axiosInstance.get('/organizations', {
-		params
-	})
+	return axiosInstance.get('/organizations')
 		.then(res => res.data.res)
 }
 

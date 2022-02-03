@@ -1,5 +1,9 @@
 <template>
 	<Main hasSubheader className="main--table">
+		<Subheader>
+			<SubheaderDocuments />
+		</Subheader>
+
 		<div class="table-filters">
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
@@ -150,6 +154,8 @@ import { mapGetters, mapActions } from 'vuex';
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderDocuments from '@/components/subheader/subheader-documents';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main.vue';
 import Button from '@/components/button/button.vue';
@@ -168,6 +174,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderDocuments,
 		Icon,
 		Main,
 		Button,

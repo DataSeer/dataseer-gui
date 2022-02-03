@@ -1,5 +1,9 @@
 <template>
 	<Main className="main--datasets main--datasets-code" hasSubheader>
+		<Subheader>
+			<SubheaderDatasets />
+		</Subheader>
+		
 		<Intro
 			type="Codes"
 			v-if="!tabs.length"
@@ -28,6 +32,8 @@
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
@@ -46,6 +52,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderDatasets,
 		PDF,
 		Tab,
 		Tabs,

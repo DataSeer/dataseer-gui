@@ -1,12 +1,8 @@
 <template>
 	<Main hasSubheader className="main--table">
-		<portal to="subheader">
-			<div class="subheader subheader--documents">
-				<Shell>
-					<SubheaderOrganizations title="Edit Organization" icon="organization" @filtersButtonClick="setFiltersVisibility(true)" />
-				</Shell>
-			</div><!-- /.subheader -->
-		</portal>
+		<Subheader>
+			<SubheaderOrganizations title="Edit Organization" icon="organization" @filtersButtonClick="setFiltersVisibility(true)" />
+		</Subheader>
 
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)">
 			<FormOrganizationFilters @onApplyFilters="updateFilters" />
@@ -73,7 +69,7 @@ import { format } from 'date-fns'
 /**
  * Internal Dependencies
  */
-import Shell from '@/components/shell/shell';
+import Subheader from '@/components/subheader/subheader';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Table from '@/components/table/table';
@@ -94,7 +90,7 @@ export default {
 	 * Components
 	 */
 	components: {
-		Shell,
+		Subheader,
 		Icon,
 		Main,
 		Button,
@@ -143,7 +139,7 @@ export default {
 			organizations:[],
 			loading: true,
 			filters: null,
-			filtersVisibility: true
+			filtersVisibility: false
 		};
 	},
 
@@ -176,14 +172,15 @@ export default {
 			this.loading = true;
 			const organizations = await organizationsService.getOrganizations()
 			
+			
 			this.loading = false;
 			this.organizations = organizations;
 		},
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
 		},
-		onSortChange(params) {
-			console.log(params[0].type);
+		onSortChange() {
+			console.log('test');
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value

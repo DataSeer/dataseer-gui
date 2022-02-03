@@ -1,5 +1,9 @@
 <template>
 	<Main className="main--report" hasSubheader>
+		<Subheader>
+			<SubheaderReport />
+		</Subheader>
+		
 		<div class="report-group">
 			<div class="report-title">
 				<h1>
@@ -14,8 +18,7 @@
 				</p>
 			</div>
 			<!-- /.report-title -->
-		</div>
-		<!-- /.report-group -->
+		</div> <!-- /.report-group -->
 
 		<div class="report-group report-group--actions">
 			<ul>
@@ -145,6 +148,8 @@
 </template>
 
 <script>
+import Subheader from '@/components/subheader/subheader';
+import SubheaderReport from '@/components/subheader/subheader-report';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Author from '@/components/author/author';
@@ -163,6 +168,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderReport,
 		Icon,
 		Main,
 		Author,

@@ -17,7 +17,6 @@
 						<Button
 							className="tertiary"
 							square
-							:active="getFiltersVisibility"
 							@onClick="$emit('filtersButtonClick')"
 							v-tooltip.top-center="tooltips.filtersText"
 						>

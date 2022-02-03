@@ -72,23 +72,7 @@
 			height: 26px;
 		}
 	}
-}
 
-/* Subheader Datasets */
-
-.subheader--datasets {
-	.subheader__left {
-		padding-right: 15px;
-
-		@include breakpoint-down(tablet) {
-			padding-right: 0;
-		}
-	}
-}
-
-/* subheader documents */
-
-.subheader--documents {
 	.subheader__right {
 		display: flex;
 		align-items: center;
@@ -126,15 +110,27 @@
 		}
 	}
 
-	.subheader__right.is-active .subheader__menu {
-		display: block;
-	}
-
 	.subheader__btn {
 		display: none;
 
 		@include breakpoint-down(tablet) {
 			display: block;
+		}
+	}
+
+	.subheader__right.is-active .subheader__menu {
+		display: block;
+	}
+}
+
+/* Subheader Datasets */
+
+.subheader--datasets {
+	.subheader__left {
+		padding-right: 15px;
+
+		@include breakpoint-down(tablet) {
+			padding-right: 0;
 		}
 	}
 }

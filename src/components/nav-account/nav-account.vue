@@ -77,7 +77,7 @@
 				<DropDown>
 					<template #header>
 						<div class="dropdown__account">
-							{{username}} lorem
+							{{username}}
 
 							<div class="dropdown__button">
 								L
@@ -169,8 +169,10 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
-		handleLogout() {
-			this.logout();
+		async handleLogout() {
+			await this.logout();
+
+			this.$router.push('/sign-in')
 		}
 	}
 };

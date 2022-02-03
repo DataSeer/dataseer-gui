@@ -1,11 +1,14 @@
 <template>
 	<Main hasSubheader className="main--table">
+		<Subheader>
+			<SubheaderRoles />
+		</Subheader>
+
 		<div v-if="getFiltersVisibility" class="table-filters">
 			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
 
 			<FormRolesFilters @onApplyFilters="updateFilters" />
-		</div>
-		<!-- /.table-filters -->
+		</div> <!-- /.table-filters -->
 
 		<div class="table table--roles" tabindex="0" aria-label="roles">
 			<div class="table__inner">
@@ -57,6 +60,8 @@ import { mapGetters, mapActions } from 'vuex';
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderRoles from '@/components/subheader/subheader-roles';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button.vue';
@@ -74,6 +79,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderRoles,
 		Icon,
 		Main,
 		Button,

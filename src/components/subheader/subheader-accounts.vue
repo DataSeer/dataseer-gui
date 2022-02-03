@@ -6,8 +6,7 @@
 
 				Accounts
 			</h3>
-		</div>
-		<!-- /.subheader__left -->
+		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right" :class="{ 'is-active': showMobileMenu }">
 			<button class="subheader__btn btn-dropdown" @click="toggleMobileMenu"></button>
@@ -34,12 +33,9 @@
 						<Button className="tertiary" to="/new-document">Add New Account</Button>
 					</li>
 				</ul>
-			</div>
-			<!-- /.subheader__menu -->
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+			</div> <!-- /.subheader__menu -->
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>

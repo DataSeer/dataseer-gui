@@ -1,5 +1,11 @@
 <template>
 	<Main hasSubheader>
+		<Subheader>
+			<SubheaderEdit title="Edit Role" icon="key">
+				<Button to="/curator-roles" className="tertiary">Exit Role</Button>
+			</SubheaderEdit>
+		</Subheader>
+				
 		<FormEditRole />
 
 		<template #right>
@@ -25,6 +31,8 @@
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderEdit from '@/components/subheader/subheader-edit';
 import Main from '@/components/main/main';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
@@ -40,6 +48,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderEdit,
 		Main,
 		Icon,
 		Button,

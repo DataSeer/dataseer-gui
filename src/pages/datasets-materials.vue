@@ -1,5 +1,9 @@
 <template>
 	<Main className="main--datasets main--datasets-materials" hasSubheader>
+		<Subheader>
+			<SubheaderDatasets />
+		</Subheader>
+		
 		<Intro
 			type="Materials"
 			v-if="!tabs.length"
@@ -24,6 +28,11 @@
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
@@ -52,6 +61,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderDatasets,
 		PDF,
 		Tab,
 		Tabs,

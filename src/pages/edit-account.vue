@@ -1,5 +1,11 @@
 <template>
 	<Main hasSubheader>
+		<Subheader>
+			<SubheaderEdit title="Edit Account" icon="user">
+				<Button to="/accounts" className="tertiary">Exit Account</Button>
+			</SubheaderEdit>
+		</Subheader>
+		
 		<FormEditAccount />
 
 		<template #right>
@@ -158,6 +164,8 @@
 /**
  * Internal Dependencies
  */
+import Subheader from '@/components/subheader/subheader';
+import SubheaderEdit from '@/components/subheader/subheader-edit';
 import FormEditAccount from '@/blocks/form-edit-account/form-edit-account';
 import Widgets from '@/components/widgets/widgets';
 import Button from '@/components/button/button';
@@ -174,6 +182,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Subheader,
+		SubheaderEdit,
 		Main,
 		Icon,
 		Button,
