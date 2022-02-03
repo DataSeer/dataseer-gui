@@ -1,85 +1,82 @@
 <template>
 	<Main class="main main--table" hasSubheader>
 		<Subheader>
-			<SubheaderAccounts />
+			<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(true)" />
 		</Subheader>
-
-		<div v-if="getFiltersVisibility" class="table-filters">
-			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
-
+		
+		<TableFilters
+			v-if="filtersVisibility"
+			@closeButtonClick="setFiltersVisibility(false)"
+		>
 			<FormAccountsFilters @onApplyFilters="updateFilters" />
-		</div> <!-- /.table-filters -->
+		</TableFilters>
+		
+		<Table v-if="!this.loading" modifier="accounts">
+			<vue-good-table
+				:columns="columns"
+				:rows="rows"
+				:pagination-options="{ enabled: true }"
+				styleClass="vgt-table"
+			>
+				<template slot="table-column" slot-scope="props">
+					<span v-if="props.column.label === 'Username'" v-tooltip.top-center="'Sort By Username'">
+						{{ props.column.label }}
+					</span>
 
-		<div class="table table--accounts" tabindex="0" aria-label="accounts">
-			<div class="table__inner">
-				<vue-good-table
-					:columns="columns"
-					:rows="filteredRows"
-					:pagination-options="{ enabled: true }"
-					styleClass="vgt-table"
-				>
-					<template slot="table-column" slot-scope="props">
-						<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Username'">
-							{{ props.column.label }}
-						</span>
+					<span v-else>
+						{{ props.column.label }}
+					</span>
+				</template>
 
-						<span v-else>
-							{{ props.column.label }}
-						</span>
-					</template>
+				<template slot="table-row" slot-scope="props">
+					<span v-if="props.column.field == 'username'" class="table__title">
+						<a :href="`mailto:${props.row.username}`" target="_blank">
+							<Icon name="user" :color="props.row.role.color"></Icon>
 
-					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'username'" class="table__title">
-							<a :href="`mailto:${props.row.username}`" target="_blank">
-								<Icon name="user" :color="props.row.role.color"></Icon>
+							{{ props.row.username }}
+						</a>
+					</span>
 
-								{{ props.row.username }}
-							</a>
-						</span>
+					<span v-else-if="props.column.field === 'role'">
+						{{ props.row.role.label }}
+					</span>
 
-						<span v-else-if="props.column.field === 'role'">
-							<span
-								:style="{
-									color: props.row.role.color
-								}"
-								>{{ props.row.role.title }}</span
-							>
-						</span>
+					<span v-else-if="props.column.field === 'organizations'">
+						<ul class="table__organization">
+							<li v-for="organization in props.row.organizations" :key="organization._id">
+								{{ organization.name }}
+							</li>
+						</ul>
+					</span>
 
-						<span v-else-if="props.column.field === 'organization'">
-							<ul class="table__organization">
-								<li v-for="organization in props.row.organization" :key="organization">
-									{{ organization }}
-								</li>
-							</ul>
-						</span>
+					<span v-else-if="props.column.field === 'disabled'">
+						<span style="color: #006AC9" v-if="props.row.disabled">Active</span>
 
-						<span v-else-if="props.column.field === 'isActive'">
-							<span style="color: #006AC9" v-if="props.row.isActive">Active</span>
+						<span style="color: #8CABCD" v-else>Inactive</span>
+					</span>
 
-							<span style="color: #8CABCD" v-else>Inactive</span>
-						</span>
+					<div v-else-if="props.column.field === 'action'" class="table__actions">
+						<Button
+							size="small"
+							className="tertiary"
+							to="/edit-account"
+							highlighted
+							block
+						>
+							Edit User
+						</Button >
+					</div>
+				</template>
 
-						<div v-else-if="props.column.field === 'action'" class="table__actions">
-							<Button size="small" className="tertiary" to="/edit-account" highlighted block
-								>Edit User</Button
-							>
-						</div>
-					</template>
-
-					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination
-							:totalItems="props.total"
-							:pageChanged="props.pageChanged"
-							:perPageChanged="props.perPageChanged"
-						/>
-					</template>
-				</vue-good-table>
-				<!-- /.table__table -->
-			</div>
-			<!-- /.table__inner -->
-		</div>
-		<!-- /.table -->
+				<template slot="pagination-bottom" slot-scope="props">
+					<Pagination
+						:totalItems="props.total"
+						:pageChanged="props.pageChanged"
+						:perPageChanged="props.perPageChanged"
+					/>
+				</template>
+			</vue-good-table>
+		</Table>
 	</Main>
 </template>
 
@@ -87,19 +84,21 @@
 /**
  * External Dependencies
  */
-import { mapGetters, mapActions } from 'vuex';
+import { format } from 'date-fns'
 
 /**
  * Internal Dependencies
  */
-import Subheader from '@/components/subheader/subheader';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
-import Button from '@/components/button/button.vue';
-import BtnClose from '@/components/btn-close/btn-close';
-import Pagination from '@/components/pagination/pagination.vue';
+import Button from '@/components/button/button';
+import Table from '@/components/table/table';
+import Subheader from '@/components/subheader/subheader';
+import AccountsService from '@/services/account/accounts';
+import TableFilters from '@/components/table/table-filters';
+import Pagination from '@/components/pagination/pagination';
 import SubheaderAccounts from '@/components/subheader/subheader-accounts';
-import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters.vue';
+import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters';
 
 export default {
 	/**
@@ -114,9 +113,10 @@ export default {
 		Icon,
 		Main,
 		Button,
-		BtnClose,
-		Pagination,
+		Table,
 		Subheader,
+		Pagination,
+		TableFilters,
 		SubheaderAccounts,
 		FormAccountsFilters
 	},
@@ -128,7 +128,7 @@ export default {
 		return {
 			columns: [
 				{
-					field: 'id',
+					field: '_id',
 					label: 'id',
 					hidden: true
 				},
@@ -137,30 +137,30 @@ export default {
 					label: 'Username'
 				},
 				{
-					field: 'fullName',
+					field: 'fullname',
 					label: 'Full Name',
 					sortable: false
 				},
 				{
 					field: 'role',
 					label: 'Role',
+					formatFn: this.formatRole,
 					sortable: false
 				},
 				{
-					field: 'organization',
+					field: 'organizations',
 					label: 'Organization',
 					sortable: false
 				},
 				{
-					field: 'lastSignedIn',
+					field: 'updatedAt',
 					label: 'Last Signed In',
-					sortable: false,
 					type: 'date',
-					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd'
+					formatFn: this.formatDate,
+					sortable: false,
 				},
 				{
-					field: 'isActive',
+					field: 'disabled',
 					label: 'Status',
 					sortable: false
 				},
@@ -292,7 +292,9 @@ export default {
 					isActive: true
 				}
 			],
-			availableFilters: null
+			loading: true,
+			filters: null,
+			filtersVisibility: false
 		};
 	},
 
@@ -303,7 +305,6 @@ export default {
 		filteredRows: function() {
 			return this.rows;
 		},
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},
 
 	/**
@@ -313,7 +314,29 @@ export default {
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
-		...mapActions(['changeFiltersVisibility'])
-	}
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
+		},
+		formatDate(value) {
+			return format(new Date(value), 'yyyy-MM-dd');
+		},
+		formatRole(value) {
+			return value.label
+		},
+		async getAccounts() {
+			this.loading = true;
+			const accounts = await AccountsService.getAccounts();
+
+			this.loading = false;
+			this.rows = accounts;
+		}
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.getAccounts();	
+	},
 };
 </script>

@@ -16,9 +16,8 @@
 					<li>
 						<Button
 							className="tertiary"
-							:active="getFiltersVisibility"
 							square
-							@onClick="changeFiltersVisibility(!getFiltersVisibility)"
+							@onClick="$emit('filtersButtonClick')"
 							v-tooltip.top-center="tooltips.filtersText"
 						>
 							<Icon name="settings" color="currentColor" />

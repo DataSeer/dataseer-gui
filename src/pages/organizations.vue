@@ -26,7 +26,7 @@
 				styleClass="vgt-table"
 			>
 				<template slot="table-column" slot-scope="props">
-					<span v-if="props.column.label == 'Name'" v-tooltip.top-center="'Sort By Name'">
+					<span v-if="props.column.label === 'Name'" v-tooltip.top-center="'Sort By Name'">
 						{{ props.column.label }}
 					</span>
 
@@ -191,7 +191,6 @@ export default {
 			})
 		},
 	},
-
 
 	/**
 	 * Methods
