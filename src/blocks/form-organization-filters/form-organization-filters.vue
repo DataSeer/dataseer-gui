@@ -12,7 +12,7 @@
 						name="organization"
 						placeholder="Include All"
 						multiple
-						:options="organizationNames"
+						:options="organizationsList"
 					>
 						<Icon name="organization" color="currentColor" />
 
@@ -88,11 +88,9 @@ export default {
 	 * Props
 	 */
 	props: {
-		organizationNames: {
+		organizationsList: {
 			type: Array,
-			default: () => [{
-				value: 'None'
-			}]
+			default: () => []
 		},
 	},
 

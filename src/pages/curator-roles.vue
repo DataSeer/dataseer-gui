@@ -29,10 +29,10 @@
 					</template>
 
 					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'name'" class="table__title">
+						<span v-if="props.column.field == 'label'" class="table__title">
 							<Icon name="key" :color="props.row.color"></Icon>
 
-							{{ props.row.name }}
+							{{ props.row.label }}
 						</span>
 
 						<span v-else-if="props.column.field === 'color'" class="table__color">
@@ -104,7 +104,7 @@ export default {
 					hidden: true
 				},
 				{
-					field: 'name',
+					field: 'label',
 					label: 'Role'
 				},
 				{
@@ -166,7 +166,7 @@ export default {
 		async getRoles() {
 			this.loading = true;
 			const roles = await RoleService.getRoles();
-						
+
 			this.loading = false;
 			this.rows = roles;
 		},

@@ -59,7 +59,7 @@
 						<Button
 							size="small"
 							className="tertiary"
-							to="/edit-account"
+							:to="`/edit-account/${props.row._id}`"
 							highlighted
 							block
 						>

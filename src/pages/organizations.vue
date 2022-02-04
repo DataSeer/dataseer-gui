@@ -13,7 +13,7 @@
 			@closeButtonClick="setFiltersVisibility(false)"
 		>
 			<FormOrganizationFilters
-				:organizationNames="organizationNames"
+				:organizationsList="organizationsList"
 				@onApplyFilters="updateFilters"
 			/>
 		</TableFilters>
@@ -148,7 +148,8 @@ export default {
 			rows: [],
 			loading: true,
 			filters: null,
-			filtersVisibility: false
+			filtersVisibility: false,
+			organizationsList: []
 		};
 	},
 
@@ -199,9 +200,16 @@ export default {
 		async getOrganizations() {
 			this.loading = true;
 			const organizations = await organizationsService.getOrganizations();
+
+			console.log(organizations);
 						
 			this.loading = false;
 			this.rows = organizations;
+		},
+		async getOrganizationsList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
+			
+			this.organizationsList = organizationsList;
 		},
 		updateFilters(filters) {
 			this.filters = { ...filters };
@@ -219,6 +227,7 @@ export default {
 	 */
 	mounted () {
 		this.getOrganizations();
+		this.getOrganizationsList();
 	},
 };
 </script>

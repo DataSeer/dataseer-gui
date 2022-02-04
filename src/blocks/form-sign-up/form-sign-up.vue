@@ -73,7 +73,7 @@
 				<GridColumn>
 					<FieldSelect
 						name="organization"
-						v-model.trim="formData.organizations"
+						v-model="formData.organizations"
 						:options="organizationsList"
 						multiple
 						placeholder="Select"
@@ -157,12 +157,15 @@ export default {
 				fullname: '',
 				password: '',
 				confirm_password: '',
-				organizations: '',
+				organizations: ''
 			},
-			organizationsList: [{
-				id: '',
-				value: 'None'
-			}],
+			organizationsList: [
+				{
+					id: '',
+					value: 'None'
+				}
+			],
+			organizationsListDefault: {},
 			success: false,
 			error: false,
 			loading: false,
@@ -190,7 +193,7 @@ export default {
 			confirm_password: {
 				required,
 				sameAsPassword: sameAs('password')
-			},
+			}
 		}
 	},
 
@@ -205,55 +208,55 @@ export default {
 		},
 		async handleSubmit() {
 			this.$v.$touch();
-						
+
 			if (!this.$v.$invalid) {
 				this.resetForm();
 				this.loading = true;
-				
+
 				const data = {
 					username: this.formData.username,
 					fullname: this.formData.fullname,
 					password: this.formData.password,
 					confirm_password: this.formData.confirm_password,
-					organizations: this.formData.organizations ? this.formData.organizations.map(organization => organization.id) : '',
+					organizations: this.formData.organizations
+						? this.formData.organizations.map((organization) => organization.value)
+						: [this.organizationsListDefault[0].value],
 					'g-recaptcha-response': ''
-				}
-				
-				await window.grecaptcha.execute('6LfqazQeAAAAAM8oJnxDYOdca9iO_gnWUOZwvgku', {action: 'submit'})
-					.then(token => {
-					data['g-recaptcha-response'] = token;
-				});
-				
+				};
+
 				try {
+					await window.grecaptcha
+						.execute('6LfqazQeAAAAAM8oJnxDYOdca9iO_gnWUOZwvgku', { action: 'submit' })
+						.then((token) => {
+							data['g-recaptcha-response'] = token;
+						});
+
 					await accountService.signup(data);
 					this.success = true;
 					this.message = `Sign up has been completed! You can signin with username ${data.username} !`;
-				} catch(e) {
+				} catch (e) {
 					this.error = true;
 					this.message = e.message;
 				}
-			} 
+			}
 
 			this.loading = false;
 		},
-		async getOrganizations() {
-			const organizations = await organizationsService.getOrganizations()
-			const organizationsValues = organizations.map(organization => {
-				return {
-					id: organization._id,
-					value: organization.name
-				}
-			});
+		async getOrganizationsList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
 			
-			this.organizationsList = [...organizationsValues];
+			this.organizationsList = organizationsList;
+			this.organizationsListDefault = organizationsList.filter(
+				(entry) => entry.label === 'None'
+			);
 		}
 	},
 
 	/**
 	 * Mounted
 	 */
-	mounted () {
-		this.getOrganizations();
-	},
+	created() {
+		this.getOrganizationsList();
+	}
 };
 </script>

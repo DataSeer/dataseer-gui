@@ -3,32 +3,30 @@
 		<label v-if="this.$slots.default" :for="name" class="field__label">
 			<slot />
 		</label>
-
+		
 		<div class="field__controls">
-			<div v-if="options.length" class="select" :class="{ 'is-selected': value.length, 'is-opened': isOpened }">
+			<div class="select" :class="{ 'is-opened': isOpened }">
 				<vSelect
 					:clearable="false"
 					:searchable="false"
 					:placeholder="placeholder"
 					:options="options"
 					:multiple="multiple"
-					label="value"
-					@input="handleChange"
 					:value="value"
+					@input="handleChange"
 				>
-					<template #option="{ value, helptext }">
-						{{ value }} <i v-if="helptext">{{ helptext }}</i>
+					<template #option="{ label, helptext }">
+						{{ label }} <i v-if="helptext">{{ helptext }}</i>
 					</template>
 
-					<template #selected-option="{ value, helptext }">
-						{{ value }} <i v-if="helptext">{{ helptext }}</i>
+					<template #selected-option="{ label, helptext }">
+						
+						{{ label }} <i v-if="helptext">{{ helptext }}</i>
 					</template>
 				</vSelect>
 			</div>
-		</div>
-		<!-- /.field__controls -->
-	</div>
-	<!-- /.field -->
+		</div> <!-- /.field__controls -->
+	</div> <!-- /.field -->
 </template>
 
 <script>

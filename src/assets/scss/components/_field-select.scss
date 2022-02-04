@@ -84,6 +84,7 @@
 		height: auto;
 		min-height: 42px;
 		padding-right: 52px;
+		padding-left: 2px;
 
 		&:after {
 			content: '';
@@ -99,6 +100,10 @@
 
 	.vs__selected-options {
 		align-items: center;
+	}
+
+	.vs__selected-options > input {
+		padding-left: 10px;
 	}
 
 	.vs__selected {
@@ -145,8 +150,4 @@
 	.vs__deselect svg {
 		display: none;
 	}
-}
-
-.is-selected .v-select.vs--multiple .vs__dropdown-toggle {
-	padding-left: 2px;
 }
