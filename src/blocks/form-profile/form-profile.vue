@@ -57,7 +57,7 @@ export default {
 			return this.$store.state.account.user?.username || ''
 		},
 		organization: function() {
-			return this.$store.state.account.user?.organizations[0].name || ''
+			return this.$store.state.account.user?.organizations.map(organization => organization.name)?.join(', ') || 'None'
 		}
 	},
 

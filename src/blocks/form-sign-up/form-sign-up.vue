@@ -75,6 +75,7 @@
 						name="organization"
 						v-model.trim="formData.organizations"
 						:options="organizationsList"
+						multiple
 						placeholder="Select"
 					>
 						<Icon name="organization" color="currentColor" />
@@ -159,7 +160,8 @@ export default {
 				organizations: '',
 			},
 			organizationsList: [{
-				value: "None"
+				id: '',
+				value: 'None'
 			}],
 			success: false,
 			error: false,
@@ -205,13 +207,15 @@ export default {
 			this.$v.$touch();
 						
 			if (!this.$v.$invalid) {
+				this.resetForm();
 				this.loading = true;
+				
 				const data = {
 					username: this.formData.username,
 					fullname: this.formData.fullname,
 					password: this.formData.password,
 					confirm_password: this.formData.confirm_password,
-					// organizations: this.formData.organizations,
+					organizations: this.formData.organizations ? this.formData.organizations.map(organization => organization.id) : '',
 					'g-recaptcha-response': ''
 				}
 				
@@ -236,11 +240,12 @@ export default {
 			const organizations = await organizationsService.getOrganizations()
 			const organizationsValues = organizations.map(organization => {
 				return {
+					id: organization._id,
 					value: organization.name
 				}
 			});
 			
-			this.organizationsList = [...this.organizationsList, ...organizationsValues]
+			this.organizationsList = [...organizationsValues];
 		}
 	},
 
