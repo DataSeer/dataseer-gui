@@ -1,20 +1,25 @@
 <template>
 	<Main hasSubheader className="main--table">
 		<Subheader>
-			<SubheaderRoles />
+			<SubheaderRoles
+				@filtersButtonClick="setFiltersVisibility(true)"
+			/>
 		</Subheader>
 
-		<div v-if="getFiltersVisibility" class="table-filters">
-			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
-
-			<FormRolesFilters @onApplyFilters="updateFilters" />
-		</div> <!-- /.table-filters -->
+		<TableFilters
+			v-if="filtersVisibility"
+			@closeButtonClick="setFiltersVisibility(false)"
+		>
+			<FormRolesFilters
+				@onApplyFilters="updateFilters"
+			/>
+		</TableFilters>
 
 		<div class="table table--roles" tabindex="0" aria-label="roles">
 			<div class="table__inner">
 				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
-						<span v-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Username'">
+						<span v-if="props.column.label === 'Role'" v-tooltip.top-center="'Sort By Role'">
 							{{ props.column.label }}
 						</span>
 
@@ -24,10 +29,10 @@
 					</template>
 
 					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'role'" class="table__title">
+						<span v-if="props.column.field == 'name'" class="table__title">
 							<Icon name="key" :color="props.row.color"></Icon>
 
-							{{ props.row.role }}
+							{{ props.row.name }}
 						</span>
 
 						<span v-else-if="props.column.field === 'color'" class="table__color">
@@ -40,34 +45,32 @@
 					</template>
 
 					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
+						<Pagination
+							:totalItems="props.total"
+							:pageChanged="props.pageChanged"
+							:perPageChanged="props.perPageChanged"
+						/>
 					</template>
-				</vue-good-table>
-				<!-- /.table__table -->
-			</div>
-			<!-- /.table__inner -->
-		</div>
-		<!-- /.table -->
+				</vue-good-table> <!-- /.table__table -->
+			</div> <!-- /.table__inner -->
+		</div> <!-- /.table -->
 	</Main>
 </template>
 
 <script>
-/**
- * External Dependencies
- */
-import { mapGetters, mapActions } from 'vuex';
 
 /**
  * Internal Dependencies
  */
+import TableFilters from '@/components/table/table-filters';
 import Subheader from '@/components/subheader/subheader';
 import SubheaderRoles from '@/components/subheader/subheader-roles';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button.vue';
-import BtnClose from '@/components/btn-close/btn-close';
 import Pagination from '@/components/pagination/pagination.vue';
 import FormRolesFilters from '@/blocks/form-roles-filters/form-roles-filters.vue';
+import RoleService from '@/services/roles/roles';
 
 export default {
 	/**
@@ -79,12 +82,12 @@ export default {
 	 * Components
 	 */
 	components: {
+		TableFilters,
 		Subheader,
 		SubheaderRoles,
 		Icon,
 		Main,
 		Button,
-		BtnClose,
 		Pagination,
 		FormRolesFilters
 	},
@@ -96,12 +99,12 @@ export default {
 		return {
 			columns: [
 				{
-					field: 'id',
+					field: '_id',
 					label: 'id',
 					hidden: true
 				},
 				{
-					field: 'role',
+					field: 'name',
 					label: 'Role'
 				},
 				{
@@ -130,44 +133,10 @@ export default {
 					sortable: false
 				}
 			],
-			rows: [
-				{
-					id: 1,
-					role: 'Curator',
-					key: 'Administrator',
-					weight: '1000',
-					members: '4',
-					color: '#00BDFF'
-				},
-
-				{
-					id: 2,
-					role: 'Annotator',
-					key: 'Moderator',
-					weight: '1000',
-					members: '9',
-					color: '#006AC9'
-				},
-
-				{
-					id: 3,
-					role: 'Standard User',
-					key: 'StandardUser',
-					weight: '10',
-					members: '1,234',
-					color: '#444444'
-				},
-
-				{
-					id: 4,
-					role: 'Visitor',
-					key: 'Administrator',
-					weight: '1',
-					members: '343',
-					color: '#BCD0E6'
-				}
-			],
-			availableFilters: null
+			rows: [],
+			loading: true,
+			filters: null,
+			filtersVisibility: false
 		};
 	},
 
@@ -182,17 +151,32 @@ export default {
 
 			return this.rows.filter((row) => role.value === row.role) || !role.length;
 		},
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
+		},
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
-		...mapActions(['changeFiltersVisibility'])
-	}
+		async getRoles() {
+			this.loading = true;
+			const roles = await RoleService.getRoles();
+						
+			this.loading = false;
+			this.rows = roles;
+		},
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.getRoles();
+	},
 };
 </script>
