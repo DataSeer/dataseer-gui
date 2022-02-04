@@ -1,6 +1,8 @@
 <template>
-	<div class="form form--edit">
-		<div class="form__body">
+	<Form className="form--edit" @submit.prevent="updateAccount" :loading="loading">
+		<FormStatus v-if="error || success" :text="message" :isError="error"  />
+
+		<FormBody>
 			<div class="form__group">
 				<h4>{{formData.username}}</h4>
 
@@ -16,7 +18,7 @@
 							Full Name
 						</Field>
 					</GridColumn>
-w
+
 					<GridColumn>
 						<FieldSelect
 							placeholder="Role"
@@ -42,8 +44,7 @@ w
 						</FieldSelect>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
+			</div> <!-- /.form__group -->
 
 			<div class="form__group">
 				<h4>Settings</h4>
@@ -64,41 +65,35 @@ w
 									</FieldCheckbox>
 								</li>
 							</ul>
-						</div>
-						<!-- /.checkboxes -->
+						</div> <!-- /.checkboxes -->
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
-		</div>
-		<!-- /.form__body -->
+			</div> <!-- /.form__group -->
+		</FormBody>
 
-		<div class="form__actions">
-			<ul>
-				<li>
-					<Button>Save Changes</Button>
-				</li>
+		<FormActions>
+			<li>
+				<Button type="submit">Save Changes</Button>
+			</li>
 
-				<li>
-					<Button to="/accounts" className="tertiary">Cancel</Button>
-				</li>
+			<li>
+				<Button to="/accounts" className="tertiary">Cancel</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary">
-						<Icon name="trash" color="#E36329" /> Delete Account
-					</Button>
-				</li>
-			</ul>
-		</div>
-		<!-- /.form__actions -->
-	</div>
-	<!-- /.form -->
+			<li>
+				<Button className="tertiary" type="button" @onClick="deleteAccount">
+					<Icon name="trash" color="#E36329" /> Delete Account
+				</Button>
+			</li>
+		</FormActions>
+	</Form>
 </template>
 
 <script>
 /**
  * Internal Dependencies
  */
+import Form, { FormBody, FormActions, FormStatus } from '@/components/form/form';
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
@@ -119,6 +114,10 @@ export default {
 	 * Components
 	 */
 	components: {
+		Form,
+		FormBody,
+		FormStatus,
+		FormActions,
 		Grid,
 		Icon,
 		Field,
@@ -156,6 +155,10 @@ export default {
 					value: 'None'
 				}
 			],
+			loading: false,
+			error: false,
+			success: false,
+			message: '',
 		}
 	},
 
@@ -183,6 +186,38 @@ export default {
 				disabled: disabled,
 				visible: visible,
 				organizations: getOrganizations(),
+			}
+		},
+		async updateAccount() {
+			const params = {
+				fullname: this.formData.fullname,
+				role: this.formData.role.value,
+				organizations: this.formData.organizations.map(entry => entry.value),
+				disabled: this.formData.disabled,
+				visible: this.formData.visible
+			}
+
+			try {
+				await AccountsService.updateAccount(this.$route.params.id, params)
+				this.success = true;
+				this.message = `${this.formData.username} was updated successfully!`;
+			} catch (e) {
+				this.error = true;
+				this.message = e.message;
+			}
+		},
+		async deleteAccount() {
+			const confirmDelete = window.confirm('Are you sure you want to delete this Account?');
+
+			if (!confirmDelete) return
+			
+			try {
+				await AccountsService.deleteAccount(this.$route.params.id);
+				this.success = true;
+				this.message = `${this.formData.username} deleted successfully!`;
+			} catch (e) {
+				this.error = true;
+				this.message = e.message;
 			}
 		},
 		async getOrganizationsList() {
