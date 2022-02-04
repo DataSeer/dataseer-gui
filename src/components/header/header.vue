@@ -13,26 +13,18 @@
 								<navAccount></navAccount>
 							</li>
 						</ul>
-					</nav>
-					<!-- /.nav -->
-				</div>
-				<!-- /.header__bar-inner -->
-			</Shell>
-			<!-- /.shell -->
-		</div>
-		<!-- /.header__bar -->
+					</nav> <!-- /.nav -->
+				</div> <!-- /.header__bar-inner -->
+			</Shell> <!-- /.shell -->
+		</div> <!-- /.header__bar -->
 
 		<portal-target name="subheader" />
-		
-		<Subheader />
-	</div>
-	<!-- /.header -->
+	</div> <!-- /.header -->
 </template>
 
 <script>
 import Logo from '@/components/logo/logo';
 import Shell from '@/components/shell/shell';
-import Subheader from '@/components/subheader/subheader';
 import navAccount from '@/components/nav-account/nav-account';
 import navTrigger from '@/components/nav-trigger/nav-trigger';
 
@@ -49,7 +41,6 @@ export default {
 		Logo,
 		Shell,
 		navTrigger,
-		Subheader,
 		navAccount
 	},
 
