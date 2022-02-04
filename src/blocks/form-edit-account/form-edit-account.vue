@@ -16,7 +16,7 @@
 							Full Name
 						</Field>
 					</GridColumn>
-
+w
 					<GridColumn>
 						<FieldSelect
 							placeholder="Role"
@@ -164,10 +164,12 @@ export default {
 			const result = await AccountsService.getAccount(this.$route.params.id);
 			const { visible, disabled, fullname, username} = result
 			
-			const getOrganization = () => ({
-				value: result.organizations[0]._id,
-				label: result.organizations[0].name,	
-			})
+			const getOrganizations = () => (
+				result.organizations.map(organization =>({
+					value: organization._id,
+					label: organization.name,	
+				}))
+			)
 			
 			const getRole = () => ({
 				value: result.role._id,
@@ -180,7 +182,7 @@ export default {
 				role: getRole(),
 				disabled: disabled,
 				visible: visible,
-				organizations: getOrganization(),
+				organizations: getOrganizations(),
 			}
 		},
 		async getOrganizationsList() {

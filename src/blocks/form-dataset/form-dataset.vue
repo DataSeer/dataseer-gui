@@ -305,8 +305,7 @@
 							</Field>
 						</GridColumn>
 					</Grid>
-				</div>
-				<!-- /.form__body -->
+				</div> <!-- /.form__body -->
 
 				<div class="form__cta">
 					<div class="form__cta-row">
@@ -371,11 +370,9 @@
 						</div><!-- /.form-__cta-col -->
 					</div>
 					<!-- /.form__cta-row -->
-				</div>
-				<!-- /.form__cta -->
+				</div> <!-- /.form__cta -->
 			</form>
-		</div>
-		<!-- /.form -->
+		</div> <!-- /.form -->
 	</div>
 </template>
 

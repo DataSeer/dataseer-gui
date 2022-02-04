@@ -80,9 +80,9 @@
 							{{username}}
 
 							<div class="dropdown__button">
-								L
+								{{username.charAt(0)}}
 
-								<span class="dropdown__arrow"></span>
+								<span class="dropdown__arrow" />
 							</div> <!-- /.dropdown__button -->
 						</div> <!-- /.dropdown__account -->
 					</template>
@@ -130,7 +130,7 @@
 /**
  * External Dependencies
  */
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -156,12 +156,10 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['username']),
 		isLoggedIn() {
 			return this.$store.state.account.status?.loggedIn
 		},
-		username() {
-			return this.$store.state.account.user?.fullname || ''
-		}
 	},
 	
 	/**
