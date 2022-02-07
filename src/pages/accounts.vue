@@ -1,5 +1,5 @@
 <template>
-	<Main class="main main--table" hasSubheader>
+	<Main class="main--table" hasSubheader>
 		<Subheader>
 			<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(true)" />
 		</Subheader>

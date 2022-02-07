@@ -393,6 +393,10 @@
 	.form__head {
 		text-transform: uppercase;
 	}
+	
+	.form__body .grid {
+		align-items: flex-end;
+	}
 }
 
 /* Form Edit */

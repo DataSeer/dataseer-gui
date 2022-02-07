@@ -123,7 +123,7 @@
 				<li>
 					<Button
 						:className="applyButtonClass"
-						:disabled="areFilteresApplied"
+						:disabled="areFiltersApplied"
 						@onClick="handleApplyFilters"
 					>
 						{{ applyButtonText }}
@@ -182,7 +182,7 @@ export default {
 				modifiedFrom: null,
 				modifiedTo: null
 			},
-			areFilteresApplied: true
+			areFiltersApplied: true
 		};
 	},
 
@@ -191,10 +191,10 @@ export default {
 	 */
 	computed: {
 		applyButtonText() {
-			return this.areFilteresApplied ? 'Filters Applied' : 'Apply Filters';
+			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
 		},
 		applyButtonClass() {
-			return this.areFilteresApplied ? 'tertiary' : '';
+			return this.areFiltersApplied ? 'tertiary' : '';
 		}
 	},
 
@@ -204,7 +204,7 @@ export default {
 	watch: {
 		formData: {
 			handler() {
-				this.areFilteresApplied = false;
+				this.areFiltersApplied = false;
 			},
 			deep: true
 		}
@@ -217,7 +217,7 @@ export default {
 		handleApplyFilters() {
 			this.$emit('onApplyFilters', this.formData);
 
-			this.areFilteresApplied = true;
+			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
 			this.formData = {
