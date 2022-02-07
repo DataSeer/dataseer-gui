@@ -57,7 +57,14 @@
 					</span>
 
 					<div v-else-if="props.column.field === 'action'" class="table__actions">
-						<Button size="small" className="tertiary" to="/edit-organization" highlighted block>Edit Organization</Button>
+						<Button
+							size="small"
+							className="tertiary"
+							:to="`/edit-organization/${props.row._id}`"
+							highlighted block
+						>
+							Edit Organization
+						</Button>
 					</div>
 				</template>
 
@@ -85,9 +92,9 @@ import Table from '@/components/table/table';
 import TableFilters from '@/components/table/table-filters';
 import Button from '@/components/button/button.vue';
 import Pagination from '@/components/pagination/pagination.vue';
-import organizationsService from '@/services/organizations/organizations';
 import SubheaderOrganizations from '@/components/subheader/subheader-organizations';
 import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
+import organizationsService from '@/services/organizations/organizations';
 import AccountsService from '@/services/account/accounts';
 
 export default {
@@ -165,7 +172,7 @@ export default {
 			
 			return this.rows
 				.filter((row) => {
-					return organization.some((el) => el.value === row.name) || !organization.length
+					return organization.some((el) => el.value === row._id || !organization.length)
 				})
 				.filter((row) => {
 					const rowDate = parseISO(row.createdAt);

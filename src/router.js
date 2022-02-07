@@ -108,7 +108,7 @@ const routes = [
 	},
 	{
 		name: 'Edit Organization',
-		path: '/edit-organization',
+		path: '/edit-organization/:id',
 		component: EditOrganization
 	},
 	{

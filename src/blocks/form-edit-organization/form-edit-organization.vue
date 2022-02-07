@@ -1,70 +1,62 @@
 <template>
-	<div class="form form--edit">
-		<div class="form__body">
-			<div class="form__group">
-				<h4>American Chemistry Society</h4>
-
+	<Form className="form--edit" @submit.prevent="updateOrganization" :loading="loading">
+		<FormStatus v-if="error || success" :text="message" :isError="error" />
+		
+		<FormBody>
+			<FormGroup :title="title">
 				<Grid columnGap="large">
 					<GridColumn>
-						<Field :value="name" name="Organization Name">
+						<Field
+							v-model.trim="formData.name"
+							name="name"
+						>
 							<Icon name="organization" color="currentColor" />
 
 							Organization Name
 						</Field>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
-
-			<div class="form__group">
-				<h4>Settings</h4>
-
+			</FormGroup>
+			
+			<FormGroup title="Settings">
 				<Grid columnGap="large">
 					<GridColumn>
 						<div class="checkboxes checkboxes--vertical">
 							<ul>
 								<li>
-									<FieldCheckbox name="isActive" v-model="isActive" isToggle>
-										Organization Is {{ isActive ? 'Active' : 'Inactive'}}
+									<FieldCheckbox name="visible" v-model="formData.visible" isToggle>
+										Organization Is {{ formData.visible ? 'Active' : 'Inactive'}}
 									</FieldCheckbox>
 								</li>
 
 								<li>
-									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
-										Organization Is {{ isLocked ? 'Locked' : 'Not Locked'}}
+									<FieldCheckbox name="locked" v-model="formData.locked" isToggle>
+										Organization Is {{ formData.locked ? 'Locked' : 'Not Locked'}}
 									</FieldCheckbox>
 								</li>
 							</ul>
-						</div>
-						<!-- /.checkboxes -->
+						</div> <!-- /.checkboxes -->
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
-		</div>
-		<!-- /.form__body -->
+			</FormGroup>
+		</FormBody>
 
-		<div class="form__actions">
-			<ul>
-				<li>
-					<Button>Save Changes</Button>
-				</li>
+		<FormActions>
+			<li>
+				<Button type="submit">Save Changes</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary">Cancel</Button>
-				</li>
+			<li>
+				<Button type="button" className="tertiary">Cancel</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary">
-						<Icon name="trash" color="#E36329" />
-						Delete Role
-					</Button>
-				</li>
-			</ul>
-		</div>
-		<!-- /.form__actions -->
-	</div>
-	<!-- /.form -->
+			<li>
+				<Button type="button" className="tertiary">
+					<Icon name="trash" color="#E36329" /> Delete Role
+				</Button>
+			</li>
+		</FormActions>
+	</Form>
 </template>
 
 <script>
@@ -74,8 +66,10 @@
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
-import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import Grid, { GridColumn } from '@/components/grid/grid';
+import Form, { FormBody, FormActions, FormStatus, FormGroup } from '@/components/form/form';
+import organizationsService from '@/services/organizations/organizations';
 
 export default {
 	/**
@@ -87,11 +81,16 @@ export default {
 	 * Components
 	 */
 	components: {
+		Form,
 		Icon,
-		Field,
 		Grid,
+		Field,
 		Button,
+		FormBody,
+		FormGroup,
+		FormStatus,
 		GridColumn,
+		FormActions,
 		FieldCheckbox
 	},
 
@@ -100,10 +99,75 @@ export default {
 	 */
 	data: function() {
 		return {
-			name: 'American Chemistry Society',
-			isActive: true,
-			isLocked: false
+			title: '',
+			formData: {
+				name: '',
+				visible: true,
+				locked: false,
+			},
+			loading: false,
+			error: false,
+			success: false,
+			message: ''
 		};
-	}
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		organizationId() {
+			return this.$route.params.id
+		}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		async updateOrganization() {
+			this.loading = true;
+			this.error = false;
+			
+			const params = {
+				name: this.formData.name,
+				visible:  this.formData.visible
+			}	
+
+			try {
+				await organizationsService.updateOrganization(this.organizationId, params);
+				this.success = true;
+				this.message = 'Success';
+			} catch (error) {
+				this.error = true;
+				this.message = error.message;
+			}
+
+			this.loading = false;
+		},
+		async getOrganization() {
+			this.loading = true;
+			
+			try {
+				const organization = await organizationsService.getOrganization(this.organizationId);
+
+				this.title = organization.name;
+				this.formData.name = organization.name;
+				this.formData.visible = organization.visible;
+			} catch (error) {
+				this.error = true;
+				this.message = error.message;
+			}
+
+			this.loading = false;
+		}
+	},
+	
+	/**
+	 * Created
+	 */
+	created () {
+		this.getOrganization();
+	},
 };
 </script>

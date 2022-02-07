@@ -7,6 +7,17 @@ const getOrganizations = () => {
 	return axiosInstance.get('/organizations').then((res) => httpErrorHandler(res));
 };
 
+const getOrganization = (id) => {
+	return axiosInstance.get(`/organizations/${id}`)
+		.then((res) => httpErrorHandler(res));
+};
+
+const updateOrganization = (id, params) => {
+	return axiosInstance.put(`/organizations/${id}`, params )
+		.then((res) => httpErrorHandler(res));
+};
+
+
 const getOrganizationsList = () => {
 	return axiosInstance.get('/organizations')
 		.then((res) => {	
@@ -21,6 +32,8 @@ const getOrganizationsList = () => {
 };
 
 export default {
+	getOrganization,
 	getOrganizations,
+	updateOrganization,
 	getOrganizationsList
 };

@@ -158,9 +158,5 @@ export default {
 			return date < this.formData.createdFrom;
 		}
 	},
-
-	mounted () {
-		console.log(this.organizationNames);
-	},
 };
 </script>
