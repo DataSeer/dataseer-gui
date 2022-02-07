@@ -21,8 +21,7 @@
 
 					View Accounts
 				</Button>
-			</div>
-			<!-- /.widget-associations -->
+			</div><!-- /.widget-associations -->
 		</template>
 	</Main>
 </template>

@@ -8,6 +8,24 @@ const getRoles = () => {
 		.then(res => res.data.res)
 }
 
+const getRole = (id) => {
+	return axiosInstance.get(`/roles/${id}`)
+		.then(res => res.data.res)
+}
+
+const updateRole = (id, params) => {
+	return axiosInstance.put(`/roles/${id}`, {params: params})
+		.then(res => {
+			if (res.status !== 200)  {
+				throw new Error(res.statusText)
+			}
+			
+			if (res.data.err) {
+				throw new Error(res.data.res)
+			}
+		})
+}
+
 const getRolesList = () => {
 	return axiosInstance.get('/roles')
 		.then((res) => {	
@@ -22,6 +40,8 @@ const getRolesList = () => {
 }
 
 export default {
+	getRole,
 	getRoles,
+	updateRole,
 	getRolesList
 };

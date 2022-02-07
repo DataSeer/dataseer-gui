@@ -1,12 +1,12 @@
 <template>
-	<div class="form form--edit">
-		<div class="form__body">
-			<div class="form__group">
-				<h4>Annotator</h4>
+	<Form className="form--edit" @submit.prevent="updateRole" :loading="loading">
+		<FormStatus v-if="error || success" :text="message" :isError="error" />
 
+		<FormBody>
+			<FormGroup title="Annotator">
 				<Grid columnGap="large">
 					<GridColumn>
-						<Field placeholder="Role Name" :value="name" name="Role Name">
+						<Field placeholder="Role Name" :value="formData.name" name="Role Name">
 							<Icon name="key" color="currentColor" />
 
 							Role Name
@@ -14,7 +14,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Key" :value="key" name="Role Key">
+						<Field placeholder="Role Key" :value="formData.key" name="Role Key">
 							<Icon name="key" color="currentColor" />
 
 							Role Key
@@ -22,7 +22,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Weight" :value="weight" name="Role Weight">
+						<Field placeholder="Role Weight" :value="formData.weight" name="Role Weight">
 							<Icon name="key" color="currentColor" />
 
 							Role Weight
@@ -30,65 +30,55 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Color" :value="color" name="Role Color">
+						<Field placeholder="Role Color" :value="formData.color" name="Role Color">
 							<Icon name="key" color="currentColor" />
 
 							Role Color
 						</Field>
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
+			</FormGroup>
 
-			<div class="form__group">
-				<h4>Settings</h4>
-
+			<FormGroup title="Settings">
 				<Grid columnGap="large">
 					<GridColumn>
 						<div class="checkboxes checkboxes--vertical">
 							<ul>
 								<li>
-									<FieldCheckbox name="isActive" v-model="isActive" isToggle>
-										Role Is {{ isActive ? 'Active' : 'Inactive'}}
+									<FieldCheckbox name="isActive" v-model="formData.visible" isToggle>
+										Role Is {{ formData.visible ? 'Active' : 'Inactive'}}
 									</FieldCheckbox>
 								</li>
 
 								<li>
-									<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
-										Role Is {{ isLocked ? 'Locked' : 'Not Locked'}}
+									<FieldCheckbox name="isLocked" v-model="formData.isLocked" isToggle>
+										Role Is {{ formData.isLocked ? 'Locked' : 'Not Locked'}}
 									</FieldCheckbox>
 								</li>
 							</ul>
-						</div>
-						<!-- /.checkboxes -->
+						</div> <!-- /.checkboxes -->
 					</GridColumn>
 				</Grid>
-			</div>
-			<!-- /.form__group -->
-		</div>
-		<!-- /.form__body -->
+			</FormGroup>
+		</FormBody>
 
-		<div class="form__actions">
-			<ul>
-				<li>
-					<Button>Save Changes</Button>
-				</li>
+		<FormActions>
+			<li>
+				<Button type="submit">Save Changes</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary">Cancel</Button>
-				</li>
+			<li>
+				<Button className="tertiary">Cancel</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary">
-						<Icon name="trash" color="#E36329" />
-						Delete Role
-					</Button>
-				</li>
-			</ul>
-		</div>
-		<!-- /.form__actions -->
-	</div>
-	<!-- /.form -->
+			<li>
+				<Button className="tertiary">
+					<Icon name="trash" color="#E36329" />
+					Delete Role
+				</Button>
+			</li>
+		</FormActions>
+	</Form>
 </template>
 
 <script>
@@ -100,6 +90,8 @@ import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import RoleService from '@/services/roles/roles';
+import Form, { FormGroup, FormBody, FormActions, FormStatus } from '@/components/form/form';
 
 export default {
 	/**
@@ -111,6 +103,11 @@ export default {
 	 * Components
 	 */
 	components: {
+		Form,
+		FormBody,
+		FormActions,
+		FormStatus,
+		FormGroup,
 		Grid,
 		Icon,
 		Field,
@@ -124,13 +121,60 @@ export default {
 	 */
 	data: function() {
 		return {
-			name: 'Annotator',
-			key: 'Moderator',
-			weight: '100',
-			color: '#006AC9',
-			isActive: true,
-			isLocked: false
+			formData: {
+				name: '',
+				key: '',
+				weight: '',
+				color: '',
+				visible: false,
+				isLocked: false
+			},
+			loading: false,
+			error: false,
+			success: false,
+			message: '',
 		};
-	}
+	},
+
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		async updateRole() {
+			const params = {
+				name: this.formData.name,
+				visible: this.formData.visible
+			}
+			
+			try {
+				await RoleService.updateRole(this.$route.params.id, params);
+				this.success = true;
+				this.message = `${this.formData.key} had been updated!`;
+			
+			} catch (e) {
+				this.error = true;
+				this.message = e.message;
+			}
+			
+			this.loading = false;
+		},
+		async getRole() {
+			const role = await RoleService.getRole(this.$route.params.id);
+
+			this.formData = {
+				name: role.label,
+				key: role.key,
+				weight: role.weight,
+				color: role.color,
+				visible: false,
+				isLocked: false
+			}
+		},
+	},
+
+	created () {
+		this.getRole();
+	},
 };
 </script>

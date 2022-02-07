@@ -113,7 +113,7 @@ const routes = [
 	},
 	{
 		name: 'Edit Role',
-		path: '/edit-role',
+		path: '/edit-role/:id',
 		component: EditRole
 	},
 	{

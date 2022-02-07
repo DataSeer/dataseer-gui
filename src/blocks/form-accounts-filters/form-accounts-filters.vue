@@ -9,7 +9,7 @@
 				<GridColumn>
 					<Field
 						name="username"
-						v-model.trim="formData.username"
+						v-model.trim="filters.username"
 						type="text"
 						placeholder="Username"
 					>
@@ -22,7 +22,7 @@
 				<GridColumn>
 					<Field
 						name="fullname"
-						v-model.trim="formData.fullname"
+						v-model.trim="filters.fullname"
 						type="text"
 						placeholder="Fullname"
 					>
@@ -34,7 +34,7 @@
 				
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="formData.organization"
+						v-model.trim="filters.organization"
 						name="organization"
 						placeholder="Include All"
 						multiple
@@ -48,10 +48,9 @@
 
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="formData.role"
+						v-model.trim="filters.role"
 						name="role"
 						placeholder="Include All"
-						multiple
 						:options="rolesList"
 					>
 						<Icon name="key" color="currentColor" />
@@ -61,7 +60,7 @@
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="formData.createdFrom" placeholder="From" :disableFn="disableCreatedFrom">
+					<FieldDatepicker v-model="filters.createdFrom" placeholder="From" :disableFn="disableCreatedFrom">
 						<Icon name="document_upload" color="currentColor" />
 
 						Created
@@ -69,11 +68,11 @@
 				</GridColumn>
 				
 				<GridColumn>
-					<FieldDatepicker v-model="formData.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
+					<FieldDatepicker v-model="filters.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="formData.lastUpdatedFrom" placeholder="From">
+					<FieldDatepicker v-model="filters.lastUpdatedFrom" placeholder="From">
 						<Icon name="document_upload" color="currentColor" />
 
 						last signed in
@@ -81,7 +80,7 @@
 				</GridColumn>
 				
 				<GridColumn>
-					<FieldDatepicker v-model="formData.lastUpdatedTo" placeholder="To" />
+					<FieldDatepicker v-model="filters.lastUpdatedTo" placeholder="To" />
 				</GridColumn>
 			</Grid>
 		</FormBody>
@@ -141,24 +140,21 @@ export default {
 		FieldDatepicker
 	},
 
+	props: {
+		filters: {
+			type: Object,
+			default: () => {}
+		},
+	},
+
 	/**
 	 * Data
 	 */
 	data: function() {
 		return {
-			formData: {
-				username: '',
-				fullname: '',
-				role: [],
-				organization: [],
-				createdFrom: null,
-				createdTo: null,
-				lastUpdatedFrom: null,
-				lastUpdatedTo: null
-			},
 			rolesList: [],
 			organizationsList: [],
-			areFiltersApplied: true
+			areFiltersApplied: false
 		};
 	},
 

@@ -246,10 +246,7 @@ export default {
 			const organizationsList = await organizationsService.getOrganizationsList();
 			
 			this.organizationsList = organizationsList;
-			this.organizationsListDefault = organizationsList.filter(
-				(entry) => entry.label === 'None'
-			);
-		}
+		},
 	},
 
 	/**

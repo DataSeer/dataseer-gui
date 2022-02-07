@@ -3,7 +3,7 @@
 		<FormStatus v-if="error || success" :text="message" :isError="error"  />
 
 		<FormBody>
-			<div class="form__group">
+			<FormGroup>
 				<h4>{{formData.username}}</h4>
 
 				<Grid columnGap="large">
@@ -44,9 +44,9 @@
 						</FieldSelect>
 					</GridColumn>
 				</Grid>
-			</div> <!-- /.form__group -->
+			</FormGroup>
 
-			<div class="form__group">
+			<FormGroup>
 				<h4>Settings</h4>
 
 				<Grid columnGap="large">
@@ -68,7 +68,7 @@
 						</div> <!-- /.checkboxes -->
 					</GridColumn>
 				</Grid>
-			</div> <!-- /.form__group -->
+			</FormGroup>
 		</FormBody>
 
 		<FormActions>

@@ -4,7 +4,7 @@
 import axiosInstance from '@/services/http.js';
 
 const getAccounts = (params) => {
-	return axiosInstance.get('/accounts', { params: params })
+	return axiosInstance.get('/accounts', {params: params})
 		.then(res => res.data.res)
 }
 

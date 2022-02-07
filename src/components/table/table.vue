@@ -3,7 +3,7 @@
 		class="table"
 		tabindex="0"
 		:class="{
-			[`btn--${modifier}`]: modifier,
+			[`table--${modifier}`]: modifier,
 		}"
 		:aria-label="modifier"
 	>

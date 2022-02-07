@@ -4,45 +4,50 @@
 			<SubheaderRoles />
 		</Subheader>
 
-		<div class="table table--roles" tabindex="0" aria-label="roles">
-			<div class="table__inner">
-				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
-					<template slot="table-column" slot-scope="props">
-						<span v-if="props.column.label === 'Role'" v-tooltip.top-center="'Sort By Role'">
-							{{ props.column.label }}
-						</span>
+		<Table v-if="!this.loading" modifier="roles">
+			<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<template slot="table-column" slot-scope="props">
+					<span v-if="props.column.label === 'Role'" v-tooltip.top-center="'Sort By Role'">
+						{{ props.column.label }}
+					</span>
 
-						<span v-else>
-							{{ props.column.label }}
-						</span>
-					</template>
+					<span v-else>
+						{{ props.column.label }}
+					</span>
+				</template>
 
-					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'label'" class="table__title">
-							<Icon name="key" :color="props.row.color"></Icon>
+				<template slot="table-row" slot-scope="props">
+					<span v-if="props.column.field == 'label'" class="table__title">
+						<Icon name="key" :color="props.row.color"></Icon>
 
-							{{ props.row.label }}
-						</span>
+						{{ props.row.label }}
+					</span>
 
-						<span v-else-if="props.column.field === 'color'" class="table__color">
-							<i :style="{ backgroundColor: props.row.color }" /> {{ props.row.color }}
-						</span>
+					<span v-else-if="props.column.field === 'color'" class="table__color">
+						<i :style="{ backgroundColor: props.row.color }" /> {{ props.row.color }}
+					</span>
 
-						<div v-else-if="props.column.field === 'action'" class="table__actions">
-							<Button size="small" className="tertiary" to="/edit-role" highlighted block>Edit Role</Button>
-						</div>
-					</template>
+					<div v-else-if="props.column.field === 'action'" class="table__actions">
+						<Button
+							size="small"
+							className="tertiary"
+							:to="`/edit-role/${props.row._id}`"
+							highlighted block
+						>
+							Edit Role
+						</Button>
+					</div>
+				</template>
 
-					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination
-							:totalItems="props.total"
-							:pageChanged="props.pageChanged"
-							:perPageChanged="props.perPageChanged"
-						/>
-					</template>
-				</vue-good-table> <!-- /.table__table -->
-			</div> <!-- /.table__inner -->
-		</div> <!-- /.table -->
+				<template slot="pagination-bottom" slot-scope="props">
+					<Pagination
+						:totalItems="props.total"
+						:pageChanged="props.pageChanged"
+						:perPageChanged="props.perPageChanged"
+					/>
+				</template>
+			</vue-good-table> <!-- /.table__table -->
+		</Table>
 	</Main>
 </template>
 
@@ -53,11 +58,13 @@
  */
 import Subheader from '@/components/subheader/subheader';
 import SubheaderRoles from '@/components/subheader/subheader-roles';
+import Table from '@/components/table/table';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button.vue';
 import Pagination from '@/components/pagination/pagination.vue';
 import RoleService from '@/services/roles/roles';
+import AccountsService from '@/services/account/accounts';
 
 export default {
 	/**
@@ -71,6 +78,7 @@ export default {
 	components: {
 		Subheader,
 		SubheaderRoles,
+		Table,
 		Icon,
 		Main,
 		Button,
@@ -147,6 +155,13 @@ export default {
 		async getRoles() {
 			this.loading = true;
 			const roles = await RoleService.getRoles();
+			const accountsRoles = await AccountsService.getAccounts();
+
+			roles.forEach(role => {
+				const accountsCount = accountsRoles.map(account => account.role.key).filter(key => role.key === key )
+				role.members = accountsCount.length;
+				role.color = '#006AC9';
+			});
 
 			this.loading = false;
 			this.rows = roles;

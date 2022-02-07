@@ -19,6 +19,7 @@
 /**
  * Internal Dependencies
  */
+import FormGroup from './form-group.vue';
 import FormStatus from './form-status.vue';
 import FormActions from './form-actions.vue';
 import FormMessage from './form-message.vue';
@@ -54,5 +55,5 @@ export default {
 	}
 };
 
-export { FormActions, FormMessage, FormHead, FormBody, FormStatus };
+export { FormActions, FormMessage, FormHead, FormBody, FormStatus, FormGroup };
 </script>

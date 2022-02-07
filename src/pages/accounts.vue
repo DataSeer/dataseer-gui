@@ -8,7 +8,7 @@
 			v-if="filtersVisibility"
 			@closeButtonClick="setFiltersVisibility(false)"
 		>
-			<FormAccountsFilters @onApplyFilters="updateFilters" />
+			<FormAccountsFilters :filters="filters" @onApplyFilters="applyFilters" />
 		</TableFilters>
 		
 		<Table v-if="!this.loading" modifier="accounts">
@@ -91,12 +91,12 @@ import { format } from 'date-fns'
  */
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
-import Button from '@/components/button/button';
 import Table from '@/components/table/table';
+import Button from '@/components/button/button';
 import Subheader from '@/components/subheader/subheader';
-import AccountsService from '@/services/account/accounts';
-import TableFilters from '@/components/table/table-filters';
 import Pagination from '@/components/pagination/pagination';
+import TableFilters from '@/components/table/table-filters';
+import AccountsService from '@/services/account/accounts';
 import SubheaderAccounts from '@/components/subheader/subheader-accounts';
 import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters';
 
@@ -112,8 +112,8 @@ export default {
 	components: {
 		Icon,
 		Main,
-		Button,
 		Table,
+		Button,
 		Subheader,
 		Pagination,
 		TableFilters,
@@ -292,8 +292,17 @@ export default {
 					isActive: true
 				}
 			],
+			filters: {
+				username: '',
+				fullname: '',
+				organization: [],
+				role: '',
+				createdFrom: null,
+				createdTo: null,
+				lastUpdatedFrom: null,
+				lastUpdatedTo: null
+			},
 			loading: true,
-			filters: null,
 			filtersVisibility: false
 		};
 	},
@@ -311,8 +320,8 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		updateFilters(filters) {
-			this.availableFilters = { ...filters };
+		async applyFilters() {
+			console.log(this.filters);
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
@@ -333,9 +342,9 @@ export default {
 	},
 
 	/**
-	 * Mounted
+	 * Created
 	 */
-	mounted () {
+	created () {
 		this.getAccounts();	
 	},
 };
