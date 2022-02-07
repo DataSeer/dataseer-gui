@@ -6,25 +6,13 @@
 
 				Roles
 			</h3>
-		</div>
-		<!-- /.subheader__left -->
+		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right" :class="{ 'is-active': showMobileMenu }">
 			<button class="subheader__btn btn-dropdown" @click="toggleMobileMenu"></button>
 
 			<div class="subheader__menu">
 				<ul>
-					<li>
-						<Button
-							className="tertiary"
-							square
-							@onClick="$emit('filtersButtonClick')"
-							v-tooltip.top-center="tooltips.filtersText"
-						>
-							<Icon name="settings" color="currentColor" />
-						</Button>
-					</li>
-
 					<li>
 						<Search />
 					</li>
@@ -33,12 +21,9 @@
 						<Button className="tertiary" to="/new-document">Add New Role</Button>
 					</li>
 				</ul>
-			</div>
-			<!-- /.subheader__menu -->
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+			</div> <!-- /.subheader__menu -->
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>

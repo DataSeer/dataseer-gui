@@ -1,19 +1,8 @@
 <template>
 	<Main hasSubheader className="main--table">
 		<Subheader>
-			<SubheaderRoles
-				@filtersButtonClick="setFiltersVisibility(true)"
-			/>
+			<SubheaderRoles />
 		</Subheader>
-
-		<TableFilters
-			v-if="filtersVisibility"
-			@closeButtonClick="setFiltersVisibility(false)"
-		>
-			<FormRolesFilters
-				@onApplyFilters="updateFilters"
-			/>
-		</TableFilters>
 
 		<div class="table table--roles" tabindex="0" aria-label="roles">
 			<div class="table__inner">
@@ -62,14 +51,12 @@
 /**
  * Internal Dependencies
  */
-import TableFilters from '@/components/table/table-filters';
 import Subheader from '@/components/subheader/subheader';
 import SubheaderRoles from '@/components/subheader/subheader-roles';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Button from '@/components/button/button.vue';
 import Pagination from '@/components/pagination/pagination.vue';
-import FormRolesFilters from '@/blocks/form-roles-filters/form-roles-filters.vue';
 import RoleService from '@/services/roles/roles';
 
 export default {
@@ -82,14 +69,12 @@ export default {
 	 * Components
 	 */
 	components: {
-		TableFilters,
 		Subheader,
 		SubheaderRoles,
 		Icon,
 		Main,
 		Button,
-		Pagination,
-		FormRolesFilters
+		Pagination
 	},
 
 	/**
@@ -136,7 +121,6 @@ export default {
 			rows: [],
 			loading: true,
 			filters: null,
-			filtersVisibility: false
 		};
 	},
 
@@ -157,9 +141,6 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		setFiltersVisibility(value) {
-			this.filtersVisibility = value
-		},
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
