@@ -155,10 +155,10 @@ export default {
 		async getRoles() {
 			this.loading = true;
 			const roles = await RoleService.getRoles();
-			const accountsRoles = await AccountsService.getAccounts();
+			const accounts = await AccountsService.getAccounts();
 
 			roles.forEach(role => {
-				const accountsCount = accountsRoles.map(account => account.role.key).filter(key => role.key === key )
+				const accountsCount = accounts.map(account => account.role.key).filter(key => role.key === key )
 				role.members = accountsCount.length;
 				role.color = '#006AC9';
 			});

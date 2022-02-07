@@ -1,10 +1,10 @@
 /**
  * Internal Dependencies
  */
-import axiosInstance from '@/services/http.js';
+import axiosInstance, { httpErrorHandler } from '@/services/http.js';
 
 const getOrganizations = () => {
-	return axiosInstance.get('/organizations').then((res) => res.data.res);
+	return axiosInstance.get('/organizations').then((res) => httpErrorHandler(res));
 };
 
 const getOrganizationsList = () => {

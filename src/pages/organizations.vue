@@ -88,6 +88,7 @@ import Pagination from '@/components/pagination/pagination.vue';
 import organizationsService from '@/services/organizations/organizations';
 import SubheaderOrganizations from '@/components/subheader/subheader-organizations';
 import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
+import AccountsService from '@/services/account/accounts';
 
 export default {
 	/**
@@ -200,9 +201,21 @@ export default {
 		async getOrganizations() {
 			this.loading = true;
 			const organizations = await organizationsService.getOrganizations();
-
-			console.log(organizations);
-						
+			const accounts = await AccountsService.getAccounts();
+			
+			organizations.forEach(organization => {
+				let count = 0;
+				const getAccountsOrganizations = () => accounts.map(account => account.organizations.map(organization => organization._id))
+				
+				getAccountsOrganizations().forEach(entry => {
+					if (entry.some((id) => id === organization._id)) {
+						count++	
+					}
+				})
+				
+				organization.accounts = count;
+			});
+					
 			this.loading = false;
 			this.rows = organizations;
 		},
