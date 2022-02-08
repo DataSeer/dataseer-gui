@@ -1,10 +1,10 @@
 <template>
-	<div class="form form--filters">
-		<div class="form__head">
+	<Form className="form--filters">
+		<FormHead>
 			<h4>Advanced Filters</h4>
-		</div><!-- /.form__head -->
-
-		<div class="form__body">
+		</FormHead>
+		
+		<FormBody>
 			<Grid columnGap="medium" rowGap="small" columnSize="half">
 				<GridColumn>
 					<FieldSelect
@@ -38,22 +38,24 @@
 					</div> <!-- /.form__range -->
 				</GridColumn>
 			</Grid>
-		</div> <!-- /.form__body -->
+		</FormBody>
+		
+		<FormActions>
+			<li>
+				<Button
+					:className="applyButtonClass"
+					:disabled="areFiltersApplied"
+					@onClick="handleApplyFilters"
+				>
+					{{ applyButtonText }}
+				</Button>
+			</li>
 
-		<div class="form__actions">
-			<ul>
-				<li>
-					<Button :className="applyButtonClass" :disabled="areFiltersApplied" @onClick="handleApplyFilters">
-						{{ applyButtonText }}
-					</Button>
-				</li>
-
-				<li>
-					<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
-				</li>
-			</ul>
-		</div> <!-- /.form__actions -->
-	</div> <!-- /.form form--filters -->
+			<li>
+				<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
+			</li>
+		</FormActions>
+	</Form>
 </template>
 
 <script>
@@ -64,7 +66,9 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldSelect from '@/components/field-select/field-select';
+import organizationsService from '@/services/organizations/organizations';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
+import Form, { FormActions, FormHead, FormBody } from '@/components/form/form';
 
 export default {
 	/**
@@ -76,22 +80,16 @@ export default {
 	 * Components
 	 */
 	components: {
+		Form,
+		FormActions,
+		FormHead,
+		FormBody,
 		Icon,
 		Grid,
-		GridColumn,
 		Button,
+		GridColumn,
 		FieldSelect,
 		FieldDatepicker
-	},
-
-	/**
-	 * Props
-	 */
-	props: {
-		organizationsList: {
-			type: Array,
-			default: () => []
-		},
 	},
 
 	/**
@@ -104,7 +102,8 @@ export default {
 				createdFrom: null,
 				createdTo: null
 			},
-			areFiltersApplied: true
+			areFiltersApplied: true,
+			organizationsList: []
 		};
 	},
 
@@ -146,8 +145,6 @@ export default {
 				createdFrom: null,
 				createdTo: null
 			};
-
-			this.handleApplyFilters();
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;
@@ -156,7 +153,17 @@ export default {
 		disableCreatedTo(date) {
 			if (!this.formData.createdFrom) return false;
 			return date < this.formData.createdFrom;
-		}
+		},
+		async getOrganizationsList() {
+			this.organizationsList = await organizationsService.getOrganizationsList();
+		},
+	},
+
+	/**
+	 * Created
+	 */
+	created () {
+		this.getOrganizationsList();
 	},
 };
 </script>

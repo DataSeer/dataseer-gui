@@ -1,20 +1,17 @@
 <template>
 	<Main class="main--table" hasSubheader>
 		<Subheader>
-			<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(true)" />
+			<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
 		</Subheader>
 		
-		<TableFilters
-			v-if="filtersVisibility"
-			@closeButtonClick="setFiltersVisibility(false)"
-		>
-			<FormAccountsFilters :filters="filters" @onApplyFilters="applyFilters" />
+		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
+			<FormAccountsFilters @onApplyFilters="applyFilters" />
 		</TableFilters>
 		
 		<Table v-if="!this.loading" modifier="accounts">
 			<vue-good-table
 				:columns="columns"
-				:rows="rows"
+				:rows="filteredRows"
 				:pagination-options="{ enabled: true }"
 				styleClass="vgt-table"
 			>
@@ -84,7 +81,7 @@
 /**
  * External Dependencies
  */
-import { format } from 'date-fns'
+import { parseISO, format, isBefore, isAfter } from 'date-fns'
 
 /**
  * Internal Dependencies
@@ -94,9 +91,9 @@ import Main from '@/components/main/main';
 import Table from '@/components/table/table';
 import Button from '@/components/button/button';
 import Subheader from '@/components/subheader/subheader';
+import AccountsService from '@/services/account/accounts';
 import Pagination from '@/components/pagination/pagination';
 import TableFilters from '@/components/table/table-filters';
-import AccountsService from '@/services/account/accounts';
 import SubheaderAccounts from '@/components/subheader/subheader-accounts';
 import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters';
 
@@ -292,16 +289,7 @@ export default {
 					isActive: true
 				}
 			],
-			filters: {
-				username: '',
-				fullname: '',
-				organization: [],
-				role: '',
-				createdFrom: null,
-				createdTo: null,
-				lastUpdatedFrom: null,
-				lastUpdatedTo: null
-			},
+			filters: {},
 			loading: true,
 			filtersVisibility: false
 		};
@@ -312,7 +300,51 @@ export default {
 	 */
 	computed: {
 		filteredRows: function() {
-			return this.rows;
+			if (Object.keys(this.filters).length === 0) return this.rows;
+			
+			const {
+				username,
+				fullname,
+				organizations,
+				role,
+				createdFrom,
+				createdTo
+			} = this.filters;
+			
+			return this.rows
+				.filter(row => row.username.includes(username))
+				.filter(row => row.fullname.includes(fullname))
+				.filter(row => {
+					if (!organizations?.length) return true;
+					let keepRow = false;
+					
+					row.organizations.map(organization => {
+						const ID = organization._id;
+						if (organizations.some(entry => entry.value === ID )) {
+							keepRow = true;
+						}
+					})
+
+					return keepRow;
+				})
+				.filter(row => role.value ? row.role._id === role.value : true )
+				.filter(row => {
+					const rowUpdatedAt = parseISO(row.updatedAt);
+
+					if (createdFrom && !createdTo) {
+						return isAfter(rowUpdatedAt, createdFrom);
+					}
+
+					if (!createdFrom && createdTo) {
+						return isBefore(rowUpdatedAt, createdTo);
+					}
+
+					if (createdFrom && createdTo) {
+						return isBefore(rowUpdatedAt, createdTo) && isAfter(rowUpdatedAt, createdFrom);
+					}
+
+					return true;
+				})
 		},
 	},
 
@@ -320,8 +352,8 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		async applyFilters() {
-			console.log(this.filters);
+		applyFilters(filters) {
+			this.filters = { ...filters };
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value

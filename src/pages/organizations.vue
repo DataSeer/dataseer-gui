@@ -4,7 +4,7 @@
 			<SubheaderOrganizations
 				title="Edit Organization"
 				icon="organization"
-				@filtersButtonClick="setFiltersVisibility(true)"
+				@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
 			/>
 		</Subheader>
 
@@ -12,10 +12,7 @@
 			v-if="filtersVisibility"
 			@closeButtonClick="setFiltersVisibility(false)"
 		>
-			<FormOrganizationFilters
-				:organizationsList="organizationsList"
-				@onApplyFilters="updateFilters"
-			/>
+			<FormOrganizationFilters @onApplyFilters="applyFilters" />
 		</TableFilters>
 				
 		<Table v-if="!this.loading" modifier="organizations">
@@ -85,17 +82,17 @@ import { parseISO, format, isBefore, isAfter } from 'date-fns'
 /**
  * Internal Dependencies
  */
-import Subheader from '@/components/subheader/subheader';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 import Table from '@/components/table/table';
-import TableFilters from '@/components/table/table-filters';
 import Button from '@/components/button/button.vue';
+import Subheader from '@/components/subheader/subheader';
+import AccountsService from '@/services/account/accounts';
+import TableFilters from '@/components/table/table-filters';
 import Pagination from '@/components/pagination/pagination.vue';
+import organizationsService from '@/services/organizations/organizations';
 import SubheaderOrganizations from '@/components/subheader/subheader-organizations';
 import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
-import organizationsService from '@/services/organizations/organizations';
-import AccountsService from '@/services/account/accounts';
 
 export default {
 	/**
@@ -169,36 +166,31 @@ export default {
 			if (!this.filters) return this.rows;
 
 			const { organization, createdFrom, createdTo } = this.filters;
-			
+
 			return this.rows
-				.filter((row) => {
-					return organization.some((el) => el.value === row._id || !organization.length)
+				.filter(row => {
+					return organization.length
+						? organization.some((el) => el.value === row._id)
+						: true;
 				})
-				.filter((row) => {
+				.filter(row => {
 					const rowDate = parseISO(row.createdAt);
-					
-					if (createdFrom && !createdTo) {					
-						return isAfter(rowDate, createdFrom); 
+
+					if (createdFrom && !createdTo) {
+						return isAfter(rowDate, createdFrom);
 					}
 
 					if (!createdFrom && createdTo) {
-						return isBefore(rowDate, createdTo); 
+						return isBefore(rowDate, createdTo);
 					}
 
 					if (createdFrom && createdTo) {
 						return isBefore(rowDate, createdTo) && isAfter(rowDate, createdFrom);
 					}
-					
-					return true
+
+					return true;
 				});
-		},
-		organizationNames: function() {
-			return this.rows.map(row => {
-				return {
-					value: row.name
-				}
-			})
-		},
+		}
 	},
 
 	/**
@@ -226,16 +218,11 @@ export default {
 			this.loading = false;
 			this.rows = organizations;
 		},
-		async getOrganizationsList() {
-			const organizationsList = await organizationsService.getOrganizationsList();
-			
-			this.organizationsList = organizationsList;
-		},
-		updateFilters(filters) {
-			this.filters = { ...filters };
-		},
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
+		},
+		applyFilters(filters) {
+			this.filters = { ...filters };
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
@@ -247,7 +234,6 @@ export default {
 	 */
 	mounted () {
 		this.getOrganizations();
-		this.getOrganizationsList();
 	},
 };
 </script>

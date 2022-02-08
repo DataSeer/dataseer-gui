@@ -9,7 +9,7 @@
 				<GridColumn>
 					<Field
 						name="username"
-						v-model.trim="filters.username"
+						v-model.trim="formData.username"
 						type="text"
 						placeholder="Username"
 					>
@@ -22,7 +22,7 @@
 				<GridColumn>
 					<Field
 						name="fullname"
-						v-model.trim="filters.fullname"
+						v-model.trim="formData.fullname"
 						type="text"
 						placeholder="Fullname"
 					>
@@ -34,7 +34,7 @@
 				
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="filters.organization"
+						v-model.trim="formData.organizations"
 						name="organization"
 						placeholder="Include All"
 						multiple
@@ -48,7 +48,7 @@
 
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="filters.role"
+						v-model.trim="formData.role"
 						name="role"
 						placeholder="Include All"
 						:options="rolesList"
@@ -60,7 +60,7 @@
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="filters.createdFrom" placeholder="From" :disableFn="disableCreatedFrom">
+					<FieldDatepicker v-model="formData.createdFrom" placeholder="From" :disableFn="disableCreatedFrom">
 						<Icon name="document_upload" color="currentColor" />
 
 						Created
@@ -68,11 +68,11 @@
 				</GridColumn>
 				
 				<GridColumn>
-					<FieldDatepicker v-model="filters.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
+					<FieldDatepicker v-model="formData.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="filters.lastUpdatedFrom" placeholder="From">
+					<FieldDatepicker v-model="formData.lastUpdatedFrom" placeholder="From">
 						<Icon name="document_upload" color="currentColor" />
 
 						last signed in
@@ -80,7 +80,7 @@
 				</GridColumn>
 				
 				<GridColumn>
-					<FieldDatepicker v-model="filters.lastUpdatedTo" placeholder="To" />
+					<FieldDatepicker v-model="formData.lastUpdatedTo" placeholder="To" />
 				</GridColumn>
 			</Grid>
 		</FormBody>
@@ -140,18 +140,21 @@ export default {
 		FieldDatepicker
 	},
 
-	props: {
-		filters: {
-			type: Object,
-			default: () => {}
-		},
-	},
-
 	/**
 	 * Data
 	 */
 	data: function() {
 		return {
+			formData: {
+				username: '',
+				fullname: '',
+				organizations: [],
+				role: '',
+				createdFrom: null,
+				createdTo: null,
+				lastUpdatedFrom: null,
+				lastUpdatedTo: null
+			},
 			rolesList: [],
 			organizationsList: [],
 			areFiltersApplied: false
@@ -194,8 +197,8 @@ export default {
 			this.formData = {
 				username: '',
 				fullname: '',
-				role: [],
 				organization: [],
+				role: [],
 				createdFrom: null,
 				createdTo: null,
 				lastUpdatedFrom: null,

@@ -224,6 +224,18 @@
 	}
 }
 
+/* Form Filters */
+
+.form--filters {
+	.form__head {
+		text-transform: uppercase;
+	}
+	
+	.form__body .grid {
+		align-items: flex-end;
+	}
+}
+
 /* Form Search */
 
 .form--search {
@@ -384,18 +396,6 @@
 	.form__cta-col {
 		flex-shrink: 0;
 		padding: 5px 0;
-	}
-}
-
-/* Form Filters */
-
-.form--filters {
-	.form__head {
-		text-transform: uppercase;
-	}
-	
-	.form__body .grid {
-		align-items: flex-end;
 	}
 }
 

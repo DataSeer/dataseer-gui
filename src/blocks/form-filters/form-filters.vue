@@ -2,8 +2,7 @@
 	<Form className="form--filters">
 		<div class="form__head">
 			<h4>Advanced Filters</h4>
-		</div>
-		<!-- /.form__head -->
+		</div> <!-- /.form__head -->
 
 		<div class="form__body">
 			<Grid columnGap="medium" rowGap="small" columnSize="quarter">
