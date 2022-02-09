@@ -56,7 +56,7 @@
 								<li>
 									<FieldCheckbox
 										name="isActive"
-										v-model="formData.disabled"
+										-model="formData.disabled"
 										isToggle
 									>
 										Account Is {{ formData.disabled ? 'Active' : 'Inactive' }}

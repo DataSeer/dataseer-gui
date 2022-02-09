@@ -4,18 +4,14 @@
 			<div class="main__inner">
 				<div class="main__left">
 					<slot />
-				</div>
-				<!-- /.main__left -->
+				</div> <!-- /.main__left -->
 
 				<div class="main__right" v-if="hadRightSide">
 					<slot name="right" />
-				</div>
-				<!-- /.main__right -->
-			</div>
-			<!-- /.main__inner -->
+				</div> <!-- /.main__right -->
+			</div> <!-- /.main__inner -->
 		</Shell>
-	</div>
-	<!-- /.main -->
+	</div> <!-- /.main -->
 </template>
 
 <script>

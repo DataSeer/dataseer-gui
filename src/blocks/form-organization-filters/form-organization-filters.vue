@@ -1,5 +1,5 @@
 <template>
-	<Form className="form--filters">
+	<Form className="form--filters" @submit.prevent="handleApplyFilters">
 		<FormHead>
 			<h4>Advanced Filters</h4>
 		</FormHead>
@@ -7,17 +7,16 @@
 		<FormBody>
 			<Grid columnGap="medium" rowGap="small" columnSize="half">
 				<GridColumn>
-					<FieldSelect
-						v-model.trim="formData.organization"
+					<Field
 						name="organization"
+						v-model.trim="formData.organization"
+						type="text"
 						placeholder="Include All"
-						multiple
-						:options="organizationsList"
 					>
 						<Icon name="organization" color="currentColor" />
 
 						Institution/Organization
-					</FieldSelect>
+					</Field>
 				</GridColumn>
 
 				<GridColumn>
@@ -43,16 +42,22 @@
 		<FormActions>
 			<li>
 				<Button
+					type="submit"
 					:className="applyButtonClass"
 					:disabled="areFiltersApplied"
-					@onClick="handleApplyFilters"
 				>
 					{{ applyButtonText }}
 				</Button>
 			</li>
 
 			<li>
-				<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
+				<Button
+					type="button"
+					className="tertiary"
+					@onClick="handleClearFilters"
+				>
+					Clear Filters
+				</Button>
 			</li>
 		</FormActions>
 	</Form>
@@ -65,9 +70,9 @@
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
-import FieldSelect from '@/components/field-select/field-select';
 import organizationsService from '@/services/organizations/organizations';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
+import Field from '@/components/field/field';
 import Form, { FormActions, FormHead, FormBody } from '@/components/form/form';
 
 export default {
@@ -86,10 +91,20 @@ export default {
 		FormBody,
 		Icon,
 		Grid,
+		Field,
 		Button,
 		GridColumn,
-		FieldSelect,
 		FieldDatepicker
+	},
+
+	/**
+	 * Props
+	 */
+	props: {
+		initialValues: {
+			type: Object,
+			default:  () => {}
+		},
 	},
 
 	/**
@@ -116,6 +131,9 @@ export default {
 		},
 		applyButtonClass() {
 			return this.areFiltersApplied ? 'tertiary' : '';
+		},
+		routerQuery: function() {
+			return this.$route.query
 		}
 	},
 
@@ -136,15 +154,13 @@ export default {
 	 */
 	methods: {
 		handleApplyFilters() {
+			const query = { ...this.formData };
+			this.$router.replace({ query });
 			this.$emit('onApplyFilters', this.formData);
 			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
-			this.formData = {
-				organization: [],
-				createdFrom: null,
-				createdTo: null
-			};
+			this.formData = {};
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;
@@ -163,6 +179,7 @@ export default {
 	 * Created
 	 */
 	created () {
+		this.formData = { ...this.initialValues }
 		this.getOrganizationsList();
 	},
 };

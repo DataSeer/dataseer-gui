@@ -47,6 +47,7 @@ export default {
 				return ['', 'secondary', 'tertiary'].indexOf(value) !== -1;
 			}
 		},
+		
 		block: {
 			type: Boolean,
 			default: false

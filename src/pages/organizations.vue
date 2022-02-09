@@ -151,8 +151,8 @@ export default {
 				}
 			],
 			rows: [],
+			filters: {},
 			loading: true,
-			filters: null,
 			filtersVisibility: false,
 			organizationsList: []
 		};
@@ -165,31 +165,34 @@ export default {
 		filteredRows: function() {
 			if (!this.filters) return this.rows;
 
-			const { organization, createdFrom, createdTo } = this.filters;
+			const {
+				organization,
+				createdFrom,
+				createdTo
+			} = this.filters;
 
 			return this.rows
-				.filter(row => {
-					return organization.length
-						? organization.some((el) => el.value === row._id)
-						: true;
-				})
+				.filter(row => organization?.length ? row.name.indexOf(organization) !== -1 : true )
 				.filter(row => {
 					const rowDate = parseISO(row.createdAt);
 
 					if (createdFrom && !createdTo) {
-						return isAfter(rowDate, createdFrom);
+						return isAfter(rowDate, +createdFrom);
 					}
 
 					if (!createdFrom && createdTo) {
-						return isBefore(rowDate, createdTo);
+						return isBefore(rowDate, +createdTo);
 					}
 
 					if (createdFrom && createdTo) {
-						return isBefore(rowDate, createdTo) && isAfter(rowDate, createdFrom);
+						return isBefore(rowDate, +createdTo) && isAfter(rowDate, +createdFrom);
 					}
 
 					return true;
 				});
+		},
+		routerQuery: function() {
+			return this.$route.query
 		}
 	},
 
@@ -233,6 +236,7 @@ export default {
 	 * Mounted
 	 */
 	mounted () {
+		this.filters = { ...this.routerQuery }
 		this.getOrganizations();
 	},
 };
