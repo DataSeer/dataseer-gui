@@ -18,7 +18,8 @@
 
 				<Button
 					v-if="associatedAccountsCount > 0"
-					@onClick="handleViewButtonClick" className="secondary"
+					:to="`/accounts?organization=${organizationID}`"
+					className="secondary"
 				>
 					<Icon name="user" color="currentColor" />
 
@@ -91,12 +92,6 @@ export default {
 
 			this.associatedAccountsCount = AssociatedAccounts.length;
 		},
-		handleViewButtonClick(e) {
-			e.preventDefault();
-			this.$router.push({
-				path: '/accounts',
-			});
-		}
 	},
 
 	/**

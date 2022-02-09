@@ -16,7 +16,10 @@
 					Associated {{pluralizeAccount}}
 				</h6>
 
-				<Button to="/accounts" className="secondary">
+				<Button
+					:to="`/accounts?role=${roleID}`"
+					className="secondary"
+				>
 					<Icon name="user" color="currentColor" />
 
 					View {{pluralizeAccount}}

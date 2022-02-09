@@ -13,14 +13,15 @@
 					:options="options"
 					:multiple="multiple"
 					:value="value"
+					label="label"
+					:reduce="option => option.value"
 					@input="handleChange"
 				>
 					<template #option="{ label, helptext }">
 						{{ label }} <i v-if="helptext">{{ helptext }}</i>
 					</template>
 
-					<template #selected-option="{ label, helptext }">
-						
+					<template #selected-option="{ label, helptext }">						
 						{{ label }} <i v-if="helptext">{{ helptext }}</i>
 					</template>
 				</vSelect>

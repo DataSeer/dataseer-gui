@@ -5,7 +5,7 @@
 		</Subheader>
 		
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-			<FormAccountsFilters @onApplyFilters="applyFilters" />
+			<FormAccountsFilters :initialValues="filters" @onApplyFilters="applyFilters" />
 		</TableFilters>
 		
 		<Table v-if="!this.loading" modifier="accounts">
@@ -78,11 +78,11 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
-import { parseISO, format, isBefore, isAfter } from 'date-fns'
+
+import { parseISO, format, isBefore, isAfter } from 'date-fns' 
 
 /**
  * Internal Dependencies
@@ -185,44 +185,43 @@ export default {
 			const {
 				username,
 				fullname,
-				organizations,
+				organization,
 				role,
 				createdFrom,
 				createdTo,
 				lastUpdatedFrom,
 				lastUpdatedTo,
 			} = this.filters;
-			
+
 			return this.rows
-				.filter(row => username.length ? row.username.indexOf(username) !== -1 : true )
-				.filter(row => fullname.length ? row.fullname.indexOf(fullname) !== -1 : true )
-				/*.filter(row => {
-					if (!organizations) return true;
+				.filter(row => username?.length ? row.username.indexOf(username) !== -1 : true )
+				.filter(row => fullname?.length ? row.fullname.indexOf(fullname) !== -1 : true )
+				.filter(row => {
+					if (!organization) return true;
 					let keepRow = false;
 					
-					row.organizations.map(organization => {
-						const ID = organization._id;
-						if (organizations.some(entry => entry.value === ID )) {
+					row.organizations.map(entry => {
+						if (organization === entry._id) {
 							keepRow = true;
 						}
 					})
 
 					return keepRow;
 				})
-				.filter(row => role.value ? row.role._id === role.value : true )
+				.filter(row => role ? row.role._id === role : true )
 				.filter(row => {
 					const rowUpdatedAt = parseISO(row.createdAt);
 
 					if (createdFrom && !createdTo) {
-						return isAfter(rowUpdatedAt, createdFrom);
+						return isAfter(rowUpdatedAt, +createdFrom);
 					}
 
 					if (!createdFrom && createdTo) {
-						return isBefore(rowUpdatedAt, createdTo);
+						return isBefore(rowUpdatedAt, +createdTo);
 					}
 
 					if (createdFrom && createdTo) {
-						return isBefore(rowUpdatedAt, createdTo) && isAfter(rowUpdatedAt, createdFrom);
+						return isBefore(rowUpdatedAt, +createdTo) && isAfter(rowUpdatedAt, +createdFrom);
 					}
 
 					return true;
@@ -231,19 +230,19 @@ export default {
 					const rowUpdatedAt = parseISO(row.updatedAt);
 
 					if (lastUpdatedFrom && !lastUpdatedTo) {
-						return isAfter(rowUpdatedAt, lastUpdatedFrom);
+						return isAfter(rowUpdatedAt, +lastUpdatedFrom);
 					}
 
 					if (!lastUpdatedFrom && lastUpdatedTo) {
-						return isBefore(rowUpdatedAt, lastUpdatedTo);
+						return isBefore(rowUpdatedAt, +lastUpdatedTo);
 					}
 
 					if (lastUpdatedFrom && lastUpdatedTo) {
-						return isBefore(rowUpdatedAt, lastUpdatedTo) && isAfter(rowUpdatedAt, lastUpdatedFrom);
+						return isBefore(rowUpdatedAt, +lastUpdatedTo) && isAfter(rowUpdatedAt, +lastUpdatedFrom);
 					}
 
 					return true;
-				}) */
+				})
 		},
 		routerQuery: function() {
 			return this.$route.query
@@ -270,8 +269,8 @@ export default {
 			this.loading = true;
 			const accounts = await AccountsService.getAccounts();
 
-			this.loading = false;
 			this.rows = accounts;
+			this.loading = false;
 		}
 	},
 

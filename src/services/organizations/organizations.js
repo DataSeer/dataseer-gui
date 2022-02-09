@@ -17,7 +17,6 @@ const updateOrganization = (id, params) => {
 		.then((res) => httpErrorHandler(res));
 };
 
-
 const getOrganizationsList = () => {
 	return axiosInstance.get('/organizations')
 		.then((res) => {	

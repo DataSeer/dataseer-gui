@@ -9,7 +9,7 @@
 				input-class="field__input"
 				valueType="timestamp"
 				:clearable="false"
-				:value="value"
+				:value="value ? parseInt(value) : null"
 				:placeholder="placeholder"
 				:disabled-date="disableFn"
 				@input="handleChange"
@@ -18,10 +18,8 @@
 					<Icon name="calendar" color="currentColor" />
 				</template>
 			</date-picker>
-		</div>
-		<!-- /.field__controls -->
-	</div>
-	<!-- /.field -->
+		</div> <!-- /.field__controls -->
+	</div> <!-- /.field -->
 </template>
 
 <script>
@@ -50,7 +48,6 @@ export default {
 			default: false
 		},
 		value: {
-			type: Number,
 			default: null
 		},
 		name: {
@@ -72,7 +69,7 @@ export default {
 
 	data: function() {
 		return {
-			isOpened: false
+			isOpened: false,
 		};
 	},
 

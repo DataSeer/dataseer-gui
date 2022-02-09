@@ -34,10 +34,9 @@
 				
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="formData.organizations"
+						v-model.trim="formData.organization"
 						name="organization"
 						placeholder="Include All"
-						multiple
 						:options="organizationsList"
 					>
 						<Icon name="organization" color="currentColor" />
@@ -141,21 +140,21 @@ export default {
 	},
 
 	/**
+	 * Props
+	 */
+	props: {
+		initialValues: {
+			type: Object,
+			default:  () => {}
+		},
+	},
+
+	/**
 	 * Data
 	 */
 	data: function() {
 		return {
 			formData: {},
-			/* formData: {
-				username: '',
-				fullname: '',
-				organizations: [],
-				role: '',
-				createdFrom: null,
-				createdTo: null,
-				lastUpdatedFrom: null,
-				lastUpdatedTo: null
-			}, */
 			rolesList: [],
 			organizationsList: [],
 			areFiltersApplied: false
@@ -226,11 +225,10 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.formData = { ...this.routerQuery }
+		this.formData = { ...this.initialValues }
 		
 		this.getRolesList();
 		this.getOrganizationsList();
-		this.handleApplyFilters();
 	},
 };
 </script>
