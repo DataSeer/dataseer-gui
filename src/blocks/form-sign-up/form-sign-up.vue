@@ -35,18 +35,20 @@
 						Full Name
 					</Field>
 				</GridColumn>
-				
-				<Field
-					:error="$v.formData.username.$error"
-					name="username"
-					v-model.trim="formData.username"
-					type="email"
-					placeholder="Enter"
-				>
-					<Icon name="email" color="currentColor" />
 
-					Email Address
-				</Field>
+				<GridColumn>
+					<Field
+						:error="$v.formData.username.$error"
+						name="username"
+						v-model.trim="formData.username"
+						type="email"
+						placeholder="Enter"
+					>
+						<Icon name="email" color="currentColor" />
+
+						Email Address
+					</Field>
+				</GridColumn>
 
 				<GridColumn>
 					<Field
@@ -180,7 +182,7 @@ export default {
 		formData: {
 			fullname: {
 				required,
-				minLength: minLength(2)
+				minLength: minLength(3)
 			},
 			username: {
 				required,
@@ -205,6 +207,7 @@ export default {
 			this.loading = false;
 			this.success = false;
 			this.error = false;
+			this.message = '';
 		},
 		async handleSubmit() {
 			this.$v.$touch();

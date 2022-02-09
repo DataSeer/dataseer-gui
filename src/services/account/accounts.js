@@ -13,6 +13,11 @@ const getAccount = (id) => {
 		.then(res => httpErrorHandler(res))
 }
 
+const addAccount = (params) => {
+	return axiosInstance.post(`/accounts/`, params)
+		.then(res => httpErrorHandler(res))
+}
+
 const updateAccount = (id, params) => {
 	return axiosInstance.put(`/accounts/${id}`, params)
 		.then(res => httpErrorHandler(res))
@@ -26,6 +31,7 @@ const deleteAccount = (id) => {
 export default {
 	getAccount,
 	getAccounts,
+	addAccount,
 	deleteAccount,
 	updateAccount
 };

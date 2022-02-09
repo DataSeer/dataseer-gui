@@ -1,12 +1,26 @@
 <template>
-	<Form className="form--edit" @submit.prevent="updateAccount" :loading="loading">
+	<Form className="form--edit" @submit.prevent="handleFormSubmit" :loading="loading">
 		<FormStatus v-if="error || success" :text="message" :isError="error" />
 
 		<FormBody>
-			<FormGroup :title="formData.username">
+			<FormGroup>
 				<Grid columnGap="large">
 					<GridColumn>
 						<Field
+							:error="$v.formData.username.$error"
+							placeholder="Username"
+							v-model.trim="formData.username"
+							name="fullname"
+						>
+							<Icon name="email" color="currentColor" />
+
+							Username
+						</Field>
+					</GridColumn>
+
+					<GridColumn>
+						<Field
+							:error="$v.formData.fullname.$error"
 							placeholder="Full Name"
 							v-model.trim="formData.fullname"
 							name="fullname"
@@ -18,7 +32,31 @@
 					</GridColumn>
 
 					<GridColumn>
+						<Field
+							:error="$v.formData.password.$error"
+							name="password"
+							v-model.trim="formData.password"
+							type="password"
+							placeholder="Enter"
+						>
+							<Icon name="password" color="currentColor" />
+
+							Password <span>minimum 8 characters</span>
+						</Field>
+
+						<Field
+							:error="$v.formData.confirm_password.$error"
+							name="password-confirm"
+							v-model.trim="formData.confirm_password"
+							type="password"
+							placeholder="Confirm"
+						>
+						</Field>
+					</GridColumn>
+
+					<GridColumn>
 						<FieldSelect
+							:error="$v.formData.role.$error"
 							placeholder="Role"
 							v-model.trim="formData.role"
 							:options="rolesList"
@@ -83,17 +121,16 @@
 			<li>
 				<Button to="/accounts" className="tertiary">Cancel</Button>
 			</li>
-
-			<li>
-				<Button className="tertiary" type="button" @onClick="deleteAccount">
-					<Icon name="trash" color="#E36329" /> Delete Account
-				</Button>
-			</li>
 		</FormActions>
 	</Form>
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
+
 /**
  * Internal Dependencies
  */
@@ -104,15 +141,14 @@ import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
-import RolesService from '@/services/roles/roles';
 import AccountsService from '@/services/account/accounts';
+import RolesService from '@/services/roles/roles';
 import organizationsService from '@/services/organizations/organizations';
-
 export default {
 	/**
 	 * Name
 	 */
-	name: 'FormEditAccount',
+	name: 'FormAddAccount',	
 
 	/**
 	 * Components
@@ -132,36 +168,23 @@ export default {
 		FieldCheckbox
 	},
 
+	/**
+	 * Data
+	 */
 	data() {
 		return {
 			formData: {
-				fullname: '',
 				username: '',
-				role: {
-					value: '',
-					label: ''
-				},
+				fullname: '',
+				password: '',
+				confirm_password: '',
+				role: '',
 				disabled: false,
 				visible: false,
-				organizations: [
-					{
-						value: '',
-						label: ''
-					}
-				]
+				organizations: []
 			},
-			rolesList: [
-				{
-					id: '',
-					value: 'None'
-				}
-			],
-			organizationsList: [
-				{
-					id: '',
-					value: 'None'
-				}
-			],
+			rolesList: [],
+			organizationsList: [],
 			loading: false,
 			error: false,
 			success: false,
@@ -169,61 +192,57 @@ export default {
 		};
 	},
 
+	/**
+	 * Validations
+	 */
+	validations: {
+		formData: {
+			username: {
+				required,
+				email
+			},
+			fullname: {
+				required,
+				minLength: minLength(3)
+			},
+			password: {
+				required,
+				minLength: minLength(8)
+			},
+			confirm_password: {
+				required,
+				sameAsPassword: sameAs('password')
+			},
+			role: {
+				required,
+			}
+		}
+	},
+
+	/**
+	 * Methods
+	 */
 	methods: {
-		async getAccount() {
-			const result = await AccountsService.getAccount(this.$route.params.id);
-			const { visible, disabled, fullname, username } = result;
-
-			const getOrganizations = () => result.organizations.map((organization) => (organization._id));
+		async handleFormSubmit() {
+			this.resetForm();
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return
+			}
 			
-			this.formData = {
-				fullname: fullname,
-				username: username,
-				role: result.role._id,
-				disabled: disabled,
-				visible: visible,
-				organizations: getOrganizations()
-			};
-		},
-		async updateAccount() {
-			this.loading = true;
-			
-			const params = {
-				fullname: this.formData.fullname,
-				role: this.formData.role,
-				organizations: this.formData.organizations,
-				disabled: this.formData.disabled,
-				visible: this.formData.visible
-			};
+			this.loading = true
 
 			try {
-				await AccountsService.updateAccount(this.$route.params.id, params);
-				this.success = true;
-				this.message = `${this.formData.username} was updated successfully!`;
-			} catch (e) {
-				this.error = true;
-				this.message = e.message;
-			}
-
-			this.loading = false;
-		},
-		async deleteAccount() {
-			const confirmDelete = window.confirm('Are you sure you want to delete this Account?');
-
-			if (!confirmDelete) return;
-			this.loading = true;
-
-			try {
-				await AccountsService.deleteAccount(this.$route.params.id);
+				await AccountsService.addAccount(this.formData);
 
 				this.success = true;
-				this.message = `${this.formData.username} deleted successfully!`;
-			} catch (e) {
+				this.message = 'Example Success message';
+			} catch (error) {
 				this.error = true;
-				this.message = e.message;
+				this.message = error.message;	
 			}
 
-			this.loading = false;
+			this.loading = false
 		},
 		async getOrganizationsList() {
 			const organizationsList = await organizationsService.getOrganizationsList();
@@ -234,13 +253,19 @@ export default {
 			const rolesList = await RolesService.getRolesList();
 
 			this.rolesList = rolesList;
+		},
+		resetForm() {
+			this.error = false;
+			this.success = false;
 		}
 	},
 
-	created() {
+	/**
+	 * Created
+	 */
+	created () {
 		this.getRolesList();
 		this.getOrganizationsList();
-		this.getAccount();
-	}
-};
+	},
+}
 </script>

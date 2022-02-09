@@ -29,7 +29,7 @@
 					</li>
 
 					<li>
-						<Button className="tertiary" to="/new-document">Add New Account</Button>
+						<Button className="tertiary" to="/add-account">Add New Account</Button>
 					</li>
 				</ul>
 			</div> <!-- /.subheader__menu -->
