@@ -26,6 +26,7 @@ import Report from '@/pages/report';
 import EditOrganization from '@/pages/edit-organization';
 import EditRole from '@/pages/edit-role';
 import EditAccount from '@/pages/edit-account';
+import AddOrganization from '@/pages/add-organization';
 import ManageDocument from '@/pages/manage-document';
 
 Vue.use(VueRouter);
@@ -110,6 +111,11 @@ const routes = [
 		name: 'Edit Organization',
 		path: '/edit-organization/:id',
 		component: EditOrganization
+	},
+	{
+		name: 'Add Organization',
+		path: '/add-organization',
+		component: AddOrganization
 	},
 	{
 		name: 'Edit Role',

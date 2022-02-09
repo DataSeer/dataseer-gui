@@ -9,7 +9,7 @@
 		<FormEditRole />
 
 		<template #right>
-			<div v-if="associatedAccountsCount" class="widget-associations">
+			<div class="widget-associations">
 				<h6>
 					<strong>{{associatedAccountsCount}}</strong>
 
@@ -17,6 +17,7 @@
 				</h6>
 
 				<Button
+					v-if="associatedAccountsCount > 0"
 					:to="`/accounts?role=${roleID}`"
 					className="secondary"
 				>
@@ -75,7 +76,7 @@ export default {
 	 */
 	computed: {
 		pluralizeAccount() {
-			return (this.associatedAccountsCount > 1) ? "Accounts" : "Account"
+			return (this.associatedAccountsCount === 1) ? "Account" : "Accounts"
 		}
 	},
 	

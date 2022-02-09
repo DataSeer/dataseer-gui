@@ -17,6 +17,11 @@ const updateOrganization = (id, params) => {
 		.then((res) => httpErrorHandler(res));
 };
 
+const addOrganization = ( params) => {
+	return axiosInstance.post(`/organizations/`, params )
+		.then((res) => httpErrorHandler(res));
+};
+
 const getOrganizationsList = () => {
 	return axiosInstance.get('/organizations')
 		.then((res) => {	
@@ -34,5 +39,6 @@ export default {
 	getOrganization,
 	getOrganizations,
 	updateOrganization,
+	addOrganization,
 	getOrganizationsList
 };

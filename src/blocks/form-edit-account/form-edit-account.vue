@@ -3,9 +3,7 @@
 		<FormStatus v-if="error || success" :text="message" :isError="error" />
 
 		<FormBody>
-			<FormGroup>
-				<h4>{{ formData.username }}</h4>
-
+			<FormGroup :title="formData.username">
 				<Grid columnGap="large">
 					<GridColumn>
 						<Field
@@ -46,9 +44,7 @@
 				</Grid>
 			</FormGroup>
 
-			<FormGroup>
-				<h4>Settings</h4>
-
+			<FormGroup title="Settings">
 				<Grid columnGap="large">
 					<GridColumn>
 						<div class="checkboxes checkboxes--vertical">
@@ -56,7 +52,7 @@
 								<li>
 									<FieldCheckbox
 										name="isActive"
-										-model="formData.disabled"
+										v-model="formData.disabled"
 										isToggle
 									>
 										Account Is {{ formData.disabled ? 'Active' : 'Inactive' }}
@@ -178,21 +174,12 @@ export default {
 			const result = await AccountsService.getAccount(this.$route.params.id);
 			const { visible, disabled, fullname, username } = result;
 
-			const getOrganizations = () =>
-				result.organizations.map((organization) => ({
-					value: organization._id,
-					label: organization.name
-				}));
-
-			const getRole = () => ({
-				value: result.role._id,
-				label: result.role.label
-			});
-
+			const getOrganizations = () => result.organizations.map((organization) => (organization._id));
+			
 			this.formData = {
 				fullname: fullname,
 				username: username,
-				role: getRole(),
+				role: result.role._id,
 				disabled: disabled,
 				visible: visible,
 				organizations: getOrganizations()
@@ -203,8 +190,8 @@ export default {
 			
 			const params = {
 				fullname: this.formData.fullname,
-				role: this.formData.role.value,
-				organizations: this.formData.organizations.map((entry) => entry.value),
+				role: this.formData.role,
+				organizations: this.formData.organizations,
 				disabled: this.formData.disabled,
 				visible: this.formData.visible
 			};
