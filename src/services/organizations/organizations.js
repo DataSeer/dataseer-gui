@@ -22,6 +22,11 @@ const addOrganization = ( params) => {
 		.then((res) => httpErrorHandler(res));
 };
 
+const deleteOrganization = (id) => {
+	return axiosInstance.delete(`/organizations/${id}`)
+		.then((res) => httpErrorHandler(res));
+};
+
 const getOrganizationsList = () => {
 	return axiosInstance.get('/organizations')
 		.then((res) => {	
@@ -38,6 +43,7 @@ const getOrganizationsList = () => {
 export default {
 	getOrganization,
 	getOrganizations,
+	deleteOrganization,
 	updateOrganization,
 	addOrganization,
 	getOrganizationsList

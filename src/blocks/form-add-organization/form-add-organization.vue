@@ -145,7 +145,7 @@ export default {
 			try {
 				await organizationsService.addOrganization(this.formData)
 
-				this.success = false;
+				this.success = true;
 				this.message = 'Example Success message';
 			} catch (error) {
 				this.error = true;

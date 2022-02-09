@@ -47,11 +47,11 @@
 			</li>
 
 			<li>
-				<Button type="button" className="tertiary">Cancel</Button>
+				<Button to="/organizations" type="button" className="tertiary">Cancel</Button>
 			</li>
 
 			<li>
-				<Button type="button" className="tertiary">
+				<Button type="button" @onClick="deleteOrganization" className="tertiary">
 					<Icon name="trash" color="#E36329" /> Delete Role
 				</Button>
 			</li>
@@ -160,6 +160,30 @@ export default {
 			}
 
 			this.loading = false;
+		},
+		async deleteOrganization() {
+			const confirmDelete = window.confirm('Are you sure you want to delete this Organization?');
+
+			if (!confirmDelete) return;
+			this.loading = true;
+			
+			try {
+				this.resetForm()
+				await organizationsService.deleteOrganization(this.organizationId);
+				
+				this.success = true;
+				this.message = "Example message on organization delete success";
+			} catch (error) {
+				this.error = true;
+				this.message = error.message;
+			}
+
+			this.loading = false;
+		},
+		resetForm() {
+			this.error = false;
+			this.success = false;
+			this.message = '';
 		}
 	},
 	

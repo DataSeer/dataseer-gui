@@ -1,12 +1,16 @@
 <template>
-	<Form className="form--edit" @submit.prevent="updateRole" :loading="loading">
+	<Form className="form--edit" @submit.prevent="handleFormSubmit" :loading="loading">
 		<FormStatus v-if="error || success" :text="message" :isError="error" />
-
+		
 		<FormBody>
-			<FormGroup title="Annotator">
+			<FormGroup>
 				<Grid columnGap="large">
 					<GridColumn>
-						<Field placeholder="Role Name" v-model="formData.label" name="Role Name">
+						<Field
+							:error="$v.formData.label.$error"
+							placeholder="Role Name"
+							v-model="formData.label"
+							name="Role Name">
 							<Icon name="key" color="currentColor" />
 
 							Role Name
@@ -14,7 +18,11 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Key" v-model="formData.key" name="Role Key">
+						<Field
+							:error="$v.formData.key.$error"
+							placeholder="Role Key"
+							v-model="formData.key"
+							name="Role Key">
 							<Icon name="key" color="currentColor" />
 
 							Role Key
@@ -22,7 +30,11 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Weight" v-model="formData.weight" name="Role Weight">
+						<Field
+							:error="$v.formData.weight.$error"
+							placeholder="Role Weight"
+							v-model="formData.weight"
+							name="Role Weight">
 							<Icon name="key" color="currentColor" />
 
 							Role Weight
@@ -30,7 +42,11 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Color" v-model="formData.color" name="Role Color">
+						<Field
+							:error="$v.formData.color.$error"
+							placeholder="Role Color"
+							v-model="formData.color"
+							name="Role Color">
 							<Icon name="key" color="currentColor" />
 
 							Role Color
@@ -64,20 +80,16 @@
 
 		<FormActions>
 			<li>
-				<Button type="submit">Save Changes</Button>
-			</li>
-
-			<li>
-				<Button to="/roles" className="tertiary">Cancel</Button>
+				<Button type="submit">Add Role</Button>
 			</li>
 
 			<li>
 				<Button
 					type="button"
+					to="/roles"
 					className="tertiary"
-					@onClick="deleteRole"
 				>
-					<Icon name="trash" color="#E36329" /> Delete Role
+					Cancel
 				</Button>
 			</li>
 		</FormActions>
@@ -86,38 +98,43 @@
 
 <script>
 /**
+ * External Dependencies
+ */
+import { required, integer } from 'vuelidate/lib/validators';
+
+/**
  * Internal Dependencies
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
-import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import Grid, { GridColumn } from '@/components/grid/grid';
+import Form, { FormBody, FormActions, FormStatus, FormGroup } from '@/components/form/form';
 import RoleService from '@/services/roles/roles';
-import Form, { FormGroup, FormBody, FormActions, FormStatus } from '@/components/form/form';
 
 export default {
 	/**
 	 * Name
 	 */
-	name: 'FormEditRole',
+	name: 'FormAddRole',
 
 	/**
 	 * Components
 	 */
 	components: {
 		Form,
-		FormBody,
-		FormActions,
-		FormStatus,
-		FormGroup,
-		Grid,
 		Icon,
+		Grid,
 		Field,
 		Button,
+		FormBody,
+		FormGroup,
+		FormStatus,
 		GridColumn,
+		FormActions,
 		FieldCheckbox
-	},
+	},	
 
 	/**
 	 * Data
@@ -132,19 +149,31 @@ export default {
 				visible: false,
 				isLocked: false
 			},
-			loading: true,
+			loading: false,
 			error: false,
 			success: false,
-			message: '',
+			message: ''
 		};
 	},
 
 	/**
-	 * Computed
+	 * Validations
 	 */
-	computed: {
-		roleID() {
-			return this.$route.params.id 
+	validations: {
+		formData: {
+			label: {
+				required
+			},
+			key: {
+				required
+			},
+			weight: {
+				integer,
+				required
+			},
+			color: {
+				required
+			},
 		}
 	},
 
@@ -152,60 +181,31 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		async getRole() {
-			const role = await RoleService.getRole(this.roleID);
-
-			this.formData = {
-				label: role.label,
-				key: role.key,
-				weight: role.weight,
-				color: role.color,
-				visible: false,
-				isLocked: false
+		async handleFormSubmit() {
+			this.resetForm();
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return
 			}
+			
+			this.loading = true
 
-			this.loading = false;
-		},
-		async updateRole() {
-			this.loading = true;
-			
-			const params = {
-				label: this.formData.label,
-				visible: this.formData.visible,
-				weight: this.formData.weight.toString()
-			};
-			
 			try {
-				await RoleService.updateRole(this.roleID, params);
-				this.success = true;
-				this.message = `${this.formData.key} had been updated!`;
-			
-			} catch (e) {
-				this.error = true;
-				this.message = e.message;
-			}
-			
-			this.loading = false;
-		},
-		async deleteRole() {
-			this.loading = true;
-			
-			try {
-				await RoleService.deleteRole(this.roleID);
-				
-				this.success = true;
-				this.message = `${this.formData.key} had been updated!`;
-			} catch (e) {
-				this.error = true;
-				this.message = e.message;
-			}
-			
-			this.loading = false;
-		},
-	},
+				await RoleService.addRole(this.formData)
 
-	created () {
-		this.getRole();
+				this.success = true;
+				this.message = 'Example Success message';
+			} catch (error) {
+				this.error = true;
+				this.message = error.message;	
+			}
+
+			this.loading = false
+		},
+		resetForm() {
+			this.error = false;
+			this.success = false;
+		}
 	},
-};
+}
 </script>

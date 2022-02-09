@@ -25,6 +25,7 @@ import NewDocument from '@/pages/new-document';
 import Report from '@/pages/report';
 import EditOrganization from '@/pages/edit-organization';
 import EditRole from '@/pages/edit-role';
+import AddRole from '@/pages/add-role';
 import EditAccount from '@/pages/edit-account';
 import AddOrganization from '@/pages/add-organization';
 import ManageDocument from '@/pages/manage-document';
@@ -121,6 +122,11 @@ const routes = [
 		name: 'Edit Role',
 		path: '/edit-role/:id',
 		component: EditRole
+	},
+	{
+		name: 'Add Role',
+		path: '/add-role',
+		component: AddRole
 	},
 	{
 		name: 'Edit Account',

@@ -18,7 +18,7 @@
 					</li>
 
 					<li>
-						<Button className="tertiary" to="/new-document">Add New Role</Button>
+						<Button className="tertiary" to="/add-role">Add New Role</Button>
 					</li>
 				</ul>
 			</div> <!-- /.subheader__menu -->

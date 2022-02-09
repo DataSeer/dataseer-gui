@@ -13,6 +13,16 @@ const getRole = (id) => {
 		.then(res => res.data.res)
 }
 
+const addRole = (params) => {
+	return axiosInstance.post(`/roles/`, params )
+		.then((res) => httpErrorHandler(res));
+};
+
+const deleteRole = (id) => {
+	return axiosInstance.delete(`/roles/${id}` )
+		.then((res) => httpErrorHandler(res));
+};
+
 const updateRole = (id, params) => {
 	return axiosInstance.put(`/roles/${id}`, params)
 		.then(res => httpErrorHandler(res))
@@ -34,6 +44,8 @@ const getRolesList = () => {
 export default {
 	getRole,
 	getRoles,
+	addRole,
+	deleteRole,
 	updateRole,
 	getRolesList
 };
