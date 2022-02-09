@@ -6,7 +6,7 @@
 			<FormGroup title="Annotator">
 				<Grid columnGap="large">
 					<GridColumn>
-						<Field placeholder="Role Name" :value="formData.name" name="Role Name">
+						<Field placeholder="Role Name" v-model="formData.label" name="Role Name">
 							<Icon name="key" color="currentColor" />
 
 							Role Name
@@ -14,7 +14,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Key" :value="formData.key" name="Role Key">
+						<Field placeholder="Role Key" v-model="formData.key" name="Role Key">
 							<Icon name="key" color="currentColor" />
 
 							Role Key
@@ -22,7 +22,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Weight" :value="formData.weight" name="Role Weight">
+						<Field placeholder="Role Weight" v-model="formData.weight" name="Role Weight">
 							<Icon name="key" color="currentColor" />
 
 							Role Weight
@@ -30,7 +30,7 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Color" :value="formData.color" name="Role Color">
+						<Field placeholder="Role Color" v-model="formData.color" name="Role Color">
 							<Icon name="key" color="currentColor" />
 
 							Role Color
@@ -122,33 +122,60 @@ export default {
 	data: function() {
 		return {
 			formData: {
-				name: '',
+				label: '',
 				key: '',
 				weight: '',
 				color: '',
 				visible: false,
 				isLocked: false
 			},
-			loading: false,
+			loading: true,
 			error: false,
 			success: false,
 			message: '',
 		};
 	},
 
+	/**
+	 * Computed
+	 */
+	computed: {
+		roleID() {
+			return this.$route.params.id 
+		}
+	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
-		async updateRole() {
-			const params = {
-				name: this.formData.name,
-				visible: this.formData.visible
+		async getRole() {
+			const role = await RoleService.getRole(this.roleID);
+
+			this.formData = {
+				label: role.label,
+				key: role.key,
+				weight: role.weight,
+				color: role.color,
+				visible: false,
+				isLocked: false
 			}
+
+			this.loading = false;
+		},
+		async updateRole() {
+			this.loading = true;
+			
+			const params = {
+				label: this.formData.label,
+				visible: this.formData.visible,
+				weight: this.formData.weight.toString()
+			};
+
+			console.log(params);
 			
 			try {
-				await RoleService.updateRole(this.$route.params.id, params);
+				await RoleService.updateRole(this.roleID, params);
 				this.success = true;
 				this.message = `${this.formData.key} had been updated!`;
 			
@@ -158,18 +185,6 @@ export default {
 			}
 			
 			this.loading = false;
-		},
-		async getRole() {
-			const role = await RoleService.getRole(this.$route.params.id);
-
-			this.formData = {
-				name: role.label,
-				key: role.key,
-				weight: role.weight,
-				color: role.color,
-				visible: false,
-				isLocked: false
-			}
 		},
 	},
 

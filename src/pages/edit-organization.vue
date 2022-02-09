@@ -11,15 +11,18 @@
 		<template #right>
 			<div class="widget-associations">
 				<h6>
-					<strong>12</strong>
+					<strong>{{associatedAccountsCount}}</strong>
 
-					Associated Accounts
+					Associated {{pluralizeAccount}}
 				</h6>
 
-				<Button to="/accounts" className="secondary">
+				<Button
+					v-if="associatedAccountsCount > 0"
+					@onClick="handleViewButtonClick" className="secondary"
+				>
 					<Icon name="user" color="currentColor" />
 
-					View Accounts
+					View {{pluralizeAccount}}
 				</Button>
 			</div> <!-- /.widget-associations -->
 		</template>
@@ -30,11 +33,12 @@
 /**
  * Internal Dependencies
  */
-import Subheader from '@/components/subheader/subheader';
-import SubheaderEdit from '@/components/subheader/subheader-edit';
 import Main from '@/components/main/main';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
+import Subheader from '@/components/subheader/subheader';
+import SubheaderEdit from '@/components/subheader/subheader-edit';
+import AccountsService from '@/services/account/accounts';
 import FormEditOrganization from '@/blocks/form-edit-organization/form-edit-organization';
 
 export default {
@@ -47,12 +51,59 @@ export default {
 	 * Components
 	 */
 	components: {
-		Subheader,
-		SubheaderEdit,
 		Main,
 		Icon,
 		Button,
+		Subheader,
+		SubheaderEdit,
 		FormEditOrganization
+	},
+
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			organizationID: this.$route.params.id,
+			associatedAccountsCount: null,
+		}
+	},
+	
+	/**
+	 * Computed
+	 */
+	computed: {
+		pluralizeAccount() {
+			return (this.associatedAccountsCount === 1) ? "Account" : "Accounts"
+		}
+	},
+	
+	/**
+	 * Methods
+	 */
+	methods: {
+		async getAssociatedAccountsCount() {
+			const params = {
+				organizations: [this.organizationID]
+			}
+			
+			const AssociatedAccounts = await AccountsService.getAccounts(params)
+
+			this.associatedAccountsCount = AssociatedAccounts.length;
+		},
+		handleViewButtonClick(e) {
+			e.preventDefault();
+			this.$router.push({
+				path: '/accounts',
+			});
+		}
+	},
+
+	/**
+	 * Created
+	 */
+	created () {
+		this.getAssociatedAccountsCount();
 	}
 };
 </script>

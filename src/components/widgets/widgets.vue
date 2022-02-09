@@ -1,8 +1,7 @@
 <template>
 	<div class="widgets">
 		<slot></slot>
-	</div>
-	<!-- /.widgets -->
+	</div> <!-- /.widgets -->
 </template>
 
 <script>

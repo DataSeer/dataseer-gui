@@ -1,7 +1,7 @@
 /**
  * Internal Dependencies
  */
-import axiosInstance from '@/services/http.js';
+import axiosInstance, { httpErrorHandler } from '@/services/http.js';
 
 const getRoles = () => {
 	return axiosInstance.get('/roles')
@@ -14,16 +14,8 @@ const getRole = (id) => {
 }
 
 const updateRole = (id, params) => {
-	return axiosInstance.put(`/roles/${id}`, {params: params})
-		.then(res => {
-			if (res.status !== 200)  {
-				throw new Error(res.statusText)
-			}
-			
-			if (res.data.err) {
-				throw new Error(res.data.res)
-			}
-		})
+	return axiosInstance.put(`/roles/${id}`, params)
+		.then(res => httpErrorHandler(res))
 }
 
 const getRolesList = () => {

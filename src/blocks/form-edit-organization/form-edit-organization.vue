@@ -102,7 +102,7 @@ export default {
 			title: '',
 			formData: {
 				name: '',
-				visible: true,
+				visible: false,
 				locked: false,
 			},
 			loading: false,

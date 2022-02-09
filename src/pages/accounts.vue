@@ -78,6 +78,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -151,7 +152,7 @@ export default {
 				},
 				{
 					field: 'updatedAt',
-					label: 'Last Signed In',
+					label: 'Last Updated',
 					type: 'date',
 					formatFn: this.formatDate,
 					sortable: false,
@@ -167,128 +168,7 @@ export default {
 					sortable: false
 				}
 			],
-			rows: [
-				{
-					id: 1,
-					username: 'johnsmith@xzynetworks.com',
-					fullName: 'John Smith',
-					role: {
-						title: 'standart',
-						color: '#444'
-					},
-					organization: ['University of Ottowa'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 2,
-					username: 'y.pappas@xzynetworks.com',
-					fullName: 'Yannis Pappas',
-					role: {
-						title: 'Standard User',
-						color: '#444'
-					},
-					organization: ['American Journalist'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 3,
-					username: 'carli@dataseer.ai',
-					fullName: 'Carli Curator',
-					role: {
-						title: 'Curator',
-						color: '#00BDFF'
-					},
-					organization: ['DataSeer'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 4,
-					username: 'al.hernandez@somelongemailaddress.com',
-					fullName: 'Alejandro Hernandez',
-					role: {
-						title: 'Standard User',
-						color: '#444'
-					},
-					organization: ['ASAP & MJFF'],
-					lastSignedIn: 1623456000000,
-					isActive: false
-				},
-				{
-					id: 5,
-					username: 'Ali@ASAP.com',
-					fullName: 'Ali Annotator',
-					role: {
-						title: 'Annotator',
-						color: '#006AC9'
-					},
-					organization: ['ASAP & MJFF'],
-					lastSignedIn: 1623456000000,
-					isActive: false
-				},
-				{
-					id: 6,
-					username: 'email@xzynetworks.com',
-					fullName: 'Ali Annotator',
-					role: {
-						title: 'Visitor',
-						color: '#8CABCD'
-					},
-					organization: ['ASAP & MJFF'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 7,
-					username: 'johnsmith@xzynetworks.com',
-					fullName: 'John Smith',
-					role: {
-						title: 'standart',
-						color: '#444'
-					},
-					organization: ['American Chemistry Society', 'University of Manchester'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 8,
-					username: 'al.hernandez@somelongemailaddress.com',
-					fullName: 'Alejandro Hernandez',
-					role: {
-						title: 'curatstandartor',
-						color: '#444'
-					},
-					organization: ['ASAP & MJFF'],
-					lastSignedIn: 1623456000000,
-					isActive: false
-				},
-				{
-					id: 9,
-					username: 'y.pappas@xzynetworks.com',
-					fullName: 'Yannis Pappas',
-					role: {
-						title: 'standart',
-						color: '#444'
-					},
-					organization: ['American Journalist'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				},
-				{
-					id: 10,
-					username: 'johnsmith@xzynetworks.com',
-					fullName: 'John Smith',
-					role: {
-						title: 'standart',
-						color: '#444'
-					},
-					organization: ['University of Ottowa'],
-					lastSignedIn: 1623456000000,
-					isActive: true
-				}
-			],
+			rows: [],
 			filters: {},
 			loading: true,
 			filtersVisibility: false
@@ -308,14 +188,16 @@ export default {
 				organizations,
 				role,
 				createdFrom,
-				createdTo
+				createdTo,
+				lastUpdatedFrom,
+				lastUpdatedTo,
 			} = this.filters;
 			
 			return this.rows
-				.filter(row => row.username.includes(username))
-				.filter(row => row.fullname.includes(fullname))
-				.filter(row => {
-					if (!organizations?.length) return true;
+				.filter(row => username.length ? row.username.indexOf(username) !== -1 : true )
+				.filter(row => fullname.length ? row.fullname.indexOf(fullname) !== -1 : true )
+				/*.filter(row => {
+					if (!organizations) return true;
 					let keepRow = false;
 					
 					row.organizations.map(organization => {
@@ -329,7 +211,7 @@ export default {
 				})
 				.filter(row => role.value ? row.role._id === role.value : true )
 				.filter(row => {
-					const rowUpdatedAt = parseISO(row.updatedAt);
+					const rowUpdatedAt = parseISO(row.createdAt);
 
 					if (createdFrom && !createdTo) {
 						return isAfter(rowUpdatedAt, createdFrom);
@@ -345,7 +227,27 @@ export default {
 
 					return true;
 				})
+				.filter(row => {
+					const rowUpdatedAt = parseISO(row.updatedAt);
+
+					if (lastUpdatedFrom && !lastUpdatedTo) {
+						return isAfter(rowUpdatedAt, lastUpdatedFrom);
+					}
+
+					if (!lastUpdatedFrom && lastUpdatedTo) {
+						return isBefore(rowUpdatedAt, lastUpdatedTo);
+					}
+
+					if (lastUpdatedFrom && lastUpdatedTo) {
+						return isBefore(rowUpdatedAt, lastUpdatedTo) && isAfter(rowUpdatedAt, lastUpdatedFrom);
+					}
+
+					return true;
+				}) */
 		},
+		routerQuery: function() {
+			return this.$route.query
+		}
 	},
 
 	/**
@@ -377,6 +279,7 @@ export default {
 	 * Created
 	 */
 	created () {
+		this.filters = { ...this.routerQuery }
 		this.getAccounts();	
 	},
 };

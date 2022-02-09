@@ -75,7 +75,7 @@
 					<FieldDatepicker v-model="formData.lastUpdatedFrom" placeholder="From">
 						<Icon name="document_upload" color="currentColor" />
 
-						last signed in
+						last Updated
 					</FieldDatepicker>
 				</GridColumn>
 				
@@ -145,7 +145,8 @@ export default {
 	 */
 	data: function() {
 		return {
-			formData: {
+			formData: {},
+			/* formData: {
 				username: '',
 				fullname: '',
 				organizations: [],
@@ -154,7 +155,7 @@ export default {
 				createdTo: null,
 				lastUpdatedFrom: null,
 				lastUpdatedTo: null
-			},
+			}, */
 			rolesList: [],
 			organizationsList: [],
 			areFiltersApplied: false
@@ -170,6 +171,9 @@ export default {
 		},
 		applyButtonClass() {
 			return this.areFiltersApplied ? 'tertiary' : '';
+		},
+		routerQuery: function() {
+			return this.$route.query
 		}
 	},
 
@@ -190,21 +194,13 @@ export default {
 	 */
 	methods: {
 		handleApplyFilters() {
+			const query = { ...this.formData };
+			this.$router.replace({ query });
 			this.$emit('onApplyFilters', this.formData);
 			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
-			this.formData = {
-				username: '',
-				fullname: '',
-				organization: [],
-				role: [],
-				createdFrom: null,
-				createdTo: null,
-				lastUpdatedFrom: null,
-				lastUpdatedTo: null
-			},
-			this.handleApplyFilters();
+			this.formData = {};
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;
@@ -230,8 +226,11 @@ export default {
 	 * Created
 	 */
 	created () {
+		this.formData = { ...this.routerQuery }
+		
 		this.getRolesList();
 		this.getOrganizationsList();
+		this.handleApplyFilters();
 	},
 };
 </script>
