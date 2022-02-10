@@ -30,6 +30,7 @@ import EditAccount from '@/pages/edit-account';
 import AddAccount from '@/pages/add-account';
 import AddOrganization from '@/pages/add-organization';
 import ManageDocument from '@/pages/manage-document';
+import NotFound from '@/pages/404';
 
 Vue.use(VueRouter);
 
@@ -130,25 +131,33 @@ const routes = [
 		component: CuratorRoles,
 		meta: {
 			requiresAuth: true,
-			requiredWeight: 0
+			requiredWeight: 1000
 		}
 	},
 	{
 		name: 'SignUp',
 		path: '/sign-up',
 		component: SignUp,
+		meta: {
+			requiresAuth: false,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'SignIn',
 		path: '/sign-in',
 		component: SignIn,
+		meta: {
+			requiresAuth: false,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Forgot Password',
 		path: '/forgot-password',
 		component: ForgotPassword,
 		meta: {
-			requiresAuth: true,
+			requiresAuth: false,
 			requiredWeight: 0
 		}
 	},
@@ -225,8 +234,15 @@ const routes = [
 		}
 	},
 
-	// Otherwise redirect to home
-	{ path: '*', redirect: '/' }
+	// Otherwise redirect to 404
+	{
+		path: '*',
+		component: NotFound,
+		meta: {
+			requiresAuth: false,
+			requiredWeight: 0
+		}
+	}
 ];
 
 const router = new VueRouter({
@@ -234,16 +250,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const requiresAuth = to.meta.requiresAuth;
+	const requiresAuth = to.meta.requiresAuth || false;
 	const requiredWeight = to.meta.requiredWeight;
+	let userRoleWeight = 0
 	
 	accountService.getUserData().then(res => {
 		if (res.status === 200 ) {
-			const userRoleWeight = res.data.res.role.weight;
-			if (userRoleWeight >= requiredWeight ) {
-				next();
+			userRoleWeight = res.data.res.role.weight;
+			
+			if (userRoleWeight >= requiredWeight) {
+				return next();
 			} else {
-				next('/');
+				return next('/404');
 			}
 		} else {
 			throw new Error('Failed to authenticate user...')
@@ -252,10 +270,10 @@ router.beforeEach((to, from, next) => {
 		console.log(e.message);
 		
 		if (requiresAuth) {
-			next('/sign-in');
-		} else {
-			next()
-		}
+			return next('/sign-in');
+		} 
+
+		next();
 	})
 });
 

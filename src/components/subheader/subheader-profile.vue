@@ -36,7 +36,7 @@ export default {
 			e.preventDefault();
 			await this.logout();
 
-			this.$router.push('/sign-in')
+			this.$router.push({ path: '/sign-in' })
 		}
 	}
 		
