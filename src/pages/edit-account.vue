@@ -6,7 +6,7 @@
 			</SubheaderEdit>
 		</Subheader>
 		
-		<FormEditAccount />
+		<FormEditAccount @accountUpdated="getDocumentLogs" />
 
 		<template #right>
 			<Widgets>

@@ -198,7 +198,9 @@ export default {
 
 			try {
 				await AccountsService.updateAccount(this.$route.params.id, params);
+				
 				this.success = true;
+				this.$emit('accountUpdated');
 				this.message = `${this.formData.username} was updated successfully!`;
 			} catch (e) {
 				this.error = true;
