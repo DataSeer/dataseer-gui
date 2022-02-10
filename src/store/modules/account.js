@@ -15,6 +15,7 @@ const state = {
 const getters = {
 	loggedIn: state => state.status.loggedIn,
 	userRole: state => state.user.role.key,
+	userRoleWeight: state => state.user.role.weight,
 	username: state => state.user.fullname.split('@')[0],
 }
 
@@ -36,8 +37,10 @@ const actions = {
 	async getUserData({commit}) {
 		try {
 			const result = await accountService.getUserData()
+			
 			if (result.err) throw new Error(result.ree)
 			
+			this._vm.$cookies.set('logged-in','yes', 0)
 			commit('loginSuccess')
 			commit('AuthenticateUser', result.data.res)
 		} catch (e) {
@@ -47,6 +50,7 @@ const actions = {
 	async logout({commit}) {
 		try {
 			await accountService.logout();
+			this._vm.$cookies.set('logged-in','no')
 			commit('logout');
 		} catch (e) {
 			console.log(e);

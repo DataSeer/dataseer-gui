@@ -37,115 +37,195 @@ const routes = [
 	{
 		name: 'Home',
 		path: '/',
-		component: Home
+		component: Home,
+		meta: {
+			requiresAuth: false,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Profile',
 		path: '/profile',
-		component: Profile
+		component: Profile,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'NewDocument',
 		path: '/new-document',
-		component: NewDocument
+		component: NewDocument,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Datasets',
 		path: '/datasets',
-		component: Datasets
+		component: Datasets,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'DatasetsCode',
 		path: '/datasets-code',
-		component: DatasetsCode
+		component: DatasetsCode,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'DatasetsMaterials',
 		path: '/datasets-materials',
-		component: DatasetsMaterials
+		component: DatasetsMaterials,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'DatasetsProtocols',
 		path: '/datasets-protocols',
-		component: DatasetsProtocols
+		component: DatasetsProtocols,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Documents',
 		path: '/documents',
-		component: Documents
+		component: Documents,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Organizations',
 		path: '/organizations',
-		component: Organizations
+		component: Organizations,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Accounts',
 		path: '/accounts',
-		component: Accounts
+		component: Accounts,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Curator Roles',
 		path: '/curator-roles',
-		component: CuratorRoles
+		component: CuratorRoles,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'SignUp',
 		path: '/sign-up',
-		component: SignUp
+		component: SignUp,
 	},
 	{
 		name: 'SignIn',
 		path: '/sign-in',
-		component: SignIn
+		component: SignIn,
 	},
 	{
 		name: 'Forgot Password',
 		path: '/forgot-password',
-		component: ForgotPassword
+		component: ForgotPassword,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Report',
 		path: '/report',
-		component: Report
+		component: Report,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Edit Organization',
 		path: '/edit-organization/:id',
-		component: EditOrganization
+		component: EditOrganization,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Add Organization',
 		path: '/add-organization',
-		component: AddOrganization
+		component: AddOrganization,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 1000
+		}
 	},
 	{
 		name: 'Edit Role',
 		path: '/edit-role/:id',
-		component: EditRole
+		component: EditRole,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Add Role',
 		path: '/add-role',
-		component: AddRole
+		component: AddRole,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 1000
+		}
 	},
 	{
 		name: 'Edit Account',
 		path: '/edit-account/:id',
-		component: EditAccount
+		component: EditAccount,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 	{
 		name: 'Add Account',
 		path: '/add-account',
-		component: AddAccount
+		component: AddAccount,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 1000
+		}
 	},
 	{
 		name: 'Manage Document',
 		path: '/manage-document',
-		component: ManageDocument
+		component: ManageDocument,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
 	},
 
-	// otherwise redirect to home
+	// Otherwise redirect to home
 	{ path: '*', redirect: '/' }
 ];
 
@@ -154,20 +234,24 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const path = to.path;
-	const publicPages = ['/sign-in', '/sign-up', '/forgot-password', '/'];
-	const authRequired = !publicPages.includes(path);
+	const requiresAuth = to.meta.requiresAuth;
+	const requiredWeight = to.meta.requiredWeight;
 	
 	accountService.getUserData().then(res => {
 		if (res.status === 200 ) {
-			next();
-		} 
-
-		if (!authRequired) {
-			next('/profile')
+			const userRoleWeight = res.data.res.role.weight;
+			if (userRoleWeight >= requiredWeight ) {
+				next();
+			} else {
+				next('/');
+			}
+		} else {
+			throw new Error('Failed to authenticate user...')
 		}
-	}).catch(() =>{
-		if (authRequired) {
+	}).catch((e) => {
+		console.log(e.message);
+		
+		if (requiresAuth) {
 			next('/sign-in');
 		} else {
 			next()

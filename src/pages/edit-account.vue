@@ -172,6 +172,8 @@ import Button from '@/components/button/button';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
 
+import documentsService from '@/services/documents/documents';
+
 export default {
 	/**
 	 * Name
@@ -196,6 +198,7 @@ export default {
 	 */
 	data: function() {
 		return {
+			logs: [],
 			actions: [
 				{
 					name: 'Some Document Name',
@@ -249,6 +252,33 @@ export default {
 				}
 			]
 		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		accountId() {
+			return this.$route.params.id
+		}
+	},
+	
+	/**
+	 * Methods
+	 */
+	methods: {
+		async getDocumentLogs() {
+			const logs = await documentsService.getDocumentsLogs('6203f103e7ac0508c6fd338a')
+
+			console.log(logs);
+		}
+	},
+
+	/**
+	 * Created
+	 */
+	created () {
+		this.getDocumentLogs();
 	},
 };
 </script>
