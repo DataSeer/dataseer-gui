@@ -6,6 +6,14 @@
 			<FormGroup title="Annotator">
 				<Grid columnGap="large">
 					<GridColumn>
+						<Field readonly placeholder="Role Key" v-model="formData.key" name="Role Key">
+							<Icon name="key" color="currentColor" />
+
+							Role Key
+						</Field>
+					</GridColumn>
+					
+					<GridColumn>
 						<Field placeholder="Role Name" v-model="formData.label" name="Role Name">
 							<Icon name="key" color="currentColor" />
 
@@ -13,13 +21,6 @@
 						</Field>
 					</GridColumn>
 
-					<GridColumn>
-						<Field placeholder="Role Key" v-model="formData.key" name="Role Key">
-							<Icon name="key" color="currentColor" />
-
-							Role Key
-						</Field>
-					</GridColumn>
 
 					<GridColumn>
 						<Field placeholder="Role Weight" v-model="formData.weight" name="Role Weight">
@@ -130,7 +131,7 @@ export default {
 				label: '',
 				key: '',
 				weight: '',
-				color: '',
+				color: '#006AC9',
 				visible: false,
 				isLocked: false
 			},

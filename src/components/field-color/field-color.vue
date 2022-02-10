@@ -58,6 +58,10 @@ export default {
 			type: Number,
 			default: 0
 		},
+		readonly: {
+			type: Boolean,
+			default: false
+		},
 		error: {
 			type: Boolean,
 			default: false
