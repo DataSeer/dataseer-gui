@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------ *\
-	Widget Recent Changes
+	Widget Logs
 \* ------------------------------------------------------------ */
 
-.widget-recent-changes {
+.widget-logs {
 	font-size: 12px;
 
 	.widget__head {
@@ -30,19 +30,27 @@
 
 	.widget__row {
 		display: flex;
+		justify-content: space-between;
 		margin: 0 -10px 11px;
 
 		&:last-child { 
 			margin-bottom: 0;
 		}
+
+		&:nth-child(n + 11) {
+			display: none;
+		}
 	}
 
 	.widget__col {
-		width: 33.3333%;
 		padding: 0 10px;
 
 		&:last-child {
 			text-align: right;
 		}
+	}
+
+	&.is-opened .widget__row:nth-child(n + 11) {
+		display: flex;
 	}
 }	

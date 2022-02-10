@@ -13,6 +13,11 @@ const getAccount = (id) => {
 		.then(res => httpErrorHandler(res))
 }
 
+const getAccountLogs = (id) => {
+	return axiosInstance.get(`/accounts/${id}/logs`)
+		.then(res => httpErrorHandler(res))
+}
+
 const addAccount = (params) => {
 	return axiosInstance.post(`/accounts/`, params)
 		.then(res => httpErrorHandler(res))
@@ -33,5 +38,6 @@ export default {
 	getAccounts,
 	addAccount,
 	deleteAccount,
-	updateAccount
+	updateAccount,
+	getAccountLogs
 };
