@@ -7,15 +7,7 @@
 
 			<h2>Error 404 - Not Found</h2>
 
-			<p>
-				Please check the URL for proper spelling and capitalization.
-				
-				<br>
-				
-				If you're having trouble locating a destination, try visiting the:
-			</p>
-
-			<Button to="/profile">Back To Homepage</Button>
+			<Button to="/profile" className="secondary">Go Back</Button>
 		</Banner>
 	</Main>
 </template>
