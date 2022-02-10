@@ -69,6 +69,7 @@
 
 					<GridColumn>
 						<FieldSelect
+							:error="$v.formData.organizations.$error"
 							placeholder="Institution/Organization"
 							multiple
 							v-model.trim="formData.organizations"
@@ -144,6 +145,10 @@ import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import AccountsService from '@/services/account/accounts';
 import RolesService from '@/services/roles/roles';
 import organizationsService from '@/services/organizations/organizations';
+
+const mustHaveOrganizationSelected = (value) => value.length;
+
+
 export default {
 	/**
 	 * Name
@@ -215,6 +220,9 @@ export default {
 			},
 			role: {
 				required,
+			},
+			organizations: {
+				mustHaveOrganizationSelected,
 			}
 		}
 	},

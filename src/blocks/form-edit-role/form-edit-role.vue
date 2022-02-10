@@ -30,11 +30,11 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Color" v-model="formData.color" name="Role Color">
+						<FieldColor placeholder="Role Color" v-model="formData.color" name="Role Color">
 							<Icon name="key" color="currentColor" />
 
 							Role Color
-						</Field>
+						</FieldColor>
 					</GridColumn>
 				</Grid>
 			</FormGroup>
@@ -91,6 +91,7 @@
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
+import FieldColor from '@/components/field-color/field-color';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import RoleService from '@/services/roles/roles';
@@ -115,6 +116,7 @@ export default {
 		Icon,
 		Field,
 		Button,
+		FieldColor,
 		GridColumn,
 		FieldCheckbox
 	},

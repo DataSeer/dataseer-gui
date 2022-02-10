@@ -42,15 +42,16 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field
+						<FieldColor
 							:error="$v.formData.color.$error"
 							placeholder="Role Color"
 							v-model="formData.color"
-							name="Role Color">
+							name="Role Color"
+						>
 							<Icon name="key" color="currentColor" />
 
 							Role Color
-						</Field>
+						</FieldColor>
 					</GridColumn>
 				</Grid>
 			</FormGroup>
@@ -107,6 +108,7 @@ import { required, integer } from 'vuelidate/lib/validators';
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
+import FieldColor from '@/components/field-color/field-color';
 import Button from '@/components/button/button';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import Grid, { GridColumn } from '@/components/grid/grid';
@@ -127,6 +129,7 @@ export default {
 		Icon,
 		Grid,
 		Field,
+		FieldColor,
 		Button,
 		FormBody,
 		FormGroup,
@@ -145,7 +148,7 @@ export default {
 				label: '',
 				key: '',
 				weight: '',
-				color: '',
+				color: '#006AC9',
 				visible: false,
 				isLocked: false
 			},
