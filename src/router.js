@@ -233,15 +233,17 @@ const routes = [
 			requiredWeight: 0
 		}
 	},
-
+	
+	{
+		name: 'Not Found',
+		path: '/404',
+		component: NotFound,
+	},
+	
 	// Otherwise redirect to 404
 	{
 		path: '*',
-		component: NotFound,
-		meta: {
-			requiresAuth: false,
-			requiredWeight: 0
-		}
+		redirect: '404',
 	}
 ];
 
@@ -250,30 +252,30 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const requiresAuth = to.meta.requiresAuth || false;
-	const requiredWeight = to.meta.requiredWeight;
+	const requiresAuth = to.meta.requiresAuth;
+	const requiredWeight = to.meta.requiredWeight || 0;
 	let userRoleWeight = 0
 	
 	accountService.getUserData().then(res => {
 		if (res.status === 200 ) {
 			userRoleWeight = res.data.res.role.weight;
 			
-			if (userRoleWeight >= requiredWeight) {
-				return next();
-			} else {
+			if (requiresAuth === false) {
+				return next('/profile');
+			}
+			
+			if (userRoleWeight < requiredWeight) {
 				return next('/404');
 			}
+
+			return next();
 		} else {
 			throw new Error('Failed to authenticate user...')
 		}
-	}).catch((e) => {
-		console.log(e.message);
+	}).catch(() => {
+		if (requiresAuth) return next('/sign-in');
 		
-		if (requiresAuth) {
-			return next('/sign-in');
-		} 
-
-		next();
+		next()
 	})
 });
 
