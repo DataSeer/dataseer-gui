@@ -1,7 +1,7 @@
 <template>
 	<nav class="nav-account" :class="{ 'is-logged-in': isLoggedIn }">
 		<ul v-if="isLoggedIn">
-			<li>
+			<li v-if="userRoleWeight >= 100">
 				<DropDown>
 					<template #header>
 						<div class="dropdown__account">
@@ -22,7 +22,7 @@
 								</router-link>
 							</li>
 
-							<li>
+							<li v-if="userRoleWeight >= 1000">
 								<router-link tabindex="0" to="/curator-roles">
 									<Icon name="key" color="CurrentColor" />
 
@@ -156,7 +156,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('account', ['username']),
+		...mapGetters('account', ['username', 'userRoleWeight']),
 		isLoggedIn() {
 			return this.$store.state.account.status?.loggedIn
 		},

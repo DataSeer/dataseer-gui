@@ -186,6 +186,7 @@ export default {
 			};
 		},
 		async updateAccount() {
+			this.resetForm();
 			this.loading = true;
 			
 			const params = {
@@ -213,6 +214,7 @@ export default {
 			const confirmDelete = window.confirm('Are you sure you want to delete this Account?');
 
 			if (!confirmDelete) return;
+			this.resetForm();
 			this.loading = true;
 
 			try {
@@ -236,6 +238,11 @@ export default {
 			const rolesList = await RolesService.getRolesList();
 
 			this.rolesList = rolesList;
+		},
+		resetForm() {
+			this.error = false;
+			this.success = false;
+			this.message = '';
 		}
 	},
 
