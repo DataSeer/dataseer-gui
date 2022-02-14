@@ -32,11 +32,9 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
-		async handleLogout(e) {
+		handleLogout(e) {
 			e.preventDefault();
-			await this.logout();
-
-			this.$router.push({ path: '/sign-in' })
+			this.logout();
 		}
 	}
 		

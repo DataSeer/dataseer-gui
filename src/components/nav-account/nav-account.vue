@@ -167,10 +167,9 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
-		async handleLogout() {
-			await this.logout();
-
-			this.$router.push('/sign-in')
+		handleLogout(e) {
+			e.preventDefault();
+			this.logout();
 		}
 	}
 };

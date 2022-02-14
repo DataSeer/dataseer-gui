@@ -1,4 +1,5 @@
 import accountService from '@/services/account/auth-account';
+import router from '@/router';
 
 // State
 const state = {
@@ -14,6 +15,7 @@ const state = {
 // Getters
 const getters = {
 	loggedIn: state => state.status.loggedIn,
+	userId: state => state.user._id,
 	userRole: state => state.user.role.key,
 	userRoleWeight: state => state.user.role.weight,
 	username: state => state.user.fullname.split('@')[0],
@@ -52,6 +54,10 @@ const actions = {
 			await accountService.logout();
 			this._vm.$cookies.set('logged-in','no')
 			commit('logout');
+
+			setTimeout(() => {
+				router.push('/');
+			}, 100);
 		} catch (e) {
 			console.log(e);
 		}

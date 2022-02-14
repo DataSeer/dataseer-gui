@@ -1,18 +1,19 @@
 <template>
-	<Main hasSubheader className="main--table">
+	<Main
+		hasSubheader
+		className="main--table"
+	>
 		<Subheader>
-			<SubheaderDocuments />
+			<SubheaderDocuments @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
 		</Subheader>
 
-		<div class="table-filters">
-			<BtnClose alt label="Close Document Filters" @onClick="changeFiltersVisibility(false)" />
-
+		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
 			<FormFilters @onApplyFilters="updateFilters" />
-		</div><!-- /.table-filters -->
+		</TableFilters>
 
-		<div class="table table--documents" tabindex="0" aria-label="documents">
-			<div class="table__inner">
-				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+		<Loader :loading="loading">
+			<Table v-if="!this.loading" modifier="documents">
+				<vue-good-table :columns="columns" :rows="rows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
 							{{ props.column.label }}
@@ -28,11 +29,11 @@
 					</template>
 
 					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'title'" class="table__title">
+						<span v-if="props.column.field == 'name'" class="table__title">
 							<router-link to="/report">
-								<Icon name="document" color="CurrentCOlor"></Icon>
+								<Icon name="document" color="CurrentCOlor" />
 
-								{{ props.row.title }}
+								{{ props.row.name }}
 							</router-link>
 						</span>
 
@@ -108,40 +109,51 @@
 													</a>
 												</li>
 											</ul>
-										</div>
-										<!-- /.dropdown__nav -->
+										</div> <!-- /.dropdown__nav -->
 									</Dropdown>
 								</li>
 							</ul>
 						</div>
+						
+						<span v-else-if="props.column.field === 'owner'" class="table__owner overflow-truncate">
+							{{props.row.owner.fullname}}
+						</span> <!-- /.table__name -->
 
-						<span v-else-if="props.column.field === 'file'" class="table__file overflow-truncate">
-							<a :href="props.row.file.url" target="_blank">{{ props.row.file.title }}</a>
-						</span>
-						<!-- /.table__actions -->
+						<span v-else-if="props.column.field === 'metadata'" class="table__journal overflow-truncate">
+							{{props.row.metadata.journal}}
+						</span> <!-- /.table__name -->
 
 						<span
 							v-else-if="props.column.field == 'status'"
 							class="table__status"
 							:class="{
-								'is-validating': props.row.status.toLowerCase() === 'validating',
-								'is-complete': props.row.status.toLowerCase() === 'complete'
+								'is-validating': props.row.status === 'metadata' || props.row.status === 'datasets',
+								'is-complete': props.row.status === 'finish'
 							}"
 						>
-							{{ props.row.status }}
-							<!-- /.table__status -->
+							<label class="text" v-if="props.row.status === 'metadata'">Metadata validation</label>
+							<label class="text" v-if="props.row.status === 'datasets'">Datasets validation</label>
+							<label class="text" v-if="props.row.status === 'finish'">Process Finished</label>
 						</span>
+
+						<span v-else-if="props.column.field === 'files'" class="table__files overflow-truncate">
+							<ul>
+								<li
+									v-for="file in props.row.files"
+									:key="file._id"
+								>
+									{{ file.filename }}
+								</li>
+							</ul>
+						</span> <!-- /.table__actions -->
 					</template>
 
 					<template slot="pagination-bottom" slot-scope="props">
 						<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
 					</template>
 				</vue-good-table>
-				<!-- /.table__table -->
-			</div>
-			<!-- /.table__inner -->
-		</div>
-		<!-- /.table -->
+			</Table>
+		</Loader>
 	</Main>
 </template>
 
@@ -149,20 +161,23 @@
 /**
  * External Dependencies
  */
-import { mapGetters, mapActions } from 'vuex';
+import { format } from 'date-fns' 
 
 /**
  * Internal Dependencies
- */
-import Subheader from '@/components/subheader/subheader';
-import SubheaderDocuments from '@/components/subheader/subheader-documents';
+ */				
+import Loader from '@/blocks/loader/loader';
+import Table from '@/components/table/table';
 import Icon from '@/components/icon/icon';
-import Main from '@/components/main/main.vue';
-import Button from '@/components/button/button.vue';
-import Dropdown from '@/components/dropdown/dropdown.vue';
-import BtnClose from '@/components/btn-close/btn-close';
-import Pagination from '@/components/pagination/pagination.vue';
-import FormFilters from '@/blocks/form-filters/form-filters.vue';
+import Main from '@/components/main/main';
+import Button from '@/components/button/button';
+import Dropdown from '@/components/dropdown/dropdown';
+import Subheader from '@/components/subheader/subheader';
+import TableFilters from '@/components/table/table-filters';
+import Pagination from '@/components/pagination/pagination';
+import FormFilters from '@/blocks/form-filters/form-filters';
+import documentsService from '@/services/documents/documents';
+import SubheaderDocuments from '@/components/subheader/subheader-documents';
 
 export default {
 	/**
@@ -174,15 +189,17 @@ export default {
 	 * Components
 	 */
 	components: {
-		Subheader,
-		SubheaderDocuments,
+		Loader,
+		Table,
 		Icon,
 		Main,
 		Button,
-		BtnClose,
 		Dropdown,
+		Subheader,
+		TableFilters,
 		Pagination,
-		FormFilters
+		FormFilters,
+		SubheaderDocuments
 	},
 
 	/**
@@ -192,44 +209,41 @@ export default {
 		return {
 			columns: [
 				{
-					field: 'id',
+					field: '_id',
 					label: 'id',
 					hidden: true,
 					sortable: false,
 				},
 				{
-					field: 'title',
+					field: 'name',
 					label: 'Title'
 					
 				},
 				{
-					field: 'author',
+					field: 'owner',
 					label: 'Author'
 				},
 				{
-					field: 'journal',
+					field: 'metadata',
 					label: 'Journal',
 				},
 				{
-					field: 'file',
+					field: 'files',
 					label: 'File',
-					sortFn: this.soryByFIleName,
 				},
 				{
-					field: 'uploaded',
-					label: 'Uploaded',
+					field: 'createdAt',
+					label: 'createdAt',
 					type: 'date',
-					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd',
-					sortFn: this.soryByUploadedDate,
+					formatFn: this.formatDate,
+					sortable: false,
 				},
 				{
-					field: 'modified',
+					field: 'updatedAt',
 					label: 'Modified',
 					type: 'date',
-					dateInputFormat: 'T',
-					dateOutputFormat: 'yyyy-MM-dd', // outputs Mar 16th 2018
-					sortFn: this.soryByModifiedDate,
+					formatFn: this.formatDate,
+					sortable: false,
 				},
 				{
 					field: 'status',
@@ -241,270 +255,50 @@ export default {
 					sortable: false
 				}
 			],
-			rows: [
-				{
-					id: 1,
-					title:
-						'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Validating'
-				},
-				{
-					id: 2,
-					title:
-						'Some Other Research Program at the Ottowa Hospital Through Patient, Clinic Organizational With A really Long title That Goes  150 Characters So It Gets Cut O…',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 3,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 4,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 5,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Organization 2',
-					file: {
-						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 6,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Organization 3',
-					file: {
-						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 7,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Organization 2',
-					file: {
-						title: 'a-longer-filename-would-be-cut-lorem-ipsum',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 8,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 9,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 10,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 11,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 12,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 13,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 14,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Laura Leadauthor',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 15,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Short Name',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 16,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Short Name',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				},
-				{
-					id: 17,
-					title: 'This Document Has  A Very Short Title',
-					author: 'Short Name',
-					journal: 'Journal of Medical Internet Research',
-					file: {
-						title: 'my_uploaded-filename.pdf',
-						url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-					},
-					uploaded: 1623445200000,
-					modified: 1624395600000,
-					status: 'Complete'
-				}
-			],
-			availableFilters: null
+			rows: [],
+			filters: {},
+			loading: true,
+			filtersVisibility: false
 		};
-	},
-
-	/**
-	 * Computed
-	 */
-	computed: {
-		filteredRows: function() {
-			if (!this.availableFilters) return this.rows;
-
-			const { owner, organization, uploadedFrom, uploadedTo, modifiedFrom, modifiedTo } = this.availableFilters;
-
-			return this.rows
-				.filter((row) => (owner.length ? owner.some((el) => el.value === row.author) : true))
-				.filter((row) => organization.some((el) => el.value === row.journal) || !organization.length)
-				.filter((row) => {
-					if (!(uploadedFrom || uploadedTo)) return true;
-					return row.uploaded > uploadedFrom || row.uploaded < uploadedTo;
-				})
-				.filter((row) => {
-					if (!(modifiedFrom || modifiedTo)) return true;
-					return row.modified > modifiedFrom || row.modified <= modifiedTo;
-				});
-		},
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
 	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		formatDate(value) {
+			return format(new Date(value), 'yyyy-MM-dd');
+		},
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
+		},
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
-		soryByFIleName(x, y) {
-			return (x.title < y.title ? -1 : (x.title > y.title ? 1 : 0));
-		},
-		...mapActions(['changeFiltersVisibility'])
-	}
+		async getDocuments() {
+			this.loading = true;
+			
+			const params = {
+				files: true,
+				datasets: false,
+				metadata: true
+			}
+
+			try {
+				const documents = await documentsService.getDocuments(params);
+
+				this.rows = documents;
+				console.log(this.rows);
+			} catch (e) {
+				console.log(e.message);
+			}
+
+			this.loading = false;
+		}
+	},
+
+	created () {
+		this.getDocuments();
+	},
 };
 </script>

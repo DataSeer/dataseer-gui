@@ -1,12 +1,19 @@
 <template>
-	<div class="main" :class="{ [className]: className, 'main--no-rightside': !hadRightSide, 'main--has-subheader': hasSubheader }">
+	<div
+		class="main"
+		:class="{
+			[className]: className,
+			'main--no-rightside': !hadRightSide,
+			'main--has-subheader': hasSubheader
+		}"
+	>
 		<Shell>
 			<div class="main__inner">
 				<div class="main__left">
 					<slot />
 				</div> <!-- /.main__left -->
 
-				<div class="main__right" v-if="hadRightSide">
+				<div class="main__right" v-if="hadRightSide && !loading">
 					<slot name="right" />
 				</div> <!-- /.main__right -->
 			</div> <!-- /.main__inner -->
@@ -15,10 +22,10 @@
 </template>
 
 <script>
+
 /**
  * Internal Dependencies
  */
-
 import Shell from '@/components/shell/shell';
 
 export default {
@@ -31,7 +38,7 @@ export default {
 	 * Components
 	 */
 	components: {
-		Shell
+		Shell,
 	},
 
 	/**
@@ -41,6 +48,10 @@ export default {
 		className: {
 			type: String,
 			default: ''
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		},
 		hasSubheader: {
 			type: Boolean,

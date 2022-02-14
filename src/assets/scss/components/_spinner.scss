@@ -3,6 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .spinner {
+	position: relative;
 	display: inline-block;
 	width: 24px;
 	height: 24px;
@@ -30,5 +31,16 @@
 	}
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+/* Spinner Large */
+
+.spinner--large {
+	width: 50px;
+	height: 50px;
+
+	&:before {
+		border-width: 6px;
 	}
 }

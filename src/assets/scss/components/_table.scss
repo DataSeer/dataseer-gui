@@ -3,6 +3,7 @@
 \* ------------------------------------------------------------ */
 
 .table {
+	height: 100%;
 	flex: 1;
 	overflow: auto;
 	font-size: 14px;
@@ -221,7 +222,7 @@
 		}
 	}
 
-	.table__file {
+	.table__files {
 		max-width: 220px;
 	}
 }

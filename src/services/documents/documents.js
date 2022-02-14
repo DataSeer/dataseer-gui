@@ -3,8 +3,8 @@
  */
 import axiosInstance, { httpErrorHandler } from '@/services/http.js';
 
-const getDocuments = () => {
-	return axiosInstance.get(`/documents`)
+const getDocuments = (params) => {
+	return axiosInstance.get(`/documents`, { params: params })
 		.then(res => httpErrorHandler(res))
 }
 

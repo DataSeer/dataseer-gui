@@ -1,10 +1,10 @@
 <template>
-	<Form className="form--filters">
-		<div class="form__head">
+	<Form className="form--filters" @submit.prevent="handleApplyFilters">
+		<FormHead>
 			<h4>Advanced Filters</h4>
-		</div> <!-- /.form__head -->
+		</FormHead>
 
-		<div class="form__body">
+		<FormBody>
 			<Grid columnGap="medium" rowGap="small" columnSize="quarter">
 				<GridColumn>
 					<FieldSelect
@@ -14,15 +14,19 @@
 						multiple
 						:options="[
 							{
+								label: 'Laura Leadauthor',
 								value: 'Laura Leadauthor'
 							},
 							{
+								label: 'Short Name',
 								value: 'Short Name'
 							},
 							{
+								label: 'A. Nothersuper Longnameperson',
 								value: 'A. Nothersuper Longnameperson'
 							},
 							{
+								label: 'Lorem ipsum dolor sit amet, consectetur',
 								value: 'Lorem ipsum dolor sit amet, consectetur'
 							}
 						]"
@@ -41,15 +45,19 @@
 						multiple
 						:options="[
 							{
+								label: 'Journal of Medical Internet Research',
 								value: 'Journal of Medical Internet Research'
 							},
 							{
+								label: 'Organization 2',
 								value: 'Organization 2'
 							},
 							{
+								label: 'Organization 3',
 								value: 'Organization 3'
 							},
 							{
+								label: 'Organization 4',
 								value: 'Organization 4'
 							}
 						]"
@@ -114,27 +122,24 @@
 					<!-- /.form__range -->
 				</GridColumn>
 			</Grid>
-		</div>
-		<!-- /.form__body -->
+		</FormBody>
+		
 
-		<div class="form__actions">
-			<ul>
-				<li>
-					<Button
-						:className="applyButtonClass"
-						:disabled="areFiltersApplied"
-						@onClick="handleApplyFilters"
-					>
-						{{ applyButtonText }}
-					</Button>
-				</li>
+		<FormActions>
+			<li>
+				<Button
+					type="submit"
+					:className="applyButtonClass"
+					:disabled="areFiltersApplied"
+				>
+					{{ applyButtonText }}
+				</Button>
+			</li>
 
-				<li>
-					<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
-				</li>
-			</ul>
-		</div>
-		<!-- /.form__actions -->
+			<li>
+				<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
+			</li>
+		</FormActions>
 	</Form>
 </template>
 
@@ -142,12 +147,12 @@
 /**
  * Internal Dependencies
  */
-import Form from '@/components/form/form';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
+import Form, { FormActions, FormHead, FormBody } from '@/components/form/form';
 
 export default {
 	/**
@@ -160,6 +165,9 @@ export default {
 	 */
 	components: {
 		Form,
+		FormActions,
+		FormHead,
+		FormBody,
 		Grid,
 		Icon,
 		Button,
