@@ -12,24 +12,7 @@
 						name="owner"
 						placeholder="Document Owner"
 						multiple
-						:options="[
-							{
-								label: 'Laura Leadauthor',
-								value: 'Laura Leadauthor'
-							},
-							{
-								label: 'Short Name',
-								value: 'Short Name'
-							},
-							{
-								label: 'A. Nothersuper Longnameperson',
-								value: 'A. Nothersuper Longnameperson'
-							},
-							{
-								label: 'Lorem ipsum dolor sit amet, consectetur',
-								value: 'Lorem ipsum dolor sit amet, consectetur'
-							}
-						]"
+						:options="organizationsList"
 					>
 						<Icon name="user" color="currentColor" />
 
@@ -39,28 +22,11 @@
 
 				<GridColumn>
 					<FieldSelect
-						v-model.trim="formData.organization"
-						name="organization"
+						v-model.trim="formData.organizations"
+						name="organizations"
 						placeholder="Include All"
 						multiple
-						:options="[
-							{
-								label: 'Journal of Medical Internet Research',
-								value: 'Journal of Medical Internet Research'
-							},
-							{
-								label: 'Organization 2',
-								value: 'Organization 2'
-							},
-							{
-								label: 'Organization 3',
-								value: 'Organization 3'
-							},
-							{
-								label: 'Organization 4',
-								value: 'Organization 4'
-							}
-						]"
+						:options="organizationsList"
 					>
 						<Icon name="organization" color="currentColor" />
 
@@ -137,7 +103,7 @@
 			</li>
 
 			<li>
-				<Button className="tertiary" @onClick="handleClearFilters">Clear Filters</Button>
+				<Button className="tertiary" type="button" @onClick="handleClearFilters">Clear Filters</Button>
 			</li>
 		</FormActions>
 	</Form>
@@ -153,6 +119,8 @@ import Button from '@/components/button/button';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 import Form, { FormActions, FormHead, FormBody } from '@/components/form/form';
+
+import organizationsService from '@/services/organizations/organizations';
 
 export default {
 	/**
@@ -177,18 +145,22 @@ export default {
 	},
 
 	/**
+	 * Props
+	 */
+	props: {
+		initialValues: {
+			type: Object,
+			default:  () => {}
+		},
+	},
+
+	/**
 	 * Data
 	 */
 	data: function() {
 		return {
-			formData: {
-				owner: [],
-				organization: [],
-				uploadedFrom: null,
-				uploadedTo: null,
-				modifiedFrom: null,
-				modifiedTo: null
-			},
+			formData: {},
+			organizationsList: [],
 			areFiltersApplied: true
 		};
 	},
@@ -222,21 +194,18 @@ export default {
 	 */
 	methods: {
 		handleApplyFilters() {
+			const query = { ...this.formData };
+			this.$router.replace({ query });
 			this.$emit('onApplyFilters', this.formData);
-
 			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
-			this.formData = {
-				owner: [],
-				organization: [],
-				uploadedFrom: null,
-				uploadedTo: null,
-				modifiedFrom: null,
-				modifiedTo: null
-			};
-
-			this.handleApplyFilters();
+			this.formData = {};
+		},
+		async getOrganizationsList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
+			
+			this.organizationsList = organizationsList;
 		},
 		disableUploadedFrom(date) {
 			if (!this.formData.uploadedTo) return false;
@@ -254,6 +223,14 @@ export default {
 			if (!this.formData.modifiedFrom) return false;
 			return date < this.formData.modifiedFrom;
 		}
-	}
+	},
+
+	/**
+	 * Created
+	 */
+	created () {
+		this.formData = { ...this.initialValues }
+		this.getOrganizationsList();
+	},
 };
 </script>

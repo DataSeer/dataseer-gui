@@ -8,12 +8,12 @@
 		</Subheader>
 
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-			<FormFilters @onApplyFilters="updateFilters" />
+			<FormFilters :initialValues="filters" @onApplyFilters="applyFilters" />
 		</TableFilters>
 
 		<Loader :loading="loading">
 			<Table v-if="!this.loading" modifier="documents">
-				<vue-good-table :columns="columns" :rows="rows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
 							{{ props.column.label }}
@@ -136,11 +136,12 @@
 							<label class="text" v-if="props.row.status === 'finish'">Process Finished</label>
 						</span>
 
-						<span v-else-if="props.column.field === 'files'" class="table__files overflow-truncate">
+						<span v-else-if="props.column.field === 'files'" class="table__files">
 							<ul>
 								<li
 									v-for="file in props.row.files"
 									:key="file._id"
+									class="overflow-truncate"
 								>
 									{{ file.filename }}
 								</li>
@@ -177,7 +178,9 @@ import TableFilters from '@/components/table/table-filters';
 import Pagination from '@/components/pagination/pagination';
 import FormFilters from '@/blocks/form-filters/form-filters';
 import documentsService from '@/services/documents/documents';
+
 import SubheaderDocuments from '@/components/subheader/subheader-documents';
+import { filterByOrganization, filterByDate } from '@/utils/table-filters';
 
 export default {
 	/**
@@ -263,9 +266,37 @@ export default {
 	},
 
 	/**
+	 * Computed
+	 */
+	computed: {
+		routerQuery: function() {
+			return this.$route.query
+		},
+		filteredRows: function() {
+			if (Object.keys(this.filters).length === 0) return this.rows;
+			
+			const {
+				organizations,
+				uploadedFrom,
+				uploadedTo,
+				modifiedFrom,
+				modifiedTo
+			} = this.filters;
+
+			return this.rows
+				.filter((row) => filterByOrganization(row.organizations, organizations))
+				.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
+				.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
+		},
+	},
+
+	/**
 	 * Methods
 	 */
 	methods: {
+		applyFilters(filters) {
+			this.filters = { ...filters };
+		},
 		formatDate(value) {
 			return format(new Date(value), 'yyyy-MM-dd');
 		},
@@ -273,7 +304,7 @@ export default {
 			this.filtersVisibility = value
 		},
 		updateFilters(filters) {
-			this.availableFilters = { ...filters };
+			this.filters = { ...filters };
 		},
 		async getDocuments() {
 			this.loading = true;
@@ -288,7 +319,6 @@ export default {
 				const documents = await documentsService.getDocuments(params);
 
 				this.rows = documents;
-				console.log(this.rows);
 			} catch (e) {
 				console.log(e.message);
 			}
@@ -297,7 +327,11 @@ export default {
 		}
 	},
 
+	/**
+	 * Created
+	 */
 	created () {
+		this.filters = { ...this.routerQuery }
 		this.getDocuments();
 	},
 };
