@@ -18,7 +18,7 @@
 
 				<template slot="table-row" slot-scope="props">
 					<span v-if="props.column.field == 'label'" class="table__title">
-						<Icon name="key" :color="props.row.color"></Icon>
+						<Icon name="key" :color="props.row.color ? props.row.color : 'currentColor'"></Icon>
 
 						{{ props.row.label }}
 					</span>
@@ -160,7 +160,6 @@ export default {
 			roles.forEach(role => {
 				const accountsCount = accounts.map(account => account.role.key).filter(key => role.key === key )
 				role.members = accountsCount.length;
-				role.color = '#006AC9';
 			});
 
 			this.loading = false;

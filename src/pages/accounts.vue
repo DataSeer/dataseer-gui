@@ -35,7 +35,7 @@
 					</span>
 
 					<span v-else-if="props.column.field === 'role'">
-						{{ props.row.role.label }}
+						<label :style="{color: props.row.role.color}">{{ props.row.role.label }}</label>
 					</span>
 
 					<span v-else-if="props.column.field === 'organizations'">
@@ -47,9 +47,9 @@
 					</span>
 
 					<span v-else-if="props.column.field === 'disabled'">
-						<span style="color: #006AC9" v-if="props.row.disabled">Active</span>
-
-						<span style="color: #8CABCD" v-else>Inactive</span>
+						<span :style="{color: props.row.disabled ? '#006AC9' : '#8CABCD'}">
+							{{props.row.disabled ? 'Active' : 'Inactive'}}
+						</span>
 					</span>
 
 					<div v-else-if="props.column.field === 'action'" class="table__actions">

@@ -174,6 +174,7 @@ export default {
 			
 			const params = {
 				label: this.formData.label,
+				color: this.formData.color,
 				visible: this.formData.visible,
 				weight: this.formData.weight.toString()
 			};
