@@ -1,111 +1,110 @@
-<template>
-	<div class="form form--new-document">
-		<form action="?" method="post" @submit.prevent="onSubmit">
-			<div class="form__head form__head--center">
-				<h2>Upload Your Research Text</h2>
+++6<template>
+	<Form className="form--new-document" @submit.prevent="handleFormSubmit" :loading="loading">
+		<FormHead centered>
+			<h2>Upload Your Research Text</h2>
 
-				<p>
-					DataSeer will process the document and highlight passages which may need links to a
-					dataset, code, lab materials, or protocol
-				</p>
-			</div>
-			<!-- /.form__head -->
+			<p>
+				DataSeer will process the document and highlight passages which may need links to a
+				dataset, code, lab materials, or protocol
+			</p>
+		</FormHead>
 
-			<div class="form__statuses" v-if="errors">
-				<div class="form__status form__status--error">
-					<div class="form__status-inner">
-						<p>{{ errorMessage }}</p>
-					</div><!-- /.form__status-inner -->
-				</div>
-				<!-- /.form__status -->
-			</div>
-			<!-- /.form__statuses -->
+		<FormStatus v-if="error || success" :text="message" :isError="error" />
 
-			<div class="form__body">
-				<Grid rowGap="extralarge">
-					<GridColumn>
-						<FieldFile
-							v-model="primaryFile"
-							accept=".docx, .pdf"
-							name="primaryFile"
-							:error="errors"
-						>
-							<template #label>
-								<Icon name="document_new" color="currentColor" />
+		<FormBody>
+			<Grid rowGap="extralarge">
+				<GridColumn>
+					<FieldFile
+						:error="$v.formData.file.$error"
+						v-model="formData.file"
+						accept=".docx, .pdf"
+						name="file"
+					>
+						<template #label>
+							<Icon name="document_new" color="currentColor" />
 
-								Select Your Primary File
-							</template>
+							Select Your Primary File
+						</template>
 
-							<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
-						</FieldFile>
-					</GridColumn>
+						<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
+					</FieldFile>
+				</GridColumn>
 
-					<GridColumn>
-						<FieldFile v-model="additionalFiles" name="additionalFiles" multiple="multiple">
-							<template #label>
-								<Icon name="documents" color="currentColor" />
+				<GridColumn>
+					<FieldFile v-model="formData.attachedFiles" name="attachedFiles" multiple="multiple">
+						<template #label>
+							<Icon name="documents" color="currentColor" />
 
-								Select Additional Support Files <em>Optional</em>
-							</template>
+							Select Additional Support Files <em>Optional</em>
+						</template>
 
-							<template #helptext>
-								All file formats supported
-							</template>
-						</FieldFile>
-					</GridColumn>
+						<template #helptext>
+							All file formats supported
+						</template>
+					</FieldFile>
+				</GridColumn>
 
-					<GridColumn>
-						<div class="checkboxes checkboxes--center">
-							<ul>
-								<FieldCheckbox name="checkbox" @onChange="onCheckboxChange">
-									This is a new version of an article DataSeer has already assessed
-								</FieldCheckbox>
-							</ul>
-						</div>
-						<!-- /.checkboxes -->
-					</GridColumn>
-				</Grid>
-			</div>
-			<!-- /.form__body -->
+				<GridColumn>
+					<div class="checkboxes checkboxes--center">
+						<ul>
+							<FieldCheckbox
+								v-model="formData.assessed"
+								name="checkbox"
+							>
+								This is a new version of an article DataSeer has already assessed
+							</FieldCheckbox>
+						</ul>
+					</div> <!-- /.checkboxes -->
+				</GridColumn>
+			</Grid>
+		</FormBody>
 
-			<div class="form__actions">
-				<ul>
-					<li>
-						<Button tabindex="0" type="submit">Upload Documents</Button>
-					</li>
+		<FormActions>
+			<li>
+				<Button tabindex="0" type="submit">Upload Documents</Button>
+			</li>
 
-					<li>
-						<Button tabindex="0" className="tertiary">Cancel</Button>
-					</li>
-				</ul>
-			</div>
-			<!-- /.form__actions -->
-		</form>
-	</div>
-	<!-- /.form -->
+			<li>
+				<Button tabindex="0" to="/documents" type="button" className="tertiary">Cancel</Button>
+			</li>
+		</FormActions>
+	</Form>
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { required } from 'vuelidate/lib/validators';
+import { mapGetters } from 'vuex';
+
+
+/**
+ * Internal Dependencies
+ */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
-import FieldFile from '@/components/field-file/field-file';
 import Grid, { GridColumn } from '@/components/grid/grid';
+import FieldFile from '@/components/field-file/field-file';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import Form, { FormActions, FormHead, FormBody, FormStatus } from '@/components/form/form';
+import documentsService from '@/services/documents/documents';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FormNewDocument',
 
-	data: function() {
-		return {
-			primaryFile: '',
-			additionalFiles: '',
-			errorMessage: '',
-			checkbox: false,
-			errors: false
-		};
-	},
-
+	/**
+	 * Components
+	 */
 	components: {
+		Form,
+		FormActions,
+		FormHead,
+		FormBody,
+		FormStatus,
 		Grid,
 		GridColumn,
 		Icon,
@@ -114,17 +113,71 @@ export default {
 		FieldCheckbox
 	},
 
-	methods: {
-		onCheckboxChange(event) {
-			const name = event.target.name;
-			this[name] = event.target.checked;
-		},
-		onSubmit() {
-			if (!this.primaryFile) {
-				this.errors = true;
-				this.errorMessage = 'Example error message';
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			formData: {
+				file: '',
+				attachedFiles: '',
+				assessed: false,
+			},
+			success: false,
+			error: false,
+			loading: false,
+			message: ''
+		};
+	},
+
+	computed: {
+		...mapGetters('account', ['userId', 'userOrganizations'])
+	},
+
+	validations: {
+		formData: {
+			file: {
+				required,
 			}
 		}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		async handleFormSubmit() {
+			this.resetFormState();
+			this.$v.$touch();
+
+			if (this.$v.$invalid) return 
+			
+			this.loading = true;
+
+			const params = {
+				file: this.formData.file[0],
+				owner: this.userId,
+				organizations: this.userOrganizations.map(entry => entry._id),
+				attachedFiles: this.formData.attachedFiles,
+			}
+
+			try {
+				await documentsService.addDocument(params)
+
+				this.success = true;
+				this.message = "Example success message";
+			} catch (error) {
+				this.error = true;
+				this.message = error.message;
+			}
+
+			this.loading = false;
+		},
+		resetFormState() {
+			this.success = false,
+			this.error = false,
+			this.message = ''
+		},
 	}
 };
 </script>

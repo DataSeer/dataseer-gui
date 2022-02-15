@@ -7,11 +7,11 @@
 			<SubheaderDocuments @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
 		</Subheader>
 
-		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-			<FormFilters :initialValues="filters" @onApplyFilters="applyFilters" />
-		</TableFilters>
-
 		<Loader :loading="loading">
+			<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
+				<FormFilters :initialValues="filters" @onApplyFilters="applyFilters" />
+			</TableFilters>
+			
 			<Table v-if="!this.loading" modifier="documents">
 				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
@@ -119,21 +119,18 @@
 							{{props.row.owner.fullname}}
 						</span> <!-- /.table__name -->
 
-						<span v-else-if="props.column.field === 'metadata'" class="table__journal overflow-truncate">
-							{{props.row.metadata.journal}}
-						</span> <!-- /.table__name -->
+						
 
 						<span
 							v-else-if="props.column.field == 'status'"
 							class="table__status"
 							:class="{
-								'is-validating': props.row.status === 'metadata' || props.row.status === 'datasets',
+								'is-validating': props.row.status !== 'finish',
 								'is-complete': props.row.status === 'finish'
 							}"
 						>
-							<label class="text" v-if="props.row.status === 'metadata'">Metadata validation</label>
-							<label class="text" v-if="props.row.status === 'datasets'">Datasets validation</label>
-							<label class="text" v-if="props.row.status === 'finish'">Process Finished</label>
+							<label class="text" v-if="props.row.status === 'finish'">Complete</label>
+							<label class="text" v-else>Validating</label>
 						</span>
 
 						<span v-else-if="props.column.field === 'files'" class="table__files">
@@ -159,6 +156,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -188,7 +186,7 @@ export default {
 	 */
 	name: 'Documents',
 
-	/**
+	/**	
 	 * Components
 	 */
 	components: {
@@ -219,16 +217,16 @@ export default {
 				},
 				{
 					field: 'name',
-					label: 'Title'
-					
+					label: 'Title',
 				},
 				{
 					field: 'owner',
-					label: 'Author'
+					label: 'Author',
 				},
 				{
 					field: 'metadata',
 					label: 'Journal',
+					formatFn: this.formatMetadata,
 				},
 				{
 					field: 'files',
@@ -255,7 +253,8 @@ export default {
 				{
 					field: 'action',
 					label: 'Action',
-					sortable: false
+					sortable: false,
+					width: '220px',
 				}
 			],
 			rows: [],
@@ -284,9 +283,9 @@ export default {
 			} = this.filters;
 
 			return this.rows
-				.filter((row) => filterByOrganization(row.organizations, organizations))
-				.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
-				.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
+			 	.filter((row) => filterByOrganization(row.organizations, organizations))
+			 	.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
+			 	.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
 		},
 	},
 
@@ -296,6 +295,9 @@ export default {
 	methods: {
 		applyFilters(filters) {
 			this.filters = { ...filters };
+		},
+		formatMetadata(value) {
+			return value.journal.length ? value.journal : ''
 		},
 		formatDate(value) {
 			return format(new Date(value), 'yyyy-MM-dd');
@@ -310,14 +312,13 @@ export default {
 			this.loading = true;
 			
 			const params = {
+				limit: 10,
 				files: true,
-				datasets: false,
 				metadata: true
 			}
 
 			try {
 				const documents = await documentsService.getDocuments(params);
-
 				this.rows = documents;
 			} catch (e) {
 				console.log(e.message);

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { isBefore, isAfter } from 'date-fns' 
 
 const filterByName = (element, query) => {

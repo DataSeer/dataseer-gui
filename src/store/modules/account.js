@@ -15,10 +15,11 @@ const state = {
 // Getters
 const getters = {
 	loggedIn: state => state.status.loggedIn,
+	username: state => state.user.fullname.split('@')[0],
 	userId: state => state.user._id,
 	userRole: state => state.user.role.key,
 	userRoleWeight: state => state.user.role.weight,
-	username: state => state.user.fullname.split('@')[0],
+	userOrganizations: state => state.user.organizations,
 }
 
 // Actions
