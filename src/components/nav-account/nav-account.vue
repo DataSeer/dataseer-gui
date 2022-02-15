@@ -112,15 +112,15 @@
 
 		<ul v-else>
 			<li>
-				<router-link tabindex="0" class="btn btn--tertiary" to="/sign-in">
+				<Button tabindex="0" className="tertiary" to="/sign-in">
 					Sign In
-				</router-link>
+				</Button>
 			</li>
 
 			<li>
-				<router-link tabindex="0" class="btn btn--secondary" to="/sign-up">
+				<Button tabindex="0" className="secondary" to="/sign-up">
 					Sign Up
-				</router-link>
+				</Button>
 			</li>
 		</ul>
 	</nav><!-- /.nav -->
@@ -137,6 +137,7 @@ import { mapActions, mapGetters } from 'vuex';
  */
 import DropDown from '@/components/dropdown/dropdown';
 import Icon from '@/components/icon/icon';
+import Button from '@/components/button/button';
 
 export default {
 	/**
@@ -149,6 +150,7 @@ export default {
 	 */
 	components: {
 		Icon,
+		Button,
 		DropDown
 	},
 	

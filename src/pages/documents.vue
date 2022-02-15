@@ -7,12 +7,12 @@
 			<SubheaderDocuments @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
 		</Subheader>
 
-		<Loader :loading="loading">
+		<Loader :loading="loading" :error="error" :errorMessage="errorMessage">
 			<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
 				<FormFilters :initialValues="filters" @onApplyFilters="applyFilters" />
 			</TableFilters>
 			
-			<Table v-if="!this.loading" modifier="documents">
+			<Table modifier="documents">
 				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
@@ -36,15 +36,58 @@
 								{{ props.row.name }}
 							</router-link>
 						</span>
+						
+						<span v-else-if="props.column.field === 'owner'" class="table__owner overflow-truncate">
+							{{props.row.owner.fullname}}
+						</span> <!-- /.table__name -->
+
+						<span
+							v-else-if="props.column.field == 'status'"
+							class="table__status"
+							:class="{
+								'is-validating': props.row.status !== 'finish',
+								'is-complete': props.row.status === 'finish'
+							}"
+						>
+							<label class="text" v-if="props.row.status === 'finish'">Complete</label>
+							
+							<label class="text" v-else>Validating</label>
+						</span>
+
+						<span v-else-if="props.column.field === 'files'" class="table__files">
+							<ul>
+								<li
+									v-for="file in props.row.files"
+									:key="file._id"
+									class="overflow-truncate"
+								>
+									{{ file.filename }}
+								</li>
+							</ul>
+						</span> <!-- /.table__actions -->
 
 						<div v-else-if="props.column.field === 'action'" class="table__actions">
 							<ul>
 								<li>
-									<Button size="small" className="tertiary" to="/datasets" highlighted>View</Button>
+									<Button
+										highlighted
+										size="small"
+										className="tertiary"
+										:to="`/documents/${props.row._id}/datasets`"
+									>
+										View
+									</Button>
 								</li>
 
 								<li>
-									<Button size="small" className="tertiary" to="/report" highlighted>Report</Button>
+									<Button
+										highlighted
+										size="small"
+										className="tertiary"
+										:to="`/documents/${props.row._id}/report`"
+									>
+										Report
+									</Button>
 								</li>
 
 								<li>
@@ -114,36 +157,6 @@
 								</li>
 							</ul>
 						</div>
-						
-						<span v-else-if="props.column.field === 'owner'" class="table__owner overflow-truncate">
-							{{props.row.owner.fullname}}
-						</span> <!-- /.table__name -->
-
-						
-
-						<span
-							v-else-if="props.column.field == 'status'"
-							class="table__status"
-							:class="{
-								'is-validating': props.row.status !== 'finish',
-								'is-complete': props.row.status === 'finish'
-							}"
-						>
-							<label class="text" v-if="props.row.status === 'finish'">Complete</label>
-							<label class="text" v-else>Validating</label>
-						</span>
-
-						<span v-else-if="props.column.field === 'files'" class="table__files">
-							<ul>
-								<li
-									v-for="file in props.row.files"
-									:key="file._id"
-									class="overflow-truncate"
-								>
-									{{ file.filename }}
-								</li>
-							</ul>
-						</span> <!-- /.table__actions -->
 					</template>
 
 					<template slot="pagination-bottom" slot-scope="props">
@@ -156,7 +169,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -175,9 +187,9 @@ import Subheader from '@/components/subheader/subheader';
 import TableFilters from '@/components/table/table-filters';
 import Pagination from '@/components/pagination/pagination';
 import FormFilters from '@/blocks/form-filters/form-filters';
-import documentsService from '@/services/documents/documents';
-
 import SubheaderDocuments from '@/components/subheader/subheader-documents';
+
+import documentsService from '@/services/documents/documents';
 import { filterByOrganization, filterByDate } from '@/utils/table-filters';
 
 export default {
@@ -260,6 +272,8 @@ export default {
 			rows: [],
 			filters: {},
 			loading: true,
+			error: false,
+			errorMessage: 'lorem ipsum',
 			filtersVisibility: false
 		};
 	},
@@ -283,9 +297,9 @@ export default {
 			} = this.filters;
 
 			return this.rows
-			 	.filter((row) => filterByOrganization(row.organizations, organizations))
-			 	.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
-			 	.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
+				.filter((row) => filterByOrganization(row.organizations, organizations))
+				.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
+				.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
 		},
 	},
 
@@ -312,6 +326,7 @@ export default {
 			this.loading = true;
 			
 			const params = {
+				skip: 200,
 				limit: 10,
 				files: true,
 				metadata: true
@@ -321,7 +336,8 @@ export default {
 				const documents = await documentsService.getDocuments(params);
 				this.rows = documents;
 			} catch (e) {
-				console.log(e.message);
+				this.error = true
+				this.errorMessage = e.message
 			}
 
 			this.loading = false;

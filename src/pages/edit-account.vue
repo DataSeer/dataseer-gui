@@ -45,7 +45,6 @@ import Main from '@/components/main/main';
 import accountsService from '@/services/account/accounts';
 import WidgetLogs from '@/components/widget-logs/widget-logs';
 
-
 export default {
 	/**
 	 * Name
@@ -91,7 +90,7 @@ export default {
 		async getDocumentLogs() {
 			let tempLogs = [];
 			const logs = await accountsService.getAccountLogs(this.accountId)
-			
+						
 			logs.map(log => {
 				log.dates.map(date => {
 					tempLogs.push({

@@ -8,7 +8,6 @@ import VueRouter from 'vue-router';
  * Internal Dependencies
  */
 import accountService from '@/services/account/auth-account';
-import Home from '@/pages/home';
 import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
 import ForgotPassword from '@/pages/forgot-password';
@@ -38,16 +37,21 @@ const routes = [
 	{
 		name: 'Home',
 		path: '/',
-		component: Home,
-		meta: {
-			requiresAuth: false,
-			requiredWeight: 0
-		}
+		redirect: '/sign-in',
 	},
 	{
 		name: 'Profile',
 		path: '/profile',
 		component: Profile,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
+	},
+	{
+		name: 'Documents',
+		path: '/documents',
+		component: Documents,
 		meta: {
 			requiresAuth: true,
 			requiredWeight: 0
@@ -64,8 +68,17 @@ const routes = [
 	},
 	{
 		name: 'Datasets',
-		path: '/datasets',
+		path: '/documents/:id/datasets',
 		component: Datasets,
+		meta: {
+			requiresAuth: true,
+			requiredWeight: 0
+		}
+	},
+	{
+		name: 'Report',
+		path: '/documents/:id/report',
+		component: Report,
 		meta: {
 			requiresAuth: true,
 			requiredWeight: 0
@@ -93,15 +106,6 @@ const routes = [
 		name: 'DatasetsProtocols',
 		path: '/datasets-protocols',
 		component: DatasetsProtocols,
-		meta: {
-			requiresAuth: true,
-			requiredWeight: 0
-		}
-	},
-	{
-		name: 'Documents',
-		path: '/documents',
-		component: Documents,
 		meta: {
 			requiresAuth: true,
 			requiredWeight: 0
@@ -158,15 +162,6 @@ const routes = [
 		component: ForgotPassword,
 		meta: {
 			requiresAuth: false,
-			requiredWeight: 0
-		}
-	},
-	{
-		name: 'Report',
-		path: '/report',
-		component: Report,
-		meta: {
-			requiresAuth: true,
 			requiredWeight: 0
 		}
 	},

@@ -3,31 +3,40 @@
 		<Subheader>
 			<SubheaderDatasets />
 		</Subheader>
+
+		<Loader :loading="loading" :error="error" :errorMessage="errorMessage">
+			<Intro v-if="!datasets.length" />
+
+			<Tabs>
+				<Tab
+					v-for="(dataset, index) in datasets"
+					:completed="dataset.saved"
+					:flagged="false"
+					:tooltip="dataset.description" :key="dataset.id"
+				>
+					<FormDataset
+						:dataset="dataset"
+						@onDatasetDelete="deleteDataset(index)" 
+						@onDatasetComplete="(value) => completeDataset(index, value)"
+					/>
+				</Tab>
+			</Tabs>
+
+			<DatasetUtils @addButtonClick="addDataset" />
+		</Loader>
 		
-		<Intro v-if="!tabs.length" />
-
-		<Tabs>
-			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
-				<FormDataset
-					:title="`Dataset-${index + 1}`"
-					@onDatasetDelete="deleteDataset(index)" 
-					@onDatasetComplete="(value) => completeDataset(index, value)"
-				/>
-			</Tab>
-		</Tabs>
-
-		<DatasetUtils @addButtonClick="addDataset" />
-
 		<template #right>
-			<PDF />
+			<!-- <PDF /> -->
 		</template>
 	</Main>
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
+import Loader from '@/blocks/loader/loader';
 import Subheader from '@/components/subheader/subheader';
 import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 import PDF from '@/blocks/pdf/pdf';
@@ -38,6 +47,8 @@ import Intro from '@/components/intro/intro'
 import FormDataset from '@/blocks/form-dataset/form-dataset';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 
+import documentsService from '@/services/documents/documents';
+
 export default {
 	/**
 	 * Name
@@ -45,76 +56,10 @@ export default {
 	name: 'Datasets',
 
 	/**
-	 * Data
-	 */
-	data: function() {
-		return {
-			tabs: [
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				},
-				{
-					tooltip: 'This Dataset Name Is Too Lon…',
-					completed: false,
-					flagged: false,
-					formData: {
-
-					}
-				}
-			],
-			source: '/test.pdf',
-		};
-	},
-
-	/**
 	 * Components
 	 */
 	components: {
+		Loader,
 		Subheader,
 		SubheaderDatasets,
 		PDF,
@@ -125,11 +70,41 @@ export default {
 		FormDataset,
 		DatasetUtils
 	},
+	
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			datasets: [],
+			loading: true,
+			error: false,
+			errorMessage: "Something went wrong..."
+		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		documentID() {
+			return this.$route.params.id
+		}
+	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		async getDocument() {
+			const document = await documentsService.getDocument(this.documentID, {
+				datasets: true,
+				metadata: true
+			});
+			
+			this.loading = false;
+			this.datasets = document.datasets.current
+		},
 		addDataset() {
 			this.tabs.push({
 				tooltip: 'This Dataset Name Is Too Lon…',
@@ -143,6 +118,10 @@ export default {
 		deleteDataset(index) {
 			this.tabs.splice(index, 1);
 		}
+	},
+
+	created () {
+		this.getDocument();
 	},
 };
 </script>

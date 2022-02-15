@@ -36,10 +36,8 @@
 						</router-link>
 					</li>
 				</ul>
-			</nav>
-			<!-- /.nav-datasets -->
-		</div>
-		<!-- /.subheader__left -->
+			</nav> <!-- /.nav-datasets -->
+		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right">
 			<Button to="/report" className="tertiary">
@@ -47,8 +45,7 @@
 
 				Open Science Report
 			</Button>
-		</div>
-		<!-- /.subheader__right -->
+		</div> <!-- /.subheader__right -->
 
 		<Summary :isVisible="isSummaryVisible" @closeBtnClick="toggleSummary" />
 
@@ -113,10 +110,8 @@
 					<a href="#">my_uploaded-filename.pdf</a>
 				</li>
 			</ul>
-		</div>
-		<!-- /.dataset-title -->
-	</div>
-	<!-- /.subheader__inner -->
+		</div> <!-- /.dataset-title -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>

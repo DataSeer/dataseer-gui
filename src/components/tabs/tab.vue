@@ -1,5 +1,9 @@
 <template>
-	<div v-show="isActive" class="tab" :class="{ 'is-completed': completed }">
+	<div
+		v-show="isActive"
+		class="tab"
+		:class="{ 'is-completed': completed }"
+	>
 		<slot />
 	</div>
 </template>

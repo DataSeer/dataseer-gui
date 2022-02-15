@@ -64,19 +64,19 @@ export default {
 			this.tabs.map((tab, index) => (tab.isActive = index === i));
 		}
 	},
+	
+	/**
+	 * Mounted
+	 */
+	mounted() {
+		this.selectTab(0);
+	},
 
 	/**
 	 * Created
 	 */
 	created() {
 		this.tabs = this.$children;
-	},
-
-	/**
-	 * Mounted
-	 */
-	mounted() {
-		this.selectTab(0);
 	}
 };
 </script>

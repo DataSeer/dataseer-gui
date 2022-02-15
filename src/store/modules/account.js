@@ -4,9 +4,6 @@ import router from '@/router';
 // State
 const state = {
 	status: {
-		loading: true,
-		error: false,
-		failedLogin: false,
 		loggedIn: false
 	},
 	user: null
@@ -18,7 +15,7 @@ const getters = {
 	username: state => state.user.fullname.split('@')[0],
 	userId: state => state.user._id,
 	userRole: state => state.user.role.key,
-	userRoleWeight: state => state.user.role.weight,
+	userRoleWeight: state => state.user?.role.weight || 0,
 	userOrganizations: state => state.user.organizations,
 }
 

@@ -7,9 +7,9 @@
 			<form action="?" method="post">
 				<div class="form__head">
 					<div class="form__head-inner">
-						<h5 v-if="title">{{ title }}</h5>
+						<h5>{{ dataset.id }}</h5>
 
-						<p>{{formData.type.value ||' Undefined Type'}}</p>
+						<p>{{ dataset.dataType || 'Undefined Type'}}</p>
 					</div><!-- /.form__head-inner -->
 				</div>
 
@@ -20,17 +20,21 @@
 								:error="$v.type.$error"
 								:options="[
 									{
-										value: 'Tabular Data',
-										helptext: 'Suggested Type'
+										value: 'Tabular type',
+										label: 'Tabular Type',
+										helptext: 'Suggested type'
 									},
 									{
-										value: 'Option 0'
+										value: 'Option 0',
+										label: 'Option 0'
 									},
 									{
-										value: 'Option 1'
+										value: 'Option 1',
+										label: 'Option 1'
 									},
 									{
-										value: 'Option 2'
+										value: 'Option 2',
+										label: 'Option 2'
 									}
 								]"
 								name="type"
@@ -49,16 +53,20 @@
 								:options="[
 									{
 										value: 'Tabular Subtype',
+										label: 'Tabular Subtype',
 										helptext: 'Suggested Subtype'
 									},
 									{
-										value: 'Option 0'
+										value: 'Option 0',
+										label: 'Option 0'
 									},
 									{
-										value: 'Option 1'
+										value: 'Option 1',
+										label: 'Option 1'
 									},
 									{
-										value: 'Option 2'
+										value: 'Option 2',
+										label: 'Option 2'
 									}
 								]"
 								name="organization"
@@ -88,12 +96,13 @@
 									</FieldCheckbox>
 
 									<FieldCheckbox
+										v-if="formData.publicly === true"
 										name="practices"
 										v-model="formData.practices"
 										isDropdown
-										v-if="formData.publicly === true"
 									>
 										<a href="#">Best practices</a> for this data type have been followed
+										
 										<button
 											tabindex="0"
 											type="button"
@@ -186,7 +195,12 @@
 										</p>
 									</HiddenText>
 
-									<FieldCheckbox name="repo" v-model="formData.repo" isDropdown v-if="formData.publicly === true">
+									<FieldCheckbox
+										v-if="formData.publicly === true"
+										name="repo"
+										v-model="formData.repo"
+										isDropdown
+									>
 										A <a href="#">suitable repository</a> has been used to host this data
 
 										<button
@@ -380,20 +394,19 @@
 /**
  * External Dependencies
  */
-import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 
 /**
  * Internal Dependencies
  */
-import Field from '@/components/field/field';
-import FieldSelect from '@/components/field-select/field-select';
 import Icon from '@/components/icon/icon';
+import Field from '@/components/field/field';
 import Button from '@/components/button/button';
-import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
-import HiddenText from '@/components/hidden-text/hidden-text';
-import Grid, { GridColumn } from '@/components/grid/grid';
 import FormIssues from '@/blocks/form-issues/form-issues';
+import Grid, { GridColumn } from '@/components/grid/grid';
+import HiddenText from '@/components/hidden-text/hidden-text';
+import FieldSelect from '@/components/field-select/field-select';
+import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
@@ -406,9 +419,9 @@ export default {
 	 * Props
 	 */
 	props: {
-		title: {
-			type: String,
-			default: ''
+		dataset: {
+			type: Object,
+			default:  () => {}
 		},
 		flagged: {
 			type: Boolean,
@@ -420,15 +433,15 @@ export default {
 	 * Components
 	 */
 	components: {
-		Grid,
-		GridColumn,
 		Icon,
 		Field,
 		Button,
-		FieldSelect,
-		HiddenText,
-		FieldCheckbox,
 		FormIssues,
+		Grid,
+		GridColumn,
+		HiddenText,
+		FieldSelect,
+		FieldCheckbox,
 		FormCuratorIssues
 	},
 
@@ -442,10 +455,10 @@ export default {
 				subtype: '',
 				permalink: '',
 				instructions: '',
-				reuse: null,
-				publicly: null,
-				practices: null,
-				repo: null,
+				reuse: undefined,
+				publicly: undefined,
+				practices: undefined,
+				repo: undefined,
 			},
 			practices_text: false,
 			repo_text: false,
@@ -473,7 +486,9 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters(['getCurator'])
+		getCurator() {
+			return true
+		}
 	},
 
 	/**
@@ -495,6 +510,15 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		populateFormData() {
+			this.formData =  {
+				...this.formData,
+				type: this.dataset.dataType,
+				permalink: this.dataset.DOI,
+				instructions: this.dataset.comments,
+				// reuse: this.dataset.reuse,
+			}
+		},
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
 		},
@@ -524,6 +548,10 @@ export default {
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;
 		}
-	}
+	},
+
+	mounted () {
+		// this.populateFormData();
+	},
 };
 </script>

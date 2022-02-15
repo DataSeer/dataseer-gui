@@ -3,6 +3,13 @@
  */
 import axiosInstance, { httpErrorHandler } from '@/services/http.js';
 
+const getDocument = (id, params) => {
+	return axiosInstance.get(`/documents/${id}`, {
+		params
+	})
+	.then((res) => httpErrorHandler(res));
+};
+
 const addDocument = (params) => {
 	const formData = new FormData;
 	formData.append('file', params.file);
@@ -27,8 +34,14 @@ const getDocumentsLogs = (id) => {
 	return axiosInstance.get(`/documents/${id}/logs`).then((res) => httpErrorHandler(res));
 };
 
+const getDocumentsPdf = (id) => {
+	return axiosInstance.get(`/documents/${id}/pdf`).then((res) => httpErrorHandler(res));
+};
+
 export default {
+	getDocument,
 	addDocument,
 	getDocuments,
+	getDocumentsPdf,
 	getDocumentsLogs
 };
