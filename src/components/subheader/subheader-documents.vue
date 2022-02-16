@@ -33,12 +33,9 @@
 						<Button className="tertiary" to="/new-document">Upload new Document</Button>
 					</li>
 				</ul>
-			</div>
-			<!-- /.subheader__menu -->
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+			</div> <!-- /.subheader__menu -->
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>

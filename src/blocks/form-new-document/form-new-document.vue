@@ -48,7 +48,7 @@
 					<div class="checkboxes checkboxes--center">
 						<ul>
 							<FieldCheckbox
-								v-model="formData.assessed"
+								v-model="formData.dataseerML"
 								name="checkbox"
 							>
 								This is a new version of an article DataSeer has already assessed
@@ -121,7 +121,7 @@ export default {
 			formData: {
 				file: '',
 				attachedFiles: '',
-				assessed: false,
+				dataseerML: false,
 			},
 			success: false,
 			error: false,
@@ -159,6 +159,7 @@ export default {
 				owner: this.userId,
 				organizations: this.userOrganizations.map(entry => entry._id),
 				attachedFiles: this.formData.attachedFiles,
+				dataseerML: this.formData.dataseerML,
 			}
 
 			try {

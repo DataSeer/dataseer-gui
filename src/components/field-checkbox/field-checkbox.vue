@@ -8,9 +8,9 @@
 				class="sr-only"
 				:name="name"
 				:id="toKebabCase(name)"
-				@change="handleChange"
-				:value="value"
 				:checked="value"
+				:value="value"
+				@change="handleChange"
 			/>
 
 			<label v-if="!isDropdown" :for="toKebabCase(name)">
@@ -23,23 +23,25 @@
 
 			<div class="field" v-if="isDropdown">
 				<vSelect
-					:id="toKebabCase(name)"
 					placeholder="Select"
+					:id="toKebabCase(name)"
 					:clearable="false"
 					:searchable="false"
 					:options="selectOptions"
-					label="title"
-					@input="handleSelectChange"
+					label="label"
+					:value="value"
+					:reduce="option => option.value"
+					@input="setSelected"
 				>
-					<template #option="{ title }">
-						<span :data-title="title">
-							{{ title }}
+					<template #option="{ label }">
+						<span :data-title="label">
+							{{ label }}
 						</span>
 					</template>
 
-					<template #selected-option="{ title }">
-						<span :data-title="title">
-							{{ title }}
+					<template #selected-option="{ label }">
+						<span :data-title="label">
+							{{ label }}
 						</span>
 					</template>
 				</vSelect>
@@ -90,15 +92,15 @@ export default {
 		return {
 			selectOptions: [
 				{
-					title: 'Select',
+					label: 'Select',
 					value: null
 				},
 				{
-					title: 'Yes',
+					label: 'Yes',
 					value: true
 				},
 				{
-					title: 'No',
+					label: 'No',
 					value: false
 				}
 			]
@@ -110,11 +112,11 @@ export default {
 			this.$emit('onChange', event);
 			this.$emit('input', event.target.checked);
 		},
-
-		handleSelectChange(el) {
-			this.$emit('input', el.value);
+		setSelected(value) {
+			console.log(value);
+			this.$emit('input', value);
 		},
 		toKebabCase
-	}
+	},
 };
 </script>

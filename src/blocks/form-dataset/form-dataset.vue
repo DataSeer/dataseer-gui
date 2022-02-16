@@ -82,15 +82,19 @@
 						<GridColumn>
 							<div class="checkboxes">
 								<ul>
-									<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
+									<FieldCheckbox
+										name="reuse"
+										v-model="formData.reuse"
+										isDropdown
+									>
 										This dataset is re-used from another public or private source
 									</FieldCheckbox>
 
 									<FieldCheckbox
+										v-if="formData.reuse === false"
 										name="publicly"
 										v-model="formData.publicly"
 										isDropdown
-										v-if="formData.reuse === false"
 									>
 										This dataset cannot be shared publicly
 									</FieldCheckbox>
@@ -455,10 +459,10 @@ export default {
 				subtype: '',
 				permalink: '',
 				instructions: '',
-				reuse: undefined,
-				publicly: undefined,
-				practices: undefined,
-				repo: undefined,
+				reuse: null,
+				publicly: null,
+				practices: null,
+				repo: null,
 			},
 			practices_text: false,
 			repo_text: false,
@@ -470,17 +474,14 @@ export default {
 		};
 	},
 	
-	/**
-	 * Watch
-	 */
-	watch: {
+	/* watch: {
 		formData: {
 			handler() {
 				this.$emit('onDatasetComplete', false)
 			},
 			deep: true
 		}
-	},
+	}, */
 
 	/**
 	 * Computed
@@ -516,7 +517,7 @@ export default {
 				type: this.dataset.dataType,
 				permalink: this.dataset.DOI,
 				instructions: this.dataset.comments,
-				// reuse: this.dataset.reuse,
+				reuse: this.dataset.reuse,
 			}
 		},
 		textToggle(check) {
@@ -551,7 +552,7 @@ export default {
 	},
 
 	mounted () {
-		// this.populateFormData();
+		this.populateFormData();
 	},
 };
 </script>
