@@ -76,11 +76,8 @@
 	}
 
 	.dropdown__nav {
-		font-weight: 500;
-		font-size: 16px;
 		font-family: $ff-titles;
 		color: $c-primary;
-		text-transform: uppercase;
 		background-color: $c-white;
 	}
 
@@ -105,11 +102,17 @@
 		margin: 23px 0;
 	}
 
-	.dropdown__nav a {
+	.dropdown__nav a,
+	.dropdown__nav button {
 		position: relative;
 		display: block;
 		padding-left: 34px;
 		text-decoration: none;
+		background: none;
+		border: none;
+		font-weight: 500;
+		font-size: 16px;
+		text-transform: uppercase;
 		transition: color $t-duration;
 	}
 

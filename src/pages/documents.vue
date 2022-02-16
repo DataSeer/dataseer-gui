@@ -101,11 +101,11 @@
 										<div class="dropdown__nav">
 											<ul>
 												<li>
-													<a href="#">
+													<router-link :to="`/documents/${props.row._id}/datasets`">
 														<Icon name="connect" color="currentColor" />
 
 														View/Edit Datasets
-													</a>
+													</router-link>
 												</li>
 
 												<li>
@@ -117,11 +117,11 @@
 												</li>
 
 												<li>
-													<a href="#">
+													<router-link :to="`/documents/${props.row._id}/report`">
 														<Icon name="document_view" color="currentColor" />
 
 														View Data Report
-													</a>
+													</router-link>
 												</li>
 											</ul>
 
@@ -135,7 +135,7 @@
 												</li>
 
 												<li>
-													<a href="#">
+													<a :href="`mailto:${props.row.owner.username}`">
 														<Icon name="invite" color="currentColor" />
 
 														Contact Author
@@ -145,11 +145,11 @@
 
 											<ul>
 												<li class="is-highlighted">
-													<a href="#">
+													<button @click.prevent="deleteDocument(props.row.name, props.row._id)">
 														<Icon name="trash" color="currentColor" />
 
 														Delete Document
-													</a>
+													</button>
 												</li>
 											</ul>
 										</div> <!-- /.dropdown__nav -->
@@ -273,7 +273,7 @@ export default {
 			filters: {},
 			loading: true,
 			error: false,
-			errorMessage: 'lorem ipsum',
+			errorMessage: '',
 			filtersVisibility: false
 		};
 	},
@@ -326,10 +326,10 @@ export default {
 			this.loading = true;
 			
 			const params = {
-				skip: 200,
+				skip: 0,
 				limit: 10,
 				files: true,
-				metadata: true
+				metadata: true,		
 			}
 
 			try {
@@ -341,6 +341,24 @@ export default {
 			}
 
 			this.loading = false;
+		},
+		async deleteDocument(name, id) {
+			const confirmDelete = window.confirm(`Are you sure you want to delete ${name}?`);
+
+			if (confirmDelete) {
+				this.loading = true;
+				
+				try {
+					await documentsService.deleteDocument(id);
+					await this.getDocuments();
+
+					alert(`${name} has been successfully deleted.`)
+				} catch (e) {
+					alert(e.message)
+				}
+
+				this.loading = false;
+			}
 		}
 	},
 

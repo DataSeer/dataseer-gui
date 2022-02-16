@@ -52,20 +52,20 @@
 								<li>
 									<FieldCheckbox
 										name="isActive"
-										v-model="formData.disabled"
+										v-model="formData.visible"
 										isToggle
 									>
-										Account Is {{ formData.disabled ? 'Active' : 'Inactive' }}
+										Account Is {{ formData.visible ? 'Active' : 'Inactive' }}
 									</FieldCheckbox>
 								</li>
 
 								<li>
 									<FieldCheckbox
 										name="isLocked"
-										v-model="formData.visible"
+										v-model="formData.disabled"
 										isToggle
 									>
-										Account Is {{ formData.visible ? 'Locked' : 'Not Locked' }}
+										Account Is {{ formData.disabled ? 'Locked' : 'Not Locked' }}
 									</FieldCheckbox>
 								</li>
 							</ul>
@@ -141,14 +141,14 @@ export default {
 					value: '',
 					label: ''
 				},
-				disabled: false,
-				visible: false,
 				organizations: [
 					{
 						value: '',
 						label: ''
 					}
-				]
+				],
+				disabled: false,
+				visible: false,
 			},
 			rolesList: [
 				{

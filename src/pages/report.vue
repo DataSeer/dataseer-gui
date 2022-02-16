@@ -158,6 +158,8 @@ import ReportChart from '@/components/report-chart/report-chart';
 import ContentToggle from '@/components/contenttoggle/contenttoggle';
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
 
+import documentsService from '@/services/documents/documents';
+
 export default {
 	/**
 	 * Name
@@ -314,7 +316,6 @@ export default {
 					}
 				]
 			],
-
 			authors: [
 				{
 					name: 'Laura Leadauthor',
@@ -399,6 +400,7 @@ export default {
 			]
 		};
 	},
+	
 
 	/**
 	 * Computed
@@ -409,7 +411,25 @@ export default {
 		},
 		nonLeadAuthors() {
 			return this.authors.filter((author) => !author.isLeadAuthor);
+		},
+		documentID() {
+			return this.$route.params.id
 		}
-	}
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		async getDocumentReport() {
+			const report = await documentsService.getDocumentReport(this.documentID);
+
+			console.log(report);
+		}
+	},
+
+	created () {
+		this.getDocumentReport();
+	},
 };
 </script>

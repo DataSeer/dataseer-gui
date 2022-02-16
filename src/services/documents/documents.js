@@ -10,12 +10,18 @@ const getDocument = (id, params) => {
 	.then((res) => httpErrorHandler(res));
 };
 
+const deleteDocument = (id) => {
+	return axiosInstance.delete(`/documents/${id}`)
+		.then((res) => httpErrorHandler(res));
+};
+
 const addDocument = (params) => {
 	const formData = new FormData;
 	formData.append('file', params.file);
 	formData.append('owner', params.owner);
 	formData.append('organizations', params.organizations);
 	formData.append('attachedFiles', params.attachedFiles);
+	formData.append('dataseerML', params.dataseerML);
 	
 	return axiosInstance.post(`/documents`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -30,18 +36,25 @@ const getDocuments = (params) => {
 	.then((res) => httpErrorHandler(res));
 };
 
-const getDocumentsLogs = (id) => {
+const getDocumentLogs = (id) => {
 	return axiosInstance.get(`/documents/${id}/logs`).then((res) => httpErrorHandler(res));
 };
 
-const getDocumentsPdf = (id) => {
+const getDocumentPdf = (id) => {
 	return axiosInstance.get(`/documents/${id}/pdf`).then((res) => httpErrorHandler(res));
 };
 
+const getDocumentReport = (id) => {
+	return axiosInstance.get(`/documents/${id}/reports/html/default`).then((res) => httpErrorHandler(res));
+};
+
+
 export default {
+	getDocuments,
 	getDocument,
 	addDocument,
-	getDocuments,
-	getDocumentsPdf,
-	getDocumentsLogs
+	deleteDocument,
+	getDocumentPdf,
+	getDocumentLogs,
+	getDocumentReport,
 };

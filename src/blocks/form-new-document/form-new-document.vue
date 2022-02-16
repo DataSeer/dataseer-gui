@@ -1,4 +1,4 @@
-++6<template>
+<template>
 	<Form className="form--new-document" @submit.prevent="handleFormSubmit" :loading="loading">
 		<FormHead centered>
 			<h2>Upload Your Research Text</h2>
@@ -121,7 +121,7 @@ export default {
 			formData: {
 				file: '',
 				attachedFiles: '',
-				dataseerML: false,
+				dataseerML: true,
 			},
 			success: false,
 			error: false,
