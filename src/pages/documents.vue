@@ -326,7 +326,7 @@ export default {
 			this.loading = true;
 			
 			const params = {
-				skip: 0,
+				skip: 10,
 				limit: 10,
 				files: true,
 				metadata: true,		

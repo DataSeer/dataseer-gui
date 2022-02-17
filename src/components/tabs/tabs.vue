@@ -5,30 +5,31 @@
 				<li
 					v-for="(tab, index) in tabs"
 					:key="index"
-					@click="selectTab(index)"
+					@click.prevent="$emit('navButtonClick', index)"
 					class="tabs__link"
 					:class="{
-						'is-active': index === activeIndex,
-						'is-completed': tab.completed
+						'is-active': index === activeTabIndex,
+						'is-completed': tab.status === 'saved'
 					}"
 				>
-					<i v-if="tab.flagged" class="dot" />
+					<i v-if="tab.issue" class="dot" />
 
-					<span @click="selectTab(index)" v-tooltip.right="tabTooltips[index]" />
+					<span v-tooltip.right="tab.description" />
 				</li>
 			</ul>
-		</div>
-		<!-- /.tabs__links -->
+		</div> <!-- /.tabs__links -->
 
 		<div class="tabs__contents">
-			<slot :activeIndex="activeIndex" />
-		</div>
-		<!-- /.tabs__content -->
-	</div>
-	<!-- /.tabs -->
+			<slot />
+		</div> <!-- /.tabs__content -->
+	</div> <!-- /.tabs -->
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
+
 export default {
 	/**
 	 * Name
@@ -36,47 +37,17 @@ export default {
 	name: 'Tabs',
 
 	/**
-	 * Data
+	 * Props
 	 */
-	data: function() {
-		return {
-			tabs: [],
-			activeIndex: 0
-		};
+	props: {
+		activeTabIndex: {
+			type: Number || null,
+			default: null
+		},
+		tabs: {
+			type: [],
+			default: () => []
+		},
 	},
-
-	/**
-	 * Computed
-	 */
-	computed: {
-		tabTooltips() {
-			return this.tabs.map((tab) => tab.tooltip);
-		}
-	},
-
-	/**
-	 * Methods
-	 */
-	methods: {
-		selectTab(i) {
-			this.activeIndex = i;
-
-			this.tabs.map((tab, index) => (tab.isActive = index === i));
-		}
-	},
-	
-	/**
-	 * Mounted
-	 */
-	mounted() {
-		this.selectTab(0);
-	},
-
-	/**
-	 * Created
-	 */
-	created() {
-		this.tabs = this.$children;
-	}
 };
 </script>

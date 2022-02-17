@@ -7,7 +7,7 @@
 			<form action="?" method="post">
 				<div class="form__head">
 					<div class="form__head-inner">
-						<h5>{{ dataset.id }}</h5>
+						<h5>{{ dataset.id || "Unnamed" }}</h5>
 
 						<p>{{ dataset.dataType || 'Undefined Type'}}</p>
 					</div><!-- /.form__head-inner -->
@@ -474,15 +474,6 @@ export default {
 		};
 	},
 	
-	/* watch: {
-		formData: {
-			handler() {
-				this.$emit('onDatasetComplete', false)
-			},
-			deep: true
-		}
-	}, */
-
 	/**
 	 * Computed
 	 */

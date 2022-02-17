@@ -3,72 +3,116 @@
 		<div id="documentView">
 			<div id="documentView.screen">
 				<div id="documentView.screen.container" class="documentView">
-					<div id="pdf"></div><!-- /#pdf -->
-					<div id="xml" style="display: none"></div><!-- /#xml -->
+					<div id="pdf"></div>
+					<div id="xml" style="display: none"></div>
 				</div>
-			</div><!-- /#documentView.screen -->
-		</div><!-- /#documentView -->
-	</div><!-- /.pdf-holder -->
+			</div> <!-- /#documentView.screen -->
+		</div> <!-- /#documentView -->
+	</div> <!-- /.pdf-holder -->
 </template>
 
 <script>
-import { DocumentView } from  "../../lib/datasets/documentView.js";
-import { DatasetForm } from "../../lib/datasets/datasetForm.js";
-import { DatasetsList } from "../../lib/datasets/datasetsList.js";
-import { DocumentHandler } from "../../lib/datasets/documentHandler.js";
+/* eslint-disable */
+
+/**
+ * External Dependencies
+ */
+
+import { mapGetters } from 'vuex';
+import { DocumentView } from '@/lib/datasets/documentView.js';
+import { DatasetForm } from '@/lib/datasets/datasetForm.js';
+import { DatasetsList } from '@/lib/datasets/datasetsList.js';
+import { DocumentHandler } from '@/lib/datasets/documentHandler.js';
+
+import documentsService from '@/services/documents/documents';
+
 export default {
-  name: "PDF",
+	/**
+	 * Name
+	 */
+	name: 'PDF',
 
-  mounted() {
-    const user = {}
+	/**
+	 * Props
+	 */
+	props: {
+		documentId: {
+			type: String,
+			default: ''
+		},
+	},
 
-    const documentView = new DocumentView(`documentView`),
-      datasetsList = new DatasetsList(`datasetsList`),
-      datasetForm = new DatasetForm(`datasetForm`);
-    let doc, pdf, tei, xml, datatypes;
-    
-    // Get data of current document with datasets informations
-    (async () => {
-      try {
-        doc = await fetch('/datasets.json').then(res => res.json()).then(res => res.res);
-        pdf = await fetch('/pdf.json').then(res => res.json()).then(res => res);
-        tei = await fetch('/tei.json').then(res => res.json()).then(res => res);
-        xml = await fetch('/xml.xml').then(res => res.text()).then(res => res);
-        datatypes = await fetch('/json.json').then(res => res.json()).then(res => res);
-      } catch (error) {
-        alert(error)
-      }
-    
-      if (doc.locked) alert(`This document is locked, You can't modify it`);
-      const currentDocument = new DocumentHandler(
-        {
-          ids: { document: doc._id, datasets: doc.datasets._id },
-          user: user,
-          datatypes: datatypes,
-          datasets: doc.datasets,
-          metadata: doc.metadata,
-          tei: { data: xml, metadata: tei.res.metadata },
-          pdf:
-            pdf && pdf.res
-              ? {
-                url: '/pdf.pdf',
-                metadata: pdf.res.metadata
-              }
-              : undefined
-        },
-        {
-          onReady: function () {
-            console.log(`ready`);
-          }
-        }
-      );
-    
-      currentDocument.link({
-        documentView: documentView,
-        datasetsList: datasetsList,
-        datasetForm: datasetForm
-      });
-    })();
-  }
-}
+	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters('account', ['userRole', 'userId'])
+	},
+
+	/**
+	 * mounted
+	 */
+	mounted() {
+		const user = {};
+
+		const documentView = new DocumentView(`documentView`);
+		const datasetsList = new DatasetsList(`datasetsList`);
+		const datasetForm = new DatasetForm(`datasetForm`);
+		
+		let doc;
+		let pdf;
+		let pdfURl;
+		let tei;
+		let xml;
+		let datatypes;
+
+		// Get data of current document with datasets informations
+		(async () => {
+			try {
+				doc = await documentsService.getDocument(this.documentId, {
+					datasets: true,
+					metadata: true
+				});
+				pdf = await documentsService.getDocumentPdf(this.documentId);
+				pdfURl = await documentsService.getDocumentPdfUrl(this.documentId, doc.id);
+				tei = await documentsService.getDocumentTei(this.documentId);
+				xml = await documentsService.getDocumentTeiContent(this.documentId);
+				datatypes = await documentsService.getJsonDataTypes();
+			} catch (error) {
+				alert(error);
+			}
+
+			if (doc.locked) alert(`This document is locked, You can't modify it`);
+			
+			const currentDocument = new DocumentHandler(
+				{
+					ids: { document: doc._id, datasets: doc.datasets._id },
+					user: user,
+					datatypes: datatypes,
+					datasets: doc.datasets,
+					metadata: doc.metadata,
+					tei: { data: xml, metadata: tei.res.metadata },
+					pdf:
+						pdf && pdf.res
+							? {
+									url: pdfURl,
+									metadata: pdf.res.metadata
+							  }
+							: undefined
+				},
+				{
+					onReady: function() {
+						console.log(`ready`);
+					}
+				}
+			);
+
+			currentDocument.link({
+				documentView: documentView,
+				datasetsList: datasetsList,
+				datasetForm: datasetForm
+			});
+		})();
+	}
+};
 </script>

@@ -4,12 +4,21 @@
 			<SubheaderDatasets />
 		</Subheader>
 
-		<Loader :loading="loading" :error="error" :errorMessage="errorMessage">
+		<Loader
+			:loading="loading"
+			:error="error"
+			:errorMessage="errorMessage"
+		>
 			<Intro v-if="!datasets.length" />
 
-			<Tabs>
+			<Tabs
+				:tabs="datasets"
+				:activeTabIndex="activeTabIndex"
+				@navButtonClick="(i) => setActiveTabIndex(i)"
+			>
 				<Tab
 					v-for="(dataset, index) in datasets"
+					:isActive="index === activeTabIndex"
 					:completed="dataset.saved"
 					:flagged="false"
 					:tooltip="dataset.description" :key="dataset.id"
@@ -26,7 +35,7 @@
 		</Loader>
 		
 		<template #right>
-			<!-- <PDF /> -->
+			<PDF :documentId="documentID" />
 		</template>
 	</Main>
 </template>
@@ -36,16 +45,16 @@
 /**
  * Internal Dependencies
  */
-import Loader from '@/blocks/loader/loader';
-import Subheader from '@/components/subheader/subheader';
-import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 import PDF from '@/blocks/pdf/pdf';
 import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
 import Main from '@/components/main/main';
 import Intro from '@/components/intro/intro'
+import Loader from '@/blocks/loader/loader';
+import Subheader from '@/components/subheader/subheader';
 import FormDataset from '@/blocks/form-dataset/form-dataset';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
+import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 
 import documentsService from '@/services/documents/documents';
 
@@ -58,7 +67,7 @@ export default {
 	/**
 	 * Components
 	 */
-	components: {
+	components: {	
 		Loader,
 		Subheader,
 		SubheaderDatasets,
@@ -77,6 +86,7 @@ export default {
 	data: function() {
 		return {
 			datasets: [],
+			activeTabIndex: 0,
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
@@ -105,15 +115,20 @@ export default {
 			this.loading = false;
 			this.datasets = document.datasets.current
 		},
+		setActiveTabIndex(index) {
+			this.activeTabIndex = index
+		},
 		addDataset() {
-			this.tabs.push({
-				tooltip: 'This Dataset Name Is Too Lon…',
+			this.datasets.push({
+				tooltip: '',
 				completed: false,
 				flagged: false,
 			})
+
+			this.activeTabIndex = this.datasets.length - 1;
 		},
 		completeDataset(index, value) {
-			this.tabs[index].completed = value;
+			this.datasets[index].completed = value;
 		},
 		deleteDataset(index) {
 			this.tabs.splice(index, 1);

@@ -41,12 +41,39 @@ const getDocumentLogs = (id) => {
 };
 
 const getDocumentPdf = (id) => {
-	return axiosInstance.get(`/documents/${id}/pdf`).then((res) => httpErrorHandler(res));
+	return axiosInstance.get(`/documents/${id}/pdf`)
+		.then((res) => res.data);
+};
+
+const getDocumentPdfUrl = (id, docToken) => {
+	return axiosInstance.get(`/documents/${id}/pdf/content?token=${docToken}` ,{
+		responseType: 'blob'
+	})
+		.then((res) => {
+			return URL.createObjectURL(res.data)
+		});
+};
+
+const getDocumentTei = (id) => {
+	return axiosInstance.get(`/documents/${id}/tei`)
+		.then((res) => res.data);
+};
+const getDocumentTeiContent = (id) => {
+	return axiosInstance.get(`/documents/${id}/tei/content`)
+	.then((res) => res.data);
 };
 
 const getDocumentReport = (id) => {
 	return axiosInstance.get(`/documents/${id}/reports/html/default`).then((res) => httpErrorHandler(res));
 };
+
+const getJsonDataTypes = () => {
+	return axiosInstance.get(`/dataseer-ml/jsonDataTypes`)
+		.then((res) => res.data);
+};
+
+
+
 
 
 export default {
@@ -55,6 +82,10 @@ export default {
 	addDocument,
 	deleteDocument,
 	getDocumentPdf,
+	getDocumentPdfUrl,
+	getDocumentTei,
+	getDocumentTeiContent,
 	getDocumentLogs,
 	getDocumentReport,
+	getJsonDataTypes
 };

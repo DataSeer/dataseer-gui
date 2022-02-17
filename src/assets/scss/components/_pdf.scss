@@ -1,6 +1,7 @@
 /* ------------------------------------------------------------ *\
   PDF
 \* ------------------------------------------------------------ */
+
 .pdf-holder {
   position: relative;
   z-index: 1;
@@ -150,10 +151,10 @@
     overflow: auto;
     font-family: Times, "Times New Roman", serif;
     font-size: 14px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 20px;
+    // padding-top: 10px;
+    // padding-bottom: 10px;
+    // padding-left: 10px;
+    // padding-right: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
@@ -207,6 +208,7 @@
   .contoursLayer {
     background-color: transparent;
     z-index: 3000;
+	box-shadow: 0 2px 9px rgba($c-primary, 0.12);
 
     .contour {
       &.activeContourDataset canvas,
@@ -310,9 +312,9 @@
     z-index: 4000;
     position: absolute;
     height: 100%;
-    width: 30px;
+    width: 19px;
     overflow: hidden;
-    background-color: gainsboro;
+    background-color: #F7F7F7;
   }
 
   #pdfViewerScrollMarkers.display-left {
@@ -335,7 +337,7 @@
 
   #pdfViewerScrollMarkers span.marker {
     /* markers */
-    z-index: 4100;
+    z-index: 4201;
     cursor: pointer;
     position: absolute;
     width: 12px;
@@ -347,7 +349,8 @@
     position: absolute;
     width: 100%;
     height: 6px;
-    border: solid 1px #184D7E;
+	background-color: #fff;
+    border: solid 1px #006AC9;
     border-radius: 0px;
   }
 

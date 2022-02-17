@@ -2,7 +2,10 @@
 	<div
 		v-show="isActive"
 		class="tab"
-		:class="{ 'is-completed': completed }"
+		:class="{
+			'is-completed': completed,
+			'is-active': isActive,
+		}"
 	>
 		<slot />
 	</div>
@@ -10,6 +13,9 @@
 
 <script>
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Tab',
 
 	/**
@@ -24,32 +30,14 @@ export default {
 			type: Boolean,
 			default: false
 		},
-
+		isActive: {
+			type: Boolean,
+			default: false
+		},
 		tooltip: {
 			type: String,
 			default: ''
 		},
-		index: {
-			type: Number
-		}
 	},
-
-	/**
-	 * Data
-	 */
-	data: function() {
-		return {
-			isActive: false
-		};
-	},
-
-	/**
-	 * Computed
-	 */
-	computed: {
-		hasHeading() {
-			return this.title || this.subtitle;
-		}
-	}
 };
 </script>

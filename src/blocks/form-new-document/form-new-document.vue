@@ -17,7 +17,7 @@
 					<FieldFile
 						:error="$v.formData.file.$error"
 						v-model="formData.file"
-						accept=".docx, .pdf"
+						accept=".tei, .pdf"
 						name="file"
 					>
 						<template #label>
@@ -26,7 +26,7 @@
 							Select Your Primary File
 						</template>
 
-						<template #helptext> Supported formats: <strong>PDF, docx</strong> </template>
+						<template #helptext> Supported formats: <strong>PDF, TEI</strong> </template>
 					</FieldFile>
 				</GridColumn>
 
