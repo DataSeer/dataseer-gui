@@ -110,7 +110,7 @@ export default {
 			currentDocument.link({
 				documentView: documentView,
 				datasetsList: datasetsList,
-				datasetForm: datasetForm
+				// datasetForm: datasetForm
 			});
 		})();
 	}
