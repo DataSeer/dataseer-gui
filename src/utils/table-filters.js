@@ -43,7 +43,7 @@ const filterByDate = (date, from, to) => {
 	return true;
 };
 
-export  {
+export {
 	filterByName,
 	filterByDate,
 	filterByOrganization

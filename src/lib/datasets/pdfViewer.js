@@ -26,8 +26,8 @@ const MARGIN_IMAGE = {
 const CMAP_PACKED = true;
 const BORDER_WIDTH = 6; // Need to be an even number
 const REMOVED_BORDER_COLOR = false;
-const HOVER_BORDER_COLOR = 'rgba(24, 77, 126, 1)';
-const SELECTED_BORDER_COLOR = 'rgba(24, 77, 126, 1)';
+const HOVER_BORDER_COLOR = 'rgba(25, 101, 176, 1)';
+const SELECTED_BORDER_COLOR = 'rgba(25, 101, 176, 1)';
 
 // Representation of a chunk in PDF
 const Chunk = function(data, scale) {
@@ -216,11 +216,11 @@ const PdfViewer = function(id, screenId, events = {}) {
 	this.containerElement = this.container.get(0);
 	this.viewer = $(`<div id="${this.viewerId}" class="pdfViewer"></div>`);
 	this.viewerElement = this.viewer.get(0);
-	this.infos = $(`<div id="${this.viewerId}Infos" class="display-left"></div>`);
+	this.infos = $(`<div id="${this.viewerId}Infos" class="display-right"></div>`);
 	this.infosElement = this.infos.get(0);
-	this.message = $(`<div id="${this.viewerId}Message" class="display-left"></div>`);
+	this.message = $(`<div id="${this.viewerId}Message" class="display-right"></div>`);
 	this.messageElement = this.infos.get(0);
-	this.scrollMarkers = $(`<div id="${this.viewerId}ScrollMarkers" class="display-left"></div>`);
+	this.scrollMarkers = $(`<div id="${this.viewerId}ScrollMarkers" class="display-right"></div>`);
 	this.scrollMarkersElement = this.scrollMarkers.get(0);
 	this.container
 		.append(this.infos)

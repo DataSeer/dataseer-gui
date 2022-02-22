@@ -13,7 +13,18 @@
 			</TableFilters>
 			
 			<Table modifier="documents">
-				<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+				<vue-good-table
+					:columns="columns"
+					:rows="rows"
+					:totalRows="totalRows"
+					:pagination-options="{
+						enabled: true
+					}"
+					mode="remote"
+					styleClass="vgt-table"
+					@on-page-change="onPageChange"
+					@on-per-page-change="onPerPageChange"
+				>
 					<template slot="table-column" slot-scope="props">
 						<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
 							{{ props.column.label }}
@@ -271,6 +282,16 @@ export default {
 			],
 			rows: [],
 			filters: {},
+			totalRows: 0,
+			serverParams: {
+				filters: {
+					files: true,
+					metadata: true,		
+					count: true
+				},
+				page: 1, 
+				perPage: 10,
+			},
 			loading: true,
 			error: false,
 			errorMessage: '',
@@ -322,19 +343,31 @@ export default {
 		updateFilters(filters) {
 			this.filters = { ...filters };
 		},
-		async getDocuments() {
-			this.loading = true;
+		
+		updateParams(newProps) {
+			this.serverParams = Object.assign({}, this.serverParams, newProps);
+		},
+				
+		onPageChange(params) {
+			this.updateParams({page: params.currentPage});
+			this.getDocuments();
+		},
+
+		onPerPageChange(params) {
+			this.updateParams({perPage: params.currentPerPage});
+			this.getDocuments();
+		},
 			
-			const params = {
-				skip: 10,
-				limit: 10,
-				files: true,
-				metadata: true,		
-			}
+		
+		async getDocuments(queryParams) {
+			this.loading = true;
 
 			try {
-				const documents = await documentsService.getDocuments(params);
-				this.rows = documents;
+				const documents = await documentsService.getDocuments(queryParams);
+				console.log(documents);
+				
+				this.rows = documents.data;
+				this.totalRows = documents.count;
 			} catch (e) {
 				this.error = true
 				this.errorMessage = e.message
@@ -367,7 +400,7 @@ export default {
 	 */
 	created () {
 		this.filters = { ...this.routerQuery }
-		this.getDocuments();
+		this.getDocuments(...this.serverParams.filters);
 	},
 };
 </script>
