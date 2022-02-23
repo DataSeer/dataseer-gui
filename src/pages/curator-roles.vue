@@ -5,7 +5,17 @@
 		</Subheader>
 
 		<Table v-if="!this.loading" modifier="roles">
-			<vue-good-table :columns="columns" :rows="filteredRows" :pagination-options="{ enabled: true }" styleClass="vgt-table">
+			<vue-good-table
+				styleClass="vgt-table"
+				:columns="columns"
+				:rows="rows"
+				:totalRows="rows.length"
+				:pagination-options="{
+					enabled: true,
+					perPage: itemsPerPage
+				}"
+				@on-per-page-change="onPerPageChange"
+			>
 				<template slot="table-column" slot-scope="props">
 					<span v-if="props.column.label === 'Role'" v-tooltip.top-center="'Sort By Role'">
 						{{ props.column.label }}
@@ -41,6 +51,8 @@
 
 				<template slot="pagination-bottom" slot-scope="props">
 					<Pagination
+						:itemsPerPage="itemsPerPage"
+						:perPageOptions="perPageOptions"
 						:totalItems="props.total"
 						:pageChanged="props.pageChanged"
 						:perPageChanged="props.perPageChanged"
@@ -127,22 +139,12 @@ export default {
 				}
 			],
 			rows: [],
+			filters: {},
+			itemsPerPage: 10,
+			perPageOptions: [2, 5, 10, 20, 50],
 			loading: true,
-			filters: null,
+			filtersVisibility: false
 		};
-	},
-
-	/**
-	 * Computed
-	 */
-	computed: {
-		filteredRows: function() {
-			if (!this.availableFilters) return this.rows;
-
-			const { role } = this.availableFilters;
-
-			return this.rows.filter((row) => role.value === row.role) || !role.length;
-		},
 	},
 
 	/**
@@ -152,14 +154,16 @@ export default {
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},
+		onPerPageChange(params) {
+			this.itemsPerPage = params.currentPerPage
+		},
 		async getRoles() {
 			this.loading = true;
 			const roles = await RoleService.getRoles();
 			const accounts = await AccountsService.getAccounts();
 
 			roles.forEach(role => {
-				const accountsCount = accounts.map(account => account.role.key).filter(key => role.key === key )
-				role.members = accountsCount.length;
+				role.members = accounts.map(account => account.role.key).filter(key => role.key === key ).length;
 			});
 
 			this.loading = false;

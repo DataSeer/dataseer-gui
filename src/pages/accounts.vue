@@ -10,10 +10,15 @@
 		
 		<Table v-if="!this.loading" modifier="accounts">
 			<vue-good-table
+				styleClass="vgt-table"
 				:columns="columns"
 				:rows="filteredRows"
-				:pagination-options="{ enabled: true }"
-				styleClass="vgt-table"
+				:totalRows="filteredRows.length"
+				:pagination-options="{
+					enabled: true,
+					perPage: itemsPerPage
+				}"
+				@on-per-page-change="onPerPageChange"
 			>
 				<template slot="table-column" slot-scope="props">
 					<span v-if="props.column.label === 'Username'" v-tooltip.top-center="'Sort By Username'">
@@ -67,6 +72,8 @@
 
 				<template slot="pagination-bottom" slot-scope="props">
 					<Pagination
+						:itemsPerPage="itemsPerPage"
+						:perPageOptions="perPageOptions"
 						:totalItems="props.total"
 						:pageChanged="props.pageChanged"
 						:perPageChanged="props.perPageChanged"
@@ -169,6 +176,8 @@ export default {
 			],
 			rows: [],
 			filters: {},
+			itemsPerPage: 50,
+			perPageOptions: [5, 10, 20, 50],
 			loading: true,
 			filtersVisibility: false
 		};
@@ -264,6 +273,9 @@ export default {
 		formatRole(value) {
 			return value.label
 		},
+		onPerPageChange(params) {
+			this.itemsPerPage = params.currentPerPage
+		},
 		async getAccounts() {
 			this.loading = true;
 			const accounts = await AccountsService.getAccounts();
@@ -278,6 +290,12 @@ export default {
 	 */
 	created () {
 		this.filters = { ...this.routerQuery }
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
 		this.getAccounts();	
 	},
 };

@@ -187,8 +187,8 @@
 
 				<template slot="pagination-bottom" slot-scope="props">
 					<Pagination
-						:perPageOptions="perPageOptions"
 						:itemsPerPage="serverParams.perPage"
+						:perPageOptions="perPageOptions"
 						:totalItems="props.total"
 						:pageChanged="props.pageChanged"
 						:perPageChanged="props.perPageChanged"

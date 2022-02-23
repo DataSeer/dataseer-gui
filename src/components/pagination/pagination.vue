@@ -3,8 +3,7 @@
 		<div class="pagination__inner">
 			<div class="pagination__total">
 				Items <span>{{ totalItems }}</span>
-			</div>
-			<!-- /.pagination__total -->
+			</div> <!-- /.pagination__total -->
 
 			<div class="pagination__steps">
 				<Button size="small" highlighted :disabled="!(this.currentPage > 0)" @onClick="previous()" className="tertiary" square>
@@ -169,7 +168,6 @@ export default {
 			if (this.currentPage < this.pages) this.setPage(this.currentPage + 1);
 		},
 		calcPageCount() {
-			
 			if (this.totalItems > this.itemsPerPage) {
 				this.pages = Math.ceil(this.totalItems / this.itemsPerPage);
 			} else {
@@ -181,6 +179,13 @@ export default {
 			this.perPageChanged({ currentPerPage: parseInt(e.target.value) });
 			this.calcPageCount();
 		}
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.calcPageCount();
 	},
 };
 </script>
