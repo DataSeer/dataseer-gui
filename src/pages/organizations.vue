@@ -17,10 +17,15 @@
 				
 		<Table v-if="!this.loading" modifier="organizations">
 			<vue-good-table
+				styleClass="vgt-table"
 				:columns="columns"
 				:rows="filteredRows"
-				:pagination-options="{ enabled: true }"
-				styleClass="vgt-table"
+				:totalRows="filteredRows.length"
+				:pagination-options="{
+					enabled: true,
+					perPage: itemsPerPage
+				}"
+				@on-per-page-change="onPerPageChange"
 			>
 				<template slot="table-column" slot-scope="props">
 					<span v-if="props.column.label === 'Name'" v-tooltip.top-center="'Sort By Name'">
@@ -66,7 +71,13 @@
 				</template>
 
 				<template slot="pagination-bottom" slot-scope="props">
-					<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
+					<Pagination
+						:itemsPerPage="itemsPerPage"
+						:perPageOptions="perPageOptions"
+						:totalItems="props.total"
+						:pageChanged="props.pageChanged"
+						:perPageChanged="props.perPageChanged"
+					/>
 				</template>
 			</vue-good-table>
 		</Table>
@@ -152,9 +163,10 @@ export default {
 			],
 			rows: [],
 			filters: {},
+			itemsPerPage: 50,
+			perPageOptions: [5, 10, 20, 50],
 			loading: true,
-			filtersVisibility: false,
-			organizationsList: []
+			filtersVisibility: false
 		};
 	},
 
@@ -200,6 +212,18 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		formatDate(date) {
+			return format(new Date(date), 'yyyy-MM-dd');
+		},
+		applyFilters(filters) {
+			this.filters = { ...filters };
+		},
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
+		},
+		onPerPageChange(params) {
+			this.itemsPerPage = params.currentPerPage
+		},
 		async getOrganizations() {
 			this.loading = true;
 			const organizations = await organizationsService.getOrganizations();
@@ -221,22 +245,19 @@ export default {
 			this.loading = false;
 			this.rows = organizations;
 		},
-		formatDate(date) {
-			return format(new Date(date), 'yyyy-MM-dd');
-		},
-		applyFilters(filters) {
-			this.filters = { ...filters };
-		},
-		setFiltersVisibility(value) {
-			this.filtersVisibility = value
-		}
+	},
+
+	/**
+	 * Created
+	 */
+	created () {
+		this.filters = { ...this.routerQuery }
 	},
 	
 	/**
 	 * Mounted
 	 */
 	mounted () {
-		this.filters = { ...this.routerQuery }
 		this.getOrganizations();
 	},
 };
