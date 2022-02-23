@@ -4,6 +4,7 @@
 			<div id="documentView.screen">
 				<div id="documentView.screen.container" class="documentView">
 					<div id="pdf"></div>
+
 					<div id="xml" style="display: none"></div>
 				</div>
 			</div> <!-- /#documentView.screen -->
@@ -13,7 +14,6 @@
 
 <script>
 /* eslint-disable */
-
 /**
  * External Dependencies
  */
@@ -39,7 +39,7 @@ export default {
 		documentId: {
 			type: String,
 			default: ''
-		},
+		}
 	},
 
 	/**
@@ -58,7 +58,7 @@ export default {
 		const documentView = new DocumentView(`documentView`);
 		const datasetsList = new DatasetsList(`datasetsList`);
 		const datasetForm = new DatasetForm(`datasetForm`);
-		
+
 		let doc;
 		let pdf;
 		let pdfURl;
@@ -83,7 +83,7 @@ export default {
 			}
 
 			if (doc.locked) alert(`This document is locked, You can't modify it`);
-			
+
 			const currentDocument = new DocumentHandler(
 				{
 					ids: { document: doc._id, datasets: doc.datasets._id },
@@ -97,7 +97,7 @@ export default {
 							? {
 									url: pdfURl,
 									metadata: pdf.res.metadata
-							  }
+							}
 							: undefined
 				},
 				{
@@ -107,9 +107,12 @@ export default {
 				}
 			);
 
+
+			console.log(currentDocument);
+
 			currentDocument.link({
 				documentView: documentView,
-				datasetsList: datasetsList,
+				// datasetsList: datasetsList,
 				// datasetForm: datasetForm
 			});
 		})();

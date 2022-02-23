@@ -8,7 +8,7 @@ import Colors from './colors';
 const workerSrcPath = './pdf.js/build/generic/build/pdf.worker';
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrcPath;
 
-const CMAP_URL = '../javascripts/pdf.js/build/generic/web/cmaps/';
+const CMAP_URL = './pdf.js/build/generic/web/cmaps/';
 const MARGIN_CHUNK = {
 	top: 2,
 	left: 2,

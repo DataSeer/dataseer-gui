@@ -413,6 +413,8 @@ import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
+import dataseermlService from '@/services/dataseerml/dataseerml';
+
 export default {
 	/**
 	 * Name
@@ -454,6 +456,7 @@ export default {
 	 */
 	data: function() {
 		return {
+			jsonDataTypes: {},
 			formData: {
 				type: '',
 				subtype: '',
@@ -470,7 +473,8 @@ export default {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
-			isIssuesFormVisible: false
+			isIssuesFormVisible: false,
+			
 		};
 	},
 	
@@ -539,11 +543,18 @@ export default {
 		},
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;
+		},
+		async getJsonDataTypes() {
+			const jsonDataTypes = await dataseermlService.getJsonDataTypes();
+			this.jsonDataTypes = jsonDataTypes;
+
+			console.log(this.jsonDataTypes)
 		}
 	},
 
 	mounted () {
 		this.populateFormData();
+		this.getJsonDataTypes();
 	},
 };
 </script>
