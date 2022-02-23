@@ -30,16 +30,11 @@ const addDocument = (params) => {
 };
 
 const getDocuments = (params) => {
-	return axiosInstance.get(`/documents`, {
-		params
-	})
+	return axiosInstance.get(`/documents`, { params })
 	.then((res) => {
 		httpErrorHandler(res);
 		
-		const currentPage = Math.trunc(params.skip / params.limit);
-		
 		return {
-			currentPage,
 			count: res.data.count,
 			data: res.data.res,
 		}
@@ -99,3 +94,4 @@ export default {
 	getDocumentReport,
 	getJsonDataTypes
 };
+

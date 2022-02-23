@@ -32,34 +32,30 @@
 				<Button size="small" highlighted :disabled="currentPage + 1 >= pages" @onClick="next()" className="tertiary" square>
 					<Icon name="angle_right" color="currentColor" />
 				</Button>
-				<!-- /.pagination__button -->
-			</div>
-			<!-- /.pagination__steps -->
+			</div> <!-- /.pagination__steps -->
 
 			<div class="pagination__dropdown">
 				<label for="items-per-page">Items Per Page</label>
 
-				<select @change="setItemsPerPage(dropdownValue)" v-model="dropdownValue" name="items-per-page" id="items-per-page">
-					<option :value="2">2</option>
-
-					<option :value="5">5</option>
-
-					<option :value="10">10</option>
-
-					<option :value="20">20</option>
-
-					<option :value="50">50</option>
-
-					<option :value="100">100</option>
+				<select
+					name="items-per-page"
+					id="items-per-page"
+					:value="itemsPerPage"
+					@change="setItemsPerPage"
+				>
+					<option
+						v-for="option in perPageOptions"
+						:key="option"
+						:value="option"
+					>
+						{{option}}
+					</option>
 				</select>
 
 				<Icon name="angle_down" color="currentColor" />
-			</div>
-			<!-- /.pagination__dropdown -->
-		</div>
-		<!-- /.pagination__inner -->
-	</div>
-	<!-- /.pagination -->
+			</div> <!-- /.pagination__dropdown -->
+		</div> <!-- /.pagination__inner -->
+	</div> <!-- /.pagination -->
 </template>
 
 <script>
@@ -87,7 +83,15 @@ export default {
 	 * Props
 	 */
 	props: {
-		totalItems: { type: Number },
+		totalItems: {
+			default: 0,
+			type: Number,
+		},
+		perPageOptions: {
+			type: Array,
+			default: () => [2, 5, 10, 20, 50, 100]
+		},
+		itemsPerPage: { type: Number },
 		pageChanged: { type: Function },
 		perPageChanged: { type: Function }
 	},
@@ -99,18 +103,17 @@ export default {
 		return {
 			currentPage: 0,
 			pages: 1,
-			maxbuttonItems: 5,
-			dropdownValue: 50
+			maxButtonItems: 5,
 		};
 	},
 
 	computed: {
 		maxVisibleButtons() {
-			return this.pages + 1 < this.maxbuttonItems ? this.pages + 1 : this.maxbuttonItems;
+			return this.pages + 1 < this.maxButtonItems ? this.pages + 1 : this.maxButtonItems;
 		},
 
 		startPos() {
-			if (this.currentPage <= 1 || this.pages <= this.maxbuttonItems) {
+			if (this.currentPage <= 1 || this.pages <= this.maxButtonItems) {
 				return 0;
 			}
 
@@ -140,6 +143,18 @@ export default {
 	},
 
 	/**
+	 * Watch
+	 */
+	watch: {
+		totalItems() {
+			this.calcPageCount();
+		},
+		itemsPerPage() {
+			this.calcPageCount();
+		}
+	},
+
+	/**
 	 * Methods
 	 */
 	methods: {
@@ -154,34 +169,18 @@ export default {
 			if (this.currentPage < this.pages) this.setPage(this.currentPage + 1);
 		},
 		calcPageCount() {
-			if (this.totalItems > this.dropdownValue) {
-				this.pages = Math.ceil(this.totalItems / this.dropdownValue);
+			
+			if (this.totalItems > this.itemsPerPage) {
+				this.pages = Math.ceil(this.totalItems / this.itemsPerPage);
 			} else {
 				this.pages = 1;
 				this.setPage(0);
 			}
 		},
-		setItemsPerPage(value) {
-			this.perPageChanged({ currentPerPage: value });
+		setItemsPerPage(e) {
+			this.perPageChanged({ currentPerPage: parseInt(e.target.value) });
 			this.calcPageCount();
 		}
 	},
-
-	/**
-	 * Watch
-	 */
-	watch: {
-		totalItems() {
-			this.calcPageCount();
-		}
-	},
-
-	/**
-	 * Created
-	 */
-	created() {
-		this.setItemsPerPage(this.dropdownValue);
-		this.calcPageCount();
-	}
 };
 </script>

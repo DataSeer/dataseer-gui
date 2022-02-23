@@ -7,175 +7,195 @@
 			<SubheaderDocuments @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
 		</Subheader>
 
-		<Loader :loading="loading" :error="error" :errorMessage="errorMessage">
-			<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-				<FormFilters :initialValues="filters" @onApplyFilters="applyFilters" />
-			</TableFilters>
-			
-			<Table modifier="documents">
-				<vue-good-table
-					:columns="columns"
-					:rows="rows"
-					:totalRows="totalRows"
-					:pagination-options="{
-						enabled: true
-					}"
-					mode="remote"
-					styleClass="vgt-table"
-					@on-page-change="onPageChange"
-					@on-per-page-change="onPerPageChange"
-				>
-					<template slot="table-column" slot-scope="props">
-						<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
-							{{ props.column.label }}
-						</span>
+		<TableFilters
+			v-if="filtersVisibility"
+			@closeButtonClick="setFiltersVisibility(false)"
+		>
+			<FormFilters
+				:initialValues="serverParams.filters"
+				@onApplyFilters="onApplyFilters"
+			/>
+		</TableFilters>
+		
+		<Table modifier="documents">
+			<vue-good-table
+				:columns="columns"
+				:rows="rows"
+				:totalRows="totalRows"
+				:pagination-options="{
+					enabled: true,
+					perPage: serverParams.perPage
+				}"
+				:sort-options="{
+					enabled: true,
+					initialSortBy: {
+						field: 'name',
+						type: 'desc'
+					}
+				}"
+				mode="remote"
+				styleClass="vgt-table"
+				:isLoading.sync="loading"
+				@on-sort-change="onSortChange"
+				@on-page-change="onPageChange"
+				@on-per-page-change="onPerPageChange"
+			>
+				<template slot="table-column" slot-scope="props">
+					<span v-if="props.column.label == 'Title'" v-tooltip.top-center="'Sort By Title'">
+						{{ props.column.label }}
+					</span>
 
-						<span v-else-if="props.column.label == 'Author'" v-tooltip.top-center="'Sort By Author'">
-							{{ props.column.label }}
-						</span>
+					<span v-else>
+						{{ props.column.label }}
+					</span>
+				</template>
 
-						<span v-else>
-							{{ props.column.label }}
-						</span>
-					</template>
+				<template slot="table-row" slot-scope="props">
+					<span v-if="props.column.field == 'name'" class="table__title">
+						<router-link to="/report">
+							<Icon name="document" color="CurrentCOlor" />
 
-					<template slot="table-row" slot-scope="props">
-						<span v-if="props.column.field == 'name'" class="table__title">
-							<router-link to="/report">
-								<Icon name="document" color="CurrentCOlor" />
+							{{ props.row.name }}
+						</router-link>
+					</span>
+					
+					<span v-else-if="props.column.field === 'owner'" class="table__owner overflow-truncate">
+						{{props.row.owner.fullname}}
+					</span> <!-- /.table__name -->
 
-								{{ props.row.name }}
-							</router-link>
-						</span>
+					<span
+						v-else-if="props.column.field == 'status'"
+						class="table__status"
+						:class="{
+							'is-validating': props.row.status !== 'finish',
+							'is-complete': props.row.status === 'finish'
+						}"
+					>
+						<label class="text" v-if="props.row.status === 'finish'">Complete</label>
 						
-						<span v-else-if="props.column.field === 'owner'" class="table__owner overflow-truncate">
-							{{props.row.owner.fullname}}
-						</span> <!-- /.table__name -->
+						<label class="text" v-else>Validating</label>
+					</span>
 
-						<span
-							v-else-if="props.column.field == 'status'"
-							class="table__status"
-							:class="{
-								'is-validating': props.row.status !== 'finish',
-								'is-complete': props.row.status === 'finish'
-							}"
-						>
-							<label class="text" v-if="props.row.status === 'finish'">Complete</label>
-							
-							<label class="text" v-else>Validating</label>
-						</span>
+					<span v-else-if="props.column.field === 'files'" class="table__files">
+						<ul>
+							<li
+								v-for="file in props.row.files"
+								:key="file._id"
+								class="overflow-truncate"
+							>
+								{{ file.filename }}
+							</li>
+						</ul>
+					</span> <!-- /.table__actions -->
 
-						<span v-else-if="props.column.field === 'files'" class="table__files">
-							<ul>
-								<li
-									v-for="file in props.row.files"
-									:key="file._id"
-									class="overflow-truncate"
+					<div v-else-if="props.column.field === 'action'" class="table__actions">
+						<ul>
+							<li>
+								<Button
+									highlighted
+									size="small"
+									className="tertiary"
+									:to="`/documents/${props.row._id}/datasets`"
 								>
-									{{ file.filename }}
-								</li>
-							</ul>
-						</span> <!-- /.table__actions -->
+									View
+								</Button>
+							</li>
 
-						<div v-else-if="props.column.field === 'action'" class="table__actions">
-							<ul>
-								<li>
-									<Button
-										highlighted
-										size="small"
-										className="tertiary"
-										:to="`/documents/${props.row._id}/datasets`"
-									>
-										View
-									</Button>
-								</li>
+							<li>
+								<Button
+									highlighted
+									size="small"
+									className="tertiary"
+									:to="`/documents/${props.row._id}/report`"
+								>
+									Report
+								</Button>
+							</li>
 
-								<li>
-									<Button
-										highlighted
-										size="small"
-										className="tertiary"
-										:to="`/documents/${props.row._id}/report`"
-									>
-										Report
-									</Button>
-								</li>
+							<li>
+								<Dropdown>
+									<template #header>
+										<Button size="small" className="tertiary" square highlighted>
+											<Icon name="angle_down" color="currentColor" />
+										</Button>
+									</template>
 
-								<li>
-									<Dropdown>
-										<template #header>
-											<Button size="small" className="tertiary" square highlighted>
-												<Icon name="angle_down" color="currentColor" />
-											</Button>
-										</template>
+									<div class="dropdown__nav">
+										<ul>
+											<li>
+												<router-link :to="`/documents/${props.row._id}/datasets`">
+													<Icon name="connect" color="currentColor" />
 
-										<div class="dropdown__nav">
-											<ul>
-												<li>
-													<router-link :to="`/documents/${props.row._id}/datasets`">
-														<Icon name="connect" color="currentColor" />
+													View/Edit Datasets
+												</router-link>
+											</li>
 
-														View/Edit Datasets
-													</router-link>
-												</li>
+											<li>
+												<a href="#">
+													<Icon name="share" color="currentColor" />
 
-												<li>
-													<a href="#">
-														<Icon name="share" color="currentColor" />
+													Get Public Share Link
+												</a>
+											</li>
 
-														Get Public Share Link
-													</a>
-												</li>
+											<li>
+												<router-link :to="`/documents/${props.row._id}/report`">
+													<Icon name="document_view" color="currentColor" />
 
-												<li>
-													<router-link :to="`/documents/${props.row._id}/report`">
-														<Icon name="document_view" color="currentColor" />
+													View Data Report
+												</router-link>
+											</li>
+										</ul>
 
-														View Data Report
-													</router-link>
-												</li>
-											</ul>
+										<ul>
+											<li>
+												<a href="#">
+													<Icon name="document" color="currentColor" />
 
-											<ul>
-												<li>
-													<a href="#">
-														<Icon name="document" color="currentColor" />
+													Manage Document
+												</a>
+											</li>
 
-														Manage Document
-													</a>
-												</li>
+											<li>
+												<a :href="`mailto:${props.row.owner.username}`">
+													<Icon name="invite" color="currentColor" />
 
-												<li>
-													<a :href="`mailto:${props.row.owner.username}`">
-														<Icon name="invite" color="currentColor" />
+													Contact Author
+												</a>
+											</li>
+										</ul>
 
-														Contact Author
-													</a>
-												</li>
-											</ul>
+										<ul>
+											<li class="is-highlighted">
+												<button @click.prevent="deleteDocument(props.row.name, props.row._id)">
+													<Icon name="trash" color="currentColor" />
 
-											<ul>
-												<li class="is-highlighted">
-													<button @click.prevent="deleteDocument(props.row.name, props.row._id)">
-														<Icon name="trash" color="currentColor" />
+													Delete Document
+												</button>
+											</li>
+										</ul>
+									</div> <!-- /.dropdown__nav -->
+								</Dropdown>
+							</li>
+						</ul>
+					</div>
+				</template>
 
-														Delete Document
-													</button>
-												</li>
-											</ul>
-										</div> <!-- /.dropdown__nav -->
-									</Dropdown>
-								</li>
-							</ul>
-						</div>
-					</template>
+				<template slot="loadingContent">
+					<Spinner />
+				</template>
 
-					<template slot="pagination-bottom" slot-scope="props">
-						<Pagination :totalItems="props.total" :pageChanged="props.pageChanged" :perPageChanged="props.perPageChanged" />
-					</template>
-				</vue-good-table>
-			</Table>
-		</Loader>
+				<template slot="pagination-bottom" slot-scope="props">
+					<Pagination
+						:perPageOptions="perPageOptions"
+						:itemsPerPage="serverParams.perPage"
+						:totalItems="props.total"
+						:pageChanged="props.pageChanged"
+						:perPageChanged="props.perPageChanged"
+					/>
+				</template>
+			</vue-good-table>
+		</Table>
 	</Main>
 </template>
 
@@ -188,7 +208,7 @@ import { format } from 'date-fns'
 /**
  * Internal Dependencies
  */				
-import Loader from '@/blocks/loader/loader';
+import Spinner from '@/components/spinner/spinner';
 import Table from '@/components/table/table';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
@@ -201,7 +221,6 @@ import FormFilters from '@/blocks/form-filters/form-filters';
 import SubheaderDocuments from '@/components/subheader/subheader-documents';
 
 import documentsService from '@/services/documents/documents';
-import { filterByOrganization, filterByDate } from '@/utils/table-filters';
 
 export default {
 	/**
@@ -213,7 +232,7 @@ export default {
 	 * Components
 	 */
 	components: {
-		Loader,
+		Spinner,
 		Table,
 		Icon,
 		Main,
@@ -245,15 +264,18 @@ export default {
 				{
 					field: 'owner',
 					label: 'Author',
+					sortable: false,
 				},
 				{
 					field: 'metadata',
 					label: 'Journal',
 					formatFn: this.formatMetadata,
+					sortable: false,
 				},
 				{
 					field: 'files',
 					label: 'File',
+					sortable: false,
 				},
 				{
 					field: 'createdAt',
@@ -272,6 +294,7 @@ export default {
 				{
 					field: 'status',
 					label: 'Status',
+					sortable: false,
 				},
 				{
 					field: 'action',
@@ -281,18 +304,15 @@ export default {
 				}
 			],
 			rows: [],
-			filters: {},
 			totalRows: 0,
 			serverParams: {
-				filters: {
-					files: true,
-					metadata: true,		
-					count: true
-				},
+				filters: {},
+				sort: 'desc',
 				page: 1, 
 				perPage: 10,
 			},
-			loading: true,
+			perPageOptions: [2, 5, 10, 20],
+			loading: false,
 			error: false,
 			errorMessage: '',
 			filtersVisibility: false
@@ -305,32 +325,13 @@ export default {
 	computed: {
 		routerQuery: function() {
 			return this.$route.query
-		},
-		filteredRows: function() {
-			if (Object.keys(this.filters).length === 0) return this.rows;
-			
-			const {
-				organizations,
-				uploadedFrom,
-				uploadedTo,
-				modifiedFrom,
-				modifiedTo
-			} = this.filters;
-
-			return this.rows
-				.filter((row) => filterByOrganization(row.organizations, organizations))
-				.filter((row) => filterByDate(row.createdAt, uploadedFrom, uploadedTo))
-				.filter((row) => filterByDate(row.updatedAt, modifiedFrom, modifiedTo))
-		},
+		}
 	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
-		applyFilters(filters) {
-			this.filters = { ...filters };
-		},
 		formatMetadata(value) {
 			return value.journal.length ? value.journal : ''
 		},
@@ -340,39 +341,48 @@ export default {
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
 		},
-		updateFilters(filters) {
-			this.filters = { ...filters };
-		},
-		
 		updateParams(newProps) {
 			this.serverParams = Object.assign({}, this.serverParams, newProps);
-		},
-				
+		},	
 		onPageChange(params) {
 			this.updateParams({page: params.currentPage});
 			this.getDocuments();
 		},
-
 		onPerPageChange(params) {
 			this.updateParams({perPage: params.currentPerPage});
 			this.getDocuments();
 		},
-			
-		
-		async getDocuments(queryParams) {
+		onSortChange(params) {
+			this.updateParams({ sort: params[0].type });
+			this.getDocuments();
+		},
+		onApplyFilters(filters) {
+			this.serverParams.filters = { ...filters };
+			this.getDocuments();
+		},
+		async getDocuments() {
 			this.loading = true;
+
+			const queryParams = {
+				...this.serverParams.filters,
+				skip: this.serverParams.page === 1 ? 0 : (this.serverParams.page - 1) * this.serverParams.perPage,
+				limit: this.serverParams.perPage,
+				sort: this.serverParams.sort,
+				files: true,
+				metadata: true,		
+				count: true,
+			}
 
 			try {
 				const documents = await documentsService.getDocuments(queryParams);
-				console.log(documents);
 				
-				this.rows = documents.data;
 				this.totalRows = documents.count;
+				this.rows = documents.data;
 			} catch (e) {
-				this.error = true
-				this.errorMessage = e.message
+				this.error = true;
+				this.errorMessage = e.message;
 			}
-
+			
 			this.loading = false;
 		},
 		async deleteDocument(name, id) {
@@ -399,8 +409,14 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.filters = { ...this.routerQuery }
-		this.getDocuments(...this.serverParams.filters);
+		this.serverParams.filters = { ...this.routerQuery }
+	},
+
+	/**
+	 * Mounted
+	 */
+	mounted () {
+		this.getDocuments();
 	},
 };
 </script>

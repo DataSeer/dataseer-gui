@@ -25,6 +25,7 @@
 		position: relative;
 		height: 100%;
 		padding-bottom: 85px;
+		overflow: hidden;
 	}
 
 	.table__title {
@@ -173,6 +174,12 @@
 	.vgt-table thead th.sorting-desc button:before {
 		opacity: 1;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23006ac9'/%3E%3C/svg%3E%0A");
+	}
+
+	.vgt-loading {
+		left: 0;
+		top: 0;
+		margin: 50px 0;
 	}
 }
 

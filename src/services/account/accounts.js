@@ -8,6 +8,17 @@ const getAccounts = (params) => {
 		.then(res => httpErrorHandler(res))
 }
 
+const getAccountsList = () => {
+	return axiosInstance.get('/accounts')
+		.then((res) => (
+			res.data.res.map((account) => ({
+				value: account._id,
+				label: account.username
+			}))
+		)
+	);
+};
+
 const getAccount = (id) => {
 	return axiosInstance.get(`/accounts/${id}`)
 		.then(res => httpErrorHandler(res))
@@ -35,6 +46,7 @@ const deleteAccount = (id) => {
 
 export default {
 	getAccount,
+	getAccountsList,
 	getAccounts,
 	addAccount,
 	deleteAccount,

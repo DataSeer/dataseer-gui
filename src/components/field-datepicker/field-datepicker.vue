@@ -7,9 +7,9 @@
 		<div class="field__controls">
 			<date-picker
 				input-class="field__input"
-				valueType="timestamp"
+				valueType="format"
 				:clearable="false"
-				:value="value ? parseInt(value) : null"
+				:value="value"
 				:placeholder="placeholder"
 				:disabled-date="disableFn"
 				@input="handleChange"
@@ -48,7 +48,8 @@ export default {
 			default: false
 		},
 		value: {
-			default: null
+			type: String,
+			default: ''
 		},
 		name: {
 			type: String,

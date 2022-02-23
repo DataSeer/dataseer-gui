@@ -12,7 +12,7 @@
 						name="owner"
 						placeholder="Document Owner"
 						multiple
-						:options="organizationsList"
+						:options="accountsList"
 					>
 						<Icon name="user" color="currentColor" />
 
@@ -39,9 +39,9 @@
 						<ul>
 							<li>
 								<FieldDatepicker
-									v-model="formData.uploadedFrom"
+									v-model="formData.uploadedAfter"
 									placeholder="From"
-									:disableFn="disableUploadedFrom"
+									:disableFn="disablepploadedAfter"
 								>
 									<Icon name="document_upload" color="currentColor" />
 
@@ -51,14 +51,13 @@
 
 							<li>
 								<FieldDatepicker
-									v-model="formData.uploadedTo"
+									v-model="formData.uploadedBefore"
 									placeholder="To"
-									:disableFn="disableUploadedTo"
+									:disableFn="disableUploadedBefore"
 								/>
 							</li>
 						</ul>
-					</div>
-					<!-- /.form__range -->
+					</div> <!-- /.form__range -->
 				</GridColumn>
 
 				<GridColumn>
@@ -66,9 +65,9 @@
 						<ul>
 							<li>
 								<FieldDatepicker
-									v-model="formData.modifiedFrom"
+									v-model="formData.updatedAfter"
 									placeholder="From"
-									:disableFn="disableModifiedFrom"
+									:disableFn="disableUpdatedAfter"
 								>
 									<Icon name="document_modify" color="currentColor" />
 
@@ -78,14 +77,13 @@
 
 							<li>
 								<FieldDatepicker
-									v-model="formData.modifiedTo"
+									v-model="formData.updatedBefore"
 									placeholder="To"
-									:disableFn="disableModifiedTo"
+									:disableFn="disableUpdatedBefore"
 								/>
 							</li>
 						</ul>
-					</div>
-					<!-- /.form__range -->
+					</div> <!-- /.form__range -->
 				</GridColumn>
 			</Grid>
 		</FormBody>
@@ -120,6 +118,7 @@ import FieldSelect from '@/components/field-select/field-select';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 import Form, { FormActions, FormHead, FormBody } from '@/components/form/form';
 
+import accountsService from '@/services/account/accounts';
 import organizationsService from '@/services/organizations/organizations';
 
 export default {
@@ -160,6 +159,7 @@ export default {
 	data: function() {
 		return {
 			formData: {},
+			accountsList: [],
 			organizationsList: [],
 			areFiltersApplied: true
 		};
@@ -202,34 +202,45 @@ export default {
 		handleClearFilters() {
 			this.formData = {};
 		},
+		async getOwnersList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
+			
+			this.organizationsList = organizationsList;
+		},
+		async getAccountsList() {
+			const accountsList = await accountsService.getAccountsList();
+			console.log(accountsList);
+			this.accountsList = accountsList;
+		},
 		async getOrganizationsList() {
 			const organizationsList = await organizationsService.getOrganizationsList();
 			
 			this.organizationsList = organizationsList;
 		},
-		disableUploadedFrom(date) {
-			if (!this.formData.uploadedTo) return false;
-			return date > this.formData.uploadedTo;
+		disablepploadedAfter(date) {
+			if (!this.formData.uploadedBefore) return false;
+			return date > this.formData.uploadedBefore;
 		},
-		disableUploadedTo(date) {
-			if (!this.formData.uploadedFrom) return false;
-			return date < this.formData.uploadedFrom;
+		disableUploadedBefore(date) {
+			if (!this.formData.uploadedAfter) return false;
+			return date < this.formData.uploadedAfter;
 		},
-		disableModifiedFrom(date) {
-			if (!this.formData.modifiedTo) return false;
-			return date > this.formData.modifiedTo;
+		disableUpdatedAfter(date) {
+			if (!this.formData.updatedBefore) return false;
+			return date > this.formData.updatedBefore;
 		},
-		disableModifiedTo(date) {
-			if (!this.formData.modifiedFrom) return false;
-			return date < this.formData.modifiedFrom;
+		disableUpdatedBefore(date) {
+			if (!this.formData.updatedAfter) return false;
+			return date < this.formData.updatedAfter;
 		}
 	},
 
 	/**
-	 * Created
+	 * mounted
 	 */
-	created () {
+	mounted () {
 		this.formData = { ...this.initialValues }
+		this.getAccountsList();
 		this.getOrganizationsList();
 	},
 };
