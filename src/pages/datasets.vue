@@ -13,21 +13,11 @@
 
 			<Tabs
 				:tabs="datasets"
-				:activeTabIndex="activeTabIndex"
-				@navButtonClick="(i) => setActiveTabIndex(i)"
+				:activeTabId="activeDatasetId"
+				@tabsNavClick="handleTabsNavClick"
 			>
-				<Tab
-					v-for="(dataset, index) in datasets"
-					:isActive="index === activeTabIndex"
-					:completed="dataset.saved"
-					:flagged="false"
-					:tooltip="dataset.description" :key="dataset.id"
-				>
-					<FormDataset
-						:dataset="dataset"
-						@onDatasetDelete="deleteDataset(index)" 
-						@onDatasetComplete="(value) => completeDataset(index, value)"
-					/>
+				<Tab v-if="activeDataset">
+					<FormDataset :dataset="activeDataset" />
 				</Tab>
 			</Tabs>
 
@@ -42,6 +32,11 @@
 
 <script>
 /* eslint-disable */
+/**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex'
+
 /**
  * Internal Dependencies
  */
@@ -86,7 +81,6 @@ export default {
 	data: function() {
 		return {
 			datasets: [],
-			activeTabIndex: 0,
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
@@ -97,6 +91,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId']),
 		documentID() {
 			return this.$route.params.id
 		}
@@ -115,23 +110,25 @@ export default {
 			this.loading = false;
 			this.datasets = document.datasets.current
 		},
-		setActiveTabIndex(index) {
-			this.activeTabIndex = index
+		handleTabsNavClick(dataset) {
+			let sentences = dataset.sentences;
+			let currentSentenceId = dataset.sentences[0].id
+		
+
+			this.documentHandler.selectSentence({
+				id: dataset.id,
+				sentences: sentences,
+				sentence: { id: currentSentenceId },
+			})
 		},
 		addDataset() {
-			this.datasets.push({
-				tooltip: '',
-				completed: false,
-				flagged: false,
-			})
-
-			this.activeTabIndex = this.datasets.length - 1;
+			console.log('addDataset');
 		},
-		completeDataset(index, value) {
-			this.datasets[index].completed = value;
+		completeDataset() {
+			console.log('completeDataset');
 		},
-		deleteDataset(index) {
-			this.tabs.splice(index, 1);
+		deleteDataset() {
+			console.log('deleteDataset');
 		}
 	},
 

@@ -1,9 +1,7 @@
 <template>
 	<div
-		v-show="isActive"
 		class="tab"
 		:class="{
-			'is-completed': completed,
 			'is-active': isActive,
 		}"
 	>
@@ -22,10 +20,6 @@ export default {
 	 * Props
 	 */
 	props: {
-		completed: {
-			type: Boolean,
-			default: false
-		},
 		flagged: {
 			type: Boolean,
 			default: false

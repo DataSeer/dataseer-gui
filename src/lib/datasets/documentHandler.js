@@ -2,12 +2,10 @@
 
 'use strict';
 
-import Colors from './colors'
-import $ from "jquery";
-import _ from "lodash";
-import async from "async";
-
-const API = window.API;
+import Colors from './colors';
+import $ from 'jquery';
+import _ from 'lodash';
+import async from 'async';
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
@@ -51,9 +49,9 @@ export const DocumentHandler = function(opts = {}, events) {
 				mapping: opts.pdf.metadata.mapping
 			}
 		};
-	$(`#datasets-confirm-modal-valid`).click(function() {
+	/* $(`#datasets-confirm-modal-valid`).click(function() {
 		return self.onModalConfirmAccept();
-	});
+	}); */
 	return this;
 };
 
@@ -183,45 +181,49 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 			}
 			if (dataset && self.documentView.getSelectedSentences().length === 1) {
 				let sentence = self.documentView.getSentence(opts.sentence);
-				self.datasetsList.select(dataset.id);
-				self.datasetForm.show();
-				self.datasetForm.link(
-					{
-						dataset: dataset,
-						sentence: {
-							id: sentence.id,
-							text: sentence.text
-							// url: self.documentView.pdfViewer.getSentenceDataURL(sentence.id)
-						}
-					},
-					datasets,
-					{ isCurator: self.user.isCurator || self.user.isAnnotator },
-					function(err, res) {
-						if (err) {
-							console.log(`dataset not selected`);
-							return cb(err);
-						}
-						if (res) {
-							if (res.shouldSave) {
-								console.log(`Should save selected dataset`, res);
-								self.modified(res.dataset.id);
-								self.updateDataset(res.dataset.id, res.dataset);
-								self.saveDataset(res.dataset.id);
-								return typeof cb === `function`
-									? cb(null, res.dataset.id)
-									: undefined;
-							} else {
-								console.log(`Selected dataset up to date`);
-								return typeof cb === `function` ? cb(true) : undefined;
-							}
-						} else return typeof cb === `function` ? cb(true) : undefined;
-					}
-				);
+				self.events.onSentenceClick(dataset)
+				// self.datasetsList.select(dataset.id);
+				// self.datasetForm.show();
+				// self.datasetForm.link(
+				// 	{
+				// 		dataset: dataset,
+				// 		sentence: {
+				// 			id: sentence.id,
+				// 			text: sentence.text
+				// 			// url: self.documentView.pdfViewer.getSentenceDataURL(sentence.id)
+				// 		}
+				// 	},
+				// 	datasets,
+				// 	{ isCurator: self.user.isCurator || self.user.isAnnotator },
+				// 	function(err, res) {
+				// 		if (err) {
+				// 			console.log(`dataset not selected`);
+				// 			return cb(err);
+				// 		}
+				// 		if (res) {
+				// 			if (res.shouldSave) {
+				// 				console.log(`Should save selected dataset`, res);
+				// 				self.modified(res.dataset.id);
+				// 				self.updateDataset(res.dataset.id, res.dataset);
+				// 				self.saveDataset(res.dataset.id);
+				// 				return typeof cb === `function`
+				// 					? cb(null, res.dataset.id)
+				// 					: undefined;
+				// 			} else {
+				// 				console.log(`Selected dataset up to date`);
+				// 				return typeof cb === `function` ? cb(true) : undefined;
+				// 			}
+				// 		} else return typeof cb === `function` ? cb(true) : undefined;
+				// 	}
+				// );
+				
+				
 			} else {
-				self.datasetsList.unselect();
+				self.events.onSentenceClick(undefined)
+				// self.datasetsList.unselect();
 				// self.datasetForm.hide();
-				self.datasetForm.setEmptyMessage();
-				self.datasetForm.unlink();
+				// self.datasetForm.setEmptyMessage();
+				// self.datasetForm.unlink();
 				return typeof cb === `function` ? cb(true) : undefined;
 			}
 		}
@@ -628,7 +630,9 @@ DocumentHandler.prototype.synchronize = function() {
 	let self = this;
 	if (this.documentView) {
 		// Attach documentView events
-		this.documentView.attach(`onDatasetClick`, function(sentence) {});
+		this.documentView.attach(`onDatasetClick`, function(sentence) {
+			self.events.onDatasetClick()
+		});
 		this.documentView.attach(`onSentenceClick`, function(sentence) {
 			return self.selectSentence({ sentence: sentence, disableSelection: true });
 		});

@@ -2,27 +2,31 @@
 	<div class="pdf-holder">
 		<div id="documentView">
 			<div id="documentView.screen">
-				<div id="documentView.screen.container" class="documentView">
-					<div id="pdf"></div>
-
-					<div id="xml" style="display: none"></div>
+				<div
+					id="documentView.screen.container" class="documentView"
+				>
+					<div id="pdf" />
+					<div id="xml" style="display: none" />
 				</div>
 			</div> <!-- /#documentView.screen -->
 		</div> <!-- /#documentView -->
 	</div> <!-- /.pdf-holder -->
 </template>
 
-<script>
+<script	>
 /* eslint-disable */
 /**
  * External Dependencies
  */
+import { mapActions, mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex';
-import { DocumentView } from '@/lib/datasets/documentView.js';
-import { DatasetForm } from '@/lib/datasets/datasetForm.js';
-import { DatasetsList } from '@/lib/datasets/datasetsList.js';
-import { DocumentHandler } from '@/lib/datasets/documentHandler.js';
+/**
+ * Internal Dependencies
+ */
+import { DocumentView } from '@/lib/datasets/documentView';
+import { DatasetForm } from '@/lib/datasets/datasetForm';
+import { DatasetsList } from '@/lib/datasets/datasetsList';
+import { DocumentHandler } from '@/lib/datasets/documentHandler';
 
 import documentsService from '@/services/documents/documents';
 
@@ -46,7 +50,15 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('account', ['userRole', 'userId'])
+		...mapGetters('account', ['userRole', 'userId']),
+		...mapGetters('pdfViewer', ['activeDataset'])
+	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset']),
 	},
 
 	/**
@@ -86,36 +98,50 @@ export default {
 
 			const currentDocument = new DocumentHandler(
 				{
-					ids: { document: doc._id, datasets: doc.datasets._id },
+					ids: {
+						document: doc._id,
+						datasets: doc.datasets._id
+					},
 					user: user,
 					datatypes: datatypes,
 					datasets: doc.datasets,
 					metadata: doc.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
-					pdf:
-						pdf && pdf.res
-							? {
-									url: pdfURl,
-									metadata: pdf.res.metadata
-							}
-							: undefined
+					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
 				{
 					onReady: function() {
-						console.log(`ready`);
+						console.log('onReady');
+					},
+					onDatasetClick() {
+						console.log('onDatasetClick');
+					},
+					onSentenceClick: (dataset) => {
+						this.setActiveDataset(dataset);
+					},
+					onFulltextView() {
+						console.log('onFulltextView');
+					},
+					onSectionView() {
+						console.log('onSectionView');
+					},
+					onParagraphView() {
+						console.log('onParagraphView');
+					},
+					onPdfView() {
+						console.log('onPdfView');
 					}
 				}
 			);
 
-
-			console.log(currentDocument);
-
 			currentDocument.link({
 				documentView: documentView,
-				// datasetsList: datasetsList,
+				datasetsList: datasetsList,
 				// datasetForm: datasetForm
 			});
+
+			this.setDocumentHandler(currentDocument)
 		})();
-	}
+	},
 };
 </script>

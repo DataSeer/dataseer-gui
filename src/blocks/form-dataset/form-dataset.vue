@@ -547,8 +547,6 @@ export default {
 		async getJsonDataTypes() {
 			const jsonDataTypes = await dataseermlService.getJsonDataTypes();
 			this.jsonDataTypes = jsonDataTypes;
-
-			console.log(this.jsonDataTypes)
 		}
 	},
 

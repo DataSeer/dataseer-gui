@@ -1768,76 +1768,76 @@ PdfViewer.prototype.getCanvas = function(area) {
 				]
 			});
 			/*
-        3 canvas
-        canvas.push({
-            min: { x: centerSquare.topLeftCorner.x, y: container.min.y },
-            max: { x: container.max.x, y: centerSquare.topRightCorner.y },
-            borders: [
-              {
-                x0: centerSquare.topLeftCorner.x,
-                y0: centerSquare.topLeftCorner.y + BORDER_WIDTH / 2,
-                x1: centerSquare.topLeftCorner.x,
-                y1: container.min.y
-              },
-              { x0: centerSquare.topLeftCorner.x, y0: container.min.y, x1: container.max.x, y1: container.min.y },
-              { x0: container.max.x, y0: container.min.y, x1: container.max.x, y1: centerSquare.topRightCorner.y }
-            ]
-          });
-          canvas.push({
-            min: { x: container.min.x, y: centerSquare.topLeftCorner.y },
-            max: { x: container.max.x, y: centerSquare.bottomRightCorner.y },
-            borders: [
-              {
-                x0: centerSquare.topLeftCorner.x + BORDER_WIDTH / 2,
-                y0: centerSquare.topLeftCorner.y,
-                x1: container.min.x,
-                y1: centerSquare.topLeftCorner.y
-              },
-              {
-                x0: container.min.x,
-                y0: centerSquare.topLeftCorner.y,
-                x1: container.min.x,
-                y1: centerSquare.bottomRightCorner.y
-              },
-              {
-                x0: centerSquare.bottomRightCorner.x - BORDER_WIDTH / 2,
-                y0: centerSquare.bottomRightCorner.y,
-                x1: container.max.x,
-                y1: centerSquare.bottomRightCorner.y
-              },
-              {
-                x0: container.max.x,
-                y0: centerSquare.bottomRightCorner.y,
-                x1: container.max.x,
-                y1: centerSquare.topRightCorner.y
-              }
-            ]
-          });
-          canvas.push({
-            min: { x: container.min.x, y: centerSquare.bottomLeftCorner.y },
-            max: { x: centerSquare.bottomRightCorner.x, y: container.max.y },
-            borders: [
-              {
-                x0: container.min.x,
-                y0: centerSquare.bottomLeftCorner.y - BORDER_WIDTH / 2,
-                x1: container.min.x,
-                y1: container.max.y
-              },
-              {
-                x0: container.min.x,
-                y0: container.max.y,
-                x1: centerSquare.bottomRightCorner.x,
-                y1: container.max.y
-              },
-              {
-                x0: centerSquare.bottomRightCorner.x,
-                y0: container.max.y,
-                x1: centerSquare.bottomRightCorner.x,
-                y1: centerSquare.bottomRightCorner.y
-              }
-            ]
-          });
-        */
+		  3 canvas
+		  canvas.push({
+			  min: { x: centerSquare.topLeftCorner.x, y: container.min.y },
+			  max: { x: container.max.x, y: centerSquare.topRightCorner.y },
+			  borders: [
+				{
+				  x0: centerSquare.topLeftCorner.x,
+				  y0: centerSquare.topLeftCorner.y + BORDER_WIDTH / 2,
+				  x1: centerSquare.topLeftCorner.x,
+				  y1: container.min.y
+				},
+				{ x0: centerSquare.topLeftCorner.x, y0: container.min.y, x1: container.max.x, y1: container.min.y },
+				{ x0: container.max.x, y0: container.min.y, x1: container.max.x, y1: centerSquare.topRightCorner.y }
+			  ]
+			});
+			canvas.push({
+			  min: { x: container.min.x, y: centerSquare.topLeftCorner.y },
+			  max: { x: container.max.x, y: centerSquare.bottomRightCorner.y },
+			  borders: [
+				{
+				  x0: centerSquare.topLeftCorner.x + BORDER_WIDTH / 2,
+				  y0: centerSquare.topLeftCorner.y,
+				  x1: container.min.x,
+				  y1: centerSquare.topLeftCorner.y
+				},
+				{
+				  x0: container.min.x,
+				  y0: centerSquare.topLeftCorner.y,
+				  x1: container.min.x,
+				  y1: centerSquare.bottomRightCorner.y
+				},
+				{
+				  x0: centerSquare.bottomRightCorner.x - BORDER_WIDTH / 2,
+				  y0: centerSquare.bottomRightCorner.y,
+				  x1: container.max.x,
+				  y1: centerSquare.bottomRightCorner.y
+				},
+				{
+				  x0: container.max.x,
+				  y0: centerSquare.bottomRightCorner.y,
+				  x1: container.max.x,
+				  y1: centerSquare.topRightCorner.y
+				}
+			  ]
+			});
+			canvas.push({
+			  min: { x: container.min.x, y: centerSquare.bottomLeftCorner.y },
+			  max: { x: centerSquare.bottomRightCorner.x, y: container.max.y },
+			  borders: [
+				{
+				  x0: container.min.x,
+				  y0: centerSquare.bottomLeftCorner.y - BORDER_WIDTH / 2,
+				  x1: container.min.x,
+				  y1: container.max.y
+				},
+				{
+				  x0: container.min.x,
+				  y0: container.max.y,
+				  x1: centerSquare.bottomRightCorner.x,
+				  y1: container.max.y
+				},
+				{
+				  x0: centerSquare.bottomRightCorner.x,
+				  y0: container.max.y,
+				  x1: centerSquare.bottomRightCorner.x,
+				  y1: centerSquare.bottomRightCorner.y
+				}
+			  ]
+			});
+		  */
 		}
 	}
 	// update canvas coordinates values relative to the container

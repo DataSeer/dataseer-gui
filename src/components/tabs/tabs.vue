@@ -3,12 +3,12 @@
 		<div class="tabs__links">
 			<ul>
 				<li
-					v-for="(tab, index) in tabs"
-					:key="index"
-					@click.prevent="$emit('navButtonClick', index)"
+					v-for="(tab) in tabs"
+					:key="tab.id"
+					@click="$emit('tabsNavClick', tab)"
 					class="tabs__link"
 					:class="{
-						'is-active': index === activeTabIndex,
+						'is-active': tab.id === activeTabId,
 						'is-completed': tab.status === 'saved'
 					}"
 				>
@@ -40,9 +40,9 @@ export default {
 	 * Props
 	 */
 	props: {
-		activeTabIndex: {
-			type: Number || null,
-			default: null
+		activeTabId: {
+			type: String || undefined,
+			default: undefined
 		},
 		tabs: {
 			type: [],
