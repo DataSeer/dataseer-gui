@@ -13,6 +13,7 @@ const state = {
 const getters = {
 	loggedIn: state => state.status.loggedIn,
 	username: state => state.user.fullname.split('@')[0],
+	user: state => state.user,
 	userId: state => state.user._id,
 	userRole: state => state.user.role.key,
 	userRoleWeight: state => state.user?.role.weight || 0,

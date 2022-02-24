@@ -4,10 +4,9 @@
 			<div class="shell">
 				<div class="summary__inner">
 					<div class="summary__content">
-						<div class="summary__head">
-							<h3 class="summary__title">Document Summary</h3>
-						</div>
-						<!-- /.summary__head -->
+						<div v-if="summaryTitle" class="summary__head">
+							<h3 class="summary__title">{{summaryTitle}}</h3>
+						</div> <!-- /.summary__head -->
 
 						<div class="summary__body">
 							<div class="summary__body-aside">
@@ -16,130 +15,72 @@
 										<h6>Title</h6>
 
 										<p>
-											Implementation of the Operating Room Black Box Research Program at the Ottowa
-											Hospital Through Patient, Clinic Organizational Engagement: Case Study
+											{{metadata.article_title}}
 										</p>
 									</li>
 
-									<li>
-										<h6>Journal</h6>
+									<li v-if="hasDescription">
+										<template v-if="metadata.journal">
+											<h6>Journal</h6>
 
-										<p>Journal of Medical Internet Research</p>
+											<p>{{metadata.journal}}</p>
+										</template>
 
-										<h6>Publisher</h6>
+										<template v-if="metadata.publisher">
+											<h6>Publisher</h6>
 
-										<p>JMIR Publications Inc.</p>
+											<p>{{metadata.publisher}}</p>
+										</template>
 
-										<h6>Publication Date</h6>
+										<template v-if="metadata.date_published">
+											<h6>Publication Date</h6>
 
-										<p>2021-03-16</p>
+											<p>{{formatDate(metadata.date_published)}}</p>
+										</template>
 
-										<h6>DOI</h6>
+										<template v-if="metadata.doi">
+											<h6>DOI</h6>
 
-										<p>10.2196/15443</p>
+											<p>{{metadata.doi}}</p>
+										</template>
 									</li>
 								</ul>
 
 								<div class="summary__body-actions">
 									<Button className="tertiary" block>This data is incorrect</Button>
 
-									<Button v-if="getCurator" to="/manage-document" className="tertiary" block>
+									<Button v-if="userRoleWeight >= 1000" to="/manage-document" className="tertiary" block>
 										Manage Document
 									</Button>
 								</div>
 								<!-- /.summary__body-actions -->
-							</div>
-							<!-- /.summary__body-aside -->
+							</div><!-- /.summary__body-aside -->
 
-							<div class="summary__body-content">
-								<RichtextEntry label="Authors (10)">
+							<div
+								v-if="!metadata.authors"
+								class="summary__body-content"
+							>
+								<RichtextEntry
+									:label="`Authors (${metadata.authors.length})`"
+								>
 									<ul>
-										<li>
-											<h6>Laura Leadauthor <span>(leadauthor@toh.ca)</span></h6>
-
-											Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-											Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-											Ottawa, Canada Department of Innovation in Medical Education University of
-											Ottawa, Ottawa, Canada Faculty of Medicine Francophone Affairs University of
-											Ottawa, Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Nicole Etherington</h6>
-
-											Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-											Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-											Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Sandy Lam</h6>
-
-											Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-											Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-											Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Maxime Lê</h6>
-
-											Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Laurie Proulx</h6>
-
-											Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Meghan Britton</h6>
-
-											Main Operating Room The Ottawa Hospital, Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Julie Kenna</h6>
-
-											Main Operating Room The Ottawa Hospital, Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Antoine Przybylak-Brouillard</h6>
-
-											Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa,
-											Canada Clinical Epidemiology Program Ottawa Hospital Research Institute,
-											Ottawa, Canada
-										</li>
-
-										<li>
-											<h6>Jeremy Grimshaw</h6>
-
-											Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa,
-											Canada
-										</li>
-
-										<li>
-											<h6>Teodor Grantcharov</h6>
-
-											Department of General Surgery University of Toronto, Toronto, Canada Li Ka
-											Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
-										</li>
-
-										<li>
-											<h6>Sukhbir Singh</h6>
-
-											Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa,
-											Ottawa, Canada
+										<li v-for="(author, index) in metadata.authors" :key="index">
+											<h6>{{author.name}} <span v-if="author.email">{{`(${author.email})`}}</span></h6>
+											
+											<template v-if="author.affiliations">
+												<p
+													v-for="(affiliation, index) in author.affiliations"
+													:key="index"
+												>
+													{{affiliation}}
+												</p>
+											</template>
 										</li>
 									</ul>
 								</RichtextEntry>
-							</div>
-							<!-- /.summary__body-content -->
-						</div>
-						<!-- /.summary__body -->
-					</div>
-					<!-- /.summary__content -->
+							</div> <!-- /.summary__body-content -->
+						</div> <!-- /.summary__body -->
+					</div> <!-- /.summary__content -->
 
 					<div class="summary__aside">
 						<h4>Invite Collaborators</h4>
@@ -177,14 +118,10 @@
 						</ul>
 
 						<BtnClose @onClick="$emit('closeBtnClick', $event)" label="Close Summary" />
-					</div>
-					<!-- /.summary__aside -->
-				</div>
-				<!-- /.summary__inner -->
-			</div>
-			<!-- /.shell -->
-		</div>
-		<!-- /.summary -->
+					</div> <!-- /.summary__aside -->
+				</div> <!-- /.summary__inner -->
+			</div> <!-- /.shell -->
+		</div> <!-- /.summary -->
 	</transition>
 </template>
 
@@ -192,6 +129,7 @@
 /**
  * External Dependencies
  */
+import { format } from 'date-fns' 
 import { mapGetters } from 'vuex';
 
 /**
@@ -222,17 +160,40 @@ export default {
 	 * Props
 	 */
 	props: {
+		metadata: {
+			type: Object,
+			default: () => {}
+		},
 		isVisible: {
 			type: Boolean,
 			default: false
+		},
+	},
+
+	data() {
+		return {
+			summaryTitle: "Document Summary"
 		}
 	},
 
-	/**
-	 * Computed
-	 */
 	computed: {
-		...mapGetters(['getCurator'])
-	}
+		...mapGetters('account', ['username', 'userRoleWeight']),
+		hasDescription() {
+			return this.metadata.journal
+				|| this.metadata.publisher
+				|| this.metadata.date_published
+				|| this.metadata.doi
+		}
+	},
+
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		formatDate(date) {
+			return format(new Date(date), 'yyyy-MM-dd');
+		},
+	},
 };
 </script>

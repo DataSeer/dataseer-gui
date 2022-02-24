@@ -316,7 +316,7 @@
 						</GridColumn>
 
 						<GridColumn>
-							<Field name="instructions" type="textarea" v-model="formData.instructions">
+							<Field name="comments" type="textarea" v-model="formData.comments">
 								<Icon name="comment" />
 
 								Additional Comments or Instructions
@@ -461,7 +461,7 @@ export default {
 				type: '',
 				subtype: '',
 				permalink: '',
-				instructions: '',
+				comments: '',
 				reuse: null,
 				publicly: null,
 				practices: null,
@@ -509,6 +509,7 @@ export default {
 		populateFormData() {
 			this.formData =  {
 				...this.formData,
+				comments: this.dataset.comments,
 				type: this.dataset.dataType,
 				permalink: this.dataset.DOI,
 				instructions: this.dataset.comments,

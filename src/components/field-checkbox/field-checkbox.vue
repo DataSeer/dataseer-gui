@@ -113,7 +113,6 @@ export default {
 			this.$emit('input', event.target.checked);
 		},
 		setSelected(value) {
-			console.log(value);
 			this.$emit('input', value);
 		},
 		toKebabCase

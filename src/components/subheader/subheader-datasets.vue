@@ -47,70 +47,79 @@
 			</Button>
 		</div> <!-- /.subheader__right -->
 
-		<Summary :isVisible="isSummaryVisible" @closeBtnClick="toggleSummary" />
+		<template v-if="metadata._id">
+			<Summary
+				:metadata="metadata"
+				:isVisible="isSummaryVisible"
+				@closeBtnClick="toggleSummary"
+			/>
 
-		<div class="dataset-title">
-			<div class="dataset__inner">
-				<Icon name="document" />
+			<div class="dataset-title">
+				<div class="dataset__inner">
+					<Icon name="document" />
 
-				<h6 id="subheader-title" @click.prevent="toggleSummary">
-					Implementation of the Operating Room Black Box Research Program at the O ttowa Hospital
-					Through Patient, Clinic Organizational Engagement: Case Study
-				</h6>
+					<h6
+						v-if="metadata.article_title"
+						id="subheader-title"
+						class="overflow-truncate"
+						@click.prevent="toggleSummary"
+					>
+						{{metadata.article_title}}
+					</h6>
 
-				<Dropdown>
-					<template #header>
-						<span class="btn-dropdown"></span>
-					</template>
+					<Dropdown>
+						<template #header>
+							<span class="btn-dropdown"></span>
+						</template>
 
-					<div class="dropdown__nav">
-						<ul>
-							<li>
-								<a href="#" @click.prevent="toggleSummary">
-									<Icon name="view_list" color="currentColor" />
+						<div class="dropdown__nav">
+							<ul>
+								<li>
+									<a href="#" @click.prevent="toggleSummary">
+										<Icon name="view_list" color="currentColor" />
 
-									Document Summary
-								</a>
-							</li>
+										Document Summary
+									</a>
+								</li>
 
-							<li>
-								<a href="#">
-									<Icon name="invite" color="currentColor" />
+								<li>
+									<a href="#">
+										<Icon name="invite" color="currentColor" />
 
-									Invite By Email
-								</a>
-							</li>
+										Invite By Email
+									</a>
+								</li>
 
-							<li>
-								<a href="#">
-									<Icon name="share" color="currentColor" />
+								<li>
+									<a href="#">
+										<Icon name="share" color="currentColor" />
 
-									Get A Share Link
-								</a>
-							</li>
+										Get A Share Link
+									</a>
+								</li>
 
-							<li>
-								<a href="#">
-									<Icon name="document_view" color="currentColor" />
+								<li>
+									<a href="#">
+										<Icon name="document_view" color="currentColor" />
 
-									View Uploaded File
-								</a>
-							</li>
-						</ul>
-					</div>
-					<!-- /.dropdown__nav -->
-				</Dropdown>
-			</div>
-			<!-- /.dataset__inner -->
+										View Uploaded File
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- /.dropdown__nav -->
+					</Dropdown>
+				</div> <!-- /.dataset__inner -->
 
-			<ul>
-				<li><strong>L. Leadauthor</strong></li>
+				<ul>
+					<li v-if="metadata.submitting_author"><strong>{{metadata.submitting_author}}</strong></li>
 
-				<li>
-					<a href="#">my_uploaded-filename.pdf</a>
-				</li>
-			</ul>
-		</div> <!-- /.dataset-title -->
+					<li>
+						<a href="#">my_uploaded-filename.pdf</a>
+					</li>
+				</ul>
+			</div> <!-- /.dataset-title -->
+		</template>
 	</div> <!-- /.subheader__inner -->
 </template>
 
@@ -122,14 +131,33 @@ import Button from '@/components/button/button.vue';
 import Dropdown from '@/components/dropdown/dropdown';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'SubheaderDatasets',
 
+	/**
+	 * Props
+	 */
+	props: {
+		metadata: {
+			type: Object,
+			default: () => {}
+		},
+	},
+
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			isSummaryVisible: false
 		};
 	},
 
+	/**
+	 * Components
+	 */
 	components: {
 		Dot,
 		Icon,
@@ -138,10 +166,13 @@ export default {
 		Dropdown
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		}
-	}
+	},
 };
 </script>
