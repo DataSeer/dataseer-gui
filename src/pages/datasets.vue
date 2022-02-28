@@ -120,7 +120,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset']),
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes']),
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
 				id: dataset.id,
@@ -154,34 +154,33 @@ export default {
 				const dataTypes = await documentsService.getJsonDataTypes();
 
 				const currentDocument = new DocumentHandler({
-					ids: {
-						document: doc._id,
-						datasets: doc.datasets._id
+						ids: {
+							document: doc._id,
+							datasets: doc.datasets._id
+						},
+						user: this.user,
+						datatypes: dataTypes,
+						datasets: doc.datasets,
+						metadata: doc.metadata,
+						tei: { data: xml, metadata: tei.res.metadata },
+						pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 					},
-					user: this.user,
-					datatypes: dataTypes,
-					datasets: doc.datasets,
-					metadata: doc.metadata,
-					tei: { data: xml, metadata: tei.res.metadata },
-					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
-				},
-				{
-					onSentenceClick: (dataset) => {
-						this.setActiveDataset(dataset);
-					},
-				}
-			);
-
-			currentDocument.link({
-				documentView: documentView,
-				datasetsList: datasetsList,
-				// datasetForm: datasetForm
-			});
-			
-			this.setDocumentHandler(currentDocument)
-			this.metadata = doc.metadata;
-			this.datasets = doc.datasets.current;
+					{
+						onSentenceClick: (dataset) => {
+							this.setActiveDataset(dataset);
+						},
+					}
+				);
+				currentDocument.link({
+					documentView: documentView,
+					datasetsList: datasetsList,
+					// datasetForm: datasetForm
+				});
 				
+				this.setDocumentHandler(currentDocument)
+				this.setDataTypes(dataTypes)
+				this.metadata = doc.metadata;
+				this.datasets = doc.datasets.current;
 			} catch (error) {
 				this.error = true
 				this.errorMessage = error.message

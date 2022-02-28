@@ -1,7 +1,8 @@
 // State
 const state = {
+	dataTypes: {},
 	documentHandler: {},
-	activeDataset: undefined
+	activeDataset: undefined,
 }
 
 // Getters
@@ -9,10 +10,14 @@ const getters = {
 	documentHandler: state => state.documentHandler,
 	activeDataset: state => state.activeDataset,
 	activeDatasetId: state => state.activeDataset?.id,
+	dataTypes: state => state.dataTypes,
 }
 
 // Actions
 const actions = {
+	setDataTypes({commit}, dataTypes ) {
+		commit('SET_DATA_TYPES', dataTypes)
+	},
 	setActiveDataset({commit}, dataset ) {
 		commit('SET_ACTIVE_DATASET', dataset)
 	},
@@ -23,6 +28,9 @@ const actions = {
 
 // Mutations
 const mutations = {
+	SET_DATA_TYPES(state, payload) {
+        state.dataTypes = payload;
+    },
 	SET_ACTIVE_DATASET(state, payload) {
         state.activeDataset = payload;
     },
