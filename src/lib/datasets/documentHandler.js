@@ -655,7 +655,6 @@ DocumentHandler.prototype.synchronize = function() {
 			return self.refreshSentencesMapping();
 		});
 	}
-	
 	if (this.datasetsList) {
 		// Attach datasetsList events
 		this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {

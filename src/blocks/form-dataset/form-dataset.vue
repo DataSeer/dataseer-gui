@@ -176,7 +176,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top-center="tooltips.connectText"
-								@onClick="handleSelectAdditionalText"
+								@onClick="handleDatasetLink"
 							>
 								<Icon name="connect" />
 							</Button>
@@ -238,8 +238,6 @@ import FieldSelect from '@/components/field-select/field-select';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
-
-import dataseermlService from '@/services/dataseerml/dataseerml';
 
 export default {
 	/**
@@ -382,8 +380,8 @@ export default {
 				reuse: this.dataset.reuse,
 			}
 
-			this.bestPractices = this.dataTypes.metadata[this.formData.type].bestDataFormatForSharing
-			this.suitableRepository = this.dataTypes.metadata[this.formData.type].mostSuitableRepositories.default
+			this.bestPractices = this.dataTypes.metadata[this.formData.type]?.bestDataFormatForSharing
+			this.suitableRepository = this.dataTypes.metadata[this.formData.type]?.mostSuitableRepositories.default
 		},
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
@@ -398,11 +396,14 @@ export default {
 			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
 			if (confirmDelete) {
-				this.$emit('onDatasetDelete')
+				this.$emit('datasetDelete')
 			}
 		},
-		handleSelectAdditionalText(e) {
+		handleDatasetLink(e) {
 			e.preventDefault();
+			e.stopPropagation();
+			
+			this.$emit('datasetLink')
 		},
 		openPopup(e) {
 			e.preventDefault();
@@ -415,12 +416,11 @@ export default {
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;
 		},
-		async getJsonDataTypes() {
-			const jsonDataTypes = await dataseermlService.getJsonDataTypes();
-			this.jsonDataTypes = jsonDataTypes;
-		}
 	},
 
+	/**
+	 * Mounted
+	 */
 	mounted () {
 		this.populateFormData();
 	},

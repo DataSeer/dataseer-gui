@@ -21,7 +21,8 @@
 		padding: 0 10px;
 	}
 
-	a {
+	
+	button {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -30,6 +31,8 @@
 		text-decoration: none;
 		overflow: hidden;
 		color: inherit;
+		border: none;
+		background: none;
 
 		&:before {
 			content: '';
@@ -40,7 +43,7 @@
 			height: 100%;
 		}
 
-		&.router-link-active {
+		&.is-active {
 			color: $c-base;
 		}
 
@@ -64,7 +67,7 @@
 		height: 12px;
 	}
 
-	li:nth-child(1) .router-link-active {
+	li:nth-child(1) .is-active {
 		box-shadow: 0 2px 2px 0px rgba($c-blue-19, 0.15) inset;
 		background-color: $c-skyblue-fa;
 
@@ -73,7 +76,7 @@
 		}
 	}
 
-	li:nth-child(2) .router-link-active {
+	li:nth-child(2) .is-active {
 		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
 		background-color: $c-purple-fa;
 
@@ -82,7 +85,7 @@
 		}
 	}
 
-	li:nth-child(3) .router-link-active {
+	li:nth-child(3) .is-active {
 		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
 		background-color: $c-orange-fff;
 
@@ -91,7 +94,7 @@
 		}
 	}
 
-	li:nth-child(4) .router-link-active {
+	li:nth-child(4) .is-active {
 		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
 		background-color: $c-green-f5;
 

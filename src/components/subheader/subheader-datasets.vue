@@ -1,39 +1,19 @@
 <template>
 	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
 		<div class="subheader__left">
-			<nav class="nav-datasets">
+			<nav v-if="datasetTypes.length" class="nav-datasets">
 				<ul>
-					<li>
-						<router-link to="/datasets">
-							<Icon name="datasets" color="currentColor" />
-
-							Datasets
-						</router-link>
-					</li>
-
-					<li>
-						<router-link to="/datasets-code">
-							<Dot />
-							<Icon name="brackets" color="currentColor" />
-
-							Code
-						</router-link>
-					</li>
-
-					<li>
-						<router-link to="/datasets-materials">
-							<Icon name="flask" color="currentColor" />
-
-							Materials
-						</router-link>
-					</li>
-
-					<li>
-						<router-link to="/datasets-protocols">
-							<Icon name="protocols" color="currentColor" />
-
-							Protocols
-						</router-link>
+					<li v-for="type in datasetTypes" :key="type.id">
+						<button
+							:data-value="type.id"
+							:class="{ 'is-active': type.id === activeDatasetType}"
+							@click.prevent="$emit('navButtonClick', type.id)"
+						>
+							<Dot v-if="type.flagged" />
+							<Icon :name="type.icon" color="currentColor" />
+							
+							{{type.label}}
+						</button>
 					</li>
 				</ul>
 			</nav> <!-- /.nav-datasets -->
@@ -144,6 +124,13 @@ export default {
 			type: Object,
 			default: () => {}
 		},
+		datasetTypes: {
+			type: Array,
+			default: () => []
+		},
+		activeDatasetType: {
+			type: String,
+		},
 	},
 
 	/**
@@ -151,7 +138,7 @@ export default {
 	 */
 	data: function() {
 		return {
-			isSummaryVisible: false
+			isSummaryVisible: false,
 		};
 	},
 

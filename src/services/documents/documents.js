@@ -77,10 +77,6 @@ const getJsonDataTypes = () => {
 		.then((res) => res.data);
 };
 
-
-
-
-
 export default {
 	getDocuments,
 	getDocument,

@@ -1,7 +1,12 @@
 <template>
 	<Main className="main--datasets" hasSubheader>
 		<Subheader>
-			<SubheaderDatasets :metadata="metadata" />
+			<SubheaderDatasets
+				:datasetTypes="datasetTypes"
+				:activeDatasetType="activeDatasetType"
+				:metadata="metadata"
+				@navButtonClick="setActiveDatasetType"
+			/>
 		</Subheader>
 
 		<Loader
@@ -21,12 +26,15 @@
 					<FormDataset
 						v-if="activeDataset"
 						:dataset="activeDataset"
-						@onDatasetDelete="handleDatasetDelete"
+						@datasetDelete="handleDatasetDelete"
+						@datasetLink="handleDatasetLink"
 					/>
 
 					<h1 v-else>
 						The selected sentences are not linked to a dataset
+						
 						<br>
+						
 						If they are, click the button "Add new Dataset"
 					</h1>
 				</Tab>
@@ -34,6 +42,7 @@
 
 			<DatasetUtils
 				@newDatasetClick="handleNewDatasetClick"
+				@mergeDatasetClick="handleNewDatasetClick"
 			/>
 		</Loader>
 		
@@ -97,6 +106,33 @@ export default {
 	 */
 	data: function() {
 		return {
+			datasetTypes: [
+				{
+					label: 'Datasets',
+					icon: 'datasets',
+					id: 'datasets',
+					flagged: false,
+				},
+				{
+					label: 'Code',
+					icon: 'brackets',
+					id: 'code',
+					flagged: true,
+				},
+				{
+					label: 'Materials',
+					icon: 'flask',
+					id: 'materials',
+					flagged: false,
+				},
+				{
+					label: 'Protocols',
+					icon: 'protocols',
+					id: 'protocols',
+					flagged: false,
+				},
+			],
+			activeDatasetType: 'code',
 			metadata: {},
 			datasets: [],
 			loading: true,
@@ -121,6 +157,9 @@ export default {
 	 */
 	methods: {
 		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes']),
+		setActiveDatasetType(value){
+			this.activeDatasetType = value;
+		},
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
 				id: dataset.id,
@@ -131,7 +170,13 @@ export default {
 			})
 		},
 		handleNewDatasetClick(){
+			console.log('handleNewDatasetClick');
+		},
+		handleNewDatasetClick(){
 			this.documentHandler.datasetsList.events.onNewDatasetClick();
+		},
+		handleDatasetLink() {
+			console.log('handleDatasetLink');
 		},
 		handleDatasetDelete() {
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
@@ -190,6 +235,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Mounted
+	 */
 	mounted () {
 		this.initializePdfViewer();
 	},
