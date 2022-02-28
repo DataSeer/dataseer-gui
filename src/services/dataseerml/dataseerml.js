@@ -8,6 +8,12 @@ const getJsonDataTypes = () => (
 		.then(res => res.data)
 )
 
+const postProcessDataseerSentence = (params) => (
+	axiosInstance.post('/dataseer-ml/processDataseerSentence', params)
+		.then(res => res.data)
+)
+
 export default {
-	getJsonDataTypes
+	getJsonDataTypes,
+	postProcessDataseerSentence
 }

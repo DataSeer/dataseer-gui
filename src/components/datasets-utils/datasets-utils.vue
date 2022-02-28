@@ -5,7 +5,7 @@
 				tabindex="0"
 				v-tooltip.right="mergeText"
 				:aria-label="mergeText"
-				@click.prevent="$emit('mergeButtonClick')"
+				@click.prevent="$emit('mergeDatasetClick')"
 			>
 				<Icon name="merge" />
 			</button>
@@ -16,7 +16,7 @@
 				tabindex="0"
 				v-tooltip.right="addText"
 				:aria-label="addText"
-				@click.prevent="$emit('addButtonClick')"
+				@click.prevent="$emit('newDatasetClick')"
 			>
 				<Icon name="add" />
 			</button>

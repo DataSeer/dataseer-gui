@@ -1,11 +1,17 @@
 /* eslint-disable */
 
-'use strict';
-
-import Colors from './colors';
+/**
+ * External Dependencies
+ */
 import $ from 'jquery';
 import _ from 'lodash';
 import async from 'async';
+
+/**
+ * Internal Dependencies
+ */
+import Colors from './colors';
+import API from './api';
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;

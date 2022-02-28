@@ -28,8 +28,10 @@
 				</Tab>
 			</Tabs>
 
-			<DatasetUtils @addButtonClick="addDataset" />
-		</Loader>
+			<DatasetUtils
+				async @newDatasetClick="handleNewDatasetClick"
+			/>
+		</Loader> await
 		
 		<template #right>
 			<PDF />
@@ -130,6 +132,30 @@ export default {
 				sentences: sentences,
 				sentence: { id: currentSentenceId },
 			})
+		},
+		handleNewDatasetClick(){
+			const self = this.documentHandler;
+			let selectedSentences = self.documentView.getSelectedSentences();
+			
+			if (selectedSentences.length === 0) {
+				return alert('You must select a sentence to create a new dataset')
+			}
+
+			try {
+				self.newDataset(selectedSentences, function(err, dataset) {
+					if (err) return;
+					
+					return self.selectSentence({
+						sentence: dataset.sentences[0],
+						selectedDataset: dataset
+					});
+				});	
+			} catch (error) {
+				console.log(error);
+			}
+
+			
+			
 		},
 		deleteDataset() {
 			console.log('deleteDataset');
