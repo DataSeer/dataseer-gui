@@ -12,9 +12,6 @@ import SignUp from '@/pages/sign-up';
 import SignIn from '@/pages/sign-in';
 import ForgotPassword from '@/pages/forgot-password';
 import Datasets from '@/pages/datasets';
-import DatasetsCode from '@/pages/datasets-code';
-import DatasetsMaterials from '@/pages/datasets-materials';
-import DatasetsProtocols from '@/pages/datasets-protocols';
 import Organizations from '@/pages/organizations';
 import Documents from '@/pages/documents';
 import Accounts from '@/pages/accounts';
@@ -79,33 +76,6 @@ const routes = [
 		name: 'Report',
 		path: '/documents/:id/report',
 		component: Report,
-		meta: {
-			requiresAuth: true,
-			requiredWeight: 0
-		}
-	},
-	{
-		name: 'DatasetsCode',
-		path: '/datasets-code',
-		component: DatasetsCode,
-		meta: {
-			requiresAuth: true,
-			requiredWeight: 0
-		}
-	},
-	{
-		name: 'DatasetsMaterials',
-		path: '/datasets-materials',
-		component: DatasetsMaterials,
-		meta: {
-			requiresAuth: true,
-			requiredWeight: 0
-		}
-	},
-	{
-		name: 'DatasetsProtocols',
-		path: '/datasets-protocols',
-		component: DatasetsProtocols,
 		meta: {
 			requiresAuth: true,
 			requiredWeight: 0

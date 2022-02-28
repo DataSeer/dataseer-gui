@@ -10,8 +10,15 @@
 		/>
 		
 		<Tabs>
-			<Tab v-for="(tab, index) in tabs" :completed="tab.completed" :flagged="tab.flagged" :tooltip="tab.tooltip" :key="tab.id">
-				<FormDatasetCode
+			<Tab
+				v-for="(tab, index) in tabs"
+				:completed="tab.completed"
+				:flagged="tab.flagged"
+				:tooltip="tab.tooltip"
+				:key="tab.id"
+			>
+				<component
+					:is="userComponent"
 					:title="`Code-${index + 1}`"
 					:flagged="tab.flagged"
 					@onDatasetDelete="deleteDataset(index)" 

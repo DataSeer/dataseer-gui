@@ -22,22 +22,12 @@
 				:activeTabId="activeDatasetId"
 				@tabsNavClick="handleTabsNavClick"
 			>
-				<Tab>
-					<FormDataset
-						v-if="activeDataset"
-						:dataset="activeDataset"
-						@datasetDelete="handleDatasetDelete"
-						@datasetLink="handleDatasetLink"
-					/>
-
-					<h1 v-else>
-						The selected sentences are not linked to a dataset
-						
-						<br>
-						
-						If they are, click the button "Add new Dataset"
-					</h1>
-				</Tab>
+				<Dataset
+					:dataset="activeDataset"
+					:activeDatasetType="activeDatasetType"
+					@datasetDelete="handleDatasetDelete"
+					@datasetLink="handleDatasetLink"
+				/>
 			</Tabs>
 
 			<DatasetUtils
@@ -63,13 +53,12 @@ import { mapActions, mapGetters } from 'vuex'
  * Internal Dependencies
  */
 import PDF from '@/blocks/pdf/pdf';
-import Tab from '@/components/tabs/tab';
 import Tabs from '@/components/tabs/tabs';
 import Main from '@/components/main/main';
 import Intro from '@/components/intro/intro'
 import Loader from '@/blocks/loader/loader';
+import Dataset from '@/blocks/dataset/dataset'
 import Subheader from '@/components/subheader/subheader';
-import FormDataset from '@/blocks/form-dataset/form-dataset';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 import SubheaderDatasets from '@/components/subheader/subheader-datasets';
 
@@ -93,11 +82,10 @@ export default {
 		Subheader,
 		SubheaderDatasets,
 		PDF,
-		Tab,
 		Tabs,
 		Main,
 		Intro,
-		FormDataset,
+		Dataset,
 		DatasetUtils
 	},
 	
@@ -132,7 +120,7 @@ export default {
 					flagged: false,
 				},
 			],
-			activeDatasetType: 'code',
+			activeDatasetType: 'datasets',
 			metadata: {},
 			datasets: [],
 			loading: true,
@@ -147,6 +135,13 @@ export default {
 	computed: {
 		...mapGetters('account', ['user']),
 		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId']),
+		formComponent() {
+			if (this.activeDatasetType === 'code') return FormDatasetCode;
+			if (this.activeDatasetType === 'materials') return FormDatasetMaterial;
+			if (this.activeDatasetType === 'protocols') return FormDatasetProtocols;
+
+			return FormDataset;
+		},
 		documentId() {
 			return this.$route.params.id
 		}

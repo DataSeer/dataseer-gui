@@ -1,7 +1,9 @@
 <template>
 	<div class="dataset">
-		<FormIssues v-if="flagged && userRoleWeight < 1000" />
-		<FormCuratorIssues v-if="(flagged || isIssuesFormVisible) && userRoleWeight >= 1000" @cancelClick="handleIssuesCancel" />
+		<template v-if="flagged">
+			<FormIssues v-if="userRoleWeight < 1000" />
+			<FormCuratorIssues v-if="isIssuesFormVisible && userRoleWeight >= 1000" @cancelClick="handleIssuesCancel" />
+		</template>
 
 		<div class="form form--dataset">
 			<form action="?" method="post">
@@ -223,20 +225,19 @@
 import { required } from 'vuelidate/lib/validators';
 import { mapGetters } from 'vuex'
 
-
 /**
  * Internal Dependencies
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
-import Popup from '@/components/popup/popup';
 import Button from '@/components/button/button';
-import FormIssues from '@/blocks/form-issues/form-issues';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import HiddenText from '@/components/hidden-text/hidden-text';
 import FieldSelect from '@/components/field-select/field-select';
+import Popup from '@/components/popup/popup';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 export default {
