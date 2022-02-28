@@ -154,7 +154,7 @@ DocumentHandler.prototype.valid = function(id) {
 
 // Change status of the dataset (with the given id) to "loading"
 DocumentHandler.prototype.loading = function(id) {
-	if (id === this.datasetForm.currentId()) this.datasetForm.loading();
+	if (id === this.datasetForm?.currentId()) this.datasetForm?.loading();
 	this.datasetsList.loading(id);
 };
 
@@ -369,7 +369,7 @@ DocumentHandler.prototype.deleteDataset = function(id, cb) {
 	let self = this,
 		dataset = this.getDataset(id);
 	this.loading(id);
-	this.datasetForm.unlink(id);
+	this.datasetForm?.unlink(id);
 	return API.datasets.deleteDataset(
 		{
 			datasetsId: this.ids.datasets,
@@ -444,7 +444,7 @@ DocumentHandler.prototype.newDataset = function(sentences = {}, cb) {
 		console.log(err, res);
 		if (err) return cb(err, res);
 		if (res.err) return cb(true, res);
-		let dataType = res[`datatype`] ? res[`datatype`] : self.datasetForm.defaultDataType,
+		let dataType = res[`datatype`] ? res[`datatype`] : self.datasetForm?.defaultDataType,
 			subType = res[`subtype`] ? res[`subtype`] : ``,
 			cert = res[`cert`] ? res[`cert`] : 0;
 		let sentence = { id: datasetSentence.id, text: datasetSentence.text },
@@ -655,6 +655,7 @@ DocumentHandler.prototype.synchronize = function() {
 			return self.refreshSentencesMapping();
 		});
 	}
+	
 	if (this.datasetsList) {
 		// Attach datasetsList events
 		this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {
@@ -716,10 +717,10 @@ DocumentHandler.prototype.synchronize = function() {
 			);
 		});
 		this.datasetsList.attach(`onDatasetClick`, function(dataset) {
-			self.selectSentence({
-				sentence: dataset.sentence, // this data contain the current selected sentence
-				selectedDataset: dataset
-			});
+				self.selectSentence({
+					sentence: dataset.sentence, // this data contain the current selected sentence
+					selectedDataset: dataset
+				});
 		});
 		this.datasetsList.attach(`onDatasetCheck`, function(dataset) {
 			// console.log(dataset);

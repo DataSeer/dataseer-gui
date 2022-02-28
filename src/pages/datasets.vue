@@ -18,7 +18,11 @@
 				@tabsNavClick="handleTabsNavClick"
 			>
 				<Tab>
-					<FormDataset v-if="activeDataset" :dataset="activeDataset" />
+					<FormDataset
+						v-if="activeDataset"
+						:dataset="activeDataset"
+						@onDatasetDelete="handleDatasetDelete"
+					/>
 
 					<h1 v-else>
 						The selected sentences are not linked to a dataset
@@ -29,9 +33,9 @@
 			</Tabs>
 
 			<DatasetUtils
-				async @newDatasetClick="handleNewDatasetClick"
+				@newDatasetClick="handleNewDatasetClick"
 			/>
-		</Loader> await
+		</Loader>
 		
 		<template #right>
 			<PDF />
@@ -117,48 +121,20 @@ export default {
 	 */
 	methods: {
 		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset']),
-		addDataset() {
-			console.log('addDataset');
-		},
-		completeDataset() {
-			console.log('completeDataset');
-		},
 		handleTabsNavClick(dataset) {
-			let sentences = dataset.sentences;
-			let currentSentenceId = dataset.sentences[0].id
-
 			this.documentHandler.selectSentence({
 				id: dataset.id,
-				sentences: sentences,
-				sentence: { id: currentSentenceId },
+				sentences: dataset.sentences,
+				sentence: {
+					id: dataset.sentences[0].id
+				}
 			})
 		},
 		handleNewDatasetClick(){
-			const self = this.documentHandler;
-			let selectedSentences = self.documentView.getSelectedSentences();
-			
-			if (selectedSentences.length === 0) {
-				return alert('You must select a sentence to create a new dataset')
-			}
-
-			try {
-				self.newDataset(selectedSentences, function(err, dataset) {
-					if (err) return;
-					
-					return self.selectSentence({
-						sentence: dataset.sentences[0],
-						selectedDataset: dataset
-					});
-				});	
-			} catch (error) {
-				console.log(error);
-			}
-
-			
-			
+			this.documentHandler.datasetsList.events.onNewDatasetClick();
 		},
-		deleteDataset() {
-			console.log('deleteDataset');
+		handleDatasetDelete() {
+			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 		},
 		async initializePdfViewer() {
 			this.loading = true;
@@ -177,8 +153,7 @@ export default {
 				const xml = await documentsService.getDocumentTeiContent(this.documentId);
 				const dataTypes = await documentsService.getJsonDataTypes();
 
-				const currentDocument = new DocumentHandler(
-				{
+				const currentDocument = new DocumentHandler({
 					ids: {
 						document: doc._id,
 						datasets: doc.datasets._id
@@ -191,27 +166,9 @@ export default {
 					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
 				{
-					onReady: function() {
-						console.log('onReady');
-					},
-					onDatasetClick() {
-						console.log('onDatasetClick');
-					},
 					onSentenceClick: (dataset) => {
 						this.setActiveDataset(dataset);
 					},
-					onFulltextView() {
-						console.log('onFulltextView');
-					},
-					onSectionView() {
-						console.log('onSectionView');
-					},
-					onParagraphView() {
-						console.log('onParagraphView');
-					},
-					onPdfView() {
-						console.log('onPdfView');
-					}
 				}
 			);
 
