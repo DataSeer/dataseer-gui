@@ -1,0 +1,80 @@
+/* ------------------------------------------------------------ *\
+	Report Action
+\* ------------------------------------------------------------ */
+
+.report-action {
+	position: relative;
+	padding-left: 20px;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-right-radius: 8px;
+		background-color: $c-blue-19;
+	}
+	
+	h6 {
+		margin-bottom: 5px;
+		display: flex;
+		align-items: center;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.028em;
+	}	
+
+	h6 i {
+		margin-right: 10px;
+	}
+
+	strong {
+		margin-left: 5px;
+	}
+
+	p {
+		color: $c-base-ligter;
+	}
+
+	> ul {
+		display: flex;
+		list-style: none;
+		margin-bottom: 0;
+	}
+	
+	> ul > li:first-child:after {
+		content: '|';
+		margin: 0 13px;
+		color: $c-blue-19;
+	}
+
+	.report-group--actions li:nth-child(2) &:before {
+		background-color: $c-purple-72;
+	}
+
+	.report-group--actions li:nth-child(3) &:before {
+		background-color: $c-orange-d2;
+	}
+
+	.report-group--actions li:nth-child(4) &:before {
+		background-color: $c-green-40;
+	}
+}
+
+/* Report Action Warning */
+
+.report-action--warning {
+	p {
+		color: $c-orange-f4a1;
+	}
+}
+/* Report Action Error */
+
+.report-action--error {
+	p {
+		color: $c-red-e3;
+	}
+}

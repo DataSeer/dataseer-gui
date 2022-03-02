@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="61.003" height="60.421" viewBox="0 0 61.003 60.421">
+  <g id="Group_7" data-name="Group 7" transform="translate(-2.803 -2.05)">
+    <path id="Path_9" data-name="Path 9" d="M17.678,1.471A2,2,0,0,0,15.086.846L3.942,6.829a2,2,0,0,0,.264,3.642l23.329,8.461A1,1,0,0,0,28.7,17.424Z" transform="translate(29.471 47.135) rotate(-40)" fill="#e2f1ff"/>
+    <circle id="Oval" cx="3" cy="3" r="3" transform="matrix(-0.174, 0.985, -0.985, -0.174, 11.809, 25.965)" fill="#006ac9"/>
+    <path id="Path_9-2" data-name="Path 9" d="M6.612.832A2,2,0,0,0,4.582.4L2.864,1a.885.885,0,0,0,.089,1.7L7.3,3.723a.874.874,0,0,0,.8-1.487Z" transform="translate(13.334 44)" fill="#8cabcd"/>
+    <path id="Rectangle" d="M30.986,3.392a3,3,0,0,1,4.927,1.546L44.735,42.6a3,3,0,0,1-3.946,3.5L4.7,32.975a3,3,0,0,1-.981-5.05Z" transform="translate(30.228 66.243) rotate(-131)" fill="#ffb046"/>
+    <g id="Group_6" data-name="Group 6" transform="translate(32.476 14.893) rotate(8)">
+      <rect id="Rectangle-2" data-name="Rectangle" width="3" height="16" rx="1" fill="#ffdd72"/>
+      <rect id="Rectangle-3" data-name="Rectangle" width="3" height="3" rx="1" transform="translate(0 18)" fill="#ffdd72"/>
+    </g>
+  </g>
+</svg>

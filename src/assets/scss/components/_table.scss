@@ -1,0 +1,275 @@
+/* ------------------------------------------------------------ *\
+	Table
+\* ------------------------------------------------------------ */
+
+.table {
+	height: 100%;
+	flex: 1;
+	overflow: auto;
+	font-size: 14px;
+	line-height: 1.57;
+	letter-spacing: 0;
+
+	.vgt-wrap,
+	.table__pagination {
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+
+	.table__title,
+	.vgt-table thead th:first-child {
+		padding-left: 28px;
+	}
+
+	.table__inner {
+		position: relative;
+		height: 100%;
+		padding-bottom: 85px;
+		overflow: hidden;
+	}
+
+	.table__title {
+		position: relative;
+		display: block;
+		font-weight: 700;
+	}
+
+	.table__title a {
+		text-decoration: none;
+
+		&:focus,
+		&:hover {
+			color: inherit;
+			text-decoration: $c-primary dotted underline;
+		}
+	}
+
+	.table__title i {
+		content: '';
+		position: absolute;
+		top: 3px;
+		left: 0;
+	}
+
+	.table__actions > ul {
+		display: flex;
+		list-style: none;
+	}
+
+	.table__actions > ul > li {
+		flex-shrink: 0;
+	}
+
+	.table__actions > ul > li + li {
+		margin-left: 16px;
+	}
+
+	.table__actions .btn:not(.btn--square) {
+		padding-left: 11px;
+		padding-right: 11px;
+	}
+
+	.vgt-wrap {
+		position: static;
+		height: 100%;
+		overflow: auto;
+	}
+
+	.vgt-responsive {
+		overflow: visible;
+	}
+
+	.vgt-inner-wrap {
+		box-shadow: none;
+	}
+
+	table.vgt-table {
+		border: none;
+	}
+
+	table.vgt-table td {
+		border-color: $c-gray;
+		padding: 15px 27px 15px 0;
+		vertical-align: top;
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+	table.vgt-table td > span {
+		display: block;
+		margin-top: 6px;
+	}
+
+	table.vgt-table td ul {
+		list-style: none;
+	}
+
+	.vgt-right-align {
+		text-align: left;
+	}
+
+	table.vgt-table th {
+		border-color: $c-skyblue-bc;
+	}
+
+	.vgt-table thead th {
+		padding: 40px 15px 5px 0;
+		font-size: 12px;
+		color: $c-base-ligter;
+		background: none;
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+	.vgt-table thead th.sorting-asc,
+	.vgt-table thead th.sorting-desc {
+		color: $c-primary;
+	}
+
+	.vgt-table th.sortable button {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		width: 8px;
+		height: 12px;
+		margin-left: 10px;
+
+		&:after,
+		&:before {
+			left: 0;
+			margin: 0;
+			width: 8px;
+			height: 8px;
+			border: none;
+			background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23bcd0e6'/%3E%3C/svg%3E%0A")
+				center no-repeat;
+			background-size: contain;
+			opacity: 0;
+			transition: opacity $t-duration;
+		}
+
+		&:after {
+			top: 0;
+			transform: scale(1, -1);
+		}
+
+		&:before {
+			bottom: 0;
+			top: auto;
+		}
+	}
+
+	.vgt-table thead th.sortable:hover button {
+		&:after,
+		&:before {
+			opacity: 1;
+		}
+	}
+
+	.vgt-table thead th.sorting-asc button:after,
+	.vgt-table thead th.sorting-desc button:before {
+		opacity: 1;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.902' height='7.902' viewBox='0 0 7.902 7.902'%3E%3Cpath id='Rectangle' d='M5.293,1.707A1,1,0,0,1,7,2.414V6A1,1,0,0,1,6,7H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(3.951 -1.997) rotate(45)' fill='%23006ac9'/%3E%3C/svg%3E%0A");
+	}
+
+	.vgt-loading {
+		left: 0;
+		top: 0;
+		margin: 50px 0;
+	}
+}
+
+/* Table Documents */
+
+.table--documents {
+	#col-0 {
+		width: 28.1%;
+	}
+
+	#col-1 {
+		width: 10.5%;
+	}
+
+	#col-2 {
+		width: 9.9%;
+	}
+
+	#col-3 {
+		width: 15.3%;
+	}
+
+	#col-4,
+	#col-5 {
+		width: 6.2%;
+	}
+
+	#col-6 {
+		width: 10.2%;
+	}
+
+	#col-7 {
+		width: 19.8%;
+	}
+
+	.vgt-right-align {
+		white-space: nowrap;
+	}
+
+	.table__status {
+		&.is-validating {
+			color: $c-primary;
+		}
+
+		&.is-complete {
+			color: $c-green;
+		}
+	}
+
+	.table__files {
+		max-width: 220px;
+	}
+}
+
+/* Table Accounts */
+
+.table--accounts {
+	#col-6 {
+		width: 100px;
+	}
+}
+
+/* table--roles */
+
+.table--roles {
+	#col-5 {
+		width: 100px;
+	}
+
+	.table__color {
+		position: relative;
+		padding-left: 25px;
+	}
+
+	.table__color i {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		flex-shrink: 0;
+		width: 19px;
+		height: 19px;
+		border-radius: 50%;
+	}
+}
+
+/* Table Organizations */
+
+.table--organizations {
+	#col-4 {
+		width: 180px;
+	}
+}

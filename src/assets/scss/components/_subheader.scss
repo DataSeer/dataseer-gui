@@ -1,0 +1,168 @@
+/* ------------------------------------------------------------ *\
+	Subheader
+\* ------------------------------------------------------------ */
+
+.subheader {
+	background-color: $c-white;
+	box-shadow: 0 2px 9px rgb(0 106 201 / 12%);
+
+	.subheader__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 76px;
+	}
+
+	.subheader__left h3 {
+		display: flex;
+		align-items: center;
+		text-transform: uppercase;
+	}
+
+	.subheader__left h3 i {
+		margin-right: 10px;
+	}
+
+	.subheader__left h3 i.ico--key,
+	.subheader__left h3 i.ico--organization {
+		width: 28px;
+		height: 28px;
+	}
+
+	.subheader__left h3 i.ico--lock {
+		width: 21px;
+		height: 35px;
+
+		@include breakpoint-down(mobile-medium) {
+			width: 14px;
+			height: 24px;
+		}
+	}
+
+	.subheader__left h3 .btn {
+		margin-left: 20px;
+	}
+
+	.subheader__left .ico--documents {
+		width: 30px;
+		height: 33px;
+
+		@include breakpoint-down(mobile-medium) {
+			width: 24px;
+			height: 27px;
+		}
+	}
+
+	.subheader__left .ico--document {
+		width: 26px;
+		height: 33px;
+
+		@include breakpoint-down(mobile-medium) {
+			width: 21px;
+			height: 27px;
+		}
+	}
+
+	.subheader__left .ico--user {
+		width: 33px;
+		height: 33px;
+
+		@include breakpoint-down(mobile-medium) {
+			width: 26px;
+			height: 26px;
+		}
+	}
+
+	.subheader__right {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.subheader__menu {
+		@include breakpoint-down(tablet) {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			padding: 10px 20px 20px;
+			background-color: $c-white;
+			display: none;
+		}
+	}
+
+	.subheader__menu ul {
+		display: flex;
+		list-style: none;
+
+		@include breakpoint-down(tablet) {
+			flex-direction: column;
+			flex-wrap: wrap;
+		}
+	}
+
+	.subheader__menu ul li + li {
+		margin-left: 28px;
+
+		@include breakpoint-down(tablet) {
+			margin-left: 0;
+			margin-top: 15px;
+		}
+	}
+
+	.subheader__btn {
+		display: none;
+
+		@include breakpoint-down(tablet) {
+			display: block;
+		}
+	}
+
+	.subheader__right.is-active .subheader__menu {
+		display: block;
+	}
+}
+
+/* Subheader Datasets */
+
+.subheader--datasets {
+	.subheader__left {
+		padding-right: 15px;
+
+		@include breakpoint-down(tablet) {
+			padding-right: 0;
+		}
+	}
+}
+
+/* Subheader Profile */
+
+.subheader--profile {
+	.subheader__right {
+		@include breakpoint-down(mobile-medium) {
+			display: none;
+		}
+	}
+}
+
+/* Subheader Report */
+
+.subheader--report {
+	.subheader__inner {
+		@include breakpoint-down(tablet) {
+			display: block;
+			height: auto;
+			padding: 10px 0;
+		}
+	}
+
+	.subheader__right {
+		@include breakpoint-down(tablet) {
+			text-align: right;
+		}
+	}
+
+	.subheader__btn {
+		padding-left: 21px;
+	}
+}

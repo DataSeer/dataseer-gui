@@ -1,0 +1,23 @@
+/* ------------------------------------------------------------ *\
+	Logo
+\* ------------------------------------------------------------ */
+
+.logo {
+	position: relative; 
+	z-index: 25; 
+	width: 128px;
+	flex-shrink: 0;
+	font-size: 0;
+	line-height: 0;
+	text-indent: -4004px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	pointer-events: auto;
+
+	> img {
+		display: block;
+		width: 100%;
+	}
+}

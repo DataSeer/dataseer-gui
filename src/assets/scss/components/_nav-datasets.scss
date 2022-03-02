@@ -1,0 +1,105 @@
+/* ------------------------------------------------------------ *\
+	Nav Datasets
+\* ------------------------------------------------------------ */
+
+.nav-datasets {
+	font-weight: 500;
+	font-size: 15px;
+	font-family: $ff-titles;
+	text-transform: uppercase;
+	color: $c-base-ligter;
+
+	ul {
+		display: flex;
+		align-items: center;
+		margin: 0 -10px;
+	}
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		padding: 0 10px;
+	}
+
+	
+	button {
+		position: relative;
+		display: flex;
+		align-items: center;
+		padding: 11px 15px;
+		border-radius: 7px;
+		text-decoration: none;
+		overflow: hidden;
+		color: inherit;
+		border: none;
+		background: none;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 6px;
+			height: 100%;
+		}
+
+		&.is-active {
+			color: $c-base;
+		}
+
+		&:focus,
+		&:hover {
+			color: $c-base;
+			background-color: $c-gray-f5;
+		}
+	}
+
+	.ico {
+		flex-shrink: 0;
+		margin-right: 8px;
+	}
+
+	.dot {
+		position: absolute;
+		top: 3px;
+		right: 3px;
+		width: 12px;
+		height: 12px;
+	}
+
+	li:nth-child(1) .is-active {
+		box-shadow: 0 2px 2px 0px rgba($c-blue-19, 0.15) inset;
+		background-color: $c-skyblue-fa;
+
+		&:before {
+			background-color: $c-blue-19;
+		}
+	}
+
+	li:nth-child(2) .is-active {
+		box-shadow: 0 2px 2px 0px rgba($c-purple-65, 0.15) inset;
+		background-color: $c-purple-fa;
+
+		&:before {
+			background-color: $c-purple-72;
+		}
+	}
+
+	li:nth-child(3) .is-active {
+		box-shadow: 0 2px 2px 0px rgba($c-orange-d2, 0.15) inset;
+		background-color: $c-orange-fff;
+
+		&:before {
+			background-color: $c-orange-d2;
+		}
+	}
+
+	li:nth-child(4) .is-active {
+		box-shadow: 0 2px 2px 0px rgba($c-green-40, 0.15) inset;
+		background-color: $c-green-f5;
+
+		&:before {
+			background-color: $c-green-40;
+		}
+	}
+}

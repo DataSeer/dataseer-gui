@@ -1,0 +1,52 @@
+/* ------------------------------------------------------------ *\
+	Field Issues
+\* ------------------------------------------------------------ */
+
+.field-issues {
+	padding: 10px 12px;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14);
+
+	> p {
+		margin-bottom: 16px;
+		color: $c-placeholder;
+		font-size: 14px;
+	}
+
+	> ul {
+		list-style: none;
+	}
+
+	> ul > li + li {
+		margin-top: 8px;
+	}
+
+	label {
+		position: relative;
+		display: block;
+		padding-left: 25px;
+		color: $c-gray-a1;
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 6px;
+			left: 5px;
+			display: none;
+			width: 13px;
+			height: 9px;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.105' height='9.297' viewBox='0 0 13.105 9.297'%3E%3Cpath d='M0,3.49,3.394,6.883,10.277,0' transform='translate(1.414 1.414)' fill='none' stroke='%23444' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='2'/%3E%3C/svg%3E%0A");
+		}
+	}
+
+	input:checked + label {
+		color: inherit;
+
+		&:after {
+			display: block;
+		}
+	}
+}

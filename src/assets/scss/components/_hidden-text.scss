@@ -1,0 +1,17 @@
+.hidden-text {
+  padding: 20px 0 20px 32px;
+  
+  ol {
+    list-style: none;
+    counter-reset: counter;
+
+    li {
+      &:before {
+        content: counter(counter, number)'.';
+        counter-increment: counter;
+        margin-right: 5px;
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+/* ------------------------------------------------------------ *\
+  Icons
+\* ------------------------------------------------------------ */
+
+.ico {
+	font-size: 0;
+	line-height: 0;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+/* Ico User */
+
+.ico--user {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Email */
+
+.ico--email {
+	width: 20px;
+	height: 16px;
+}
+
+/* Ico Password */
+
+.ico--password {
+	width: 16px;
+	height: 20px;
+}
+
+/* Ico Organization */
+
+.ico--organization {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Document */
+
+.ico--document {
+	width: 18px;
+	height: 20px;
+}
+
+/* Ico Documents */
+
+.ico--documents {
+	width: 18px;
+	height: 20px;
+}
+
+/* Ico Document New */
+
+.ico--document-new {
+	width: 18px;
+	height: 20px;
+}
+
+/* Ico Search */
+
+.ico--search {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico View List */
+
+.ico--view_list {
+	width: 24px;
+	height: 14px;
+}
+
+/* Ico View Grid */
+
+.ico--view_grid {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Signout */
+
+.ico--signout {
+	width: 16px;
+	height: 20px;
+}
+
+/* Ico Check */
+
+.ico--check {
+	height: 9px;
+	width: 13px;
+}
+
+/* Ico Invite */
+
+.ico--invite {
+	width: 21px;
+	height: 20px;
+}
+
+/* Ico Share */
+
+.ico--share {
+	width: 21px;
+	height: 21px;
+}
+
+/* Ico View */
+
+.ico--view {
+	width: 20px;
+	height: 21px;
+}
+
+/* Ico Arrow Down */
+
+.ico--arrow_down {
+	width: 56px;
+	height: 58px;
+	transform: rotate(-111deg);
+}
+
+/* Ico Arrow Up */
+
+.ico--arrow_up {
+	width: 40px;
+	height: 54px;
+	transform: rotate(4deg) scale(-1, 1);
+}
+
+/* Ico Merge */
+
+.ico--merge {
+	width: 27px;
+	height: 27px;
+}
+
+/* Ico Add */
+
+.ico--add {
+	width: 27px;
+	height: 27px;
+}
+
+/* Ico Text */
+
+.ico--texts {
+	width: 19px;
+	height: 18px;
+	stroke: $c-placeholder;
+
+	path {
+		fill: none;
+		stroke: inherit;
+	}
+}
+
+/* Ico Focus */
+
+.ico--focus {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Datasets */
+
+.ico--datasets {
+	width: 30px;
+	height: 30px;
+}
+
+/* Ico Brackets */
+
+.ico--brackets {
+	width: 30px;
+	height: 30px;
+}
+
+/* Ico Flask */
+
+.ico--flask {
+	width: 27px;
+	height: 30px;
+}
+
+/* Ico Protocols */
+
+.ico--protocols {
+	width: 24px;
+	height: 30px;
+}
+
+/* Ico Lock */
+
+.ico--lock {
+	width: 11px;
+	height: 19px;
+}
+
+/* Ico Key */
+
+.ico--key {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico List Alt */
+
+.ico--list_alt {
+	width: 25px;
+	height: 14px;
+}
+
+/* Ico Settings */
+
+.ico--settings {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Settings */
+
+.ico--settings {
+	width: 20px;
+	height: 20px;
+}
+
+/* Ico Angle Down */
+
+.ico--angle_down {
+	width: 10px;
+	height: 6px;
+}
+
+/* Ico Angle Left */
+
+.ico--angle_left {
+	width: 6px;
+	height: 10px;
+}
+
+/* Ico Angle Right */
+
+.ico--angle_right {
+	width: 6px;
+	height: 10px;
+}
+
+/* Ico Calendar */
+
+.ico--calendar {
+	width: 20px;
+	height: 22px;
+}
+
+/* Ico Key */
+
+.ico--key {
+	width: 15px;
+	height: 15px;
+}

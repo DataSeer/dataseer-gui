@@ -1,0 +1,240 @@
+/* ------------------------------------------------------------ *\
+  Summary
+\* ------------------------------------------------------------ */
+
+.summary {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	background-color: $c-bg;
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		background: rgba($c-placeholder, 0.81);
+		z-index: -1;
+	}
+
+	.summary__inner {
+		display: flex;
+	}
+
+	.summary__aside,
+	.summary__content {
+		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+	}
+
+	.summary__content {
+		position: relative;
+		width: 62%;
+		flex-shrink: 0;
+		margin-right: 11px;
+		padding: 35px 45px 46px 65px;
+		background-color: $c-white;
+
+		@include breakpoint-down(large-desktop) {
+			width: 72%;
+		}
+
+		@include breakpoint-down(small-desktop) {
+			padding: 30px 25px;
+		}
+	}
+
+	.summary__aside {
+		position: relative;
+		width: 38%;
+		background-color: $c-bg-2;
+		padding: 80px 60px 35px;
+
+		@include breakpoint-down(large-desktop) {
+			width: 28%;
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+
+		@include breakpoint-down(small-desktop) {
+			padding-left: 25px;
+			padding-right: 25px;
+		}
+	}
+
+	.summary__aside h4 {
+		margin-bottom: 20px;
+		font-size: 20px;
+		line-height: 1.2;
+		color: $c-skyblue-61;
+	}
+
+	.summary__aside i {
+		@include center;
+	}
+
+	.summary__aside a {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.summary__aside span {
+		position: relative;
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		margin-right: 12px;
+		border-radius: 11px;
+		text-align: center;
+		border: 2px solid $c-skyblue;
+		background-color: $c-white;
+		transition: background-color $t-duration, color $t-duration;
+	}
+
+	.summary__aside a:hover span {
+		background-color: $c-primary;
+		color: $c-white;
+	}
+
+	.summary__aside ul {
+		color: $c-primary;
+		text-transform: uppercase;
+		font-family: $ff-titles;
+		font-weight: 500;
+		list-style: none;
+	}
+
+	.summary__aside li + li {
+		margin-top: 10px;
+	}
+
+	.summary__title {
+		margin-bottom: 40px;
+		text-transform: uppercase;
+	}
+
+	.summary__body {
+		display: flex;
+
+		@include breakpoint-down(tablet) {
+			display: block;
+		}
+	}
+
+	.summary__body h6 {
+		font-family: inherit;
+		font-weight: 700;
+	}
+
+	.summary__body-aside {
+		position: relative;
+		width: 275px;
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		padding-right: 40px;
+
+		@include breakpoint-down(tablet) {
+			margin-bottom: 15px;
+		}
+	}
+
+	.summary__body-aside h6 {
+		margin-bottom: 0;
+		font-size: 12px;
+		line-height: 1.3;
+	}
+
+	.summary__body-aside p {
+		margin-bottom: 25px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.summary__body-aside ul {
+		position: relative;
+		list-style: none;
+
+		@include breakpoint-down(tablet) {
+			columns: 2;
+		}
+	}
+
+	.summary__body-aside li {
+		position: relative;
+		margin-bottom: 30px;
+		padding: 5px 0 15px 20px;
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 4px;
+			height: 100%;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			background-color: $c-placeholder;
+
+			@include breakpoint-down(small-desktop) {
+				left: -25px;
+				width: 6px;
+			}
+		}
+	}
+
+	.summary__body-actions {
+		margin-top: auto;
+	}
+
+	.summary__body-actions > * + * {
+		margin-top: 20px;
+	}
+
+	.summary__body-content {
+		flex-grow: 1;
+	}
+
+	.richtext-entry {
+		font-size: 14px;
+		line-height: 1.57;
+	}
+
+	.richtext-entry .richtext__label {
+		margin-bottom: 5px;
+		padding-left: 33px;
+	}
+
+	.richtext-entry .richtext__body {
+		padding: 18px 30px;
+	}
+
+	.btn-close {
+		top: 20px;
+		right: 20px;
+	}
+}
+
+.summary.summary-enter-active,
+.summary.summary-leave-active {
+	transition: all 0.5s ease;
+
+	.summary__inner {
+		transition: transform 0.5s ease;
+	}
+}
+
+.summary.summary-enter,
+.summary.summary-leave-to {
+	opacity: 0;
+
+	.summary__inner {
+		transform: translateY(-100%);
+	}
+}

@@ -1,0 +1,47 @@
+/* ------------------------------------------------------------ *\
+  Nav Account
+\* ------------------------------------------------------------ */
+
+.nav-account {
+	color: $c-primary;
+
+	> ul {
+		display: flex;
+		align-items: center;
+		margin: -8px;
+
+		@include breakpoint-down(mobile) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	> ul > li {
+		padding: 8px;
+
+		@include breakpoint-down(mobile) {
+			width: 100%;
+		}
+	}
+
+	> ul > li .btn {
+		width: 100%;
+	}
+
+	> ul > li a:not(.btn) {
+		transition: color $t-duration;
+	}
+
+	> ul > li:hover > a:not(.btn),
+	> ul > li:focus-within > a:not(.btn) {
+		color: $c-primary-light;
+	}
+}
+
+.nav-account.is-logged-in {
+	> ul {
+		@include breakpoint-down(mobile) {
+			flex-direction: column-reverse;
+		}
+	}
+}

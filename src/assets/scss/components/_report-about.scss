@@ -1,0 +1,44 @@
+/* ------------------------------------------------------------ *\
+	Report About
+\* ------------------------------------------------------------ */
+
+.report-about {
+	font-size: 14px;
+	
+	> ul {
+		list-style: none;
+	}	
+
+	> ul > li {
+		position: relative;
+		margin-bottom: 27px;
+		padding: 8px 0 8px 23px;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 8px;
+			border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
+			background-color: $c-blue-19;
+		}
+	}
+	> ul > li > a {
+		word-break: break-all;
+	}
+
+	> ul > li > h6 {
+		margin-bottom: 5px;
+		font-size: 12px;
+		line-height: 1.1667;
+		font-weight: 700;
+		font-family: inherit;
+	}
+}

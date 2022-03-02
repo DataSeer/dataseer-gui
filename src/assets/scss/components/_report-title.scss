@@ -1,0 +1,26 @@
+/* ------------------------------------------------------------ *\
+	Report Title
+\* ------------------------------------------------------------ */
+
+.report-title {
+	margin-bottom: 16px; 
+	
+	h1 {
+		margin-bottom: 12px; 
+		font-size: 30px;
+		line-height: 1.3;
+	}
+
+	p {
+		display: flex;
+		align-items: center;
+	}
+	
+	strong {
+		margin-right: 3px;
+	}
+
+	i {
+		margin-right: 7px; 		
+	}
+}

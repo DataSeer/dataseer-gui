@@ -1,0 +1,98 @@
+//Variables
+$font-size-base: 16px;
+$line-height-base: 1.38;
+$letter-spacing-base: 0.0313em;
+$font-weight-base: 400;
+
+$font-size-base-large: 18px;
+$line-height-base-large: 1.39;
+
+$font-size-base-small: 12px;
+$line-height-base-small: 1.17;
+
+$ff-sans-serif: 'Open Sans', sans-serif;
+$ff-titles: 'Quicksand', sans-serif;
+
+$t-duration: 0.3s;
+
+$shell-max-width: 1680px;
+$shell-gutter: 15px;
+
+$c-black: #000;
+$c-white: #fff;
+$c-base: #444;
+$c-base-ligter: #737373;
+
+$c-purple-fa: #faf7ff;
+$c-purple-ca: #caaccb;
+$c-purple-ba: #ba8db4;
+$c-purple-aa: #aa6f9f;
+$c-purple-99: #994f88;
+$c-purple-88: #882e72;
+$c-purple-72: #725dbd;
+$c-purple-65: #6546d4;
+$c-blue-19: #1965b0;
+$c-blue-43: #437dbf;
+$c-blue-61: #6195cf;
+$c-blue-7a: #7bafde;
+$c-green-40: #40a469;
+$c-green-4e: #4eb265;
+$c-green-90: #90c987;
+$c-green-ca: #cae0ab;
+$c-green-f5: #f5fcf8;
+$c-yellow-f7: #f7f056;
+$c-yellow-f7CB: #f7cb45;
+$c-orange-f4: #f4a736;
+$c-orange-f4: #f4a736;
+$c-orange-f4a1: #f4a14d;
+$c-orange-ee: #ee8026;
+$c-red-e6: #e65518;
+$c-orange-d2: #d27044;
+$c-red-ff: #ff5656;
+$c-red-e3: #e33929;
+$c-red-ff: #ff1a1a;
+$c-red-dc: #dc050c;
+$c-red-a5: #a5170e;
+$c-red-8d: #8d2424;
+$c-brown-72: #72190e;
+
+$c-blue-00: #006ac9;
+
+$c-primary: #006ac9;
+$c-primary-dark: #00118f;
+$c-primary-light: #00bdff;
+
+$c-skyblue: #e2f1ff;
+$c-skyblue-fa: #f2fbff;
+$c-skyblue-bc: #bcd0e6;
+$c-skyblue-61: #618bba;
+$c-skyblue-0F: #0f4a7f;
+
+$c-gray: #eee;
+$c-gray-f5: #f5f5f5;
+$c-gray-97: #979797;
+$c-gray-a1: #a1a1a1;
+
+$c-bg: #f1f8fe;
+$c-bg-2: #f8fbfe;
+
+$c-placeholder: #8cabcd;
+
+$c-orange: #e36329;
+$c-orange-bg: #fdf5e9;
+$c-orange-ff: #ffede5;
+$c-orange-fff: #fff7f4;
+
+$c-green: #66ae2e;
+
+$responsive-ios: 812px;
+
+$breakpoints: (
+	mobile-small: 374px,
+	mobile-medium: 575px,
+	mobile: 767px,
+	admin-bar: 782px,
+	tablet: 1023px,
+	small-desktop: 1199px,
+	large-desktop: 1399px
+);

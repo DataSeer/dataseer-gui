@@ -1,0 +1,46 @@
+/* ------------------------------------------------------------ *\
+	spinner
+\* ------------------------------------------------------------ */
+
+.spinner {
+	position: relative;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style: solid;
+		border-color: transparent;
+		border-top-color: $c-primary;
+		border-bottom-color: $c-primary;
+		animation: rotate 1.2s linear infinite;
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Spinner Large */
+
+.spinner--large {
+	width: 50px;
+	height: 50px;
+
+	&:before {
+		border-width: 6px;
+	}
+}

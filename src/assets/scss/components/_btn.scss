@@ -1,0 +1,126 @@
+/* ------------------------------------------------------------ *\
+	Button
+\* ------------------------------------------------------------ */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 42px;
+	padding: 0 29px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+	appearance: none;
+	letter-spacing: 0;
+	color: $c-white;
+	text-transform: uppercase;
+	border-width: 4px;
+	border-style: solid;
+	border-color: $c-primary;
+	background-color: $c-primary;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
+	font-family: $ff-titles;
+	border-radius: 11px;
+	transition-property: background, color, border-color;
+	transition-duration: $t-duration;
+	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+	&:focus,
+	&:hover {
+		color: $c-white;
+		background-color: darken($c-primary, 8);
+		border-color: darken($c-primary, 8);
+	}
+
+	i {
+		margin-right: 9px;
+	}
+
+	&.is-disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+/* Btn Secondary */
+
+.btn--secondary {
+	background-color: transparent;
+	border-color: $c-primary-light;
+	color: $c-primary;
+
+	&:focus,
+	&:hover {
+		color: $c-primary;
+		background-color: transparent;
+		border-color: $c-primary;
+	}
+}
+
+/* Btn Tertiary */
+
+.btn--tertiary {
+	background-color: transparent;
+	border-color: $c-gray;
+	color: $c-base;
+
+	&:focus,
+	&:hover {
+		color: $c-base;
+		background-color: transparent;
+		border-color: darken($c-gray, 8);
+	}
+
+	i {
+		color: $c-blue-00;
+	}
+
+	&.is-highlighted {
+		border-color: $c-skyblue;
+
+		&:focus,
+		&:hover {
+			border-color: $c-primary;
+		}
+	}
+
+	&.is-active {
+		border-color: $c-primary;
+	}
+}
+
+/* Btn Small  */
+
+.btn--small {
+	height: 35px;
+}
+
+/* Btn Square */
+
+.btn--square {
+	height: 42px;
+	width: 42px;
+	padding-left: 0;
+	padding-right: 0;
+
+	i {
+		margin-right: 0;
+	}
+
+	&.btn--small {
+		width: 35px;
+		height: 35px;
+	}
+}
+
+/* Btn Block  */
+
+.btn--block {
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+}

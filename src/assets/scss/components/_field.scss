@@ -1,0 +1,296 @@
+/* ------------------------------------------------------------ *\
+	Field
+\* ------------------------------------------------------------ */
+
+.field {
+	+ .field {
+		margin-top: 8px;
+	}
+
+	.field__input,
+	.vs__dropdown-toggle {
+		width: 100%;
+		height: 42px;
+		padding: 0 12px;
+		border: 3px solid $c-skyblue;
+		border-radius: 6px;
+		font-weight: inherit;
+		transition: border $t-duration;
+		background-color: $c-white;
+
+		@include input-placeholder {
+			color: $c-placeholder;
+		}
+
+		&:focus {
+			border-color: $c-primary-light;
+		}
+	}
+
+	input.field__input:read-only {
+		border-color: $c-gray;
+	}
+
+	textarea.field__input {
+		width: 100% !important;
+		height: 80px;
+		resize: none;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+
+	.field__label {
+		display: block;
+		align-items: center;
+		justify-content: flex-start;
+		margin-bottom: 8px;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1.42;
+	}
+
+	.field__label a {
+		display: inline-block;
+		margin-left: 7px;
+		color: $c-blue-00;
+		text-decoration: none;
+		font-weight: normal;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.field__label i {
+		width: 21px;
+		height: 21px;
+		margin-right: 5px;
+	}
+
+	.field__label em,
+	.field__label span {
+		font-weight: 400;
+		margin: 0 6px;
+	}
+
+	.field__controls {
+		position: relative;
+	}
+
+	.field__trailing-icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 13px;
+		color: $c-primary;
+		pointer-events: none;
+	}
+
+	.field__clear {
+		position: absolute;
+		top: 50%;
+		right: 12px;
+		z-index: 25;
+		background: transparent;
+		display: inline-block;
+		border: 0 none;
+		appearance: none;
+		width: 30px;
+		height: 30px;
+		margin-top: -15px;
+		color: $c-primary-light;
+
+		&:after,
+		&:before {
+			content: '';
+			position: absolute;
+			display: block;
+			height: 2px;
+			width: 100%;
+			background: currentcolor;
+			transition: top 0.2s 0.25s, opacity 0.2s 0.25s, transform 0.2s 0s;
+		}
+
+		&:before {
+			top: 50%;
+			transform: translateY(-50%) rotate(45deg);
+		}
+		&:after {
+			top: 50%;
+			transform: translateY(-50%) rotate(-45deg);
+		}
+	}
+
+	.field__helptext {
+		margin-top: 10px;
+	}
+
+	&.has-trailing-icon .field__input {
+		padding-right: 50px;
+	}
+
+	&.has-error .field__label {
+		color: $c-orange;
+	}
+
+	&.has-error .field__label i {
+		fill: $c-orange;
+	}
+
+	&:first-child .field__label {
+		margin-top: 0;
+	}
+}
+
+/* Field Medium */
+
+.field--md {
+	textarea.field__input {
+		height: 111px;
+	}
+}
+
+/* Field Large */
+
+.field--lg {
+	textarea.field__input {
+		height: 286px;
+	}
+}
+
+/* Field Upload */
+
+.field--upload {
+	span {
+		width: 175px;
+		padding-left: 15px;
+		padding-right: 15px;
+
+		@include breakpoint-down(mobile) {
+			width: 140px;
+		}
+	}
+
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		z-index: 15;
+	}
+
+	.field__input {
+		position: relative;
+		display: flex;
+		align-items: center;
+		height: auto;
+		padding: 3px 54px 3px 3px;
+		border-radius: 16px;
+
+		&:focus-within {
+			border-color: $c-skyblue;
+		}
+
+		&:focus-within .btn {
+			color: $c-primary;
+			background-color: transparent;
+			border-color: $c-primary;
+		}
+	}
+
+	.field__text {
+		margin: 0 0 0 10px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.field__files {
+		position: relative;
+		z-index: 20;
+		margin-bottom: 20px;
+	}
+
+	.field__files li {
+		position: relative;
+		display: inline-block;
+		padding-right: 40px;
+		cursor: pointer;
+		@include link-decoration;
+	}
+
+	.field__files li .field__clear {
+		width: 18px;
+		height: 18px;
+		margin-top: -8px;
+
+		&:after,
+		&:before {
+			height: 1px;
+			background-color: $c-gray-97;
+		}
+
+		&:hover:after,
+		&:hover:before {
+			background-color: $c-primary;
+		}
+	}
+
+	&.is-alt {
+		.field__input {
+			display: block;
+			padding: 6px 12px;
+			border-radius: 6px;
+		}
+
+		.field__actions label {
+			display: flex;
+			align-items: center;
+			text-transform: uppercase;
+			color: $c-primary;
+			font-size: 14px;
+			font-weight: 500;
+			font-family: $ff-titles;
+		}
+
+		.field__actions span {
+			padding-right: 0;
+			padding-left: 8px;
+		}
+	}
+}
+
+/* Field Color */
+
+.field--color {
+	.field__controls {
+		position: relative;
+		cursor: pointer;
+	}
+
+	.field__controls span {
+		position: absolute;
+		top: 50%;
+		display: block;
+		margin-top: -10px;
+		right: 13px;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+	}
+
+	input[type="color"]	 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+	}
+}

@@ -1,0 +1,537 @@
+/* ------------------------------------------------------------ *\
+	Form
+\* ------------------------------------------------------------ */
+
+.form {
+	position: relative;
+
+	form {
+		transition: opacity $t-duration;
+	}
+	
+	/* Form Head */
+	.form__head {
+		margin-bottom: 20px;
+		font-family: $ff-titles;
+	}
+
+	.form__head h2 {
+		margin-bottom: 10px;
+		text-transform: uppercase;
+	}
+
+	.form__head h5 {
+		font-weight: 700;
+		font-family: $ff-sans-serif;
+	}
+
+	.form__head--centered {
+		text-align: center;
+	}
+
+	/* Form Body */
+	.form__body {
+		margin-bottom: 20px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	/* Form Status */
+	.form__status {
+		text-align: center;
+		margin-bottom: 47px;
+		line-height: 1.06;
+	}
+
+	.form__status-inner {
+		position: relative;
+		display: inline-block;
+		padding: 9px 23px;
+		border-radius: 17px;
+		text-align: left;
+
+		&:before {
+			content: '';
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			top: 50%;
+			margin-top: -26px;
+			background-size: contain;
+		}
+	}
+
+	.form__status--error .form__status-inner {
+		color: $c-orange;
+		background-color: $c-orange-bg;
+		padding-left: 55px;
+
+		&:before {
+			left: -5px;
+			background: url(./../images/icons/ico-warning.svg) no-repeat center;
+		}
+	}
+
+	.form__status--success .form__status-inner {
+		color: $c-green;
+		background-color: rgba($c-green, 0.15);
+		padding-left: 42px;
+
+		&:before {
+			left: -14px;
+			background: url(./../images/icons/ico-success.svg) no-repeat center;
+		}
+	}
+
+	/* Form Group */
+	.form__group {
+		margin-bottom: 70px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.form__group > h4 {
+		margin-bottom: 20px;
+		text-transform: uppercase;
+	}
+
+	/* Form Actions */
+	.form__actions {
+		margin-bottom: 30px;
+
+		@include breakpoint-down(tablet) {
+			margin-bottom: 15px;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.form__actions > ul {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: -5px -12px;
+	}
+
+	.form__actions > ul > li {
+		padding: 5px 12px;
+	}
+
+	.form__actions--centered > ul {
+		justify-content: center;
+	}
+
+	/* Form Message */
+
+	.form__message {
+		text-align: center;
+	}
+
+	.form__message p {
+		margin-bottom: 18px;
+
+		@include breakpoint-down(tablet) {
+			margin-bottom: 10px;
+		}
+	}
+
+	/* Form Range */
+
+	.form__range > ul {
+		display: flex;
+		align-items: flex-end;
+		list-style: none;
+		margin: -5px;
+	}
+
+	.form__range > ul > li {
+		width: 50%;
+		padding: 5px;
+	}
+
+	.spinner {
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		opacity: 0;
+		visibility: hidden;
+		transition-delay: 0.2s;
+		transition: opacity $t-duration, visibility $t-duration;
+	}
+}
+
+/* Form Is Loading */
+
+.form.is-loading {
+	> form {
+		opacity: 0.4;
+	}
+
+	.spinner {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+/* Form Sm */
+
+.form--sm {
+	padding: 52px 0;
+	max-width: 480px;
+	margin: 0 auto;
+
+	@include breakpoint-down(tablet) {
+		padding: 35px 0;
+	}
+
+	@include breakpoint-down(mobile) {
+		padding: 0;
+	}
+
+	/* Form Head */
+	.form__head p {
+		color: $c-primary;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 1.2;
+
+		@include breakpoint-down(mobile) {
+			font-size: 18px;
+		}
+	}
+
+	/* Form Body */
+	.form__body {
+		padding: 0 40px;
+		margin: 40px 0;
+
+		@include breakpoint-down(tablet) {
+			margin: 20px 0 25px;
+			padding: 0 25px;
+		}
+
+		@include breakpoint-down(mobile) {
+			padding: 0;
+		}
+	}
+}
+
+/* Form Filters */
+
+.form--filters {
+	.form__head {
+		text-transform: uppercase;
+	}
+}
+
+/* Form Search */
+
+.form--search {
+	position: relative;
+	width: 255px;
+
+	button {
+		position: absolute;
+		top: 50%;
+		right: 14px;
+		width: 20px;
+		height: 20px;
+		color: $c-primary;
+		border: none;
+		margin-top: -10px;
+		background-color: transparent;
+	}
+
+	button i {
+		display: block;
+		fill: $c-primary;
+	}
+
+	.field input {
+		border-color: $c-gray;
+		padding-right: 41px;
+		padding-left: 15px;
+		font-size: 14px;
+		border-radius: 11px;
+
+		@include input-placeholder {
+			text-transform: uppercase;
+			color: $c-base-ligter;
+		}
+	}
+}
+
+/* Form Profile */
+
+.form--profile {
+	.form__head {
+		margin-bottom: 35px;
+
+		@include breakpoint-down(mobile) {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+/* Form New Document */
+
+.form--new-document {
+	max-width: 744px;
+	padding: 50px 0;
+	margin: 0 auto;
+
+	@include breakpoint-down(tablet) {
+		padding: 35px 0;
+	}
+
+	@include breakpoint-down(mobile) {
+		padding: 0;
+	}
+
+	.form__head {
+		max-width: 630px;
+		margin: 0 auto 45px;
+		text-align: center;
+	}
+
+	.form__head p {
+		color: $c-primary;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 1.2;
+
+		@include breakpoint-down(mobile) {
+			font-size: 18px;
+		}
+	}
+
+	.form__body {
+		margin: 35px 0;
+	}
+
+	.form__actions ul {
+		justify-content: center;
+	}
+
+	.field__label,
+	.field__helptext {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+/* form dataset */
+
+.form--dataset {
+	position: static;
+	letter-spacing: normal;
+	
+	.form__head {
+		position: absolute;;
+		z-index: 50;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding-left: 24px;
+		padding-right: 24px;
+		background: #fff;
+		font-size: 12px;
+		font-family: $ff-sans-serif;
+	}
+	
+	.form__head-inner {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		padding: 24px 0 15px;
+		border-bottom: 1px solid $c-skyblue-bc;
+	}
+
+	.form__head h5 {
+		margin-bottom: 0;
+		font-weight: 700;
+		font-family: inherit;
+	}
+
+	.form__cta {
+		position: absolute;
+		z-index: 15;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		padding: 0 20px 0 30px;
+		background-color: $c-white;
+	}
+
+	.form__cta button + button {
+		margin-left: 18px;
+	}
+
+	.form__cta-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		padding: 28px 0;
+		border-top: 1px solid $c-skyblue-bc;
+	}
+
+	.form__cta .btn--tertiary {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	.form__cta-col {
+		flex-shrink: 0;
+		padding: 5px 0;
+	}
+}
+
+/* Form Edit */
+
+.form--edit {
+	.form__body {
+		margin-bottom: 50px;
+		padding-bottom: 50px;
+		border-bottom: 1px solid $c-gray;
+	}
+
+	.form__actions ul li {
+		&:last-child {
+			margin-left: auto;
+		}
+	}
+	
+}
+
+/* Form Issues */
+
+.form--issues {
+	padding: 15px 19px;
+	margin-bottom: 20px;
+	background-color: rgba(#ff0000, 0.04);
+	border-radius: 6px;
+
+	.form__head {
+		margin-bottom: 8px;
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		font-family: inherit;
+	}
+
+	.form__author,
+	.form__head h6 {
+		color: $c-red-8d;
+	}
+
+	.form__head h6 {
+		position: relative;
+		padding-left: 20px;
+		font-size: 14px;
+		margin-bottom: 0;
+		font-family: $ff-sans-serif;
+		font-weight: 700;
+
+		i {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	.form__body {
+		margin-bottom: 10px;
+	}
+
+	.form__date,
+	.form__author {
+		margin-bottom: 0;
+		padding-left: 5px;
+	}
+
+	.form__date {
+		color: $c-base-ligter;
+		font-style: italic;
+	}
+
+	.form__head .btn {
+		margin-left: auto;
+	}
+
+	.form__issues {
+		position: relative;
+		z-index: 100;
+	}
+
+	.form__comment {
+		padding: 0 7px;
+	}
+
+	.field-issues {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.btn {
+		padding-left: 12px;
+		padding-right: 12px;
+		color: inherit;
+		border-color: #e9dad6;
+		background-color: #e9dad6;
+
+		&:hover,
+		&:focus {
+			color: $c-white;
+			border-color: #8d2424;
+			background-color: #8d2424;
+		}
+	}
+
+	.field .field__input {
+		border-color: $c-white;
+
+		@include input-placeholder {
+			color: #cfbcb7;
+		}
+
+		&:focus-within {
+			border-color: #9a7c74;
+		}
+	}
+
+	.btn--tertiary {
+		border-color: #e9dad6;
+		background-color: $c-white;
+
+		&.is-active {
+			border-color: #8d2424;
+		}
+
+		&:hover,
+		&:focus {
+			color: $c-base;
+			border-color: #8d2424;
+			background-color: $c-white;
+		}
+	}
+
+	.btn--tertiary i {
+		color: inherit;
+	}
+
+	.btn-link {
+		color: #9a7c74;
+	}
+}

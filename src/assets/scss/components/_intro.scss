@@ -1,0 +1,82 @@
+/* ------------------------------------------------------------ *\
+  Intro
+\* ------------------------------------------------------------ */
+
+.intro {
+	padding: 35px;
+	font-family: $ff-titles;
+	letter-spacing: 0;
+
+	.intro__head {
+		position: relative;
+		padding: 45px 230px 40px 50px;
+		background-color: $c-skyblue-fa;
+		border-radius: 15px;
+	}
+
+	.intro__head h3 {
+		margin-bottom: 0;
+		color: $c-base;
+		font-size: 23px;
+		line-height: 1.22;
+		text-transform: uppercase;
+	}
+
+	.intro__head h3 span {
+		display: block;
+		color: $c-blue-19;
+		text-transform: initial;
+	}
+
+	.intro__head figure {
+		position: absolute;
+		width: 218px;
+		right: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.intro__body {
+		padding: 95px 35px 65px 50px;
+	}
+
+	.intro__body h6 {
+		margin-bottom: 30px;
+	}
+
+	.intro__body p {
+		position: relative;
+	}
+
+	.intro__about {
+		margin-bottom: 35px;
+		font-size: 18px;
+		font-weight: 500;
+	}
+
+	.intro__tip {
+		margin-bottom: 28px;
+	}
+
+	.ico--arrow_up,
+	.ico--arrow_down {
+		position: absolute;
+	}
+
+	.ico--add {
+		margin: 0 2px 0 8px;
+	}
+
+	.ico--arrow_up {
+		position: absolute;
+		top: -34px;
+		left: 100%;
+		margin-left: -4px;
+	}
+
+	.ico--arrow_down {
+		top: 24px;
+		right: 100%;
+		margin-right: 12px;
+	}
+}

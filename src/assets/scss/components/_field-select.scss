@@ -1,0 +1,160 @@
+/* ------------------------------------------------------------ *\
+		Field Select
+\* ------------------------------------------------------------ */
+
+.v-select {
+	position: relative;
+
+	.vs__dropdown-toggle {
+		&:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			right: 14px;
+			width: 13px;
+			height: 13px;
+			margin-top: -9px;
+			background-position: center;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.559' height='13.559' viewBox='0 0 13.559 13.559'%3E%3Cpath id='Rectangle' d='M9.293,1.707A1,1,0,0,1,11,2.414V10a1,1,0,0,1-1,1H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(6.78 -1.997) rotate(45)' fill='%23444'/%3E%3C/svg%3E%0A");
+			pointer-events: none;
+		}
+	}
+
+	.vs__actions {
+		display: none;
+	}
+
+	.vs__search {
+		margin: 0;
+		padding: 0;
+		color: $c-placeholder;
+	}
+
+	.vs__selected {
+		position: static !important;
+		padding: 0;
+		margin: 0;
+		text-transform: capitalize;
+	}
+
+	.vs__selected-options {
+		padding: 0;
+	}
+
+	.vs__search {
+		border: 0;
+	}
+
+	.vs__selected,
+	.vs__dropdown-option {
+		text-transform: capitalize;
+
+	}
+
+	.vs__selected i,
+	.vs__dropdown-option i {
+		font-size: 12px;
+		color: $c-primary;
+		margin-left: 10px;
+	}
+
+	&.vs--open .vs__dropdown-toggle {
+		border-color: $c-primary-light;
+	}
+
+	.vs__dropdown-menu {
+		top: 100%;
+		min-width: 0;
+		margin-top: 4px;
+		box-shadow: 0 4px 8px rgba($c-black, 0.14);
+		border: none;
+		border-radius: 0;
+		padding: 0;
+	}
+
+	.vs__dropdown-option {
+		padding: 6px 14px;
+	}
+
+	.vs__dropdown-option--highlight {
+		color: $c-base;
+		background-color: rgba($c-placeholder, 0.15);
+	}
+}
+
+/* Field Select Multiple */
+
+.v-select.vs--multiple {
+	.vs__dropdown-toggle {
+		height: auto;
+		min-height: 42px;
+		padding-right: 52px;
+		padding-left: 2px;
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 9px;
+			right: 14px;
+			width: 24px;
+			height: 24px;
+			margin-top: 0;
+			background-image: url("data:image/svg+xml,%3Csvg width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg transform='translate(-484.000000, -228.000000)' fill='%23006AC9' fill-rule='nonzero'%3E%3Cg transform='translate(149.000000, 191.000000)'%3E%3Cg transform='translate(335.000000, 37.000000)'%3E%3Cpath d='M16.8,11.4 L12.6,11.4 L12.6,7.2 C12.6,6.8686524 12.3313476,6.6 12,6.6 C11.6686524,6.6 11.4,6.8686524 11.4,7.2 L11.4,11.4 L7.2,11.4 C6.8686524,11.4 6.6,11.6686524 6.6,12 C6.6,12.3313476 6.8686524,12.6 7.2,12.6 L11.4,12.6 L11.4,16.8006592 C11.4002197,17.1318604 11.6687988,17.4002197 12,17.4000001 L12.0007325,17.4000001 C12.3318604,17.3997803 12.6002197,17.1312012 12.6,16.8 L12.6,12.6 L16.8,12.6 C17.1313476,12.6 17.4,12.3313476 17.4,12 C17.4,11.6686524 17.1313476,11.4 16.8,11.4 Z M12,0 C5.37260748,0 0,5.37260748 0,12 C0,18.6273925 5.37260748,24 12,24 C18.6242431,23.9924561 23.9924561,18.6242431 24,12 C24,5.37260748 18.6273925,0 12,0 Z M12,22.8 C6.03530268,22.8 1.2,17.9646973 1.2,12 C1.2,6.03530268 6.03530268,1.2 12,1.2 C17.961914,1.20673824 22.7932618,6.03808596 22.8,12 C22.8,17.9646973 17.9646973,22.8 12,22.8 Z' %3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+		}
+	}
+
+	.vs__selected-options {
+		align-items: center;
+	}
+
+	.vs__selected-options > input {
+		padding-left: 10px;
+	}
+
+	.vs__selected {
+		padding: 3px 10px;
+		margin: 2px;
+		border-radius: 14px;
+		background-color: $c-bg;
+		border-color: $c-skyblue;
+	}
+
+	.vs__deselect {
+		position: relative;
+		width: 18px;
+		height: 18px;
+		background: none;
+		border: 0;
+
+		&:after,
+		&:before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -50%;
+			content: '';
+			width: 100%;
+			height: 1px;
+			background: $c-skyblue-bc;
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+		}
+
+		&:before {
+			transform: rotate(45deg);
+		}
+
+		&:hover:after,
+		&:hover:before {
+			background: $c-blue-00;
+		}
+	}
+
+	.vs__deselect svg {
+		display: none;
+	}
+}

@@ -1,0 +1,52 @@
+/* ------------------------------------------------------------ *\
+	Btn Layout
+\* ------------------------------------------------------------ */
+
+.btn-layout {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 13px; 
+	height: 42px; 
+	font-size: 14px; 
+	text-transform: uppercase; 
+	border-width: 4px;
+	border-style: solid;
+	border-color: $c-gray;
+	color: $c-base;
+	font-family: $ff-titles; 
+	font-weight: 500; 
+	border-radius: 11px; 
+
+	span {
+		margin-right: 16px; 
+	}
+
+	.btn__icon {
+		display: inline-block; 
+		transition: color $t-duration;
+		color: $c-skyblue-bc
+	}
+	
+	.btn__icon + .btn__icon {
+		margin-left: 21px; 
+	}
+
+	.btn__icon:focus,
+	.btn__icon:hover {
+		color: rgba($c-primary, .5);
+	}
+
+	.btn__icon.is-active {
+		color: $c-primary;
+	}
+
+	.btn__icon--table {
+		width: 24px; 
+		height: 14px; 
+	}
+
+	.btn__icon--grid {
+		width: 20px; 
+		height: 20px; 
+	}
+} 
