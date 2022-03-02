@@ -49,11 +49,15 @@
 								<div class="summary__body-actions">
 									<Button className="tertiary" block>This data is incorrect</Button>
 
-									<Button v-if="userRoleWeight >= 1000" to="/manage-document" className="tertiary" block>
+									<Button
+										v-if="userRoleWeight >= 1000"
+										:to="`/documents/${$route.params.id}/manage`"
+										className="tertiary"
+										block
+									>
 										Manage Document
 									</Button>
-								</div>
-								<!-- /.summary__body-actions -->
+								</div> <!-- /.summary__body-actions -->
 							</div><!-- /.summary__body-aside -->
 
 							<div

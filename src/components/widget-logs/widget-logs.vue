@@ -17,7 +17,7 @@
 
 		<div v-if="logs.length" class="widget__rows">
 			<div
-				v-for="log in logs"
+				v-for="log in parsedLogs"
 				:key="log.id"
 				class="widget__row"
 			>
@@ -81,7 +81,28 @@ export default {
 			return this.isOpened ? "Show Less" : "Show All"
 		},
 		logsLength() {
-			return this.logs.length
+			return this.parsedLogs.length
+		},
+		parsedLogs() {
+			let tempLogs = [];
+						
+			this.logs.map(log => {
+				log.dates.map(date => {
+					tempLogs.push({
+						id: `${log._id}-${date}`,
+						email: log.account.username,
+						kind: log.kind.key,
+						date: date
+				})})
+			})
+
+			tempLogs.sort(function compare(a, b) {
+				var dateA = new Date(a.date);
+				var dateB = new Date(b.date);
+				return dateB - dateA;
+			});
+
+			return tempLogs
 		}
 	},
 

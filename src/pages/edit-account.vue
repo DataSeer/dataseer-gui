@@ -88,24 +88,9 @@ export default {
 	 */
 	methods: {
 		async getDocumentLogs() {
-			let tempLogs = [];
 			const logs = await accountsService.getAccountLogs(this.accountId)
-						
-			logs.map(log => {
-				log.dates.map(date => {
-					tempLogs.push({
-					id: `${log._id}-${date}`,
-					email: log.account.username,
-					kind: log.kind.key,
-					date: date
-				})})
-			})
 
-			this.logs = tempLogs.sort(function compare(a, b) {
-				var dateA = new Date(a.date);
-				var dateB = new Date(b.date);
-				return dateB - dateA;
-			});
+			this.logs = logs
 		},
 	},
 

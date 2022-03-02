@@ -191,7 +191,7 @@ const routes = [
 	},
 	{
 		name: 'Manage Document',
-		path: '/manage-document',
+		path: '/documents/:id/manage',
 		component: ManageDocument,
 		meta: {
 			requiresAuth: true,

@@ -1,5 +1,10 @@
 <template>
-	<div class="checkboxes">
+	<div
+		class="checkboxes"
+		:class="{
+			'checkboxes--vertical': vertical,
+		}"
+	>
 		<ul>
 			<slot />
 		</ul>
@@ -11,6 +16,16 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'Checkboxes'
+	name: 'Checkboxes',
+	
+	/**
+	 * Props
+	 */
+	props: {
+		vertical: {
+			type: Boolean,
+			default: false
+		},
+	},
 };
 </script>
