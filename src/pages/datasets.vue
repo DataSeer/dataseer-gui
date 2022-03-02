@@ -135,13 +135,6 @@ export default {
 	computed: {
 		...mapGetters('account', ['user']),
 		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId']),
-		formComponent() {
-			if (this.activeDatasetType === 'code') return FormDatasetCode;
-			if (this.activeDatasetType === 'materials') return FormDatasetMaterial;
-			if (this.activeDatasetType === 'protocols') return FormDatasetProtocols;
-
-			return FormDataset;
-		},
 		documentId() {
 			return this.$route.params.id
 		}

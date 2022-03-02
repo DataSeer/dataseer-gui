@@ -39,53 +39,20 @@
 				</FieldCheckbox>
 
 				<FieldCheckbox
-					v-if="formData.reuse === false"
-					name="publicly"
-					v-model="formData.publicly"
+					name="representativeImage"
+					v-model="formData.representativeImage"
 					isDropdown
 				>
-					This dataset cannot be shared publicly
+					This dataset is a Representative Image(or another type of media)
 				</FieldCheckbox>
 
 				<FieldCheckbox
-					v-if="formData.publicly === true"
-					name="practices"
-					v-model="formData.practices"
+					name="qc"
+					v-model="formData.qc"
 					isDropdown
 				>
-					<a href="#">Best practices</a> for this data type have been followed
-					
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showBestPractices = !showBestPractices"
-					>
-						{{ textToggle(showBestPractices) }}
-					</button>
+					This dataset was created for Quality Control (QC) or confirmatory purposes
 				</FieldCheckbox>
-
-				<HiddenText v-if="showBestPractices" v-html="bestPracticesText" />
-
-				<FieldCheckbox
-					v-if="formData.publicly === true"
-					name="repo"
-					v-model="formData.repo"
-					isDropdown
-				>
-					A <a href="#">suitable repository</a> has been used to host this data
-
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showSuitableRepository = !showSuitableRepository"
-					>
-						{{ textToggle(showSuitableRepository) }}
-					</button>
-				</FieldCheckbox>
-
-				<HiddenText v-if="showSuitableRepository" v-html="suitableRepositoryText" />
 			</Checkboxes>
 		</GridColumn>
 
@@ -126,7 +93,6 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Checkboxes from '@/components/checkboxes/checkboxes';
-import HiddenText from '@/components/hidden-text/hidden-text';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
@@ -145,7 +111,6 @@ export default {
 		Field,
 		Checkboxes,
 		GridColumn,
-		HiddenText,
 		FieldSelect,
 		FieldCheckbox,
 	},
@@ -158,21 +123,6 @@ export default {
 			type: Object,
 			default: () => {}
 		},
-		bestPracticesText: {
-			type: String,
-			default: () => {}
-		},
-		suitableRepositoryText: {
-			type: String,
-			default: () => {}
-		}
-	},
-
-	data() {
-		return {
-			showBestPractices: false,
-			showSuitableRepository: false,
-		}
 	},
 
 	/**

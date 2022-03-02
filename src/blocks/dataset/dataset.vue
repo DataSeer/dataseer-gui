@@ -10,6 +10,7 @@
 			<FormIssues
 				v-if="flagged && userRoleWeight < 1000"
 			/>
+
 			<FormCuratorIssues
 				v-if="(flagged || isIssuesFormVisible) && userRoleWeight >= 1000"
 				@cancelClick="handleIssuesCancel"
@@ -228,12 +229,12 @@ export default {
 		populateFormData() {
 			this.formData =  {
 				...this.formData,
-				comments: this.dataset.comments,
-				type: this.dataset.dataType,
-				subtype: this.dataset.subType,
-				permalink: this.dataset.DOI,
-				instructions: this.dataset.comments,
-				reuse: this.dataset.reuse,
+				comments: this.dataset?.comments,
+				type: this.dataset?.dataType,
+				subtype: this.dataset?.subType,
+				permalink: this.dataset?.DOI,
+				instructions: this.dataset?.comments,
+				reuse: this.dataset?.reuse,
 			}
 
 			this.bestPracticesText = this.dataTypes.metadata[this.formData.type]?.bestDataFormatForSharing
