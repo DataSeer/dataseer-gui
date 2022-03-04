@@ -1,6 +1,8 @@
 <template>
 	<div class="form__head" :class="{ 'form__head--centered': centered }" tabindex="0">
-		<slot />
+		<div class="form__head-inner">
+			<slot />
+		</div><!-- /.form__head-inner -->
 	</div>
 </template>
 

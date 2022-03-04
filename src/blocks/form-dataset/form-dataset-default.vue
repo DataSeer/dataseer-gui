@@ -2,10 +2,10 @@
 	<Grid rowGap="medium">
 		<GridColumn>
 			<FieldSelect
+				name="dataType"
 				:error="$v.type.$error"
 				:options="dataTypesOptions"
-				name="type"
-				v-model.trim="formData.type"
+				v-model.trim="formData.dataType"
 				placeholder="Tabular Data"
 			>
 				<Icon name="grid" />
@@ -18,8 +18,8 @@
 			<FieldSelect
 				:error="$v.subtype.$error"
 				:options="subTypeOptions"
-				name="organization"
-				v-model.trim="formData.subtype"
+				name="subType"
+				v-model.trim="formData.subType"
 				placeholder="Select"
 			>
 				<Icon name="grid" />
@@ -56,25 +56,54 @@
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn v-if="formData.repo">
+		<GridColumn>
 			<Field
-				name="permalink"
+				name="DOI"
 				type="text"
-				v-model.trim="formData.permalink"
+				v-model.trim="formData.DOI"
 				placeholder="https://"
 			>
 				<Icon name="chain" color="currentColor" />
 
-				DOI or Permalink
+				Stable URL, DOI, or other link to this object
 			</Field>
 		</GridColumn>
 
 		<GridColumn>
-			<Field name="comments" type="textarea" v-model="formData.comments">
+			<Field
+				name="PID"
+				type="text"
+				v-model.trim="formData.PID"
+				placeholder="https://"
+			>
+				<Icon name="chain" color="currentColor" />
+
+				Accession Number/Permanent Identifier (PID)
+			</Field>
+		</GridColumn>
+
+		<GridColumn>
+			<Field
+				name="comments"
+				type="textarea"
+				v-model="formData.comments"
+			>
 				<Icon name="comment" />
 
 				Additional Comments or Instructions
 			</Field>
+		</GridColumn>
+
+		<GridColumn>
+			<Checkboxes>
+				<FieldCheckbox
+					name="issue"
+					v-model="formData.issue"
+					isDropdown
+				>
+					There is an issue with the information provided in the manuscript text
+				</FieldCheckbox>
+			</Checkboxes>
 		</GridColumn>
 	</Grid>
 </template>
@@ -176,14 +205,10 @@ export default {
 		}
 	},
 
-	/**
-	 * Methods
-	 */
-	methods: {
-		textToggle(check) {
-			return check ? 'Hide' : 'Show';
-		},
+	mounted () {
+		console.log(this.formData);
 	},
+	
 }
 </script>
 

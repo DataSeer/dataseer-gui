@@ -17,20 +17,16 @@
 			/>
 
 			<Form className="form--dataset" >
-				<div class="form__head">
-					<div class="form__head-inner">
-						<h5>{{ dataset.id || "Unnamed" }}</h5>
+				<FormHead>
+					<h5 contenteditable>{{ dataset.id || "Unnamed" }}</h5>
 
-						<p>{{ dataset.dataType || 'Undefined Type'}}</p>
-					</div><!-- /.form__head-inner -->
-				</div>
+					<p>{{ dataset.dataType || 'Undefined Type'}}</p>
+				</FormHead>
 				
 				<FormBody>
 					<component
-						:is="FormComponent"
+						:is="FormFields"
 						:formData="formData"
-						:bestPracticesText="bestPracticesText"
-						:suitableRepositoryText="suitableRepositoryText"
 					/>
 				</FormBody>
 
@@ -135,7 +131,7 @@ import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
 
-import Form, { FormBody } from '@/components/form/form';
+import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
@@ -158,6 +154,7 @@ export default {
 		Form,
 		Popup,
 		Button,
+		FormHead,
 		FormBody,
 		FormIssues,
 		RichtextEntry,
@@ -201,8 +198,6 @@ export default {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
-			bestPracticesText: '',
-			suitableRepositoryText: '',
 			isIssuesFormVisible: false,
 		}
 	},
@@ -213,7 +208,7 @@ export default {
 	computed: {
 		...mapGetters('pdfViewer', ['dataTypes']),
 		...mapGetters('account', ['userRoleWeight']),
-		FormComponent() {
+		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
 			if (this.activeDatasetType === 'materials') return FormDatasetMaterial;
 			if (this.activeDatasetType === 'protocols') return FormDatasetProtocols;
@@ -236,9 +231,6 @@ export default {
 				instructions: this.dataset?.comments,
 				reuse: this.dataset?.reuse,
 			}
-
-			this.bestPracticesText = this.dataTypes.metadata[this.formData.type]?.bestDataFormatForSharing
-			this.suitableRepositoryText = this.dataTypes.metadata[this.formData.type]?.mostSuitableRepositories.default
 		},
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
@@ -279,6 +271,7 @@ export default {
 	 * Mounted
 	 */
 	mounted () {
+		console.log(this.dataset);
 		this.populateFormData();
 	},
 }
