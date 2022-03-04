@@ -216,10 +216,20 @@ const router = new VueRouter({
 	routes
 });
 
+const clearDropdowns = () => {
+	const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
+
+	activeDropdowns.forEach((activeDropdown) => {
+		activeDropdown.classList.remove('is-active');
+	});
+}
+
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.meta.requiresAuth;
 	const requiredWeight = to.meta.requiredWeight || 0;
-	let userRoleWeight = 0
+	let userRoleWeight = 0;
+
+	clearDropdowns();
 	
 	accountService.getUserData().then(res => {
 		if (res.status === 200 ) {

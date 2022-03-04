@@ -76,7 +76,7 @@
 				v-model.trim="formData.PID"
 				placeholder="https://"
 			>
-				<Icon name="chain" color="currentColor" />
+				<Icon name="key" color="currentColor" />
 
 				Accession Number/Permanent Identifier (PID)
 			</Field>
@@ -174,7 +174,7 @@ export default {
 			}))
 		},
 		subTypeOptions() {
-			const subTypes = this.dataTypes.dataTypes[this.formData.type];
+			const subTypes = this.dataTypes.dataTypes[this.formData.dataType];
 			
 			if (!subTypes || !subTypes.length) {
 				return [{
@@ -204,11 +204,6 @@ export default {
 			required
 		}
 	},
-
-	mounted () {
-		console.log(this.formData);
-	},
-	
 }
 </script>
 
