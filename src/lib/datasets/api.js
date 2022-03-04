@@ -11,7 +11,7 @@ import _ from 'lodash';
  */
 import URLMANAGER from './url';
 
-const baseUrl = 'https://cloud.science-miner.com/dataseer-dev';
+const baseUrl = 'https://dev.dataseer.ai/dataseer-web';
 
 $.ajaxSetup({
 	beforeSend: function(xhr, options) {

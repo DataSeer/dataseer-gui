@@ -2,69 +2,73 @@
 	<Grid rowGap="medium">
 		<GridColumn>
 			<Checkboxes>
-				<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
+				<FieldCheckbox
+					name="reuse"
+					v-model="formData.reuse"
+					isDropdown
+				>
 					This dataset is re-used from another public or private source
 				</FieldCheckbox>
-
+			
 				<FieldCheckbox
-					name="practices"
-					v-model="formData.practices"
+					v-if="formData.reuse === true"
+					v-model.trim="formData.protocolSource"
+					trueLabel="Manufacturer's Instructions"
+					falseLabel="Another Protocol"
+					name="protocolSource"
 					isDropdown
-					v-if="formData.reuse !== null"
 				>
-					<a href="#">Best practices</a> for this data type have been followed
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showBestPractices = !showBestPractices"
-					>
-						{{ textToggle(showBestPractices) }}
-					</button>
+					Source
 				</FieldCheckbox>
-
-				<FieldCheckbox name="publicly" v-model="formData.publicly" isDropdown v-if="formData.reuse !== null">
-					This dataset cannot be shared publicly
-				</FieldCheckbox>
-
-				<HiddenText v-if="showBestPractices" v-html="bestPracticesText" />
-
-				<HiddenText v-if="showSuitableRepository" v-html="suitableRepositoryText" />
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn v-if="formData.reuse === false">
+		<GridColumn v-if="formData.protocolSource === false">
 			<Field
-				name="doi"
-				type="text"
-				placeholder="https://"
-				v-model.trim="formData.doi"
+				name="reference"
+				v-model="formData.reference"
 			>
-				<Icon name="chain" color="currentColor" />
+				<Icon name="comment" />
 
-				Protocols.io DOI
+				Reference
 			</Field>
 		</GridColumn>
-
-		<GridColumn v-if="formData.reuse === true">
+		
+		<GridColumn v-if="formData.protocolSource === true">
 			<Field
-				name="permalink"
-				v-model.trim="formData.permalink"
-				type="text"
+				name="DOI"
+				v-model.trim="formData.DOI"
 				placeholder="https://"
 			>
 				<Icon name="chain" color="currentColor" />
 
-				DOI or Permalink
+				Stable URL, DOI, or other link to this object
 			</Field>
 		</GridColumn>
+
 
 		<GridColumn>
-			<Field name="instructions" type="textarea" v-model="formData.instructions">
+			<Field
+				name="comments"
+				type="textarea"
+				v-model="formData.comments"
+			>
 				<Icon name="comment" />
 
 				Additional Comments or Instructions
 			</Field>
+		</GridColumn>
+
+		<GridColumn>
+			<Checkboxes>
+				<FieldCheckbox
+					name="issue"
+					v-model="formData.issue"
+					isDropdown
+				>
+					There is an issue with the information provided in the manuscript text
+				</FieldCheckbox>
+			</Checkboxes>
 		</GridColumn>
 	</Grid>
 </template>
@@ -83,7 +87,6 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Checkboxes from '@/components/checkboxes/checkboxes';
-import HiddenText from '@/components/hidden-text/hidden-text';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
@@ -101,7 +104,6 @@ export default {
 		Field,
 		Checkboxes,
 		GridColumn,
-		HiddenText,
 		FieldCheckbox,
 	},
 
@@ -113,25 +115,8 @@ export default {
 			type: Object,
 			default: () => {}
 		},
-		bestPracticesText: {
-			type: String,
-			default: () => {}
-		},
-		suitableRepositoryText: {
-			type: String,
-			default: () => {}
-		}
 	},
 
-	/**
-	 * Data
-	 */
-	data() {
-		return {
-			showBestPractices: false,
-			showSuitableRepository: false,
-		}
-	},
 
 	/**
 	 * Computed
@@ -182,15 +167,6 @@ export default {
 		permalink: {
 			required
 		}
-	},
-
-	/**
-	 * Methods
-	 */
-	methods: {
-		textToggle(check) {
-			return check ? 'Hide' : 'Show';
-		},
 	},
 }
 </script>

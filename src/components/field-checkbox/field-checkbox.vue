@@ -85,6 +85,14 @@ export default {
 		isToggle: {
 			type: Boolean,
 			default: false
+		},
+		trueLabel: {
+			type: String,
+			default: 'Yes'
+		},
+		falseLabel: {
+			type: String,
+			default: 'No'
 		}
 	},
 
@@ -96,11 +104,11 @@ export default {
 					value: null
 				},
 				{
-					label: 'Yes',
+					label: this.trueLabel,
 					value: true
 				},
 				{
-					label: 'No',
+					label: this.falseLabel,
 					value: false
 				}
 			]

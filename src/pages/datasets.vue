@@ -27,6 +27,7 @@
 					:activeDatasetType="activeDatasetType"
 					@datasetDelete="handleDatasetDelete"
 					@datasetLink="handleDatasetLink"
+					@datasetComplete="handleDatasetComplete"
 				/>
 			</Tabs>
 
@@ -144,7 +145,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes']),
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState']),
 		setActiveDatasetType(value){
 			this.activeDatasetType = value;
 		},
@@ -168,6 +169,17 @@ export default {
 		},
 		handleDatasetDelete() {
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
+		},
+		handleDatasetComplete() {
+			this.documentHandler.saveDataset(this.activeDataset.id);
+			
+			/* this.documentHandler.modified(this.activeDataset.id);
+			this.documentHandler.updateDataset(this.activeDataset.id, newDataset);
+			this.documentHandler.autoSave(this.activeDataset.id);
+			
+			if (property === `highlight`)
+				if (value) this.documentHandler.datasetsList.highlight(this.activeDataset.id);
+				else this.documentHandler.datasetsList.unhighlight(this.activeDataset.id); */
 		},
 		async initializePdfViewer() {
 			this.loading = true;
@@ -228,6 +240,13 @@ export default {
 	 */
 	mounted () {
 		this.initializePdfViewer();
+	},
+
+	/**
+	 * Destroyed
+	 */
+	destroyed () {
+		this.clearState();
 	},
 };
 </script>

@@ -23,6 +23,9 @@ const actions = {
 	},
 	setDocumentHandler({commit}, documentHandler ) {
 		commit('SET_DOCUMENT_HANDLER', documentHandler)
+	},
+	clearState({commit} ) {
+		commit('CLEAR_STATE')
 	}
 }
 
@@ -36,6 +39,11 @@ const mutations = {
     },
 	SET_DOCUMENT_HANDLER(state, payload) {
         state.documentHandler = payload;
+    },
+	CLEAR_STATE(state ) {
+        state.dataTypes = {};
+		state.documentHandler = {};
+		state.activeDataset = undefined;
     },
 }
 

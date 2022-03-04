@@ -33,7 +33,11 @@
 				<div class="form__cta">
 					<div class="form__cta-row">
 						<div class="form__cta-col">
-							<Button @onClick="handleComplete">Complete This Dataset</Button>
+							<Button
+								@onClick="handleComplete"
+							>
+								Complete This Dataset
+							</Button>
 						</div><!-- /.form__cta-col -->
 
 						<div v-if="userRoleWeight < 1000" class="form__cta-col">
@@ -184,16 +188,7 @@ export default {
 	 */
 	data() {
 		return {
-			formData: {
-				type: '',
-				subtype: '',
-				permalink: '',
-				comments: '',
-				reuse: null,
-				publicly: null,
-				practices: null,
-				repo: null,
-			},
+			formData: {},
 			tooltips: {
 				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
@@ -202,11 +197,17 @@ export default {
 		}
 	},
 
+	watch: {
+		activeDatasetId() {
+			this.populateFormData()
+		}
+	},
+
 	/**
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['dataTypes']),
+		...mapGetters('pdfViewer', ['dataTypes', 'activeDataset', 'activeDatasetId']),
 		...mapGetters('account', ['userRoleWeight']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
@@ -224,16 +225,8 @@ export default {
 		populateFormData() {
 			this.formData =  {
 				...this.formData,
-				comments: this.dataset?.comments,
-				type: this.dataset?.dataType,
-				subtype: this.dataset?.subType,
-				permalink: this.dataset?.DOI,
-				instructions: this.dataset?.comments,
-				reuse: this.dataset?.reuse,
+				...this.activeDataset
 			}
-		},
-		textToggle(check) {
-			return check ? 'Hide' : 'Show';
 		},
 		toggleIssuesForm(e) {
 			e.preventDefault();
@@ -254,16 +247,17 @@ export default {
 			
 			this.$emit('datasetLink')
 		},
-		openPopup(e) {
-			e.preventDefault();
-			this.$refs.textPassagePopup.showModal();
-		},
 		handleComplete(e) {
 			e.preventDefault();
-			this.$emit('onDatasetComplete', true)
+
+			this.$emit('datasetComplete', this.formData)
 		},
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;
+		},
+		openPopup(e) {
+			e.preventDefault();
+			this.$refs.textPassagePopup.showModal();
 		},
 	},
 
@@ -271,7 +265,6 @@ export default {
 	 * Mounted
 	 */
 	mounted () {
-		console.log(this.dataset);
 		this.populateFormData();
 	},
 }

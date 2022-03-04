@@ -801,6 +801,7 @@ DocumentHandler.prototype.synchronize = function() {
 			}
 		});
 	}
+		
 	if (this.datasetForm) {
 		// Attach datasetsList events
 		this.datasetForm.attach(`onPropertyChange`, function(property, value) {
