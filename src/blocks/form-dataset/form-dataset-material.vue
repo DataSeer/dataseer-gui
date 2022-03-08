@@ -33,57 +33,84 @@
 
 		<GridColumn>
 			<Checkboxes>
-				<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
-					This material is re-used from another public or private source
-				</FieldCheckbox>
-
 				<FieldCheckbox
-					name="practices"
-					v-model="formData.practices"
+					name="reuse"
+					v-model="formData.reuse"
 					isDropdown
-					v-if="formData.reuse !== null"
 				>
-					<a href="#">Best practices</a> for this material type have been followed
-
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showBestPractices = !showBestPractices"
-					>
-						{{ textToggle(showBestPractices) }}
-					</button>
+					This material is re-used from a public or private source
 				</FieldCheckbox>
-
-				<HiddenText v-if="showBestPractices" v-html="bestPracticesText" />
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn>
+		<GridColumn 
+			v-if="formData.reuse === true"
+		>
 			<Field
-				v-if="formData.reuse !== null"
 				name="rrid"
-				v-model.trim="formData.rrid"
-				type="text"
-				placeholder="https://"
+				aria-placeholder="Enter RRID"
+				v-model="formData.labSource"
 			>
-				<Icon name="chain" color="currentColor" />
+				<Icon name="flask" />
 
-				RRID
+				Source (Name of Lab or Commercial Source)
+			</Field>
+		</GridColumn>
+
+		<GridColumn 
+			v-if="formData.reuse === true"
+		>
+			<Field
+				name="rrid"
+				aria-placeholder="Enter RRID"
+				v-model="formData.labSource"
+			>
+				<Icon name="flask" />
+
+				Source (Name of Lab or Commercial Source)
 			</Field>
 		</GridColumn>
 
 		<GridColumn>
-			<Field name="instructions" type="textarea" v-model="formData.instructions">
+			<Field
+				name="rrid"
+				aria-placeholder="Enter RRID"
+				v-model="formData.RRID"
+			>
+				<Icon name="key" />
+
+				Research Resource Identifier (RRID)
+			</Field>
+		</GridColumn>
+
+		<GridColumn>
+			<Field
+				name="comments"
+				type="textarea"
+				v-model="formData.comments"
+			>
 				<Icon name="comment" />
 
 				Additional Comments or Instructions
 			</Field>
 		</GridColumn>
+
+		<GridColumn>
+			<Checkboxes>
+				<FieldCheckbox
+					name="issue"
+					v-model="formData.issue"
+					isDropdown
+				>
+					There is an issue with the information provided in the manuscript text
+				</FieldCheckbox>
+			</Checkboxes>
+		</GridColumn>
 	</Grid>
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */

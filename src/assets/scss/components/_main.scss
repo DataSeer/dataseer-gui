@@ -137,7 +137,7 @@
 		position: relative;
 		width: 634px;
 		flex: 0 0 634px;
-		margin-left: 46px;
+		margin-left: 72px;
 
 		@include breakpoint-down(small-desktop) {
 			width: 454px;
@@ -196,7 +196,7 @@
 
 	/* Dataset Primary Materials */
 
-	&-materials {
+	&-material {
 		background-color: $c-orange-ff;
 
 		.form .form__cta .btn:not(.btn--tertiary) {
@@ -233,7 +233,7 @@
 
 	/* Dataset Primary Protocols */
 
-	&-protocols {
+	&-protocol {
 		background-color: rgba($c-green-40, 0.08);
 
 		.form .form__cta .btn:not(.btn--tertiary) {

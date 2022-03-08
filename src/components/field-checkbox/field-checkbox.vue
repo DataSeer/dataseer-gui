@@ -64,12 +64,21 @@ import vSelect from 'vue-select';
 import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'FieldCheckbox',
 
+	/**
+	 * Components
+	 */
 	components: {
 		vSelect
 	},
 
+	/**
+	 * Props
+	 */
 	props: {
 		value: Boolean || null,
 		name: String,
@@ -96,6 +105,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			selectOptions: [
@@ -115,6 +127,9 @@ export default {
 		};
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		handleChange(event) {
 			this.$emit('onChange', event);

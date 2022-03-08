@@ -296,11 +296,13 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 };
 
 // Save a dataset
-DocumentHandler.prototype.saveDataset = function(id, cb) {
-	let self = this,
-		dataset = this.getDataset(id);
-	if (!this.hasChanged[id]) return typeof cb === `function` ? cb(null, dataset) : undefined;
+DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
+	let self = this;
+	// let dataset = this.getDataset(id);
+	
+	// if (!this.hasChanged[id]) return typeof cb === `function` ? cb(null, dataset) : undefined;
 	this.loading(id);
+	
 	return API.datasets.updateDataset(
 		{
 			datasetsId: this.ids.datasets,
@@ -640,6 +642,7 @@ DocumentHandler.prototype.synchronize = function() {
 			self.events.onDatasetClick()
 		});
 		this.documentView.attach(`onSentenceClick`, function(sentence) {
+			console.log(';dasdas');
 			return self.selectSentence({ sentence: sentence, disableSelection: true });
 		});
 		this.documentView.attach(`onFulltextView`, function() {
@@ -655,6 +658,7 @@ DocumentHandler.prototype.synchronize = function() {
 			return self.refreshSentencesMapping();
 		});
 	}
+	
 	if (this.datasetsList) {
 		// Attach datasetsList events
 		this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {

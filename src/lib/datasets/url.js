@@ -5,7 +5,7 @@
 import urljoin from 'url-join';
 
 const CONF = {
-	root: "http://localhost:3000",
+	root: 'http://localhost:3000'
 };
 
 const URLMANAGER = {

@@ -2,19 +2,38 @@
 	<div class="tabs">
 		<div class="tabs__links">
 			<ul>
+				
 				<li
-					v-for="(tab) in tabs"
-					:key="tab.id"
-					@click="$emit('tabsNavClick', tab)"
+					v-for="dataset in datasets"
+					:key="dataset.id"
 					class="tabs__link"
 					:class="{
-						'is-active': tab.id === activeTabId,
-						'is-completed': tab.status === 'saved'
+						'is-active': dataset.id === activeTabId,
+						'is-completed': dataset.status === 'saved'
 					}"
 				>
-					<i v-if="tab.issue" class="dot" />
+					<div v-if="mergeState" class="checkbox">
+						<input
+							tabindex="0"
+							type="checkbox"
+							ref="checkbox"
+							class="sr-only"
+							:name="`merge-${dataset.id}`"
+							:id="`merge-${dataset.id}`"
+							:checked="datasetsForMerge.some((entry) => entry === dataset.id)"
+							@change="(e) => handleCheckboxChange(e, dataset.id)"
+						/>
 
-					<span v-tooltip.right="tab.description" />
+						<label :for="`merge-${dataset.id}`" />
+					</div><!-- /.checkbox -->
+					
+					<button
+						@click="$emit('tabsNavClick', dataset)"
+					>
+						<i v-if="dataset.issue === 'true'" class="dot" />
+
+						<span v-tooltip.right="dataset.description" />
+					</button>
 				</li>
 			</ul>
 		</div> <!-- /.tabs__links -->
@@ -27,8 +46,9 @@
 
 <script>
 /**
- * Internal Dependencies
+ * External Dependencies
  */
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	/**
@@ -44,10 +64,27 @@ export default {
 			type: String || undefined,
 			default: undefined
 		},
-		tabs: {
-			type: [],
-			default: () => []
-		},
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters('pdfViewer', ['mergeState', 'datasets', 'datasetsForMerge']),
+	},
+	
+	/**
+	 * Methods
+	 */
+	methods: {
+		...mapActions('pdfViewer', ['addDatasetForMerge', 'removeDatasetForMerge']),
+		handleCheckboxChange(e, datasetId) {
+			if (e.target.checked) {
+				this.addDatasetForMerge(datasetId);
+			} else {
+				this.removeDatasetForMerge(datasetId);
+			}
+		}
 	},
 };
 </script>

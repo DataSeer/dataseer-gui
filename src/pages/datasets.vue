@@ -1,5 +1,8 @@
 <template>
-	<Main className="main--datasets" hasSubheader>
+	<Main
+		:class="`main--datasets main--datasets-${activeDatasetType}`"
+		hasSubheader
+	>
 		<Subheader>
 			<SubheaderDatasets
 				:datasetTypes="datasetTypes"
@@ -33,7 +36,7 @@
 
 			<DatasetUtils
 				@newDatasetClick="handleNewDatasetClick"
-				@mergeDatasetClick="handleNewDatasetClick"
+				@mergeDatasetClick="handleMergeDatasetClick"
 			/>
 		</Loader>
 		
@@ -99,7 +102,7 @@ export default {
 				{
 					label: 'Datasets',
 					icon: 'datasets',
-					id: 'datasets',
+					id: 'dataset',
 					flagged: false,
 				},
 				{
@@ -111,33 +114,64 @@ export default {
 				{
 					label: 'Materials',
 					icon: 'flask',
-					id: 'materials',
+					id: 'material',
 					flagged: false,
 				},
 				{
 					label: 'Protocols',
 					icon: 'protocols',
-					id: 'protocols',
+					id: 'protocol',
 					flagged: false,
 				},
 			],
-			activeDatasetType: 'datasets',
+			activeDatasetType: 'dataset',
 			metadata: {},
-			datasets: [],
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
 		};
 	},
+	
 
 	/**
 	 * Computed
 	 */
 	computed: {
 		...mapGetters('account', ['user']),
-		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId']),
+		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId', 'datasets']),
 		documentId() {
 			return this.$route.params.id
+		},
+		parsedDatasets() {
+			const MaterialDatasets = this.datasets.filter(dataset =>{
+				return (dataset.dataType === 'lab materials') ||
+				(dataset.dataType === 'other' && dataset.subType === 'reagent')
+			})
+			
+			const CodeDatasets = this.datasets.filter(dataset =>{
+				return (dataset.dataType === 'code software') ||
+				(dataset.dataType === 'other' && dataset.subType === 'code')
+			})
+
+			const ProtocolDatasets = this.datasets.filter(dataset =>{
+				return dataset.dataType === 'other' && dataset.subType === 'protocol'
+			})
+
+			const defaultDatasets = this.datasets
+				.filter(( el ) => !MaterialDatasets.includes( el ))
+				.filter(( el ) => !CodeDatasets.includes( el ))
+				.filter(( el ) => !ProtocolDatasets.includes( el ));
+		
+			switch (this.activeDatasetType) {
+				case 'code':
+					return CodeDatasets
+				case 'material':
+					return MaterialDatasets;
+				case 'protocol':
+					return ProtocolDatasets;
+				default:
+					return defaultDatasets;
+			}
 		}
 	},
 
@@ -145,7 +179,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState']),
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets']),
 		setActiveDatasetType(value){
 			this.activeDatasetType = value;
 		},
@@ -158,8 +192,8 @@ export default {
 				}
 			})
 		},
-		handleNewDatasetClick(){
-			console.log('handleNewDatasetClick');
+		handleMergeDatasetClick() {
+			this.setMergeState(true);
 		},
 		handleNewDatasetClick(){
 			this.documentHandler.datasetsList.events.onNewDatasetClick();
@@ -170,22 +204,11 @@ export default {
 		handleDatasetDelete() {
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 		},
-		handleDatasetComplete() {
-			this.documentHandler.saveDataset(this.activeDataset.id);
-			
-			/* this.documentHandler.modified(this.activeDataset.id);
-			this.documentHandler.updateDataset(this.activeDataset.id, newDataset);
-			this.documentHandler.autoSave(this.activeDataset.id);
-			
-			if (property === `highlight`)
-				if (value) this.documentHandler.datasetsList.highlight(this.activeDataset.id);
-				else this.documentHandler.datasetsList.unhighlight(this.activeDataset.id); */
+		handleDatasetComplete(data) {
+			this.documentHandler.saveDataset(this.activeDataset.id, data);
 		},
 		async initializePdfViewer() {
 			this.loading = true;
-			
-			const documentView = new DocumentView(`documentView`);
-			const datasetsList = new DatasetsList(`datasetsList`);
 
 			try {
 				const doc = await documentsService.getDocument(this.documentId, {
@@ -197,6 +220,10 @@ export default {
 				const tei = await documentsService.getDocumentTei(this.documentId);
 				const xml = await documentsService.getDocumentTeiContent(this.documentId);
 				const dataTypes = await documentsService.getJsonDataTypes();
+
+				const documentView = new DocumentView(`documentView`);
+				const datasetsList = new DatasetsList(`datasetsList`);
+				const datasetForm = new DatasetForm(`DatasetForm`);
 
 				const currentDocument = new DocumentHandler({
 						ids: {
@@ -216,21 +243,22 @@ export default {
 						},
 					}
 				);
+				
 				currentDocument.link({
 					documentView: documentView,
 					datasetsList: datasetsList,
-					// datasetForm: datasetForm
+					datasetForm: datasetForm
 				});
 				
-				this.setDocumentHandler(currentDocument)
-				this.setDataTypes(dataTypes)
+				this.setDocumentHandler(currentDocument);
+				this.setDataTypes(dataTypes);
 				this.metadata = doc.metadata;
-				this.datasets = doc.datasets.current;
+				this.setDatasets(doc.datasets.current);
 			} catch (error) {
 				this.error = true
 				this.errorMessage = error.message
 			}
-			
+
 			this.loading = false;
 		}
 	},
@@ -239,6 +267,7 @@ export default {
 	 * Mounted
 	 */
 	mounted () {
+		this.clearState();
 		this.initializePdfViewer();
 	},
 

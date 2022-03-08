@@ -7,7 +7,7 @@
 					v-model="formData.reuse"
 					isDropdown
 				>
-					This dataset is re-used from another public or private source
+					This protocol is re-used from another public or private source
 				</FieldCheckbox>
 			
 				<FieldCheckbox
@@ -23,18 +23,7 @@
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn v-if="formData.protocolSource === false">
-			<Field
-				name="reference"
-				v-model="formData.reference"
-			>
-				<Icon name="comment" />
-
-				Reference
-			</Field>
-		</GridColumn>
-		
-		<GridColumn v-if="formData.protocolSource === true">
+		<GridColumn>
 			<Field
 				name="DOI"
 				v-model.trim="formData.DOI"
@@ -45,8 +34,8 @@
 				Stable URL, DOI, or other link to this object
 			</Field>
 		</GridColumn>
-
-
+		
+		
 		<GridColumn>
 			<Field
 				name="comments"
@@ -56,6 +45,17 @@
 				<Icon name="comment" />
 
 				Additional Comments or Instructions
+			</Field>
+		</GridColumn>
+		
+		<GridColumn v-if="formData.protocolSource === false">
+			<Field
+				name="reference"
+				v-model="formData.reference"
+			>
+				<Icon name="comment" />
+
+				Reference
 			</Field>
 		</GridColumn>
 

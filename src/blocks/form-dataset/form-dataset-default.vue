@@ -65,7 +65,7 @@
 			>
 				<Icon name="chain" color="currentColor" />
 
-				Stable URL, DOI, or other link to this object
+				DOI, Stable URL, or other link to this object
 			</Field>
 		</GridColumn>
 
@@ -101,7 +101,7 @@
 					v-model="formData.issue"
 					isDropdown
 				>
-					There is an issue with the information provided in the manuscript text
+					<i>There is an issue with the information provided in the manuscript text</i>
 				</FieldCheckbox>
 			</Checkboxes>
 		</GridColumn>

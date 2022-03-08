@@ -18,7 +18,14 @@
 
 			<Form className="form--dataset" >
 				<FormHead>
-					<h5 contenteditable>{{ dataset.id || "Unnamed" }}</h5>
+					<input
+						type="text"
+						id="name"
+						tabindex="0"
+						placeholder="Enter Name Here"
+						:value="formData.name"
+						@input="onNameInput"
+					/>
 
 					<p>{{ dataset.dataType || 'Undefined Type'}}</p>
 				</FormHead>
@@ -36,7 +43,7 @@
 							<Button
 								@onClick="handleComplete"
 							>
-								Complete This Dataset
+								Complete This {{this.activeDatasetType}}
 							</Button>
 						</div><!-- /.form__cta-col -->
 
@@ -211,8 +218,8 @@ export default {
 		...mapGetters('account', ['userRoleWeight']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
-			if (this.activeDatasetType === 'materials') return FormDatasetMaterial;
-			if (this.activeDatasetType === 'protocols') return FormDatasetProtocols;
+			if (this.activeDatasetType === 'material') return FormDatasetMaterial;
+			if (this.activeDatasetType === 'protocol') return FormDatasetProtocols;
 
 			return FormDataset;
 		},
@@ -222,6 +229,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		onNameInput(e) {
+			this.formData = {...this.formData, name: e.target.value}
+		},
 		populateFormData() {
 			this.formData =  {
 				...this.formData,

@@ -4,6 +4,7 @@
 		:to="to"
 		:href="href"
 		class="btn"
+		tabindex="0"
 		:class="{
 			[`btn--${className}`]: className,
 			'btn--small': size === 'small',
