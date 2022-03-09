@@ -19,12 +19,14 @@
 /**
  * Internal Dependencies
  */
-import FormGroup from './form-group.vue';
-import FormStatus from './form-status.vue';
-import FormActions from './form-actions.vue';
-import FormMessage from './form-message.vue';
-import FormHead from './form-head.vue';
-import FormBody from './form-body.vue';
+import FormGroup from './form-group';
+import FormStatus from './form-status';
+import FormActions from './form-actions';
+import FormMessage from './form-message';
+import FormHead from './form-head';
+import FormBody from './form-body';
+import FormDivider from './form-divider';
+import FormEntry from './form-entry';
 import Spinner from '@/components/spinner/spinner';
 
 export default {
@@ -55,5 +57,14 @@ export default {
 	}
 };
 
-export { FormActions, FormMessage, FormHead, FormBody, FormStatus, FormGroup };
+export {
+	FormActions,
+	FormMessage,
+	FormHead,
+	FormBody,
+	FormStatus,
+	FormGroup,
+	FormDivider,
+	FormEntry
+};
 </script>

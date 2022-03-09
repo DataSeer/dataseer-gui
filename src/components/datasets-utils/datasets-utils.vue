@@ -13,7 +13,7 @@
 				<button
 					v-tooltip.right="mergeState ? '' : tooltips.mergeText"
 					:aria-label="tooltips.mergeText"
-					@click.prevent="$emit('mergeDatasetClick')"
+					@click.prevent="() => setMergeState(true)"
 				>
 					<Icon name="merge" />
 				</button>
@@ -47,7 +47,7 @@
 				tabindex="0"
 				v-tooltip.right="tooltips.addText"
 				:aria-label="tooltips.addText"
-				@click.prevent="$emit('newDatasetClick')"
+				@click.prevent="addSentenceToDataset"
 			>
 				<button>
 					<Icon name="add" />
@@ -59,7 +59,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
 
 /**
  * Internal Dependencies
@@ -87,7 +86,7 @@ export default {
 	data: function() {
 		return {
 			tooltips: {
-				mergeText: 'Merge existing datasets',
+				mergeText: 'Merge List Items',
 				addText: 'Add New Dataset'
 			}
 		};
@@ -104,7 +103,7 @@ export default {
 	},
 
 	methods: {
-		...mapActions('pdfViewer', [ 'setMergeState', 'mergeDatasets']),
+		...mapActions('pdfViewer', [ 'setMergeState', 'mergeDatasets', 'addSentenceToDataset']),
 	},
 };
 </script>

@@ -1,10 +1,8 @@
 <template>
 	<div class="dataset">
-		<h1 v-if="!dataset" class="dataset__title">
-			The selected sentences are not linked to a dataset
-			<br>
-			If they are, click the button "Add new Dataset"
-		</h1><!-- /.dataset__title -->
+		<div v-if="!dataset" class="dataset__form">
+			<FormConnectText />
+		</div><!-- /.dataset__title -->
 		
 		<div v-else class="dataset__form">
 			<FormIssues
@@ -16,7 +14,7 @@
 				@cancelClick="handleIssuesCancel"
 			/>
 
-			<Form className="form--dataset" >
+			<Form className="form--dataset">
 				<FormHead>
 					<input
 						type="text"
@@ -48,12 +46,6 @@
 						</div><!-- /.form__cta-col -->
 
 						<div v-if="userRoleWeight < 1000" class="form__cta-col">
-							<Button className="tertiary" v-tooltip.top-center="tooltips.connectText">
-								<Icon name="connect" />
-
-								Connect Text
-							</Button>
-
 							<Button
 								className="tertiary"
 								v-tooltip.top-center="tooltips.deleteText"
@@ -82,15 +74,6 @@
 								@onClick="openPopup"
 							>
 								<Icon name="documents" />
-							</Button>
-
-							<Button 
-								className="tertiary"
-								square
-								v-tooltip.top-center="tooltips.connectText"
-								@onClick="handleDatasetLink"
-							>
-								<Icon name="connect" />
 							</Button>
 
 							<Button
@@ -146,6 +129,7 @@ import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormIssues from '@/blocks/form-issues/form-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
+import FormConnectText from '@/blocks/form-connect-text/form-connect-text';
 import FormDataset from '@/blocks/form-dataset/form-dataset-default';
 import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
@@ -169,6 +153,7 @@ export default {
 		FormBody,
 		FormIssues,
 		RichtextEntry,
+		FormConnectText,
 		FormCuratorIssues,
 	},
 
@@ -197,7 +182,6 @@ export default {
 		return {
 			formData: {},
 			tooltips: {
-				connectText: 'Select additional sentences from the document to connect to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
 			isIssuesFormVisible: false,
@@ -250,12 +234,6 @@ export default {
 			if (confirmDelete) {
 				this.$emit('datasetDelete')
 			}
-		},
-		handleDatasetLink(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			
-			this.$emit('datasetLink')
 		},
 		handleComplete(e) {
 			e.preventDefault();

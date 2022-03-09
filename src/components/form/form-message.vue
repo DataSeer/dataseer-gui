@@ -1,5 +1,5 @@
 <template>
-	<div class="form__message">
+	<div class="c">
 		<slot />
 	</div>
 	<!-- /.form__message -->

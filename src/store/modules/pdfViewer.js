@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 // State
 const state = {
 	isMerging: false,
@@ -22,6 +23,16 @@ const getters = {
 
 // Actions
 const actions = {
+	addSentenceToDataset({state}) {
+		const documentHandler = state.documentHandler;
+		documentHandler.datasetsList.events.onNewDatasetClick();
+	},
+	linkSentenceToDataset({state}, datasetId) {
+		const documentHandler = state.documentHandler;
+		const selectedDataset = state.datasets.filter(dataset => dataset.id === datasetId)[0];
+		
+		documentHandler.datasetsList.events.onDatasetLink(selectedDataset);
+	},
 	mergeDatasets({state, commit}) {
 		const datasetsToMerge = state.datasets.filter(dataset => state.datasetsForMerge.some((id) => id === dataset.id ));
 		const documentHandler = state.documentHandler;

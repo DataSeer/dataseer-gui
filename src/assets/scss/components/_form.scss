@@ -29,6 +29,11 @@
 		text-align: center;
 	}
 
+	/* form entry */
+	.form__entry {
+		margin-bottom: 40px;
+	}
+
 	/* Form Body */
 	.form__body {
 		margin-bottom: 20px;
@@ -99,6 +104,32 @@
 		text-transform: uppercase;
 	}
 
+	/* Form Divider */
+
+	.form__divider {
+		margin: 30px 0;
+		font-size: 12px;
+		font-weight: 700;
+		text-transform: uppercase;	
+		overflow: hidden;
+
+		span {
+			position: relative;
+
+			&:before {
+				content: '';
+				padding: auto;
+				position: absolute;
+				left: calc(100% + 15px);
+				top: 50%;
+				width: 100vw;
+				height: 2px;
+				margin-top: -1px;
+				background-color: $c-skyblue-bc;
+			}
+		}
+	}
+
 	/* Form Actions */
 	.form__actions {
 		margin-bottom: 30px;
@@ -129,7 +160,6 @@
 	}
 
 	/* Form Message */
-
 	.form__message {
 		text-align: center;
 	}
@@ -143,7 +173,6 @@
 	}
 
 	/* Form Range */
-
 	.form__range > ul {
 		display: flex;
 		align-items: flex-end;
@@ -395,6 +424,17 @@
 	.form__cta-col {
 		flex-shrink: 0;
 		padding: 5px 0;
+	}
+}
+
+/* Form Connect Text */
+
+.form--connect-text {
+	padding: 35px 65px 0;
+
+	.btn {
+		padding-left: 8px;
+		padding-right: 8px;
 	}
 }
 

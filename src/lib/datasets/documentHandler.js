@@ -735,6 +735,7 @@ DocumentHandler.prototype.synchronize = function() {
 			});
 		});
 		this.datasetsList.attach(`onDatasetLink`, function(dataset) {
+			console.log(dataset);
 			let selectedSentences = self.documentView.getSelectedSentences();
 			if (selectedSentences.length === 0)
 				return self.showModalError({

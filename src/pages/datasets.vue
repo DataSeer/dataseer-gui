@@ -29,15 +29,11 @@
 					:dataset="activeDataset"
 					:activeDatasetType="activeDatasetType"
 					@datasetDelete="handleDatasetDelete"
-					@datasetLink="handleDatasetLink"
 					@datasetComplete="handleDatasetComplete"
 				/>
 			</Tabs>
 
-			<DatasetUtils
-				@newDatasetClick="handleNewDatasetClick"
-				@mergeDatasetClick="handleMergeDatasetClick"
-			/>
+			<DatasetUtils />
 		</Loader>
 		
 		<template #right>

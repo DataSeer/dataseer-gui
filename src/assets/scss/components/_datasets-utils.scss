@@ -29,7 +29,7 @@
 		}
 
 		.main--datasets-code & {
-			background-color: rgba($c-purple-65, 0.06);
+			background-color: $c-purple-f1;
 		}
 
 		.main--datasets-material & {
@@ -83,6 +83,7 @@
 		padding-left: 54px;
 		padding-right: 8px;
 		justify-content: space-between;
+		background-color: inherit;
 		opacity: 0;
 		transition: opacity 0.3s 0.3s ease;
 	}
