@@ -61,7 +61,7 @@
 							<Button
 								className="tertiary"
 								square
-								v-tooltip.top-center="tooltips.flagText"
+								v-tooltip.top-center="tooltips.flag"
 								@onClick="toggleIssuesForm"
 							>
 								<Icon name="flag" />
@@ -70,10 +70,19 @@
 							<Button
 								className="tertiary"
 								square
-								v-tooltip.top-center="tooltips.show"
+								v-tooltip.top-center="tooltips.passage"
 								@onClick="openPopup"
 							>
 								<Icon name="documents" />
+							</Button>
+
+							<Button
+								className="tertiary"
+								square
+								v-tooltip.top-center="tooltips.unlink"
+								@onClick.prevent="unlinkSentenceFromDataset"
+							>
+								<Icon name="icon_disconnect" />
 							</Button>
 
 							<Button
@@ -114,7 +123,7 @@
 /**
  * External Dependencies
  */
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 /**
  * Internal Dependencies
@@ -182,6 +191,9 @@ export default {
 		return {
 			formData: {},
 			tooltips: {
+				flag: 'Flag Issues For Author',
+				passage: 'Show Text Passage',
+				unlink: 'Unlink selected sentence to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
 			isIssuesFormVisible: false,
@@ -213,6 +225,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		...mapActions('pdfViewer', ['unlinkSentenceFromDataset']),
 		onNameInput(e) {
 			this.formData = {...this.formData, name: e.target.value}
 		},

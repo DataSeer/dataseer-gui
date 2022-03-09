@@ -187,7 +187,7 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 			}
 			if (dataset && self.documentView.getSelectedSentences().length === 1) {
 				let sentence = self.documentView.getSentence(opts.sentence);
-				self.events.onSentenceClick(dataset)
+				self.events.onSentenceClick(dataset, sentence)
 				// self.datasetsList.select(dataset.id);
 				// self.datasetForm.show();
 				// self.datasetForm.link(
@@ -642,7 +642,6 @@ DocumentHandler.prototype.synchronize = function() {
 			self.events.onDatasetClick()
 		});
 		this.documentView.attach(`onSentenceClick`, function(sentence) {
-			console.log(';dasdas');
 			return self.selectSentence({ sentence: sentence, disableSelection: true });
 		});
 		this.documentView.attach(`onFulltextView`, function() {
@@ -659,10 +658,10 @@ DocumentHandler.prototype.synchronize = function() {
 		});
 	}
 	
+	// Attach datasetsList events
 	if (this.datasetsList) {
-		// Attach datasetsList events
 		this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {
-			// console.log(dataset);
+			console.log('onDatasetLoaded');
 		});
 		this.datasetsList.attach(`onImportDatasetsClick`, function() {
 			let source = prompt(
@@ -872,19 +871,27 @@ DocumentHandler.prototype.synchronize = function() {
 					return self.selectSentence({ sentence: sentence });
 				});
 		});
+		
+		// No corresponding element at the moment
 		this.datasetForm.attach(`onTabClick`, function(data) {
 			console.log(`onTabClick`);
 			return self.selectSentence({ sentence: data.sentence, selectedDataset: data.dataset });
 		});
+		
+		// No corresponding element at the moment
 		this.datasetForm.attach(`onRefreshDatatypesClick`, function(done) {
 			return API.dataseerML.resyncJsonDataTypes(function(err, res) {
 				console.log(err, res);
 				return done();
 			});
 		});
+		
+		// No corresponding element at the moment
 		this.datasetForm.attach(`onDisplayLeftClick`, function() {
 			self.documentView.displayRight();
 		});
+		
+		// No corresponding element at the moment
 		this.datasetForm.attach(`onDisplayRightClick`, function() {
 			self.documentView.displayLeft();
 		});

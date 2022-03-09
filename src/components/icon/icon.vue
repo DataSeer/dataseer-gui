@@ -13,6 +13,7 @@ import chain from './icon-chain';
 import check from './icon-check';
 import comment from './icon-comment';
 import connect from './icon-connect';
+import icon_disconnect from './icon-disconnect';
 import document from './icon-document';
 import documents from './icon-documents';
 import document_new from './icon-document-new';
@@ -82,6 +83,7 @@ export default {
 		back,
 		comment,
 		connect,
+		icon_disconnect,
 		document,
 		documents,
 		document_new,

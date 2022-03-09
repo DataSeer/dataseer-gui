@@ -73,6 +73,7 @@
 		border-radius: inherit;
 		overflow: hidden;
 		transition: width 0.3s ease;
+		transition-delay: 0.3s;
 	}
 
 	.datasets__button .datasets__button-wrapper {
@@ -85,7 +86,7 @@
 		justify-content: space-between;
 		background-color: inherit;
 		opacity: 0;
-		transition: opacity 0.3s 0.3s ease;
+		transition: opacity 0.3s ease;
 	}
 
 	.datasets__button--merge .datasets__button-inner p {
@@ -116,10 +117,13 @@
 
 	&.is-merging .datasets__button--merge .datasets__button-inner {
 		width: 330px;
+		transition-delay: 0s;
 		box-shadow: 0 1px 9px rgba($c-primary, 0.22);
 	}
 
 	&.is-merging .datasets__button--merge .datasets__button-wrapper {
 		opacity: 1;
+		transition-delay: 0.3s;
+
 	}
 }

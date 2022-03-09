@@ -161,7 +161,8 @@
 	&-code {
 		background-color: $c-purple-fa;
 
-		.form .form__cta .btn:not(.btn--tertiary) {
+		.form .form__cta .btn:not(.btn--tertiary),
+		.form--connect-text .btn:not(.btn--tertiary) {
 			background-color: $c-purple-72;
 			border-color: $c-purple-72;
 
@@ -199,7 +200,8 @@
 	&-material {
 		background-color: $c-orange-ff;
 
-		.form .form__cta .btn:not(.btn--tertiary) {
+		.form .form__cta .btn:not(.btn--tertiary),
+		.form--connect-text .btn:not(.btn--tertiary) {
 			background-color: $c-orange-d2;
 			border-color: $c-orange-d2;
 
@@ -236,7 +238,8 @@
 	&-protocol {
 		background-color: rgba($c-green-40, 0.08);
 
-		.form .form__cta .btn:not(.btn--tertiary) {
+		.form .form__cta .btn:not(.btn--tertiary),
+		.form--connect-text .btn:not(.btn--tertiary) {
 			background-color: $c-green-40;
 			border-color: $c-green-40;
 

@@ -8,6 +8,7 @@ const state = {
 	datasets: [],
 	datasetsForMerge: [],
 	activeDataset: undefined,
+	activeSentence: undefined,
 }
 
 // Getters
@@ -26,6 +27,23 @@ const actions = {
 	addSentenceToDataset({state}) {
 		const documentHandler = state.documentHandler;
 		documentHandler.datasetsList.events.onNewDatasetClick();
+	},
+	unlinkSentenceFromDataset() {
+		const { documentHandler, activeDataset, activeSentence }  = state
+		
+		if (!activeDataset) return console.log(`bad dataset id`);
+		if (!activeDataset.sentences) return console.log(`empty sentences`);
+		
+		if (activeDataset.sentences.length === 1) {
+			let sentence = activeDataset.sentences[0];
+			return documentHandler.deleteDataset(activeDataset.id, function() {
+				return documentHandler.selectSentence({ sentence: sentence });
+			});
+		} else
+			return documentHandler.deleteLink({ dataset: activeDataset, sentence: activeSentence }, function(err) {
+				if (err) return console.log(err);
+				return documentHandler.selectSentence({ sentence: activeSentence });
+			});
 	},
 	linkSentenceToDataset({state}, datasetId) {
 		const documentHandler = state.documentHandler;
@@ -51,6 +69,9 @@ const actions = {
 		datasets.splice(datasets.findIndex((el) => el === datasetId), 1)
 		
 		commit('SET_MERGE_DATASETS', datasets)
+	},
+	setActiveSentence({ commit }, sentence) {
+		commit('SET_ACTIVE_SENTENCE', sentence)
 	},
 	setMergeState({ commit }, value) {
 		commit('SET_MERGE_STATE', value)
@@ -92,6 +113,9 @@ const mutations = {
 	SET_DOCUMENT_HANDLER(state, payload) {
         state.documentHandler = payload;
     },
+	SET_ACTIVE_SENTENCE(state, payload) {
+		state.activeSentence = payload;
+	},
 	CLEAR_STATE(state ) {
         state.dataTypes = {};
 		state.documentHandler = {};
