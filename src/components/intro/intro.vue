@@ -2,7 +2,7 @@
 	<div class="intro">
 		<div class="intro__head">
 			<h3>
-				No {{type}} Yet
+				No {{typePlural}} Yet
 
 				<span>Need to Add Some?</span>
 			</h3>
@@ -14,7 +14,7 @@
 
 		<div class="intro__body">
 			<div class="intro__about">
-				<p>Our AI has not detected any {{type}} in this document.</p>
+				<p>Our AI has not detected any {{typePlural}} in this document.</p>
 
 				<p>
 					<Icon name="arrow_up" color="#8CABCD" /> If you want to add some, first select a text
@@ -71,14 +71,20 @@ export default {
 		Button
 	},
 
-	/**
-	 * Props
-	 */
 	props: {
 		type: {
 			type: String,
-			default: 'Datasets'
+			default: ''
+		},
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		typePlural() {
+			return this.type + 's'
 		}
-	}
+	},
 }
 </script>

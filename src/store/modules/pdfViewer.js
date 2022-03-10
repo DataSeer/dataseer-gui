@@ -14,12 +14,14 @@ const state = {
 // Getters
 const getters = {
 	documentHandler: state => state.documentHandler,
+	activeDatasetType: state => state.documentHandler.activeDatasetType,
 	activeDataset: state => state.activeDataset,
 	activeDatasetId: state => state.activeDataset?.id,
 	dataTypes: state => state.dataTypes,
 	mergeState: state => state.isMerging,
 	datasetsForMerge: state => state.datasetsForMerge,
 	datasets: state => state.datasets,
+	filteredDatasets: state => state.datasets.filter((dataset) => dataset.datasetType === state.documentHandler.activeDatasetType),
 }
 
 // Actions
@@ -87,6 +89,9 @@ const actions = {
 	},
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
+	},
+	setActiveDatasetType({ state }, dataTypeId) {
+		state.documentHandler.setActiveDatasetType(dataTypeId);
 	},
 	clearState({commit} ) {
 		commit('CLEAR_STATE')

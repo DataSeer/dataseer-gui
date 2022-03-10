@@ -6,9 +6,7 @@
 		<Subheader>
 			<SubheaderDatasets
 				:datasetTypes="datasetTypes"
-				:activeDatasetType="activeDatasetType"
 				:metadata="metadata"
-				@navButtonClick="setActiveDatasetType"
 			/>
 		</Subheader>
 
@@ -17,10 +15,13 @@
 			:error="error"
 			:errorMessage="errorMessage"
 		>
-			<Intro v-if="!datasets.length" />
+			<Intro
+				:type="activeDatasetType"
+				v-if="!filteredDatasets.length"
+			/>
 
 			<Tabs
-				v-if="datasets.length"
+				v-if="filteredDatasets.length"
 				:activeTabId="activeDatasetId"
 				@tabsNavClick="handleTabsNavClick"
 			>
@@ -119,7 +120,6 @@ export default {
 					flagged: false,
 				},
 			],
-			activeDatasetType: 'dataset',
 			metadata: {},
 			loading: true,
 			error: false,
@@ -133,41 +133,10 @@ export default {
 	 */
 	computed: {
 		...mapGetters('account', ['user']),
-		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId', 'datasets']),
+		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId', 'filteredDatasets', 'activeDatasetType']),
 		documentId() {
 			return this.$route.params.id
 		},
-		parsedDatasets() {
-			const MaterialDatasets = this.datasets.filter(dataset =>{
-				return (dataset.dataType === 'lab materials') ||
-				(dataset.dataType === 'other' && dataset.subType === 'reagent')
-			})
-			
-			const CodeDatasets = this.datasets.filter(dataset =>{
-				return (dataset.dataType === 'code software') ||
-				(dataset.dataType === 'other' && dataset.subType === 'code')
-			})
-
-			const ProtocolDatasets = this.datasets.filter(dataset =>{
-				return dataset.dataType === 'other' && dataset.subType === 'protocol'
-			})
-
-			const defaultDatasets = this.datasets
-				.filter(( el ) => !MaterialDatasets.includes( el ))
-				.filter(( el ) => !CodeDatasets.includes( el ))
-				.filter(( el ) => !ProtocolDatasets.includes( el ));
-		
-			switch (this.activeDatasetType) {
-				case 'code':
-					return CodeDatasets
-				case 'material':
-					return MaterialDatasets;
-				case 'protocol':
-					return ProtocolDatasets;
-				default:
-					return defaultDatasets;
-			}
-		}
 	},
 
 	/**
@@ -229,6 +198,7 @@ export default {
 						},
 						user: this.user,
 						datatypes: dataTypes,
+						activeDatasetType: 'dataset',
 						datasets: doc.datasets,
 						metadata: doc.metadata,
 						tei: { data: xml, metadata: tei.res.metadata },

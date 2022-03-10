@@ -35,10 +35,36 @@ export const DocumentHandler = function(opts = {}, events) {
 	};
 	this._colors = new Colors();
 	this.colors = {};
-	// Add colors to datasets
-	for (let i = 0; i < opts.datasets.current.length; i++) {
-		opts.datasets.current[i].color = this._colors.randomColor();
-		this.colors[opts.datasets.current[i].id] = opts.datasets.current[i].color;
+	this.activeDatasetType = opts.activeDatasetType
+	this.dataTypeColors = {
+		code: {
+			background: {
+				"rgba": "rgba(114,93,189, 0.05)",
+				"rgb": "rgb(114,93,189)"
+			},
+			foreground: "white"
+		},
+		material: {
+			background: {
+				"rgba": "rgba(210,112,68, 0.05)",
+				"rgb": "rgb(210,112,68)"
+			},
+			foreground: "white"
+		},
+		protocol: {
+			background: {
+				rgba: "rgba(64,164,105, 0.05)",
+				rgb: "rgb(64,164,105)"
+			},
+			foreground: "white"
+		},
+		dataset: {
+			background: {
+				rgba: "rgba(0,106,201, 0.05)",
+				rgb: "rgb(0,106,201)"
+			},
+			foreground: "white"
+		},
 	}
 	this.sentencesMapping = undefined;
 	this.user = opts.user;
@@ -46,6 +72,7 @@ export const DocumentHandler = function(opts = {}, events) {
 	this.datasets = opts.datasets;
 	this.metadata = opts.metadata;
 	this.tei = { data: opts.tei.data, metadata: { mapping: opts.tei.metadata.mapping } };
+	
 	if (opts.pdf)
 		this.pdf = {
 			url: opts.pdf.url,
@@ -58,6 +85,16 @@ export const DocumentHandler = function(opts = {}, events) {
 	/* $(`#datasets-confirm-modal-valid`).click(function() {
 		return self.onModalConfirmAccept();
 	}); */
+
+	// Add colors and data types to datasets
+	for (let i = 0; i < opts.datasets.current.length; i++) {
+		const datasetType = this.getDatasetDataType(opts.datasets.current[i]);
+		
+		opts.datasets.current[i].color = this.dataTypeColors[datasetType];
+		opts.datasets.current[i].datasetType = datasetType;
+		this.colors[opts.datasets.current[i].id] = opts.datasets.current[i].color;
+	}
+	
 	return this;
 };
 
@@ -93,6 +130,7 @@ DocumentHandler.prototype.refreshSentencesMapping = function() {
 // Attach event
 DocumentHandler.prototype.init = function() {
 	// refresh mapping
+	
 	this.sentencesMapping = this.documentView.getSentencesMapping();
 	this.refreshSentencesMapping();
 	let self = this,
@@ -478,11 +516,18 @@ DocumentHandler.prototype.newDataset = function(sentences = {}, cb) {
 
 // Add  new Dataset
 DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
-	dataset.color = this._colors.randomColor();
+	const datasetType = this.getDatasetDataType(dataset);
+	
+	dataset.color = this.dataTypeColors[datasetType];
+	dataset.datasetType = datasetType;
+	
 	this.colors[dataset.id] = dataset.color;
 	this.datasets.current.push(dataset);
 	this.documentView.addDataset(dataset, sentence);
 	this.datasetsList.add(dataset);
+
+	this.setActiveDatasetType(datasetType);
+	
 	return cb(null, this.getDataset(dataset.id));
 };
 
@@ -631,6 +676,34 @@ DocumentHandler.prototype.link = function(opts = {}) {
 		this.isReady(`datasetsList`, true);
 	}
 	this.synchronize();
+};
+
+// Get the dataset DataType (or undefined)
+DocumentHandler.prototype.getDatasetDataType = function (dataset) {
+	if (
+		dataset.dataType === 'lab materials' ||
+		(dataset.dataType === 'other' && dataset.subType === 'reagent')
+	) {
+		return 'material';
+	}
+
+	if (
+		dataset.dataType === 'code software' ||
+		(dataset.dataType === 'other' && dataset.subType === 'code')
+	) {
+		return 'code';
+	}
+
+	if (dataset.dataType === 'other' && dataset.subType === 'protocol') {
+		return 'protocol';
+	}
+
+	return 'dataset';
+};
+
+// setActiveDatasetType
+DocumentHandler.prototype.setActiveDatasetType = function (id) {
+	this.activeDatasetType = id;
 };
 
 // DocumentHandler synchronization

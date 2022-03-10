@@ -4,7 +4,7 @@
 			<ul>
 				
 				<li
-					v-for="dataset in datasets"
+					v-for="dataset in filteredDatasets"
 					:key="dataset.id"
 					class="tabs__link"
 					:class="{
@@ -70,7 +70,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['mergeState', 'datasets', 'datasetsForMerge']),
+		...mapGetters('pdfViewer', ['mergeState', 'datasets', 'datasetsForMerge', 'filteredDatasets']),
 	},
 	
 	/**

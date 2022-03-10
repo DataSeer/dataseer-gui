@@ -7,7 +7,7 @@
 						<button
 							:data-value="type.id"
 							:class="{ 'is-active': type.id === activeDatasetType}"
-							@click.prevent="$emit('navButtonClick', type.id)"
+							@click.prevent="setActiveDatasetType(type.id)"
 						>
 							<Dot v-if="type.flagged" />
 							<Icon :name="type.icon" color="currentColor" />
@@ -104,6 +104,14 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { mapActions, mapGetters } from 'vuex';
+
+/**
+ * Internal Dependencies
+ */
 import Dot from '@/components/dot/dot';
 import Icon from '@/components/icon/icon';
 import Summary from '@/blocks/summary/summary';
@@ -117,6 +125,17 @@ export default {
 	name: 'SubheaderDatasets',
 
 	/**
+	 * Components
+	 */
+	components: {
+		Dot,
+		Icon,
+		Button,
+		Summary,
+		Dropdown
+	},
+
+	/**
 	 * Props
 	 */
 	props: {
@@ -127,9 +146,6 @@ export default {
 		datasetTypes: {
 			type: Array,
 			default: () => []
-		},
-		activeDatasetType: {
-			type: String,
 		},
 	},
 
@@ -143,20 +159,18 @@ export default {
 	},
 
 	/**
-	 * Components
+	 * Computed
 	 */
-	components: {
-		Dot,
-		Icon,
-		Button,
-		Summary,
-		Dropdown
+	computed: {
+		...mapGetters('pdfViewer', ['activeDatasetType'])
 	},
+
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		...mapActions('pdfViewer', ['setActiveDatasetType']),
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		}

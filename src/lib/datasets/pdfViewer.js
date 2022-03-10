@@ -26,8 +26,8 @@ const MARGIN_IMAGE = {
 const CMAP_PACKED = true;
 const BORDER_WIDTH = 6; // Need to be an even number
 const REMOVED_BORDER_COLOR = false;
-const HOVER_BORDER_COLOR = 'rgba(25, 101, 176, 1)';
-const SELECTED_BORDER_COLOR = 'rgba(25, 101, 176, 1)';
+const HOVER_BORDER_COLOR = 'rgba(0,106,201, 1)';
+const SELECTED_BORDER_COLOR = 'rgba(0,106,201, 1)';
 
 // Representation of a chunk in PDF
 const Chunk = function(data, scale) {

@@ -174,10 +174,6 @@ export default {
 			type: Object,
 			default: () => {}
 		},
-		activeDatasetType: {
-			type: String,
-			default: ''
-		},
 		flagged: {
 			type: Boolean,
 			default: false,
@@ -210,7 +206,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['dataTypes', 'activeDataset', 'activeDatasetId']),
+		...mapGetters('pdfViewer', ['dataTypes', 'activeDataset', 'activeDatasetId', 'activeDatasetType']),
 		...mapGetters('account', ['userRoleWeight']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
