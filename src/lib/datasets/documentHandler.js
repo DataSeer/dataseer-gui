@@ -40,30 +40,30 @@ export const DocumentHandler = function(opts = {}, events) {
 		code: {
 			background: {
 				"rgba": "rgba(114,93,189, 0.05)",
-				"rgb": "rgb(114,93,189)"
+				"rgb": "rgb(227,223,242)"
 			},
-			foreground: "white"
+			foreground: "black"
 		},
 		material: {
 			background: {
 				"rgba": "rgba(210,112,68, 0.05)",
-				"rgb": "rgb(210,112,68)"
+				"rgb": "rgb(246,226,218)"
 			},
-			foreground: "white"
+			foreground: "black"
 		},
 		protocol: {
 			background: {
 				rgba: "rgba(64,164,105, 0.05)",
-				rgb: "rgb(64,164,105)"
+				rgb: "rgb(217,237,225)"
 			},
-			foreground: "white"
+			foreground: "black"
 		},
 		dataset: {
 			background: {
 				rgba: "rgba(0,106,201, 0.05)",
-				rgb: "rgb(0,106,201)"
+				rgb: "rgb(209,224,239)"
 			},
-			foreground: "white"
+			foreground: "black"
 		},
 	}
 	this.sentencesMapping = undefined;

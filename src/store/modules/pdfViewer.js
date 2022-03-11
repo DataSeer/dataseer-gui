@@ -57,8 +57,16 @@ const actions = {
 		const datasetsToMerge = state.datasets.filter(dataset => state.datasetsForMerge.some((id) => id === dataset.id ));
 		const documentHandler = state.documentHandler;
 
+		const newDataset = documentHandler.getDataset(datasetsToMerge[0].id);
+
 		documentHandler.mergeDatasets(datasetsToMerge, () => {
 			commit('SET_MERGE_DATASETS', [])
+			commit('SET_MERGE_STATE', false)
+			
+			return documentHandler.selectSentence({
+				sentence: newDataset.sentences[0],
+				selectedDataset: newDataset
+			});
 		});
 	},
 	addDatasetForMerge({ commit, state }, datasetId){

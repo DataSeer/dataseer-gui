@@ -143,10 +143,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets', 'setActiveSentence']),
-		setActiveDatasetType(value){
-			this.activeDatasetType = value;
-		},
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets', 'setActiveSentence', 'setActiveDatasetType']),
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
 				id: dataset.id,
@@ -208,6 +205,10 @@ export default {
 						onSentenceClick: (dataset, sentence) => {
 							this.setActiveSentence(sentence);
 							this.setActiveDataset(dataset);
+							
+							if (dataset) {
+								this.setActiveDatasetType(dataset.datasetType);
+							}
 						},
 					}
 				);
