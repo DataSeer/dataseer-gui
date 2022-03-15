@@ -39,29 +39,29 @@ export const DocumentHandler = function(opts = {}, events) {
 	this.dataTypeColors = {
 		code: {
 			background: {
-				"rgba": "rgba(114,93,189, 0.05)",
-				"rgb": "rgb(227,223,242)"
+				border: "rgb(114, 93, 189)",
+				rgb: "rgba(163, 95, 255)"
 			},
 			foreground: "black"
 		},
 		material: {
 			background: {
-				"rgba": "rgba(210,112,68, 0.05)",
-				"rgb": "rgb(246,226,218)"
+				border: "#rgb(210, 112, 68)",
+				rgb: "rgba(210, 112, 68)"
 			},
 			foreground: "black"
 		},
 		protocol: {
 			background: {
-				rgba: "rgba(64,164,105, 0.05)",
-				rgb: "rgb(217,237,225)"
+				border: "rgb(64, 164, 105)",
+				rgb: "rgba(60, 211, 122)"
 			},
 			foreground: "black"
 		},
 		dataset: {
 			background: {
-				rgba: "rgba(0,106,201, 0.05)",
-				rgb: "rgb(209,224,239)"
+				border: "rgb(0, 106, 201)",
+				rgb: "rgba(0, 189, 255)"
 			},
 			foreground: "black"
 		},

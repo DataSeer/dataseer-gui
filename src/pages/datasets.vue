@@ -143,7 +143,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets', 'setActiveSentence', 'setActiveDatasetType']),
+		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets', 'setActiveSentence', 'setActiveDatasetType', 'saveDataset']),
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
 				id: dataset.id,
@@ -161,14 +161,12 @@ export default {
 		handleNewDatasetClick(){
 			this.documentHandler.datasetsList.events.onNewDatasetClick();
 		},
-		handleDatasetLink() {
-			console.log('handleDatasetLink');
-		},
 		handleDatasetDelete() {
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 		},
 		handleDatasetComplete(data) {
-			this.documentHandler.saveDataset(this.activeDataset.id, data);
+			this.saveDataset(data)
+			
 		},
 		async initializePdfViewer() {
 			this.loading = true;
@@ -188,7 +186,8 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
-				const currentDocument = new DocumentHandler({
+				const currentDocument = new DocumentHandler(
+					{
 						ids: {
 							document: doc._id,
 							datasets: doc.datasets._id

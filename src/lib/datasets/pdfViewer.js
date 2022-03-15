@@ -1168,13 +1168,13 @@ PdfViewer.prototype.getSentenceDataURL = function(sentence) {
 	canvasElement.width = newCanvas.width();
 	canvasElement.height = newCanvas.height();
 	ctx.drawImage(mainCanvas, x, y, w, h, 0, 0, w, h);
-	return canvasElement.toDataURL(`image/jpeg`);
+	return canvasElement.toDataURL(`image/png`);
 };
 
 // Colorize image
 PdfViewer.prototype.colorize = function(sentence, color, cb) {
-	let self = this,
-		contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
+	let self = this;
+	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 	async.mapSeries(
 		contour
 			.find(`canvas[sentenceId="${sentence.id}"]`)
@@ -1183,47 +1183,56 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 			})
 			.get(),
 		function(canvas, next) {
-			if (canvas.get(0).hasAttribute(`colorized-data-url`)) return next(); // there is already a background
+			// there is already a background
+			
+			if (canvas.get(0).hasAttribute(`colorized-data-url`)) return next();
+			
 			let img = new Image();
 			img.src = canvas.attr(`data-url`);
 			img.onload = function() {
 				let context = canvas.get(0).getContext(`2d`);
+				const lines = JSON.parse(canvas.attr(`borders`));
 				context.drawImage(img, 0, 0);
+				context.lineWidth = BORDER_WIDTH;
+				context.strokeStyle = color.background.border;
+				
+				for (let i = 0; i < lines.length; i++) {
+					context.beginPath();
+					context.moveTo(Math.floor(lines[i].x0), Math.floor(lines[i].y0));
+					context.lineTo(Math.floor(lines[i].x1), Math.floor(lines[i].y1));
+					context.stroke();
+					context.closePath();
+				}
+				
 				let w = parseInt(canvas.attr(`width`));
 				let h = parseInt(canvas.attr(`height`));
+
 				// pull the entire image into an array of pixel data
 				let imageData = context.getImageData(0, 0, w, h);
-				let r, g, b;
+				let rgba = Colors.rgba(color.background.rgb);
+				console.log(rgba);
+				
 				// examine every pixel
 				for (let i = 0; i < imageData.data.length; i += 4) {
-					// is this pixel white
-					if (
-						Colors.isWhite(
-							imageData.data[i],
-							imageData.data[i + 1],
-							imageData.data[i + 2]
-						)
-					) {
-						let rgb = Colors.rgb(color.background.rgb);
-						imageData.data[i] = rgb.r;
-						imageData.data[i + 1] = rgb.g;
-						imageData.data[i + 2] = rgb.b;
-						imageData.data[i + 3] = 255;
+					if (Colors.isWhite(
+						imageData.data[i],
+						imageData.data[i + 1],
+						imageData.data[i + 2]
+					)) {
+						imageData.data[i] = rgba.r;
+						imageData.data[i + 1] = rgba.g;
+						imageData.data[i + 2] = rgba.b;
+						imageData.data[i + 3] = 10;
 					} else {
-						if (color.foreground === `white`) {
-							imageData.data[i] = 255 - imageData.data[i];
-							imageData.data[i + 1] = 255 - imageData.data[i + 1];
-							imageData.data[i + 2] = 255 - imageData.data[i + 2];
-						} else {
-							imageData.data[i] = imageData.data[i];
-							imageData.data[i + 1] = imageData.data[i + 1];
-							imageData.data[i + 2] = imageData.data[i + 2];
-						}
+						imageData.data[i] = imageData.data[i];
+						imageData.data[i + 1] = imageData.data[i + 1];
+						imageData.data[i + 2] = imageData.data[i + 2];
 					}
 				}
+				
 				// put the altered data back on the canvas
 				context.putImageData(imageData, 0, 0);
-				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/jpeg`));
+				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/png`));
 				return next();
 			};
 		},
@@ -1236,8 +1245,8 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 };
 
 PdfViewer.prototype.uncolorize = function(sentence) {
-	let self = this,
-		contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
+	let self = this;
+	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 	contour.find(`canvas[sentenceId="${sentence.id}"]`).map(function() {
 		let canvas = $(this);
 		canvas.removeAttr(`colorized-data-url`);
@@ -1306,7 +1315,7 @@ PdfViewer.prototype.buildCanvas = function(_x, _y, _w, _h, p, sentence, borders 
 	canvasElement.width = newCanvas.width();
 	canvasElement.height = newCanvas.height();
 	ctx.drawImage(mainCanvas, x, y, w, h, 0, 0, w, h);
-	newCanvas.attr(`data-url`, canvasElement.toDataURL(`image/jpeg`));
+	newCanvas.attr(`data-url`, canvasElement.toDataURL(`image/png`));
 	return newCanvas;
 };
 

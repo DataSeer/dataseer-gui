@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 // State
 const state = {
 	isMerging: false,
@@ -67,6 +65,14 @@ const actions = {
 				sentence: newDataset.sentences[0],
 				selectedDataset: newDataset
 			});
+		});
+	},
+	saveDataset({state, commit}, data) {
+		const documentHandler = state.documentHandler;
+		
+		documentHandler.saveDataset(state.activeDataset.id, data, () => {
+			commit('SET_DATASETS', state.datasets);
+			documentHandler.init();
 		});
 	},
 	addDatasetForMerge({ commit, state }, datasetId){
