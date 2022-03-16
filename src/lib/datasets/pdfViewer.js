@@ -1210,7 +1210,6 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 				// pull the entire image into an array of pixel data
 				let imageData = context.getImageData(0, 0, w, h);
 				let rgba = Colors.rgba(color.background.rgb);
-				console.log(rgba);
 				
 				// examine every pixel
 				for (let i = 0; i < imageData.data.length; i += 4) {

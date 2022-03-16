@@ -48,6 +48,16 @@
 						<div v-if="userRoleWeight < 1000" class="form__cta-col">
 							<Button
 								className="tertiary"
+								v-tooltip.top-center="tooltips.unlink"
+								@onClick.prevent="unlinkSentenceFromDataset"
+							>
+								<Icon name="icon_disconnect" />
+
+								Unlink
+							</Button>
+							
+							<Button
+								className="tertiary"
 								v-tooltip.top-center="tooltips.deleteText"
 								@onClick="handleDelete"
 							>
@@ -206,7 +216,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['dataTypes', 'activeDataset', 'activeDatasetId', 'activeDatasetType']),
+		...mapGetters('pdfViewer', ['documentHandler', 'dataTypes', 'activeDataset', 'activeDatasetId', 'activeDatasetType']),
 		...mapGetters('account', ['userRoleWeight']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
@@ -246,8 +256,8 @@ export default {
 		},
 		handleComplete(e) {
 			e.preventDefault();
-
-			this.$emit('datasetComplete', this.formData)
+			
+			this.documentHandler.saveDataset(this.activeDataset.id, this.formData)
 		},
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;

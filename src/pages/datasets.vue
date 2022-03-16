@@ -29,7 +29,6 @@
 					:dataset="activeDataset"
 					:activeDatasetType="activeDatasetType"
 					@datasetDelete="handleDatasetDelete"
-					@datasetComplete="handleDatasetComplete"
 				/>
 			</Tabs>
 
@@ -164,10 +163,6 @@ export default {
 		handleDatasetDelete() {
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 		},
-		handleDatasetComplete(data) {
-			this.saveDataset(data)
-			
-		},
 		async initializePdfViewer() {
 			this.loading = true;
 
@@ -186,31 +181,29 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
-				const currentDocument = new DocumentHandler(
-					{
-						ids: {
-							document: doc._id,
-							datasets: doc.datasets._id
-						},
-						user: this.user,
-						datatypes: dataTypes,
-						activeDatasetType: 'dataset',
-						datasets: doc.datasets,
-						metadata: doc.metadata,
-						tei: { data: xml, metadata: tei.res.metadata },
-						pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
+				const currentDocument = new DocumentHandler({
+					ids: {
+						document: doc._id,
+						datasets: doc.datasets._id
 					},
-					{
-						onSentenceClick: (dataset, sentence) => {
-							this.setActiveSentence(sentence);
-							this.setActiveDataset(dataset);
-							
-							if (dataset) {
-								this.setActiveDatasetType(dataset.datasetType);
-							}
-						},
-					}
-				);
+					user: this.user,
+					datatypes: dataTypes,
+					activeDatasetType: 'dataset',
+					datasets: doc.datasets,
+					metadata: doc.metadata,
+					tei: { data: xml, metadata: tei.res.metadata },
+					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
+				},
+				{
+					onSentenceClick: (dataset, sentence) => {
+						this.setActiveSentence(sentence);
+						this.setActiveDataset(dataset);
+						
+						if (dataset) {
+							this.setActiveDatasetType(dataset.datasetType);
+						}
+					},
+				});
 				
 				currentDocument.link({
 					documentView: documentView,
@@ -232,10 +225,16 @@ export default {
 	},
 
 	/**
+	 * Created
+	 */
+	created () {
+		this.clearState();
+	},
+	
+	/**
 	 * Mounted
 	 */
 	mounted () {
-		this.clearState();
 		this.initializePdfViewer();
 	},
 

@@ -307,13 +307,13 @@ DocumentView.prototype.removeDataset = function(dataset) {
 // Add a corresp
 DocumentView.prototype.addLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.addLink(dataset, sentence);
-	this.xmlViewer.addLink(dataset, sentence);
+	if (this.xmlViewer) this.xmlViewer.addLink(dataset, sentence);
 };
 
 // Remove a corresp
 DocumentView.prototype.removeLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.removeLink(dataset, sentence);
-	this.xmlViewer.removeLink(dataset, sentence);
+	if (this.xmlViewer)this.xmlViewer.removeLink(dataset, sentence);
 };
 
 // display left

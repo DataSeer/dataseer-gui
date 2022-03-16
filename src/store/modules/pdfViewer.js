@@ -67,14 +67,6 @@ const actions = {
 			});
 		});
 	},
-	saveDataset({state, commit}, data) {
-		const documentHandler = state.documentHandler;
-		
-		documentHandler.saveDataset(state.activeDataset.id, data, () => {
-			commit('SET_DATASETS', state.datasets);
-			documentHandler.init();
-		});
-	},
 	addDatasetForMerge({ commit, state }, datasetId){
 		const datasets  = state.datasetsForMerge
 		datasets.push(datasetId)

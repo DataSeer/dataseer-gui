@@ -10,8 +10,8 @@ import async from 'async';
 /**
  * Internal Dependencies
  */
-import Colors from './colors';
 import API from './api';
+
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
@@ -33,7 +33,6 @@ export const DocumentHandler = function(opts = {}, events) {
 		datasetsList: false,
 		documentView: false
 	};
-	this._colors = new Colors();
 	this.colors = {};
 	this.activeDatasetType = opts.activeDatasetType
 	this.dataTypeColors = {
@@ -73,7 +72,7 @@ export const DocumentHandler = function(opts = {}, events) {
 	this.metadata = opts.metadata;
 	this.tei = { data: opts.tei.data, metadata: { mapping: opts.tei.metadata.mapping } };
 	
-	if (opts.pdf)
+	if (opts.pdf) {
 		this.pdf = {
 			url: opts.pdf.url,
 			metadata: {
@@ -82,11 +81,11 @@ export const DocumentHandler = function(opts = {}, events) {
 				mapping: opts.pdf.metadata.mapping
 			}
 		};
-	/* $(`#datasets-confirm-modal-valid`).click(function() {
-		return self.onModalConfirmAccept();
-	}); */
+	};
 
-	// Add colors and data types to datasets
+	
+
+	// Add colors and data types to each dataset
 	for (let i = 0; i < opts.datasets.current.length; i++) {
 		const datasetType = this.getDatasetDataType(opts.datasets.current[i]);
 		
@@ -130,9 +129,9 @@ DocumentHandler.prototype.refreshSentencesMapping = function() {
 // Attach event
 DocumentHandler.prototype.init = function() {
 	// refresh mapping
-	
 	this.sentencesMapping = this.documentView.getSentencesMapping();
 	this.refreshSentencesMapping();
+	
 	let self = this,
 		firstId = this.datasetsList.getFirstDatasetId(),
 		dataset = firstId ? this.getDataset(firstId) : undefined,
@@ -207,24 +206,28 @@ DocumentHandler.prototype.getDatasetsOfSentence = function(sentence) {
 
 // Select a sentence
 DocumentHandler.prototype.selectSentence = function(opts, cb) {
-	let self = this,
-		datasets = self.getDatasetsOfSentence(opts.sentence),
-		dataset =
+	let self = this;
+	let datasets = self.getDatasetsOfSentence(opts.sentence);
+	
+	let dataset =
 			datasets.length > 0
 				? opts.selectedDataset && opts.selectedDataset.id
 					? this.getDataset(opts.selectedDataset.id)
 					: datasets[0]
-				: undefined,
-		selectedSentences = this.documentView.getSelectedSentences();
-	return this.documentView.scrollToSentence(
-		{ sentence: opts.sentence, noAnim: opts.noAnim },
+				: undefined
+	let selectedSentences = this.documentView.getSelectedSentences();
+	let sentence = self.documentView.getSentence(opts.sentence);
+	
+	return this.documentView.scrollToSentence({
+		sentence: opts.sentence,
+		noAnim: opts.noAnim
+	},
 		function(err) {
 			if (!opts.disableSelection) {
 				self.documentView.unselectSentences(selectedSentences);
 				self.documentView.selectSentence(opts.sentence);
 			}
 			if (dataset && self.documentView.getSelectedSentences().length === 1) {
-				let sentence = self.documentView.getSentence(opts.sentence);
 				self.events.onSentenceClick(dataset, sentence)
 				// self.datasetsList.select(dataset.id);
 				// self.datasetForm.show();
@@ -263,7 +266,7 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 				
 				
 			} else {
-				self.events.onSentenceClick(undefined)
+				self.events.onSentenceClick(dataset, sentence)
 				// self.datasetsList.unselect();
 				// self.datasetForm.hide();
 				// self.datasetForm.setEmptyMessage();
@@ -336,10 +339,6 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 // Save a dataset
 DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
 	let self = this;
-	// let dataset = this.getDataset(id);
-	
-	// if (!this.hasChanged[id]) return typeof cb === `function` ? cb(null, dataset) : undefined;
-	this.loading(id);
 	
 	return API.datasets.updateDataset(
 		{
@@ -709,10 +708,11 @@ DocumentHandler.prototype.setActiveDatasetType = function (id) {
 // DocumentHandler synchronization
 DocumentHandler.prototype.synchronize = function() {
 	let self = this;
+	
 	if (this.documentView) {
 		// Attach documentView events
 		this.documentView.attach(`onDatasetClick`, function(sentence) {
-			self.events.onDatasetClick()
+			self.events.onDatasetClick(sentence)
 		});
 		this.documentView.attach(`onSentenceClick`, function(sentence) {
 			return self.selectSentence({ sentence: sentence, disableSelection: true });
@@ -731,242 +731,244 @@ DocumentHandler.prototype.synchronize = function() {
 		});
 	}
 	
-	// Attach datasetsList events
-	if (this.datasetsList) {
-		this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {
-			console.log('onDatasetLoaded');
-		});
-		this.datasetsList.attach(`onImportDatasetsClick`, function() {
-			let source = prompt(
-				`Enter the ID of the document containing the datasets you want to import (it will take a few seconds)`
-			);
-			if (source === null) return;
-			let match = source.match(/[a-f0-9]{24}/gm);
-			console.log(source, !Array.isArray(match), match);
-			if (source === `` || !Array.isArray(match) || match.length !== 1)
-				return alert(`Bad document ID`);
-			$(`body`).css(`cursor`, `progress`);
-			return API.documents.importDatasets(
-				{ source: source, target: self.ids.document },
-				function(err, query) {
-					console.log(err, query);
-					$(`body`).css(`cursor`, `default`);
-					if (err || query.err) return alert(`An error has occured`);
-					let infos = `${query.res.existing.length} already existing dataset(s)\n${query.res.merged.length} dataset(s) merged\n${query.res.rejected.length} dataset(s) rejected`;
-					alert(infos);
-					if (query.res.rejected.length) {
-						alert(`More infos about rejected dataset(s)`);
-						for (var i = 0; i < query.res.rejected.length; i++) {
-							let dataset = query.res.rejected[i];
-							let lines = [
-								`${i + 1}/${query.res.rejected.length}`,
-								`(${dataset.id}) ${dataset.name} : ${dataset.dataType} ${dataset.subType}`,
-								`${dataset.sentences
-									.map(function(s) {
-										return s.text;
-									})
-									.join(`\n`)}`
-							];
-							alert(lines.join(`\n`));
-						}
-					}
-					window.location.reload();
-				}
-			);
-		});
-		this.datasetsList.attach(`onDetectNewSentencesClick`, function() {
-			let pages = prompt(
-				`Enter the range of page numbers you wish to process (e.g. : 1-5, 8, 11-13)\nIt will take 20-30 seconds per page`
-			);
-			if (pages === null) return;
-			$(`body`).css(`cursor`, `progress`);
-			return API.documents.detectNewSentences(
-				{ id: self.ids.document, params: { pages: pages } },
-				function(err, query) {
-					console.log(err, query);
-					$(`body`).css(`cursor`, `default`);
-					if (err || query.err) return alert(`An error has occured`);
-					alert(`Process done. It will automatically refresh this page`);
-					window.location.reload();
-				}
-			);
-		});
-		this.datasetsList.attach(`onDatasetClick`, function(dataset) {
-				self.selectSentence({
-					sentence: dataset.sentence, // this data contain the current selected sentence
-					selectedDataset: dataset
-				});
-		});
-		this.datasetsList.attach(`onDatasetCheck`, function(dataset) {
-			// console.log(dataset);
-		});
-		this.datasetsList.attach(`onDatasetDelete`, function(dataset) {
-			let sentence = dataset.sentences[0];
-			return self.deleteDataset(dataset.id, function() {
-				return self.selectSentence({ sentence: sentence });
+	/* 
+		// Attach datasetsList events
+		if (this.datasetsList) {
+			this.datasetsList.attach(`onDatasetLoaded`, function(dataset) {
+				console.log('onDatasetLoaded');
 			});
-		});
-		this.datasetsList.attach(`onDatasetLink`, function(dataset) {
-			console.log(dataset);
-			let selectedSentences = self.documentView.getSelectedSentences();
-			if (selectedSentences.length === 0)
-				return self.showModalError({
-					title: `Error: Link sentence to dataset`,
-					body: `You must select a sentence before linking it to the dataset`
-				});
-			else
-				return self.newLinks(
-					{ dataset: { id: dataset.id }, sentences: selectedSentences },
-					function(err, dataset) {
-						if (err) return console.log(err);
-						return self.selectSentence({
-							sentence: selectedSentences[selectedSentences.length - 1]
-						});
+			this.datasetsList.attach(`onImportDatasetsClick`, function() {
+				let source = prompt(
+					`Enter the ID of the document containing the datasets you want to import (it will take a few seconds)`
+				);
+				if (source === null) return;
+				let match = source.match(/[a-f0-9]{24}/gm);
+				console.log(source, !Array.isArray(match), match);
+				if (source === `` || !Array.isArray(match) || match.length !== 1)
+					return alert(`Bad document ID`);
+				$(`body`).css(`cursor`, `progress`);
+				return API.documents.importDatasets(
+					{ source: source, target: self.ids.document },
+					function(err, query) {
+						console.log(err, query);
+						$(`body`).css(`cursor`, `default`);
+						if (err || query.err) return alert(`An error has occured`);
+						let infos = `${query.res.existing.length} already existing dataset(s)\n${query.res.merged.length} dataset(s) merged\n${query.res.rejected.length} dataset(s) rejected`;
+						alert(infos);
+						if (query.res.rejected.length) {
+							alert(`More infos about rejected dataset(s)`);
+							for (var i = 0; i < query.res.rejected.length; i++) {
+								let dataset = query.res.rejected[i];
+								let lines = [
+									`${i + 1}/${query.res.rejected.length}`,
+									`(${dataset.id}) ${dataset.name} : ${dataset.dataType} ${dataset.subType}`,
+									`${dataset.sentences
+										.map(function(s) {
+											return s.text;
+										})
+										.join(`\n`)}`
+								];
+								alert(lines.join(`\n`));
+							}
+						}
+						window.location.reload();
 					}
 				);
-		});
-		this.datasetsList.attach(`onNewDatasetClick`, function() {
-			let selectedSentences = self.documentView.getSelectedSentences();
-			if (selectedSentences.length === 0)
-				return self.showModalError({
-					title: `Error: New dataset`,
-					body: `You must select a sentence to create a new dataset`
-				});
-			else
-				return self.newDataset(selectedSentences, function(err, dataset) {
-					if (err) return console.log(err);
-					return self.selectSentence({
-						sentence: dataset.sentences[0],
-						selectedDataset: dataset
-					});
-				});
-		});
-		this.datasetsList.attach(`onMergeSelectionClick`, function(ids) {
-			// console.log(ids);
-			if (ids.length <= 1)
-				return self.showModalError({
-					title: `Error: Merge selection`,
-					body: `You must select at least two datasets`
-				});
-			else {
-				let id = ids[0].id,
-					dataset = self.getDataset(id);
-				return self.mergeDatasets(ids, function() {
-					return self.selectSentence({
-						sentence: dataset.sentences[0],
-						selectedDataset: dataset
-					});
-				});
-			}
-		});
-		this.datasetsList.attach(`onDeleteSelectionClick`, function(ids) {
-			// console.log(ids);
-			if (ids.length <= 0)
-				return self.showModalError({
-					title: `Error: Delete selection`,
-					body: `You must select at least one dataset`
-				});
-			else {
-				let dataset = self.getNextDataset(ids[ids.length - 1].id),
-					nextId = dataset.id;
-				return self.deleteDatasets(ids, function() {
-					return self.selectSentence({
-						sentence: dataset.sentences[0],
-						selectedDataset: dataset
-					});
-				});
-			}
-		});
-	}
-		
-	if (this.datasetForm) {
-		// Attach datasetsList events
-		this.datasetForm.attach(`onPropertyChange`, function(property, value) {
-			// console.log(property, value);
-			let dataset = self.datasetForm.getDataset();
-			self.modified(dataset.id);
-			self.updateDataset(dataset.id, dataset);
-			self.autoSave(dataset.id);
-			if (property === `highlight`)
-				if (value) self.datasetsList.highlight(dataset.id);
-				else self.datasetsList.unhighlight(dataset.id);
-		});
-		this.datasetForm.attach(`onLeave`, function() {
-			let dataset = self.datasetForm.getDataset();
-			self.saveDataset(dataset.id);
-		});
-		this.datasetForm.attach(`onDatasetIdClick`, function(dataset) {
-			let sentence = self.datasetForm.currentSentence();
-			if (dataset.id)
-				return self.selectSentence({ sentence: sentence, selectedDataset: dataset });
-		});
-		this.datasetForm.attach(`onDatasetDoneClick`, function(dataset) {
-			// console.log(dataset);
-			if (!self.user.isCurator) {
-				if (!dataset.dataType) {
-					return self.showModalError({
-						title: `Missing data`,
-						body: `To validate, please provide a datatype (predefined or custom)`
-					});
-				}
-				if (!dataset.name)
-					return self.showModalError({
-						title: `Missing data`,
-						body: `To validate, please provide a name for this dataset`
-					});
-				if (!dataset.DOI && !dataset.comments) {
-					return self.showModalError({
-						title: `Missing data`,
-						body: `To validate, please provide either a DOI for the dataset or a comment in the comment box`
-					});
-				}
-			}
-			if (self.hasChanged[dataset.id]) self.autoSave(dataset.id);
-			let nextDataset = self.getNextDataset(dataset.id);
-			return self.selectSentence({
-				sentence: nextDataset.sentences[0],
-				selectedDataset: nextDataset
 			});
-		});
-		this.datasetForm.attach(`onDatasetUnlinkClick`, function(dataset) {
-			let sentence = self.datasetForm.currentSentence(),
-				modifiedDataset = self.getDataset(dataset.id);
-			if (!modifiedDataset) return console.log(`bad dataset id`);
-			if (!modifiedDataset.sentences) return console.log(`empty sentences`);
-			if (modifiedDataset.sentences.length === 1) {
-				let sentence = modifiedDataset.sentences[0];
+			this.datasetsList.attach(`onDetectNewSentencesClick`, function() {
+				let pages = prompt(
+					`Enter the range of page numbers you wish to process (e.g. : 1-5, 8, 11-13)\nIt will take 20-30 seconds per page`
+				);
+				if (pages === null) return;
+				$(`body`).css(`cursor`, `progress`);
+				return API.documents.detectNewSentences(
+					{ id: self.ids.document, params: { pages: pages } },
+					function(err, query) {
+						console.log(err, query);
+						$(`body`).css(`cursor`, `default`);
+						if (err || query.err) return alert(`An error has occured`);
+						alert(`Process done. It will automatically refresh this page`);
+						window.location.reload();
+					}
+				);
+			});
+			this.datasetsList.attach(`onDatasetClick`, function(dataset) {
+					self.selectSentence({
+						sentence: dataset.sentence, // this data contain the current selected sentence
+						selectedDataset: dataset
+					});
+			});
+			this.datasetsList.attach(`onDatasetCheck`, function(dataset) {
+				// console.log(dataset);
+			});
+			this.datasetsList.attach(`onDatasetDelete`, function(dataset) {
+				let sentence = dataset.sentences[0];
 				return self.deleteDataset(dataset.id, function() {
 					return self.selectSentence({ sentence: sentence });
 				});
-			} else
-				return self.deleteLink({ dataset: dataset, sentence: sentence }, function(err) {
-					if (err) return console.log(err);
-					return self.selectSentence({ sentence: sentence });
-				});
-		});
-		
-		// No corresponding element at the moment
-		this.datasetForm.attach(`onTabClick`, function(data) {
-			console.log(`onTabClick`);
-			return self.selectSentence({ sentence: data.sentence, selectedDataset: data.dataset });
-		});
-		
-		// No corresponding element at the moment
-		this.datasetForm.attach(`onRefreshDatatypesClick`, function(done) {
-			return API.dataseerML.resyncJsonDataTypes(function(err, res) {
-				console.log(err, res);
-				return done();
 			});
-		});
-		
-		// No corresponding element at the moment
-		this.datasetForm.attach(`onDisplayLeftClick`, function() {
-			self.documentView.displayRight();
-		});
-		
-		// No corresponding element at the moment
-		this.datasetForm.attach(`onDisplayRightClick`, function() {
-			self.documentView.displayLeft();
-		});
-	}
+			this.datasetsList.attach(`onDatasetLink`, function(dataset) {
+				console.log(dataset);
+				let selectedSentences = self.documentView.getSelectedSentences();
+				if (selectedSentences.length === 0)
+					return self.showModalError({
+						title: `Error: Link sentence to dataset`,
+						body: `You must select a sentence before linking it to the dataset`
+					});
+				else
+					return self.newLinks(
+						{ dataset: { id: dataset.id }, sentences: selectedSentences },
+						function(err, dataset) {
+							if (err) return console.log(err);
+							return self.selectSentence({
+								sentence: selectedSentences[selectedSentences.length - 1]
+							});
+						}
+					);
+			});
+			this.datasetsList.attach(`onNewDatasetClick`, function() {
+				let selectedSentences = self.documentView.getSelectedSentences();
+				if (selectedSentences.length === 0)
+					return self.showModalError({
+						title: `Error: New dataset`,
+						body: `You must select a sentence to create a new dataset`
+					});
+				else
+					return self.newDataset(selectedSentences, function(err, dataset) {
+						if (err) return console.log(err);
+						return self.selectSentence({
+							sentence: dataset.sentences[0],
+							selectedDataset: dataset
+						});
+					});
+			});
+			this.datasetsList.attach(`onMergeSelectionClick`, function(ids) {
+				// console.log(ids);
+				if (ids.length <= 1)
+					return self.showModalError({
+						title: `Error: Merge selection`,
+						body: `You must select at least two datasets`
+					});
+				else {
+					let id = ids[0].id,
+						dataset = self.getDataset(id);
+					return self.mergeDatasets(ids, function() {
+						return self.selectSentence({
+							sentence: dataset.sentences[0],
+							selectedDataset: dataset
+						});
+					});
+				}
+			});
+			this.datasetsList.attach(`onDeleteSelectionClick`, function(ids) {
+				// console.log(ids);
+				if (ids.length <= 0)
+					return self.showModalError({
+						title: `Error: Delete selection`,
+						body: `You must select at least one dataset`
+					});
+				else {
+					let dataset = self.getNextDataset(ids[ids.length - 1].id),
+						nextId = dataset.id;
+					return self.deleteDatasets(ids, function() {
+						return self.selectSentence({
+							sentence: dataset.sentences[0],
+							selectedDataset: dataset
+						});
+					});
+				}
+			});
+		}
+			
+		if (this.datasetForm) {
+			// Attach datasetsList events
+			this.datasetForm.attach(`onPropertyChange`, function(property, value) {
+				// console.log(property, value);
+				let dataset = self.datasetForm.getDataset();
+				self.modified(dataset.id);
+				self.updateDataset(dataset.id, dataset);
+				self.autoSave(dataset.id);
+				if (property === `highlight`)
+					if (value) self.datasetsList.highlight(dataset.id);
+					else self.datasetsList.unhighlight(dataset.id);
+			});
+			this.datasetForm.attach(`onLeave`, function() {
+				let dataset = self.datasetForm.getDataset();
+				self.saveDataset(dataset.id);
+			});
+			this.datasetForm.attach(`onDatasetIdClick`, function(dataset) {
+				let sentence = self.datasetForm.currentSentence();
+				if (dataset.id)
+					return self.selectSentence({ sentence: sentence, selectedDataset: dataset });
+			});
+			this.datasetForm.attach(`onDatasetDoneClick`, function(dataset) {
+				// console.log(dataset);
+				if (!self.user.isCurator) {
+					if (!dataset.dataType) {
+						return self.showModalError({
+							title: `Missing data`,
+							body: `To validate, please provide a datatype (predefined or custom)`
+						});
+					}
+					if (!dataset.name)
+						return self.showModalError({
+							title: `Missing data`,
+							body: `To validate, please provide a name for this dataset`
+						});
+					if (!dataset.DOI && !dataset.comments) {
+						return self.showModalError({
+							title: `Missing data`,
+							body: `To validate, please provide either a DOI for the dataset or a comment in the comment box`
+						});
+					}
+				}
+				if (self.hasChanged[dataset.id]) self.autoSave(dataset.id);
+				let nextDataset = self.getNextDataset(dataset.id);
+				return self.selectSentence({
+					sentence: nextDataset.sentences[0],
+					selectedDataset: nextDataset
+				});
+			});
+			this.datasetForm.attach(`onDatasetUnlinkClick`, function(dataset) {
+				let sentence = self.datasetForm.currentSentence(),
+					modifiedDataset = self.getDataset(dataset.id);
+				if (!modifiedDataset) return console.log(`bad dataset id`);
+				if (!modifiedDataset.sentences) return console.log(`empty sentences`);
+				if (modifiedDataset.sentences.length === 1) {
+					let sentence = modifiedDataset.sentences[0];
+					return self.deleteDataset(dataset.id, function() {
+						return self.selectSentence({ sentence: sentence });
+					});
+				} else
+					return self.deleteLink({ dataset: dataset, sentence: sentence }, function(err) {
+						if (err) return console.log(err);
+						return self.selectSentence({ sentence: sentence });
+					});
+			});
+			
+			// No corresponding element at the moment
+			this.datasetForm.attach(`onTabClick`, function(data) {
+				console.log(`onTabClick`);
+				return self.selectSentence({ sentence: data.sentence, selectedDataset: data.dataset });
+			});
+			
+			// No corresponding element at the moment
+			this.datasetForm.attach(`onRefreshDatatypesClick`, function(done) {
+				return API.dataseerML.resyncJsonDataTypes(function(err, res) {
+					console.log(err, res);
+					return done();
+				});
+			});
+			
+			// No corresponding element at the moment
+			this.datasetForm.attach(`onDisplayLeftClick`, function() {
+				self.documentView.displayRight();
+			});
+			
+			// No corresponding element at the moment
+			this.datasetForm.attach(`onDisplayRightClick`, function() {
+				self.documentView.displayLeft();
+			});
+		}
+	*/
 };
