@@ -28,7 +28,6 @@
 				<Dataset
 					:dataset="activeDataset"
 					:activeDatasetType="activeDatasetType"
-					@datasetDelete="handleDatasetDelete"
 				/>
 			</Tabs>
 
@@ -125,7 +124,6 @@ export default {
 			errorMessage: "Something went wrong..."
 		};
 	},
-	
 
 	/**
 	 * Computed
@@ -153,15 +151,7 @@ export default {
 			})
 			
 			this.setActiveSentence(dataset.sentences[0]);
-		},
-		handleMergeDatasetClick() {
-			this.setMergeState(true);
-		},
-		handleNewDatasetClick(){
-			this.documentHandler.datasetsList.events.onNewDatasetClick();
-		},
-		handleDatasetDelete() {
-			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
+			this.documentHandler.setActiveDatasetId(dataset.id);
 		},
 		async initializePdfViewer() {
 			this.loading = true;
@@ -181,6 +171,7 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
+
 				const currentDocument = new DocumentHandler({
 					ids: {
 						document: doc._id,
@@ -189,12 +180,13 @@ export default {
 					user: this.user,
 					datatypes: dataTypes,
 					activeDatasetType: 'dataset',
+					activeDatasetId: doc.datasets.current[0]?.id,
 					datasets: doc.datasets,
 					metadata: doc.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
 					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
-				{
+				{	
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence);
 						this.setActiveDataset(dataset);

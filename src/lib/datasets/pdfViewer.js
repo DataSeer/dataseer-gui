@@ -10,10 +10,10 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrcPath;
 
 const CMAP_URL = './pdf.js/build/generic/web/cmaps/';
 const MARGIN_CHUNK = {
-	top: 2,
-	left: 2,
-	bottom: 2,
-	right: 2
+	top: 3,
+	left: 3,
+	bottom: 3,
+	right: 3
 };
 
 const MARGIN_IMAGE = {
@@ -614,55 +614,55 @@ PdfViewer.prototype.insertDatasets = function(numPage) {
 };
 
 // Render a given page
-PdfViewer.prototype.renderPage = function(opts, cb) {
+PdfViewer.prototype.renderPage = function (opts, cb) {
 	let self = this,
-		force = !!opts.force,
-		numPage = opts.numPage;
+	  force = !!opts.force,
+	  numPage = opts.numPage;
 	if (!numPage) return cb(new Error(`numPage required`));
 	else if (!force && this.viewer.find(`.page[data-page-number="${numPage}"]`).get(0)) return cb();
 	else
-		return this.showMessage(`Loading Page ${numPage}...`, function() {
-			return self.getPdfPage(numPage, function(err, pdfPage) {
-				if (err) return cb(err);
-				let desiredWidth = self.viewerElement.offsetWidth,
-					viewport_tmp = pdfPage.getViewport({ scale: 1 }),
-					the_scale = desiredWidth / viewport_tmp.width,
-					viewport = pdfPage.getViewport({ scale: the_scale }),
-					page = self.buildEmptyPage(numPage, viewport.width, viewport.height),
-					canvas = page.querySelector(`canvas`),
-					wrapper = page.querySelector(`.canvasWrapper`),
-					container = page.querySelector(`.textLayer`),
-					canvasContext = canvas.getContext(`2d`);
-				// Insert page
-				self.insertPage(numPage, page);
-				return pdfPage
-					.render({
-						canvasContext: canvasContext,
-						viewport: viewport
-					})
-					.promise.then(function() {
-						// Build Contours
-						let contours = self.buildAreas(the_scale, numPage);
-						// Insert Contours
-						contours.map(function(contour) {
-							self.insertContours(contour);
-						});
-						// Insert Sentences
-						self.insertSentences(the_scale, numPage);
-						self.insertDatasets(numPage);
-						// refresh markers scroll
-						self.refreshMarkers();
-						page.setAttribute(`data-loaded`, `true`);
-						self.hideMessage();
-						return cb(null, numPage);
-					})
-					.catch(function(err) {
-						console.log(err);
-						return cb(err);
-					});
+	  return this.showMessage(`Loading Page ${numPage}...`, function () {
+		return self.getPdfPage(numPage, function (err, pdfPage) {
+		  if (err) return cb(err);
+		  let desiredWidth = self.viewerElement.offsetWidth,
+			viewport_tmp = pdfPage.getViewport({ scale: 1 }),
+			the_scale = desiredWidth / viewport_tmp.width,
+			viewport = pdfPage.getViewport({ scale: the_scale }),
+			page = self.buildEmptyPage(numPage, viewport.width, viewport.height),
+			canvas = page.querySelector(`canvas`),
+			wrapper = page.querySelector(`.canvasWrapper`),
+			container = page.querySelector(`.textLayer`),
+			canvasContext = canvas.getContext(`2d`);
+		  // Insert page
+		  self.insertPage(numPage, page);
+		  return pdfPage
+			.render({
+			  canvasContext: canvasContext,
+			  viewport: viewport
+			})
+			.promise.then(function () {
+			  // Build Contours
+			  let contours = self.buildAreas(the_scale, numPage);
+			  // Insert Contours
+			  contours.map(function (contour) {
+				self.insertContours(contour);
+			  });
+			  // Insert Sentences
+			  self.insertSentences(the_scale, numPage);
+			  self.insertDatasets(numPage);
+			  // refresh markers scroll
+			  self.refreshMarkers();
+			  page.setAttribute(`data-loaded`, `true`);
+			  self.hideMessage();
+			  return cb(null, numPage);
+			})
+			.catch(function (err) {
+			  console.log(err);
+			  return cb(err);
 			});
 		});
-};
+	  });
+  };
 
 // Refresh pdf display
 PdfViewer.prototype.refresh = function(cb) {
@@ -992,8 +992,50 @@ PdfViewer.prototype.removeLink = function(dataset, sentence) {
 	if (annotation.attr(`datasets`) === ``) annotation.removeAttr(`corresp`);
 };
 
+// Remove only the border and background of the link
+PdfViewer.prototype.removeColor = function(dataset) {
+	const self = this;
+	const links = this.links[dataset.id]
+	if (!links) return
+	const ids = [...links];
+
+	for (let i = 0; i < ids.length; i++) {
+		const sentence = {
+			id: ids[i]
+		};
+		const contour = self.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence}"]`);
+		contour.removeAttr(`colors`);
+		self.uncolorize(sentence);
+		self.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
+		self.removeMarker(sentence);
+	}
+}
+
+// Add Color
+PdfViewer.prototype.addColor = function(dataset) {
+	const self = this;
+	const links = this.links[dataset.id]
+	if (!links) return
+	const ids = [...links];
+	
+	for (let i = 0; i < ids.length; i++) {
+		const sentence = {
+			id: ids[i]
+		};
+		this.colorize(sentence, dataset.color, function() {
+		self.setCanvasBorder(
+			sentence,
+			BORDER_WIDTH,
+			true
+		);
+	});
+	this.addMarker({ color: dataset.color }, sentence);
+	}
+}
+
 // Remove some links
 PdfViewer.prototype.removeLinks = function(dataset) {
+
 	let ids = [...this.links[dataset.id]];
 	for (let i = 0; i < ids.length; i++) {
 		this.removeLink(dataset, { id: ids[i] });
@@ -1168,7 +1210,7 @@ PdfViewer.prototype.getSentenceDataURL = function(sentence) {
 	canvasElement.width = newCanvas.width();
 	canvasElement.height = newCanvas.height();
 	ctx.drawImage(mainCanvas, x, y, w, h, 0, 0, w, h);
-	return canvasElement.toDataURL(`image/png`);
+	return canvasElement.toDataURL(`image/jpeg`);
 };
 
 // Colorize image
@@ -1209,7 +1251,7 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 
 				// pull the entire image into an array of pixel data
 				let imageData = context.getImageData(0, 0, w, h);
-				let rgba = Colors.rgba(color.background.rgb);
+				let rgb = Colors.rgb(color.background.rgb);
 				
 				// examine every pixel
 				for (let i = 0; i < imageData.data.length; i += 4) {
@@ -1218,10 +1260,9 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 						imageData.data[i + 1],
 						imageData.data[i + 2]
 					)) {
-						imageData.data[i] = rgba.r;
-						imageData.data[i + 1] = rgba.g;
-						imageData.data[i + 2] = rgba.b;
-						imageData.data[i + 3] = 10;
+						imageData.data[i] = rgb.r;
+						imageData.data[i + 1] = rgb.g;
+						imageData.data[i + 2] = rgb.b;
 					} else {
 						imageData.data[i] = imageData.data[i];
 						imageData.data[i + 1] = imageData.data[i + 1];
@@ -1231,7 +1272,7 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 				
 				// put the altered data back on the canvas
 				context.putImageData(imageData, 0, 0);
-				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/png`));
+				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/jpeg`));
 				return next();
 			};
 		},
@@ -1314,7 +1355,7 @@ PdfViewer.prototype.buildCanvas = function(_x, _y, _w, _h, p, sentence, borders 
 	canvasElement.width = newCanvas.width();
 	canvasElement.height = newCanvas.height();
 	ctx.drawImage(mainCanvas, x, y, w, h, 0, 0, w, h);
-	newCanvas.attr(`data-url`, canvasElement.toDataURL(`image/png`));
+	newCanvas.attr(`data-url`, canvasElement.toDataURL(`image/jpeg`));
 	return newCanvas;
 };
 

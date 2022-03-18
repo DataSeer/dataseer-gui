@@ -251,7 +251,7 @@ export default {
 			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
 
 			if (confirmDelete) {
-				this.$emit('datasetDelete')
+				this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 			}
 		},
 		handleComplete(e) {

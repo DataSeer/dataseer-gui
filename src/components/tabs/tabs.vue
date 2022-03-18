@@ -2,7 +2,6 @@
 	<div class="tabs">
 		<div class="tabs__links">
 			<ul>
-				
 				<li
 					v-for="dataset in filteredDatasets"
 					:key="dataset.id"

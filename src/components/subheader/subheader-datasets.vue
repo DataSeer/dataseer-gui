@@ -174,6 +174,6 @@ export default {
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		}
-	},
+	}
 };
 </script>

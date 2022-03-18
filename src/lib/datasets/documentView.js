@@ -203,14 +203,14 @@ DocumentView.prototype.init = function(opts, cb) {
 			if (opts.pdf)
 				return self.pdfViewer.load(opts.pdf, datasetsInfos, function() {
 					self.pdfViewer.setPage(0);
-					return cb();
+					return typeof cb === `function` ? cb() : undefined;	
 				});
 			else {
 				$(`#documentView\\.viewSelection\\.tei\\.all`).click();
 				$(`#documentView\\.viewSelection\\.pdf`)
 					.parent()
 					.remove();
-				return cb();
+				return typeof cb === `function` ? cb() : undefined;	
 			}
 		}
 	);
@@ -314,6 +314,16 @@ DocumentView.prototype.addLink = function(dataset, sentence) {
 DocumentView.prototype.removeLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.removeLink(dataset, sentence);
 	if (this.xmlViewer)this.xmlViewer.removeLink(dataset, sentence);
+};
+
+// Uncolorize sentence
+DocumentView.prototype.uncolorizeLink = function(dataset) {
+	if (this.pdfViewer) this.pdfViewer.removeColor(dataset);
+};
+
+// Colorize sentence
+DocumentView.prototype.colorizeLink = function(dataset) {
+	if (this.pdfViewer) this.pdfViewer.addColor(dataset);
 };
 
 // display left

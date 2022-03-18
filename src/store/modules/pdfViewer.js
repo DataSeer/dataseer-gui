@@ -97,7 +97,9 @@ const actions = {
 		commit('SET_DATASETS', datasets)
 	},
 	setActiveDatasetType({ state }, dataTypeId) {
-		state.documentHandler.setActiveDatasetType(dataTypeId);
+		const documentHandler = state.documentHandler;
+		
+		documentHandler.setActiveDatasetType(dataTypeId)
 	},
 	clearState({commit} ) {
 		commit('CLEAR_STATE')
