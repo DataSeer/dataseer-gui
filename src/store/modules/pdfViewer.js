@@ -117,10 +117,16 @@ const actions = {
 		const documentHandler = state.documentHandler;
 
 		documentHandler.resyncJsonDataTypes((err, res) => {
-			if (!err) return
+			if (err) return
 			
-			commit('SET_DATA_TYPES', res)
+			commit('SET_DATA_TYPES', res);
 		})
+	},
+	detectSentences() {
+		state.documentHandler.datasetsList.events.onDetectNewSentencesClick();
+	},
+	importDatasets() {
+		state.documentHandler.datasetsList.events.onImportDatasetsClick();
 	},
 	clearState({commit} ) {
 		commit('CLEAR_STATE')

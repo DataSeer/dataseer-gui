@@ -89,19 +89,19 @@
 
 							<ul v-if="userRoleWeight >= 1000" data-title="Curator Tools">
 								<li>
-									<a href="#">
+									<button @click.prevent="detectSentences">
 										<Icon name="document_check" />
 										
 										OCR Detect
-									</a>
+									</button>
 								</li>	
 
 								<li>
-									<a href="#">
+									<button @click.prevent="importDatasets">
 										<Icon name="document_import" />
 
 										Import Data
-									</a>
+									</button>
 								</li>
 							</ul>
 						</div> <!-- /.dropdown__nav -->
@@ -187,7 +187,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setActiveDatasetType']),
+		...mapActions('pdfViewer', ['setActiveDatasetType', 'importDatasets', 'detectSentences']),
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		}
