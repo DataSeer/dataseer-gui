@@ -56,11 +56,12 @@
 							</li>
 
 							<li>
-								<router-link tabindex="0" to="/profile">
+								<button tabindex="0" @click.prevent="resyncJsonDataTypes">
 									<Icon name="refresh" color="CurrentColor" />
 
 									Refresh Datatypes
-								</router-link>
+
+								</button>
 							</li>
 						</ul>
 					</div>
@@ -168,6 +169,7 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['logout']),
+		...mapActions('pdfViewer', ['resyncJsonDataTypes']),
 		handleLogout(e) {
 			e.preventDefault();
 			this.logout();

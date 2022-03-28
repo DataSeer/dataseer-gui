@@ -709,7 +709,6 @@ DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 	return 'dataset';
 };
 
-
 // Set active dataset type
 DocumentHandler.prototype.setActiveDatasetType = function (id) {
 	const self = this;
@@ -725,6 +724,14 @@ DocumentHandler.prototype.setActiveDatasetType = function (id) {
 		}
 	}
 };
+
+// Resync Json DataTypes
+DocumentHandler.prototype.resyncJsonDataTypes = function(callback) {
+	return API.dataseerML.resyncJsonDataTypes(function(err, res) {
+		return callback(err, res);
+	});
+}
+
 
 // DocumentHandler synchronization
 DocumentHandler.prototype.synchronize = function() {

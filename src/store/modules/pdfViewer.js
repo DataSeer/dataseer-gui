@@ -69,7 +69,6 @@ const actions = {
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
 	},
-	
 	setActiveDatasetType({ state, commit }, dataTypeId) {
 		const documentHandler = state.documentHandler;
 		const firstDatasetOfType = state.datasets.filter((dataset) => dataset.datasetType === dataTypeId)[0];
@@ -84,8 +83,6 @@ const actions = {
 			});
 		}
 	},
-
-
 	mergeDatasets({state, commit}) {
 		const datasetsToMerge = state.datasets.filter(dataset => state.datasetsForMerge.some((id) => id === dataset.id ));
 		const documentHandler = state.documentHandler;
@@ -115,6 +112,15 @@ const actions = {
 		datasets.splice(datasets.findIndex((el) => el === datasetId), 1)
 		
 		commit('SET_MERGE_DATASETS', datasets)
+	},
+	resyncJsonDataTypes({ commit }){
+		const documentHandler = state.documentHandler;
+
+		documentHandler.resyncJsonDataTypes((err, res) => {
+			if (!err) return
+			
+			commit('SET_DATA_TYPES', res)
+		})
 	},
 	clearState({commit} ) {
 		commit('CLEAR_STATE')
