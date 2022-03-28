@@ -20,7 +20,8 @@ import document_new from './icon-document-new';
 import document_view from './icon-document-view';
 import document_modify from './icon-document-modify';
 import document_upload from './icon-document-upload';
-
+import document_check from './icon-document-check';
+import document_import from './icon-document-import';
 import book from './icon-book';
 import email from './icon-email';
 import grid from './icon-grid';
@@ -90,6 +91,8 @@ export default {
 		document_view,
 		document_modify,
 		document_upload,
+		document_check,
+		document_import,
 		email,
 		grid,
 		invite,

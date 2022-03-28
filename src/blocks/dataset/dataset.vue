@@ -14,7 +14,7 @@
 				@cancelClick="handleIssuesCancel"
 			/>
 
-			<Form className="form--dataset">
+			<Form className="form--dataset" :loading="isFormSubmitting">
 				<FormHead>
 					<input
 						type="text"
@@ -41,7 +41,7 @@
 							<Button
 								@onClick="handleComplete"
 							>
-								Complete This {{this.activeDatasetType}}
+								Complete This {{this.activeDatasetType ? this.activeDatasetType : 'dataset' }}
 							</Button>
 						</div><!-- /.form__cta-col -->
 
@@ -202,6 +202,7 @@ export default {
 				unlink: 'Unlink selected sentence to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
+			isFormSubmitting: false,
 			isIssuesFormVisible: false,
 		}
 	},
@@ -256,8 +257,11 @@ export default {
 		},
 		handleComplete(e) {
 			e.preventDefault();
+			this.isFormSubmitting = true;
 			
-			this.documentHandler.saveDataset(this.activeDataset.id, this.formData)
+			this.documentHandler.saveDataset(this.activeDataset.id, this.formData, () => {
+				this.isFormSubmitting = false;
+			})
 		},
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;

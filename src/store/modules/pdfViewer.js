@@ -6,20 +6,23 @@ const state = {
 	datasets: [],
 	datasetsForMerge: [],
 	activeDataset: undefined,
+	activeDatasetType: undefined,
 	activeSentence: undefined,
 }
 
 // Getters
 const getters = {
 	documentHandler: state => state.documentHandler,
-	activeDatasetType: state => state.documentHandler.activeDatasetType,
+	activeDatasetType: state => state.activeDatasetType,
 	activeDataset: state => state.activeDataset,
 	activeDatasetId: state => state.activeDataset?.id,
 	dataTypes: state => state.dataTypes,
 	mergeState: state => state.isMerging,
 	datasetsForMerge: state => state.datasetsForMerge,
 	datasets: state => state.datasets,
-	filteredDatasets: state => state.datasets.filter((dataset) => dataset.datasetType === state.documentHandler.activeDatasetType),
+	filteredDatasets: state => state.datasets.filter(
+		(dataset) => !state.activeDatasetType || dataset.datasetType === state.activeDatasetType
+	)
 }
 
 // Actions
@@ -51,6 +54,38 @@ const actions = {
 		
 		documentHandler.datasetsList.events.onDatasetLink(selectedDataset);
 	},
+	setActiveDataset({commit}, dataset ) {
+		commit('SET_ACTIVE_DATASET', dataset)
+	},
+	setActiveSentence({ commit }, sentence) {
+		commit('SET_ACTIVE_SENTENCE', sentence)
+	},
+	setDataTypes({commit}, dataTypes ) {
+		commit('SET_DATA_TYPES', dataTypes)
+	},
+	setDocumentHandler({commit}, documentHandler ) {
+		commit('SET_DOCUMENT_HANDLER', documentHandler)
+	},
+	setDatasets({commit}, datasets ) {
+		commit('SET_DATASETS', datasets)
+	},
+	
+	setActiveDatasetType({ state, commit }, dataTypeId) {
+		const documentHandler = state.documentHandler;
+		const firstDatasetOfType = state.datasets.filter((dataset) => dataset.datasetType === dataTypeId)[0];
+		
+		commit('SET_ACTIVE_DATASET_TYPE', dataTypeId)
+		documentHandler.setActiveDatasetType(dataTypeId)
+		
+		if (firstDatasetOfType) {
+			documentHandler.selectSentence({
+				sentence: firstDatasetOfType.sentences[0],
+				selectedDataset: firstDatasetOfType
+			});
+		}
+	},
+
+
 	mergeDatasets({state, commit}) {
 		const datasetsToMerge = state.datasets.filter(dataset => state.datasetsForMerge.some((id) => id === dataset.id ));
 		const documentHandler = state.documentHandler;
@@ -72,34 +107,14 @@ const actions = {
 		datasets.push(datasetId)
 		commit('SET_MERGE_DATASETS', datasets)
 	},
+	setMergeState({ commit }, value) {
+		commit('SET_MERGE_STATE', value)
+	},
 	removeDatasetForMerge({ commit }, datasetId){
 		const datasets  = state.datasetsForMerge
 		datasets.splice(datasets.findIndex((el) => el === datasetId), 1)
 		
 		commit('SET_MERGE_DATASETS', datasets)
-	},
-	setActiveSentence({ commit }, sentence) {
-		commit('SET_ACTIVE_SENTENCE', sentence)
-	},
-	setMergeState({ commit }, value) {
-		commit('SET_MERGE_STATE', value)
-	},
-	setDataTypes({commit}, dataTypes ) {
-		commit('SET_DATA_TYPES', dataTypes)
-	},
-	setActiveDataset({commit}, dataset ) {
-		commit('SET_ACTIVE_DATASET', dataset)
-	},
-	setDocumentHandler({commit}, documentHandler ) {
-		commit('SET_DOCUMENT_HANDLER', documentHandler)
-	},
-	setDatasets({commit}, datasets ) {
-		commit('SET_DATASETS', datasets)
-	},
-	setActiveDatasetType({ state }, dataTypeId) {
-		const documentHandler = state.documentHandler;
-		
-		documentHandler.setActiveDatasetType(dataTypeId)
 	},
 	clearState({commit} ) {
 		commit('CLEAR_STATE')
@@ -123,6 +138,9 @@ const mutations = {
 	SET_ACTIVE_DATASET(state, payload) {
         state.activeDataset = payload;
     },
+	SET_ACTIVE_DATASET_TYPE(state, payload) {
+		state.activeDatasetType = payload;
+	},
 	SET_DOCUMENT_HANDLER(state, payload) {
         state.documentHandler = payload;
     },

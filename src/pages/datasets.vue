@@ -66,6 +66,8 @@ import { DatasetsList } from '@/lib/datasets/datasetsList';
 import { DocumentHandler } from '@/lib/datasets/documentHandler';
 import documentsService from '@/services/documents/documents';
 
+import { formatDatasets, filterDatasetsByDataType } from '@/utils/datasets'
+
 export default {
 	/**
 	 * Name
@@ -140,7 +142,17 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setDocumentHandler', 'setActiveDataset', 'setDataTypes', 'clearState', 'setMergeState', 'setDatasets', 'setActiveSentence', 'setActiveDatasetType', 'saveDataset']),
+		...mapActions('pdfViewer', [
+			'setDocumentHandler',
+			'setActiveDataset',
+			'setDataTypes',
+			'clearState',
+			'setMergeState',
+			'setDatasets',
+			'setActiveSentence',
+			'setActiveDatasetType',
+			'saveDataset',
+		]),
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
 				id: dataset.id,
@@ -171,6 +183,7 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
+				formatDatasets(doc.datasets.current)
 
 				const currentDocument = new DocumentHandler({
 					ids: {
@@ -179,24 +192,23 @@ export default {
 					},
 					user: this.user,
 					datatypes: dataTypes,
-					activeDatasetType: 'dataset',
 					activeDatasetId: doc.datasets.current[0]?.id,
+					activeDatasetType: doc.datasets.current[0]?.datasetType,
 					datasets: doc.datasets,
 					metadata: doc.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
 					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
-				{	
+				{
+					onDocumentViewReady: () => {
+						this.loading = false;
+					},
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence);
 						this.setActiveDataset(dataset);
-						
-						if (dataset) {
-							this.setActiveDatasetType(dataset.datasetType);
-						}
 					},
 				});
-				
+
 				currentDocument.link({
 					documentView: documentView,
 					datasetsList: datasetsList,
@@ -208,11 +220,10 @@ export default {
 				this.metadata = doc.metadata;
 				this.setDatasets(doc.datasets.current);
 			} catch (error) {
+				this.loading = false;
 				this.error = true
 				this.errorMessage = error.message
 			}
-
-			this.loading = false;
 		}
 	},
 

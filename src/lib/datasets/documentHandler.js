@@ -84,14 +84,9 @@ export const DocumentHandler = function(opts = {}, events) {
 			}
 		};
 	};
-
-	// Add colors and data types to each dataset
+	
+	//Here we update the information for each colored sentence, based on the current datasets
 	for (let i = 0; i < opts.datasets.current.length; i++) {
-		const datasetType = this.getDatasetDataType(opts.datasets.current[i]);
-		
-		opts.datasets.current[i].color = this.dataTypeColors[datasetType];
-		opts.datasets.current[i].datasetType = datasetType;
-
 		self.datasets.current.map((dataset) => {
 			this.colors[dataset.id] = dataset.color;
 		})
@@ -136,22 +131,24 @@ DocumentHandler.prototype.init = function() {
 	this.refreshSentencesMapping();
 	
 	let self = this;
-	//let	firstId = this.datasetsList.getFirstDatasetId();
+	//let firstId = this.datasetsList.getFirstDatasetId();
 	let	firstId = this.activeDatasetId;
 	let	dataset = firstId ? this.getDataset(firstId) : undefined;
 	let	sentence = dataset ? dataset.sentences[0] : { id: `sentence-0` };
+
+	// if (typeof self.events.onInit === `function`) return self.events.onInit();
 	
 	console.log(`init`);
 	// if (!dataset) this.datasetForm.hide();
 	if (sentence) {
-		this.datasetsList.refreshMsg();
+		// this.datasetsList.refreshMsg();
 		this.selectSentence({ sentence: sentence, noAnim: true }, function() {
-			if (typeof self.events.onReady === `function`) return self.events.onReady();
+			if (typeof self.events.onReady === `function`) return self.events.onReady(dataset);
 		});
 	} else {
 		// this.datasetForm.hide();
-		this.datasetForm.setEmptyMessage();
-		this.datasetsList.refreshMsg();
+		// this.datasetForm.setEmptyMessage();
+		// this.datasetsList.refreshMsg();
 		if (typeof self.events.onReady === `function`) return self.events.onReady();
 	}
 };
@@ -274,16 +271,15 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 				// 		} else return typeof cb === `function` ? cb(true) : undefined;
 				// 	}
 				// );
-				
-				
 			} else {
 				self.events.onSentenceClick(dataset, sentence)
 				// self.datasetsList.unselect();
 				// self.datasetForm.hide();
 				// self.datasetForm.setEmptyMessage();
 				// self.datasetForm.unlink();
-				return typeof cb === `function` ? cb(true) : undefined;
 			}
+			
+			return typeof cb === `function` ? cb(true) : undefined;
 		}
 	);
 };
@@ -666,6 +662,8 @@ DocumentHandler.prototype.link = function(opts = {}) {
 		this.documentView = opts.documentView;
 		this.documentView.init({ pdf: this.pdf, xml: this.tei, colors: this.colors }, function() {
 			console.log(`documentView ready !`);
+			if (typeof self.events.onDocumentViewReady === `function`) self.events.onDocumentViewReady();
+			
 			return self.isReady(`documentView`, true);
 		});
 	}
@@ -714,19 +712,18 @@ DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 
 // Set active dataset type
 DocumentHandler.prototype.setActiveDatasetType = function (id) {
-const self = this;
-const currentDatasets = self.datasets.current;
+	const self = this;
+	const currentDatasets = self.datasets.current;
 
-// Update Active Dataset Type
-self.activeDatasetType = id;
-	
-for (let i = 0; i < currentDatasets.length; i++) {
-	if (currentDatasets[i].datasetType === self.activeDatasetType) {
-		self.documentView.colorizeLink(currentDatasets[i]);
-	} else {
-		self.documentView.uncolorizeLink(currentDatasets[i]);
+	// Update Active Dataset Type
+	self.activeDatasetType = id;
+	for (let i = 0; i < currentDatasets.length; i++) {
+		if (currentDatasets[i].datasetType === self.activeDatasetType) {
+			self.documentView.colorizeLink(currentDatasets[i]);
+		} else {
+			self.documentView.uncolorizeLink(currentDatasets[i]);
+		}
 	}
-}
 };
 
 // DocumentHandler synchronization

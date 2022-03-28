@@ -109,15 +109,11 @@
 									</a>
 								</li>
 							</ul>
-						</div>
-						<!-- /.dropdown__nav -->
+						</div> <!-- /.dropdown__nav -->
 					</Dropdown>
-				</div>
-				<!-- /.box__dropdown -->
-			</div>
-			<!-- /.box__actions -->
-		</div>
-		<!-- /.box -->
+				</div> <!-- /.box__dropdown -->
+			</div> <!-- /.box__actions -->
+		</div> <!-- /.box -->
 	</li>
 </template>
 

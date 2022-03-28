@@ -86,12 +86,29 @@
 									</a>
 								</li>
 							</ul>
-						</div>
-						<!-- /.dropdown__nav -->
+
+							<ul v-if="userRoleWeight >= 1000" data-title="Curator Tools">
+								<li>
+									<a href="#">
+										<Icon name="document_check" />
+										
+										OCR Detect
+									</a>
+								</li>	
+
+								<li>
+									<a href="#">
+										<Icon name="document_import" />
+
+										Import Data
+									</a>
+								</li>
+							</ul>
+						</div> <!-- /.dropdown__nav -->
 					</Dropdown>
 				</div> <!-- /.dataset__inner -->
 
-				<ul>
+				<ul >
 					<li v-if="metadata.submitting_author"><strong>{{metadata.submitting_author}}</strong></li>
 
 					<li>
@@ -162,9 +179,9 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['userRoleWeight']),
 		...mapGetters('pdfViewer', ['activeDatasetType'])
 	},
-
 
 	/**
 	 * Methods

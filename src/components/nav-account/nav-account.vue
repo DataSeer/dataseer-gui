@@ -8,8 +8,7 @@
 							Administration
 
 							<span class="dropdown__arrow"></span>
-						</div>
-						<!-- /.dropdown__account -->
+						</div> <!-- /.dropdown__account -->
 					</template>
 
 					<div class="dropdown__nav">
