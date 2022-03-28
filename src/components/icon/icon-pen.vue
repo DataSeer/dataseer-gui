@@ -1,6 +1,6 @@
 <template>
-  <svg id="pen" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-    <path id="Shape" d="M.35,14A.35.35,0,0,1,0,13.65v-3.5A.35.35,0,0,1,.1,9.9L9.9.1A.35.35,0,0,1,10.4.1l3.5,3.5a.351.351,0,0,1,0,.5L4.1,13.9a.35.35,0,0,1-.247.1Z" :fill=color />
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+    <path d="M.35,14A.35.35,0,0,1,0,13.65v-3.5A.35.35,0,0,1,.1,9.9L9.9.1A.35.35,0,0,1,10.4.1l3.5,3.5a.351.351,0,0,1,0,.5L4.1,13.9a.35.35,0,0,1-.247.1Z" :fill=color />
   </svg>
 
 </template>
