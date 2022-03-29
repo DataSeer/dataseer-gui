@@ -378,9 +378,9 @@
 	
 	.form__head-inner {
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: space-between;
-		padding: 24px 0 15px;
+		padding: 10px 0;
 		border-bottom: 1px solid $c-skyblue-bc;
 	}
 	
@@ -388,9 +388,20 @@
 		display: block;
 		width: auto;
 		border: none;
+		height: 42px;
+		border-color: transparent;
+		border-width: 3px;
+		border-radius: 6px;
+		border-style: solid;
 		font-size: 18px;
 		font-weight: 700;
 		font-family: inherit;
+		transition: padding $t-duration, border $t-duration;
+
+		&:focus {
+			padding-left: 12px;
+			border-color: $c-skyblue;
+		}
 	}
 
 	.form__cta {
