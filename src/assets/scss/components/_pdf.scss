@@ -267,7 +267,7 @@
 		border: 1px solid black;
 		border-radius: 2px;
 		padding: 5px;
-		z-index: 10000;
+		z-index: 9600;
 	}
 
 	#documentView #pdf #pdfViewerInfos.display-left {
@@ -289,7 +289,7 @@
 		border-radius: 2px;
 		padding: 5px;
 		min-width: 120px;
-		z-index: 10000;
+		z-index: 9600;
 	}
 
 	#documentView #pdf #pdfViewerMessage.display-left {
@@ -413,7 +413,7 @@
 	.modal-backdrop {
 		background-color: gray;
 		opacity: 0.9;
-		z-index: 10000;
+		z-index: 9600;
 	}
 
 	#datasets-error-modal {
@@ -488,7 +488,7 @@
 	}
 
 	.modal {
-		z-index: 10000;
+		z-index: 9600;
 	}
 }
 

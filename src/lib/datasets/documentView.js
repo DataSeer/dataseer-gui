@@ -45,6 +45,7 @@ export const DocumentView = function(id, events = {}) {
 		},
 		onHover: function(element) {
 			let sentence = self.getSentence({ id: element.id });
+			if (sentence.hasDatasets) return
 			self.hoverSentence(sentence);
 			if (typeof self.events.onSentenceHover === `function`)
 				self.events.onSentenceHover(self.getSentence(sentence));

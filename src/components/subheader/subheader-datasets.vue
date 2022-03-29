@@ -20,7 +20,7 @@
 		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button to="/report" className="tertiary">
+			<Button :to="`/documents/${metadata._id}/report`" className="tertiary">
 				<Icon name="lock" color="currentColor" />
 
 				Open Science Report
