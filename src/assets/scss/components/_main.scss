@@ -149,6 +149,7 @@
 		width: calc(100% - 680px);
 		flex: 0 0 calc(100% - 680px);
 		background: none;
+		box-shadow: none;
 
 		@include breakpoint-down(small-desktop) {
 			width: calc(100% - 500px);

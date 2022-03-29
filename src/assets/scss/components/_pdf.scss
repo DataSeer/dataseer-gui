@@ -1,122 +1,21 @@
 /* ------------------------------------------------------------ *\
-  PDF
+  PDF Holder
 \* ------------------------------------------------------------ */
 
 .pdf-holder {
-	position: relative;
-	z-index: 1;
 	height: 100%;
 	overflow: hidden;
-
-	.documentView {
-		font-family: Times, 'Times New Roman', serif;
-		font-size: 14px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		padding-left: 10px;
-		padding-right: 20px;
-		border-bottom-left-radius: 20px;
-		border-bottom-right-radius: 20px;
-	}
-
-	#process-buttons {
-		margin-top: 10px;
-		width: 100%;
-	}
-
-	#process-buttons #back_to_metadata {
-		float: left;
-		margin-left: 20px;
-		width: calc(50% - 25px);
-	}
-
-	#process-buttons #datasets_validation {
-		float: right;
-		margin-right: 20px;
-		width: calc(50% - 25px);
-	}
-
-	#loading-loop {
-		z-index: 100000;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0.9;
-		background-color: white;
-	}
-
-	#loading-loop .infos .top {
-		font-size: 2em;
-	}
-
-	#loading-loop .infos .sub {
-		font-size: 1em;
-	}
-
-	#loading-loop .infos {
-		display: flex;
-		justify-content: center;
-		align-content: center;
-		flex-direction: column;
-		z-index: 100000;
-		position: absolute;
-		top: calc(50% - 100px);
-		height: 200px;
-		width: 100%;
-		font-size: 3em;
-		font-weight: bold;
-		text-align: center;
-	}
-
-	#loading-loop .loader {
-		position: absolute;
-		top: calc(50% - 125px);
-		left: calc(50% - 125px);
-		border: 16px solid #f3f3f3; /* Light grey */
-		border-top: 16px solid #3498db; /* Blue */
-		border-radius: 50%;
-		width: 250px;
-		height: 250px;
-		animation: spin 1s linear infinite;
-	}
-
-	@keyframes spin {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
-
-	#pdfViewerInfos {
-		display: none;
-	}
-
-	.footer {
-		flex-shrink: 0;
-	}
-
-	.foot-col {
-		background-color: #ffffff;
-		border-top: 1px solid #184d7e;
-		border-bottom: 1px solid #184d7e;
-		border-left: 1px solid #184d7e;
-		border-right: 1px solid #184d7e;
-	}
-
-	/* ---------- DATASET FORM RULES ---------- */
-
+	
 	.pdfViewer {
 		overflow: hidden;
 	}
 
 	#documentView {
 		position: relative;
-		height: calc(100vh - 120px);
+		height: 100%;
+		width: calc(100% - 19px);
 		overflow: hidden;
+		padding-right: 19px;
 	}
 
 	#documentView\.viewSelection {
@@ -141,26 +40,20 @@
 		vertical-align: middle;
 	}
 
-	#documentView\.screen.no-scroll::-webkit-scrollbar {
+	#documentView\.screen {
+		height: 100%;
+		overflow: scroll;
+		font-family: Times, 'Times New Roman', serif;
+		font-size: 14px;
+	}
+	
+	#documentView\.screen::-webkit-scrollbar {
 		display: none;
 	}
 
-	#documentView\.screen.no-scroll {
+	#documentView\.screen {
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
-	}
-
-	#documentView\.screen {
-		height: 100%;
-		overflow: auto;
-		font-family: Times, 'Times New Roman', serif;
-		font-size: 14px;
-		// padding-top: 10px;
-		// padding-bottom: 10px;
-		// padding-left: 10px;
-		// padding-right: 20px;
-		border-bottom-left-radius: 20px;
-		border-bottom-right-radius: 20px;
 	}
 
 	#xml s {
@@ -182,7 +75,7 @@
 		-moz-user-select: none; /* Old versions of Firefox */
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
+									supported by Chrome, Edge, Opera and Firefox */
 	}
 
 	#xml s.selected {
@@ -201,74 +94,71 @@
 		padding: 0;
 	}
 
+
 	#documentView #pdfViewer .page {
 		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
-	.textLayer {
+	#documentView #pdfViewer .textLayer {
 		z-index: 1000;
 	}
 
-	.contoursLayer {
+	#documentView #pdfViewer .contoursLayer {
 		background-color: transparent;
 		z-index: 3000;
-		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
-
-		.contour {
-			&.activeContourDataset canvas,
-			&.activeContourSentence canvas,
-			&.selected canvas {
-				z-index: 3210;
-			}
-
-			&.hover canvas {
-				z-index: 3215;
-			}
-		}
 	}
 
-	.annotationsLayer {
+	#documentView #pdfViewer .annotationsLayer {
 		background-color: transparent;
 		z-index: 2000;
-
-		.contour {
-			background-color: transparent;
-			z-index: 3100;
-			cursor: pointer;
-
-			&.activeContourDataset,
-			&.activeContourSentence,
-			&.selected {
-				z-index: 3200;
-
-				canvas {
-					z-index: 3210;
-				}
-			}
-
-			div {
-				background-color: transparent;
-			}
-
-			canvas {
-				z-index: 3110;
-			}
-
-			&[corresp],
-			&[datasets] {
-				canvas {
-					z-index: 3115;
-				}
-			}
-		}
 	}
 
-	.annotationsLayer s {
+	#documentView #pdfViewer .contoursLayer .contour {
+		background-color: transparent;
+		z-index: 3100;
+		cursor: pointer;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour div {
+		background-color: transparent;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour canvas {
+		z-index: 3110;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour[corresp] canvas,
+	#documentView #pdfViewer .contoursLayer .contour[datasets] canvas {
+		z-index: 3115;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour.activeContourDataset,
+	#documentView #pdfViewer .contoursLayer .contour.activeContourSentence,
+	#documentView #pdfViewer .contoursLayer .contour.selected {
+		z-index: 3200;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour.activeContourDataset canvas,
+	#documentView #pdfViewer .contoursLayer .contour.activeContourSentence canvas,
+	#documentView #pdfViewer .contoursLayer .contour.selected canvas {
+		z-index: 3210;
+	}
+
+	#documentView #pdfViewer .contoursLayer .contour.hover canvas,
+	#documentView #pdfViewer .contoursLayer .contour.hover canvas {
+		z-index: 3215;
+	}
+
+	#documentView #pdfViewer .annotationsLayer s {
 		z-index: 2100;
 		cursor: pointer;
 	}
 
-	.contoursLayer {
+	#documentView #pdfViewer .contoursLayer {
 		position: absolute;
 		left: 0px;
 		top: 0px;
@@ -278,7 +168,7 @@
 		overflow: hidden;
 	}
 
-	.annotationsLayer {
+	#documentView #pdfViewer .annotationsLayer {
 		position: absolute;
 		left: 0px;
 		top: 0px;
@@ -288,21 +178,21 @@
 		overflow: hidden;
 	}
 
-	.annotationsLayer .hover {
+	#documentView #pdfViewer .annotationsLayer .hover {
 		cursor: pointer;
 	}
 
-	.annotationsLayer .selected {
+	#documentView #pdfViewer .annotationsLayer .selected {
 		cursor: pointer;
 	}
 
-	.annotationsLayer s[corresp],
-	.annotationsLayer s[id] {
+	#documentView #pdfViewer .annotationsLayer s[corresp],
+	#documentView #pdfViewer .annotationsLayer s[id] {
 		cursor: pointer;
 		background-color: lightyellow;
 	}
 
-	#sentencesLayer {
+	#documentView #pdfViewer #sentencesLayer {
 		position: absolute;
 		left: 0px;
 		top: 0px;
@@ -316,19 +206,19 @@
 		z-index: 4000;
 		position: absolute;
 		height: 100%;
+		max-height: 100%;
 		width: 19px;
-		overflow: hidden;
-		background-color: #f7f7f7;
+		background-color: #F7F7F7;
 	}
 
 	#pdfViewerScrollMarkers.display-left {
-		top: 25px;
-		left: 30px;
+		top: 0;
+		left: 2px;
 	}
 
 	#pdfViewerScrollMarkers.display-right {
 		top: 0;
-		right: 0;
+		right: 2px;
 	}
 
 	#pdfViewerScrollMarkers span {
@@ -341,7 +231,7 @@
 
 	#pdfViewerScrollMarkers span.marker {
 		/* markers */
-		z-index: 4201;
+		z-index: 4205;
 		cursor: pointer;
 		position: absolute;
 		width: 12px;
@@ -351,11 +241,24 @@
 		/* markers */
 		z-index: 4200;
 		position: absolute;
-		width: 100%;
-		height: 6px;
+		left: -2px;
+		width: calc(100% + 4px);
+		height: 40px;
+		border: solid 2px #006AC9;
 		background-color: #fff;
-		border: solid 1px #006ac9;
 		border-radius: 0px;
+
+		.main--datasets-code & {
+			border-color: $c-purple-72;
+		}
+
+		.main--datasets-material & {
+			border-color: $c-orange-d2;
+		}
+
+		.main--datasets-protocol & {
+			border-color: $c-green-40;
+		}
 	}
 
 	#documentView #pdf #pdfViewerInfos {
@@ -587,31 +490,281 @@
 	.modal {
 		z-index: 10000;
 	}
+}
 
-	#app .contour {
-		border: none;
-		border-radius: 0;
-		padding: 0;
-		background-color: transparent;
-	}
+/* ------------------------------------------------------------ *\
+	PDF Viewer
+\* ------------------------------------------------------------ */
 
-	#publicUrl {
+.pdf-holder {
+	.textLayer {
 		position: absolute;
-		left: 230px;
-		top: 12px;
-	}
-
-	#pdfUrl {
-		position: absolute;
-		left: 350px;
-		top: 12px;
-	}
-
-	.pdfViewer .canvasWrapper {
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
 		overflow: hidden;
-	}
-
-	.pdfViewer .page {
+		opacity: 0.2;
+		line-height: 1.0;
+	  }
+	  
+	  .textLayer > span {
+		color: transparent;
+		position: absolute;
+		white-space: pre;
+		cursor: text;
+		-webkit-transform-origin: 0% 0%;
+				transform-origin: 0% 0%;
+	  }
+	  
+	  .textLayer .highlight {
+		margin: -1px;
+		padding: 1px;
+	  
+		background-color: rgb(180, 0, 170);
+		border-radius: 4px;
+	  }
+	  
+	  .textLayer .highlight.begin {
+		border-radius: 4px 0px 0px 4px;
+	  }
+	  
+	  .textLayer .highlight.end {
+		border-radius: 0px 4px 4px 0px;
+	  }
+	  
+	  .textLayer .highlight.middle {
+		border-radius: 0px;
+	  }
+	  
+	  .textLayer .highlight.selected {
+		background-color: rgb(0, 100, 0);
+	  }
+	  
+	  .textLayer ::-moz-selection { background: rgb(0,0,255); }
+	  
+	  .textLayer ::selection { background: rgb(0,0,255); }
+	  
+	  .textLayer .endOfContent {
+		display: block;
+		position: absolute;
+		left: 0px;
+		top: 100%;
+		right: 0px;
+		bottom: 0px;
+		z-index: -1;
+		cursor: default;
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+			-ms-user-select: none;
+				user-select: none;
+	  }
+	  
+	  .textLayer .endOfContent.active {
+		top: 0px;
+	  }
+	  
+	  
+	  .annotationLayer section {
+		position: absolute;
+	  }
+	  
+	  .annotationLayer .linkAnnotation > a,
+	  .annotationLayer .buttonWidgetAnnotation.pushButton > a {
+		position: absolute;
+		font-size: 1em;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	  }
+	  
+	  .annotationLayer .linkAnnotation > a:hover,
+	  .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover {
+		opacity: 0.2;
+		background: #ff0;
+		box-shadow: 0px 2px 10px #ff0;
+	  }
+	  
+	  .annotationLayer .textAnnotation img {
+		position: absolute;
+		cursor: pointer;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input,
+	  .annotationLayer .textWidgetAnnotation textarea,
+	  .annotationLayer .choiceWidgetAnnotation select,
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input,
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input {
+		background-color: rgba(0, 54, 255, 0.13);
+		border: 1px solid transparent;
+		box-sizing: border-box;
+		font-size: 9px;
+		height: 100%;
+		margin: 0;
+		padding: 0 3px;
+		vertical-align: top;
+		width: 100%;
+	  }
+	  
+	  .annotationLayer .choiceWidgetAnnotation select option {
+		padding: 0;
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input {
+		border-radius: 50%;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation textarea {
+		font: message-box;
+		font-size: 9px;
+		resize: none;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input[disabled],
+	  .annotationLayer .textWidgetAnnotation textarea[disabled],
+	  .annotationLayer .choiceWidgetAnnotation select[disabled],
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input[disabled],
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input[disabled] {
+		background: none;
+		border: 1px solid transparent;
+		cursor: not-allowed;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input:hover,
+	  .annotationLayer .textWidgetAnnotation textarea:hover,
+	  .annotationLayer .choiceWidgetAnnotation select:hover,
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:hover,
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input:hover {
+		border: 1px solid #000;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input:focus,
+	  .annotationLayer .textWidgetAnnotation textarea:focus,
+	  .annotationLayer .choiceWidgetAnnotation select:focus {
+		background: none;
+		border: 1px solid transparent;
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:before,
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:after,
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input:checked:before {
+		background-color: #000;
+		content: '';
+		display: block;
+		position: absolute;
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:before,
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:after {
+		height: 80%;
+		left: 45%;
+		width: 1px;
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:before {
+		-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input:checked:after {
+		-webkit-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input:checked:before {
+		border-radius: 50%;
+		height: 50%;
+		left: 30%;
+		top: 20%;
+		width: 50%;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input.comb {
+		font-family: monospace;
+		padding-left: 2px;
+		padding-right: 0;
+	  }
+	  
+	  .annotationLayer .textWidgetAnnotation input.comb:focus {
+		/*
+		 * Letter spacing is placed on the right side of each character. Hence, the
+		 * letter spacing of the last character may be placed outside the visible
+		 * area, causing horizontal scrolling. We avoid this by extending the width
+		 * when the element has focus and revert this when it loses focus.
+		 */
+		width: 115%;
+	  }
+	  
+	  .annotationLayer .buttonWidgetAnnotation.checkBox input,
+	  .annotationLayer .buttonWidgetAnnotation.radioButton input {
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+				appearance: none;
+		padding: 0;
+	  }
+	  
+	  .annotationLayer .popupWrapper {
+		position: absolute;
+		width: 20em;
+	  }
+	  
+	  .annotationLayer .popup {
+		position: absolute;
+		z-index: 200;
+		max-width: 20em;
+		background-color: #FFFF99;
+		box-shadow: 0px 2px 5px #888;
+		border-radius: 2px;
+		padding: 6px;
+		margin-left: 5px;
+		cursor: pointer;
+		font: message-box;
+		font-size: 9px;
+		word-wrap: break-word;
+	  }
+	  
+	  .annotationLayer .popup > * {
+		font-size: 9px;
+	  }
+	  
+	  .annotationLayer .popup h1 {
+		display: inline-block;
+	  }
+	  
+	  .annotationLayer .popup span {
+		display: inline-block;
+		margin-left: 5px;
+	  }
+	  
+	  .annotationLayer .popup p {
+		border-top: 1px solid #333;
+		margin-top: 2px;
+		padding-top: 2px;
+	  }
+	  
+	  .annotationLayer .highlightAnnotation,
+	  .annotationLayer .underlineAnnotation,
+	  .annotationLayer .squigglyAnnotation,
+	  .annotationLayer .strikeoutAnnotation,
+	  .annotationLayer .freeTextAnnotation,
+	  .annotationLayer .lineAnnotation svg line,
+	  .annotationLayer .squareAnnotation svg rect,
+	  .annotationLayer .circleAnnotation svg ellipse,
+	  .annotationLayer .polylineAnnotation svg polyline,
+	  .annotationLayer .polygonAnnotation svg polygon,
+	  .annotationLayer .caretAnnotation,
+	  .annotationLayer .inkAnnotation svg polyline,
+	  .annotationLayer .stampAnnotation,
+	  .annotationLayer .fileAttachmentAnnotation {
+		cursor: pointer;
+	  }
+	  
+	  .pdfViewer .canvasWrapper {
+		overflow: hidden;
+	  }
+	  
+	  .pdfViewer .page {
 		direction: ltr;
 		width: 816px;
 		height: 1056px;
@@ -620,411 +773,116 @@
 		overflow: visible;
 		border: 9px solid transparent;
 		background-clip: content-box;
-		-webkit-border-image: url(chrome-extension://oagiliojipalkkpmpllioebdpgekhmlj/vendors/pdf.js/build/components/images/shadow.png)
-			9 9 repeat;
-		-o-border-image: url(chrome-extension://oagiliojipalkkpmpllioebdpgekhmlj/vendors/pdf.js/build/components/images/shadow.png)
-			9 9 repeat;
-		border-image: url(chrome-extension://oagiliojipalkkpmpllioebdpgekhmlj/vendors/pdf.js/build/components/images/shadow.png)
-			9 9 repeat;
 		background-color: white;
-	}
-
-	.pdfViewer.removePageBorders .page {
+		box-shadow: 0 2px 9px rgba($c-primary, 0.12);
+	  }
+	  
+	  .pdfViewer.removePageBorders .page {
 		margin: 0px auto 10px auto;
 		border: none;
-	}
-
-	.pdfViewer.singlePageView {
+	  }
+	  
+	  .pdfViewer.singlePageView {
 		display: inline-block;
-	}
-
-	.pdfViewer.singlePageView .page {
+	  }
+	  
+	  .pdfViewer.singlePageView .page {
 		margin: 0;
 		border: none;
-	}
-
-	.pdfViewer.scrollHorizontal,
-	.pdfViewer.scrollWrapped,
-	.spread {
+	  }
+	  
+	  .pdfViewer.scrollHorizontal, .pdfViewer.scrollWrapped, .spread {
 		margin-left: 3.5px;
 		margin-right: 3.5px;
 		text-align: center;
-	}
-
-	.pdfViewer.scrollHorizontal,
-	.spread {
+	  }
+	  
+	  .pdfViewer.scrollHorizontal, .spread {
 		white-space: nowrap;
-	}
-
-	.pdfViewer.removePageBorders,
-	.pdfViewer.scrollHorizontal .spread,
-	.pdfViewer.scrollWrapped .spread {
+	  }
+	  
+	  .pdfViewer.removePageBorders,
+	  .pdfViewer.scrollHorizontal .spread,
+	  .pdfViewer.scrollWrapped .spread {
 		margin-left: 0;
 		margin-right: 0;
-	}
-
-	.spread .page,
-	.pdfViewer.scrollHorizontal .page,
-	.pdfViewer.scrollWrapped .page,
-	.pdfViewer.scrollHorizontal .spread,
-	.pdfViewer.scrollWrapped .spread {
+	  }
+	  
+	  .spread .page,
+	  .pdfViewer.scrollHorizontal .page,
+	  .pdfViewer.scrollWrapped .page,
+	  .pdfViewer.scrollHorizontal .spread,
+	  .pdfViewer.scrollWrapped .spread {
 		display: inline-block;
 		vertical-align: middle;
-	}
-
-	.spread .page,
-	.pdfViewer.scrollHorizontal .page,
-	.pdfViewer.scrollWrapped .page {
+	  }
+	  
+	  .spread .page,
+	  .pdfViewer.scrollHorizontal .page,
+	  .pdfViewer.scrollWrapped .page {
 		margin-left: -3.5px;
 		margin-right: -3.5px;
-	}
-
-	.pdfViewer.removePageBorders .spread .page,
-	.pdfViewer.removePageBorders.scrollHorizontal .page,
-	.pdfViewer.removePageBorders.scrollWrapped .page {
+	  }
+	  
+	  .pdfViewer.removePageBorders .spread .page,
+	  .pdfViewer.removePageBorders.scrollHorizontal .page,
+	  .pdfViewer.removePageBorders.scrollWrapped .page {
 		margin-left: 5px;
 		margin-right: 5px;
-	}
-
-	.pdfViewer .page canvas {
+	  }
+	  
+	  .pdfViewer .page canvas {
 		margin: 0;
 		display: block;
-	}
-
-	.pdfViewer .page canvas[hidden] {
+	  }
+	  
+	  .pdfViewer .page canvas[hidden] {
 		display: none;
-	}
-
-	.pdfViewer .page .loadingIcon {
+	  }
+	  
+	  .pdfViewer .page .loadingIcon {
 		position: absolute;
 		display: block;
 		left: 0;
 		top: 0;
 		right: 0;
 		bottom: 0;
-		background: url('chrome-extension://oagiliojipalkkpmpllioebdpgekhmlj/vendors/pdf.js/build/components/images/loading-icon.gif')
-			center no-repeat;
-	}
-
-	.pdfPresentationMode .pdfViewer {
+		background: url('chrome-extension://oagiliojipalkkpmpllioebdpgekhmlj/vendors/pdf.js/build/components/images/loading-icon.gif') center no-repeat;
+	  }
+	  
+	  .pdfPresentationMode .pdfViewer {
 		margin-left: 0;
 		margin-right: 0;
-	}
-
-	.pdfPresentationMode .pdfViewer .page,
-	.pdfPresentationMode .pdfViewer .spread {
+	  }
+	  
+	  .pdfPresentationMode .pdfViewer .page,
+	  .pdfPresentationMode .pdfViewer .spread {
 		display: block;
-	}
-
-	.pdfPresentationMode .pdfViewer .page,
-	.pdfPresentationMode .pdfViewer.removePageBorders .page {
+	  }
+	  
+	  .pdfPresentationMode .pdfViewer .page,
+	  .pdfPresentationMode .pdfViewer.removePageBorders .page {
 		margin-left: auto;
 		margin-right: auto;
-	}
-
-	.pdfPresentationMode:-ms-fullscreen .pdfViewer .page {
+	  }
+	  
+	  .pdfPresentationMode:-ms-fullscreen .pdfViewer .page {
 		margin-bottom: 100% !important;
-	}
-
-	.pdfPresentationMode:-webkit-full-screen .pdfViewer .page {
+	  }
+	  
+	  .pdfPresentationMode:-webkit-full-screen .pdfViewer .page {
 		margin-bottom: 100%;
 		border: 0;
-	}
-
-	.pdfPresentationMode:-moz-full-screen .pdfViewer .page {
+	  }
+	  
+	  .pdfPresentationMode:-moz-full-screen .pdfViewer .page {
 		margin-bottom: 100%;
 		border: 0;
-	}
-
-	.pdfPresentationMode:fullscreen .pdfViewer .page {
+	  }
+	  
+	  .pdfPresentationMode:fullscreen .pdfViewer .page {
 		margin-bottom: 100%;
 		border: 0;
-	}
-}
-
-.pdfViewer {
-	overflow: hidden;
-}
-
-#documentView {
-	height: calc(100% - 50px);
-	background-color: white;
-	background-color: #ffffff;
-	overflow: hidden;
-}
-
-#documentView\.viewSelection {
-	cursor: pointer;
-	display: table;
-	width: 100%; /*Optional*/
-	table-layout: fixed; /*Optional*/
-	border-spacing: 0px; /*Optional*/
-	height: 20px;
-	overflow: hidden;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
-}
-
-#documentView\.viewSelection > div {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-	position: relative;
-	text-align: center;
-	display: table-cell;
-	vertical-align: middle;
-}
-
-#documentView\.screen.no-scroll::-webkit-scrollbar {
-	display: none;
-}
-
-#documentView\.screen.no-scroll {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
-
-#documentView\.screen {
-	height: 100%;
-	overflow: scroll;
-	font-family: Times, 'Times New Roman', serif;
-	font-size: 14px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 20px;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-}
-
-#xml s {
-	cursor: pointer;
-	text-decoration: none;
-	margin-right: 6px;
-	line-height: 26px;
-	padding: 3px;
-	line-height: 30px;
-	z-index: 10;
-	color: black;
-	background-color: white;
-}
-
-#xml * {
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
-								supported by Chrome, Edge, Opera and Firefox */
-}
-
-#xml s.selected {
-	cursor: pointer;
-	border: 2px solid rgb(24, 77, 126);
-	z-index: 100;
-}
-
-#xml s.hover {
-	cursor: pointer;
-	border: 2px dashed rgb(24, 77, 126);
-	z-index: 110;
-}
-
-#documentView\.screen\.container {
-	padding: 0;
-}
-
-#documentView #pdfViewer {
-	
-}
-
-#documentView #pdfViewer .page {
-	margin-bottom: 10px;
-}
-
-#documentView #pdfViewer .textLayer {
-	z-index: 1000;
-}
-
-#documentView #pdfViewer .contoursLayer {
-	background-color: transparent;
-	z-index: 3000;
-}
-
-#documentView #pdfViewer .annotationsLayer {
-	background-color: transparent;
-	z-index: 2000;
-}
-
-#documentView #pdfViewer .contoursLayer .contour {
-	background-color: transparent;
-	z-index: 3100;
-	cursor: pointer;
-}
-
-#documentView #pdfViewer .contoursLayer .contour div {
-	background-color: transparent;
-}
-
-#documentView #pdfViewer .contoursLayer .contour canvas {
-	z-index: 3110;
-}
-
-#documentView #pdfViewer .contoursLayer .contour[corresp] canvas,
-#documentView #pdfViewer .contoursLayer .contour[datasets] canvas {
-	z-index: 3115;
-}
-
-#documentView #pdfViewer .contoursLayer .contour.activeContourDataset,
-#documentView #pdfViewer .contoursLayer .contour.activeContourSentence,
-#documentView #pdfViewer .contoursLayer .contour.selected {
-	z-index: 3200;
-}
-
-#documentView #pdfViewer .contoursLayer .contour.activeContourDataset canvas,
-#documentView #pdfViewer .contoursLayer .contour.activeContourSentence canvas,
-#documentView #pdfViewer .contoursLayer .contour.selected canvas {
-	z-index: 3210;
-}
-
-#documentView #pdfViewer .contoursLayer .contour.hover canvas,
-#documentView #pdfViewer .contoursLayer .contour.hover canvas {
-	z-index: 3215;
-}
-
-#documentView #pdfViewer .annotationsLayer s {
-	z-index: 2100;
-	cursor: pointer;
-}
-
-#documentView #pdfViewer .contoursLayer {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	line-height: 1;
-	overflow: hidden;
-}
-
-#documentView #pdfViewer .annotationsLayer {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	line-height: 1;
-	overflow: hidden;
-}
-
-#documentView #pdfViewer .annotationsLayer .hover {
-	cursor: pointer;
-}
-
-#documentView #pdfViewer .annotationsLayer .selected {
-	cursor: pointer;
-}
-
-#documentView #pdfViewer .annotationsLayer s[corresp],
-#documentView #pdfViewer .annotationsLayer s[id] {
-	cursor: pointer;
-	background-color: lightyellow;
-}
-
-#documentView #pdfViewer #sentencesLayer {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	line-height: 1;
-	overflow: hidden;
-}
-
-#pdfViewerScrollMarkers {
-	z-index: 4000;
-	position: absolute;
-	height: calc(100% - 78px);
-	width: 30px;
-	max-height: calc(100% - 28px);
-	overflow: hidden;
-	background-color: gainsboro;
-}
-
-#pdfViewerScrollMarkers.display-left {
-	top: 25px;
-	left: 30px;
-}
-
-#pdfViewerScrollMarkers.display-right {
-	top: 25px;
-	right: 30px;
-}
-
-#pdfViewerScrollMarkers span {
-	-webkit-transition: all 0.8s ease;
-	-moz-transition: all 0.8s ease;
-	-ms-transition: all 0.8s ease;
-	-o-transition: all 0.8s ease;
-	transition: all 0.8s ease;
-}
-
-#pdfViewerScrollMarkers span.marker {
-	/* markers */
-	z-index: 4100;
-	cursor: pointer;
-	position: absolute;
-	width: 12px;
-}
-
-#pdfViewerScrollMarkers span.cursor {
-	/* markers */
-	z-index: 4200;
-	position: absolute;
-	width: 100%;
-	height: 6px;
-	border: solid 1px #184d7e;
-	border-radius: 0px;
-}
-
-#documentView #pdf #pdfViewerInfos {
-	position: absolute;
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 2px;
-	padding: 5px;
-	z-index: 10000;
-}
-
-#documentView #pdf #pdfViewerInfos.display-left {
-	top: 30px;
-	left: 40px;
-}
-
-#documentView #pdf #pdfViewerInfos.display-right {
-	top: 30px;
-	right: 40px;
-}
-
-#documentView #pdf #pdfViewerMessage {
-	position: absolute;
-	text-align: center;
-	font-style: italic;
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 2px;
-	padding: 5px;
-	min-width: 120px;
-	z-index: 10000;
-}
-
-#documentView #pdf #pdfViewerMessage.display-left {
-	top: 60px;
-	left: 40px;
-}
-
-#documentView #pdf #pdfViewerMessage.display-right {
-	top: 60px;
-	right: 40px;
+	  }
+	  
 }
