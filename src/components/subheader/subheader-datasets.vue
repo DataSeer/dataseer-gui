@@ -20,16 +20,16 @@
 		</div> <!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button :to="`/documents/${metadata._id}/report`" className="tertiary">
+			<Button :to="reportPageURl" className="tertiary">
 				<Icon name="lock" color="currentColor" />
 
 				Open Science Report
 			</Button>
 		</div> <!-- /.subheader__right -->
 
-		<template v-if="metadata._id">
+		<template v-if="document.metadata._id">
 			<Summary
-				:metadata="metadata"
+				:metadata="document.metadata"
 				:isVisible="isSummaryVisible"
 				@closeBtnClick="toggleSummary"
 			/>
@@ -39,12 +39,12 @@
 					<Icon name="document" />
 
 					<h6
-						v-if="metadata.article_title"
+						v-if="document.metadata.article_title"
 						id="subheader-title"
 						class="overflow-truncate"
 						@click.prevent="toggleSummary"
 					>
-						{{metadata.article_title}}
+						{{document.metadata.article_title}}
 					</h6>
 
 					<Dropdown>
@@ -63,7 +63,7 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a :href="`mailto:${documentUsername}`">
 										<Icon name="invite" color="currentColor" />
 
 										Invite By Email
@@ -71,15 +71,15 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<button type="button" @click.prevent="copyText(publicURL, 'Public URL copied !')">
 										<Icon name="share" color="currentColor" />
 
 										Get A Share Link
-									</a>
+									</button>
 								</li>
 
 								<li>
-									<a href="#">
+									<a :href="uploadedFileURl" target="blank">
 										<Icon name="document_view" color="currentColor" />
 
 										View Uploaded File
@@ -94,7 +94,7 @@
 										
 										OCR Detect
 									</button>
-								</li>	
+								</li>
 
 								<li>
 									<button @click.prevent="importDatasets">
@@ -108,8 +108,8 @@
 					</Dropdown>
 				</div> <!-- /.dataset__inner -->
 
-				<ul >
-					<li v-if="metadata.submitting_author"><strong>{{metadata.submitting_author}}</strong></li>
+				<ul>
+					<li v-if="document.metadata.submitting_author"><strong>{{document.metadata.submitting_author}}</strong></li>
 
 					<li>
 						<a href="#">my_uploaded-filename.pdf</a>
@@ -156,7 +156,7 @@ export default {
 	 * Props
 	 */
 	props: {
-		metadata: {
+		document: {
 			type: Object,
 			default: () => {}
 		},
@@ -180,7 +180,10 @@ export default {
 	 */
 	computed: {
 		...mapGetters('account', ['userRoleWeight']),
-		...mapGetters('pdfViewer', ['activeDatasetType'])
+		...mapGetters('pdfViewer', ['activeDatasetType', 'documentUsername', 'publicURL', 'uploadedFileURl']),
+		reportPageURl() {
+			return `/documents/${this.document._id}/report`
+		},
 	},
 
 	/**
@@ -190,6 +193,13 @@ export default {
 		...mapActions('pdfViewer', ['setActiveDatasetType', 'importDatasets', 'detectSentences']),
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
+		},
+		copyText(text, message) {
+			this.$copyText(text).then(() => {
+				alert(message.length ? message : 'Copied !')
+			}, () => {
+				alert('Can not copy')
+			})
 		}
 	}
 };

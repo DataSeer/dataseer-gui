@@ -9,6 +9,7 @@ import App from './App.vue';
 import store from './store';
 import VueCookies from 'vue-cookies';
 import PortalVue from 'portal-vue';
+import VueClipboard from 'vue-clipboard2'
 
 import 'vue-select/dist/vue-select.css';
 import 'vue2-datepicker/index.css';
@@ -22,6 +23,7 @@ Vue.use(VModal);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueCookies);
 Vue.use(PortalVue);
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 

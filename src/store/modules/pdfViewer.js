@@ -5,6 +5,7 @@ const state = {
 	documentHandler: {},
 	datasets: [],
 	datasetsForMerge: [],
+	document: undefined,
 	activeDataset: undefined,
 	activeDatasetType: undefined,
 	activeSentence: undefined,
@@ -12,6 +13,8 @@ const state = {
 
 // Getters
 const getters = {
+	document: state => state.document,
+	documentUsername: state => state.document.owner.username,
 	documentHandler: state => state.documentHandler,
 	activeDatasetType: state => state.activeDatasetType,
 	activeDataset: state => state.activeDataset,
@@ -22,7 +25,10 @@ const getters = {
 	datasets: state => state.datasets,
 	filteredDatasets: state => state.datasets.filter(
 		(dataset) => !state.activeDatasetType || dataset.datasetType === state.activeDatasetType
-	)
+	),
+	publicURL: state => `${window.location.origin}/#/documents/${state.document._id}/datasets?token=${state.document.token}`,
+	uploadedFileURl: state => `${process.env.VUE_APP_BASE_API_URL}/documents/${state.document._id}/pdf/content?token=${state.document.token}`, 
+	
 }
 
 // Actions
@@ -68,6 +74,9 @@ const actions = {
 	},
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
+	},
+	setDocument({commit}, document ) {
+		commit('SET_DOCUMENT', document)
 	},
 	setActiveDatasetType({ state, commit }, dataTypeId) {
 		const documentHandler = state.documentHandler;
@@ -135,6 +144,9 @@ const actions = {
 
 // Mutations
 const mutations = {
+	SET_DOCUMENT(state, payload) {
+		state.document = payload
+	},
 	SET_DATASETS(state, payload) {
 		state.datasets = payload
 	},
@@ -164,6 +176,7 @@ const mutations = {
 		state.documentHandler = {};
 		state.datasets = [];
 		state.datasetsForMerge = [];
+		state.document = undefined;
 		state.activeDataset = undefined;
     },
 }

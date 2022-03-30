@@ -209,7 +209,6 @@ export default {
 		},
 		async getAccountsList() {
 			const accountsList = await accountsService.getAccountsList();
-			console.log(accountsList);
 			this.accountsList = accountsList;
 		},
 		async getOrganizationsList() {

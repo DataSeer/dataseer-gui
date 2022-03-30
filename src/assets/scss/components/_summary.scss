@@ -95,7 +95,8 @@
 		transition: background-color $t-duration, color $t-duration;
 	}
 
-	.summary__aside a:hover span {
+	.summary__aside a:hover span,
+	.summary__aside button:hover span {
 		background-color: $c-primary;
 		color: $c-white;
 	}

@@ -3,10 +3,10 @@
 		:class="`main--datasets main--datasets-${activeDatasetType}`"
 		hasSubheader
 	>
-		<Subheader>
+		<Subheader v-if="document">
 			<SubheaderDatasets
 				:datasetTypes="datasetTypes"
-				:metadata="metadata"
+				:document="document"
 			/>
 		</Subheader>
 
@@ -66,7 +66,7 @@ import { DatasetsList } from '@/lib/datasets/datasetsList';
 import { DocumentHandler } from '@/lib/datasets/documentHandler';
 import documentsService from '@/services/documents/documents';
 
-import { formatDatasets, filterDatasetsByDataType } from '@/utils/datasets'
+import { formatDatasets } from '@/utils/datasets'
 
 export default {
 	/**
@@ -120,7 +120,6 @@ export default {
 					flagged: false,
 				},
 			],
-			metadata: {},
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
@@ -132,10 +131,20 @@ export default {
 	 */
 	computed: {
 		...mapGetters('account', ['user']),
-		...mapGetters('pdfViewer', ['documentHandler', 'activeDataset', 'activeDatasetId', 'filteredDatasets', 'activeDatasetType']),
+		...mapGetters('pdfViewer', [
+			'document',
+			'documentHandler',
+			'activeDataset',
+			'activeDatasetId',
+			'filteredDatasets',
+			'activeDatasetType'
+		]),
 		documentId() {
 			return this.$route.params.id
 		},
+		documentToken() {
+			return this.document?.token ?? '' 
+		}
 	},
 
 	/**
@@ -152,6 +161,7 @@ export default {
 			'setActiveSentence',
 			'setActiveDatasetType',
 			'saveDataset',
+			'setDocument',
 		]),
 		handleTabsNavClick(dataset) {
 			this.documentHandler.selectSentence({
@@ -183,7 +193,7 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
-				formatDatasets(doc.datasets.current)
+				formatDatasets(doc.datasets.current);
 
 				const currentDocument = new DocumentHandler({
 					ids: {
@@ -215,9 +225,9 @@ export default {
 					datasetForm: datasetForm
 				});
 				
+				this.setDocument(doc);
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
-				this.metadata = doc.metadata;
 				this.setDatasets(doc.datasets.current);
 			} catch (error) {
 				this.loading = false;

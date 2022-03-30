@@ -91,7 +91,7 @@
 
 						<ul>
 							<li>
-								<a href="#">
+								<a :href="`mailto:${documentUsername}`">
 									<span>
 										<Icon name="invite" color="currentColor" />
 									</span>
@@ -101,7 +101,7 @@
 							</li>
 
 							<li>
-								<a href="#">
+								<a @click.prevent="copyText(publicURL, 'Public URL copied !')">
 									<span>
 										<Icon name="share" color="currentColor" />
 									</span>
@@ -111,7 +111,7 @@
 							</li>
 
 							<li>
-								<a href="#">
+								<a :href="uploadedFileURl" target="blank">
 									<span>
 										<Icon name="document_view" color="currentColor" />
 									</span>
@@ -182,6 +182,7 @@ export default {
 
 	computed: {
 		...mapGetters('account', ['username', 'userRoleWeight']),
+		...mapGetters('pdfViewer', ['documentUsername', 'publicURL', 'uploadedFileURl']),
 		hasDescription() {
 			return this.metadata.journal
 				|| this.metadata.publisher
@@ -198,6 +199,13 @@ export default {
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
 		},
+		copyText(text, message) {
+			this.$copyText(text).then(() => {
+				alert(message.length ? message : 'Copied !')
+			}, () => {
+				alert('Can not copy')
+			})
+		}
 	},
 };
 </script>
