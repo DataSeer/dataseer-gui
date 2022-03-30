@@ -45,26 +45,32 @@ const getDocumentLogs = (id) => {
 	return axiosInstance.get(`/documents/${id}/logs`).then((res) => httpErrorHandler(res));
 };
 
-const getDocumentPdf = (id) => {
-	return axiosInstance.get(`/documents/${id}/pdf`)
+const getDocumentPdf = (id, params) => {
+	return axiosInstance.get(`/documents/${id}/pdf`, {
+		params
+	})
 		.then((res) => res.data);
 };
 
 const getDocumentPdfUrl = (id, docToken) => {
-	return axiosInstance.get(`/documents/${id}/pdf/content?token=${docToken}` ,{
-		responseType: 'blob'
+	return axiosInstance.get(`/documents/${id}/pdf/content?token=${docToken}`, {
+		responseType: 'blob',
 	})
 		.then((res) => {
 			return URL.createObjectURL(res.data)
 		});
 };
 
-const getDocumentTei = (id) => {
-	return axiosInstance.get(`/documents/${id}/tei`)
+const getDocumentTei = (id, params) => {
+	return axiosInstance.get(`/documents/${id}/tei`, {
+		params
+	})
 		.then((res) => res.data);
 };
-const getDocumentTeiContent = (id) => {
-	return axiosInstance.get(`/documents/${id}/tei/content`)
+const getDocumentTeiContent = (id, params) => {
+	return axiosInstance.get(`/documents/${id}/tei/content`, {
+		params
+	})
 	.then((res) => res.data);
 };
 
@@ -72,8 +78,10 @@ const getDocumentReport = (id) => {
 	return axiosInstance.get(`/documents/${id}/reports/html/default`).then((res) => httpErrorHandler(res));
 };
 
-const getJsonDataTypes = () => {
-	return axiosInstance.get(`/dataseer-ml/jsonDataTypes`)
+const getJsonDataTypes = (params) => {
+	return axiosInstance.get(`/dataseer-ml/jsonDataTypes`, {
+		params
+	})
 		.then((res) => res.data);
 };
 

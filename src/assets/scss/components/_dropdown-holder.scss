@@ -142,6 +142,11 @@
 		font-size: 16px;
 		text-transform: uppercase;
 		transition: color $t-duration;
+		
+		&:focus,
+		&:hover {
+			color: $c-primary-light;
+		}
 	}
 
 	.dropdown__nav li.is-highlighted {
@@ -160,16 +165,6 @@
 	.dropdown__nav .ico--view-list {
 		width: 19px;
 		height: 11px;
-	}
-
-	.dropdown__nav a:focus,
-	.dropdown__nav a:hover {
-		color: $c-primary-light;
-	}
-
-	.dropdown__nav a:focus i,
-	.dropdown__nav a:hover i {
-		fill: $c-primary-light;
 	}
 
 	&:focus-within .dropdown__account,

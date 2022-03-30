@@ -41,7 +41,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -176,18 +175,30 @@ export default {
 			this.documentHandler.setActiveDatasetId(dataset.id);
 		},
 		async initializePdfViewer() {
+			const token = this.$route.query.token
 			this.loading = true;
+
+			console.log(token);
 
 			try {
 				const doc = await documentsService.getDocument(this.documentId, {
 					datasets: true,
-					metadata: true
+					metadata: true,
+					token
 				});
-				const pdf = await documentsService.getDocumentPdf(this.documentId);
-				const pdfURl = await documentsService.getDocumentPdfUrl(this.documentId, doc.id);
-				const tei = await documentsService.getDocumentTei(this.documentId);
-				const xml = await documentsService.getDocumentTeiContent(this.documentId);
-				const dataTypes = await documentsService.getJsonDataTypes();
+				const pdf = await documentsService.getDocumentPdf(this.documentId, {
+					token
+				});
+				const pdfURl = await documentsService.getDocumentPdfUrl(this.documentId, token);
+				const tei = await documentsService.getDocumentTei(this.documentId, {
+					token
+				});
+				const xml = await documentsService.getDocumentTeiContent(this.documentId, {
+					token
+				});
+				const dataTypes = await documentsService.getJsonDataTypes({
+					token
+				});
 
 				const documentView = new DocumentView(`documentView`);
 				const datasetsList = new DatasetsList(`datasetsList`);
