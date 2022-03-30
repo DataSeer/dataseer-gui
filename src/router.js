@@ -224,16 +224,17 @@ const clearDropdowns = () => {
 	});
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
 	const requiresAuth = to.meta.requiresAuth;
 	const requiredWeight = to.meta.requiredWeight || 0;
-	let userRoleWeight = 0;
+	const isPublicDataset = !!(to.name === "Datasets" && to.query.token)
 
+	// Clear any dropdown that are currently opened
 	clearDropdowns();
 	
 	accountService.getUserData().then(res => {
 		if (res.status === 200 ) {
-			userRoleWeight = res.data.res.role.weight;
+			const userRoleWeight = res.data.res.role.weight;
 			
 			if (requiresAuth === false) {
 				return next('/profile');
@@ -248,7 +249,7 @@ router.beforeEach((to, from, next) => {
 			throw new Error('Failed to authenticate user...')
 		}
 	}).catch(() => {
-		if (requiresAuth) return next('/sign-in');
+		if (requiresAuth && !isPublicDataset) return next('/sign-in');
 		
 		next()
 	})
