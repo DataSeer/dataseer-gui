@@ -131,11 +131,16 @@
 											</li>
 
 											<li>
-												<a href="#">
+												<button
+													type="button"
+													@click.prevent="copyText(
+													`${windowOrigin}/#/documents/${props.row._id}/datasets?token=${props.row.token}`,
+													'Public URL copied !')"
+												>
 													<Icon name="share" color="currentColor" />
 
 													Get Public Share Link
-												</a>
+												</button>
 											</li>
 
 											<li>
@@ -149,11 +154,11 @@
 
 										<ul>
 											<li>
-												<a href="#">
+												<router-link :to="`/documents/${props.row._id}/manage`">
 													<Icon name="document" color="currentColor" />
 
 													Manage Document
-												</a>
+												</router-link>
 											</li>
 
 											<li>
@@ -325,6 +330,9 @@ export default {
 	computed: {
 		routerQuery: function() {
 			return this.$route.query
+		},
+		windowOrigin: function() {
+			return window.location.origin
 		}
 	},
 
@@ -359,6 +367,13 @@ export default {
 		onApplyFilters(filters) {
 			this.serverParams.filters = { ...filters };
 			this.getDocuments();
+		},
+		copyText(text, message) {
+			this.$copyText(text).then(() => {
+				alert(message.length ? message : 'Copied !')
+			}, () => {
+				alert('Can not copy')
+			})
 		},
 		async getDocuments() {
 			this.loading = true;

@@ -353,7 +353,7 @@ DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
 			dataset: dataset
 		},
 		function(err, res) {
-			console.log(err, res);
+			// console.log(err, res);
 			if (err) return typeof cb === `function` ? cb(err) : undefined;
 			if (res.err) return typeof cb === `function` ? cb(true, res) : undefined;
 			self.saved(id);
@@ -663,7 +663,6 @@ DocumentHandler.prototype.link = function(opts = {}) {
 		this.documentView.init({ pdf: this.pdf, xml: this.tei, colors: this.colors }, function() {
 			console.log(`documentView ready !`);
 			if (typeof self.events.onDocumentViewReady === `function`) self.events.onDocumentViewReady();
-			
 			return self.isReady(`documentView`, true);
 		});
 	}

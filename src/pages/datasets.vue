@@ -3,7 +3,7 @@
 		:class="`main--datasets main--datasets-${activeDatasetType}`"
 		hasSubheader
 	>
-		<Subheader v-if="document">
+		<Subheader>
 			<SubheaderDatasets
 				:datasetTypes="datasetTypes"
 				:document="document"
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -65,7 +66,7 @@ import { DatasetsList } from '@/lib/datasets/datasetsList';
 import { DocumentHandler } from '@/lib/datasets/documentHandler';
 import documentsService from '@/services/documents/documents';
 
-import { formatDatasets } from '@/utils/datasets'
+import { formatDataset } from '@/utils/datasets'
 
 export default {
 	/**
@@ -104,7 +105,7 @@ export default {
 					label: 'Code',
 					icon: 'brackets',
 					id: 'code',
-					flagged: true,
+					flagged: false,
 				},
 				{
 					label: 'Materials',
@@ -119,6 +120,7 @@ export default {
 					flagged: false,
 				},
 			],
+			key: 0,
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
@@ -131,11 +133,11 @@ export default {
 	computed: {
 		...mapGetters('account', ['user']),
 		...mapGetters('pdfViewer', [
+			'datasets',
 			'document',
 			'documentHandler',
 			'activeDataset',
 			'activeDatasetId',
-			'filteredDatasets',
 			'activeDatasetType'
 		]),
 		documentId() {
@@ -143,6 +145,9 @@ export default {
 		},
 		documentToken() {
 			return this.document?.token ?? '' 
+		},
+		filteredDatasets() {
+			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
 		}
 	},
 
@@ -151,34 +156,27 @@ export default {
 	 */
 	methods: {
 		...mapActions('pdfViewer', [
+			'setDocument',
 			'setDocumentHandler',
 			'setActiveDataset',
-			'setDataTypes',
-			'clearState',
-			'setMergeState',
-			'setDatasets',
-			'setActiveSentence',
 			'setActiveDatasetType',
+			'setDatasets',
+			'setDataTypes',
+			'setMergeState',
+			'setActiveSentence',
 			'saveDataset',
-			'setDocument',
+			'clearState',
 		]),
 		handleTabsNavClick(dataset) {
-			this.documentHandler.selectSentence({
-				id: dataset.id,
-				sentences: dataset.sentences,
-				sentence: {
-					id: dataset.sentences[0].id
-				}
-			})
-			
-			this.setActiveSentence(dataset.sentences[0]);
+			this.setActiveDataset({
+				dataset: dataset,
+				scrollToSentence: true
+			});
 			this.documentHandler.setActiveDatasetId(dataset.id);
 		},
 		async initializePdfViewer() {
 			const token = this.$route.query.token
 			this.loading = true;
-
-			console.log(token);
 
 			try {
 				const doc = await documentsService.getDocument(this.documentId, {
@@ -186,25 +184,25 @@ export default {
 					metadata: true,
 					token
 				});
-				const pdf = await documentsService.getDocumentPdf(this.documentId, {
-					token
-				});
+				const pdf = await documentsService.getDocumentPdf(this.documentId, { token });
 				const pdfURl = await documentsService.getDocumentPdfUrl(this.documentId, token);
-				const tei = await documentsService.getDocumentTei(this.documentId, {
-					token
-				});
-				const xml = await documentsService.getDocumentTeiContent(this.documentId, {
-					token
-				});
-				const dataTypes = await documentsService.getJsonDataTypes({
-					token
-				});
+				const tei = await documentsService.getDocumentTei(this.documentId, { token });
+				const xml = await documentsService.getDocumentTeiContent(this.documentId, { token });
+				const dataTypes = await documentsService.getJsonDataTypes({ token });
 
 				const documentView = new DocumentView(`documentView`);
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 
-				formatDatasets(doc.datasets.current);
+				const datasets = doc.datasets.current;
+				
+				// Add color and datatype definitions
+				for (let i = 0; i < datasets.length; i++) {
+					formatDataset(datasets[i]);
+				}
+
+				const activeDatasetId = datasets[0]?.id;
+				const activeDatasetType = datasets[0]?.datasetType;
 
 				const currentDocument = new DocumentHandler({
 					ids: {
@@ -213,8 +211,8 @@ export default {
 					},
 					user: this.user,
 					datatypes: dataTypes,
-					activeDatasetId: doc.datasets.current[0]?.id,
-					activeDatasetType: doc.datasets.current[0]?.datasetType,
+					activeDatasetId: activeDatasetId,
+					activeDatasetType: activeDatasetType,
 					datasets: doc.datasets,
 					metadata: doc.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
@@ -223,10 +221,18 @@ export default {
 				{
 					onDocumentViewReady: () => {
 						this.loading = false;
+						if (activeDatasetType) this.setActiveDatasetType(activeDatasetType);
 					},
 					onSentenceClick: (dataset, sentence) => {
-						this.setActiveSentence(sentence);
-						this.setActiveDataset(dataset);
+						this.setActiveSentence(sentence)
+						this.setActiveDataset({
+							dataset: dataset,
+							scrollToSentence: false
+						});
+						
+						if (dataset) {
+							this.setActiveDatasetType(dataset.datasetType);
+						}
 					},
 				});
 
@@ -235,11 +241,12 @@ export default {
 					datasetsList: datasetsList,
 					datasetForm: datasetForm
 				});
-				
+
 				this.setDocument(doc);
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
-				this.setDatasets(doc.datasets.current);
+				this.setDatasets(datasets);
+				
 			} catch (error) {
 				this.loading = false;
 				this.error = true

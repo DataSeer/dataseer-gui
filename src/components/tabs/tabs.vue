@@ -69,7 +69,10 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['mergeState', 'datasets', 'datasetsForMerge', 'filteredDatasets']),
+		...mapGetters('pdfViewer', ['datasets', 'activeDatasetType', 'mergeState', 'datasets', 'datasetsForMerge']),
+		filteredDatasets() {
+			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
+		}
 	},
 	
 	/**

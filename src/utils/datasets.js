@@ -29,13 +29,13 @@ const DATATYPE_COLORS = {
 	},
 }
 
-const formatDatasets = (datasets) => {
-	for (let i = 0; i < datasets.length; i++) {
-		const datasetType = getDatasetDataType(datasets[i]);
-		
-		datasets[i].color = DATATYPE_COLORS[datasetType];
-		datasets[i].datasetType = datasetType;
-	}
+const formatDataset = (dataset) => {
+	const datasetType = getDatasetDataType(dataset);
+	
+	Object.assign(dataset, {
+		datasetType,
+		color: DATATYPE_COLORS[datasetType]
+	})
 };
 
 const getDatasetDataType = (dataset) => {
@@ -75,7 +75,7 @@ const filterDatasetsByDataType = (dataset) => {
 };
 
 export {
-	formatDatasets,
+	formatDataset,
 	getDatasetDataType,
 	filterDatasetsByDataType
 };

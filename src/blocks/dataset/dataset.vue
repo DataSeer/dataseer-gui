@@ -5,9 +5,7 @@
 		</div><!-- /.dataset__title -->
 		
 		<div v-else class="dataset__form">
-			<FormIssues
-				v-if="flagged && userRoleWeight < 1000"
-			/>
+			<FormIssues v-if="flagged && userRoleWeight < 1000" />
 
 			<FormCuratorIssues
 				v-if="(flagged || isIssuesFormVisible) && userRoleWeight >= 1000"
@@ -39,7 +37,7 @@
 					<div class="form__cta-row">
 						<div class="form__cta-col">
 							<Button
-								@onClick="handleComplete"
+								@onClick="handleDatasetSave"
 							>
 								Complete This {{this.activeDatasetType ? this.activeDatasetType : 'dataset' }}
 							</Button>
@@ -110,19 +108,9 @@
 
 			<Popup ref="textPassagePopup" name="text-passage-popup" size="small">
 				<RichtextEntry label="Connected Text Passages" icon="documents">
-					<p>
-						Methods: Our implementation approach included seeking support from hospital leadership;
-						building frontline support and a team of champions among patients, nurses,
-						anesthesiologists, and surgeons; accounting for stakeholder perceptions using
-						theory-informed qualitative interviews; engaging patients; and documenting the
-						implementation process, including barriers and facilitators, using the consolidated
-						framework for implementation research.
-					</p>
+					<p> Methods: Our implementation approach included seeking support from hospital leadership; building frontline support and a team of champions among patients, nurses, anesthesiologists, and surgeons; accounting for stakeholder perceptions using theory-informed qualitative interviews; engaging patients; and documenting the implementation process, including barriers and facilitators, using the consolidated framework for implementation research. </p>
 
-					<p>
-						Results: During the 12-month implementation period, we conducted 23 stakeholder engagement
-						activities with over 200 participants.
-					</p>
+					<p> Results: During the 12-month implementation period, we conducted 23 stakeholder engagement activities with over 200 participants. </p>
 				</RichtextEntry>
 			</Popup>
 		</div><!-- /.dataset__form -->
@@ -153,6 +141,8 @@ import FormDataset from '@/blocks/form-dataset/form-dataset-default';
 import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
+
+import { formatDataset } from '@/utils/datasets'
 
 export default {
 	/**
@@ -207,6 +197,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Watch
+	 */
 	watch: {
 		activeDatasetId() {
 			this.populateFormData()
@@ -217,7 +210,15 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['documentHandler', 'dataTypes', 'activeDataset', 'activeDatasetId', 'activeDatasetType']),
+		...mapGetters('pdfViewer', [
+			'documentHandler',
+			'dataTypes',
+			'activeDataset',
+			'activeDatasetId',
+			'activeDatasetType',
+			'activeSentence',
+			'datasets'
+		]),
 		...mapGetters('account', ['userRoleWeight']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
@@ -232,7 +233,7 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['unlinkSentenceFromDataset']),
+		...mapActions('pdfViewer', ['unlinkSentenceFromDataset', 'saveDataset', 'setDatasets', 'setActiveDatasetType']),
 		onNameInput(e) {
 			this.formData = {...this.formData, name: e.target.value}
 		},
@@ -255,12 +256,21 @@ export default {
 				this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 			}
 		},
-		handleComplete(e) {
+		handleDatasetSave(e) {
 			e.preventDefault();
 			this.isFormSubmitting = true;
 			
-			this.documentHandler.saveDataset(this.activeDataset.id, this.formData, () => {
+			this.documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
+				const newDataset = res.res 
+				formatDataset(newDataset);
+				
+				this.setDatasets([
+					...this.datasets.filter(dataset => dataset.id !== newDataset.id),
+					newDataset
+				])
 				this.isFormSubmitting = false;
+
+				this.setActiveDatasetType(newDataset.datasetType)
 			})
 		},
 		handleIssuesCancel() {
