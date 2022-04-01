@@ -8,8 +8,8 @@
 				class="sr-only"
 				:name="name"
 				:id="toKebabCase(name)"
-				:checked="value"
-				:value="value"
+				:checked="sanitizedValue"
+				:value="sanitizedValue"
 				@change="handleChange"
 			/>
 
@@ -29,7 +29,7 @@
 					:searchable="false"
 					:options="selectOptions"
 					label="label"
-					:value="value"
+					:value="sanitizedValue"
 					:reduce="option => option.value"
 					@input="setSelected"
 				>
@@ -80,7 +80,9 @@ export default {
 	 * Props
 	 */
 	props: {
-		value: Boolean || null,
+		value: {
+			default: undefined,
+		},
 		name: String,
 		className: String,
 		error: {
@@ -125,6 +127,20 @@ export default {
 				}
 			]
 		};
+	},
+
+	computed: {
+		sanitizedValue() {
+			if(typeof this.value === 'boolean' || this.value === undefined ) return this.value
+			
+			switch(this.value.toLowerCase().trim()){
+				case 'true':
+					return true;
+				case 'false':
+					return false;
+				default: return this.value;
+			}
+		}
 	},
 
 	/**
