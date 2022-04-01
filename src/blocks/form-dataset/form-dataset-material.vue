@@ -3,24 +3,7 @@
 		<GridColumn>
 			<FieldSelect
 				:error="$v.type.$error"
-				:options="[
-					{	
-						value: 'material-1',
-						title: 'Material 1'
-					},
-					{
-						value: 'material-2',
-						title: 'Material 2'
-					},
-					{
-						value: 'material-3',
-						title: 'Material 3'
-					},
-					{
-						value: 'material-4',
-						title: 'Material 4'
-					}
-				]"
+				:options="subTypeOptions"
 				name="material"
 				v-model.trim="formData.material"
 				placeholder="Material Type"
@@ -176,35 +159,21 @@ export default {
 	 */
 	computed: {
 		...mapGetters('pdfViewer', ['dataTypes']),
-		dataTypesOptions() {
-			if (!this.dataTypes.dataTypes) {
+		subTypeOptions() {
+			const subTypes = this.dataTypes.dataTypes['lab materials'];
+			
+			if (!subTypes) {
 				return [{
 					value: '',
 					label: 'none',
 				}]
-			}
-			const keys = Object.keys(this.dataTypes.dataTypes)
-			
-			return keys.map(key => ({
-				value: key,
-				label: key,
-			}))
-		},
-		subTypeOptions() {
-			const subTypes = this.dataTypes.dataTypes[this.formData.type];
-			
-			if (!subTypes || !subTypes.length) {
-				return [{
-					value: '',
-					label: 'none',	
-				}]	
 			}
 
 			return subTypes.map(type => ({
 				value: type,
 				label: type,
 			}))
-		}
+		},
 	},
 
 	/**

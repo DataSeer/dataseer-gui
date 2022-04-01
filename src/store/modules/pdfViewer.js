@@ -60,8 +60,6 @@ const actions = {
 				}
 			})
 		}
-
-		console.log(dataset);
 		
 		documentHandler.setActiveDatasetId(dataset.id);
 		commit('SET_ACTIVE_DATASET', dataset)
