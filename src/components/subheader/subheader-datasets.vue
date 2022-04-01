@@ -10,7 +10,7 @@
 								:class="{ 'is-active': type.id === activeDatasetType}"
 								@click.prevent="handleDataTypeChange(type.id)"
 							>
-								<Dot v-if="type.flagged" />
+								<Dot v-if="isDatatypeFlagged(type.id)" />
 								<Icon :name="type.icon" color="currentColor" />
 								
 								{{type.label}}
@@ -187,6 +187,7 @@ export default {
 	computed: {
 		...mapGetters('account', ['userRoleWeight']),
 		...mapGetters('pdfViewer', [
+			'filteredDatasets',
 			'activeDatasetType',
 			'documentUsername',
 			'publicURL',
@@ -199,7 +200,7 @@ export default {
 		},
 		filteredDatasets() {
 			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
-		}
+		},
 	},
 
 	/**
@@ -219,16 +220,17 @@ export default {
 		},
 		handleDataTypeChange(datatype) {
 			this.setActiveDatasetType(datatype);
-			
 			const firstDatasetOfType = this.filteredDatasets[0];
-				
-			if (!firstDatasetOfType) return
-
-			this.setActiveDataset({
-				dataset: firstDatasetOfType,
-				scrollToSentence: true
-			});
-			this.documentHandler.setActiveDatasetId(firstDatasetOfType.id);
+			
+			if (firstDatasetOfType) {
+				this.setActiveDataset({
+					dataset: firstDatasetOfType,
+					scrollToSentence: true
+				});
+			}
+		},
+		isDatatypeFlagged(datatype) {
+			return this.datasets.some(el => el.datasetType === datatype && el.issue === 'true')
 		}
 	}
 };

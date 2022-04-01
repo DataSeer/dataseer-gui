@@ -99,25 +99,21 @@ export default {
 					label: 'Datasets',
 					icon: 'datasets',
 					id: 'dataset',
-					flagged: false,
 				},
 				{
 					label: 'Code',
 					icon: 'brackets',
 					id: 'code',
-					flagged: false,
 				},
 				{
 					label: 'Materials',
 					icon: 'flask',
 					id: 'material',
-					flagged: false,
 				},
 				{
 					label: 'Protocols',
 					icon: 'protocols',
 					id: 'protocol',
-					flagged: false,
 				},
 			],
 			key: 0,
@@ -172,7 +168,6 @@ export default {
 				dataset: dataset,
 				scrollToSentence: true
 			});
-			this.documentHandler.setActiveDatasetId(dataset.id);
 		},
 		async initializePdfViewer() {
 			const token = this.$route.query.token

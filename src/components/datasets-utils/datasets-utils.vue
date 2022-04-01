@@ -91,7 +91,10 @@ export default {
 			}
 		};
 	},
-
+	
+	/**
+	 * Computed
+	 */
 	computed: {
 		...mapGetters('pdfViewer', ['mergeState', 'datasetsForMerge']),
 		datasetsLength(){
@@ -102,6 +105,9 @@ export default {
 		}
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		...mapActions('pdfViewer', [ 'setMergeState', 'mergeDatasets', 'addSentenceToDataset']),
 	},

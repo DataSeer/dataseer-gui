@@ -27,9 +27,7 @@ const getters = {
 	mergeState: state => state.isMerging,
 	datasetsForMerge: state => state.datasetsForMerge,
 	datasets: state => state.datasets,
-	filteredDatasets: state => state.datasets.filter(
-		(dataset) => !state.activeDatasetType || dataset.datasetType === state.activeDatasetType
-	),
+	filteredDatasets: state => state.datasets.filter( dataset => !state.activeDatasetType || dataset.datasetType === state.activeDatasetType ),
 	publicURL: state => `${window.location.origin}/#/documents/${state.document._id}/datasets?token=${state.document.token}`,
 	uploadedFileURl: state => `${process.env.VUE_APP_BASE_API_URL}/documents/${state.document._id}/pdf/content?token=${state.document.token}`, 
 }
@@ -61,15 +59,18 @@ const actions = {
 					id: dataset.sentences[0].id
 				}
 			})
-			
 		}
+
+		console.log(dataset);
 		
+		documentHandler.setActiveDatasetId(dataset.id);
 		commit('SET_ACTIVE_DATASET', dataset)
 	},
 	setActiveDatasetType({ state, commit }, dataType) {
 		const documentHandler = state.documentHandler;
-		commit('SET_ACTIVE_DATASET_TYPE', dataType)
-		documentHandler.setActiveDatasetType(dataType)
+
+		commit('SET_ACTIVE_DATASET_TYPE', dataType);
+		documentHandler.setActiveDatasetType(dataType);
 	},
 	setActiveSentence({ commit }, sentence) {
 		commit('SET_ACTIVE_SENTENCE', sentence)
