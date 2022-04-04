@@ -27,10 +27,9 @@
 					</div><!-- /.checkbox -->
 					
 					<button
-						@click="$emit('tabsNavClick', dataset)"
+						@click="handleTabsNavClick(dataset)"
 					>
-						<i v-if="dataset.issue === 'true'" class="dot" />
-
+						<Dot v-if="dataset.issue === 'true'" class="dot" />
 						<span v-tooltip.right="dataset.description" />
 					</button>
 				</li>
@@ -49,11 +48,23 @@
  */
 import { mapGetters, mapActions } from 'vuex';
 
+/**
+ * Internal Dependencies
+ */
+import Dot from '@/components/dot/dot';
+
 export default {
 	/**
 	 * Name
 	 */
 	name: 'Tabs',
+
+	/**
+	 * Components
+	 */
+	components: {
+		Dot,
+	},
 
 	/**
 	 * Props
@@ -69,24 +80,35 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('pdfViewer', ['datasets', 'activeDatasetType', 'mergeState', 'datasets', 'datasetsForMerge']),
-		filteredDatasets() {
-			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
-		}
+		...mapGetters('pdfViewer', [
+			'datasets',
+			'activeDatasetType',
+			'mergeState',
+			'datasets',
+			'datasetsForMerge',
+			'filteredDatasets'
+		]),
 	},
 	
 	/**
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['addDatasetForMerge', 'removeDatasetForMerge']),
+		...mapActions('pdfViewer', ['addDatasetForMerge', 'removeDatasetForMerge', 'setActiveDataset']),
 		handleCheckboxChange(e, datasetId) {
 			if (e.target.checked) {
 				this.addDatasetForMerge(datasetId);
 			} else {
 				this.removeDatasetForMerge(datasetId);
 			}
-		}
+		},
+		handleTabsNavClick(dataset) {
+			
+			this.setActiveDataset({
+				dataset,
+				scrollToSentence: true
+			});
+		},
 	},
 };
 </script>

@@ -191,15 +191,21 @@ DocumentView.prototype.getSentence = function(sentence) {
 
 // Init documentView
 DocumentView.prototype.init = function(opts, cb) {
-	let self = this,
-		xml = opts.xml.data.toString(`utf8`).replace(/\s/gm, ` `);
+	let self = this
+	let	xml = opts.xml.data.toString(`utf8`).replace(/\s/gm, ` `);
+	
 	this.xmlViewer = new XmlViewer(`xml`, `documentView\\.screen`, this.viewersEvents);
+	
 	if (opts.pdf) {
 		this.pdfVisible = true;
 		this.pdfViewer = new PdfViewer(`pdf`, `documentView\\.screen`, this.viewersEvents);
 	}
-	return this.xmlViewer.load(
-		{ xmlString: xml, colors: opts.colors, mapping: opts.xml.metadata.mapping },
+
+	return this.xmlViewer.load({
+		xmlString: xml,
+		colors: opts.colors,
+		mapping: opts.xml.metadata.mapping
+	},
 		function(datasetsInfos) {
 			if (opts.pdf)
 				return self.pdfViewer.load(opts.pdf, datasetsInfos, function() {
@@ -305,7 +311,7 @@ DocumentView.prototype.removeDataset = function(dataset) {
 	this.xmlViewer.removeDataset(dataset);
 };
 
-// Add a corresp
+// Add a link
 DocumentView.prototype.addLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.addLink(dataset, sentence);
 	if (this.xmlViewer) this.xmlViewer.addLink(dataset, sentence);
@@ -317,8 +323,8 @@ DocumentView.prototype.removeLink = function(dataset, sentence) {
 	if (this.xmlViewer)this.xmlViewer.removeLink(dataset, sentence);
 };
 
-// Uncolorize sentence
-DocumentView.prototype.uncolorizeLink = function(dataset) {
+// Decolorize sentence
+DocumentView.prototype.decolorizeLink = function(dataset) {
 	if (this.pdfViewer) this.pdfViewer.removeColor(dataset);
 };
 

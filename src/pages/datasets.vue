@@ -23,7 +23,6 @@
 			<Tabs
 				v-if="filteredDatasets.length"
 				:activeTabId="activeDatasetId"
-				@tabsNavClick="handleTabsNavClick"
 			>
 				<Dataset
 					:dataset="activeDataset"
@@ -163,12 +162,6 @@ export default {
 			'saveDataset',
 			'clearState',
 		]),
-		handleTabsNavClick(dataset) {
-			this.setActiveDataset({
-				dataset: dataset,
-				scrollToSentence: true
-			});
-		},
 		async initializePdfViewer() {
 			const token = this.$route.query.token
 			this.loading = true;
@@ -225,9 +218,7 @@ export default {
 							scrollToSentence: false
 						});
 						
-						if (dataset) {
-							this.setActiveDatasetType(dataset.datasetType);
-						}
+						if (dataset) { this.setActiveDatasetType(dataset.datasetType) }
 					},
 				});
 

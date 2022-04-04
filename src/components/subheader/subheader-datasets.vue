@@ -207,7 +207,12 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['setActiveDataset', 'setActiveDatasetType', 'importDatasets', 'detectSentences']),
+		...mapActions('pdfViewer', [
+			'setActiveDataset',
+			'setActiveDatasetType',
+			'importDatasets',
+			'detectSentences'
+		]),
 		toggleSummary() {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		},
@@ -219,6 +224,7 @@ export default {
 			})
 		},
 		handleDataTypeChange(datatype) {
+			if (this.activeDatasetType === datatype) return;
 			this.setActiveDatasetType(datatype);
 			const firstDatasetOfType = this.filteredDatasets[0];
 			

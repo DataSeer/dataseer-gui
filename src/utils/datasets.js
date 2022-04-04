@@ -39,30 +39,10 @@ const formatDataset = (dataset) => {
 };
 
 const getDatasetDataType = (dataset) => {
-	const isMaterial = () =>
-		dataset.dataType === 'lab materials' ||
+	const isMaterial = () => dataset.dataType === 'lab materials' ||
 		(dataset.dataType === 'other' && dataset.subType === 'reagent');
 
-	const isCode = () =>
-		dataset.dataType === 'code software' ||
-		(dataset.dataType === 'other' && dataset.subType === 'code');
-
-	const isProtocol = () => dataset.dataType === 'other' && dataset.subType === 'protocol';
-
-	if (isMaterial()) return 'material';
-	if (isCode()) return 'code';
-	if (isProtocol()) return 'protocol';
-
-	return 'dataset';
-};
-
-const filterDatasetsByDataType = (dataset) => {
-	const isMaterial = () =>
-		dataset.dataType === 'lab materials' ||
-		(dataset.dataType === 'other' && dataset.subType === 'reagent');
-
-	const isCode = () =>
-		dataset.dataType === 'code software' ||
+	const isCode = () => dataset.dataType === 'code software' ||
 		(dataset.dataType === 'other' && dataset.subType === 'code');
 
 	const isProtocol = () => dataset.dataType === 'other' && dataset.subType === 'protocol';
@@ -77,5 +57,4 @@ const filterDatasetsByDataType = (dataset) => {
 export {
 	formatDataset,
 	getDatasetDataType,
-	filterDatasetsByDataType
 };

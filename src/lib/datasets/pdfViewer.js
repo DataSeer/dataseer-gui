@@ -925,6 +925,7 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 	let colors = contour.attr(`colors`) ? JSON.parse(contour.attr(`colors`)) : {};
 	colors[dataset.dataInstanceId] = dataset.color;
 	contour.attr(`colors`, JSON.stringify(colors));
+	
 	if (contour.attr(`datasets`)) {
 		contour.attr(
 			`datasets`,

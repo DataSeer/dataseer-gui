@@ -233,7 +233,13 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['unlinkSentenceFromDataset', 'saveDataset', 'setDatasets', 'setActiveDatasetType']),
+		...mapActions('pdfViewer', [
+			'unlinkSentenceFromDataset',
+			'saveDataset',
+			'setDatasets',
+			'setActiveDatasetType',
+			'updateDataset'
+		]),
 		onNameInput(e) {
 			this.formData = {...this.formData, name: e.target.value}
 		},
@@ -263,14 +269,10 @@ export default {
 			this.documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
 				const newDataset = res.res 
 				formatDataset(newDataset);
-				
-				this.setDatasets([
-					...this.datasets.filter(dataset => dataset.id !== newDataset.id),
-					newDataset
-				])
+				this.updateDataset(newDataset)
 				this.isFormSubmitting = false;
-
-				this.setActiveDatasetType(newDataset.datasetType)
+				
+				this.setActiveDatasetType(newDataset.datasetType);
 			})
 		},
 		handleIssuesCancel() {

@@ -70,6 +70,7 @@ export const DocumentHandler = function(opts = {}, events) {
 	this.datasets = opts.datasets;
 	this.metadata = opts.metadata;
 	this.tei = { data: opts.tei.data, metadata: { mapping: opts.tei.metadata.mapping } };
+	
 	//Here we store information active Dataset and Datatype
 	this.activeDatasetType = opts.activeDatasetType;
 	this.activeDatasetId = opts.activeDatasetId;
@@ -91,7 +92,7 @@ export const DocumentHandler = function(opts = {}, events) {
 			this.colors[dataset.id] = dataset.color;
 		})
 	}
-	
+// 
 	return this;
 };
 
@@ -136,9 +137,9 @@ DocumentHandler.prototype.init = function() {
 	let	dataset = firstId ? this.getDataset(firstId) : undefined;
 	let	sentence = dataset ? dataset.sentences[0] : { id: `sentence-0` };
 
-	// if (typeof self.events.onInit === `function`) return self.events.onInit();
-	
+	if (typeof self.events.onInit === `function`) return self.events.onInit();
 	console.log(`init`);
+	
 	// if (!dataset) this.datasetForm.hide();
 	if (sentence) {
 		// this.datasetsList.refreshMsg();
@@ -197,7 +198,7 @@ DocumentHandler.prototype.loading = function(id) {
 	this.datasetsList.loading(id);
 };
 
-// Get get active dataset id
+// Set the active dataset Id
 DocumentHandler.prototype.setActiveDatasetId = function(id) {
 	const self = this;
 	return self.activeDatasetId = id;
@@ -224,7 +225,7 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 					: datasets[0]
 				: undefined
 	let selectedSentences = this.documentView.getSelectedSentences();
-	let sentence = self.documentView.getSentence(opts.sentence);
+	let sentence = this.documentView.getSentence(opts.sentence);
 	
 	return this.documentView.scrollToSentence({
 		sentence: opts.sentence,
@@ -235,49 +236,10 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 				self.documentView.unselectSentences(selectedSentences);
 				self.documentView.selectSentence(opts.sentence);
 			}
+
 			if (dataset && self.documentView.getSelectedSentences().length === 1) {
 				self.events.onSentenceClick(dataset, sentence)
-				// self.datasetsList.select(dataset.id);
-				// self.datasetForm.show();
-				// self.datasetForm.link(
-				// 	{
-				// 		dataset: dataset,
-				// 		sentence: {
-				// 			id: sentence.id,
-				// 			text: sentence.text
-				// 			// url: self.documentView.pdfViewer.getSentenceDataURL(sentence.id)
-				// 		}
-				// 	},
-				// 	datasets,
-				// 	{ isCurator: self.user.isCurator || self.user.isAnnotator },
-				// 	function(err, res) {
-				// 		if (err) {
-				// 			console.log(`dataset not selected`);
-				// 			return cb(err);
-				// 		}
-				// 		if (res) {
-				// 			if (res.shouldSave) {
-				// 				console.log(`Should save selected dataset`, res);
-				// 				self.modified(res.dataset.id);
-				// 				self.updateDataset(res.dataset.id, res.dataset);
-				// 				self.saveDataset(res.dataset.id);
-				// 				return typeof cb === `function`
-				// 					? cb(null, res.dataset.id)
-				// 					: undefined;
-				// 			} else {
-				// 				console.log(`Selected dataset up to date`);
-				// 				return typeof cb === `function` ? cb(true) : undefined;
-				// 			}
-				// 		} else return typeof cb === `function` ? cb(true) : undefined;
-				// 	}
-				// );
-			} else {
-				self.events.onSentenceClick(dataset, sentence)
-				// self.datasetsList.unselect();
-				// self.datasetForm.hide();
-				// self.datasetForm.setEmptyMessage();
-				// self.datasetForm.unlink();
-			}
+			} 
 			
 			return typeof cb === `function` ? cb(true) : undefined;
 		}
@@ -341,6 +303,7 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 		for (let key in data) {
 			dataset[key] = data[key];
 		}
+	this.setActiveDatasetType(dataset.datasetType);
 };
 
 // Save a dataset
@@ -520,7 +483,7 @@ DocumentHandler.prototype.newDataset = function(sentences = {}, cb) {
 	});
 };
 
-// Add  new Dataset
+// Add new Dataset
 DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
 	const datasetType = this.getDatasetDataType(dataset);
 	
@@ -530,7 +493,7 @@ DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
 	this.colors[dataset.id] = dataset.color;
 	this.datasets.current.push(dataset);
 	this.documentView.addDataset(dataset, sentence);
-	this.datasetsList.add(dataset);
+	// this.datasetsList.add(dataset);
 
 	this.setActiveDatasetType(datasetType);
 	
@@ -660,9 +623,15 @@ DocumentHandler.prototype.link = function(opts = {}) {
 	let self = this;
 	if (opts.documentView) {
 		this.documentView = opts.documentView;
-		this.documentView.init({ pdf: this.pdf, xml: this.tei, colors: this.colors }, function() {
+		
+		this.documentView.init({
+			pdf: this.pdf,
+			xml: this.tei,
+			colors: this.colors,
+		}, function() {
 			console.log(`documentView ready !`);
 			if (typeof self.events.onDocumentViewReady === `function`) self.events.onDocumentViewReady();
+			
 			return self.isReady(`documentView`, true);
 		});
 	}
@@ -689,17 +658,15 @@ DocumentHandler.prototype.filterDatasetsByDataType = function () {
 	return this.datasets.current.filter((dataset) => dataset.datasetType === this.activeDatasetType)
 }
 
-// Get the dataset DataType (or undefined)
+// Get the dataset DataType 
 DocumentHandler.prototype.getDatasetDataType = function (dataset) {
-	const isMaterial = () =>
-		dataset.dataType === 'lab materials' ||
+	const isMaterial = () => dataset.dataType === 'lab materials' ||
 		(dataset.dataType === 'other' && dataset.subType === 'reagent');
 
-	const isCode = () =>
-		dataset.dataType === 'code software' ||
+	const isCode = () => dataset.dataType === 'code software' ||
 		(dataset.dataType === 'other' && dataset.subType === 'code');
 
-	const isProtocol = () => (dataset.dataType === 'other' && dataset.subType === 'protocol');
+	const isProtocol = () => dataset.dataType === 'other' && dataset.subType === 'protocol';
 
 	if (isMaterial()) return 'material';
 	if (isCode()) return 'code';
@@ -719,7 +686,7 @@ DocumentHandler.prototype.setActiveDatasetType = function (id) {
 		if (currentDatasets[i].datasetType === self.activeDatasetType) {
 			self.documentView.colorizeLink(currentDatasets[i]);
 		} else {
-			self.documentView.uncolorizeLink(currentDatasets[i]);
+			self.documentView.decolorizeLink(currentDatasets[i]);
 		}
 	}
 };
@@ -730,7 +697,6 @@ DocumentHandler.prototype.resyncJsonDataTypes = function(callback) {
 		return callback(err, res);
 	});
 }
-
 
 // DocumentHandler synchronization
 DocumentHandler.prototype.synchronize = function() {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // State
 const state = {
 	document: undefined,
@@ -7,7 +8,7 @@ const state = {
 	dataTypes: {},
 	
 	activeDataset: undefined,
-	activeDatasetType: 'dataset',
+	activeDatasetType: undefined,
 	activeSentence: undefined,
 	
 	datasetsForMerge: [],
@@ -48,7 +49,13 @@ const actions = {
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
 	},
-	setActiveDataset({state, commit }, { dataset, scrollToSentence }) {
+
+	updateDataset({commit}, newDataset ) {
+		commit('UPDATE_DATASET', newDataset )
+	},
+	
+	setActiveDataset({state, commit, getters }, { dataset, scrollToSentence }) {
+		if (dataset && dataset.id === getters.activeDatasetId) return 
 		const documentHandler = state.documentHandler;
 		
 		if (scrollToSentence) {
@@ -59,12 +66,13 @@ const actions = {
 					id: dataset.sentences[0].id
 				}
 			})
+			documentHandler.setActiveDatasetId(dataset.id);
 		}
 		
-		documentHandler.setActiveDatasetId(dataset.id);
 		commit('SET_ACTIVE_DATASET', dataset)
 	},
 	setActiveDatasetType({ state, commit }, dataType) {
+		if (state.activeDatasetType === dataType) return;
 		const documentHandler = state.documentHandler;
 
 		commit('SET_ACTIVE_DATASET_TYPE', dataType);
@@ -73,7 +81,6 @@ const actions = {
 	setActiveSentence({ commit }, sentence) {
 		commit('SET_ACTIVE_SENTENCE', sentence)
 	},
-	
 	addSentenceToDataset({state}) {
 		const documentHandler = state.documentHandler;
 		documentHandler.datasetsList.events.onNewDatasetClick();
@@ -179,6 +186,9 @@ const mutations = {
     },
 	SET_ACTIVE_SENTENCE(state, payload) {
 		state.activeSentence = payload;
+	},
+	UPDATE_DATASET(state, payload) {
+		state.datasets[state.datasets.findIndex(el => el.id === payload.id)] = payload;
 	},
 	CLEAR_STATE(state ) {
         state.dataTypes = {};
