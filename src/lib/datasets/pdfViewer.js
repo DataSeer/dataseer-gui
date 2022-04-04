@@ -312,7 +312,8 @@ PdfViewer.prototype.load = function(pdf, xmlMetadata, cb) {
 			pages: pdf.metadata.pages,
 			sentences: pdf.metadata.sentences,
 			links: xmlMetadata.links,
-			colors: xmlMetadata.colors
+			colors: xmlMetadata.colors,
+			activeDatasetType: xmlMetadata.activeDatasetType
 		};
 		self.metadata = metadata;
 		return self.renderPage({ numPage: 1 }, function(err) {
@@ -934,6 +935,7 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 				` #${dataset.dataInstanceId}`
 			).trim()
 		);
+		contour.attr('dataset-type', dataset.datasetType);
 	} else {
 		contour.attr(`datasets`, `#${dataset.dataInstanceId}`);
 	}
@@ -943,6 +945,10 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 	} else {
 		annotation.attr(`datasets`, `#${dataset.dataInstanceId}`);
 	}
+	
+	// Color only datasets that are from the active dataset type
+	if (this.metadata.activeDatasetType !== dataset.datasetType) return 
+	
 	this.colorize(sentence, dataset.color, function() {
 		self.setCanvasBorder(
 			sentence,
@@ -1193,6 +1199,7 @@ PdfViewer.prototype.endHoverCanvas = function(sentence) {
 	);
 };
 
+
 // Build borders
 PdfViewer.prototype.getSentenceDataURL = function(sentence) {
 	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`),
@@ -1227,7 +1234,6 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 			.get(),
 		function(canvas, next) {
 			// there is already a background
-			
 			if (canvas.get(0).hasAttribute(`colorized-data-url`)) return next();
 			
 			let img = new Image();
@@ -1295,6 +1301,12 @@ PdfViewer.prototype.uncolorize = function(sentence) {
 	contour.removeAttr(`background-color`);
 	contour.removeAttr(`foreground-color`);
 };
+
+// Change active dataset type
+PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
+	const self = this;
+	self.metadata.activeDatasetType = datasetType;
+}
 
 // Draw borders & colorize text
 PdfViewer.prototype.drawImage = function(

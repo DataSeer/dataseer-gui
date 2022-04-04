@@ -136,6 +136,12 @@ XmlViewer.prototype.removeDataset = function(dataset) {
 	this.removeLinks(dataset);
 };
 
+// Change active dataset type
+XmlViewer.prototype.setActiveDatasetType = function(datasetType) {
+	const self = this;
+	self.activeDatasetType = datasetType;
+}
+
 // colorize a sentence
 XmlViewer.prototype.colorize = function(dataset, sentence) {
 	let el = this.viewer.find(`s[xml\\:id="${sentence.id}"]`);
@@ -245,6 +251,7 @@ XmlViewer.prototype.removeLink = function(dataset, sentence) {
 XmlViewer.prototype.load = function(opts = {}, cb) {
 	console.log(`Loading XML...`);
 	let self = this;
+	this.activeDatasetType = opts.activeDatasetType ? opts.activeDatasetType : undefined;
 	this.sentencesMapping = opts.mapping ? opts.mapping : {};
 	this.viewer.html(opts.xmlString);
 	// Init events
@@ -304,6 +311,7 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 		datasets[dataInstances[datasetId]].color = opts.colors[datasetId];
 		datasets[dataInstances[datasetId]].type = type;
 		datasets[dataInstances[datasetId]].subtype = subtype;
+		datasets[dataInstances[datasetId]].datasetType = opts.colors[datasetId]?.datasetType ? opts.colors[datasetId].datasetType : undefined;
 	});
 
 	// Color corresps
@@ -320,7 +328,8 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 	});
 	return cb({
 		colors: opts.colors,
-		links: links
+		links: links,
+		activeDatasetType: this.activeDatasetType
 	});
 };
 

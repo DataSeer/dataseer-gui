@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 /**
- * External Dependencies
+ * External Dependencies 
  */
 import $ from 'jquery';
 import _ from 'lodash';
@@ -89,7 +89,10 @@ export const DocumentHandler = function(opts = {}, events) {
 	//Here we update the information for each colored sentence, based on the current datasets
 	for (let i = 0; i < opts.datasets.current.length; i++) {
 		self.datasets.current.map((dataset) => {
-			this.colors[dataset.id] = dataset.color;
+			this.colors[dataset.id] = {
+				...dataset.color,
+				datasetType: dataset.datasetType
+			};
 		})
 	}
 // 
@@ -628,6 +631,7 @@ DocumentHandler.prototype.link = function(opts = {}) {
 			pdf: this.pdf,
 			xml: this.tei,
 			colors: this.colors,
+			activeDatasetType: this.activeDatasetType,
 		}, function() {
 			console.log(`documentView ready !`);
 			if (typeof self.events.onDocumentViewReady === `function`) self.events.onDocumentViewReady();
@@ -679,6 +683,7 @@ DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 DocumentHandler.prototype.setActiveDatasetType = function (id) {
 	const self = this;
 	const currentDatasets = self.datasets.current;
+	self.documentView.setActiveDatasetType(id)
 
 	// Update Active Dataset Type
 	self.activeDatasetType = id;

@@ -78,6 +78,8 @@ export const DocumentView = function(id, events = {}) {
 	// Element initialization
 	this.xml.hide();
 	this.pdfVisible = true;
+	// Set ActiveDatasetType
+	this.activeDatasetType = undefined;
 	// Key events listeners
 	$(document).keydown(function(event) {
 		if (event.key === `Control`) self.ctrlPressed = true;
@@ -193,18 +195,19 @@ DocumentView.prototype.getSentence = function(sentence) {
 DocumentView.prototype.init = function(opts, cb) {
 	let self = this
 	let	xml = opts.xml.data.toString(`utf8`).replace(/\s/gm, ` `);
-	
+
 	this.xmlViewer = new XmlViewer(`xml`, `documentView\\.screen`, this.viewersEvents);
 	
 	if (opts.pdf) {
 		this.pdfVisible = true;
 		this.pdfViewer = new PdfViewer(`pdf`, `documentView\\.screen`, this.viewersEvents);
 	}
-
+	
 	return this.xmlViewer.load({
 		xmlString: xml,
 		colors: opts.colors,
-		mapping: opts.xml.metadata.mapping
+		mapping: opts.xml.metadata.mapping,
+		activeDatasetType: opts.activeDatasetType
 	},
 		function(datasetsInfos) {
 			if (opts.pdf)
@@ -221,6 +224,12 @@ DocumentView.prototype.init = function(opts, cb) {
 			}
 		}
 	);
+};
+
+// Change active dataset type
+DocumentView.prototype.setActiveDatasetType = function(datasetType) {
+	if (this.pdfViewer) this.pdfViewer.setActiveDatasetType(datasetType);
+	this.xmlViewer.setActiveDatasetType(datasetType);
 };
 
 // Hover a sentence
