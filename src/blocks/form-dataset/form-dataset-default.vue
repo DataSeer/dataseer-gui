@@ -5,7 +5,8 @@
 				name="dataType"
 				:error="$v.type.$error"
 				:options="dataTypesOptions"
-				v-model.trim="formData.dataType"
+				:value="formData.dataType"
+				@input="handleDataTypeChange"
 				placeholder="Tabular Data"
 			>
 				<Icon name="grid" />
@@ -202,6 +203,17 @@ export default {
 		},
 		permalink: {
 			required
+		}
+	},
+	
+	/**
+	 * Methods
+	 */
+	methods: {
+		// Reset the sub type value when the main datatype changes
+		handleDataTypeChange(value) {
+			this.formData.dataType = value;
+			this.formData.subType = '';
 		}
 	},
 }
