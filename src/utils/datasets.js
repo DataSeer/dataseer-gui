@@ -36,6 +36,8 @@ const formatDataset = (dataset) => {
 		datasetType,
 		color: DATATYPE_COLORS[datasetType]
 	})
+
+	return dataset;
 };
 
 const getDatasetDataType = (dataset) => {

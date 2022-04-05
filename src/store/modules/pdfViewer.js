@@ -49,12 +49,10 @@ const actions = {
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
 	},
-
 	updateDataset({commit}, newDataset ) {
 		commit('UPDATE_DATASET', newDataset )
 	},
-	
-	setActiveDataset({state, commit, getters }, { dataset, scrollToSentence }) {
+		setActiveDataset({state, commit, getters }, { dataset, scrollToSentence }) {
 		if (dataset && dataset.id === getters.activeDatasetId) return 
 		const documentHandler = state.documentHandler;
 		

@@ -11,6 +11,7 @@ import async from 'async';
  * Internal Dependencies
  */
 import API from './api';
+import { formatDataset } from '@/utils/datasets'
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
@@ -301,34 +302,41 @@ DocumentHandler.prototype.onModalConfirmAccept = function() {
 
 // Update a dataset
 DocumentHandler.prototype.updateDataset = function(id, data = {}) {
+	// Get the current version of the dataset
+	const self = this;
 	let dataset = this.getDataset(id);
-	if (dataset)
+	
+	if (dataset) {
 		for (let key in data) {
 			dataset[key] = data[key];
 		}
-	this.setActiveDatasetType(dataset.datasetType);
+	}
+	
+	self.documentView.decolorizeLink(dataset);
+	self.documentView.colorizeLink(dataset);
+
+	if (dataset.datasetType !== this.activeDatasetType) {
+		self.setActiveDatasetType(dataset.datasetType);
+	}
 };
 
 // Save a dataset
 DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
 	let self = this;
 	
-	return API.datasets.updateDataset(
-		{
-			datasetsId: this.ids.datasets,
-			dataset: dataset
-		},
-		function(err, res) {
-			// console.log(err, res);
-			if (err) return typeof cb === `function` ? cb(err) : undefined;
-			if (res.err) return typeof cb === `function` ? cb(true, res) : undefined;
-			self.saved(id);
-			self.hasChanged[id] = false;
-			self.updateDataset(id, res.res);
-			self.refreshDataset(id);
-			return typeof cb === `function` ? cb(err, res) : undefined;
-		}
-	);
+	return API.datasets.updateDataset({
+		datasetsId: this.ids.datasets,
+		dataset: dataset
+	}, function(err, res) {
+		if (err) return typeof cb === `function` ? cb(err) : undefined;
+		if (res.err) return typeof cb === `function` ? cb(true, res) : undefined;
+		self.saved(id);
+		self.hasChanged[id] = false;
+		const newDataset = formatDataset(res.res)
+		self.updateDataset(id, newDataset);
+		self.refreshDataset(id);
+		return typeof cb === `function` ? cb(err, newDataset) : undefined;
+	});
 };
 
 // Merge some datasets
@@ -658,9 +666,6 @@ DocumentHandler.prototype.link = function(opts = {}) {
 	this.synchronize();
 };
 
-DocumentHandler.prototype.filterDatasetsByDataType = function () {
-	return this.datasets.current.filter((dataset) => dataset.datasetType === this.activeDatasetType)
-}
 
 // Get the dataset DataType 
 DocumentHandler.prototype.getDatasetDataType = function (dataset) {
@@ -687,6 +692,7 @@ DocumentHandler.prototype.setActiveDatasetType = function (id) {
 
 	// Update Active Dataset Type
 	self.activeDatasetType = id;
+	
 	for (let i = 0; i < currentDatasets.length; i++) {
 		if (currentDatasets[i].datasetType === self.activeDatasetType) {
 			self.documentView.colorizeLink(currentDatasets[i]);

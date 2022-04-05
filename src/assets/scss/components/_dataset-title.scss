@@ -13,18 +13,18 @@
 	text-align: center;
 	
 	@include breakpoint-down(large-desktop) {
-		width: 500px; 
+		max-width: 500px; 
 	}
 
 	@include breakpoint-down(small-desktop) {
-		width: 350px; 
+		max-width: 350px; 
 		left: 150px;
 		transform: translateX(0);
 		text-align-last: left;
 	}
 	
 	h6 {
-		width: 100%;
+		max-width: 100%;
 		margin-bottom: 5px;
 		font-weight: 700; 
 		font-family: inherit; 

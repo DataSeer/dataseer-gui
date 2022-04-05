@@ -1,6 +1,6 @@
 <template>
 	<div class="dataset">
-		<div v-if="!dataset" class="dataset__form">
+		<div v-if="!activeSentence.hasDatasets" class="dataset__form">
 			<FormConnectText />
 		</div><!-- /.dataset__title -->
 		
@@ -23,7 +23,7 @@
 						@input="onNameInput"
 					/>
 
-					<p>{{ dataset.dataType || 'Undefined Type'}}</p>
+					<p>{{ dataType }}</p>
 				</FormHead>
 				
 				<FormBody>
@@ -142,8 +142,6 @@ import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
 
-import { formatDataset } from '@/utils/datasets'
-
 export default {
 	/**
 	 * Name
@@ -196,6 +194,7 @@ export default {
 			isIssuesFormVisible: false,
 		}
 	},
+	
 
 	/**
 	 * Watch
@@ -227,6 +226,9 @@ export default {
 
 			return FormDataset;
 		},
+		dataType() {
+			return this.dataset?.dataType ? this.dataset.dataType : 'Undefined Type'
+		}
 	},
 
 	/**
@@ -234,11 +236,10 @@ export default {
 	 */
 	methods: {
 		...mapActions('pdfViewer', [
+			'updateDataset',
 			'unlinkSentenceFromDataset',
-			'saveDataset',
 			'setDatasets',
 			'setActiveDatasetType',
-			'updateDataset'
 		]),
 		onNameInput(e) {
 			this.formData = {...this.formData, name: e.target.value}
@@ -248,10 +249,6 @@ export default {
 				...this.formData,
 				...this.activeDataset
 			}
-		},
-		toggleIssuesForm(e) {
-			e.preventDefault();
-			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
 		handleDelete(e) {
 			e.preventDefault();
@@ -264,16 +261,23 @@ export default {
 		},
 		handleDatasetSave(e) {
 			e.preventDefault();
+			const documentHandler = this.documentHandler;
 			this.isFormSubmitting = true;
 			
-			this.documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
-				const newDataset = res.res 
-				formatDataset(newDataset);
-				this.updateDataset(newDataset)
-				this.isFormSubmitting = false;
+			documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
+				const newDataset = res
+				this.updateDataset(newDataset);
 				
-				this.setActiveDatasetType(newDataset.datasetType);
+				if (this.activeDatasetType !== newDataset.datasetType) {
+					this.setActiveDatasetType(newDataset.datasetType);
+				}
+				
+				this.isFormSubmitting = false;
 			})
+		},
+		toggleIssuesForm(e) {
+			e.preventDefault();
+			this.isIssuesFormVisible = !this.isIssuesFormVisible;
 		},
 		handleIssuesCancel() {
 			this.isIssuesFormVisible = false;
@@ -285,9 +289,9 @@ export default {
 	},
 
 	/**
-	 * Mounted
+	 * Created
 	 */
-	mounted () {
+	created () {
 		this.populateFormData();
 	},
 }
