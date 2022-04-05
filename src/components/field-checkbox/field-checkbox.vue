@@ -115,7 +115,7 @@ export default {
 			selectOptions: [
 				{
 					label: 'Select',
-					value: null
+					value: ""
 				},
 				{
 					label: this.trueLabel,
@@ -131,6 +131,7 @@ export default {
 
 	computed: {
 		sanitizedValue() {
+			// In some cases the API return the value as string
 			if(typeof this.value === 'boolean' || this.value === undefined ) return this.value
 			
 			switch(this.value.toLowerCase().trim()){

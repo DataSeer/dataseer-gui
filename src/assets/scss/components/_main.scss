@@ -182,6 +182,7 @@
 
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
+		.form--dataset .form__head input:focus,
 		.v-select.vs--open .vs__dropdown-toggle {
 			border-color: $c-purple-72;
 		}
@@ -221,6 +222,7 @@
 
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
+		.form--dataset .form__head input:focus,
 		.v-select.vs--open .vs__dropdown-toggle {
 			border-color: $c-orange-d2;
 		}
@@ -259,6 +261,7 @@
 
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
+		.form--dataset .form__head input:focus,
 		.v-select.vs--open .vs__dropdown-toggle {
 			border-color: $c-green-40;
 		}

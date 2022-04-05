@@ -399,12 +399,12 @@
 		transition: padding $t-duration, border $t-duration, background-color $t-duration;
 		
 		&:hover {
-			background-color: rgba($c-placeholder, 0.15);
+			background-color: rgba($c-placeholder, 0.08);
 		}
-
+		
 		&:focus {
 			padding-left: 12px;
-			border-color: $c-skyblue;
+			border-color: $c-primary-light;
 		}
 	}
 

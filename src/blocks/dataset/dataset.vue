@@ -18,7 +18,7 @@
 						type="text"
 						id="name"
 						tabindex="0"
-						placeholder="Enter Name Here"
+						:placeholder="NameInputPlaceholder"
 						:value="formData.name"
 						@input="handleNameInputChange"
 					/>
@@ -180,6 +180,7 @@ export default {
 	data() {
 		return {
 			formData: {},
+			NameInputPlaceholder: 'Enter...',
 			datasetConfirmDeleteMessage: 'Are you sure you want to delete this dataset?',
 			tooltips: {
 				flag: 'Flag Issues For Author',
