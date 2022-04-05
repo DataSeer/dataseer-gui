@@ -241,9 +241,11 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 				self.documentView.selectSentence(opts.sentence);
 			}
 
-			if (dataset && self.documentView.getSelectedSentences().length === 1) {
-				self.events.onSentenceClick(dataset, sentence)
-			} 
+			// if (dataset && self.documentView.getSelectedSentences().length === 1) {
+			// self.events.onSentenceClick(dataset, sentence)
+			// } 
+
+			self.events.onSentenceClick(dataset, sentence)
 			
 			return typeof cb === `function` ? cb(true) : undefined;
 		}

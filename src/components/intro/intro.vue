@@ -2,7 +2,7 @@
 	<div class="intro">
 		<div class="intro__head">
 			<h3>
-				No {{typePlural}} Yet
+				No {{ typePlural }} Yet
 
 				<span>Need to Add Some?</span>
 			</h3>
@@ -14,11 +14,11 @@
 
 		<div class="intro__body">
 			<div class="intro__about">
-				<p>Our AI has not detected any {{typePlural}} in this document.</p>
+				<p>Our AI has not detected any {{ typePlural }} in this document.</p>
 
 				<p>
 					<Icon name="arrow_up" color="#8CABCD" /> If you want to add some, first select a text
-					passage in the document which references {{type}}
+					passage in the document which references {{ activeDatasetType }}
 				</p>
 
 				<p>
@@ -37,7 +37,7 @@
 				<h6>Pro-Tip</h6>
 
 				<p>
-					If multiple text passages make reference to the same {{type}}, you can shift+click to
+					If multiple text passages make reference to the same {{ activeDatasetType }}, you can shift+click to
 					select more than one
 				</p>
 
@@ -51,6 +51,11 @@
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex'
+
 /**
  * Internal Dependencies
  */
@@ -71,20 +76,15 @@ export default {
 		Button
 	},
 
-	props: {
-		type: {
-			type: String,
-			default: 'Dataset'
-		},
-	},
-
 	/**
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('pdfViewer', ['activeDatasetType']),
 		typePlural() {
-			return this.type + 's'
+			return this.activeDatasetType + 's'
 		}
 	},
+	
 }
 </script>

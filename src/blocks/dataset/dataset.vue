@@ -2,14 +2,14 @@
 	<div class="dataset">
 		<div v-if="!activeSentence.hasDatasets" class="dataset__form">
 			<FormConnectText />
-		</div><!-- /.dataset__title -->
+		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<FormIssues v-if="flagged && userRoleWeight < 1000" />
+			<FormIssues v-if="formData.flagged && userRoleWeight < 1000" />
 
 			<FormCuratorIssues
-				v-if="(flagged || isIssuesFormVisible) && userRoleWeight >= 1000"
-				@cancelClick="handleIssuesCancel"
+				v-if="formData.flagged && userRoleWeight >= 1000"
+				@cancelClick="toggleIssuesForm"
 			/>
 
 			<Form className="form--dataset" :loading="isFormSubmitting">
@@ -20,7 +20,7 @@
 						tabindex="0"
 						placeholder="Enter Name Here"
 						:value="formData.name"
-						@input="onNameInput"
+						@input="handleNameInputChange"
 					/>
 
 					<p>{{ dataType }}</p>
@@ -37,7 +37,7 @@
 					<div class="form__cta-row">
 						<div class="form__cta-col">
 							<Button
-								@onClick="handleDatasetSave"
+								@onClick.prevent="handleDatasetSave"
 							>
 								Complete This {{this.activeDatasetType ? this.activeDatasetType : 'dataset' }}
 							</Button>
@@ -57,7 +57,7 @@
 							<Button
 								className="tertiary"
 								v-tooltip.top-center="tooltips.deleteText"
-								@onClick="handleDelete"
+								@onClick.prevent="handleDatasetDelete"
 							>
 								<Icon name="trash" />
 
@@ -70,7 +70,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top-center="tooltips.flag"
-								@onClick="toggleIssuesForm"
+								@onClick.prevent="toggleIssuesForm"
 							>
 								<Icon name="flag" />
 							</Button>
@@ -79,7 +79,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top-center="tooltips.passage"
-								@onClick="openPopup"
+								@onClick.prevent="openPopup"
 							>
 								<Icon name="documents" />
 							</Button>
@@ -97,7 +97,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top-center="tooltips.deleteText"
-								@onClick="handleDelete"
+								@onClick.prevent="handleDatasetDelete"
 							>
 								<Icon name="trash" />
 							</Button>
@@ -171,11 +171,7 @@ export default {
 		dataset: {
 			type: Object,
 			default: () => {}
-		},
-		flagged: {
-			type: Boolean,
-			default: false,
-		},
+		}
 	},
 
 	/**
@@ -184,6 +180,7 @@ export default {
 	data() {
 		return {
 			formData: {},
+			datasetConfirmDeleteMessage: 'Are you sure you want to delete this dataset?',
 			tooltips: {
 				flag: 'Flag Issues For Author',
 				passage: 'Show Text Passage',
@@ -191,7 +188,6 @@ export default {
 				deleteText: 'Delete this Dataset'
 			},
 			isFormSubmitting: false,
-			isIssuesFormVisible: false,
 		}
 	},
 	
@@ -241,26 +237,19 @@ export default {
 			'setDatasets',
 			'setActiveDatasetType',
 		]),
-		onNameInput(e) {
+		handleNameInputChange(e) {
 			this.formData = {...this.formData, name: e.target.value}
 		},
 		populateFormData() {
-			this.formData =  {
-				...this.formData,
-				...this.activeDataset
-			}
+			this.formData =  { ...this.formData, ...this.activeDataset }
 		},
-		handleDelete(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			const confirmDelete = window.confirm('Are you sure you want to delete this dataset?');
+		handleDatasetDelete() {
+			const confirm = window.confirm(this.datasetConfirmDeleteMessage);
 
-			if (confirmDelete) {
-				this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
-			}
+			if (!confirm) return
+			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
 		},
-		handleDatasetSave(e) {
-			e.preventDefault();
+		handleDatasetSave() {
 			const documentHandler = this.documentHandler;
 			this.isFormSubmitting = true;
 			
@@ -275,15 +264,10 @@ export default {
 				this.isFormSubmitting = false;
 			})
 		},
-		toggleIssuesForm(e) {
-			e.preventDefault();
-			this.isIssuesFormVisible = !this.isIssuesFormVisible;
+		toggleIssuesForm() {
+			this.formData.flagged = this.formData?.flagged ? false : true;
 		},
-		handleIssuesCancel() {
-			this.isIssuesFormVisible = false;
-		},
-		openPopup(e) {
-			e.preventDefault();
+		openPopup() {
 			this.$refs.textPassagePopup.showModal();
 		},
 	},

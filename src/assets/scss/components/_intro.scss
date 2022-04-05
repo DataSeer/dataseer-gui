@@ -3,15 +3,26 @@
 \* ------------------------------------------------------------ */
 
 .intro {
+	height: 100%;
+	overflow: auto;
 	padding: 35px;
 	font-family: $ff-titles;
 	letter-spacing: 0;
 
 	.intro__head {
 		position: relative;
+		margin-bottom: 95px;
 		padding: 45px 230px 40px 50px;
 		background-color: $c-skyblue-fa;
 		border-radius: 15px;
+
+		@include breakpoint-down(mobile) {
+			margin-bottom: 45px;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.intro__head h3 {
@@ -37,7 +48,8 @@
 	}
 
 	.intro__body {
-		padding: 95px 35px 65px 50px;
+		padding-left: 50px;
+		padding-right: 35px;
 	}
 
 	.intro__body h6 {

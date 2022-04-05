@@ -380,7 +380,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 10px 0;
+		height: 56px;
 		border-bottom: 1px solid $c-skyblue-bc;
 	}
 	
@@ -396,7 +396,11 @@
 		font-size: 18px;
 		font-weight: 700;
 		font-family: inherit;
-		transition: padding $t-duration, border $t-duration;
+		transition: padding $t-duration, border $t-duration, background-color $t-duration;
+		
+		&:hover {
+			background-color: rgba($c-placeholder, 0.15);
+		}
 
 		&:focus {
 			padding-left: 12px;

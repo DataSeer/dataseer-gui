@@ -1,7 +1,7 @@
 <template>
 	<Form className="form--dataset form--connect-text">
 		<FormHead>
-			<h5>Selected Text</h5>
+			<h5 class="overflow-truncate">{{activeSentence.text}}</h5>
 		</FormHead>
 
 		<FormEntry>
@@ -20,7 +20,7 @@
 			<FieldSelect
 				v-model.trim="selectedDataset"
 				name="dataset"
-				placeholder="Select an Existing Dataset…"
+				placeholder="Select an Existing Datase, 'activeda't…"
 				:options="datasetsOptions"
 			/>
 		</FormBody>
@@ -93,7 +93,7 @@
 		 * Computed
 		 */
 		computed: {
-			...mapGetters('pdfViewer', ['datasets']),
+			...mapGetters('pdfViewer', ['datasets', 'activeSentence']),
 			datasetsOptions() {
 				return this.datasets.map(dataset => ({
 					value: dataset.id,

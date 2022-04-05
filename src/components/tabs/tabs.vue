@@ -7,7 +7,7 @@
 					:key="dataset.id"
 					class="tabs__link"
 					:class="{
-						'is-active': dataset.id === activeTabId,
+						'is-active': dataset.id === activeDatasetId,
 						'is-completed': dataset.status === 'saved'
 					}"
 				>
@@ -67,16 +67,6 @@ export default {
 	},
 
 	/**
-	 * Props
-	 */
-	props: {
-		activeTabId: {
-			type: String || undefined,
-			default: undefined
-		},
-	},
-
-	/**
 	 * Computed
 	 */
 	computed: {
@@ -86,7 +76,8 @@ export default {
 			'mergeState',
 			'datasets',
 			'datasetsForMerge',
-			'filteredDatasets'
+			'filteredDatasets',
+			'activeDatasetId'
 		]),
 	},
 	

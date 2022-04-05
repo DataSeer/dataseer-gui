@@ -15,19 +15,10 @@
 			:error="error"
 			:errorMessage="errorMessage"
 		>
-			<Intro
-				:type="activeDatasetType"
-				v-if="!filteredDatasets.length"
-			/>
+			<Intro v-if="!filteredDatasets.length" />
 
-			<Tabs
-				v-if="filteredDatasets.length"
-				:activeTabId="activeDatasetId"
-			>
-				<Dataset
-					:dataset="activeDataset"
-					:activeDatasetType="activeDatasetType"
-				/>
+			<Tabs v-if="filteredDatasets.length" >
+				<Dataset :dataset="activeDataset" />
 			</Tabs>
 
 			<DatasetUtils />
@@ -159,7 +150,6 @@ export default {
 			'setDataTypes',
 			'setMergeState',
 			'setActiveSentence',
-			'saveDataset',
 			'clearState',
 		]),
 		async initializePdfViewer() {
