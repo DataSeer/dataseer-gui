@@ -1,6 +1,6 @@
 <template>
 	<i class="ico" :class="{ [`ico--${name}`]: name }">
-		<component :is="name" :color="color"></component>
+		<component :is="name" :color="color" :width="width" :height="height" />
 	</i>
 </template>
 
@@ -59,6 +59,7 @@ import calendar from './icon-calendar';
 import ico_plus_circle from './icon-plus-circle';
 import flag from './icon-flag';
 import plus from './icon-plus';
+import references from './icon-references';
 
 export default {
 	name: 'Icon',
@@ -71,6 +72,12 @@ export default {
 		color: {
 			type: String,
 			default: 'currentColor'
+		},
+		width: {
+			type: [Number, String],
+		},
+		height: {
+			type: [Number, String],
 		}
 	},
 
@@ -128,7 +135,8 @@ export default {
 		calendar,
 		ico_plus_circle,
 		flag,
-		plus
+		plus,
+		references
 	}
 };
 </script>

@@ -5,8 +5,7 @@
 
 			<slot />
 		</modal>
-	</div>
-	<!-- /.popup -->
+	</div> <!-- /.popup -->
 </template>
 
 <script>

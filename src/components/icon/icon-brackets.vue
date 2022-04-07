@@ -1,7 +1,7 @@
 <template>
 	<svg
-		width="30px"
-		height="30px"
+		:width="width"
+		:height="height"
 		viewBox="0 0 30 30"
 		version="1.1"
 		xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +35,14 @@ export default {
 	/**
 	 * props
 	 */
-	props: ['color']
+	props: {
+		color: {},
+		width: {
+			default: 29
+		},
+		height: {
+			default: 29
+		}
+	}
 };
 </script>

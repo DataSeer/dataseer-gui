@@ -20,6 +20,7 @@
 		top: 100%;
 		right: 0;
 		margin-top: 6px;
+		padding: 0 20px;
 		width: 268px;
 		border-radius: 11px;
 		border: 3px solid $c-primary;
@@ -65,10 +66,9 @@
 
 	.dropdown__arrow {
 		content: '';
-		display: inline-block;
+		display: block;
 		width: 9px;
 		height: 9px;
-		margin-left: 5px;
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: contain;
@@ -83,7 +83,6 @@
 	.dropdown__nav ul {
 		position: relative;
 		list-style: none;
-		margin: 0 20px;
 
 		&:after {
 			content: attr(data-title) "";
@@ -101,8 +100,6 @@
 	}
 
 	.dropdown__nav ul + ul {
-		// margin-top: 25px;
-		
 		&:before {
 			content: '';
 			display: block;
@@ -134,12 +131,14 @@
 	.dropdown__nav button {
 		position: relative;
 		display: block;
+		width: 100%;
 		padding-left: 34px;
 		text-decoration: none;
 		background: none;
 		border: none;
 		font-weight: 500;
 		font-size: 16px;
+		line-height: inherit;
 		text-transform: uppercase;
 		transition: color $t-duration;
 		
@@ -155,16 +154,28 @@
 
 	.dropdown__nav i {
 		position: absolute;
-		left: 0;
 		top: 50%;
 		transform: translateY(-50%);
 		fill: $c-primary;
 		transition: fill $t-duration;
 	}
 
+	.dropdown__nav i:not(.ico--check) {
+		left: 0;
+	}
+
+	.dropdown__nav i.ico--check {
+		right: 0;
+	}
+
 	.dropdown__nav .ico--view-list {
 		width: 19px;
 		height: 11px;
+	}
+	
+	.dropdown__nav--datasets .dropdown__nav a,
+	.dropdown__nav--datasets .dropdown__nav button {
+		font-family: $ff-titles;
 	}
 
 	&:focus-within .dropdown__account,

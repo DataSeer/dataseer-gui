@@ -57,8 +57,6 @@ $c-red-a5: #a5170e;
 $c-red-8d: #8d2424;
 $c-brown-72: #72190e;
 
-$c-blue-00: #006ac9;
-
 $c-primary: #006ac9;
 $c-primary-dark: #00118f;
 $c-primary-light: #00bdff;
@@ -98,3 +96,8 @@ $breakpoints: (
 	small-desktop: 1199px,
 	large-desktop: 1399px
 );
+
+:export {
+	base: $c-base;
+	primary: $c-primary;
+}

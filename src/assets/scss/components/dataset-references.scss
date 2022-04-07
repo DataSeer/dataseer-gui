@@ -1,0 +1,19 @@
+/* ------------------------------------------------------------ *\
+	Dataset References
+\* ------------------------------------------------------------ */
+
+.dataset-references {
+	display: flex;
+	align-items: center;
+	
+	> i,
+	> em {
+		margin-right: 8px;
+	}
+
+	> em {
+		display: block;
+		font-size: 12px;
+		line-height: 1.25;
+	}
+}

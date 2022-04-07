@@ -7,6 +7,20 @@
 		<div v-else class="dataset__form">
 			<FormIssues v-if="formData.flagged && userRoleWeight < 1000" />
 
+			<p v-if="textReferences.length > 1" class="dataset-references">
+				<Icon name="references" :color="cssVariables.primary" />
+				
+				<em>Multiple references share this text selection</em>
+
+				<Dropdown ref="textReferencesDropdown">
+					<template #header>
+						<span class="dropdown__arrow" />
+					</template>
+
+					<DropdownNavDatasets :datasets="textReferences" @dropdownButtonClick="handleDropdownButtonClick" />
+				</Dropdown>
+			</p><!-- /.datasets-references -->
+
 			<FormCuratorIssues
 				v-if="formData.flagged && userRoleWeight >= 1000"
 				@cancelClick="toggleIssuesForm"
@@ -126,11 +140,14 @@ import { mapGetters, mapActions } from 'vuex'
 /**
  * Internal Dependencies
  */
+import variables from '@/assets/scss/generic/_variables.scss'
+
 import Popup from '@/components/popup/popup';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 
 import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
+import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 
 import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormIssues from '@/blocks/form-issues/form-issues';
@@ -142,6 +159,8 @@ import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
 
+import { clearDropdown } from '@/utils/use-dropdowns';
+
 export default {
 	/**
 	 * Name
@@ -152,10 +171,13 @@ export default {
 	 * Components
 	 */
 	components: {
+		variables,
 		Icon,
 		Form,
 		Popup,
 		Button,
+		Dropdown,
+		DropdownNavDatasets,
 		FormHead,
 		FormBody,
 		FormIssues,
@@ -225,6 +247,14 @@ export default {
 		},
 		dataType() {
 			return this.dataset?.dataType ? this.dataset.dataType : 'Undefined Type'
+		},
+		cssVariables() {
+			return variables
+		},
+		textReferences() {
+			return this.datasets.filter((dataset) =>
+				dataset.sentences.some((sentence) => sentence.id === this.activeSentence.id)
+			);
 		}
 	},
 
@@ -236,19 +266,31 @@ export default {
 			'updateDataset',
 			'unlinkSentenceFromDataset',
 			'setDatasets',
+			'setActiveDataset',
 			'setActiveDatasetType',
 		]),
-		handleNameInputChange(e) {
-			this.formData = {...this.formData, name: e.target.value}
-		},
 		populateFormData() {
 			this.formData =  { ...this.formData, ...this.activeDataset }
+		},
+		handleNameInputChange(e) {
+			this.formData = {...this.formData, name: e.target.value}
 		},
 		handleDatasetDelete() {
 			const confirm = window.confirm(this.datasetConfirmDeleteMessage);
 
 			if (!confirm) return
 			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
+		},
+		handleDropdownButtonClick(dataset) {
+			if (dataset.id === this.activeDatasetId) return
+
+			// Close text references dropdown when the active dataset changes
+			clearDropdown(this.$refs.textReferencesDropdown.$el);
+			
+			this.setActiveDataset({
+				dataset,
+				scrollToSentence: true
+			});
 		},
 		handleDatasetSave() {
 			const documentHandler = this.documentHandler;

@@ -94,7 +94,6 @@ export default {
 			}
 		},
 		handleTabsNavClick(dataset) {
-			
 			this.setActiveDataset({
 				dataset,
 				scrollToSentence: true
