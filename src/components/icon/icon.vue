@@ -60,6 +60,7 @@ import ico_plus_circle from './icon-plus-circle';
 import flag from './icon-flag';
 import plus from './icon-plus';
 import references from './icon-references';
+import letter from './icon-letter';
 
 export default {
 	name: 'Icon',
@@ -136,7 +137,8 @@ export default {
 		ico_plus_circle,
 		flag,
 		plus,
-		references
+		references,
+		letter
 	}
 };
 </script>

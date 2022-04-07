@@ -12,7 +12,9 @@
 			'btn--square': square,
 			'is-disabled': disabled,
 			'is-highlighted': highlighted,
-			'is-active': active
+			'is-active': active,
+			[modifier]: modifier,
+			
 		}"
 		v-bind="$attrs"
 		@click="$emit('onClick', $event)"
@@ -40,6 +42,10 @@ export default {
 			type: String,
 			default: null
 		},
+		modifier: {
+			type: String,
+			default: ''
+		},
 		className: {
 			type: String,
 			default: '',
@@ -48,7 +54,6 @@ export default {
 				return ['', 'secondary', 'tertiary'].indexOf(value) !== -1;
 			}
 		},
-		
 		block: {
 			type: Boolean,
 			default: false

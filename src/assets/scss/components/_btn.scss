@@ -64,14 +64,14 @@
 /* Btn Tertiary */
 
 .btn--tertiary {
-	background-color: transparent;
+	background-color: $c-white;
 	border-color: $c-gray;
 	color: $c-base;
 
 	&:focus,
 	&:hover {
 		color: $c-base;
-		background-color: transparent;
+		background-color: $c-white;
 		border-color: darken($c-gray, 8);
 	}
 

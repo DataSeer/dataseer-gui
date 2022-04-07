@@ -24,23 +24,23 @@
 </template>
 
 <script>
-export default {
-	/**
-	 * name
-	 */
-	name: 'iconDatasets',
+	export default {
+		/**
+		 * name
+		 */
+		name: 'iconDatasets',
 
-	/**
-	 * props
-	 */
-	props: {
-		color: {},
-		width: {
-			default: 29
-		},
-		height: {
-			default: 29
+		/**
+		 * props
+		 */
+		props: {
+			color: {},
+			width: {
+				default: 29
+			},
+			height: {
+				default: 29
+			}
 		}
-	}
 };
 </script>
