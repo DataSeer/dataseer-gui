@@ -8,11 +8,11 @@
 			<FormIssues v-if="formData.flagged && userRoleWeight < 1000" />
 
 			<p v-if="textReferences.length > 1" class="dataset-references">
-				<Icon name="references" :color="cssVariables.primary" />
+				<Icon name="references" />
 				
 				<em>Multiple references share this text selection</em>
 
-				<Dropdown ref="textReferencesDropdown">
+				<Dropdown ref="textReferencesDropdown" placement="right">
 					<template #header>
 						<span class="dropdown__arrow" />
 					</template>

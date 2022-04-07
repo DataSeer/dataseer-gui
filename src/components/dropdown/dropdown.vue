@@ -4,7 +4,7 @@
 			<slot name="header" />
 		</button> <!-- /.dropdown__header -->
 
-		<div class="dropdown__body">
+		<div class="dropdown__body" :data-placement="placement">
 			<slot />
 		</div> <!-- /.dropdown__body -->
 	</div> <!-- /.dropdown-holder -->
@@ -18,6 +18,20 @@
 		 * Name
 		 */
 		name: 'Dropdown',
+
+		/**
+		 * Props
+		 */
+		props: {
+			placement: {
+				default: 'left',
+				type: String,
+				// Value must match one of these strings
+				validator: function(value) {
+					return ['left', 'right'].indexOf(value) !== -1;
+				}
+			},
+		},
 
 		/**
 		 * Methods

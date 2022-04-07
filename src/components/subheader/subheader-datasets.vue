@@ -48,7 +48,7 @@
 							{{document.metadata.article_title}}
 						</h6>
 
-						<Dropdown>
+						<Dropdown placement="right">
 							<template #header>
 								<span class="btn-dropdown"></span>
 							</template>

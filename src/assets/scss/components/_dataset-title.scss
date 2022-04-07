@@ -105,11 +105,4 @@
 		right: 0; 
 		top: -5px;
 	}
-	
-	.dropdown-holder .dropdown__body {
-		@include breakpoint-up(tablet) {
-			right: auto; 
-			left: 0; 
-		}
-	}
 }

@@ -1,14 +1,20 @@
 <template>
-	<div class="pdf-holder">
+	<div
+		class="pdf-holder"
+		:class="{
+			'is-pdf': isPdfVisible,
+			'is-xml': !isPdfVisible
+		}"
+	>
 		<div id="documentView">
 			<div id="documentView.screen">
 				<div
 					id="documentView.screen.container"
 					class="documentView"
 				>
-					<div v-show="!isXmlVisible" id="pdf" />
+					<div v-show="isPdfVisible" id="pdf" />
 					
-					<div v-show="isXmlVisible" id="xml" />
+					<div v-show="!isPdfVisible" id="xml" />
 				</div>
 			</div> <!-- /#documentView.screen -->
 		</div> <!-- /#documentView -->
@@ -27,6 +33,13 @@
 </template>
 
 <script	>
+	/**
+	 * External Dependencies
+	 */
+	import { mapGetters } from 'vuex'
+	/**
+	 * Internal Dependencies
+	 */
 	import Icon from '@/components/icon/icon'
 	import Button from '@/components/button/button'
 	
@@ -49,8 +62,12 @@
 		 */
 		data() {
 			return {
-				isXmlVisible: false
+				isPdfVisible: true
 			}
+		},
+
+		computed: {
+			...mapGetters('pdfViewer', ['documentHandler']) 
 		},
 
 		/**
@@ -58,7 +75,9 @@
 		 */
 		methods: {
 			toggleDocumentView() {
-				this.isXmlVisible = !this.isXmlVisible	
+				this.isPdfVisible = !this.isPdfVisible;
+
+				this.documentHandler.documentView.toggleDocumentView(this.isPdfVisible)
 			}
 		},
 	};

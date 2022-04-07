@@ -89,39 +89,6 @@ export const DocumentView = function(id, events = {}) {
 		if (event.key === `Control`) self.ctrlPressed = false;
 		else if (event.key === `Shift`) self.shiftPressed = false;
 	});
-	// On button click
-	$(`#documentView\\.viewSelection\\.tei\\.all`)
-		.parent()
-		.click(function() {
-			console.log(`TEI all`);
-			self.pdfVisible = false;
-			self.pdf.hide();
-			if (self.pdfViewer) self.pdfViewer.hideMarkers();
-			self.xml.show();
-			self.xml.find(`*.hidden`).removeClass(`hidden`);
-			self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
-			return typeof self.events.onFulltextView === `function`
-				? self.events.onFulltextView()
-				: undefined;
-		});
-	$(`#documentView\\.viewSelection\\.tei\\.dataseer`)
-		.parent()
-		.click(function() {
-			console.log(`TEI dataseer`);
-			self.pdfVisible = false;
-			self.pdf.hide();
-			if (self.pdfViewer) self.pdfViewer.hideMarkers();
-			self.xml.show();
-			self.xml.find(`*.hidden`).removeClass(`hidden`);
-			self.xml.find(`text > div > div, text > div > *:not(div)`).map(function(i, el) {
-				let element = $(el);
-				if (element.find(`s[corresp]`).length === 0) return element.addClass(`hidden`);
-			});
-			self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
-			return typeof self.events.onSectionView === `function`
-				? self.events.onSectionView()
-				: undefined;
-		});
 	$(`#documentView\\.viewSelection\\.tei\\.dataset`)
 		.parent()
 		.click(function() {
@@ -157,6 +124,36 @@ export const DocumentView = function(id, events = {}) {
 	this.events = events;
 	return this;
 };
+
+// Switch between PDF and XML view
+DocumentView.prototype.toggleDocumentView = function(view) {
+	let self = this;
+	
+	if (view) {
+		self.pdfVisible = true;
+		self.pdf.show();
+		if (self.pdfViewer) self.pdfViewer.showMarkers();
+		self.xml.hide();
+		self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
+		return typeof self.events.onPdfView === `function`
+			? self.events.onPdfView()
+			: undefined;
+	}
+
+	self.pdfVisible = false;
+	self.pdf.hide();
+	if (self.pdfViewer) self.pdfViewer.hideMarkers();
+	self.xml.show();
+	self.xml.find(`*.hidden`).removeClass(`hidden`);
+	self.xml.find(`text > div, text > *:not(div)`).map(function(i, el) {
+		let element = $(el);
+		if (element.find(`s[corresp]`).length === 0) return element.addClass(`hidden`);
+	});
+	self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
+	return typeof self.events.onParagraphView === `function`
+		? self.events.onParagraphView()
+		: undefined;
+}
 
 // Check if the given sentence is selected
 DocumentView.prototype.isSelected = function(sentence) {

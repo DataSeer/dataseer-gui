@@ -18,13 +18,20 @@
 		position: absolute;
 		z-index: 999;
 		top: 100%;
-		right: 0;
 		margin-top: 6px;
-		padding: 0 20px;
+		padding: 12px 20px;
 		width: 268px;
 		border-radius: 11px;
 		border: 3px solid $c-primary;
 		background-color: $c-white;
+
+		&[data-placement="left"] {
+			right: 0;
+		}
+
+		&[data-placement="right"] {
+			left: 0;
+		}
 	}
 
 	.dropdown__account {
@@ -78,11 +85,13 @@
 	.dropdown__nav {
 		font-family: $ff-titles;
 		color: $c-primary;
+		overflow: hidden;
 	}
 
 	.dropdown__nav ul {
 		position: relative;
 		list-style: none;
+		margin-bottom: 0;
 
 		&:after {
 			content: attr(data-title) "";
@@ -100,8 +109,14 @@
 	}
 
 	.dropdown__nav ul + ul {
+		margin-top: 12px;
+		padding-top: 12px;
+		
 		&:before {
 			content: '';
+			position: absolute;
+			top: 0;
+			width: 100%;
 			display: block;
 			margin-left: 34px;
 			background-color: $c-gray;
@@ -124,7 +139,7 @@
 	}
 
 	.dropdown__nav li {
-		margin: 25px 0;
+		padding: 12px 0;
 	}
 
 	.dropdown__nav a,
@@ -154,30 +169,55 @@
 
 	.dropdown__nav i {
 		position: absolute;
+		left: 0;
 		top: 50%;
 		transform: translateY(-50%);
 		fill: $c-primary;
 		transition: fill $t-duration;
 	}
-
-	.dropdown__nav i:not(.ico--check) {
-		left: 0;
-	}
-
-	.dropdown__nav i.ico--check {
-		right: 0;
-	}
-
+	
 	.dropdown__nav .ico--view-list {
 		width: 19px;
 		height: 11px;
 	}
 	
-	.dropdown__nav--datasets .dropdown__nav a,
-	.dropdown__nav--datasets .dropdown__nav button {
-		font-family: $ff-titles;
+	/* Dropdown Nav Datasets */
+	.dropdown__nav-datasets {
+		list-style: none;
 	}
 
+	.dropdown__nav-datasets > li {
+		padding: 12px 0;
+	}
+	
+	.dropdown__nav-datasets button {
+		position: relative;
+		display: block;
+		width: 100%;
+		background-color: transparent;
+		border: none;
+		font-family: $ff-titles;
+		font-weight: 500;
+		font-size: 16px;
+		transition: color $t-duration, opacity $t-duration;
+
+		&:hover:not(.is-active) {
+			opacity: 0.5;
+		}
+	}
+	
+	.dropdown__nav-datasets i:first-child { 
+		padding-right: 14px;
+	}
+
+	.dropdown__nav-datasets i.ico--check {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	/* States */
 	&:focus-within .dropdown__account,
 	&.is-active .dropdown__account {
 		color: $c-primary-light;

@@ -117,6 +117,36 @@
 	}
 }
 
+/* Main Report */
+
+.main--report {
+	.main__left {
+		padding-top: 25px;
+
+		@include breakpoint-down(small-desktop) {
+			margin-bottom: 15px;
+		}
+	}
+
+	.main__right {
+		padding: 30px 30px 75px 30px;
+		background-color: $c-white;
+
+		@include breakpoint-down(large-desktop) {
+			padding: 45px 45px;
+		}
+		@include breakpoint-down(tablet) {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+		@include breakpoint-down(mobile-small) {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	}
+}
+
 /* Main Datasets */
 
 .main--datasets {
@@ -183,7 +213,8 @@
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
 		.form--dataset .form__head input:focus,
-		.v-select.vs--open .vs__dropdown-toggle {
+		.v-select.vs--open .vs__dropdown-toggle,
+		.dataset-references .dropdown-holder .dropdown__body {
 			border-color: $c-purple-72;
 		}
 
@@ -191,8 +222,9 @@
 			background-color: $c-purple-fa;
 		}
 
-
-		.intro .intro__head h3 span {
+		.dataset-references > i,
+		.intro .intro__head h3 span,
+		.dropdown-holder .dropdown__nav-datasets button.is-active {
 			color: $c-purple-72;
 		}
 	}
@@ -223,7 +255,8 @@
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
 		.form--dataset .form__head input:focus,
-		.v-select.vs--open .vs__dropdown-toggle {
+		.v-select.vs--open .vs__dropdown-toggle,
+		.dataset-references .dropdown-holder .dropdown__body {
 			border-color: $c-orange-d2;
 		}
 
@@ -231,7 +264,9 @@
 			background-color: $c-orange-fff;
 		}
 
-		.intro .intro__head h3 span {
+		.dataset-references > i,
+		.intro .intro__head h3 span,
+		.dropdown-holder .dropdown__nav-datasets button.is-active {
 			color: $c-orange-d2;
 		}
 	}
@@ -262,7 +297,8 @@
 		.field .field__input:focus,
 		.field .vs__dropdown-toggle:focus,
 		.form--dataset .form__head input:focus,
-		.v-select.vs--open .vs__dropdown-toggle {
+		.v-select.vs--open .vs__dropdown-toggle,
+		.dataset-references .dropdown-holder .dropdown__body {
 			border-color: $c-green-40;
 		}
 
@@ -270,38 +306,10 @@
 			background-color: $c-green-f5;
 		}
 
-		.intro .intro__head h3 span {
+		.dataset-references > i,
+		.intro .intro__head h3 span,
+		.dropdown-holder .dropdown__nav-datasets button.is-active {
 			color: $c-green-40;
-		}
-	}
-}
-
-/* Main Report */
-
-.main--report {
-	.main__left {
-		padding-top: 25px;
-
-		@include breakpoint-down(small-desktop) {
-			margin-bottom: 15px;
-		}
-	}
-
-	.main__right {
-		padding: 30px 30px 75px 30px;
-		background-color: $c-white;
-
-		@include breakpoint-down(large-desktop) {
-			padding: 45px 45px;
-		}
-		@include breakpoint-down(tablet) {
-			padding-left: 30px;
-			padding-right: 30px;
-		}
-
-		@include breakpoint-down(mobile-small) {
-			padding-left: 15px;
-			padding-right: 15px;
 		}
 	}
 }
