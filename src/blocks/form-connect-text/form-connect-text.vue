@@ -20,7 +20,7 @@
 			<FieldSelect
 				v-model.trim="selectedDataset"
 				name="dataset"
-				placeholder="Select an Existing Datase, 'activeda't…"
+				placeholder="Select an Existing Datase"
 				:options="datasetsOptions"
 			/>
 		</FormBody>

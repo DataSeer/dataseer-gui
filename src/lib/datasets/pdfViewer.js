@@ -5,15 +5,22 @@ import async from 'async';
 import pdfjsLib from './pdf.js/build/generic/build/pdf';
 import Colors from './colors';
 
+/**
+ * Internal Dependencies
+ */
+import { DATATYPE_COLORS } from '@/utils/use-datasets'
+
 const workerSrcPath = './pdf.js/build/generic/build/pdf.worker';
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrcPath;
 
 const CMAP_URL = './pdf.js/build/generic/web/cmaps/';
+
+// Controls The side margin
 const MARGIN_CHUNK = {
-	top: 3,
-	left: 3,
-	bottom: 3,
-	right: 3
+	top: 2,
+	left: 2,
+	bottom: 2,
+	right: 2
 };
 
 const MARGIN_IMAGE = {
@@ -186,7 +193,7 @@ Areas.prototype.newArea = function(line) {
 
 // Get Last Area
 Areas.prototype.getLast = function() {
-	return this.collection[this.collection.length - 1];
+	return this.collection[this.collection.length - 1];В
 };
 
 // Get all Areas
@@ -600,14 +607,15 @@ PdfViewer.prototype.refreshMarkers = function() {
 
 // Insert datasets
 PdfViewer.prototype.insertDatasets = function(numPage) {
-	let self = this,
-		links = this.metadata.links;
+	let self = this;
+	let links = this.metadata.links;
+	
 	for (let i = 0; i < links.length; i++) {
 		if (
 			this.getPagesOfSentence(links[i].sentence).indexOf(numPage) > -1 &&
-			this.metadata.colors[links[i].dataset.id] &&
-			this.metadata.colors[links[i].dataset.id].background &&
-			this.metadata.colors[links[i].dataset.id].background.rgb
+			this.metadata.colors[links[i].dataset?.id] &&
+			this.metadata.colors[links[i].dataset?.id].background &&
+			this.metadata.colors[links[i].dataset?.id].background.rgb
 		) {
 			self.addDataset(links[i].dataset, links[i].sentence, false);
 		}
@@ -922,42 +930,56 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 	if (typeof this.links[dataset.id] === `undefined`) this.links[dataset.id] = [];
 	this.links[dataset.id].push(sentence.id);
 	this.links[dataset.id].sort();
+
 	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 	let colors = contour.attr(`colors`) ? JSON.parse(contour.attr(`colors`)) : {};
+	
 	colors[dataset.dataInstanceId] = dataset.color;
 	contour.attr(`colors`, JSON.stringify(colors));
+
+	// Add dataset types as attribute
+	if (contour.attr(`datasets-types`)) {
+		contour.attr(`datasets-types`, (
+			contour.attr(`datasets-types`).replace(`${dataset.datasetType}`, ``) +
+				` ${dataset.datasetType}`
+			).trim()
+		);
+	} else {
+		contour.attr(`datasets-types`, `${dataset.datasetType}`);
+	}
 	
+	// Add Datasets
 	if (contour.attr(`datasets`)) {
-		contour.attr(
-			`datasets`,
-			(
-				contour.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``) +
+		contour.attr(`datasets`, (
+			contour.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``) +
 				` #${dataset.dataInstanceId}`
 			).trim()
 		);
-		contour.attr('dataset-type', dataset.datasetType);
 	} else {
 		contour.attr(`datasets`, `#${dataset.dataInstanceId}`);
 	}
+	
+	// Annotation datasets
 	let annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
 	if (annotation.attr(`datasets`)) {
 		annotation.attr(`datasets`, annotation.attr(`datasets`) + ` #${dataset.dataInstanceId}`);
 	} else {
 		annotation.attr(`datasets`, `#${dataset.dataInstanceId}`);
 	}
-	
-	// Color only datasets that are from the active dataset type
-	if (this.metadata.activeDatasetType !== dataset.datasetType) return 
-	
-	this.colorize(sentence, dataset.color, function() {
-		self.setCanvasBorder(
-			sentence,
-			BORDER_WIDTH,
-			isSelected ? SELECTED_BORDER_COLOR : REMOVED_BORDER_COLOR
-		);
-	});
-	this.addMarker({ color: dataset.color }, sentence);
+
+	// Annotation Datasets Types
+	if (annotation.attr(`datasets-types`)) {
+		annotation.attr(`datasets-types`, annotation.attr(`datasets-types`) + ` #${dataset.datasetType}`);
+	} else {
+		annotation.attr(`datasets-types`, `#${dataset.datasetType}`);
+	}
+
+	if (contour.attr(`datasets-types`).split(' ').some(entry => entry === this.metadata.activeDatasetType)) {
+		this.colorize(sentence, dataset.color);
+		this.addMarker({ color: dataset.color }, sentence);
+	}
 };
+
 
 // Remove a link
 PdfViewer.prototype.removeLink = function(dataset, sentence) {
@@ -987,7 +1009,16 @@ PdfViewer.prototype.removeLink = function(dataset, sentence) {
 			.replace(`#${dataset.dataInstanceId}`, ``)
 			.trim()
 	);
+	contour.attr(
+		`datasets-types`,
+		contour
+			.attr(`datasets-types`)
+			.replace(`${dataset.datasetType}`, ``)
+			.trim()
+	);
 	if (contour.attr(`datasets`) === ``) contour.removeAttr(`corresp`);
+	if (contour.attr(`datasets-types`) === ``) contour.removeAttr(`datasets-types`);
+	
 	let annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
 	annotation.attr(
 		`datasets`,
@@ -1019,24 +1050,20 @@ PdfViewer.prototype.removeColor = function(dataset) {
 }
 
 // Add Color
-PdfViewer.prototype.addColor = function(dataset) {
+PdfViewer.prototype.addColor = function(dataset, color) {
 	const self = this;
 	const links = this.links[dataset.id]
 	if (!links) return
 	const ids = [...links];
+
+	console.log(links);
 	
 	for (let i = 0; i < ids.length; i++) {
 		const sentence = {
 			id: ids[i]
 		};
-		this.colorize(sentence, dataset.color, function() {
-		self.setCanvasBorder(
-			sentence,
-			BORDER_WIDTH,
-			true
-		);
-	});
-	this.addMarker({ color: dataset.color }, sentence);
+		this.colorize(sentence, color);
+		this.addMarker({ color: color }, sentence);
 	}
 }
 
@@ -1172,33 +1199,46 @@ PdfViewer.prototype.displayRight = function() {
 
 // Build borders
 PdfViewer.prototype.unselectCanvas = function(sentence) {
+	return
 	this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
 };
 
 // Build borders
 PdfViewer.prototype.selectCanvas = function(sentence) {
-	this.setCanvasBorder(sentence, BORDER_WIDTH, SELECTED_BORDER_COLOR);
+	return
+	const sentenceColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
+	
+	this.setCanvasBorder(
+		sentence,
+		BORDER_WIDTH,
+		'purple'
+	);
 };
 
 // Build borders
 PdfViewer.prototype.hoverCanvas = function(sentence) {
+	return
+	const activeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
+	
 	this.setCanvasBorder(
 		sentence,
 		BORDER_WIDTH,
-		sentence.isSelected ? SELECTED_BORDER_COLOR : HOVER_BORDER_COLOR,
+		activeColor,
 		true
 	);
 };
 
 // Build borders
 PdfViewer.prototype.endHoverCanvas = function(sentence) {
+	return
+	const activeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
+	
 	this.setCanvasBorder(
 		sentence,
 		BORDER_WIDTH,
-		sentence.isSelected ? SELECTED_BORDER_COLOR : REMOVED_BORDER_COLOR
+		sentence.isSelected ? activeColor : REMOVED_BORDER_COLOR
 	);
 };
-
 
 // Build borders
 PdfViewer.prototype.getSentenceDataURL = function(sentence) {
@@ -1223,7 +1263,6 @@ PdfViewer.prototype.getSentenceDataURL = function(sentence) {
 
 // Colorize image
 PdfViewer.prototype.colorize = function(sentence, color, cb) {
-	let self = this;
 	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 	async.mapSeries(
 		contour
@@ -1238,13 +1277,14 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 			
 			let img = new Image();
 			img.src = canvas.attr(`data-url`);
+			
 			img.onload = function() {
 				let context = canvas.get(0).getContext(`2d`);
 				const lines = JSON.parse(canvas.attr(`borders`));
 				context.drawImage(img, 0, 0);
-				context.lineWidth = BORDER_WIDTH;
+				context.setLineDash([15, 5])
+				context.lineWidth = 4;
 				context.strokeStyle = color.background.border;
-				
 				for (let i = 0; i < lines.length; i++) {
 					context.beginPath();
 					context.moveTo(Math.floor(lines[i].x0), Math.floor(lines[i].y0));
@@ -1260,7 +1300,7 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 				let imageData = context.getImageData(0, 0, w, h);
 				let rgb = Colors.rgb(color.background.rgb);
 				
-				// examine every pixel
+				// Examine every pixel
 				for (let i = 0; i < imageData.data.length; i += 4) {
 					if (Colors.isWhite(
 						imageData.data[i],
@@ -1276,21 +1316,21 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 						imageData.data[i + 2] = imageData.data[i + 2];
 					}
 				}
-				
-				// put the altered data back on the canvas
+
+				// Put the altered data back on the canvas
 				context.putImageData(imageData, 0, 0);
 				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/jpeg`));
 				return next();
 			};
-		},
-		function() {
+		}, function() {
 			contour.attr(`background-color`, color.background.rgb);
 			contour.attr(`foreground-color`, color.foreground);
-			return cb();
+			return typeof cb === `function` ? cb() : undefined;	
 		}
 	);
 };
 
+// Uncolorize image
 PdfViewer.prototype.uncolorize = function(sentence) {
 	let self = this;
 	let contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
@@ -1304,8 +1344,28 @@ PdfViewer.prototype.uncolorize = function(sentence) {
 
 // Change active dataset type
 PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
+	if (!datasetType) return
 	const self = this;
+	const links = this.links;
 	self.metadata.activeDatasetType = datasetType;
+
+	Object.keys(links).map(function(key) {
+		links[key].map(link => {
+			const contour = self.viewer.find(`.contoursLayer > .contour[sentenceId="${link}"]`);
+			const contourTypes = contour.attr('datasets-types')
+			const sentence = {id: link}
+			
+			if (contourTypes.split(' ').some(type => type === datasetType)) {
+				self.colorize(sentence, DATATYPE_COLORS[datasetType]);
+				self.addMarker({ color: DATATYPE_COLORS[datasetType] }, sentence);
+			} else {
+				contour.removeAttr(`colors`);
+				self.uncolorize(sentence);
+				self.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
+				self.removeMarker(sentence);
+			}
+		});
+	});
 }
 
 // Draw borders & colorize text

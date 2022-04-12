@@ -27,7 +27,7 @@
 					</div><!-- /.checkbox -->
 					
 					<button
-						@click="handleTabsNavClick(dataset)"
+						@click="setActiveDataset({ dataset, scrollToSentence: true });"
 					>
 						<Dot v-if="dataset.issue === 'true'" class="dot" />
 						<span v-tooltip.right="dataset.description" />
@@ -92,13 +92,7 @@ export default {
 			} else {
 				this.removeDatasetForMerge(datasetId);
 			}
-		},
-		handleTabsNavClick(dataset) {
-			this.setActiveDataset({
-				dataset,
-				scrollToSentence: true
-			});
-		},
-	},
+		}
+	}
 };
 </script>

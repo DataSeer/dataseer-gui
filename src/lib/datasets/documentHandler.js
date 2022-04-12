@@ -11,7 +11,7 @@ import async from 'async';
  * Internal Dependencies
  */
 import API from './api';
-import { formatDataset } from '@/utils/datasets'
+import { formatDataset, DATATYPE_COLORS } from '@/utils/use-datasets'
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
@@ -35,36 +35,6 @@ export const DocumentHandler = function(opts = {}, events) {
 	};
 	//Here we store information about each colored sentence
 	this.colors = {};
-	this.dataTypeColors = {
-		code: {
-			background: {
-				border: "rgb(114, 93, 189)",
-				rgb: "rgb(232,215,255)"
-			},
-			foreground: "black"
-		},
-		material: {
-			background: {
-				border: "rgb(210, 112, 68)",
-				rgb: "rgb(244,219,208)"
-			},
-			foreground: "black"
-		},
-		protocol: {
-			background: {
-				border: "rgb(64, 164, 105)",
-				rgb: "rgb(206,244,222)"
-			},
-			foreground: "black"
-		},
-		dataset: {
-			background: {
-				border: "rgb(0, 106, 201)",
-				rgb: "rgb(243,252,255)"
-			},
-			foreground: "black"
-		},
-	}
 	this.sentencesMapping = undefined;
 	this.user = opts.user;
 	this.datatypes = opts.datatypes;
@@ -314,10 +284,9 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 		}
 	}
 	
-	self.documentView.decolorizeLink(dataset);
-	self.documentView.colorizeLink(dataset);
-
 	if (dataset.datasetType !== this.activeDatasetType) {
+		self.documentView.decolorizeLink(dataset);
+		self.documentView.colorizeLink(dataset);
 		self.setActiveDatasetType(dataset.datasetType);
 	}
 };
@@ -499,8 +468,7 @@ DocumentHandler.prototype.newDataset = function(sentences = {}, cb) {
 // Add new Dataset
 DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
 	const datasetType = this.getDatasetDataType(dataset);
-	
-	dataset.color = this.dataTypeColors[datasetType];
+	dataset.color = DATATYPE_COLORS[datasetType];
 	dataset.datasetType = datasetType;
 	
 	this.colors[dataset.id] = dataset.color;
@@ -636,7 +604,6 @@ DocumentHandler.prototype.link = function(opts = {}) {
 	let self = this;
 	if (opts.documentView) {
 		this.documentView = opts.documentView;
-		
 		this.documentView.init({
 			pdf: this.pdf,
 			xml: this.tei,
@@ -668,7 +635,6 @@ DocumentHandler.prototype.link = function(opts = {}) {
 	this.synchronize();
 };
 
-
 // Get the dataset DataType 
 DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 	const isMaterial = () => dataset.dataType === 'lab materials' ||
@@ -694,6 +660,8 @@ DocumentHandler.prototype.setActiveDatasetType = function (id) {
 
 	// Update Active Dataset Type
 	self.activeDatasetType = id;
+
+	return
 	
 	for (let i = 0; i < currentDatasets.length; i++) {
 		if (currentDatasets[i].datasetType === self.activeDatasetType) {

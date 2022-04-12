@@ -4,10 +4,7 @@
 		hasSubheader
 	>
 		<Subheader>
-			<SubheaderDatasets
-				:datasetTypes="datasetTypes"
-				:document="document"
-			/>
+			<SubheaderDatasets />
 		</Subheader>
 
 		<Loader
@@ -56,7 +53,7 @@ import { DatasetsList } from '@/lib/datasets/datasetsList';
 import { DocumentHandler } from '@/lib/datasets/documentHandler';
 import documentsService from '@/services/documents/documents';
 
-import { formatDataset } from '@/utils/datasets'
+import { formatDataset } from '@/utils/use-datasets'
 
 export default {
 	/**
@@ -84,29 +81,6 @@ export default {
 	 */
 	data: function() {
 		return {
-			datasetTypes: [
-				{
-					label: 'Datasets',
-					icon: 'datasets',
-					id: 'dataset',
-				},
-				{
-					label: 'Code',
-					icon: 'brackets',
-					id: 'code',
-				},
-				{
-					label: 'Materials',
-					icon: 'flask',
-					id: 'material',
-				},
-				{
-					label: 'Protocols',
-					icon: 'protocols',
-					id: 'protocol',
-				},
-			],
-			key: 0,
 			loading: true,
 			error: false,
 			errorMessage: "Something went wrong..."
@@ -124,7 +98,8 @@ export default {
 			'documentHandler',
 			'activeDataset',
 			'activeDatasetId',
-			'activeDatasetType'
+			'activeDatasetType',
+			'filteredDatasets'
 		]),
 		documentId() {
 			return this.$route.params.id
@@ -132,9 +107,6 @@ export default {
 		documentToken() {
 			return this.document?.token ?? '' 
 		},
-		filteredDatasets() {
-			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
-		}
 	},
 
 	/**
@@ -207,8 +179,6 @@ export default {
 							dataset: dataset,
 							scrollToSentence: false
 						});
-						
-						if (dataset) { this.setActiveDatasetType(dataset.datasetType) }
 					},
 				});
 

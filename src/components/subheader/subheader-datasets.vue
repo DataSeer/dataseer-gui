@@ -127,6 +127,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -159,20 +160,6 @@ export default {
 	},
 
 	/**
-	 * Props
-	 */
-	props: {
-		document: {
-			type: Object,
-			default: () => {}
-		},
-		datasetTypes: {
-			type: Array,
-			default: () => []
-		},
-	},
-
-	/**
 	 * Data
 	 */
 	data: function() {
@@ -193,13 +180,12 @@ export default {
 			'publicURL',
 			'uploadedFileURl',
 			'datasets',
-			'documentHandler'
+			'documentHandler',
+			'document',
+			'datasetTypes'
 		]),
 		reportPageURl() {
 			return `/documents/${this.document._id}/report`
-		},
-		filteredDatasets() {
-			return this.datasets.filter((dataset) => dataset.datasetType === this.activeDatasetType)
 		},
 	},
 
@@ -224,7 +210,6 @@ export default {
 			})
 		},
 		handleDataTypeChange(datatype) {
-			if (this.activeDatasetType === datatype) return;
 			this.setActiveDatasetType(datatype);
 			const firstDatasetOfType = this.filteredDatasets[0];
 			
@@ -238,6 +223,6 @@ export default {
 		isDatatypeFlagged(datatype) {
 			return this.datasets.some(el => el.datasetType === datatype && el.issue === 'true')
 		}
-	}
+	},
 };
 </script>

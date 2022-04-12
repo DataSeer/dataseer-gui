@@ -187,6 +187,12 @@
 		}
 	}
 
+	&-dataset {
+		.dataset-references > i {
+			color: $c-primary;
+		}
+	}
+
 	/* Dataset Primary Code */
 
 	&-code {

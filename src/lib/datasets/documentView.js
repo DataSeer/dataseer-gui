@@ -45,7 +45,6 @@ export const DocumentView = function(id, events = {}) {
 		},
 		onHover: function(element) {
 			let sentence = self.getSentence({ id: element.id });
-			if (sentence.hasDatasets) return
 			self.hoverSentence(sentence);
 			if (typeof self.events.onSentenceHover === `function`)
 				self.events.onSentenceHover(self.getSentence(sentence));
@@ -209,7 +208,7 @@ DocumentView.prototype.init = function(opts, cb) {
 		function(datasetsInfos) {
 			if (opts.pdf)
 				return self.pdfViewer.load(opts.pdf, datasetsInfos, function() {
-					self.pdfViewer.setPage(0);
+					self.pdfViewer.setPage();
 					return typeof cb === `function` ? cb() : undefined;	
 				});
 			else {

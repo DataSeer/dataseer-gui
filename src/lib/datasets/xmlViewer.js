@@ -106,7 +106,8 @@ XmlViewer.prototype.getInfosOfSentence = function(sentence) {
 			dataInstanceIds: dataInstanceIds,
 			hasDatasets: hasDatasets,
 			isSelected: el.hasClass(`selected`),
-			text: el.text()
+			text: el.text(),
+			datasetType: el.attr('datatype')
 		};
 	}
 };
@@ -155,6 +156,7 @@ XmlViewer.prototype.colorize = function(dataset, sentence) {
 	) {
 		let colors = el.attr(`colors`) ? JSON.parse(el.attr(`colors`)) : {};
 		colors[dataset.dataInstanceId] = dataset.color;
+		el.attr(`datatype`, dataset.datasetType);
 		el.attr(`colors`, JSON.stringify(colors));
 		if (Object.keys(colors).length === 1)
 			el.css(`color`, dataset.color.foreground).css(
@@ -322,7 +324,10 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 				.replace(/#/gm, ``)
 				.split(` `);
 		dataInstanceIds.map(function(dataInstanceId) {
-			links.push({ dataset: datasets[dataInstanceId], sentence: { id: el.attr(`xml:id`) } });
+			links.push({
+				dataset: datasets[dataInstanceId],
+				sentence: { id: el.attr(`xml:id`) }
+			});
 			self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
 		});
 	});

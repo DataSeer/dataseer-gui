@@ -10,7 +10,7 @@
 			<p v-if="textReferences.length > 1" class="dataset-references">
 				<Icon name="references" />
 				
-				<em>Multiple references share this text selection</em>
+				<em>{{ multipleReferencesText }}</em>
 
 				<Dropdown ref="textReferencesDropdown" placement="right">
 					<template #header>
@@ -201,6 +201,7 @@ export default {
 	 */
 	data() {
 		return {
+			multipleReferencesText: 'Multiple references share this text selection',
 			formData: {},
 			NameInputPlaceholder: 'Enter...',
 			datasetConfirmDeleteMessage: 'Are you sure you want to delete this dataset?',

@@ -57,6 +57,7 @@ const getDatasetDataType = (dataset) => {
 };
 
 export {
+	DATATYPE_COLORS,
 	formatDataset,
 	getDatasetDataType,
 };

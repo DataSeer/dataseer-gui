@@ -13,6 +13,29 @@ const state = {
 	
 	datasetsForMerge: [],
 	isMerging: false,
+	
+	datasetTypes: [
+		{
+			label: 'Datasets',
+			icon: 'datasets',
+			id: 'dataset',
+		},
+		{
+			label: 'Code',
+			icon: 'brackets',
+			id: 'code',
+		},
+		{
+			label: 'Materials',
+			icon: 'flask',
+			id: 'material',
+		},
+		{
+			label: 'Protocols',
+			icon: 'protocols',
+			id: 'protocol',
+		},
+	],
 }
 
 // Getters
@@ -20,11 +43,13 @@ const getters = {
 	document: state => state.document,
 	documentUsername: state => state.document.owner.username,
 	documentHandler: state => state.documentHandler,
+	
 	activeDatasetType: state => state.activeDatasetType,
 	activeDataset: state => state.activeDataset,
 	activeDatasetId: state => state.activeDataset?.id,
 	activeSentence: state => state.activeSentence,
 	dataTypes: state => state.dataTypes,
+	datasetTypes: state => state.datasetTypes,
 	mergeState: state => state.isMerging,
 	datasetsForMerge: state => state.datasetsForMerge,
 	datasets: state => state.datasets,
@@ -52,9 +77,10 @@ const actions = {
 	updateDataset({commit}, newDataset ) {
 		commit('UPDATE_DATASET', newDataset )
 	},
-	setActiveDataset({state, commit, getters }, { dataset, scrollToSentence }) {
-		if (dataset && dataset.id === getters.activeDatasetId) return 
+	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
+		if (!dataset || dataset.id === getters.activeDatasetId) return 
 		const documentHandler = state.documentHandler;
+		documentHandler.setActiveDatasetId(dataset.id);
 		
 		if (scrollToSentence) {
 			documentHandler.selectSentence({
@@ -64,17 +90,20 @@ const actions = {
 					id: dataset.sentences[0].id
 				}
 			})
-			documentHandler.setActiveDatasetId(dataset.id);
 		}
+
+		if ( dataset.datasetType !== state.activeDatasetType) {
+			dispatch('setActiveDatasetType', dataset.datasetType )
+		};
 		
 		commit('SET_ACTIVE_DATASET', dataset)
 	},
-	setActiveDatasetType({ state, commit }, dataType) {
-		if (state.activeDatasetType === dataType) return;
+	setActiveDatasetType({ state, commit, }, datasetType) {
+		if (datasetType && state.activeDatasetType === datasetType) return;
+		
 		const documentHandler = state.documentHandler;
-
-		commit('SET_ACTIVE_DATASET_TYPE', dataType);
-		documentHandler.setActiveDatasetType(dataType);
+		documentHandler.setActiveDatasetType(datasetType);
+		commit('SET_ACTIVE_DATASET_TYPE', datasetType);
 	},
 	setActiveSentence({ commit }, sentence) {
 		commit('SET_ACTIVE_SENTENCE', sentence)
