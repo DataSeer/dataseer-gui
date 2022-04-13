@@ -8,12 +8,8 @@
 	>
 		<div id="documentView">
 			<div id="documentView.screen">
-				<div
-					id="documentView.screen.container"
-					class="documentView"
-				>
+				<div id="documentView.screen.container" class="documentView">
 					<div v-show="isPdfVisible" id="pdf" />
-					
 					<div v-show="!isPdfVisible" id="xml" />
 				</div>
 			</div> <!-- /#documentView.screen -->

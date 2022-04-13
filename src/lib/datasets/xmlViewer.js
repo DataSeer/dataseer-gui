@@ -1,4 +1,11 @@
 /* eslint-disable */
+
+
+/**
+ * Internal Dependencies
+ */
+
+import { DATATYPE_COLORS } from '@/utils/use-datasets'
 const XmlViewer = function(id, screenId, events = {}) {
 	let self = this;
 	this.containerId = id;
@@ -15,6 +22,8 @@ const XmlViewer = function(id, screenId, events = {}) {
 	this.dataInstancesListElement = null;
 	this.datasetsList = null;
 	this.datasetsListElement = null;
+	this.activeDatasetType = null;
+	
 	this.container.append(this.viewer);
 	// Events
 	this.events = events;
@@ -106,8 +115,7 @@ XmlViewer.prototype.getInfosOfSentence = function(sentence) {
 			dataInstanceIds: dataInstanceIds,
 			hasDatasets: hasDatasets,
 			isSelected: el.hasClass(`selected`),
-			text: el.text(),
-			datasetType: el.attr('datatype')
+			text: el.text()
 		};
 	}
 };
@@ -137,10 +145,32 @@ XmlViewer.prototype.removeDataset = function(dataset) {
 	this.removeLinks(dataset);
 };
 
-// Change active dataset type
+// Set active dataset type
 XmlViewer.prototype.setActiveDatasetType = function(datasetType) {
 	const self = this;
+	const sentences = this.viewer.find(`s[colors]`);
 	self.activeDatasetType = datasetType;
+
+	for (let i = 0; i < sentences.length; i++) {
+		const $sentence = $(sentences[i]);
+		const sentenceColors = $sentence.attr(`colors`) ? JSON.parse($sentence.attr(`colors`)) : {};
+		const sentenceColorsKeys = Object.keys(sentenceColors);
+		let shouldColorize = false
+		
+		sentenceColorsKeys.map(key => {
+			if (sentenceColors[key].datasetType === self.activeDatasetType) shouldColorize = true
+		})
+		
+		if (!shouldColorize) {
+			$sentence.css(`color`, ``)
+				.css(`background-color`, ``)
+				.css(`border-color`, ``);	
+			} else {
+			$sentence.css(`color`, DATATYPE_COLORS[datasetType].foreground)
+				.css(`background-color`, DATATYPE_COLORS[datasetType].background.rgb)
+				.css(`border-color`, DATATYPE_COLORS[datasetType].background.border);	
+		}
+	}
 }
 
 // colorize a sentence
@@ -152,17 +182,20 @@ XmlViewer.prototype.colorize = function(dataset, sentence) {
 		dataset.color &&
 		dataset.color.foreground &&
 		dataset.color.background &&
-		dataset.color.background.rgb
+		dataset.color.background.rgb &&
+		dataset.color.background.border
 	) {
+		console.log(dataset.datasetType);
 		let colors = el.attr(`colors`) ? JSON.parse(el.attr(`colors`)) : {};
-		colors[dataset.dataInstanceId] = dataset.color;
-		el.attr(`datatype`, dataset.datasetType);
+		colors[dataset.dataInstanceId] = {
+			...dataset.colors,
+			datasetType: dataset.datasetType
+		};
 		el.attr(`colors`, JSON.stringify(colors));
 		if (Object.keys(colors).length === 1)
-			el.css(`color`, dataset.color.foreground).css(
-				`background-color`,
-				dataset.color.background.rgb
-			);
+			el.css(`color`, dataset.color.foreground)
+			.css(`background-color`, dataset.color.background.rgb)
+			.css(`border-color`, dataset.color.background.border);
 	}
 };
 
@@ -177,11 +210,13 @@ XmlViewer.prototype.uncolorize = function(dataInstanceId, sentence) {
 			let lastColor = colors[keys[keys.length - 1]];
 			el.attr(`colors`, JSON.stringify(colors))
 				.css(`color`, lastColor.foreground)
-				.css(`background-color`, lastColor.background.rgb);
+				.css(`background-color`, lastColor.background.rgb)
+				.css(`border-color`, lastColor.background.border);
 		} else
 			el.removeAttr(`colors`)
 				.css(`color`, ``)
-				.css(`background-color`, ``);
+				.css(`background-color`, ``)
+				.css(`border-color`, ``);
 	}
 };
 
@@ -235,7 +270,8 @@ XmlViewer.prototype.removeLink = function(dataset, sentence) {
 			el.removeAttr(`corresp`)
 				.removeAttr(`colors`, ``)
 				.css(`color`, ``)
-				.css(`background-color`, ``);
+				.css(`background-color`, ``)
+				.css(`border-color`, ``);
 		} else {
 			el.attr(
 				`corresp`,
@@ -251,7 +287,6 @@ XmlViewer.prototype.removeLink = function(dataset, sentence) {
 
 // Render the XML
 XmlViewer.prototype.load = function(opts = {}, cb) {
-	console.log(`Loading XML...`);
 	let self = this;
 	this.activeDatasetType = opts.activeDatasetType ? opts.activeDatasetType : undefined;
 	this.sentencesMapping = opts.mapping ? opts.mapping : {};
@@ -288,9 +323,11 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 		this.datasetsList = $(`<list type="dataset">`);
 	}
 	this.datasetsListElement = this.dataInstancesList.get(0);
-	let datasets = {},
-		links = [],
-		dataInstances = {};
+	
+	let datasets = {};
+	let links = [];
+	let dataInstances = {};
+	
 	this.dataInstancesList.find(`dataInstance`).map(function() {
 		let el = $(this),
 			datasetId = el.attr(`corresp`).replace(`#`, ``),
@@ -316,6 +353,7 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 		datasets[dataInstances[datasetId]].datasetType = opts.colors[datasetId]?.datasetType ? opts.colors[datasetId].datasetType : undefined;
 	});
 
+	
 	// Color corresps
 	this.viewer.find(`s[corresp]`).map(function() {
 		let el = $(this),
@@ -328,9 +366,13 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 				dataset: datasets[dataInstanceId],
 				sentence: { id: el.attr(`xml:id`) }
 			});
+			
 			self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
 		});
 	});
+
+	this.links = links;
+		
 	return cb({
 		colors: opts.colors,
 		links: links,
@@ -338,4 +380,4 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 	});
 };
 
-export default XmlViewer
+export default XmlViewer;
