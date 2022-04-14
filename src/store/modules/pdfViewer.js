@@ -99,11 +99,12 @@ const actions = {
 		commit('SET_ACTIVE_DATASET', dataset)
 	},
 	setActiveDatasetType({ state, commit, }, datasetType) {
-		if (datasetType && state.activeDatasetType === datasetType) return;
+		if (datasetType && datasetType === state.activeDatasetType) return;
 		
 		const documentHandler = state.documentHandler;
-		documentHandler.setActiveDatasetType(datasetType);
-		commit('SET_ACTIVE_DATASET_TYPE', datasetType);
+		documentHandler.setActiveDatasetType(datasetType, () => {
+			commit('SET_ACTIVE_DATASET_TYPE', datasetType);
+		});
 	},
 	setActiveSentence({ commit }, sentence) {
 		commit('SET_ACTIVE_SENTENCE', sentence)

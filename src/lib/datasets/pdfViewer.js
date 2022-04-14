@@ -315,6 +315,7 @@ PdfViewer.prototype.load = function(pdf, xmlMetadata, cb) {
 		console.log(`Load of PDF done.`);
 		self.pdfLoaded = true;
 		self.pdfDocument = pdfDocument;
+		console.log(xmlMetadata.activeDatasetType);
 		let metadata = {
 			pages: pdf.metadata.pages,
 			sentences: pdf.metadata.sentences,
@@ -875,8 +876,8 @@ PdfViewer.prototype.setEvents = function(items) {
 
 // Insert marker in scrollbar
 PdfViewer.prototype.addMarker = function(dataset, sentence) {
-	let self = this,
-		contours = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
+	let self = this;
+	let contours = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 	return contours.map(function() {
 		let contour = $(this),
 			canvas = contour.find(`canvas`).first(),
@@ -973,11 +974,11 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 	} else {
 		annotation.attr(`datasets-types`, `#${dataset.datasetType}`);
 	}
-
-	if (contour.attr(`datasets-types`).split(' ').some(entry => entry === this.metadata.activeDatasetType)) {
-		this.colorize(sentence, dataset.color);
-		this.addMarker({ color: dataset.color }, sentence);
-	}
+	
+	this.colorize(sentence, dataset.color);
+	this.addMarker({ color: dataset.color }, sentence);
+	// if (contour.attr(`datasets-types`)?.split(' ').some(entry => entry === this.metadata.activeDatasetType)) {
+	// }
 };
 
 
@@ -1050,13 +1051,12 @@ PdfViewer.prototype.removeColor = function(dataset) {
 }
 
 // Add Color
-PdfViewer.prototype.addColor = function(dataset, color) {
+PdfViewer.prototype.addColor = function(dataset) {
 	const self = this;
+	const { color } = dataset;
 	const links = this.links[dataset.id]
 	if (!links) return
 	const ids = [...links];
-
-	console.log(links);
 	
 	for (let i = 0; i < ids.length; i++) {
 		const sentence = {
@@ -1200,24 +1200,25 @@ PdfViewer.prototype.displayRight = function() {
 // Build borders
 PdfViewer.prototype.unselectCanvas = function(sentence) {
 	return
-	this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
+	this.setCanvasBorder(sentence, BORDER_WIDTH, activeColor);
 };
 
 // Build borders
 PdfViewer.prototype.selectCanvas = function(sentence) {
 	return
-	const sentenceColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
+	const activeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
 	
 	this.setCanvasBorder(
 		sentence,
 		BORDER_WIDTH,
-		'purple'
+		activeColor
 	);
 };
 
 // Build borders
 PdfViewer.prototype.hoverCanvas = function(sentence) {
 	return
+	if (sentence.hasDatasets) return
 	const activeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || HOVER_BORDER_COLOR
 	
 	this.setCanvasBorder(
@@ -1235,7 +1236,7 @@ PdfViewer.prototype.endHoverCanvas = function(sentence) {
 	
 	this.setCanvasBorder(
 		sentence,
-		BORDER_WIDTH,
+		sentence.isSelected ? BORDER_WIDTH : 4,
 		sentence.isSelected ? activeColor : REMOVED_BORDER_COLOR
 	);
 };
@@ -1283,8 +1284,9 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 				const lines = JSON.parse(canvas.attr(`borders`));
 				context.drawImage(img, 0, 0);
 				context.setLineDash([15, 5])
-				context.lineWidth = 4;
+				context.lineWidth = 6;
 				context.strokeStyle = color.background.border;
+				
 				for (let i = 0; i < lines.length; i++) {
 					context.beginPath();
 					context.moveTo(Math.floor(lines[i].x0), Math.floor(lines[i].y0));
@@ -1319,7 +1321,7 @@ PdfViewer.prototype.colorize = function(sentence, color, cb) {
 
 				// Put the altered data back on the canvas
 				context.putImageData(imageData, 0, 0);
-				canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/jpeg`));
+				// canvas.attr(`colorized-data-url`, canvas.get(0).toDataURL(`image/jpeg`));
 				return next();
 			};
 		}, function() {
@@ -1344,10 +1346,9 @@ PdfViewer.prototype.uncolorize = function(sentence) {
 
 // Change active dataset type
 PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
-	if (!datasetType) return
 	const self = this;
-	const links = this.links;
 	self.metadata.activeDatasetType = datasetType;
+	return;
 
 	Object.keys(links).map(function(key) {
 		links[key].map(link => {

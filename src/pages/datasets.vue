@@ -171,7 +171,7 @@ export default {
 				{
 					onDocumentViewReady: () => {
 						this.loading = false;
-						if (activeDatasetType) this.setActiveDatasetType(activeDatasetType);
+						// if (activeDatasetType) this.setActiveDatasetType(activeDatasetType);
 					},
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence)

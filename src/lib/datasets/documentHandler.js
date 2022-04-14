@@ -66,7 +66,6 @@ export const DocumentHandler = function(opts = {}, events) {
 			};
 		})
 	}
-// 
 	return this;
 };
 
@@ -283,10 +282,10 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 			dataset[key] = data[key];
 		}
 	}
-	
+
 	if (dataset.datasetType !== this.activeDatasetType) {
-		self.documentView.decolorizeLink(dataset);
-		self.documentView.colorizeLink(dataset);
+		// self.documentView.decolorizeLink(dataset);
+		// self.documentView.colorizeLink(dataset);
 		self.setActiveDatasetType(dataset.datasetType);
 	}
 };
@@ -303,10 +302,10 @@ DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
 		if (res.err) return typeof cb === `function` ? cb(true, res) : undefined;
 		self.saved(id);
 		self.hasChanged[id] = false;
-		const newDataset = formatDataset(res.res)
-		self.updateDataset(id, newDataset);
+		const parsedDataset = formatDataset(res.res)
+		self.updateDataset(id, parsedDataset);
 		self.refreshDataset(id);
-		return typeof cb === `function` ? cb(err, newDataset) : undefined;
+		return typeof cb === `function` ? cb(err, parsedDataset) : undefined;
 	});
 };
 
@@ -653,23 +652,13 @@ DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 };
 
 // Set active dataset type
-DocumentHandler.prototype.setActiveDatasetType = function (id) {
+DocumentHandler.prototype.setActiveDatasetType = function (datasetType, cb) {
 	const self = this;
-	const currentDatasets = self.datasets.current;
-	self.documentView.setActiveDatasetType(id)
-
-	// Update Active Dataset Type
-	self.activeDatasetType = id;
-
-	return
+	self.activeDatasetType = datasetType;
+	self.documentView.setActiveDatasetType(datasetType);
 	
-	for (let i = 0; i < currentDatasets.length; i++) {
-		if (currentDatasets[i].datasetType === self.activeDatasetType) {
-			self.documentView.colorizeLink(currentDatasets[i]);
-		} else {
-			self.documentView.decolorizeLink(currentDatasets[i]);
-		}
-	}
+	// Callback function
+	if (typeof cb === `function`) return cb();
 };
 
 // Resync Json DataTypes

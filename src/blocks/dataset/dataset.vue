@@ -132,6 +132,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -298,7 +299,7 @@ export default {
 			this.isFormSubmitting = true;
 			
 			documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
-				const newDataset = res
+				const newDataset = res;
 				this.updateDataset(newDataset);
 				
 				if (this.activeDatasetType !== newDataset.datasetType) {
@@ -309,7 +310,7 @@ export default {
 			})
 		},
 		toggleIssuesForm() {
-			this.formData.flagged = this.formData?.flagged ? false : true;
+			this.formData.flagged = !this.formData?.flagged
 		},
 		openPopup() {
 			this.$refs.textPassagePopup.showModal();
