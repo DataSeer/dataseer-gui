@@ -1,6 +1,15 @@
 <template>
 	<li>
-		<div class="checkbox" :class="{ [className]: className, 'has-error': error, 'checkbox--select': isDropdown, 'checkbox--toggle': isToggle }">
+		<div
+			class="checkbox"
+			:class="{
+				[className]: className,
+				'has-error': error,
+				'checkbox--select': isDropdown,
+				'checkbox--toggle': isToggle,
+				'checkbox--default': !isToggle && !isDropdown
+			}"
+		>
 			<input
 				tabindex="0"
 				type="checkbox"
@@ -137,6 +146,7 @@ export default {
 			switch(this.value.toLowerCase().trim()){
 				case 'true':
 					return true;
+				case '':
 				case 'false':
 					return false;
 				default: return this.value;

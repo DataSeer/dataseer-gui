@@ -1175,6 +1175,7 @@ PdfViewer.prototype.selectCanvas = function (sentence) {
 		sentence,
 		SELECTED_BORDER_WIDTH,
 		activeDatasetTypeColor,
+		false
 	);
 };
 
@@ -1191,6 +1192,7 @@ PdfViewer.prototype.unselectCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.hoverCanvas = function (sentence) {
+	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
@@ -1206,6 +1208,7 @@ PdfViewer.prototype.hoverCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.endHoverCanvas = function (sentence) {
+	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
@@ -1978,9 +1981,9 @@ PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
 			const contour = self.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence}"]`);
 			const contourTypes = contour.attr('datasets-types') ? JSON.parse(contour.attr('datasets-types')) : {};
 			const isSelected = contour.hasClass('selected');
-			
+
 			self.uncolorize(sentenceID);
-			self.setCanvasBorder(sentenceID, BORDER_WIDTH, REMOVED_BORDER_COLOR);
+			self.setCanvasBorder( sentenceID,0, REMOVED_BORDER_COLOR );
 			self.removeMarker(sentenceID);
 			
 			Object.keys(contourTypes).forEach(key => {
@@ -1989,7 +1992,8 @@ PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
 						self.setCanvasBorder(
 							sentenceID,
 							isSelected ? SELECTED_BORDER_WIDTH : BORDER_WIDTH,
-							isSelected ? DATATYPE_COLORS[datasetType] : REMOVED_BORDER_COLOR,
+							DATATYPE_COLORS[datasetType],
+							!isSelected,
 						);
 					});
 					

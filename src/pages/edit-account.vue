@@ -17,7 +17,7 @@
 						Associated Documents
 					</h6>
 
-					<Button to="/documents" className="secondary">
+					<Button :to="`/documents/?owner=${accountId}`" className="secondary">
 						<Icon name="documents" color="currentColor" />
 
 						View Documents

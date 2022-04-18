@@ -211,21 +211,25 @@ export default {
 			})
 		},
 		handleDataTypeChange(datatype) {
-			const self = this;
-			
-			self.setActiveDatasetType(datatype);
+			this.setActiveDatasetType(datatype);
 			const firstDatasetOfType = this.filteredDatasets[0];
 			
 			// Select the first dataset of type if there is one
 			if ( this.activeDataset?.id === firstDatasetOfType?.id ) return
 		
-			self.setActiveDataset({
+			this.setActiveDataset({
 				dataset: firstDatasetOfType,
 				scrollToSentence: true
 			});
 		},
 		isDatatypeFlagged(datatype) {
-			return this.datasets.some(el => el.datasetType === datatype && el.issue === 'true')
+			return this.datasets.some(el =>  {
+					return el.datasetType === datatype && (
+						el.issue === 'true' ||
+						el.issue === true
+					)
+				}
+			)
 		}
 	},
 };

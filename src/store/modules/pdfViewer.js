@@ -42,7 +42,6 @@ const getters = {
 	document: state => state.document,
 	documentUsername: state => state.document.owner.username,
 	documentHandler: state => state.documentHandler,
-	
 	activeDatasetType: state => state.activeDatasetType,
 	activeDataset: state => state.activeDataset,
 	activeDatasetId: state => state.activeDataset?.id,
@@ -105,11 +104,11 @@ const actions = {
 		
 		commit('SET_ACTIVE_DATASET', dataset);
 	},
-	setActiveDatasetType({ state, commit, }, datasetType) {
+	setActiveDatasetType({ state, commit }, datasetType) {
+		// Do nothing if the datasetType is already active
 		if (datasetType && datasetType === state.activeDatasetType) return;
-		
 		const documentHandler = state.documentHandler;
-		
+
 		documentHandler.setActiveDatasetType(datasetType, () => {
 			commit('SET_ACTIVE_DATASET_TYPE', datasetType);
 		});
@@ -224,7 +223,7 @@ const mutations = {
 		state.activeSentence = payload;
 	},
 	UPDATE_DATASET(state, payload) {
-		state.datasets[state.datasets.findIndex(el => el.id === payload.id)] = payload;
+		state.datasets[state.datasets.findIndex(el => el.id === payload.id)] = {...payload};
 	},
 	CLEAR_STATE(state ) {
         state.dataTypes = {};

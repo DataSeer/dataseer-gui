@@ -156,8 +156,6 @@ XmlViewer.prototype.setActiveDatasetType = function (datasetType) {
 	self.activeDatasetType = datasetType;
 	const datasets = self.datasets;
 
-	return
-	
 	// Color corresps
 	this.viewer.find(`s[corresp]`).map(function() {
 		const el = $(this);
