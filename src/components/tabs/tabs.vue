@@ -27,7 +27,8 @@
 					</div><!-- /.checkbox -->
 					
 					<button
-						@click="setActiveDataset({ dataset, scrollToSentence: true });"
+						type="button"
+						@click.prevent="handleLinkButtonClick(dataset)"
 					>
 						<Dot v-if="dataset.issue === 'true'" class="dot" />
 						<span v-tooltip.right="dataset.description" />
@@ -72,6 +73,7 @@ export default {
 	computed: {
 		...mapGetters('pdfViewer', [
 			'datasets',
+			'activeDataset',
 			'activeDatasetType',
 			'mergeState',
 			'datasets',
@@ -92,6 +94,14 @@ export default {
 			} else {
 				this.removeDatasetForMerge(datasetId);
 			}
+		},
+		handleLinkButtonClick(dataset) {
+			if (this.activeDataset &&  this.activeDataset.id === dataset.id) return
+
+			this.setActiveDataset({
+				dataset: dataset,
+				scrollToSentence: true
+			});
 		}
 	}
 };

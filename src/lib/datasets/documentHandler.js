@@ -210,11 +210,9 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 				self.documentView.selectSentence(opts.sentence);
 			}
 
-			// if (dataset && self.documentView.getSelectedSentences().length === 1) {
-			// self.events.onSentenceClick(dataset, sentence)
-			// } 
-
-			self.events.onSentenceClick(dataset, sentence)
+			if (dataset && self.documentView.getSelectedSentences().length === 1) {
+				self.events.onSentenceClick(dataset, sentence)
+			} 
 			
 			return typeof cb === `function` ? cb(true) : undefined;
 		}
@@ -282,10 +280,9 @@ DocumentHandler.prototype.updateDataset = function(id, data = {}) {
 			dataset[key] = data[key];
 		}
 	}
-
+	
 	if (dataset.datasetType !== this.activeDatasetType) {
-		// self.documentView.decolorizeLink(dataset);
-		// self.documentView.colorizeLink(dataset);
+		self.documentView.updateDataset(dataset);
 		self.setActiveDatasetType(dataset.datasetType);
 	}
 };
@@ -470,7 +467,11 @@ DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
 	dataset.color = DATATYPE_COLORS[datasetType];
 	dataset.datasetType = datasetType;
 	
-	this.colors[dataset.id] = dataset.color;
+	this.colors[dataset.id] = {
+		...dataset.color,
+		datasetType: dataset.datasetType
+	};
+	
 	this.datasets.current.push(dataset);
 	this.documentView.addDataset(dataset, sentence);
 	// this.datasetsList.add(dataset);

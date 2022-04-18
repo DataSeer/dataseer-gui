@@ -152,7 +152,7 @@ export default {
 				}
 
 				const activeDatasetId = datasets[0]?.id;
-				const activeDatasetType = datasets[0]?.datasetType;
+				const activeDatasetType = datasets[0]?.datasetType || this.activeDatasetType;
 
 				const currentDocument = new DocumentHandler({
 					ids: {
@@ -171,10 +171,11 @@ export default {
 				{
 					onDocumentViewReady: () => {
 						this.loading = false;
-						// if (activeDatasetType) this.setActiveDatasetType(activeDatasetType);
+						if (activeDatasetType ==! this.activeDatasetType) setActiveDatasetType(activeDatasetType);
 					},
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence)
+						
 						this.setActiveDataset({
 							dataset: dataset,
 							scrollToSentence: false
@@ -192,7 +193,6 @@ export default {
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
 				this.setDatasets(datasets);
-				
 			} catch (error) {
 				this.loading = false;
 				this.error = true

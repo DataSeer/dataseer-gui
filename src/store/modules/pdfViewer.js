@@ -8,7 +8,7 @@ const state = {
 	dataTypes: {},
 	
 	activeDataset: undefined,
-	activeDatasetType: undefined,
+	activeDatasetType: 'dataset',
 	activeSentence: undefined,
 	
 	datasetsForMerge: [],
@@ -78,8 +78,14 @@ const actions = {
 		commit('UPDATE_DATASET', newDataset )
 	},
 	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
-		if (!dataset || dataset.id === getters.activeDatasetId) return 
 		const documentHandler = state.documentHandler;
+		if (!dataset || dataset.id === getters.activeDatasetId) {
+			commit('SET_ACTIVE_DATASET', undefined);
+			documentHandler.setActiveDatasetId(undefined);
+			
+			return
+		}
+		
 		documentHandler.setActiveDatasetId(dataset.id);
 		
 		if (scrollToSentence) {
@@ -102,6 +108,7 @@ const actions = {
 		if (datasetType && datasetType === state.activeDatasetType) return;
 		
 		const documentHandler = state.documentHandler;
+		
 		documentHandler.setActiveDatasetType(datasetType, () => {
 			commit('SET_ACTIVE_DATASET_TYPE', datasetType);
 		});

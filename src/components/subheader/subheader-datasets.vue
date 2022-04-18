@@ -212,13 +212,12 @@ export default {
 		handleDataTypeChange(datatype) {
 			this.setActiveDatasetType(datatype);
 			const firstDatasetOfType = this.filteredDatasets[0];
+			if (!firstDatasetOfType) return 
 			
-			if (firstDatasetOfType) {
-				this.setActiveDataset({
-					dataset: firstDatasetOfType,
-					scrollToSentence: true
-				});
-			}
+			this.setActiveDataset({
+				dataset: firstDatasetOfType,
+				scrollToSentence: true
+			});
 		},
 		isDatatypeFlagged(datatype) {
 			return this.datasets.some(el => el.datasetType === datatype && el.issue === 'true')

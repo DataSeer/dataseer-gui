@@ -152,8 +152,11 @@ XmlViewer.prototype.removeDataset = function(dataset) {
 // Set active dataset type
 XmlViewer.prototype.setActiveDatasetType = function (datasetType) {
 	const self = this;
+	if (!datasetType) return;
 	self.activeDatasetType = datasetType;
 	const datasets = self.datasets;
+
+	return
 	
 	// Color corresps
 	this.viewer.find(`s[corresp]`).map(function() {
@@ -164,8 +167,7 @@ XmlViewer.prototype.setActiveDatasetType = function (datasetType) {
 			.split(` `);
 		
 		dataInstanceIds.map(function(dataInstanceId) {
-			console.log();
-			if (datasets[dataInstanceId].datasetType && dataInstanceIds.some((dataInstanceId) => datasets[dataInstanceId].datasetType === datasetType)) {
+			if (datasets[dataInstanceId]?.datasetType && dataInstanceIds.some((dataInstanceId) => datasets[dataInstanceId]?.datasetType === datasetType)) {
 				self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
 			} else {
 				self.uncolorize(dataInstanceId, { id: el.attr(`xml:id`) });
@@ -354,13 +356,14 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 				dataset: datasets[dataInstanceId],
 				sentence: { id: el.attr(`xml:id`) }
 			});
+			
 
-			if (datasets[dataInstanceId].datasetType === self.activeDatasetType) {
+			if ( datasets[dataInstanceId]?.datasetType === self.activeDatasetType) {
 				self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
 			}
 		});
 	});
-		
+
 	return cb({
 		colors: opts.colors,
 		links: links,

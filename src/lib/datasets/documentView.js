@@ -316,6 +316,11 @@ DocumentView.prototype.removeDataset = function(dataset) {
 	this.xmlViewer.removeDataset(dataset);
 };
 
+// Update a dataset
+DocumentView.prototype.updateDataset = function(dataset) {
+	if (this.pdfViewer) this.pdfViewer.updateDataset(dataset);
+};
+
 // Add a link
 DocumentView.prototype.addLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.addLink(dataset, sentence);
@@ -326,16 +331,6 @@ DocumentView.prototype.addLink = function(dataset, sentence) {
 DocumentView.prototype.removeLink = function(dataset, sentence) {
 	if (this.pdfViewer) this.pdfViewer.removeLink(dataset, sentence);
 	if (this.xmlViewer)this.xmlViewer.removeLink(dataset, sentence);
-};
-
-// Decolorize sentence
-DocumentView.prototype.decolorizeLink = function(dataset) {
-	if (this.pdfViewer) this.pdfViewer.removeColor(dataset);
-};
-
-// Colorize sentence
-DocumentView.prototype.colorizeLink = function(dataset) {
-	if (this.pdfViewer) this.pdfViewer.addColor(dataset);
 };
 
 // display left
