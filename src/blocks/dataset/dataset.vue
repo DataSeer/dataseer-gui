@@ -1,6 +1,6 @@
 <template>
 	<div class="dataset">
-		<div v-if="!activeSentence.hasDatasets" class="dataset__form">
+		<div v-if="!(activeDataset && activeDataset.id)" class="dataset__form">
 			<FormConnectText />
 		</div><!-- /.dataset__form -->
 		

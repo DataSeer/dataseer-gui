@@ -175,6 +175,7 @@ export default {
 		...mapGetters('account', ['userRoleWeight']),
 		...mapGetters('pdfViewer', [
 			'filteredDatasets',
+			'activeDataset',
 			'activeDatasetType',
 			'documentUsername',
 			'publicURL',
@@ -210,11 +211,15 @@ export default {
 			})
 		},
 		handleDataTypeChange(datatype) {
-			this.setActiveDatasetType(datatype);
-			const firstDatasetOfType = this.filteredDatasets[0];
-			if (!firstDatasetOfType) return 
+			const self = this;
 			
-			this.setActiveDataset({
+			self.setActiveDatasetType(datatype);
+			const firstDatasetOfType = this.filteredDatasets[0];
+			
+			// Select the first dataset of type if there is one
+			if ( this.activeDataset?.id === firstDatasetOfType?.id ) return
+		
+			self.setActiveDataset({
 				dataset: firstDatasetOfType,
 				scrollToSentence: true
 			});

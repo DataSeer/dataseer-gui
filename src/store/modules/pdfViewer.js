@@ -1,4 +1,3 @@
-/* eslint-disable */
 // State
 const state = {
 	document: undefined,
@@ -79,12 +78,14 @@ const actions = {
 	},
 	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
 		const documentHandler = state.documentHandler;
-		if (!dataset || dataset.id === getters.activeDatasetId) {
+		if (!dataset) {
 			commit('SET_ACTIVE_DATASET', undefined);
 			documentHandler.setActiveDatasetId(undefined);
 			
 			return
 		}
+		
+		if (dataset && dataset.id === getters.activeDatasetId) return
 		
 		documentHandler.setActiveDatasetId(dataset.id);
 		
@@ -100,9 +101,9 @@ const actions = {
 
 		if ( dataset.datasetType !== state.activeDatasetType) {
 			dispatch('setActiveDatasetType', dataset.datasetType )
-		};
+		}
 		
-		commit('SET_ACTIVE_DATASET', dataset)
+		commit('SET_ACTIVE_DATASET', dataset);
 	},
 	setActiveDatasetType({ state, commit, }, datasetType) {
 		if (datasetType && datasetType === state.activeDatasetType) return;
@@ -143,7 +144,7 @@ const actions = {
 		
 		documentHandler.datasetsList.events.onDatasetLink(selectedDataset);
 	},
-	mergeDatasets({state, commit}) {
+	mergeDatasets({state, commit, dispatch}) {
 		const datasetsToMerge = state.datasets.filter(dataset => state.datasetsForMerge.some((id) => id === dataset.id ));
 		const documentHandler = state.documentHandler;
 
@@ -152,11 +153,11 @@ const actions = {
 		documentHandler.mergeDatasets(datasetsToMerge, () => {
 			commit('SET_MERGE_DATASETS', [])
 			commit('SET_MERGE_STATE', false)
-			
-			return documentHandler.selectSentence({
-				sentence: newDataset.sentences[0],
-				selectedDataset: newDataset
-			});
+
+			dispatch('setActiveDataset', {
+				dataset: newDataset,
+				scrollToSentence: false
+			})
 		});
 	},
 	addDatasetForMerge({ commit, state }, datasetId){

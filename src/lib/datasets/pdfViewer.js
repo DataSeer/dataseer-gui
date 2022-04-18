@@ -984,39 +984,20 @@ PdfViewer.prototype.removeLink = function(dataset, sentence) {
 	const self = this;
 	this.links[dataset.id].splice(this.links[dataset.id].indexOf(sentence.id), 1);
 	const contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
-	const colors = contour.attr(`colors`) ? JSON.parse(contour.attr(`colors`)) : {};
-	delete colors[dataset.dataInstanceId];
 		
-	const datasetTypes = contour.attr(`dataset`) ? JSON.parse(contour.attr(`dataset`)) : {};
+	const datasetTypes = contour.attr(`datasets-types`) ? JSON.parse(contour.attr(`datasets-types`)) : {};
 	delete datasetTypes[dataset.id];
 	
-	let keys = Object.keys(colors);
-	if (keys.length > 0) {
-		let lastColor = colors[keys[keys.length - 1]];
-		contour.attr(`colors`, JSON.stringify(colors));
-		this.colorize(sentence, lastColor, function() {
-			self.setCanvasBorder(sentence, BORDER_WIDTH, lastColor.background.rgb);
-			self.updateMarker({ color: lastColor }, sentence);
-		});
-	} else {
-		contour.removeAttr(`colors`);
-		this.uncolorize(sentence);
-		this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
-		this.removeMarker(sentence);
-	}
-	contour.attr(
-		`datasets`,
-		contour
-			.attr(`datasets`)
-			.replace(`#${dataset.dataInstanceId}`, ``)
-			.trim()
-	);
-	
+	contour.attr(`datasets`, contour .attr(`datasets`) .replace(`#${dataset.dataInstanceId}`, ``) .trim());
+		
 	// Handle Datasets Types remove
-	if (Object.keys(datasetTypes) > 0) {
+	if (Object.keys(datasetTypes).length > 0) {
 		contour.attr(`datasets-types`, JSON.stringify(datasetTypes));
 	} else {
 		contour.removeAttr(`datasets-types`);
+		this.uncolorize(sentence);
+		this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
+		this.removeMarker(sentence);
 	}
 	
 	if (contour.attr(`datasets`) === ``) contour.removeAttr(`datasets`);
@@ -1187,18 +1168,6 @@ PdfViewer.prototype.displayRight = function() {
 };
 
 // Build borders
-PdfViewer.prototype.unselectCanvas = function (sentence) {
-	const isSelected = sentence.isSelected;
-	
-	this.setCanvasBorder(
-		sentence,
-		isSelected ? SELECTED_BORDER_WIDTH : BORDER_WIDTH,
-		REMOVED_BORDER_COLOR
-	);
-};
-
-
-// Build borders
 PdfViewer.prototype.selectCanvas = function (sentence) {
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 	
@@ -1206,6 +1175,17 @@ PdfViewer.prototype.selectCanvas = function (sentence) {
 		sentence,
 		SELECTED_BORDER_WIDTH,
 		activeDatasetTypeColor,
+	);
+};
+
+// Build borders
+PdfViewer.prototype.unselectCanvas = function (sentence) {
+	const isSelected = sentence.isSelected;
+	
+	this.setCanvasBorder(
+		sentence,
+		isSelected ? SELECTED_BORDER_WIDTH : BORDER_WIDTH,
+		REMOVED_BORDER_COLOR
 	);
 };
 
@@ -2008,12 +1988,15 @@ PdfViewer.prototype.setActiveDatasetType = function(datasetType) {
 					self.colorize(sentenceID, DATATYPE_COLORS[datasetType], () => {
 						self.setCanvasBorder(
 							sentenceID,
-							BORDER_WIDTH,
-							isSelected ? DATATYPE_COLORS[datasetType] : REMOVED_BORDER_COLOR
+							isSelected ? SELECTED_BORDER_WIDTH : BORDER_WIDTH,
+							isSelected ? DATATYPE_COLORS[datasetType] : REMOVED_BORDER_COLOR,
 						);
 					});
 					
-					self.addMarker({ color: DATATYPE_COLORS[datasetType] }, sentenceID);
+					self.addMarker({
+						color: DATATYPE_COLORS[datasetType]},
+						sentenceID
+					);
 				}
 			});
 		})

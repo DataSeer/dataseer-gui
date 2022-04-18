@@ -109,7 +109,11 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', [ 'setMergeState', 'mergeDatasets', 'addSentenceToDataset']),
+		...mapActions('pdfViewer', [
+			'setMergeState',
+			'mergeDatasets',
+			'addSentenceToDataset'
+		]),
 	},
 };
 </script>

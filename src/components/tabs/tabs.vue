@@ -96,8 +96,8 @@ export default {
 			}
 		},
 		handleLinkButtonClick(dataset) {
-			if (this.activeDataset &&  this.activeDataset.id === dataset.id) return
-
+			if (this.activeDataset && this.activeDataset.id === dataset.id) return
+			
 			this.setActiveDataset({
 				dataset: dataset,
 				scrollToSentence: true

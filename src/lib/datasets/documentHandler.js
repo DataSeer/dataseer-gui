@@ -203,16 +203,16 @@ DocumentHandler.prototype.selectSentence = function(opts, cb) {
 	return this.documentView.scrollToSentence({
 		sentence: opts.sentence,
 		noAnim: opts.noAnim
-	},
-		function(err) {
+	}, function(err) {
 			if (!opts.disableSelection) {
 				self.documentView.unselectSentences(selectedSentences);
 				self.documentView.selectSentence(opts.sentence);
 			}
 
-			if (dataset && self.documentView.getSelectedSentences().length === 1) {
-				self.events.onSentenceClick(dataset, sentence)
-			} 
+			// if (dataset && self.documentView.getSelectedSentences().length === 1) {
+			// } 
+			
+			self.events.onSentenceClick(dataset, sentence)
 			
 			return typeof cb === `function` ? cb(true) : undefined;
 		}
