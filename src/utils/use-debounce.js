@@ -1,23 +1,20 @@
-const debounce = (func, wait, immediate) => {
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// `wait` milliseconds.
+const debounce = (func, wait) => {
 	let timeout;
 
-	return function executedFunction() {
-		let context = this;
-		let args = arguments;
-
-		let later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
+	return function executedFunction(...args) {
+		const later = () => {
+			clearTimeout(timeout);
+			func(...args);
 		};
 
-		let callNow = immediate && !timeout;
-
 		clearTimeout(timeout);
-
 		timeout = setTimeout(later, wait);
-
-		if (callNow) func.apply(context, args);
 	};
 };
 
-export { debounce };
+export {
+	debounce
+};

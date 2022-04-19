@@ -826,7 +826,6 @@ PdfViewer.prototype.buildEmptyPage = function(num, width, height) {
 	canvas.height = height;
 	page.style.width = `${width}px`;
 	page.style.height = `${height}px`;
-	page.style.border = `0px`;
 	wrapper.style.width = `${width}px`;
 	wrapper.style.height = `${height}px`;
 	textLayer.style.width = `${width}px`;

@@ -12,6 +12,7 @@
 			:initialW="634"
 			:minW="500"
 			:maxW="1000"
+			@resize="handleContainerResize"
 		>
 			<template #resizerContainer>
 				<Intro v-if="!filteredDatasets.length" />
@@ -128,6 +129,9 @@ export default {
 			'setActiveSentence',
 			'clearState',
 		]),
+		handleContainerResize() {
+			console.log('Resize PDF viewer')
+		},
 		async initializePdfViewer() {
 			const token = this.$route.query.token
 			this.loading = true;

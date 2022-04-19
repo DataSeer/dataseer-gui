@@ -22,6 +22,7 @@
 
 <script>
 /* eslint-disable */
+import { debounce } from '@/utils/use-debounce'
 export default {
 	/**
 	 * Name
@@ -83,6 +84,11 @@ export default {
 			
 			bar.addEventListener('mousedown', mouseDownHandler);
 
+			const debouncedEmitResizeFunction = debounce(() => {
+				console.log(this);
+				this.$emit('resize')
+			}, 400);
+
 			const mouseMoveHandler = (e) => {
 				// How far the mouse has been moved
 				document.body.style.cursor = 'col-resize';
@@ -99,6 +105,8 @@ export default {
 					leftSide.style.width = `${newLeftWidth}px`;
 					restSide.style.width = `calc(100% - ${newLeftWidth}px)`;
 				}
+
+				debouncedEmitResizeFunction();
 			};
 
 			const mouseUpHandler = () => {
