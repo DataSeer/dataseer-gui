@@ -153,38 +153,26 @@
 	height: 100vh;
 
 	.shell,
+	.main__left,
+	.main__right,
 	.main__inner {
 		height: 100%;
 	}
 
 	.main__left,
 	.main__right {
-		height: 100%;
 		padding: 0;
 	}
 
 	.main__left {
 		position: relative;
-		width: 634px;
-		flex: 0 0 634px;
 		margin-left: 72px;
-
-		@include breakpoint-down(small-desktop) {
-			width: 454px;
-			flex: 0 0 454px;
-		}
+		width: calc(100% - 72px);
+		background-color: transparent;
 	}
 
-	.main__right {
-		width: calc(100% - 716px);
-		flex: 0 0 calc(100% - 716px);
-		background: none;
-		box-shadow: none;
-
-		@include breakpoint-down(small-desktop) {
-			width: calc(100% - 500px);
-			flex: 0 0 calc(100% - 500px);
-		}
+	.resizer .resizer__container {
+		background-color: $c-white;
 	}
 
 	&-dataset {

@@ -1,5 +1,5 @@
 <template>
-	<Form className="form--dataset form--connect-text">
+	<Form v-if="activeSentence" className="form--dataset form--connect-text">
 		<FormHead>
 			<h5 class="overflow-truncate">{{activeSentence.text}}</h5>
 		</FormHead>

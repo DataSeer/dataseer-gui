@@ -7,23 +7,24 @@
 			<SubheaderDatasets />
 		</Subheader>
 
-		<Loader
-			:loading="loading"
-			:error="error"
-			:errorMessage="errorMessage"
+		<Resizer
+			modifier="datasets"
+			:initialW="634"
+			:minW="500"
+			:maxW="1000"
 		>
-			<Intro v-if="!filteredDatasets.length" />
+			<template #resizerContainer>
+				<Intro v-if="!filteredDatasets.length" />
 
-			<Tabs v-if="filteredDatasets.length" >
-				<Dataset :dataset="activeDataset" />
-			</Tabs>
+				<Tabs v-if="filteredDatasets.length">
+					<Dataset :dataset="activeDataset" />
+				</Tabs>
 
-			<DatasetUtils />
-		</Loader>
-		
-		<template #right>
+				<DatasetUtils />
+			</template>
+
 			<PDF />
-		</template>
+		</Resizer>
 	</Main>
 </template>
 
@@ -46,6 +47,8 @@ import Dataset from '@/blocks/dataset/dataset'
 import Subheader from '@/components/subheader/subheader';
 import DatasetUtils from '@/components/datasets-utils/datasets-utils';
 import SubheaderDatasets from '@/components/subheader/subheader-datasets';
+
+import Resizer from '@/components/resizer/resizer';
 
 import { DocumentView } from '@/lib/datasets/documentView';
 import { DatasetForm } from '@/lib/datasets/datasetForm';
@@ -73,6 +76,7 @@ export default {
 		Main,
 		Intro,
 		Dataset,
+		Resizer,
 		DatasetUtils
 	},
 	

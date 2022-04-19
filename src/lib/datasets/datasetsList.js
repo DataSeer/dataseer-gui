@@ -18,7 +18,7 @@ export const DatasetsList = function(id = 'datasetsList', events = {}) {
 		{ leading: true, trailing: true }
 	);
 	// on mouse scroll
-	this.scrollContainer.get(0).addEventListener(
+	/* this.scrollContainer.get(0).addEventListener(
 		'wheel',
 		function(e) {
 			if (self.animationFinished) {
@@ -34,7 +34,7 @@ export const DatasetsList = function(id = 'datasetsList', events = {}) {
 			}
 		},
 		{ passive: true }
-	);
+	); */
 	// onNewDatasetClick
 	$(`#${this.id} #datasetsList\\.container\\.bulkActions\\.newDataset`).click(function() {
 		if (typeof self.events.onNewDatasetClick === 'function')
