@@ -38,6 +38,8 @@
 						</Button>
 					</div><!-- /.datasets__button-wrapper -->
 				</div><!-- /.datasets__button-inner -->
+
+				<p class="datasets__button-extended">Merge</p>
 			</div>
 		</li>
 
@@ -52,6 +54,8 @@
 				<button>
 					<Icon name="add" />
 				</button>
+
+				<p class="datasets__button-extended">Add</p>
 			</div>
 		</li>
 	</ul> <!-- /.datasets-utils -->
@@ -86,7 +90,7 @@ export default {
 	data: function() {
 		return {
 			tooltips: {
-				mergeText: 'Merge List Items',
+				mergeText: 'Merge two or more list items into a single item',
 				addText: 'Add New Dataset'
 			}
 		};

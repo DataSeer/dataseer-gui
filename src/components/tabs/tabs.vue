@@ -1,5 +1,15 @@
 <template>
-	<div class="tabs">
+	<div
+		ref="tabs"
+		class="tabs"
+		:class="{
+			'are-expanded': leftSideMargin >= 190,
+			'are-collapsed': leftSideMargin < 190,
+		}"
+		:style="{
+			marginLeft: `${leftSideMargin}px`
+		}"
+	>
 		<div class="tabs__links">
 			<ul>
 				<li
@@ -28,22 +38,31 @@
 					
 					<button
 						type="button"
+						v-tooltip.right="dataset.description"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
 						<Dot v-if="dataset.issue === 'true'" class="dot" />
-						<span v-tooltip.right="dataset.description" />
+
+						<span>
+							<Icon v-if="dataset.status === 'saved'" name="check" color="currentColor" />
+						</span>
+						
+						<p class="overflow-truncate">{{dataset.name ? dataset.name : dataset.id }}</p>
 					</button>
 				</li>
 			</ul>
 		</div> <!-- /.tabs__links -->
 
-		<div class="tabs__contents">
+		<div  class="tabs__contents">
+			<div ref="contentHandle" class="tabs__content-bar" />
+			
 			<slot />
 		</div> <!-- /.tabs__content -->
 	</div> <!-- /.tabs -->
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -53,6 +72,7 @@ import { mapGetters, mapActions } from 'vuex';
  * Internal Dependencies
  */
 import Dot from '@/components/dot/dot';
+import Icon from '@/components/icon/icon';
 
 export default {
 	/**
@@ -65,6 +85,18 @@ export default {
 	 */
 	components: {
 		Dot,
+		Icon
+	},
+
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			currMargin: 190,
+			minMargin: 72,
+			maxMargin: 210
+		}
 	},
 
 	/**
@@ -81,6 +113,15 @@ export default {
 			'filteredDatasets',
 			'activeDatasetId'
 		]),
+		leftSideMargin(){
+			if (this.currMargin > this.maxMargin) {
+				return this.maxMargin;
+			} else if (this.currMargin <= this.minMargin) {
+				return this.minMargin;
+			}
+			
+			return this.currMargin;
+		}
 	},
 	
 	/**
@@ -102,7 +143,51 @@ export default {
 				dataset: dataset,
 				scrollToSentence: true
 			});
+		},
+		initializeDrawer() {
+			const content = this.$refs.tabs;
+			const contentHandle = this.$refs.contentHandle;
+			
+			let x = 0;
+			let margin = this.currMargin;
+
+			const mouseDownHandler = (e) => {
+				// Get the current mouse position
+				x = e.clientX;
+				margin = getComputedStyle(content).marginLeft;
+
+				// Attach the listeners to `document`
+				document.addEventListener('mousemove', mouseMoveHandler);
+				document.addEventListener('mouseup', mouseUpHandler);
+			};
+			
+			contentHandle.addEventListener('mousedown', mouseDownHandler);
+			
+			const mouseMoveHandler = (e) => {
+				// How far the mouse has been moved
+				document.body.style.cursor = 'col-resize';
+				const dx = e.clientX - x;
+				const newContentMargin = parseInt(margin) + dx;
+				
+				this.currMargin = newContentMargin;
+			};
+
+			const mouseUpHandler = () => {
+				contentHandle.style.removeProperty('cursor');
+				document.body.style.removeProperty('cursor');
+
+				content.style.removeProperty('user-select');
+				content.style.removeProperty('pointer-events');
+
+				// Remove the handlers of `mousemove` and `mouseup`
+				document.removeEventListener('mousemove', mouseMoveHandler);
+				document.removeEventListener('mouseup', mouseUpHandler);
+			};
 		}
-	}
+	},
+
+	mounted () {
+		this.initializeDrawer()
+	},
 };
 </script>

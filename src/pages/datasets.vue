@@ -15,13 +15,13 @@
 			@resize="handleContainerResize"
 		>
 			<template #resizerContainer>
-				<Intro v-if="!filteredDatasets.length" />
-
-				<Tabs v-if="filteredDatasets.length">
-					<Dataset :dataset="activeDataset" />
+				<Tabs>
+					<Dataset v-if="filteredDatasets.length" :dataset="activeDataset" />
+					
+					<Intro v-if="!filteredDatasets.length" />
+					
+					<DatasetUtils />	
 				</Tabs>
-
-				<DatasetUtils />
 			</template>
 
 			<PDF />
