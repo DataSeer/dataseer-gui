@@ -3,8 +3,8 @@
 		ref="tabs"
 		class="tabs"
 		:class="{
-			'are-expanded': leftSideMargin >= 190,
-			'are-collapsed': leftSideMargin < 190,
+			'are-expanded': leftSideMargin >= 222,
+			'are-collapsed': leftSideMargin < 222,
 		}"
 		:style="{
 			marginLeft: `${leftSideMargin}px`
@@ -93,9 +93,11 @@ export default {
 	 */
 	data() {
 		return {
-			currMargin: 190,
-			minMargin: 72,
-			maxMargin: 210
+			currTabWidth: 0,
+			currTabMargin: 100,
+			minMargin: 100,
+			maxMargin: 300,
+			minTabWith: 400
 		}
 	},
 
@@ -114,13 +116,13 @@ export default {
 			'activeDatasetId'
 		]),
 		leftSideMargin(){
-			if (this.currMargin > this.maxMargin) {
+			if (this.currTabMargin > this.maxMargin) {
 				return this.maxMargin;
-			} else if (this.currMargin <= this.minMargin) {
+			} else if (this.currTabMargin <= this.minMargin) {
 				return this.minMargin;
 			}
 			
-			return this.currMargin;
+			return this.currTabMargin;
 		}
 	},
 	
@@ -149,12 +151,13 @@ export default {
 			const contentHandle = this.$refs.contentHandle;
 			
 			let x = 0;
-			let margin = this.currMargin;
+			let margin = this.currTabMargin;
 
 			const mouseDownHandler = (e) => {
 				// Get the current mouse position
 				x = e.clientX;
 				margin = getComputedStyle(content).marginLeft;
+
 
 				// Attach the listeners to `document`
 				document.addEventListener('mousemove', mouseMoveHandler);
@@ -169,7 +172,7 @@ export default {
 				const dx = e.clientX - x;
 				const newContentMargin = parseInt(margin) + dx;
 				
-				this.currMargin = newContentMargin;
+				this.currTabMargin = newContentMargin;
 			};
 
 			const mouseUpHandler = () => {
@@ -185,9 +188,13 @@ export default {
 			};
 		}
 	},
-
+	
+	/**
+	 * Mounted
+	 */
 	mounted () {
-		this.initializeDrawer()
+		this.currTabWidth = this.$refs.tabs.getBoundingClientRect().width;
+		this.initializeDrawer();
 	},
 };
 </script>

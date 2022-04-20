@@ -677,24 +677,26 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
   };
 
 // Refresh pdf display
-PdfViewer.prototype.refresh = function(cb) {
+PdfViewer.prototype.refresh = function (cb) {
 	if (!self.pdfDocument) {
 		// Loading document
 		let self = this;
 		return async.eachSeries(
 			this.getPages(),
-			function(numPage, callback) {
-				return self.renderPage({ numPage: numPage, force: true }, function(err, res) {
+			function (numPage, callback) {
+				return self.renderPage({ numPage: numPage, force: true }, function (err, res) {
 					console.log(err);
 					return callback(err);
 				});
 			},
-			function(err) {
+			function (err) {
 				if (err) console.log(err);
-				return cb(err);
+				if (typeof cb === `function`) return cb(err);
 			}
 		);
-	} else return cb(new Error(`PDF cannot be refreshed`));
+	} else {
+		if (typeof cb === `function`) return cb(new Error(`PDF cannot be refreshed`))
+	};
 };
 
 // Build all Areas

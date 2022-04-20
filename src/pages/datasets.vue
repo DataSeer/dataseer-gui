@@ -12,7 +12,7 @@
 			:initialW="634"
 			:minW="500"
 			:maxW="1000"
-			@resize="handleContainerResize"
+			@resize="() => documentHandler.refresh()"
 		>
 			<template #resizerContainer>
 				<Tabs>
@@ -129,9 +129,6 @@ export default {
 			'setActiveSentence',
 			'clearState',
 		]),
-		handleContainerResize() {
-			console.log('Resize PDF viewer')
-		},
 		async initializePdfViewer() {
 			const token = this.$route.query.token
 			this.loading = true;

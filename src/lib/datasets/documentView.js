@@ -222,6 +222,11 @@ DocumentView.prototype.init = function(opts, cb) {
 	);
 };
 
+// Refresh pdf display
+DocumentView.prototype.refresh = function(cb) {
+	if (this.pdfViewer) this.pdfViewer.refresh(cb);
+}
+
 // Change active dataset type
 DocumentView.prototype.setActiveDatasetType = function(datasetType) {
 	if (this.pdfViewer) this.pdfViewer.setActiveDatasetType(datasetType);

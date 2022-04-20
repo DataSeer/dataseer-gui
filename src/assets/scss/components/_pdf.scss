@@ -114,14 +114,6 @@
 		padding: 0;
 	}
 
-	#documentView #pdfViewer .page {
-		margin-bottom: 10px;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
 	#documentView #pdfViewer .textLayer {
 		z-index: 1000;
 	}
@@ -783,11 +775,10 @@
 	  }
 	  
 	  .pdfViewer .page {
-		direction: ltr;
-		margin: 1px auto -8px auto;
 		position: relative;
+		direction: ltr;
+		margin: 0px auto 10px;
 		overflow: visible;
-		border: 9px solid transparent;
 		background-clip: content-box;
 		background-color: white;
 		box-shadow: 0 2px 9px rgba($c-primary, 0.12);

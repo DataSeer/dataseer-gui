@@ -18,8 +18,13 @@
 		border-radius: 3px 0 0 3px;
 		transition: background 0.3s ease;
 		
-		.main--datasets-datasets & {
+		.main--datasets-dataset & {
 			background-color: $c-skyblue;
+			
+			&:hover,
+			&.is-opened {
+				background-color: $c-skyblue-ca;
+			}
 		}
 
 		.main--datasets-code & {

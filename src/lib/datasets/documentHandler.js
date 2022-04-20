@@ -127,6 +127,11 @@ DocumentHandler.prototype.init = function() {
 	}
 };
 
+// Refresh pdf viewer display
+DocumentHandler.prototype.refresh = function(cb) {
+	this.documentView.refresh(cb);
+}
+
 // Check if document has change(s) not saved
 DocumentHandler.prototype.hasChanges = function() {
 	let result = false;

@@ -85,7 +85,6 @@ export default {
 			bar.addEventListener('mousedown', mouseDownHandler);
 
 			const debouncedEmitResizeFunction = debounce(() => {
-				console.log(this);
 				this.$emit('resize')
 			}, 400);
 
