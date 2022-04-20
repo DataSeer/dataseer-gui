@@ -21,7 +21,7 @@
 						'is-completed': dataset.status === 'saved'
 					}"
 				>
-					<div v-if="mergeState" class="checkbox">
+					<div v-if="mergeState" class="checkbox checkbox--default">
 						<input
 							tabindex="0"
 							type="checkbox"

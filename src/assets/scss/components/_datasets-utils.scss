@@ -14,11 +14,48 @@
 	}
 
 	.datasets__button {
-		display: flex;
-		align-items: center;
 		position: relative;
-		background-color: $c-skyblue;
-		border-radius: 3px;
+		border-radius: 3px 0 0 3px;
+		transition: background 0.3s ease;
+		
+		.main--datasets-datasets & {
+			background-color: $c-skyblue;
+		}
+
+		.main--datasets-code & {
+			background-color: $c-purple-f1;
+
+			&:hover,
+			&.is-opened {
+				background-color: $c-purple-e2;
+			}
+		}
+
+		.main--datasets-material & {
+			background-color: $c-orange-fff;
+		}
+
+		.main--datasets-protocol & {
+			background-color: $c-green-f5;
+		}
+	}
+
+	.datasets__button p {
+		margin-bottom: 0;
+		font-size: 14px;
+		font-family: $ff-titles;
+		font-weight: 500;
+		color: $c-primary;
+	}
+
+	.datasets__button-inner {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		border: none;
+		background: none;
+		cursor: pointer;
+		color: $c-primary;
 
 		&:before {
 			content: '';
@@ -33,21 +70,9 @@
 			background-color: $c-primary;
 			transition: width 0.3s ease;
 		}
-
-		.main--datasets-code & {
-			background-color: $c-purple-f1;
-		}
-
-		.main--datasets-material & {
-			background-color: $c-orange-fff;
-		}
-
-		.main--datasets-protocol & {
-			background-color: $c-green-f5;
-		}
 	}
 
-	.datasets__button > button {
+	.datasets__button-inner > span {
 		position: relative;
 		z-index: 10;
 		display: flex;
@@ -55,66 +80,35 @@
 		height: 54px;
 		align-items: center;
 		justify-content: center;
-		background: inherit;
-		border: none;
-		color: $c-primary;
 	}
 
-	.datasets__button > button i {
-		transition: opacity 0.3s;		
-	}
-	
-	.datasets__button > button:hover i {
-		opacity: 0.7;
-	}
-
-	.datasets__button .datasets__button-inner {
+	.datasets__button-overlay {
 		position: absolute;
 		top: 0;
-		left: 0;
-		width: 100%;
+		left: 54px;
+		width: 0;
 		height: 100%;
-		justify-content: space-between;
+		border-radius: 3px;
+		transition: width $t-duration;
+		transition-timing-function: ease;
 		background-color: inherit;
-		border-radius: inherit;
 		overflow: hidden;
-		transition: width 0.3s ease;
-		transition-delay: 0.3s;
 	}
 
-	.datasets__button .datasets__button-wrapper {
+	.datasets__button-overlay-inner {
 		display: flex;
-		width: 330px;
-		height: 100%;
-		align-items: center;
-		padding-left: 54px;
-		padding-right: 8px;
 		justify-content: space-between;
-		background-color: inherit;
+		align-items: center;
+		height: 100%;
+		width: 276px;
+		padding-right: 8px;
 		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	.datasets__button .datasets__button-extended {
-		position: relative;
-		z-index: 10;
-		display: none;
-		padding: 0 9px;
-		font-size: 14px;
-		color: $c-primary;
-		font-family: $ff-titles;
-		font-weight: 500;
-	}
-
-	.datasets__button--merge .datasets__button-inner p {
-		margin-bottom: 0;
-		font-size: 14px;
-		font-family: $ff-titles;
-		font-weight: 500;
-		color: $c-primary;
+		visibility: hidden;
+		transition: opacity $t-duration, visibility $t-duration;
+		transition-timing-function: ease;
 	}
 	
-	.datasets__button--merge .datasets__button-inner .btn--tertiary {
+	.datasets__button .btn--tertiary {
 		padding-left: 15px;
 		padding-right: 15px;
 		border-color: $c-skyblue-ce;
@@ -126,22 +120,29 @@
 		}
 	}
 
-	&.is-merging .datasets__button--merge {
-		&:before {
-			width: 5px;
-		}
+	// Is opened state
+	.datasets__button.is-opened .datasets__button-overlay {
+		width: 276px;
 	}
-
-	&.is-merging .datasets__button--merge .datasets__button-inner {
-		width: 330px;
-		transition-delay: 0s;
-		box-shadow: 0 1px 9px rgba($c-primary, 0.22);
-	}
-
-	&.is-merging .datasets__button--merge .datasets__button-wrapper {
+	
+	.datasets__button.is-opened .datasets__button-overlay-inner {
 		opacity: 1;
+		visibility: visible;
 		transition-delay: 0.3s;
+	}
 
+	.datasets__button.is-opened .datasets__button-inner:before {
+		width: 5px;
+	}
+
+	
+}
+
+/* Datasets Utils when tabs are collapsed */
+
+.tabs.are-collapsed .datasets-utils {
+	.datasets__button .datasets__button-extended {
+		display: none;
 	}
 }
 
@@ -150,9 +151,5 @@
 .tabs.are-expanded .datasets-utils {
 	.datasets__button {
 		width: 190px;
-	}
-	
-	.datasets__button .datasets__button-extended {
-		display: block;
 	}
 }

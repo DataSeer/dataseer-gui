@@ -8,18 +8,26 @@
 		<li>
 			<div
 				class="datasets__button datasets__button--merge"
+				:class="{
+					'is-opened': mergeState
+				}"
 				tabindex="0"
 			>
 				<button
-					v-tooltip.right="mergeState ? '' : tooltips.mergeText"
+					class="datasets__button-inner"
 					:aria-label="tooltips.mergeText"
+					v-tooltip.right="tooltips.mergeText"
 					@click.prevent="() => setMergeState(true)"
 				>
-					<Icon name="merge" />
-				</button>
-
-				<div class="datasets__button-inner">
-					<div class="datasets__button-wrapper">
+					<span>
+						<Icon name="merge" />
+					</span>
+					
+					<p class="datasets__button-extended">Merge</p>
+				</button><!-- /.datasets__button-inner -->
+				
+				<div class="datasets__button-overlay">
+					<div class="datasets__button-overlay-inner">
 						<p v-if="datasetsLength < 2">Select Items to Merge</p>
 
 						<Button
@@ -36,10 +44,8 @@
 						>
 							Cancel
 						</Button>
-					</div><!-- /.datasets__button-wrapper -->
-				</div><!-- /.datasets__button-inner -->
-
-				<p class="datasets__button-extended">Merge</p>
+					</div><!-- /.datasets__button-overlay-inner -->
+				</div><!-- /.datasets__button-wrapper -->
 			</div>
 		</li>
 
@@ -51,11 +57,15 @@
 				:aria-label="tooltips.addText"
 				@click.prevent="addSentenceToDataset"
 			>
-				<button>
-					<Icon name="add" />
-				</button>
+				<button
+					class="datasets__button-inner"
+				>
+					<span>
+						<Icon name="add" />
+					</span>
 
-				<p class="datasets__button-extended">Add</p>
+					<p class="datasets__button-extended">Add</p>
+				</button><!-- /.datasets__button-inner -->
 			</div>
 		</li>
 	</ul> <!-- /.datasets-utils -->
