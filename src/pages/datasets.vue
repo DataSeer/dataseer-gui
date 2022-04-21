@@ -8,29 +8,32 @@
 		</Subheader>
 
 		<Resizer
-			modifier="datasets"
 			:initialW="634"
-			:minW="500"
+			:minW="472"
 			:maxW="1000"
 			@resize="() => documentHandler.refresh()"
 		>
 			<template #resizerContainer>
-				<Tabs>
-					<Dataset v-if="filteredDatasets.length" :dataset="activeDataset" />
-					
-					<Intro v-if="!filteredDatasets.length" />
-					
-					<DatasetUtils />	
-				</Tabs>
+				<Loader
+					:loading="loading"
+					:error="error"
+					:errorMessage="errorMessage"
+				>
+					<Tabs>
+						<Dataset v-if="filteredDatasets.length" :dataset="activeDataset" />
+						
+						<Intro v-if="!filteredDatasets.length" />
+						
+						<DatasetUtils />	
+					</Tabs>
+				</Loader>	
 			</template>
-
-			<PDF />
+				<PDF />
 		</Resizer>
 	</Main>
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -176,7 +179,7 @@ export default {
 				{
 					onDocumentViewReady: () => {
 						this.loading = false;
-						if (activeDatasetType ==! this.activeDatasetType) setActiveDatasetType(activeDatasetType);
+						if (activeDatasetType ==! this.activeDatasetType) this.setActiveDatasetType(activeDatasetType);
 					},
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence)

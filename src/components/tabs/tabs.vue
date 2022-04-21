@@ -2,14 +2,19 @@
 	<div
 		ref="tabs"
 		class="tabs"
-		:class="{
-			'are-expanded': leftSideMargin >= 222,
-			'are-collapsed': leftSideMargin < 222,
-		}"
+		:class="[[areTabsExpanded ? 'are-expanded' : 'are-collapsed']]"
 		:style="{
-			marginLeft: `${leftSideMargin}px`
+			width: `${tabWidth}px`
 		}"
 	>
+		<div class="tabs__contents">
+			<div ref="contentHandle" class="tabs__content-bar" />
+
+			{{tabWidth}}
+		
+			<slot />
+		</div> <!-- /.tabs__content -->
+		
 		<div class="tabs__links">
 			<ul>
 				<li
@@ -52,12 +57,6 @@
 				</li>
 			</ul>
 		</div> <!-- /.tabs__links -->
-
-		<div  class="tabs__contents">
-			<div ref="contentHandle" class="tabs__content-bar" />
-			
-			<slot />
-		</div> <!-- /.tabs__content -->
 	</div> <!-- /.tabs -->
 </template>
 
@@ -93,11 +92,14 @@ export default {
 	 */
 	data() {
 		return {
-			currTabWidth: 0,
-			currTabMargin: 100,
-			minMargin: 100,
+			initialTabMargin: 72,
+			minMargin: 72,
 			maxMargin: 300,
-			minTabWith: 400
+			minTabWith: 400,
+			expandedTriggerPoint: 222,
+			// Parent Data
+			parentWidth: 0,
+			parentObserver: null
 		}
 	},
 
@@ -115,14 +117,20 @@ export default {
 			'filteredDatasets',
 			'activeDatasetId'
 		]),
-		leftSideMargin(){
-			if (this.currTabMargin > this.maxMargin) {
+		calculatedWidth(){
+			if (this.initialTabMargin > this.maxMargin) {
 				return this.maxMargin;
-			} else if (this.currTabMargin <= this.minMargin) {
+			} else if (this.initialTabMargin <= this.minMargin) {
 				return this.minMargin;
 			}
-			
-			return this.currTabMargin;
+
+			return this.initialTabMargin;
+		},
+		areTabsExpanded() {
+			return this.parentWidth >= this.tabWidth + this.expandedTriggerPoint
+		},
+		tabWidth() {
+			return this.parentWidth - this.calculatedWidth <= this.minTabWith ? this.minTabWith : this.parentWidth - this.calculatedWidth
 		}
 	},
 	
@@ -130,7 +138,11 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		...mapActions('pdfViewer', ['addDatasetForMerge', 'removeDatasetForMerge', 'setActiveDataset']),
+		...mapActions('pdfViewer', [
+			'addDatasetForMerge',
+			'removeDatasetForMerge',
+			'setActiveDataset'
+		]),
 		handleCheckboxChange(e, datasetId) {
 			if (e.target.checked) {
 				this.addDatasetForMerge(datasetId);
@@ -147,17 +159,16 @@ export default {
 			});
 		},
 		initializeDrawer() {
-			const content = this.$refs.tabs;
+			const tabs = this.$refs.tabs;
 			const contentHandle = this.$refs.contentHandle;
 			
 			let x = 0;
-			let margin = this.currTabMargin;
+			let margin = 0;
 
 			const mouseDownHandler = (e) => {
 				// Get the current mouse position
 				x = e.clientX;
-				margin = getComputedStyle(content).marginLeft;
-
+				margin = this.parentWidth - tabs.getBoundingClientRect().width;
 
 				// Attach the listeners to `document`
 				document.addEventListener('mousemove', mouseMoveHandler);
@@ -172,20 +183,28 @@ export default {
 				const dx = e.clientX - x;
 				const newContentMargin = parseInt(margin) + dx;
 				
-				this.currTabMargin = newContentMargin;
+				this.initialTabMargin = newContentMargin;
 			};
 
 			const mouseUpHandler = () => {
 				contentHandle.style.removeProperty('cursor');
 				document.body.style.removeProperty('cursor');
 
-				content.style.removeProperty('user-select');
-				content.style.removeProperty('pointer-events');
+				tabs.style.removeProperty('user-select');
+				tabs.style.removeProperty('pointer-events');
 
 				// Remove the handlers of `mousemove` and `mouseup`
 				document.removeEventListener('mousemove', mouseMoveHandler);
 				document.removeEventListener('mouseup', mouseUpHandler);
 			};
+		},
+		initParentObserver() {
+			const vm = this;
+			const parent = this.$refs.tabs.parentNode;
+
+			vm.parentObserver = new ResizeObserver(() => {
+				vm.parentWidth = parent.getBoundingClientRect().width
+			}).observe(parent);
 		}
 	},
 	
@@ -193,8 +212,15 @@ export default {
 	 * Mounted
 	 */
 	mounted () {
-		this.currTabWidth = this.$refs.tabs.getBoundingClientRect().width;
 		this.initializeDrawer();
+		this.initParentObserver();
+	},
+
+	/**
+	 * Before Destroy
+	 */
+	beforeDestroy () {
+		if (this.parentObserver) this.parentObserver.disconnect();
 	},
 };
 </script>

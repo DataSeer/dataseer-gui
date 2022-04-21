@@ -6,9 +6,13 @@
 			[`resizer--${modifier}`]: modifier
 		}"
 	>
-		<div ref="container" class="resizer__container" :style="{
-			width: `${initialW}px`
-		}">
+		<div
+			ref="container"
+			class="resizer__container"
+			:style="{
+				width: `${initialW}px`
+			}"
+		>
 			<slot name="resizerContainer" />
 		</div><!-- /.resizer__container -->
 		
@@ -48,11 +52,7 @@ export default {
 		maxW: {
 			type: Number,
 			default: 100
-		},
-		reverse: {
-			type: Boolean,
-			default: false
-		},
+		}
 	},
 
 	/**
@@ -92,17 +92,24 @@ export default {
 				// How far the mouse has been moved
 				document.body.style.cursor = 'col-resize';
 				const dx = e.clientX - x;
+				const parent = leftSide.parentNode.getBoundingClientRect().width;
 				const newLeftWidth = leftWidth + dx;
+
+				const newLeftWidthPercent = ((newLeftWidth / parent) * 100).toFixed(2);
+				const RestWidthPercent = 100  - newLeftWidthPercent;
+				const maxWPercent = ((maxW / parent) * 100).toFixed(2);
+				const minWPercent = ((minW / parent) * 100).toFixed(2);
 				
+				// Set calculated widths in percentages
 				if (newLeftWidth > maxW) {
-					leftSide.style.width = `${maxW}px`;
-					restSide.style.width = `calc(100% - ${maxW}px)`;
+					leftSide.style.width = `${maxWPercent}%`;
+					restSide.style.width = `${100 - maxWPercent}%`;
 				} else if (newLeftWidth < minW) {
-					leftSide.style.width = `${minW}px`;
-					restSide.style.width = `calc(100% - ${minW}px)`;
+					leftSide.style.width = `${minWPercent}%`;
+					restSide.style.width = `${100 - minWPercent}%`;
 				} else {
-					leftSide.style.width = `${newLeftWidth}px`;
-					restSide.style.width = `calc(100% - ${newLeftWidth}px)`;
+					leftSide.style.width = `${newLeftWidthPercent}%`;
+					restSide.style.width = `${RestWidthPercent}%`;
 				}
 
 				debouncedEmitResizeFunction();
