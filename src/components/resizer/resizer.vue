@@ -10,13 +10,13 @@
 			ref="container"
 			class="resizer__container"
 			:style="{
-				width: `${initialW}px`
+				width: `${startingWidth}px`
 			}"
 		>
 			<slot name="resizerContainer" />
 		</div><!-- /.resizer__container -->
 		
-		<div ref="rest" class="resizer__rest">
+		<div ref="right" class="resizer__rest">
 			<div ref="bar" class="resizer__bar" />
 			
 			<slot />
@@ -41,17 +41,40 @@ export default {
 			type: String,
 			default: ''
 		},
-		initialW: {
+		startingWidth: {
 			type: Number,
 			default: 0
 		},
-		minW: {
+		minWidth: {
 			type: Number,
 			default: 0
 		},
-		maxW: {
+		maxWidth: {
 			type: Number,
 			default: 100
+		},
+		rightMinWidth: {
+			type: Number,
+			default: 0
+		},
+	},
+
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			observer: null,
+			observerWidth: null,
+		}
+	},
+
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			xPos: 0
 		}
 	},
 
@@ -61,21 +84,21 @@ export default {
 	methods: {
 		initialize() {
 			const bar = this.$refs.bar;
+			const resizer = this.$refs.resizer;
 			const leftSide = this.$refs.container;
-			const restSide = this.$refs.rest;
+			const rightSide = this.$refs.right;
 
-			let x = 0;
-			let y = 0;
-			let minW = this.minW;
-			let maxW = this.maxW;
-			let leftWidth = this.InitialW || 0;
-			leftSide.style.width = `${this.InitialW}px`;
-			
+			let observerWidth = observerWidth || resizer.getBoundingClientRect().width;
+			let minW = this.minWidth;
+			let maxW = observerWidth - this.maxWidth <= this.rightMinWidth ? observerWidth - this.rightMinWidth : this.maxWidth;
+			let startingWidth = this.startingWidth < this.maxWidth ? this.startingWidth : this.maxWidth;
+			leftSide.style.width = `${((startingWidth / observerWidth) * 100).toFixed(2)}%`;
+
 			const mouseDownHandler = (e) => {
 				// Get the current mouse position
-				x = e.clientX;
-				y = e.clientY;
-				leftWidth = leftSide.getBoundingClientRect().width;
+				this.xPos = e.clientX;
+				startingWidth = leftSide.getBoundingClientRect().width;
+				observerWidth = observerWidth || resizer.getBoundingClientRect().width;
 
 				// Attach the listeners to `document`
 				document.addEventListener('mousemove', mouseMoveHandler);
@@ -84,32 +107,36 @@ export default {
 			
 			bar.addEventListener('mousedown', mouseDownHandler);
 
+			//Emit drag event with small debounce
 			const debouncedEmitResizeFunction = debounce(() => {
-				this.$emit('resize')
+				this.$emit('drag')
 			}, 400);
 
 			const mouseMoveHandler = (e) => {
-				// How far the mouse has been moved
 				document.body.style.cursor = 'col-resize';
-				const dx = e.clientX - x;
-				const parent = leftSide.parentNode.getBoundingClientRect().width;
-				const newLeftWidth = leftWidth + dx;
-
-				const newLeftWidthPercent = ((newLeftWidth / parent) * 100).toFixed(2);
-				const RestWidthPercent = 100  - newLeftWidthPercent;
-				const maxWPercent = ((maxW / parent) * 100).toFixed(2);
-				const minWPercent = ((minW / parent) * 100).toFixed(2);
 				
-				// Set calculated widths in percentages
+				// How far the mouse has been moved
+				const dx = e.clientX - this.xPos;
+				const newLeftWidth = startingWidth + dx;
+
+				const newLeftWidthPercent = ((newLeftWidth / observerWidth) * 100).toFixed(2);
+				const RestWidthPercent = 100 - newLeftWidthPercent;
+
+				
+				// Change values into percentages
+				const maxWPercent = ((maxW / observerWidth) * 100).toFixed(2);
+				const minWPercent = ((minW / observerWidth) * 100).toFixed(2);
+				
+				// Set calculated widths in percentages for the left side
 				if (newLeftWidth > maxW) {
 					leftSide.style.width = `${maxWPercent}%`;
-					restSide.style.width = `${100 - maxWPercent}%`;
+					rightSide.style.width = `${100 - maxWPercent}%`;
 				} else if (newLeftWidth < minW) {
 					leftSide.style.width = `${minWPercent}%`;
-					restSide.style.width = `${100 - minWPercent}%`;
+					rightSide.style.width = `${100 - minWPercent}%`;
 				} else {
 					leftSide.style.width = `${newLeftWidthPercent}%`;
-					restSide.style.width = `${RestWidthPercent}%`;
+					rightSide.style.width = `${RestWidthPercent}%`;
 				}
 
 				debouncedEmitResizeFunction();
@@ -122,13 +149,21 @@ export default {
 				leftSide.style.removeProperty('user-select');
 				leftSide.style.removeProperty('pointer-events');
 
-				restSide.style.removeProperty('user-select');
-				restSide.style.removeProperty('pointer-events');
+				rightSide.style.removeProperty('user-select');
+				rightSide.style.removeProperty('pointer-events');
 
 				// Remove the handlers of `mousemove` and `mouseup`
 				document.removeEventListener('mousemove', mouseMoveHandler);
 				document.removeEventListener('mouseup', mouseUpHandler);
 			};
+		},
+		initResizerObserver() {
+			const vm = this;
+			const resizer = this.$refs.resizer;
+
+			vm.observer = new ResizeObserver(() => {
+				this.observerWidth = resizer.getBoundingClientRect().width
+			}).observe(resizer);
 		}
 	},
 
@@ -137,6 +172,14 @@ export default {
 	 */
 	mounted () {
 		this.initialize();
-	}
+		this.initResizerObserver();
+	},
+	
+	/**
+	 * Before Destroy
+	 */
+	beforeDestroy () {
+		if (this.parentObserver) this.parentObserver.disconnect();
+	},
 }
 </script>

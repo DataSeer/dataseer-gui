@@ -6,7 +6,10 @@
 	position: relative;
 	height: 100%;
 	overflow: hidden;
-	background-color: $c-white;
+
+	&.is-xml {
+		background-color: $c-white;
+	}
 
 	.pdf-holder__button {
 		position: absolute;

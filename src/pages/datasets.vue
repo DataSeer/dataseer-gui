@@ -8,10 +8,11 @@
 		</Subheader>
 
 		<Resizer
-			:initialW="634"
-			:minW="472"
-			:maxW="1000"
-			@resize="() => documentHandler.refresh()"
+			:startingWidth="634"
+			:minWidth="472"
+			:maxWidth="1000"
+			:rightMinWidth="600"
+			@drag="() => documentHandler.refresh()"
 		>
 			<template #resizerContainer>
 				<Loader
@@ -210,7 +211,7 @@ export default {
 
 	/**
 	 * Created
-	 */
+	 */	
 	created () {
 		this.clearState();
 	},
