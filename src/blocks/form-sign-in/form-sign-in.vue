@@ -72,7 +72,7 @@
  * External Dependencies
  */
 import { required, minLength, email } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -125,6 +125,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['userRoleWeight']),
 		failedLogin() {
 			return this.$store.state.account.status.failedLogin || false
 		}
@@ -163,8 +164,12 @@ export default {
 					password: this.formData.password
 				})
 
-				this.success = true,
-				this.$router.push('/profile')
+				this.success = true;
+				// Redirect to documents if user is administrator
+				if (this.userRoleWeight === 1000) return this.$router.push('/documents')
+				
+				// For all other users redirect to the `new-document` page
+				return this.$router.push('/new-document')
 			} catch(e) {
 				this.error = true
 				this.message = e.message
