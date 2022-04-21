@@ -9,9 +9,6 @@
 	>
 		<div class="tabs__contents">
 			<div ref="contentHandle" class="tabs__content-bar" />
-
-			{{tabWidth}}
-		
 			<slot />
 		</div> <!-- /.tabs__content -->
 		

@@ -35,6 +35,20 @@
 						Institution/Organization
 					</Field>
 				</GridColumn>
+
+				<GridColumn>
+					<Field
+						name="role"
+						:tabindex="0"
+						readonly
+						type="text"
+						:value="role"
+					>
+						<Icon name="key" color="currentColor" />
+
+						Role
+					</Field>
+				</GridColumn>
 			</Grid>
 		</FormBody>
 	</Form>
@@ -48,7 +62,7 @@ import Form, { FormHead, FormBody } from '@/components/form/form';
 
 export default {
 	name: 'FormProfile',
-
+	
 	computed: {
 		fullName: function() {
 			return this.$store.state.account.user?.fullname || ''
@@ -58,7 +72,11 @@ export default {
 		},
 		organization: function() {
 			return this.$store.state.account.user?.organizations.map(organization => organization.name)?.join(', ') || 'None'
-		}
+		},
+		role: function() {
+			return this.$store.state.account.user?.role.label || ''
+		},
+		
 	},
 
 	components: {
