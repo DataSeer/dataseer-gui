@@ -60,4 +60,16 @@
 	&.gap-y-xlg {
 		row-gap: 70px;
 	}
+
+	.self-start {
+		align-self: flex-start;
+	}
+
+	.self-center {
+		align-self: center;
+	}
+
+	.self-bottom {
+		align-self: flex-end;
+	}
 }

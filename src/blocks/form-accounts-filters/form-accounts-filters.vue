@@ -66,7 +66,7 @@
 					</FieldDatepicker>
 				</GridColumn>
 				
-				<GridColumn>
+				<GridColumn class="self-bottom">
 					<FieldDatepicker v-model="formData.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
 				</GridColumn>
 
@@ -74,11 +74,11 @@
 					<FieldDatepicker v-model="formData.lastUpdatedFrom" placeholder="From">
 						<Icon name="document_upload" color="currentColor" />
 
-						last Updated
+						Last Updated
 					</FieldDatepicker>
 				</GridColumn>
 				
-				<GridColumn>
+				<GridColumn class="self-bottom">
 					<FieldDatepicker v-model="formData.lastUpdatedTo" placeholder="To" />
 				</GridColumn>
 			</Grid>
