@@ -74,6 +74,10 @@
 			</li>
 
 			<li>
+				<router-link tabindex="0" to="/new-document">Upload</router-link>
+			</li>
+
+			<li>
 				<DropDown>
 					<template #header>
 						<div class="dropdown__account">

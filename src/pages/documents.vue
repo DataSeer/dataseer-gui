@@ -385,7 +385,7 @@ export default {
 		},
 		async getDocuments() {
 			this.loading = true;
-
+			
 			const queryParams = {
 				...this.serverParams.filters,
 				skip: this.serverParams.page === 1 ? 0 : (this.serverParams.page - 1) * this.serverParams.perPage,
@@ -394,7 +394,10 @@ export default {
 				files: true,
 				metadata: true,		
 				count: true,
-				organizations: this.userOrganizationsIds.length ? this.userOrganizationsIds.join(', ') : ''
+			}
+			
+			if (this.userOrganizationsIds) {
+				queryParams.organizations = this.userOrganizationsIds.join(', ');
 			}
 
 			try {

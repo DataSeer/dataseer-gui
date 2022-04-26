@@ -44,6 +44,35 @@
 					</FieldFile>
 				</GridColumn>
 
+				<template v-if="isAdministrator">
+					<GridColumn>
+						<FieldSelect
+							v-model.trim="formData.owner"
+							name="owner"
+							placeholder="Document Owner"
+							:options="accountsList"
+						>
+							<Icon name="user" color="currentColor" />
+
+							Document Owner
+						</FieldSelect>
+					</GridColumn>
+
+					<GridColumn>
+						<FieldSelect
+							v-model.trim="formData.organizations"
+							name="organization"
+							placeholder="Include All"
+							multiple
+							:options="organizationsList"
+						>
+							<Icon name="organization" color="currentColor" />
+
+							Institution/Organization
+						</FieldSelect>
+					</GridColumn>
+				</template>
+
 				<GridColumn>
 					<div class="checkboxes checkboxes--center">
 						<ul>
@@ -72,12 +101,12 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
 import { required } from 'vuelidate/lib/validators';
 import { mapGetters } from 'vuex';
-
 
 /**
  * Internal Dependencies
@@ -86,9 +115,13 @@ import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldFile from '@/components/field-file/field-file';
+import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import Form, { FormActions, FormHead, FormBody, FormStatus } from '@/components/form/form';
+
+import accountsService from '@/services/account/accounts';
 import documentsService from '@/services/documents/documents';
+import organizationsService from '@/services/organizations/organizations';
 
 export default {
 	/**
@@ -110,6 +143,7 @@ export default {
 		Icon,
 		Button,
 		FieldFile,
+		FieldSelect,
 		FieldCheckbox
 	},
 
@@ -122,16 +156,30 @@ export default {
 				file: '',
 				attachedFiles: '',
 				dataseerML: true,
+				organizations: [],
+				owner: '',
 			},
 			success: false,
 			error: false,
-			loading: false,
-			message: ''
+			loading: true,
+			message: '',
+			accountsList: [],
+			organizationsList: [],
 		};
 	},
 
+	/**
+	 * Computed
+	 */
 	computed: {
-		...mapGetters('account', ['userId', 'userOrganizations'])
+		...mapGetters('account', [
+			'userId',
+			'userOrganizationsIds',
+			'userRoleWeight'
+		]),
+		isAdministrator() {
+			return this.userRoleWeight >= 1000;
+		}
 	},
 
 	validations: {
@@ -146,22 +194,51 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		resetFormState() {
+			this.success = false,
+			this.error = false,
+			this.message = ''
+		},
+		async populateFormData() {
+			try {
+				const accountsList = await accountsService.getAccountsList();
+				const organizationsList = await organizationsService.getOrganizationsList();
+
+				this.accountsList = accountsList;
+				this.organizationsList = organizationsList;
+
+				this.formData = {
+					...this.formData,
+					organizations: this.userOrganizationsIds,
+					owner: this.userId,
+				}
+			} catch (e) {
+				this.error = true
+				this.message = e.message
+			}
+						
+			this.loading = false
+		},
 		async handleFormSubmit() {
 			this.resetFormState();
 			this.$v.$touch();
 
 			if (this.$v.$invalid) return 
 			
-			this.loading = true;
+			// this.loading = true;
 
 			const params = {
 				file: this.formData.file[0],
-				owner: this.userId,
-				organizations: this.userOrganizations.map(entry => entry._id),
 				attachedFiles: this.formData.attachedFiles,
 				dataseerML: this.formData.dataseerML,
+				owner: this.formData.owner,
+				organizations: this.formData.organizations.join(', '),
 			}
 
+			console.log(params);
+
+			return 
+			
 			try {
 				await documentsService.addDocument(params)
 
@@ -173,12 +250,14 @@ export default {
 			}
 
 			this.loading = false;
-		},
-		resetFormState() {
-			this.success = false,
-			this.error = false,
-			this.message = ''
-		},
-	}
+		}
+	},
+	
+	/**
+	 * Created
+	 */
+	created () {
+		this.populateFormData();
+	},
 };
 </script>
