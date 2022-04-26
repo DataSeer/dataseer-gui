@@ -264,11 +264,24 @@ export default {
 				},
 				{
 					field: 'name',
-					label: 'Title',
+					label: 'Upload Name',
 				},
 				{
-					field: 'owner',
-					label: 'Author',
+					field: 'createdAt',
+					label: 'Date Uploaded',
+					type: 'date',
+					formatFn: this.formatDate,
+					sortable: false,
+				},
+				{
+					field: 'status',
+					label: 'Status',
+					sortable: false,
+				},
+				{
+					field: 'metadata',
+					label: 'Article Title',
+					formatFn: this.formatArticleTitle,
 					sortable: false,
 				},
 				{
@@ -278,27 +291,14 @@ export default {
 					sortable: false,
 				},
 				{
-					field: 'files',
-					label: 'File',
+					field: 'owner',
+					label: 'Owner',
 					sortable: false,
 				},
 				{
-					field: 'createdAt',
-					label: 'createdAt',
-					type: 'date',
-					formatFn: this.formatDate,
-					sortable: false,
-				},
-				{
-					field: 'updatedAt',
-					label: 'Modified',
-					type: 'date',
-					formatFn: this.formatDate,
-					sortable: false,
-				},
-				{
-					field: 'status',
-					label: 'Status',
+					field: 'organizations',
+					label: 'Organization',
+					formatFn: this.formatOrganization,
 					sortable: false,
 				},
 				{
@@ -340,11 +340,17 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		formatOrganization(value) {
+			return value.map(entry => entry.name).join(', ').trim()
+		},
 		formatMetadata(value) {
 			return value.journal.length ? value.journal : ''
 		},
 		formatDate(value) {
 			return format(new Date(value), 'yyyy-MM-dd');
+		},
+		formatArticleTitle(value) {
+			return value.article_title.length ? value.article_title : ''
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
@@ -393,6 +399,7 @@ export default {
 				
 				this.totalRows = documents.count;
 				this.rows = documents.data;
+				console.log(documents.data[0]);
 			} catch (e) {
 				this.error = true;
 				this.errorMessage = e.message;
