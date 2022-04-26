@@ -28,7 +28,7 @@
 						<Search />
 					</li>
 
-					<li>
+					<li v-if="userRoleWeight >= 1000">
 						<Button className="tertiary" to="/add-account">Add New Account</Button>
 					</li>
 				</ul>
@@ -38,21 +38,30 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import Icon from '@/components/icon/icon';
 import Search from '@/components/search/search.vue';
 import Button from '@/components/button/button.vue';
 
 export default {
-	name: 'SubheaderDocuments',
+	/**
+	 * Name
+	 */
+	name: 'SubheaderAccounts',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Icon,
 		Search,
 		Button
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			showMobileMenu: false,
@@ -62,12 +71,17 @@ export default {
 		};
 	},
 
+	/**
+	 * Computed
+	 */
 	computed: {
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
+		...mapGetters('account', ['userRoleWeight'])
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
-		...mapActions(['changeView', 'changeFiltersVisibility']),
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
 		}

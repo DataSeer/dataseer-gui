@@ -88,6 +88,7 @@
 /**
  * External Dependencies
  */
+import { mapGetters } from 'vuex'
 import { parseISO, format, isBefore, isAfter } from 'date-fns' 
 
 /**
@@ -171,7 +172,8 @@ export default {
 				{
 					field: 'action',
 					label: 'Action',
-					sortable: false
+					sortable: false,
+					hidden: this.areActionsVisible
 				}
 			],
 			rows: [],
@@ -187,6 +189,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['userRoleWeight']),
 		filteredRows: function() {
 			if (Object.keys(this.filters).length === 0) return this.rows;
 			
@@ -261,6 +264,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		areActionsVisible(){
+			return this.userRoleWeight >= 1000
+		},
 		applyFilters(filters) {
 			this.filters = { ...filters };
 		},

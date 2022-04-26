@@ -72,9 +72,5 @@ export default {
 			this.showMobileMenu = !this.showMobileMenu;
 		}
 	},
-
-	mounted () {
-		console.log(this.userRoleWeight);
-	},
 };
 </script>
