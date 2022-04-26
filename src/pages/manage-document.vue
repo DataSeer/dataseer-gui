@@ -19,23 +19,27 @@
 				<div class="widget-links">
 					<ul>
 						<li>
-							<a href="#">
-								<Icon name="texts_add" color="currentColor" />
+							<router-link tabindex="0" :to="`/documents/${documentId}/datasets`">
+								<a>
+									<Icon name="texts_add" color="currentColor" />
 
-								View/Edit Document
-							</a>
+									View/Edit Document
+								</a>
+							</router-link>
 						</li>
 
 						<li>
-							<a href="#">
-								<Icon name="document_view" color="currentColor" />
+							<router-link tabindex="0" :to="`/documents/${documentId}/report`">
+								<a>
+									<Icon name="document_view" color="currentColor" />
 
-								View Report
-							</a>
+									View Report
+								</a>
+							</router-link>
 						</li>
 
 						<li>
-							<a href="#">
+							<a :href="`mailto:${document.owner.username}`">
 								<Icon name="invite" color="currentColor" />
 
 								Contact Author
@@ -48,18 +52,16 @@
 					<div class="widget__content">
 						<h6>Public Share Link</h6>
 
-						<a href="">https://app.dataseer.ai/dataseer/documents/6139467d7600e85b2c69a785</a>
-					</div>
-					<!-- /.widget__content -->
+						<a href="#">{{ publicUrl }}</a>
+					</div> <!-- /.widget__content -->
 
 					<div class="widget__actions">
-						<Button className="secondary">
+						<Button className="secondary" @onClick.prevent="copyPublicUrl">
 							<Icon name="documents" color="currentColor" />
 
 							Copy Share Link
 						</Button>
-					</div>
-					<!-- /.widget__actions -->
+					</div> <!-- /.widget__actions -->
 				</div><!-- /.widget-box -->
 
 				<WidgetLogs :logs="logs" title="Recent Changes" />
@@ -126,6 +128,9 @@ export default {
 		documentId() {
 			return this.$route.params.id
 		},
+		publicUrl() {
+			return `${window.location.origin}/#/documents/${this.documentId}/datasets?token=${this.document.token}`
+		}
 	},
 
 	/**
@@ -142,7 +147,7 @@ export default {
 					pdf: true
 				});
 				const logs = await documentsService.getDocumentLogs(this.documentId);
-	
+
 				this.document = data;
 				this.logs = logs;
 			} catch (error) {
@@ -151,6 +156,13 @@ export default {
 			}
 			
 			this.loading = false;
+		},
+		copyPublicUrl() {
+			this.$copyText(this.publicUrl).then(() => {
+				alert('Public URL copied !');
+			}, () => {
+				alert('Can not copy')
+			})	
 		}
 	},
 

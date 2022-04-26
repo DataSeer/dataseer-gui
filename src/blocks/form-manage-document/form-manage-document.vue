@@ -141,15 +141,15 @@
 
 		<FormActions>
 			<li>
-				<Button>Save Changes</Button>
+				<Button type="button" @onClick.prevent="handleFormSubmit">Save Changes</Button>
 			</li>
 
 			<li>
-				<Button className="tertiary">Cancel</Button>
+				<Button type="button" className="tertiary">Cancel</Button>
 			</li>
 
 			<li>
-				<Button className="tertiary">
+				<Button type="button" className="tertiary" @onClick.prevent="handleDocumentDelete">
 					<Icon name="trash" color="#E36329" />
 
 					Delete Document
@@ -219,9 +219,7 @@ export default {
 	 */
 	data: function() {
 		return {
-			formData: {
-
-			},
+			formData: {},
 			documentTitle: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
 			documentAuthors: `Laura Leadauthor (leadauthor@toh.ca)
 				Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
@@ -288,7 +286,6 @@ export default {
 			const accounts = await accountsService.getAccountsList();
 			const organizations = await organizationsService.getOrganizationsList();
 			
-			
 			this.accountsOptions = accounts;
 			this.organizationsOptions = organizations;
 		},
@@ -324,6 +321,12 @@ export default {
 				visible,
 				locked
 			}
+		},
+		handleFormSubmit() {
+			
+		},
+		handleDocumentDelete() {
+			
 		}
 	},
 

@@ -5,34 +5,36 @@
 		</FormHead>
 
 		<FormBody>
-			<Grid columnGap="medium" rowGap="small" columnSize="quarter">
-				<GridColumn>
-					<FieldSelect
-						v-model.trim="formData.owner"
-						name="owner"
-						placeholder="Document Owner"
-						multiple
-						:options="accountsList"
-					>
-						<Icon name="user" color="currentColor" />
+			<Grid columnGap="medium" rowGap="small" :columnSize="gridColumnSize">
+				<template v-if="this.userRoleWeight > 10">
+					<GridColumn>
+						<FieldSelect
+							v-model.trim="formData.owner"
+							name="owner"
+							placeholder="Document Owner"
+							multiple
+							:options="accountsList"
+						>
+							<Icon name="user" color="currentColor" />
 
-						Document Owner
-					</FieldSelect>
-				</GridColumn>
+							Document Owner
+						</FieldSelect>
+					</GridColumn>
 
-				<GridColumn>
-					<FieldSelect
-						v-model.trim="formData.organizations"
-						name="organizations"
-						placeholder="Include All"
-						multiple
-						:options="organizationsList"
-					>
-						<Icon name="organization" color="currentColor" />
+					<GridColumn>
+						<FieldSelect
+							v-model.trim="formData.organizations"
+							name="organizations"
+							placeholder="Include All"
+							multiple
+							:options="organizationsList"
+						>
+							<Icon name="organization" color="currentColor" />
 
-						Institution/Organization
-					</FieldSelect>
-				</GridColumn>
+							Institution/Organization
+						</FieldSelect>
+					</GridColumn>
+				</template>
 
 				<GridColumn>
 					<div class="form__range">
@@ -41,7 +43,7 @@
 								<FieldDatepicker
 									v-model="formData.uploadedAfter"
 									placeholder="From"
-									:disableFn="disablepploadedAfter"
+									:disableFn="disableUploadedAfter"
 								>
 									<Icon name="document_upload" color="currentColor" />
 
@@ -87,7 +89,6 @@
 				</GridColumn>
 			</Grid>
 		</FormBody>
-		
 
 		<FormActions>
 			<li>
@@ -108,6 +109,12 @@
 </template>
 
 <script>
+/* eslint-disable */
+/**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex'
+
 /**
  * Internal Dependencies
  */
@@ -166,18 +173,6 @@ export default {
 	},
 
 	/**
-	 * Computed
-	 */
-	computed: {
-		applyButtonText() {
-			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
-		},
-		applyButtonClass() {
-			return this.areFiltersApplied ? 'tertiary' : '';
-		}
-	},
-
-	/**
 	 * Watch
 	 */
 	watch: {
@@ -186,6 +181,22 @@ export default {
 				this.areFiltersApplied = false;
 			},
 			deep: true
+		}
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		...mapGetters('account', ['userRoleWeight']),
+		applyButtonText() {
+			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
+		},
+		applyButtonClass() {
+			return this.areFiltersApplied ? 'tertiary' : '';
+		},
+		gridColumnSize() {
+			return this.userRoleWeight <= 10 ? 'half' : 'quarter';
 		}
 	},
 
@@ -202,21 +213,7 @@ export default {
 		handleClearFilters() {
 			this.formData = {};
 		},
-		async getOwnersList() {
-			const organizationsList = await organizationsService.getOrganizationsList();
-			
-			this.organizationsList = organizationsList;
-		},
-		async getAccountsList() {
-			const accountsList = await accountsService.getAccountsList();
-			this.accountsList = accountsList;
-		},
-		async getOrganizationsList() {
-			const organizationsList = await organizationsService.getOrganizationsList();
-			
-			this.organizationsList = organizationsList;
-		},
-		disablepploadedAfter(date) {
+		disableUploadedAfter(date) {
 			if (!this.formData.uploadedBefore) return false;
 			return date > this.formData.uploadedBefore;
 		},
@@ -231,7 +228,16 @@ export default {
 		disableUpdatedBefore(date) {
 			if (!this.formData.updatedAfter) return false;
 			return date < this.formData.updatedAfter;
-		}
+		},
+		async getAccountsList() {
+			const accountsList = await accountsService.getAccountsList();
+			this.accountsList = accountsList;
+		},
+		async getOrganizationsList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
+			
+			this.organizationsList = organizationsList;
+		},
 	},
 
 	/**

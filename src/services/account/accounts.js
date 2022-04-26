@@ -11,9 +11,9 @@ const getAccounts = (params) => {
 const getAccountsList = () => {
 	return axiosInstance.get('/accounts')
 		.then((res) => (
-			res.data.res.map((account) => ({
+			res.data.res.map(account => ({
 				value: account._id,
-				label: account.username
+				label: account.username,
 			}))
 		)
 	);
