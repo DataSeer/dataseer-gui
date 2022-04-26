@@ -25,6 +25,13 @@
 					enabled: true,
 					perPage: itemsPerPage
 				}"
+				:sort-options="{
+					enabled: true,
+					initialSortBy: { 
+						field: 'name',
+						type: 'asc'
+					}
+				}"
 				@on-per-page-change="onPerPageChange"
 			>
 				<template slot="table-column" slot-scope="props">
@@ -138,7 +145,9 @@ export default {
 				},
 				{
 					field: 'name',
-					label: 'Name'
+					label: 'Name',
+					sortable: true,
+					firstSortType: 'asc'
 				},
 				{
 					field: 'accounts',

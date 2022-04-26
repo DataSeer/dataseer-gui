@@ -28,7 +28,7 @@
 						<Search />
 					</li>
 
-					<li>
+					<li v-if="userRoleWeight >= 1000">
 						<Button className="tertiary" to="/add-organization">Add New Organization</Button>
 					</li>
 				</ul>
@@ -63,7 +63,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(['getDocumentView', 'getFiltersVisibility'])
+		...mapGetters('account', ['userRoleWeight'])
 	},
 
 	methods: {
@@ -71,6 +71,10 @@ export default {
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
 		}
-	}
+	},
+
+	mounted () {
+		console.log(this.userRoleWeight);
+	},
 };
 </script>
