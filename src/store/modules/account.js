@@ -17,7 +17,8 @@ const getters = {
 	userId: state => state.user._id,
 	userRole: state => state.user.role.key,
 	userRoleWeight: state => state.user?.role.weight || 0,
-	userOrganizations: state => state.user.organizations,
+	userOrganizations: state => state.user?.organizations || undefined,
+	userOrganizationsIds: state => state.user?.organizations.map(entry => entry._id) || undefined
 }
 
 // Actions

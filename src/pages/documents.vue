@@ -208,6 +208,7 @@
 /**
  * External Dependencies
  */
+import { mapGetters } from 'vuex'
 import { format } from 'date-fns' 
 
 /**
@@ -328,6 +329,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['userOrganizationsIds']), 
 		routerQuery: function() {
 			return this.$route.query
 		},
@@ -392,6 +394,7 @@ export default {
 				files: true,
 				metadata: true,		
 				count: true,
+				organizations: this.userOrganizationsIds.length ? this.userOrganizationsIds.join(', ') : ''
 			}
 
 			try {
@@ -399,7 +402,6 @@ export default {
 				
 				this.totalRows = documents.count;
 				this.rows = documents.data;
-				console.log(documents.data[0]);
 			} catch (e) {
 				this.error = true;
 				this.errorMessage = e.message;

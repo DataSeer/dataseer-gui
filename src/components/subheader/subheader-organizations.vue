@@ -45,14 +45,23 @@ import Search from '@/components/search/search.vue';
 import Button from '@/components/button/button.vue';
 
 export default {
-	name: 'SubheaderDocuments',
+	/**
+	 * Name
+	 */
+	name: 'SubheaderOrganizations',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Icon,
 		Search,
 		Button
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			showMobileMenu: false,
@@ -62,10 +71,16 @@ export default {
 		};
 	},
 
+	/**
+	 * Computed
+	 */
 	computed: {
 		...mapGetters('account', ['userRoleWeight'])
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		...mapActions(['changeView', 'changeFiltersVisibility']),
 		toggleMobileMenu() {
