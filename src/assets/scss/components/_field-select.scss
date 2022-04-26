@@ -50,7 +50,6 @@
 	.vs__selected,
 	.vs__dropdown-option {
 		text-transform: capitalize;
-
 	}
 
 	.vs__selected i,
@@ -60,8 +59,12 @@
 		margin-left: 10px;
 	}
 
-	&.vs--open .vs__dropdown-toggle {
-		border-color: $c-primary-light;
+	.vs__dropdown-option {
+		padding: 6px 14px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		letter-spacing: inherit;
 	}
 
 	.vs__dropdown-menu {
@@ -74,13 +77,13 @@
 		padding: 0;
 	}
 
-	.vs__dropdown-option {
-		padding: 6px 14px;
-	}
-
 	.vs__dropdown-option--highlight {
 		color: $c-base;
 		background-color: rgba($c-placeholder, 0.15);
+	}
+
+	&.vs--open .vs__dropdown-toggle {
+		border-color: $c-primary-light;
 	}
 }
 
@@ -106,6 +109,7 @@
 	}
 
 	.vs__selected-options {
+		width: 100%;
 		align-items: center;
 	}
 
@@ -114,15 +118,25 @@
 	}
 
 	.vs__selected {
-		padding: 3px 10px;
+		position: relative !important;
+		max-width: 100%;
+		display: inline-block;
+		padding: 3px 32px 3px 10px;
 		margin: 2px;
 		border-radius: 14px;
 		background-color: $c-bg;
 		border-color: $c-skyblue;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		letter-spacing: inherit;
 	}
 
 	.vs__deselect {
-		position: relative;
+		position: absolute;
+		right: 7px;
+		top: 50%;
+		margin: -9px 0 0 0;
 		width: 18px;
 		height: 18px;
 		background: none;
