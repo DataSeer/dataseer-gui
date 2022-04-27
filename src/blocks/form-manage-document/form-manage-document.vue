@@ -161,7 +161,13 @@
 			</li>
 
 			<li>
-				<Button type="button" className="tertiary">Cancel</Button>
+				<Button
+					type="button"
+					className="tertiary"
+					@onClick.prevent="$router.go(-1)"
+				>
+					Cancel
+				</Button>
 			</li>
 
 			<li>
@@ -176,7 +182,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -249,7 +254,8 @@ export default {
 
 			formData: {},
 			ownersList: [],
-			organizationsOptions: []
+			organizationsOptions: [],
+			documentConfirmDeleteMessage: 'Are you sure you want to delete this document?',
 		};
 	},
 	
@@ -328,8 +334,16 @@ ${item.affiliations.join(`\n`)}`
 			}
 		},
 		async handleDocumentDelete() {
-			
-			//const res = await documentsService.deleteDocument(this.documentId);
+			const confirm = window.confirm(this.documentConfirmDeleteMessage);
+
+			if (!confirm) return
+			try {
+				await documentsService.deleteDocument(this.documentId);
+				
+				this.$router.push('/documents');
+			} catch (error) {
+				console.log(error.message);
+			}
 		}
 	},
 
