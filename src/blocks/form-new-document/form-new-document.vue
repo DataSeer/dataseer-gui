@@ -258,6 +258,7 @@ export default {
 	 */
 	created () {
 		this.populateFormData();
+		console.log(this.formData);
 	},
 };
 </script>

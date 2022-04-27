@@ -7,8 +7,8 @@
 						<Field
 							type="textarea"
 							size="medium"
-							placeholder="Role Name"
-							v-model="documentTitle"
+							placeholder="Name"
+							v-model="formData.name"
 							name="Document Title"
 						>
 							<Icon name="document" color="currentColor" />
@@ -18,9 +18,8 @@
 
 						<FieldSelect
 							placeholder="Select Owner"
-							multiple
-							v-model="owner"
-							:options="accountsOptions"
+							v-model="formData.owner"
+							:options="ownersList"
 						>
 							<Icon name="user" color="currentColor" />
 
@@ -29,7 +28,7 @@
 
 						<FieldSelect
 							multiple
-							v-model="organization"
+							v-model="formData.organizations"
 							:options="organizationsOptions"
 						>
 							<Icon name="organization" color="currentColor" />
@@ -39,25 +38,42 @@
 					</GridColumn>
 
 					<GridColumn>
-						<Field placeholder="Role Name" v-model="journal" name="Journal">
+						<Field
+							readonly
+							name="Journal"
+							v-model="journal"
+						>
 							<Icon name="book" color="currentColor" />
 
 							Journal
 						</Field>
 
-						<Field placeholder="Role Name" v-model="publisher" name="Publisher">
+						<Field
+							readonly
+							name="Publisher"
+							v-model="publisher"
+						>
 							<Icon name="book" color="currentColor" />
 
 							Publisher
 						</Field>
 
-						<FieldDatepicker v-model="publishDate" placeholder="From">
+						<FieldDatepicker
+							readonly
+							placeholder="From"
+							v-model="publishDate"
+						>
 							<Icon name="book" color="currentColor" />
 
 							Publish Date
 						</FieldDatepicker>
 
-						<Field placeholder="Role Name" v-model="doi" name="DOI" trailingIcon="refresh">
+						<Field
+							readonly
+							name="DOI"
+							trailingIcon="refresh"
+							v-model="doi"
+						>
 							<Icon name="book" color="currentColor" />
 
 							DOI
@@ -66,10 +82,10 @@
 
 					<GridColumn fullwidth>
 						<Field
+							readonly
 							type="textarea"
 							size="large"
-							placeholder="Authors"
-							v-model="documentAuthors"
+							v-model="authors"
 							name="Authors"
 						>
 							<Icon name="user" color="currentColor" />
@@ -126,12 +142,12 @@
 				<Grid columnGap="large" columnSize="half">
 					<GridColumn fullwidth>
 						<Checkboxes vertical>
-							<FieldCheckbox name="isActive" v-model="isActive" isToggle>
-								Document Is {{ isActive ? 'Active' : 'Inactive'}}
+							<FieldCheckbox name="visible" v-model="formData.visible" isToggle>
+								Document Is {{ formData.visible ? 'Active' : 'Inactive'}}
 							</FieldCheckbox>
 							
-							<FieldCheckbox name="isLocked" v-model="isLocked" isToggle>
-								Document Is {{ isLocked ? 'Locked' : 'Not Locked'}}
+							<FieldCheckbox name="locked" v-model="formData.locked" isToggle>
+								Document Is {{ formData.locked ? 'Locked' : 'Not Locked'}}
 							</FieldCheckbox>
 						</Checkboxes>
 					</GridColumn>
@@ -175,6 +191,7 @@ import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
+import documentsService from '@/services/documents/documents';
 import accountsService from '@/services/account/accounts';
 import organizationsService from '@/services/organizations/organizations';
 
@@ -219,63 +236,30 @@ export default {
 	 */
 	data: function() {
 		return {
-			formData: {},
-			documentTitle: 'Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital Through Patient, Clinic Organizational Engagement: Case Study',
-			documentAuthors: `Laura Leadauthor (leadauthor@toh.ca)
-				Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-				Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-				Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
-				Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada
-
-				Nicole Etherington
-				Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-				Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-
-				Sandy Lam
-				Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-				Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-
-				Maxime Lê
-				Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-
-				Laurie Proulx
-				Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada
-
-				Meghan Britton
-				Main Operating Room The Ottawa Hospital, Ottawa, Canada
-
-				Julie Kenna
-				Main Operating Room The Ottawa Hospital, Ottawa, Canada
-
-				Antoine Przybylak-Brouillard
-				Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-				Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-
-				Jeremy Grimshaw
-				Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-
-				Teodor Grantcharov
-				Department of General Surgery University of Toronto, Toronto, Canada
-				Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada
-
-				Sukhbir Singh
-				Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada`,
-			journal: 'Journal of Medical Internet Research',
-			publisher: 'JMIR Publications Inc.',
-			publishDate: '2022-02-23T12:17:50.578Z',
-			doi: '10.2196/15443',
-			owner: ['620cc2bfe38a8e20f8cddff2'],
-			organization: ['61e18b9cec2a6e58a1ef4f83'],
-			primaryFileName: 'My Changed File Name',
+			authors: '',
+			
+			primaryFileName: '',
 			primaryFile: '',
 			appendFiles: '',
-			isActive: true,
-			isLocked: false,
 
-			authors: [],
-			accountsOptions: [],
+			journal: '',
+			publisher: '',
+			publishDate: '',
+			doi: '',
+
+			formData: {},
+			ownersList: [],
 			organizationsOptions: []
 		};
+	},
+	
+	/**
+	 * Methods
+	 */
+	computed: {
+		documentId() {
+			return this.data._id
+		}
 	},
 
 	/**
@@ -286,56 +270,75 @@ export default {
 			const accounts = await accountsService.getAccountsList();
 			const organizations = await organizationsService.getOrganizationsList();
 			
-			this.accountsOptions = accounts;
+			this.ownersList = accounts;
 			this.organizationsOptions = organizations;
 		},
 		parseDataToForm() {
+			if (!this.data) return
+
 			const {
-				createdAt = '',
-				owner: { id: owner  } = '',
-				metadata: {
-					journal,
-					publisher,
-					date_published,
-					doi,
-					authors
-				},
-				pdf: {
-					filename : pdfFilename
-				},
-				visible,
-				locked
-			} = this.data
-			
-			this.formData = {
+				name,
 				owner,
-				doi,
-				journal,
-				publisher,
-				date_published,
-				locked: locked,
-				createdAt,
-				
-				pdfFilename,
-				
 				visible,
-				locked
+				locked,
+				organizations,
+				metadata: {
+					authors,
+					journal,
+					doi,
+					createdAt,
+					publisher
+				},
+				files
+			} = this.data;
+
+			// Populate authors
+			this.authors = authors.reduce((acc, item) => {
+				const author = `
+${item.name} ${item.email ? `(${item.email})` : `${''}` }
+${item.affiliations.join(`\n`)}`
+				return acc + '\n' + author
+			}, '').trim();
+
+			// Populate metadata
+			this.journal = journal;
+			this.publisher = publisher;
+			this.publishDate = createdAt;
+			this.doi = doi;
+			
+			// Populate form data
+			this.formData = {
+				name,
+				organizations: organizations.map(organization => organization._id),
+				visible,
+				locked,
+				owner: owner._id
+			};
+
+			// Populate files
+			this.primaryFileName = files[0].filename;
+		},
+		async handleFormSubmit() {
+			try {
+				const res = await documentsService.updateDocument(this.documentId, this.formData);
+				
+				console.log(res);
+			} catch (error) {
+				console.log(error.message);
 			}
 		},
-		handleFormSubmit() {
+		async handleDocumentDelete() {
 			
-		},
-		handleDocumentDelete() {
-			
+			//const res = await documentsService.deleteDocument(this.documentId);
 		}
 	},
 
 	/**
-	 * Mounted
+	 * Created
 	 */
-	mounted () {
+	created () {
 		this.getDropdownOptions();
-		// this.parseDataToForm();
+		this.parseDataToForm();
 	},
 };
 </script>

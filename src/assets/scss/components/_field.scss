@@ -27,7 +27,8 @@
 		}
 	}
 
-	input.field__input:read-only {
+	input.field__input:read-only,
+	textarea.field__input:read-only {
 		border-color: $c-gray;
 	}
 

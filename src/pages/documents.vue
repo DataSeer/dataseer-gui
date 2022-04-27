@@ -329,7 +329,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('account', ['userOrganizationsIds']), 
+		...mapGetters('account', ['userOrganizationsIds', 'userRoleWeight']), 
 		routerQuery: function() {
 			return this.$route.query
 		},
@@ -396,7 +396,7 @@ export default {
 				count: true,
 			}
 			
-			if (this.userOrganizationsIds) {
+			if (this.userOrganizationsIds && this.userRoleWeight < 1000) {
 				queryParams.organizations = this.userOrganizationsIds.join(', ');
 			}
 
