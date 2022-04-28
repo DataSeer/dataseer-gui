@@ -132,7 +132,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */

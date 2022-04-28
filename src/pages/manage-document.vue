@@ -71,7 +71,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */

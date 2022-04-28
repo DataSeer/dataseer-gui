@@ -1,80 +1,99 @@
 <template>
 	<Form className="form--edit" :loading="loading">
+		<FormStatus v-if="error || success" :text="message" :isError="error" />
+
 		<FormBody>
 			<FormGroup title="Document Info">
 				<Grid columnGap="large" columnSize="half">
 					<GridColumn>
-						<Field
-							type="textarea"
-							size="medium"
-							placeholder="Name"
-							v-model="formData.name"
-							name="Document Title"
-						>
-							<Icon name="document" color="currentColor" />
+						<Grid rowGap="small">
+							<GridColumn>
+								<Field
+									type="textarea"
+									size="medium"
+									placeholder="Name"
+									v-model="formData.name"
+									name="Document Title"
+								>
+									<Icon name="document" color="currentColor" />
 
-							Document Title
-						</Field>
+									Document Title
+								</Field>
+							</GridColumn>
 
-						<FieldSelect
-							placeholder="Select Owner"
-							v-model="formData.owner"
-							:options="ownersList"
-						>
-							<Icon name="user" color="currentColor" />
+							<GridColumn>
+								<FieldSelect
+									placeholder="Select Owner"
+									v-model="formData.owner"
+									:options="ownersList"
+								>
+									<Icon name="user" color="currentColor" />
 
-							Document Owner(s)
-						</FieldSelect>
+									Document Owner(s)
+								</FieldSelect>
+							</GridColumn>
 
-						<FieldSelect
-							multiple
-							v-model="formData.organizations"
-							:options="organizationsOptions"
-						>
-							<Icon name="organization" color="currentColor" />
+							<GridColumn>
+								<FieldSelect
+									multiple
+									v-model="formData.organizations"
+									:options="organizationsOptions"
+								>
+									<Icon name="organization" color="currentColor" />
 
-							Institution/Organization(s)
-						</FieldSelect>
+									Institution/Organization(s)
+								</FieldSelect>
+							</GridColumn>
+						</Grid>
 					</GridColumn>
 
 					<GridColumn>
-						<Field
-							name="Journal"
-							v-model="formMetadata.journal"
-						>
-							<Icon name="book" color="currentColor" />
+						<Grid rowGap="small">
+							<GridColumn>
+								<Field
+									name="Journal"
+									v-model="formMetadata.journal"
+								>
+									<Icon name="book" color="currentColor" />
 
-							Journal
-						</Field>
+									Journal
+								</Field>
+							</GridColumn>
+								<Field
+									name="Publisher"
+									v-model="formMetadata.publisher"
+								>
+									<Icon name="book" color="currentColor" />
 
-						<Field
-							name="Publisher"
-							v-model="formMetadata.publisher"
-						>
-							<Icon name="book" color="currentColor" />
+									Publisher
+								</Field>
+							<GridColumn>
 
-							Publisher
-						</Field>
-						{{formMetadata.createdAt}}
+							</GridColumn>
+							
+							<GridColumn>
+								<FieldDatepicker
+									placeholder="From"
+									v-model="formMetadata.createdAt"
+								>
+									<Icon name="book" color="currentColor" />
 
-						<FieldDatepicker
-							placeholder="From"
-							v-model="formMetadata.createdAt"
-						>
-							<Icon name="book" color="currentColor" />
+									Publish Date
+								</FieldDatepicker>
+							</GridColumn>
+							
+							<GridColumn>
+								<Field
+									name="DOI"
+									trailingIcon="refresh"
+									v-model="formMetadata.doi"
+								>
+									<Icon name="book" color="currentColor" />
 
-							Publish Date
-						</FieldDatepicker>
-
-						<Field
-							name="DOI"
-							trailingIcon="refresh"
-							v-model="formMetadata.doi"
-						>
-							<Icon name="book" color="currentColor" />
-
-							DOI
-						</Field>
+									DOI
+								</Field>
+							</GridColumn>
+						</Grid>
 					</GridColumn>
 
 					<GridColumn fullwidth>
@@ -95,25 +114,31 @@
 			<FormGroup title="Files">
 				<Grid columnGap="large" columnSize="half">
 					<GridColumn>
-						<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
-							<Icon name="document" color="currentColor" />
+						<Grid rowGap="small">
+							<GridColumn>
+								<Field placeholder="Enter Display Name" v-model="primaryFileName" name="Display Name">
+									<Icon name="document" color="currentColor" />
 
-							Primary File Display Name
-						</Field>
+									Primary File Display Name
+								</Field>
+							</GridColumn>
+							
+							<GridColumn>
+								<FieldFile
+									v-model="primaryFile"
+									accept=".docx, .pdf"
+									name="primaryFile"
+									buttonText="Upload New Version"
+									alt
+								>
+									<template #label>
+										<Icon name="document_new" color="currentColor" />
 
-						<FieldFile
-							v-model="primaryFile"
-							accept=".docx, .pdf"
-							name="primaryFile"
-							buttonText="Upload New Version"
-							alt
-						>
-							<template #label>
-								<Icon name="document_new" color="currentColor" />
-
-								Primary File
-							</template>
-						</FieldFile>
+										Primary File
+									</template>
+								</FieldFile>
+							</GridColumn>
+						</Grid>
 					</GridColumn>
 
 					<GridColumn>
@@ -182,7 +207,7 @@
  * Internal Dependencies
  */
 import Checkboxes from '@/components/checkboxes/checkboxes';
-import Form, { FormActions, FormBody, FormGroup } from '@/components/form/form';
+import Form, { FormStatus, FormActions, FormBody, FormGroup } from '@/components/form/form';
 import Icon from '@/components/icon/icon';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Field from '@/components/field/field';
@@ -209,6 +234,7 @@ export default {
 		Form,
 		FormBody,
 		FormGroup,
+		FormStatus,
 		FormActions,
 		Checkboxes,
 		Icon,
@@ -238,8 +264,11 @@ export default {
 	data: function() {
 		return {
 			loading: false,
-			authors: '',
+			error: false,
+			success: false,
+			message: 'lorem ipsum dolor imet',
 			
+			authors: '',
 			primaryFileName: '',
 			primaryFile: '',
 			appendFiles: '',
@@ -318,27 +347,43 @@ ${item.affiliations.join(`\n`)}`
 			// Populate files
 			this.primaryFileName = files[0].filename;
 		},
+		resetForm() {
+			this.loading = false;
+			this.error = false;
+			this.success = false;
+			this.message = '';
+		},
 		async handleFormSubmit() {
+			this.resetForm();
+			
 			try {
-				const res = await documentsService.updateDocument(this.documentId, this.formData);
-				const res2 = await documentsService.updateDocumentMetadata(this.documentId, this.formMetadata);
+				await documentsService.updateDocument(this.documentId, this.formData);
+				await documentsService.updateDocumentMetadata(this.documentId, this.formMetadata);
 				
-				console.log(res);
-				console.log(res2);
+				this.success = true;
+				this.message = `${this.formData.name} has been updated!`;
 			} catch (error) {
-				console.log(error.message);
+				this.error = true;
+				this.message = error.message;
 			}
+
+			this.loading = false;
 		},
 		async handleDocumentDelete() {
 			const confirm = window.confirm(this.documentConfirmDeleteMessage);
 
 			if (!confirm) return
+			
+			this.resetForm();
+			
 			try {
 				await documentsService.deleteDocument(this.documentId);
 				
+				this.message = `${this.formData.name} has been deleted!`;
 				this.$router.push('/documents');
 			} catch (error) {
-				console.log(error.message);
+				this.error = true;
+				this.message = error.message;
 			}
 		}
 	},
