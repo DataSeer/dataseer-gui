@@ -122,9 +122,9 @@
 
 			<Popup ref="textPassagePopup" name="text-passage-popup" size="small">
 				<RichtextEntry label="Connected Text Passages" icon="documents">
-					<p> Methods: Our implementation approach included seeking support from hospital leadership; building frontline support and a team of champions among patients, nurses, anesthesiologists, and surgeons; accounting for stakeholder perceptions using theory-informed qualitative interviews; engaging patients; and documenting the implementation process, including barriers and facilitators, using the consolidated framework for implementation research. </p>
-
-					<p> Results: During the 12-month implementation period, we conducted 23 stakeholder engagement activities with over 200 participants. </p>
+					<p v-for="sentence in activeDataset.sentences" :key="sentence.id">
+						{{sentence.text}}
+					</p>
 				</RichtextEntry>
 			</Popup>
 		</div><!-- /.dataset__form -->

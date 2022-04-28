@@ -104,7 +104,6 @@ export default {
 		...mapGetters('pdfViewer', [
 			'datasets',
 			'document',
-			'activeSentence',
 			'documentHandler',
 			'activeDataset',
 			'activeDatasetId',
@@ -215,6 +214,7 @@ export default {
 	 */	
 	created () {
 		this.clearState();
+		
 	},
 	
 	/**
