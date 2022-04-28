@@ -99,79 +99,37 @@ export default {
 			issues: [
 				{
 					id: 'issue1',
-					label: 'A particular issue number one',
+					label: 'URL broken',
 					required: true,
 					completed: true,
 					active: false
 				},
-
 				{
-					id: 'issue2',
-					label: 'Needs Citation',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue3',
-					label: 'Needs Citation',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue4',
-					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue5',
-					label: 'Missing Support Files',
-					required: false,
-					completed: false,
+					id: 'issue1',
+					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
+					required: true,
+					completed: true,
 					active: false
 				},
 				{
-					id: 'issue6',
-					label: 'A particular issue number one',
-					required: false,
-					completed: false,
+					id: 'issue1',
+					label: 'Item not yet publicly accessible',
+					required: true,
+					completed: true,
 					active: false
 				},
 				{
-					id: 'issue7',
-					label: 'Different issue',
-					required: false,
-					completed: false,
+					id: 'issue1',
+					label: 'Not an appropriate reference',
+					required: true,
+					completed: true,
 					active: false
 				},
-
 				{
-					id: 'issue8',
-					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue9',
-					label: 'One more issue down here',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue10',
-					label: 'Other (Described in comments below)',
-					required: false,
-					completed: false,
+					id: 'issue1',
+					label: 'Dataset not provided',
+					required: true,
+					completed: true,
 					active: false
 				}
 			]
