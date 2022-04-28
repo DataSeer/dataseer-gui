@@ -215,19 +215,23 @@ export default {
 		},
 		disableUploadedAfter(date) {
 			if (!this.formData.uploadedBefore) return false;
-			return date > this.formData.uploadedBefore;
+			const parseDate = new Date(this.formData.uploadedBefore);
+			return date > parseDate;
 		},
 		disableUploadedBefore(date) {
 			if (!this.formData.uploadedAfter) return false;
-			return date < this.formData.uploadedAfter;
+			const parseDate = new Date(this.formData.uploadedAfter);
+			return date < parseDate;
 		},
 		disableUpdatedAfter(date) {
 			if (!this.formData.updatedBefore) return false;
-			return date > this.formData.updatedBefore;
+			const parseDate = new Date(this.formData.updatedBefore);
+			return date > parseDate;
 		},
 		disableUpdatedBefore(date) {
 			if (!this.formData.updatedAfter) return false;
-			return date < this.formData.updatedAfter;
+			const parseDate = new Date(this.formData.updatedAfter);
+			return date < parseDate;
 		},
 		async getAccountsList() {
 			const accountsList = await accountsService.getAccountsList();

@@ -164,11 +164,13 @@ export default {
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;
-			return date > this.formData.createdTo;
+			const parseDate = new Date(this.formData.createdTo);
+			return date > parseDate;
 		},
 		disableCreatedTo(date) {
 			if (!this.formData.createdFrom) return false;
-			return date < this.formData.createdFrom;
+			const parseDate = new Date(this.formData.createdFrom);
+			return date < parseDate;
 		},
 		async getOrganizationsList() {
 			this.organizationsList = await organizationsService.getOrganizationsList();

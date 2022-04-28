@@ -25,9 +25,8 @@
 						{{ props.column.label }}
 					</span>
 
-					<span v-if="props.column.label === 'Action'">
+					<span v-else-if="props.column.label === 'Action'">
 						{{userRoleWeight >= 1000 ? props.column.label : ''}}
-						
 					</span>
 
 					<span v-else>

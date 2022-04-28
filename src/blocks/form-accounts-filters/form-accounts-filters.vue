@@ -59,7 +59,11 @@
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="formData.createdFrom" placeholder="From" :disableFn="disableCreatedFrom">
+					<FieldDatepicker
+						v-model="formData.createdFrom"
+						placeholder="From"
+						:disableFn="disableCreatedFrom"
+					>
 						<Icon name="document_upload" color="currentColor" />
 
 						Created
@@ -67,11 +71,19 @@
 				</GridColumn>
 				
 				<GridColumn class="self-bottom">
-					<FieldDatepicker v-model="formData.createdTo" placeholder="To" :disableFn="disableCreatedTo" />
+					<FieldDatepicker
+						v-model="formData.createdTo"
+						placeholder="To"
+						:disableFn="disableCreatedTo"
+					/>
 				</GridColumn>
 
 				<GridColumn>
-					<FieldDatepicker v-model="formData.lastUpdatedFrom" placeholder="From">
+					<FieldDatepicker
+						v-model="formData.lastUpdatedFrom"
+						placeholder="From"
+						:disableFn="disableLastUpdatedFrom"
+					>
 						<Icon name="document_upload" color="currentColor" />
 
 						Last Updated
@@ -79,7 +91,11 @@
 				</GridColumn>
 				
 				<GridColumn class="self-bottom">
-					<FieldDatepicker v-model="formData.lastUpdatedTo" placeholder="To" />
+					<FieldDatepicker
+						v-model="formData.lastUpdatedTo"
+						placeholder="To"
+						:disableFn="disableLastUpdatedTo"
+					/>
 				</GridColumn>
 			</Grid>
 		</FormBody>
@@ -203,11 +219,23 @@ export default {
 		},
 		disableCreatedFrom(date) {
 			if (!this.formData.createdTo) return false;
-			return date > this.formData.createdTo;
+			const parseDate = new Date(this.formData.createdTo);
+			return date > parseDate;
 		},
 		disableCreatedTo(date) {
 			if (!this.formData.createdFrom) return false;
-			return date < this.formData.createdFrom;
+			const parseDate = new Date(this.formData.createdFrom);
+			return date < parseDate;
+		},
+		disableLastUpdatedFrom(date) {
+			if (!this.formData.lastUpdatedTo) return false;
+			const parseDate = new Date(this.formData.lastUpdatedTo);
+			return date < parseDate;
+		},
+		disableLastUpdatedTo(date) {
+			if (!this.formData.lastUpdatedFrom) return false;
+			const parseDate = new Date(this.formData.lastUpdatedFrom);
+			return date > parseDate;
 		},
 		async getOrganizationsList() {
 			const organizationsList = await organizationsService.getOrganizationsList();
