@@ -1,5 +1,5 @@
 <template>
-	<Form className="form--edit">
+	<Form className="form--edit" :loading="loading">
 		<FormBody>
 			<FormGroup title="Document Info">
 				<Grid columnGap="large" columnSize="half">
@@ -39,9 +39,8 @@
 
 					<GridColumn>
 						<Field
-							readonly
 							name="Journal"
-							v-model="journal"
+							v-model="formMetadata.journal"
 						>
 							<Icon name="book" color="currentColor" />
 
@@ -49,19 +48,18 @@
 						</Field>
 
 						<Field
-							readonly
 							name="Publisher"
-							v-model="publisher"
+							v-model="formMetadata.publisher"
 						>
 							<Icon name="book" color="currentColor" />
 
 							Publisher
 						</Field>
+						{{formMetadata.createdAt}}
 
 						<FieldDatepicker
-							readonly
 							placeholder="From"
-							v-model="publishDate"
+							v-model="formMetadata.createdAt"
 						>
 							<Icon name="book" color="currentColor" />
 
@@ -69,10 +67,9 @@
 						</FieldDatepicker>
 
 						<Field
-							readonly
 							name="DOI"
 							trailingIcon="refresh"
-							v-model="doi"
+							v-model="formMetadata.doi"
 						>
 							<Icon name="book" color="currentColor" />
 
@@ -82,7 +79,6 @@
 
 					<GridColumn fullwidth>
 						<Field
-							readonly
 							type="textarea"
 							size="large"
 							v-model="authors"
@@ -241,18 +237,14 @@ export default {
 	 */
 	data: function() {
 		return {
+			loading: false,
 			authors: '',
 			
 			primaryFileName: '',
 			primaryFile: '',
 			appendFiles: '',
-
-			journal: '',
-			publisher: '',
-			publishDate: '',
-			doi: '',
-
 			formData: {},
+			formMetadata: {},
 			ownersList: [],
 			organizationsOptions: [],
 			documentConfirmDeleteMessage: 'Are you sure you want to delete this document?',
@@ -307,10 +299,12 @@ ${item.affiliations.join(`\n`)}`
 			}, '').trim();
 
 			// Populate metadata
-			this.journal = journal;
-			this.publisher = publisher;
-			this.publishDate = createdAt;
-			this.doi = doi;
+			this.formMetadata.journal = journal;
+			this.formMetadata.publisher = publisher;
+			this.formMetadata.createdAt = createdAt;
+			this.formMetadata.doi = doi;
+
+			console.log(this.formMetadata);
 			
 			// Populate form data
 			this.formData = {
@@ -327,8 +321,10 @@ ${item.affiliations.join(`\n`)}`
 		async handleFormSubmit() {
 			try {
 				const res = await documentsService.updateDocument(this.documentId, this.formData);
+				const res2 = await documentsService.updateDocumentMetadata(this.documentId, this.formMetadata);
 				
 				console.log(res);
+				console.log(res2);
 			} catch (error) {
 				console.log(error.message);
 			}

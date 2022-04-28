@@ -1,5 +1,10 @@
 <template>
-	<div class="field">
+	<div
+		class="field field--datepicker"
+		:class="{
+			'is-readonly': readonly
+		}"
+	>
 		<label v-if="this.$slots.default" :for="name" class="field__label">
 			<slot />
 		</label>
@@ -12,6 +17,7 @@
 				:value="value"
 				:placeholder="placeholder"
 				:disabled-date="disableFn"
+				:disabled="readonly"
 				@input="handleChange"
 			>
 				<template v-slot:icon-calendar>
@@ -43,6 +49,10 @@ export default {
 	},
 
 	props: {
+		readonly: {
+			type: Boolean,
+			default: false
+		},
 		error: {
 			type: Boolean,
 			default: false

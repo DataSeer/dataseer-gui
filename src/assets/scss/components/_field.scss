@@ -27,11 +27,6 @@
 		}
 	}
 
-	input.field__input:read-only,
-	textarea.field__input:read-only {
-		border-color: $c-gray;
-	}
-
 	textarea.field__input {
 		width: 100% !important;
 		height: 80px;
@@ -143,6 +138,11 @@
 
 	&:first-child .field__label {
 		margin-top: 0;
+	}
+	
+	&.is-readonly input.field__input,
+	&.is-readonly textarea.field__input {
+		border-color: $c-gray;
 	}
 }
 

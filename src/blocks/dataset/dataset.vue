@@ -60,7 +60,7 @@
 						<div v-if="userRoleWeight < 1000" class="form__cta-col">
 							<Button
 								className="tertiary"
-								v-tooltip.top-center="tooltips.unlink"
+								v-tooltip.top="tooltips.unlink"
 								@onClick.prevent="unlinkSentenceFromDataset"
 							>
 								<Icon name="icon_disconnect" />
@@ -70,7 +70,7 @@
 							
 							<Button
 								className="tertiary"
-								v-tooltip.top-center="tooltips.deleteText"
+								v-tooltip.top="tooltips.deleteText"
 								@onClick.prevent="handleDatasetDelete"
 							>
 								<Icon name="trash" />
@@ -83,7 +83,7 @@
 							<Button
 								className="tertiary"
 								square
-								v-tooltip.top-center="tooltips.flag"
+								v-tooltip.top="tooltips.flag"
 								@onClick.prevent="toggleIssuesForm"
 							>
 								<Icon name="flag" />
@@ -92,7 +92,7 @@
 							<Button
 								className="tertiary"
 								square
-								v-tooltip.top-center="tooltips.passage"
+								v-tooltip.top="tooltips.passage"
 								@onClick.prevent="openPopup"
 							>
 								<Icon name="documents" />

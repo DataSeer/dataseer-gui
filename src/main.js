@@ -18,7 +18,9 @@ import '@/assets/scss/style.scss';
 
 Vue.use(Vuelidate);
 Vue.use(vSelect);
-Vue.use(VTooltip);
+Vue.use(VTooltip, {
+	defaultHtml: false,
+});
 Vue.use(VModal);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueCookies);

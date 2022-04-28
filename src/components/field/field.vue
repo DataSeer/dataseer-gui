@@ -2,6 +2,7 @@
 	<div
 		class="field"
 		:class="{
+			'is-readonly': readonly,
 			'has-error': error,
 			'has-trailing-icon': trailingIcon,
 			'field--textarea': this.type === 'textarea',

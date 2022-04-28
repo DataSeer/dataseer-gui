@@ -35,6 +35,11 @@ const updateDocument = (id, params) => {
 		.put(`/documents/${id}`, params)
 		.then((res) => httpErrorHandler(res));
 };
+const updateDocumentMetadata = (id, params) => {
+	return axiosInstance
+		.post(`/documents/${id}/metadata/reload`, params)
+		.then((res) => httpErrorHandler(res));
+};
 
 const getDocuments = (params) => {
 	return axiosInstance.get(`/documents`, { params }).then((res) => {
@@ -104,6 +109,7 @@ export default {
 	getDocument,
 	addDocument,
 	updateDocument,
+	updateDocumentMetadata,
 	deleteDocument,
 	getDocumentPdf,
 	getDocumentPdfUrl,

@@ -54,15 +54,6 @@
 									Go to Wiki
 								</router-link>
 							</li>
-
-							<li>
-								<button tabindex="0" @click.prevent="resyncJsonDataTypes">
-									<Icon name="refresh" color="CurrentColor" />
-
-									Refresh Datatypes
-
-								</button>
-							</li>
 						</ul>
 					</div>
 					<!-- /.dropdown__nav -->

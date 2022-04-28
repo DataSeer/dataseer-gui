@@ -25,6 +25,11 @@
 						{{ props.column.label }}
 					</span>
 
+					<span v-if="props.column.label === 'Action'">
+						{{userRoleWeight >= 1000 ? props.column.label : ''}}
+						
+					</span>
+
 					<span v-else>
 						{{ props.column.label }}
 					</span>
@@ -57,7 +62,7 @@
 						</span>
 					</span>
 
-					<div v-else-if="props.column.field === 'action'" class="table__actions">
+					<div v-else-if="props.column.field === 'action' && userRoleWeight >= 1000" class="table__actions">
 						<Button
 							size="small"
 							className="tertiary"
@@ -173,7 +178,7 @@ export default {
 					field: 'action',
 					label: 'Action',
 					sortable: false,
-					hidden: this.areActionsVisible
+					hidden: false
 				}
 			],
 			rows: [],
@@ -264,9 +269,6 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		areActionsVisible(){
-			return this.userRoleWeight >= 1000
-		},
 		applyFilters(filters) {
 			this.filters = { ...filters };
 		},
