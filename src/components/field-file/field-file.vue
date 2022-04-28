@@ -20,7 +20,7 @@
 				<li v-for="(file, index) in value" :key="file.index">
 					{{ file.name }}
 
-					<button class="field__clear" @click="removeFile(index)" />
+					<button type="button" class="field__clear" @click="removeFile(index)" />
 				</li>
 			</ul>
 
@@ -39,7 +39,7 @@
 				{{ fileNames }}
 			</p>
 
-			<button v-if="value && !alt" @click="removeAllFiles" class="field__clear" />
+			<button type="button" v-if="value && !alt" @click="removeAllFiles" class="field__clear" />
 		</div>
 		<!-- /.field__input -->
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -35,6 +36,7 @@ const updateDocument = (id, params) => {
 		.put(`/documents/${id}`, params)
 		.then((res) => httpErrorHandler(res));
 };
+
 const updateDocumentMetadata = (id, params) => {
 	return axiosInstance
 		.post(`/documents/${id}/metadata/reload`, params)

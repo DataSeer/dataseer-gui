@@ -332,8 +332,6 @@ ${item.affiliations.join(`\n`)}`
 			this.formMetadata.publisher = publisher;
 			this.formMetadata.createdAt = createdAt;
 			this.formMetadata.doi = doi;
-
-			console.log(this.formMetadata);
 			
 			// Populate form data
 			this.formData = {

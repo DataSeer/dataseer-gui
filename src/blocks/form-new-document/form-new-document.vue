@@ -161,7 +161,7 @@ export default {
 			},
 			success: false,
 			error: false,
-			loading: true,
+			loading: false,
 			message: '',
 			accountsList: [],
 			organizationsList: [],
@@ -222,11 +222,10 @@ export default {
 		async handleFormSubmit() {
 			this.resetFormState();
 			this.$v.$touch();
-
 			if (this.$v.$invalid) return 
-			
-			// this.loading = true;
 
+			this.loading = true;
+			
 			const params = {
 				file: this.formData.file[0],
 				attachedFiles: this.formData.attachedFiles,
@@ -234,10 +233,6 @@ export default {
 				owner: this.formData.owner,
 				organizations: this.formData.organizations.join(', '),
 			}
-
-			console.log(params);
-
-			return 
 			
 			try {
 				await documentsService.addDocument(params)
@@ -252,13 +247,9 @@ export default {
 			this.loading = false;
 		}
 	},
-	
-	/**
-	 * Created
-	 */
+
 	created () {
 		this.populateFormData();
-		console.log(this.formData);
 	},
 };
 </script>
