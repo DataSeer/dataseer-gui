@@ -147,8 +147,8 @@ export default {
 				});
 				const logs = await documentsService.getDocumentLogs(this.documentId);
 				
-				this.document = data.res;
-				this.logs = logs.res;
+				this.document = data;
+				this.logs = logs;
 			} catch (error) {
 				this.error = true,
 				this.errorMessage=  error.message;

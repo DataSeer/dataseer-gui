@@ -25,8 +25,8 @@ export function httpErrorHandler(response) {
 	if (error) {
 		throw new Error(response.data.res);
 	}
-
-	return response.data;
+	
+	return response.data.res;
 }
 
 export default axiosInstance;

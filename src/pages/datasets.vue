@@ -154,7 +154,7 @@ export default {
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
 	
-				const datasets = doc.res.datasets.current;
+				const datasets = doc.datasets.current;
 				
 				// Add color and datatype definitions
 				for (let i = 0; i < datasets.length; i++) {
@@ -166,15 +166,15 @@ export default {
 	
 				const currentDocument = new DocumentHandler({
 					ids: {
-						document: doc.res._id,
-						datasets: doc.res.datasets._id
+						document: doc._id,
+						datasets: doc.datasets._id
 					},
 					user: this.user,
 					datatypes: dataTypes,
 					activeDatasetId: activeDatasetId,
 					activeDatasetType: activeDatasetType,
-					datasets: doc.res.datasets,
-					metadata: doc.res.metadata,
+					datasets: doc.datasets,
+					metadata: doc.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
 					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
@@ -198,7 +198,7 @@ export default {
 					datasetForm: datasetForm
 				});
 	
-				this.setDocument(doc.res);
+				this.setDocument(doc);
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
 				this.setDatasets(datasets);
@@ -230,6 +230,6 @@ export default {
 	 */
 	destroyed () {
 		this.clearState();
-	},
+	}
 };
 </script>

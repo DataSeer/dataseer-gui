@@ -13,13 +13,13 @@
 				<div class="report-title">
 					<h1>{{report.originalDocument.name}}</h1>
 					
-					<p>
-						<Icon name="chain" :color="cssVariables.primary" />
+					<template v-if="report.originalDocument.identifiers.doi" >
+						<p>
+							<Icon name="chain" :color="cssVariables.primary" />
 
-						<template v-if="report.originalDocument.identifiers.doi" >
 							<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
-						</template>
-					</p>
+						</p>
+					</template>
 				</div> <!-- /.report-title -->
 			</div> <!-- /.report-group -->
 

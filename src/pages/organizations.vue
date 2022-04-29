@@ -238,9 +238,9 @@ export default {
 			const organizations = await organizationsService.getOrganizations();
 			const accounts = await AccountsService.getAccounts();
 			
-			organizations.res.forEach(organization => {
+			organizations.forEach(organization => {
 				let count = 0;
-				const getAccountsOrganizations = () => accounts.res.map(account => account.organizations.map(organization => organization._id))
+				const getAccountsOrganizations = () => accounts.map(account => account.organizations.map(organization => organization._id))
 				
 				getAccountsOrganizations().forEach(entry => {
 					if (entry.some((id) => id === organization._id)) {
@@ -252,8 +252,8 @@ export default {
 			});
 					
 			this.loading = false;
-			this.rows = organizations.res;
-		},
+			this.rows = organizations;
+		}
 	},
 
 	/**

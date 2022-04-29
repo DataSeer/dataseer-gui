@@ -95,7 +95,7 @@ const getDocumentTeiContent = (id, params) => {
 const getDocumentReport = (id) => {
 	return axiosInstance
 		.get(`/documents/${id}/reports/json/default`)
-		.then((res) => httpErrorHandler(res));
+		.then((res) => res.data);
 };
 
 const getJsonDataTypes = (params) => {
