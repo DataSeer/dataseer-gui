@@ -353,6 +353,7 @@ ${item.affiliations.join(`\n`)}`
 		},
 		async handleFormSubmit() {
 			this.resetForm();
+			this.loading = true;
 			
 			try {
 				await documentsService.updateDocument(this.documentId, this.formData);

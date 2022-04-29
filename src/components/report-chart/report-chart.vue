@@ -25,8 +25,7 @@
 					</Button>
 				</li>
 			</ul>
-		</div>
-		<!-- /.report__content -->
+		</div> <!-- /.report__content -->
 
 		<Popup ref="reportChartPopup" name="report-chart-popup">
 			<figure>

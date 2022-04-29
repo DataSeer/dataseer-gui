@@ -161,9 +161,9 @@ export default {
 			this.loading = true;
 			const roles = await RoleService.getRoles();
 			const accounts = await AccountsService.getAccounts();
-
+			
 			roles.forEach(role => {
-				role.members = accounts.map(account => account.role.key).filter(key => role.key === key ).length;
+				role.members = accounts.res.map(account => account.role.key).filter(key => role.key === key ).length;
 			});
 
 			this.loading = false;

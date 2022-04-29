@@ -316,7 +316,6 @@ PdfViewer.prototype.load = function(pdf, xmlMetadata, cb) {
 		console.log(`Load of PDF done.`);
 		self.pdfLoaded = true;
 		self.pdfDocument = pdfDocument;
-		console.log(xmlMetadata.activeDatasetType);
 		let metadata = {
 			pages: pdf.metadata.pages,
 			sentences: pdf.metadata.sentences,

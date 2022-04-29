@@ -11,6 +11,9 @@
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import LoaderError from '@/blocks/loader/loader-error';
 import Spinner from '@/components/spinner/spinner';
 

@@ -6,7 +6,12 @@
 
 				Open Science Report
 
-				<Button v-if="getCurator" tabindex="0" to="/datasets" className="tertiary">
+				<Button
+					v-if="userRoleWeight >= 1000"
+					tabindex="0"
+					to="/datasets"
+					className="tertiary"
+				>
 					export curator report
 				</Button>
 			</h3>
@@ -14,19 +19,24 @@
 		<!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button tabindex="0" to="/datasets" className="tertiary">
+			<Button tabindex="0" to="/documents" className="tertiary">
 				<Icon name="back" color="currentColor"></Icon>
 
 				Back to Document
 			</Button>
-		</div>
-		<!-- /.subheader__right -->
-	</div>
-	<!-- /.subheader__inner -->
+		</div> <!-- /.subheader__right -->
+	</div> <!-- /.subheader__inner -->
 </template>
 
 <script>
+/**
+ * External Dependencies
+ */
 import { mapGetters } from 'vuex';
+
+/**
+ * Internal Dependencies
+ */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 
@@ -48,7 +58,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters(['getCurator'])
+		...mapGetters('account', ['userRoleWeight']),
 	}
 };
 </script>

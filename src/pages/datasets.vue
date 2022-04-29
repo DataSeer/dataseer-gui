@@ -35,6 +35,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -148,32 +149,32 @@ export default {
 				const tei = await documentsService.getDocumentTei(this.documentId, { token });
 				const xml = await documentsService.getDocumentTeiContent(this.documentId, { token });
 				const dataTypes = await documentsService.getJsonDataTypes({ token });
-
+	
 				const documentView = new DocumentView(`documentView`);
 				const datasetsList = new DatasetsList(`datasetsList`);
 				const datasetForm = new DatasetForm(`DatasetForm`);
-
-				const datasets = doc.datasets.current;
+	
+				const datasets = doc.res.datasets.current;
 				
 				// Add color and datatype definitions
 				for (let i = 0; i < datasets.length; i++) {
 					formatDataset(datasets[i]);
 				}
-
+	
 				const activeDatasetId = datasets[0]?.id;
 				const activeDatasetType = datasets[0]?.datasetType || this.activeDatasetType;
-
+	
 				const currentDocument = new DocumentHandler({
 					ids: {
-						document: doc._id,
-						datasets: doc.datasets._id
+						document: doc.res._id,
+						datasets: doc.res.datasets._id
 					},
 					user: this.user,
 					datatypes: dataTypes,
 					activeDatasetId: activeDatasetId,
 					activeDatasetType: activeDatasetType,
-					datasets: doc.datasets,
-					metadata: doc.metadata,
+					datasets: doc.res.datasets,
+					metadata: doc.res.metadata,
 					tei: { data: xml, metadata: tei.res.metadata },
 					pdf: pdf && pdf.res ? { url: pdfURl, metadata: pdf.res.metadata } : undefined
 				},
@@ -190,14 +191,14 @@ export default {
 						});
 					},
 				});
-
+	
 				currentDocument.link({
 					documentView: documentView,
 					datasetsList: datasetsList,
 					datasetForm: datasetForm
 				});
-
-				this.setDocument(doc);
+	
+				this.setDocument(doc.res);
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
 				this.setDatasets(datasets);

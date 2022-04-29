@@ -286,8 +286,7 @@ export default {
 		async getAccounts() {
 			this.loading = true;
 			const accounts = await AccountsService.getAccounts();
-
-			this.rows = accounts;
+			this.rows = accounts.res;
 			this.loading = false;
 		}
 	},

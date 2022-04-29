@@ -146,9 +146,9 @@ export default {
 					pdf: true
 				});
 				const logs = await documentsService.getDocumentLogs(this.documentId);
-
-				this.document = data;
-				this.logs = logs;
+				
+				this.document = data.res;
+				this.logs = logs.res;
 			} catch (error) {
 				this.error = true,
 				this.errorMessage=  error.message;

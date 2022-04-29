@@ -1,111 +1,68 @@
-
 <template>
 	<Main className="main--report" hasSubheader>
 		<Subheader>
 			<SubheaderReport />
 		</Subheader>
-		
-		<div class="report-group">
-			<div class="report-title">
-				<h1>
-					Implementation of the Operating Room Black Box Research Program at the Ottowa Hospital
-					Through Patient, Clinic Organizational Engagement: Case Study
-				</h1>
 
-				<p>
-					<Icon name="chain" color="#006AC9" />
+		<Loader
+			:loading="loading"
+			:error="error"
+			:errorMessage="message"
+		>
+			<div class="report-group">
+				<div class="report-title">
+					<h1>{{report.originalDocument.name}}</h1>
+					
+					<p>
+						<Icon name="chain" :color="cssVariables.primary" />
 
-					<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
-				</p>
-			</div>
-			<!-- /.report-title -->
-		</div> <!-- /.report-group -->
+						<template v-if="report.originalDocument.identifiers.doi" >
+							<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
+						</template>
+					</p>
+				</div> <!-- /.report-title -->
+			</div> <!-- /.report-group -->
 
-		<div class="report-group report-group--actions">
-			<ul>
-				<li>
-					<div class="report-action">
-						<h6>
-							<Icon name="datasets" color="currentColor" />
+			<div class="report-group report-group--actions">
+				<ul>
+					<li>
+						<ReportDataset 
+							icon="datasets"
+							title="Datasets"
+							:data="report.sortedDatasetsInfos.datasets"
+						/>
+					</li>
 
-							Datasets
-						</h6>
+					<li>
+						<ReportDataset 
+							icon="brackets"
+							title="code"
+							:data="report.sortedDatasetsInfos.codes"
+						/>
+					</li>
 
-						<ul>
-							<li>New <strong>12</strong></li>
+					<li>
+						<ReportDataset 
+							icon="flask"
+							title="materials"
+							:data="report.sortedDatasetsInfos.reagents"
+						/>
+					</li>
 
-							<li>Re-Use <strong>2</strong></li>
-						</ul>
+					<li>
+						<ReportDataset 
+							icon="protocols"
+							title="protocols"
+							:data="report.sortedDatasetsInfos.protocols"
+						/>
+					</li>
+				</ul>
+			</div> <!-- /.report-group -->
 
-						<p>No Action Required</p>
-					</div>
-					<!-- /.report-action -->
-				</li>
-
-				<li>
-					<div class="report-action report-action--error">
-						<h6>
-							<Icon name="brackets" color="currentColor" />
-
-							Code
-						</h6>
-
-						<ul>
-							<li>New <strong>12</strong></li>
-
-							<li>Re-Use <strong>3</strong></li>
-						</ul>
-
-						<p>Action Required</p>
-					</div>
-					<!-- /.report-action -->
-				</li>
-
-				<li>
-					<div class="report-action report-action--warning">
-						<h6>
-							<Icon name="flask" color="currentColor" />
-
-							Materials
-						</h6>
-
-						<ul>
-							<li>New <strong>12</strong></li>
-
-							<li>Re-Use <strong>2</strong></li>
-						</ul>
-
-						<p>Action May Be Required</p>
-					</div>
-					<!-- /.report-action -->
-				</li>
-
-				<li>
-					<div class="report-action">
-						<h6>
-							<Icon name="protocols" color="currentColor" />
-
-							Protocols
-						</h6>
-
-						<ul>
-							<li>New <strong>12</strong></li>
-
-							<li>Re-Use <strong>2</strong></li>
-						</ul>
-
-						<p>No Action Required</p>
-					</div>
-					<!-- /.report-action -->
-				</li>
-			</ul>
-		</div>
-		<!-- /.report-group -->
-
-		<div class="report-group">
-			<ReportSuggestions title="Data Availability Statement" :suggestions="suggestions" />
-		</div>
-		<!-- /.report-group -->
+			<div class="report-group">
+				<ReportSuggestions title="Data Availability Statement" :suggestions="suggestions" />
+			</div> <!-- /.report-group -->
+		</Loader>
 
 		<template #right>
 			<div class="report-about">
@@ -113,9 +70,9 @@
 					<li>
 						<h6>Preprint link</h6>
 
-						<a href="https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full"
-							>https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full</a
-						>
+						<a href="https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full">
+							https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full
+						</a >
 					</li>
 
 					<li>
@@ -140,8 +97,7 @@
 						</ContentToggle>
 					</li>
 				</ul>
-			</div>
-			<!-- /.report-about -->
+			</div> <!-- /.report-about -->
 
 			<ReportChart shareLink="https://example.com/" />
 		</template>
@@ -149,6 +105,11 @@
 </template>
 
 <script>
+/* eslint-disable */
+/**
+ * Internal Dependencies
+ */
+import Loader from '@/blocks/loader/loader';
 import Subheader from '@/components/subheader/subheader';
 import SubheaderReport from '@/components/subheader/subheader-report';
 import Icon from '@/components/icon/icon';
@@ -158,19 +119,23 @@ import Authors from '@/components/authors/authors';
 import ReportChart from '@/components/report-chart/report-chart';
 import ContentToggle from '@/components/contenttoggle/contenttoggle';
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
+import ReportDataset from '@/components/report-dataset/report-dataset'
 
 import documentsService from '@/services/documents/documents';
+
+import variables from '@/assets/scss/generic/_variables.scss'
 
 export default {
 	/**
 	 * Name
 	 */
-	name: 'ScienceReport',
+	name: 'Report',
 
 	/**
 	 * Components
 	 */
 	components: {
+		Loader,
 		Subheader,
 		SubheaderReport,
 		Icon,
@@ -178,6 +143,7 @@ export default {
 		Author,
 		Authors,
 		ReportChart,
+		ReportDataset,
 		ContentToggle,
 		ReportSuggestions
 	},
@@ -187,6 +153,11 @@ export default {
 	 */
 	data: function() {
 		return {
+			error: false,
+			loading: true,
+			message: '',
+			report: undefined,
+			
 			suggestions: [
 				[
 					{
@@ -317,88 +288,6 @@ export default {
 					}
 				]
 			],
-			authors: [
-				{
-					name: 'Laura Leadauthor',
-					email: 'leadauthor@toh.ca',
-					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada
-						Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada
-						Department of Innovation in Medical Education University of Ottawa, Ottawa, Canada
-						Faculty of Medicine Francophone Affairs University of Ottawa, Ottawa, Canada`,
-					isLeadAuthor: true,
-					isSubmittingAuthor: true
-				},
-				{
-					name: 'Nicole Etherington',
-					email: '',
-					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Nicole Etherington',
-					email: '',
-					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Maxime Lê',
-					email: '',
-					description: `Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Laurie Proulx',
-					email: '',
-					description: `Patient and Family Advisory Council The Ottawa Hospital, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Meghan Britton',
-					email: '',
-					description: `Main Operating Room The Ottawa Hospital, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Julie Kenna',
-					email: '',
-					description: `Main Operating Room The Ottawa Hospital, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Antoine Przybylak-Brouillard',
-					email: '',
-					description: `Department of Anesthesiology and Pain Medicine University of Ottawa, Ottawa, Canada Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Jeremy Grimshaw',
-					email: '',
-					description: `Clinical Epidemiology Program Ottawa Hospital Research Institute, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Teodor Grantcharov',
-					email: '',
-					description: `Department of General Surgery University of Toronto, Toronto, Canada Li Ka Shing Knowledge Institute St. Michael's Hospital, Toronto, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				},
-				{
-					name: 'Sukhbir Singh',
-					email: '',
-					description: `Department of Obstetrics, Gynecology, and Newborn Care University of Ottawa, Ottawa, Canada`,
-					isLeadAuthor: false,
-					isSubmittingAuthor: false
-				}
-			]
 		};
 	},
 	
@@ -415,6 +304,12 @@ export default {
 		},
 		documentID() {
 			return this.$route.params.id
+		},
+		cssVariables() {
+			return variables
+		},
+		authors() {
+			return this.report.originalDocument.metadata.authors
 		}
 	},
 
@@ -423,12 +318,20 @@ export default {
 	 */
 	methods: {
 		async getDocumentReport() {
-			const report = await documentsService.getDocumentReport(this.documentID);
-
-			console.log(report);
+			try {
+				const report = await documentsService.getDocumentReport(this.documentID);
+				this.report = report;
+			} catch (error) {
+				this.error = error.message
+			}
+			
+			this.loading = false
 		}
 	},
 
+	/**
+	 * Created
+	 */
 	created () {
 		this.getDocumentReport();
 	},

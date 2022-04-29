@@ -135,9 +135,12 @@ export default {
 			}	
 
 			try {
-				await organizationsService.updateOrganization(this.organizationId, params);
+				const res = await organizationsService.updateOrganization(this.organizationId, params);
+				
+				
+				this.title = res.name;
 				this.success = true;
-				this.message = 'Success';
+				this.message = `${res.name} has been updated!`;
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;
@@ -169,10 +172,10 @@ export default {
 			
 			try {
 				this.resetForm()
-				await organizationsService.deleteOrganization(this.organizationId);
+				const res = await organizationsService.deleteOrganization(this.organizationId);
 				
 				this.success = true;
-				this.message = "Example message on organization delete success";
+				this.message = `${res.name} has been deleted!`;
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;

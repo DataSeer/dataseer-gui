@@ -37,13 +37,13 @@
 
 						<label :for="`merge-${dataset.id}`" />
 					</div><!-- /.checkbox -->
-					
+
 					<button
 						type="button"
 						v-tooltip.right="dataset.description"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
-						<Dot v-if="dataset.issue === 'true'" class="dot" />
+						<Dot v-if="dataset.issue === 'true'" />
 
 						<span>
 							<Icon v-if="dataset.status === 'saved'" name="check" color="currentColor" />
