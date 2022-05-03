@@ -266,7 +266,7 @@ export default {
 			loading: false,
 			error: false,
 			success: false,
-			message: 'lorem ipsum dolor imet',
+			message: '',
 			
 			authors: '',
 			primaryFileName: '',
@@ -302,7 +302,6 @@ export default {
 		},
 		parseDataToForm() {
 			if (!this.data) return
-			console.log(this.data.files);
 
 			const {
 				name,
@@ -345,6 +344,8 @@ ${item.affiliations.join(`\n`)}`
 
 			// Populate files
 			this.primaryFileName = files[0].filename;
+			this.primaryFile = [files[0]];
+			this.appendFiles = files.filter((_, index) => index > 0);
 		},
 		resetForm() {
 			this.loading = false;

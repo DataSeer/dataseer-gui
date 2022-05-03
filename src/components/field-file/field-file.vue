@@ -117,19 +117,20 @@ export default {
 	},
 
 	/**
-	 * Мethods
+	 * Methods
 	 */
 	methods: {
 		handleInput(event) {
-			console.log(event.target.files);
-			this.$emit('input', event.target.files);
+			const currentValue = this.value && this.multiple ? this.value : [];
+			const filesArr = [...currentValue, ...event.target.files];
+			this.$emit('input', filesArr);
 		},
 		removeAllFiles() {
 			this.$refs.inputFile.value = null;
 			this.$emit('input', null);
 		},
 		removeFile(index) {
-			const newFileList = [...this.value];
+			const newFileList = this.value;
 			newFileList.splice(index, 1);
 
 			if (!newFileList.length) {

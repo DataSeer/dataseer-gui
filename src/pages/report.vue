@@ -123,6 +123,7 @@ import ContentToggle from '@/components/contenttoggle/contenttoggle';
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
 import ReportDataset from '@/components/report-dataset/report-dataset'
 
+import filesService from '@/services/files/files';
 import documentsService from '@/services/documents/documents';
 import variables from '@/assets/scss/generic/_variables.scss'
 
@@ -325,8 +326,6 @@ export default {
 				this.error = true;
 				this.message = error.message;
 			}
-
-			console.log(this.report);
 
 			this.loading = false;
 		}
