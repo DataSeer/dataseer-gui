@@ -1,10 +1,12 @@
 <template>
-	<Main hasSubheader>
-		<Subheader>
-			<SubheaderEdit title="Edit Role" icon="key">
-				<Button to="/curator-roles" className="tertiary">Exit Role</Button>
-			</SubheaderEdit>
-		</Subheader>
+	<Main>
+		<template #subheader>	
+			<Subheader>
+				<SubheaderEdit title="Edit Role" icon="key">
+					<Button to="/curator-roles" className="tertiary">Exit Role</Button>
+				</SubheaderEdit>
+			</Subheader>
+		</template>
 				
 		<FormEditRole />
 

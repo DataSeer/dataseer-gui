@@ -3,10 +3,12 @@
 		class="main"
 		:class="{
 			[className]: className,
-			'main--no-rightside': !hadRightSide,
+			'main--no-rightside': !hasRightSide,
 			'main--has-subheader': hasSubheader
 		}"
 	>
+		<slot name="subheader" />
+		
 		<Shell>
 			<Spinner v-if="loading" size="large" />
 		
@@ -19,7 +21,7 @@
 					<slot />
 				</div> <!-- /.main__left -->
 
-				<div class="main__right" v-if="hadRightSide && !loading">
+				<div class="main__right" v-if="hasRightSide && !loading">
 					<slot name="right" />
 				</div> <!-- /.main__right -->
 			</div> <!-- /.main__inner -->
@@ -28,7 +30,6 @@
 </template>
 
 <script>
-
 /**
  * Internal Dependencies
  */
@@ -69,10 +70,6 @@ export default {
 		},
 		errorMessage: {
 			type: String,
-		},
-		hasSubheader: {
-			type: Boolean,
-			default: false
 		}
 	},
 
@@ -80,8 +77,11 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		hadRightSide() {
+		hasRightSide() {
 			return !!this.$slots['right'];
+		},
+		hasSubheader() {
+			return !!this.$slots['subheader'];
 		}
 	}
 };

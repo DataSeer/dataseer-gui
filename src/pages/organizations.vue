@@ -1,12 +1,14 @@
 <template>
-	<Main hasSubheader className="main--table">
-		<Subheader>
-			<SubheaderOrganizations
-				title="Edit Organization"
-				icon="organization"
-				@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
-			/>
-		</Subheader>
+	<Main className="main--table">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderOrganizations
+					title="Edit Organization"
+					icon="organization"
+					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
+				/>
+			</Subheader>
+		</template>
 
 		<TableFilters
 			v-if="filtersVisibility"

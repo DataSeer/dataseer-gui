@@ -1,10 +1,12 @@
 <template>
-	<Main hasSubheader>
-		<Subheader>
-			<SubheaderEdit title="Manage Document" icon="document">
-				<Button to="/documents" className="tertiary">Exit Document</Button>
-			</SubheaderEdit>
-		</Subheader>
+	<Main>
+		<template #subheader>	
+			<Subheader>
+				<SubheaderEdit title="Manage Document" icon="document">
+					<Button to="/documents" className="tertiary">Exit Document</Button>
+				</SubheaderEdit>
+			</Subheader>
+		</template>
 
 		<Loader
 			:loading="loading"

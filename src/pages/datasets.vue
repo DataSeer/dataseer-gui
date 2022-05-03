@@ -1,11 +1,10 @@
 <template>
-	<Main
-		:class="`main--datasets main--datasets-${activeDatasetType}`"
-		hasSubheader
-	>
-		<Subheader>
-			<SubheaderDatasets />
-		</Subheader>
+	<Main :class="`main--datasets main--datasets-${activeDatasetType}`">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderDatasets />
+			</Subheader>
+		</template>
 
 		<Resizer
 			:startingWidth="634"
@@ -29,7 +28,8 @@
 					</Tabs>
 				</Loader>	
 			</template>
-				<PDF />
+			
+			<PDF />
 		</Resizer>
 	</Main>
 </template>

@@ -3,12 +3,13 @@
 		:loading="loading"
 		:error="error"
 		:errorMessage="message"
-		hasSubheader
 		className="main--report"
 	>
-		<Subheader>
-			<SubheaderReport />
-		</Subheader>
+		<template #subheader>	
+			<Subheader>
+				<SubheaderReport />
+			</Subheader>
+		</template>
 
 		<div v-if="report" class="report">
 			<div class="report-group">

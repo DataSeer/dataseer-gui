@@ -1,8 +1,10 @@
 <template>
-	<Main class="main--table" hasSubheader>
-		<Subheader>
-			<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
-		</Subheader>
+	<Main class="main--table">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
+			</Subheader>
+		</template>
 		
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
 			<FormAccountsFilters :initialValues="filters" @onApplyFilters="applyFilters" />

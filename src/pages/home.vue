@@ -1,11 +1,15 @@
 <template>
 	<Main>
-		<h1>Homepage</h1>
+		<h1>Home</h1>
 	</Main>
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
 import Main from '@/components/main/main';
+
 export default {
 	/**
 	 * Home

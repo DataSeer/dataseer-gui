@@ -1,8 +1,10 @@
 <template>
-	<Main className="main--datasets main--datasets-code" hasSubheader>
-		<Subheader>
-			<SubheaderDatasets />
-		</Subheader>
+	<Main className="main--datasets main--datasets-code">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderDatasets />
+			</Subheader>
+		</template>
 		
 		<Intro
 			type="Codes"

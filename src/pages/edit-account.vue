@@ -1,10 +1,12 @@
 <template>
-	<Main hasSubheader>
-		<Subheader>
-			<SubheaderEdit title="Edit Account" icon="user">
-				<Button to="/accounts" className="tertiary">Exit Account</Button>
-			</SubheaderEdit>
-		</Subheader>
+	<Main>
+		<template #subheader>	
+			<Subheader>
+				<SubheaderEdit title="Edit Account" icon="user">
+					<Button to="/accounts" className="tertiary">Exit Account</Button>
+				</SubheaderEdit>
+			</Subheader>
+		</template>
 		
 		<FormEditAccount @accountUpdated="getDocumentLogs" />
 

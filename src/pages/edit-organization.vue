@@ -1,10 +1,12 @@
 <template>
-	<Main hasSubheader>
-		<Subheader>
-			<SubheaderEdit title="Edit Organization" icon="organization">
-				<Button to="/organizations" className="tertiary">Exit Organization</Button>
-			</SubheaderEdit>
-		</Subheader>
+	<Main>
+		<template #subheader>	
+			<Subheader>
+				<SubheaderEdit title="Edit Organization" icon="organization">
+					<Button to="/organizations" className="tertiary">Exit Organization</Button>
+				</SubheaderEdit>
+			</Subheader>
+		</template>		
 		
 		<FormEditOrganization />
 

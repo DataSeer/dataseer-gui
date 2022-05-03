@@ -1,8 +1,10 @@
 <template>
-	<Main hasSubheader className="main--table">
-		<Subheader>
-			<SubheaderRoles />
-		</Subheader>
+	<Main className="main--table">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderRoles />
+			</Subheader>
+		</template>
 
 		<Table v-if="!this.loading" modifier="roles">
 			<vue-good-table

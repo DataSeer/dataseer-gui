@@ -1,18 +1,10 @@
 <template>
-	<Main className="main--profile" hasSubheader>
-		<Subheader>
-			<SubheaderProfile />
-		</Subheader>
-		
-		<Grid columnGap="large" rowGap="small" columnSize="half">
-			<GridColumn>
-				<FormProfile />
-			</GridColumn>
-
-			<GridColumn>
-				<FormResetPassword />
-			</GridColumn>
-		</Grid>
+	<Main className="main--profile">
+		<template #subheader>	
+			<Subheader>
+				<SubheaderProfile />
+			</Subheader>
+		</template>
 
 		<template #right>
 			<Banner>
@@ -28,6 +20,16 @@
 				</p>
 			</Banner>
 		</template>
+
+		<Grid columnGap="large" rowGap="small" columnSize="half">
+			<GridColumn>
+				<FormProfile />
+			</GridColumn>
+
+			<GridColumn>
+				<FormResetPassword />
+			</GridColumn>
+		</Grid>
 	</Main>
 </template>
 
