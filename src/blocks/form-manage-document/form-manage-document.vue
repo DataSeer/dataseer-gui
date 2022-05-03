@@ -302,6 +302,7 @@ export default {
 		},
 		parseDataToForm() {
 			if (!this.data) return
+			console.log(this.data.files);
 
 			const {
 				name,

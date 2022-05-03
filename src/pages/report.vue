@@ -1,14 +1,16 @@
 <template>
-	<Main className="main--report" hasSubheader>
+	<Main
+		:loading="loading"
+		:error="error"
+		:errorMessage="message"
+		hasSubheader
+		className="main--report"
+	>
 		<Subheader>
 			<SubheaderReport />
 		</Subheader>
 
-		<Loader
-			:loading="loading"
-			:error="error"
-			:errorMessage="message"
-		>
+		<div v-if="report" class="report">
 			<div class="report-group">
 				<div class="report-title">
 					<h1>{{report.originalDocument.name}}</h1>
@@ -62,7 +64,7 @@
 			<div class="report-group">
 				<ReportSuggestions title="Data Availability Statement" :suggestions="suggestions" />
 			</div> <!-- /.report-group -->
-		</Loader>
+		</div><!-- /.report -->
 
 		<template #right>
 			<div class="report-about">
@@ -122,7 +124,6 @@ import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
 import ReportDataset from '@/components/report-dataset/report-dataset'
 
 import documentsService from '@/services/documents/documents';
-
 import variables from '@/assets/scss/generic/_variables.scss'
 
 export default {
@@ -156,7 +157,7 @@ export default {
 			error: false,
 			loading: true,
 			message: '',
-			report: undefined,
+			report: null,
 			
 			suggestions: [
 				[
@@ -290,7 +291,6 @@ export default {
 			],
 		};
 	},
-	
 
 	/**
 	 * Computed
@@ -309,7 +309,7 @@ export default {
 			return variables
 		},
 		authors() {
-			return this.report.originalDocument.metadata.authors
+			return this.report ? this.report.originalDocument.metadata.authors : []
 		}
 	},
 
@@ -322,17 +322,20 @@ export default {
 				const report = await documentsService.getDocumentReport(this.documentID);
 				this.report = report;
 			} catch (error) {
-				this.error = error.message
+				this.error = true;
+				this.message = error.message;
 			}
-			
-			this.loading = false
+
+			console.log(this.report);
+
+			this.loading = false;
 		}
 	},
 
 	/**
 	 * Created
 	 */
-	created () {
+	mounted () {
 		this.getDocumentReport();
 	},
 };

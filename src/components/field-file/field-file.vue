@@ -75,7 +75,7 @@ export default {
 	 */
 	props: {
 		value: {
-			type: [String, FileList]
+			type: [String, FileList, Array]
 		},
 		name: {
 			type: String,
@@ -121,6 +121,7 @@ export default {
 	 */
 	methods: {
 		handleInput(event) {
+			console.log(event.target.files);
 			this.$emit('input', event.target.files);
 		},
 		removeAllFiles() {

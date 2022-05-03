@@ -8,7 +8,13 @@
 		}"
 	>
 		<Shell>
-			<div class="main__inner">
+			<Spinner v-if="loading" size="large" />
+		
+			<MainError v-if="error">
+				{{errorMessage}}	
+			</MainError>
+
+			<div v-if="!error && !loading" class="main__inner">
 				<div class="main__left">
 					<slot />
 				</div> <!-- /.main__left -->
@@ -26,7 +32,9 @@
 /**
  * Internal Dependencies
  */
+import Spinner from '@/components/spinner/spinner';
 import Shell from '@/components/shell/shell';
+import MainError from '@/components/main/main-error';
 
 export default {
 	/**
@@ -39,6 +47,8 @@ export default {
 	 */
 	components: {
 		Shell,
+		Spinner,
+		MainError
 	},
 
 	/**
@@ -52,6 +62,13 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false
+		},
+		error: {
+			type: Boolean,
+			default: false
+		},
+		errorMessage: {
+			type: String,
 		},
 		hasSubheader: {
 			type: Boolean,
