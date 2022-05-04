@@ -28,6 +28,8 @@ import AddOrganization from '@/pages/add-organization';
 import ManageDocument from '@/pages/manage-document';
 import NotFound from '@/pages/404';
 
+import { clearDropdowns } from '@/utils/use-dropdowns';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -216,20 +218,12 @@ const router = new VueRouter({
 	routes
 });
 
-const clearDropdowns = () => {
-	const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
-
-	activeDropdowns.forEach((activeDropdown) => {
-		activeDropdown.classList.remove('is-active');
-	});
-}
-
 router.beforeEach((to, _, next) => {
 	const requiresAuth = to.meta.requiresAuth;
 	const requiredWeight = to.meta.requiredWeight || 0;
 	const isPublicDataset = !!(to.name === "Datasets" && to.query.token)
 
-	// Clear any dropdown that are currently opened
+	// Clear any dropdowns that are currently opened
 	clearDropdowns();
 	
 	accountService.getUserData().then(res => {

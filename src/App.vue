@@ -17,6 +17,7 @@ import { mapActions } from 'vuex';
  * Internal Dependencies
  */
 import Header from '@/components/header/header.vue';
+import { clearDropdownsOnClick } from '@/utils/use-dropdowns';
 
 export default {
 	/**
@@ -36,16 +37,6 @@ export default {
 	 */
 	methods: {
 		...mapActions('account', ['getUserData']),
-		clearDropdowns(event) {
-			const activeDropdowns = document.querySelectorAll('.dropdown-holder.is-active');
-
-			if (activeDropdowns) {
-				activeDropdowns.forEach((activeDropdown) => {
-					if (activeDropdown.contains(event.target)) return;
-					activeDropdown.classList.remove('is-active');
-				});
-			}
-		}
 	},
 
 	/**
@@ -54,14 +45,14 @@ export default {
 	created() {
 		this.getUserData();
 		
-		window.addEventListener('click', this.clearDropdowns);
+		window.addEventListener('click', clearDropdownsOnClick);
 	},
 
 	/**
 	 * Destroyed
 	 */
 	destroyed() {
-		window.removeEventListener('click', this.clearDropdowns);
+		window.removeEventListener('click', clearDropdownsOnClick);
 	}
 };
 </script>
