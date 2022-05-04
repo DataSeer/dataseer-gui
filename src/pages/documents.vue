@@ -204,6 +204,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -317,7 +318,7 @@ export default {
 				perPage: 10,
 			},
 			perPageOptions: [2, 5, 10, 20],
-			loading: false,
+			loading: true,
 			error: false,
 			errorMessage: '',
 			filtersVisibility: false
@@ -353,26 +354,22 @@ export default {
 		formatArticleTitle(value) {
 			return value.article_title.length ? value.article_title : ''
 		},
-		setFiltersVisibility(value) {
-			this.filtersVisibility = value
-		},
-		updateParams(newProps) {
-			this.serverParams = Object.assign({}, this.serverParams, newProps);
-		},	
 		onPageChange(params) {
-			this.updateParams({page: params.currentPage});
+			this.updateParams({
+				page: params.currentPage
+			});
 			this.getDocuments();
 		},
 		onPerPageChange(params) {
-			this.updateParams({perPage: params.currentPerPage});
+			this.updateParams({
+				perPage: params.currentPerPage
+			});
 			this.getDocuments();
 		},
 		onSortChange(params) {
-			this.updateParams({ sort: params[0].type });
-			this.getDocuments();
-		},
-		onApplyFilters(filters) {
-			this.serverParams.filters = { ...filters };
+			this.updateParams({
+				sort: params[0].type
+			});
 			this.getDocuments();
 		},
 		copyText(text, message) {
@@ -382,6 +379,26 @@ export default {
 				alert('Can not copy')
 			})
 		},
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value;
+		},
+		
+		updateParams(newProps) {
+			this.serverParams = {
+				...this.serverParams,
+				...newProps
+			};
+		},	
+		
+		onApplyFilters(filters) {
+			this.serverParams.filters = {
+				...filters,
+				owners: filters.owners?.join(',') || undefined,
+				organizations: filters.organizations?.join(',') || undefined
+			};
+			this.getDocuments();
+		},
+		
 		async getDocuments() {
 			this.loading = true;
 			
@@ -414,20 +431,19 @@ export default {
 		async deleteDocument(name, id) {
 			const confirmDelete = window.confirm(`Are you sure you want to delete ${name}?`);
 
-			if (confirmDelete) {
-				this.loading = true;
-				
-				try {
-					await documentsService.deleteDocument(id);
-					await this.getDocuments();
+			if (!confirmDelete) return
+			this.loading = true;
+			
+			try {
+				await documentsService.deleteDocument(id);
+				await this.getDocuments();
 
-					alert(`${name} has been successfully deleted.`)
-				} catch (e) {
-					alert(e.message)
-				}
-
-				this.loading = false;
+				alert(`${name} has been successfully deleted.`)
+			} catch (e) {
+				alert(e.message)
 			}
+
+			this.loading = false;
 		}
 	},
 

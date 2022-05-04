@@ -9,8 +9,8 @@
 				<template v-if="this.userRoleWeight > 10">
 					<GridColumn>
 						<FieldSelect
-							v-model.trim="formData.owner"
-							name="owner"
+							v-model.trim="formData.owners"
+							name="owners"
 							placeholder="Document Owner"
 							multiple
 							:options="accountsList"
@@ -109,7 +109,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -204,14 +203,14 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		handleClearFilters() {
+			this.formData = {};
+		},
 		handleApplyFilters() {
 			const query = { ...this.formData };
 			this.$router.replace({ query });
 			this.$emit('onApplyFilters', this.formData);
 			this.areFiltersApplied = true;
-		},
-		handleClearFilters() {
-			this.formData = {};
 		},
 		disableUploadedAfter(date) {
 			if (!this.formData.uploadedBefore) return false;
@@ -245,10 +244,16 @@ export default {
 	},
 
 	/**
+	 * Created
+	 */
+	created () {
+		this.formData = { ...this.initialValues };
+	},
+
+	/**
 	 * mounted
 	 */
 	mounted () {
-		this.formData = { ...this.initialValues }
 		this.getAccountsList();
 		this.getOrganizationsList();
 	},

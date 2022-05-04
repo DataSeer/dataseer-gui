@@ -19,7 +19,7 @@ const clearDropdownsOnClick = function(event) {
 	
 	dropdowns.forEach((dropdown) => {
 		if (dropdown.contains(event.target)) return;
-		dropdown.classList.remove('is-active');
+		clearDropdown(dropdown);
 	});	
 }
 
