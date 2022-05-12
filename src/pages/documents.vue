@@ -204,7 +204,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -382,14 +381,12 @@ export default {
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value;
 		},
-		
 		updateParams(newProps) {
 			this.serverParams = {
 				...this.serverParams,
 				...newProps
 			};
 		},	
-		
 		onApplyFilters(filters) {
 			this.serverParams.filters = {
 				...filters,
@@ -443,7 +440,7 @@ export default {
 				alert(e.message)
 			}
 
-			this.loading = false;
+			// this.loading = false;
 		}
 	},
 

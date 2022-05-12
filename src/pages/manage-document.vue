@@ -54,7 +54,7 @@
 					<div class="widget__content">
 						<h6>Public Share Link</h6>
 
-						<a href="#">{{ publicUrl }}</a>
+						<a target="_blank" :href="publicUrl">{{ publicUrl }}</a>
 					</div> <!-- /.widget__content -->
 
 					<div class="widget__actions">

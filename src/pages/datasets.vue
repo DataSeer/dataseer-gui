@@ -1,5 +1,7 @@
 <template>
-	<Main :class="`main--datasets main--datasets-${activeDatasetType}`">
+	<Main
+		:class="`main--datasets main--datasets-${activeDatasetType}`"
+	>
 		<template #subheader>	
 			<Subheader>
 				<SubheaderDatasets />
@@ -35,7 +37,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -136,7 +137,6 @@ export default {
 		]),
 		async initializePdfViewer() {
 			const token = this.$route.query.token
-			this.loading = true;
 
 			try {
 				const doc = await documentsService.getDocument(this.documentId, {

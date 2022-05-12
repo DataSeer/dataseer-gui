@@ -69,7 +69,7 @@
 			</li>
 
 			<li>
-				<Button to="/roles" className="tertiary">Cancel</Button>
+				<Button to="/curator-roles" className="tertiary">Cancel</Button>
 			</li>
 
 			<li>

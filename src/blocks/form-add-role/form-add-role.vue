@@ -87,7 +87,7 @@
 			<li>
 				<Button
 					type="button"
-					to="/roles"
+					to="/curator-roles"
 					className="tertiary"
 				>
 					Cancel
