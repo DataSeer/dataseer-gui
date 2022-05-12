@@ -1,5 +1,9 @@
 <template>
-	<Main>
+	<Main
+		:loading="loading"
+		:error="error"
+		:errorMessage="errorMessage"
+	>
 		<template #subheader>	
 			<Subheader>
 				<SubheaderEdit title="Edit Role" icon="key">
@@ -8,7 +12,7 @@
 			</Subheader>
 		</template>
 				
-		<FormEditRole />
+		<FormEditRole :formData="role" />
 
 		<template #right>
 			<div class="widget-associations">
@@ -20,7 +24,7 @@
 
 				<Button
 					v-if="associatedAccountsCount > 0"
-					:to="`/accounts?role=${roleID}`"
+					:to="`/accounts?role=${roleId}`"
 					className="secondary"
 				>
 					<Icon name="user" color="currentColor" />
@@ -33,7 +37,6 @@
 </template>
 
 <script>
-
 /**
  * Internal Dependencies
  */
@@ -42,8 +45,10 @@ import Main from '@/components/main/main';
 import Button from '@/components/button/button';
 import Subheader from '@/components/subheader/subheader';
 import FormEditRole from '@/blocks/form-edit-role/form-edit-role';
-import AccountsService from '@/services/account/accounts';
 import SubheaderEdit from '@/components/subheader/subheader-edit';
+
+import AccountsService from '@/services/account/accounts';
+import RoleService from '@/services/roles/roles';
 
 export default {
 	/**
@@ -68,8 +73,12 @@ export default {
 	 */
 	data() {
 		return {
-			roleID: this.$route.params.id,
+			role: {},
+			roleId: this.$route.params.id,
 			associatedAccountsCount: null,
+			loading: true,
+			error: false,
+			errorMessage: ''
 		}
 	},
 
@@ -86,14 +95,20 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		async getAssociatedAccountsCount() {
-			const params = {
-				roles: [this.roleID]
+		async getRoleData() {
+			try {
+				const AssociatedAccounts = await AccountsService.getAccounts({
+					roles: this.roleId
+				});
+				const role = await RoleService.getRole(this.roleId);
+				this.role = role;
+				this.associatedAccountsCount = AssociatedAccounts.length;
+			} catch (error) {
+				this.errorMessage = error.message;
+				this.error = true;
 			}
-			
-			const AssociatedAccounts = await AccountsService.getAccounts(params)
 
-			this.associatedAccountsCount = AssociatedAccounts.length;
+			this.loading = false;
 		}
 	},
 
@@ -101,7 +116,7 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.getAssociatedAccountsCount();
-	},
+		this.getRoleData();
+	}
 };
 </script>

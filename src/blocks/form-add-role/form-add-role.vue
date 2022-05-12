@@ -187,27 +187,26 @@ export default {
 		async handleFormSubmit() {
 			this.resetForm();
 			this.$v.$touch();
-			if (this.$v.$invalid) {
-				return
-			}
+			if (this.$v.$invalid) return
 			
-			this.loading = true
+			this.loading = true;
 
 			try {
-				await RoleService.addRole(this.formData)
-
+				const res = await RoleService.addRole(this.formData)
+				
 				this.success = true;
-				this.message = 'Example Success message';
+				this.message = `${res.label} has been successfully added.`;
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;	
 			}
 
-			this.loading = false
+			this.loading = false;
 		},
 		resetForm() {
 			this.error = false;
 			this.success = false;
+			this.message = '';
 		}
 	},
 }

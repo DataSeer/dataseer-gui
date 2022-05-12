@@ -123,22 +123,32 @@ export default {
 	},
 
 	/**
-	 * Data
+	 * Props
 	 */
-	data: function() {
-		return {
-			formData: {
+	props: {
+		formData: {
+			type: Object,
+			default: () => ({
 				label: '',
 				key: '',
 				weight: '',
 				color: '#006AC9',
 				visible: false,
 				isLocked: false
-			},
-			loading: true,
+			})
+		}
+	},
+
+	/**
+	 * Data
+	 */
+	data: function() {
+		return {
+			loading: false,
 			error: false,
 			success: false,
 			message: '',
+			confirmDeleteMessage: 'Are you sure you want to delete this role?',
 		};
 	},
 
@@ -155,20 +165,6 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		async getRole() {
-			const role = await RoleService.getRole(this.roleID);
-
-			this.formData = {
-				label: role.label,
-				key: role.key,
-				weight: role.weight,
-				color: role.color,
-				visible: false,
-				isLocked: false
-			}
-
-			this.loading = false;
-		},
 		async updateRole() {
 			this.loading = true;
 			
@@ -182,7 +178,7 @@ export default {
 			try {
 				await RoleService.updateRole(this.roleID, params);
 				this.success = true;
-				this.message = `${this.formData.key} had been updated!`;
+				this.message = `${this.formData.key} has been successfully updated!`;
 			
 			} catch (e) {
 				this.error = true;
@@ -192,13 +188,17 @@ export default {
 			this.loading = false;
 		},
 		async deleteRole() {
+			const confirm = window.confirm(this.confirmDeleteMessage);
+			if (!confirm) return
+
 			this.loading = true;
 			
 			try {
 				await RoleService.deleteRole(this.roleID);
 				
 				this.success = true;
-				this.message = `${this.formData.key} had been updated!`;
+				this.message = `${this.formData.key} has been successfully deleted!`;
+				
 			} catch (e) {
 				this.error = true;
 				this.message = e.message;
@@ -206,10 +206,6 @@ export default {
 			
 			this.loading = false;
 		},
-	},
-
-	created () {
-		this.getRole();
-	},
+	}
 };
 </script>

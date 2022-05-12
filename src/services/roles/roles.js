@@ -5,7 +5,7 @@ import axiosInstance, { httpErrorHandler } from '@/services/http.js';
 
 const getRoles = () => {
 	return axiosInstance.get('/roles')
-		.then(res => res.data.res)
+		.then(res => httpErrorHandler(res))
 }
 
 const getRole = (id) => {

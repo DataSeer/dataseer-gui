@@ -1,5 +1,10 @@
 <template>
-	<Main className="main--table">
+	<Main
+		className="main--table"
+		:loading="loading"
+		:error="error"
+		:errorMessage="errorMessage"
+	>
 		<template #subheader>	
 			<Subheader>
 				<SubheaderOrganizations
@@ -17,7 +22,7 @@
 			<FormOrganizationFilters @onApplyFilters="applyFilters" />
 		</TableFilters>
 				
-		<Table v-if="!this.loading" modifier="organizations">
+		<Table modifier="organizations">
 			<vue-good-table
 				styleClass="vgt-table"
 				:columns="columns"
@@ -176,8 +181,10 @@ export default {
 			filters: {},
 			itemsPerPage: 50,
 			perPageOptions: [5, 10, 20, 50],
+			filtersVisibility: false,
 			loading: true,
-			filtersVisibility: false
+			error: false,
+			errorMessage: ''
 		};
 	},
 
@@ -236,25 +243,30 @@ export default {
 			this.itemsPerPage = params.currentPerPage
 		},
 		async getOrganizations() {
-			this.loading = true;
-			const organizations = await organizationsService.getOrganizations();
-			const accounts = await AccountsService.getAccounts();
-			
-			organizations.forEach(organization => {
-				let count = 0;
-				const getAccountsOrganizations = () => accounts.map(account => account.organizations.map(organization => organization._id))
+			try {
+				const organizations = await organizationsService.getOrganizations();
+				const accounts = await AccountsService.getAccounts();
 				
-				getAccountsOrganizations().forEach(entry => {
-					if (entry.some((id) => id === organization._id)) {
-						count++	
-					}
-				})
-				
-				organization.accounts = count;
-			});
+				organizations.forEach(organization => {
+					let count = 0;
+					const getAccountsOrganizations = () => accounts.map(account => account.organizations.map(organization => organization._id))
 					
+					getAccountsOrganizations().forEach(entry => {
+						if (entry.some((id) => id === organization._id)) {
+							count++	
+						}
+					})
+					
+					organization.accounts = count;
+				});
+				
+				this.rows = organizations;
+			} catch (error) {
+				this.errorMessage = error.message;	
+				this.error = true;	
+			}
+			
 			this.loading = false;
-			this.rows = organizations;
 		}
 	},
 

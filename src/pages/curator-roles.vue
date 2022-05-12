@@ -1,12 +1,17 @@
 <template>
-	<Main className="main--table">
+	<Main
+		className="main--table"
+		:loading="loading"
+		:error="error"
+		:errorMessage="errorMessage"
+	>
 		<template #subheader>	
 			<Subheader>
 				<SubheaderRoles />
 			</Subheader>
 		</template>
 
-		<Table v-if="!this.loading" modifier="roles">
+		<Table modifier="roles">
 			<vue-good-table
 				styleClass="vgt-table"
 				:columns="columns"
@@ -144,8 +149,10 @@ export default {
 			filters: {},
 			itemsPerPage: 10,
 			perPageOptions: [2, 5, 10, 20, 50],
+			filtersVisibility: false,
 			loading: true,
-			filtersVisibility: false
+			error: false,
+			errorMessage: ''
 		};
 	},
 
@@ -160,16 +167,21 @@ export default {
 			this.itemsPerPage = params.currentPerPage
 		},
 		async getRoles() {
-			this.loading = true;
-			const roles = await RoleService.getRoles();
-			const accounts = await AccountsService.getAccounts();
-			
-			roles.forEach(role => {
-				role.members = accounts.map(account => account.role.key).filter(key => role.key === key ).length;
-			});
+			try {
+				const roles = await RoleService.getRoles();
+				const accounts = await AccountsService.getAccounts();
+				
+				roles.forEach(role => {
+					role.members = accounts.map(account => account.role.key).filter(key => role.key === key ).length;
+				});
+				
+				this.rows = roles;
+			} catch (error) {
+				this.errorMessage = error.message;
+				this.error = true;	
+			}
 
 			this.loading = false;
-			this.rows = roles;
 		},
 	},
 

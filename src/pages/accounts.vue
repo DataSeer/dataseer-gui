@@ -1,5 +1,10 @@
 <template>
-	<Main class="main--table">
+	<Main
+		class="main--table"
+		:loading="loading"
+		:error="error"
+		:errorMessage="errorMessage"
+	>
 		<template #subheader>	
 			<Subheader>
 				<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
@@ -10,7 +15,7 @@
 			<FormAccountsFilters :initialValues="filters" @onApplyFilters="applyFilters" />
 		</TableFilters>
 		
-		<Table v-if="!this.loading" modifier="accounts">
+		<Table modifier="accounts">
 			<vue-good-table
 				styleClass="vgt-table"
 				:columns="columns"
@@ -186,8 +191,10 @@ export default {
 			filters: {},
 			itemsPerPage: 50,
 			perPageOptions: [5, 10, 20, 50],
+			filtersVisibility: false,
 			loading: true,
-			filtersVisibility: false
+			error: false,
+			errorMessage: ''
 		};
 	},
 
@@ -286,9 +293,14 @@ export default {
 			this.itemsPerPage = params.currentPerPage
 		},
 		async getAccounts() {
-			this.loading = true;
-			const accounts = await AccountsService.getAccounts();
-			this.rows = accounts;
+			try {
+				const accounts = await AccountsService.getAccounts();
+				this.rows = accounts;
+			} catch (error) {
+				this.error = true;
+				this.errorMessage = error.message;
+			}
+			
 			this.loading = false;
 		}
 	},
