@@ -10,6 +10,7 @@
 				<SubheaderOrganizations
 					title="Edit Organization"
 					icon="organization"
+					@searchInput="handleSearchInput"
 					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
 				/>
 			</Subheader>
@@ -38,6 +39,10 @@
 						field: 'name',
 						type: 'asc'
 					}
+				}"
+				:search-options="{
+					enabled: true,
+					externalQuery: searchTerm
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -154,32 +159,37 @@ export default {
 					field: 'name',
 					label: 'Name',
 					sortable: true,
-					firstSortType: 'asc'
+					firstSortType: 'asc',
 				},
 				{
 					field: 'accounts',
 					label: 'Accounts',
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				},
 				{
 					field: 'createdAt',
 					label: 'Created',
 					formatFn: this.formatDate,
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				},
 				{
 					field: 'visible',
 					label: 'Status',
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				},
 				{
 					field: 'action',
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				}
 			],
 			rows: [],
 			filters: {},
 			itemsPerPage: 50,
+			searchTerm: '',
 			perPageOptions: [5, 10, 20, 50],
 			filtersVisibility: false,
 			loading: true,
@@ -230,6 +240,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		handleSearchInput(value) {
+			this.searchTerm = value
+		},
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');
 		},
