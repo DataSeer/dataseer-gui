@@ -82,6 +82,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		handleSearchInput(value) {
+			this.searchTerm = value
+		},
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
 		},

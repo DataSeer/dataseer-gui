@@ -7,7 +7,7 @@
 	>
 		<template #subheader>	
 			<Subheader>
-				<SubheaderRoles />
+				<SubheaderRoles @searchInput="handleSearchInput" />
 			</Subheader>
 		</template>
 
@@ -20,6 +20,10 @@
 				:pagination-options="{
 					enabled: true,
 					perPage: itemsPerPage
+				}"
+				:search-options="{
+					enabled: true,
+					externalQuery: searchTerm
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -142,12 +146,14 @@ export default {
 				{
 					field: 'action',
 					label: 'Action',
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				}
 			],
 			rows: [],
 			filters: {},
 			itemsPerPage: 10,
+			searchTerm: '',
 			perPageOptions: [2, 5, 10, 20, 50],
 			filtersVisibility: false,
 			loading: true,
@@ -160,6 +166,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		handleSearchInput(value) {
+			this.searchTerm = value
+		},
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };
 		},

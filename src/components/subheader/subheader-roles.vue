@@ -14,7 +14,7 @@
 			<div class="subheader__menu">
 				<ul>
 					<li>
-						<Search />
+						<Search @input="(value) => this.$emit('searchInput', value)" />
 					</li>
 
 					<li>
