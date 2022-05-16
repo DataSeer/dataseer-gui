@@ -25,7 +25,7 @@
 					</li>
 
 					<li>
-						<Search />
+						<Search @input="(value) => this.$emit('searchInput', value)" />
 					</li>
 
 					<li v-if="userRoleWeight >= 1000">
@@ -84,6 +84,9 @@ export default {
 	methods: {
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
+		},
+		handleInput(value) {
+			console.log(value);
 		}
 	}
 };

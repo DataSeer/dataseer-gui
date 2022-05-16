@@ -7,7 +7,10 @@
 	>
 		<template #subheader>	
 			<Subheader>
-				<SubheaderAccounts @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
+				<SubheaderAccounts
+					@searchInput="handleSearchInput"
+					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
+			/>
 			</Subheader>
 		</template>
 		
@@ -24,6 +27,10 @@
 				:pagination-options="{
 					enabled: true,
 					perPage: itemsPerPage
+				}"
+				:search-options="{
+					enabled: true,
+					externalQuery: searchTerm
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -161,12 +168,12 @@ export default {
 					field: 'role',
 					label: 'Role',
 					formatFn: this.formatRole,
-					sortable: false
+					sortable: false,
 				},
 				{
 					field: 'organizations',
 					label: 'Organization',
-					sortable: false
+					sortable: false,
 				},
 				{
 					field: 'updatedAt',
@@ -178,17 +185,20 @@ export default {
 				{
 					field: 'disabled',
 					label: 'Status',
-					sortable: false
+					sortable: false,
+					globalSearchDisabled: true
 				},
 				{
 					field: 'action',
 					label: 'Action',
 					sortable: false,
-					hidden: false
+					hidden: false,
+					globalSearchDisabled: true
 				}
 			],
 			rows: [],
 			filters: {},
+			searchTerm: '',
 			itemsPerPage: 50,
 			perPageOptions: [5, 10, 20, 50],
 			filtersVisibility: false,
@@ -270,13 +280,16 @@ export default {
 		},
 		routerQuery: function() {
 			return this.$route.query
-		}
+		},
 	},
 
 	/**
 	 * Methods
 	 */
 	methods: {
+		handleSearchInput(value) {
+			this.searchTerm = value
+		},
 		applyFilters(filters) {
 			this.filters = { ...filters };
 		},

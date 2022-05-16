@@ -1,33 +1,60 @@
 <template>
 	<div class="form form--search">
 		<form action="">
-			<Field name="search" v-model.trim="search" type="search" placeholder="Search" />
+			<Field
+				name="search"
+				type="search"
+				placeholder="Search"
+				:value="search"
+				@input="(value) => this.$emit('input', value)"
+			/>
 
 			<button type="submit" aria-label="Submit Search">
-				<Icon name="search" color="#005AC9" />
+				<Icon name="search" :color="cssVariables.primary" />
 			</button>
-			<!-- /.form__row -->
 		</form>
 	</div>
-	<!-- /.form -->
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
+
+import variables from '@/assets/scss/generic/_variables.scss'
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'Search',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Icon,
 		Field
 	},
 
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			search: ''
 		};
-	}
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		cssVariables() {
+			return variables
+		},
+	},
 };
 </script>
