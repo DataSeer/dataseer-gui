@@ -1,9 +1,8 @@
 <template>
-	<div class="report-chart">
+	<div v-if="imgSrc" class="report-chart">
 		<div class="report__graph">
-			<img src="@/assets/images/chart.png" alt="Chart" />
-		</div>
-		<!-- /.report__graph -->
+			<img :src="imgSrc" alt="Chart" />
+		</div> <!-- /.report__graph -->
 
 		<div class="report__content">
 			<h4>This Chart Needs A Title or Short Description</h4>
@@ -29,7 +28,7 @@
 
 		<Popup ref="reportChartPopup" name="report-chart-popup">
 			<figure>
-				<img src="@/assets/images/larger-graph.jpg" alt="Chart" />
+				<img :src="imgSrc" alt="Chart" />
 			</figure>
 		</Popup>
 	</div>
@@ -63,6 +62,10 @@ export default {
 		shareLink: {
 			type: String,
 			default: ''
+		},
+		imgSrc: {
+			type: String,
+			default: undefined
 		}
 	},
 

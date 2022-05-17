@@ -11,9 +11,9 @@
 		</h6>
 
 		<ul>
-			<li>New <strong>{{data.length}}</strong></li>
+			<li>New <strong>{{newCount}}</strong></li>
 
-			<li>Re-Use <strong>{{data.length}}</strong></li>
+			<li>Re-Use <strong>{{reuseCount}}</strong></li>
 		</ul>
 
 		<p v-if="actionsRequired && !actionsMayBeRequired">Action Required</p>
@@ -75,6 +75,12 @@
 			},
 			actionsMayBeRequired() {
 				return this.data.some(entry => entry.flagged === true);
+			},
+			newCount() {
+				return this.data.filter(entry => entry.reuse === true).length;
+			},
+			reuseCount() {
+				return this.data.length - this.newCount;
 			}
 		},
 	}

@@ -26,7 +26,7 @@
 					</li>
 
 					<li>
-						<Search />
+						<Search @input="(value) => this.$emit('searchInput', value)" />
 					</li>
 
 					<li>

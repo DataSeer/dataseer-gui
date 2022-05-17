@@ -3,6 +3,11 @@
 \* ------------------------------------------------------------ */
 
 .popup {
+	.v--modal-overlay {
+		z-index: 10001;
+		background-color: transparent;
+	}
+	
 	.v--modal-box,
 	.v--modal-box figure {
 		border-radius: 10px;
@@ -16,11 +21,6 @@
 
 	.v--modal-box figure {
 		margin-top: 35px;
-	}
-
-	.v--modal-overlay {
-		z-index: 9888;
-		background-color: transparent;
 	}
 
 	.btn-close {

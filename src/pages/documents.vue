@@ -2,7 +2,10 @@
 	<Main className="main--table" >
 		<template #subheader>	
 			<Subheader>
-				<SubheaderDocuments @filtersButtonClick="setFiltersVisibility(!filtersVisibility)" />
+				<SubheaderDocuments
+					@searchInput="handleSearchInput"
+					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
+				/>
 			</Subheader>
 		</template>
 
@@ -35,6 +38,10 @@
 				mode="remote"
 				styleClass="vgt-table"
 				:isLoading.sync="loading"
+				:search-options="{
+					enabled: true,
+					externalQuery: searchTerm
+				}"
 				@on-sort-change="onSortChange"
 				@on-page-change="onPageChange"
 				@on-per-page-change="onPerPageChange"
@@ -316,6 +323,7 @@ export default {
 				page: 1, 
 				perPage: 10,
 			},
+			searchTerm: '',
 			perPageOptions: [2, 5, 10, 20],
 			loading: true,
 			error: false,
@@ -341,6 +349,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		handleSearchInput(value) {
+			this.searchTerm = value;
+		},
 		formatOrganization(value) {
 			return value.map(entry => entry.name).join(', ').trim()
 		},
@@ -395,7 +406,6 @@ export default {
 			};
 			this.getDocuments();
 		},
-		
 		async getDocuments() {
 			this.loading = true;
 			

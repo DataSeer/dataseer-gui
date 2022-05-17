@@ -78,10 +78,10 @@
 						</a >
 					</li>
 
-					<li>
+					<li v-if="dataseerLink">
 						<h6>DataSeer Link</h6>
 
-						<a href="#">Sulzer Hobson et al Preprint Aug 2021.pdf</a>
+						<a :href="dataseerLink" target="_blank">{{report.originalDocument.name}}</a>
 					</li>
 
 					<li>
@@ -102,17 +102,16 @@
 				</ul>
 			</div> <!-- /.report-about -->
 
-			<ReportChart shareLink="https://example.com/" />
+			<ReportChart :imgSrc="imgSrc" shareLink="https://example.com/" />
+			
 		</template>
 	</Main>
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */
-import Loader from '@/blocks/loader/loader';
 import Subheader from '@/components/subheader/subheader';
 import SubheaderReport from '@/components/subheader/subheader-report';
 import Icon from '@/components/icon/icon';
@@ -124,7 +123,8 @@ import ContentToggle from '@/components/contenttoggle/contenttoggle';
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
 import ReportDataset from '@/components/report-dataset/report-dataset'
 
-import filesService from '@/services/files/files';
+// import filesService from '@/services/files/files';
+import chartsService from '@/services/charts/charts';
 import documentsService from '@/services/documents/documents';
 import variables from '@/assets/scss/generic/_variables.scss'
 
@@ -138,7 +138,6 @@ export default {
 	 * Components
 	 */
 	components: {
-		Loader,
 		Subheader,
 		SubheaderReport,
 		Icon,
@@ -160,7 +159,7 @@ export default {
 			loading: true,
 			message: '',
 			report: null,
-			
+			imgSrc: '',
 			suggestions: [
 				[
 					{
@@ -312,6 +311,14 @@ export default {
 		},
 		authors() {
 			return this.report ? this.report.originalDocument.metadata.authors : []
+		},
+		dataseerLink() {
+			const id = this.report?.originalDocument._id || '';
+			const token = this.report?.originalDocument.token || '';
+
+			if (!id && !token) return undefined
+			
+			return `${window.location.origin}/#/documents/${id}/datasets?token=${token}`
 		}
 	},
 
@@ -322,14 +329,50 @@ export default {
 		async getDocumentReport() {
 			try {
 				const report = await documentsService.getDocumentReport(this.documentID);
+				const { sortedDatasetsInfos } = report;
+				const imageData = await chartsService.getChart({
+					render: 'png',
+					
+					reUseDatasetsName: 'Data re-use correctly cited',
+					reUseDatasetsDone: sortedDatasetsInfos.datasets.filter(entry => entry.status === 'saved' && entry.reuse === true).length || 0,
+					reUseDatasetsTotal: sortedDatasetsInfos.datasets.filter(entry => entry.reuse === true).length || 0,
+					
+					newDatasetsName: 'New Datasets publicly shared',
+					newDatasetsDone: sortedDatasetsInfos.datasets.filter(entry => entry.status === 'saved' && entry.reuse === false).length || 0,
+					newDatasetsTotal: sortedDatasetsInfos.datasets.filter(entry => entry.reuse === false).length || 0,
+					
+					newCodesName: 'Original Code publicly shared',
+					newCodesDone: sortedDatasetsInfos.codes.filter(entry => entry.status === 'saved' && !entry.reuse).length || 0,
+					newCodesTotal: sortedDatasetsInfos.codes.filter(entry => entry.reuse === false).length || 0,
+					reUseCodesName: 'Code re-use correctly cited',
+					reUseCodesDone: sortedDatasetsInfos.codes.filter(entry => entry.status === 'saved' && entry.reuse).length || 0,
+					reUseCodesTotal: sortedDatasetsInfos.codes.filter(entry => entry.reuse === true).length || 0,
+					
+					reUseMaterialsName: 'Existing Materials identified',
+					reUseMaterialsDone: sortedDatasetsInfos.reagents.filter(entry => entry.status === 'saved' && entry.
+					reuse === true).length || 0,
+					reUseMaterialsTotal: sortedDatasetsInfos.reagents.filter(entry => entry.reuse === true).length || 0,
+					newMaterialsName: 'New Materials Available',
+					newMaterialsDone: sortedDatasetsInfos.reagents.filter(entry => entry.status === 'saved' && entry.reuse === false).length || 0,
+					newMaterialsTotal: sortedDatasetsInfos.reagents.filter(entry => entry.reuse === false).length || 0,
+					
+					reUseProtocolsName: 'Existing Protocol re-use correctly cited',
+					reUseProtocolsDone: sortedDatasetsInfos.softwares.filter(entry => entry.status === 'saved' && entry.reuse).length || 0,
+					reUseProtocolsTotal: sortedDatasetsInfos.softwares.filter(entry => entry.reuse === true).length || 0,
+					newProtocolsName: 'Protocols publicly shared',
+					newProtocolsDone: sortedDatasetsInfos.softwares.filter(entry => entry.status === 'saved' && !entry.reuse).length || 0,
+					newProtocolsTotal: sortedDatasetsInfos.softwares.filter(entry => entry.reuse === false).length || 0,
+				})
+				
 				this.report = report;
+				this.imgSrc = imageData
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;
 			}
 
 			this.loading = false;
-		}
+		},
 	},
 
 	/**
