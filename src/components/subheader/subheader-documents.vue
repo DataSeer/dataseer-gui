@@ -26,7 +26,10 @@
 					</li>
 
 					<li>
-						<Search @input="(value) => this.$emit('searchInput', value)" />
+						<Search
+							:value="searchInputValue"
+							@input="(value) => this.$emit('searchInput', value)"
+						/>
 					</li>
 
 					<li>
@@ -46,14 +49,33 @@ import Search from '@/components/search/search.vue';
 import Button from '@/components/button/button.vue';
 
 export default {
+	/**
+	 * Name
+	 */
 	name: 'SubheaderDocuments',
 
+	/**
+	 * Components
+	 */
 	components: {
 		Icon,
 		Search,
 		Button,
 	},
 
+	/**
+	 * Props
+	 */
+	props: {
+		searchInputValue: {
+			type: String,
+			default: ''
+		},
+	},
+
+	/**
+	 * Data
+	 */
 	data: function() {
 		return {
 			showMobileMenu: false,
@@ -62,11 +84,17 @@ export default {
 			},
 		};
 	},
-
+	
+	/**
+	 * Computed
+	 */
 	computed: {
 		...mapGetters(['getDocumentView', 'getFiltersVisibility']),
 	},
 
+	/**
+	 * Methods
+	 */
 	methods: {
 		...mapActions(['changeView', 'changeFiltersVisibility']),
 		toggleMobileMenu() {

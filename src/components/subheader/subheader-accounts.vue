@@ -25,7 +25,10 @@
 					</li>
 
 					<li>
-						<Search @input="(value) => this.$emit('searchInput', value)" />
+						<Search
+							:value="searchInputValue"
+							@input="(value) => this.$emit('searchInput', value)"
+						/>
 					</li>
 
 					<li v-if="userRoleWeight >= 1000">
@@ -57,6 +60,16 @@ export default {
 		Icon,
 		Search,
 		Button
+	},
+
+	/**
+	 * Props
+	 */
+	props: {
+		searchInputValue: {
+			type: String,
+			default: ''
+		},
 	},
 
 	/**

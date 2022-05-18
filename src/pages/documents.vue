@@ -3,6 +3,7 @@
 		<template #subheader>	
 			<Subheader>
 				<SubheaderDocuments
+					:searchInputValue="globalSearchValue"
 					@searchInput="handleSearchInput"
 					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
 				/>
@@ -38,10 +39,7 @@
 				mode="remote"
 				styleClass="vgt-table"
 				:isLoading.sync="loading"
-				:search-options="{
-					enabled: true,
-					externalQuery: searchTerm
-				}"
+				:row-style-class="rowStyleClassFn"
 				@on-sort-change="onSortChange"
 				@on-page-change="onPageChange"
 				@on-per-page-change="onPerPageChange"
@@ -323,7 +321,7 @@ export default {
 				page: 1, 
 				perPage: 10,
 			},
-			searchTerm: '',
+			globalSearchValue: '',
 			perPageOptions: [2, 5, 10, 20],
 			loading: true,
 			error: false,
@@ -350,7 +348,7 @@ export default {
 	 */
 	methods: {
 		handleSearchInput(value) {
-			this.searchTerm = value;
+			this.globalSearchValue = value;
 		},
 		formatOrganization(value) {
 			return value.map(entry => entry.name).join(', ').trim()
@@ -365,21 +363,33 @@ export default {
 			return value.article_title.length ? value.article_title : ''
 		},
 		onPageChange(params) {
-			this.updateParams({
+			this.globalSearchValue = '';
+			this.setpdateServerParams({
 				page: params.currentPage
 			});
 			this.getDocuments();
 		},
 		onPerPageChange(params) {
-			this.updateParams({
+			this.globalSearchValue = '';
+			this.setpdateServerParams({
 				perPage: params.currentPerPage
 			});
 			this.getDocuments();
 		},
 		onSortChange(params) {
-			this.updateParams({
+			this.globalSearchValue = '';
+			this.setpdateServerParams({
 				sort: params[0].type
 			});
+			this.getDocuments();
+		},
+		onApplyFilters(filters) {
+			this.globalSearchValue = '';
+			this.serverParams.filters = {
+				...filters,
+				owners: filters.owners?.join(',') || undefined,
+				organizations: filters.organizations?.join(',') || undefined
+			};
 			this.getDocuments();
 		},
 		copyText(text, message) {
@@ -392,19 +402,24 @@ export default {
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value;
 		},
-		updateParams(newProps) {
+		setServerParams(newProps) {
 			this.serverParams = {
 				...this.serverParams,
 				...newProps
 			};
 		},	
-		onApplyFilters(filters) {
-			this.serverParams.filters = {
-				...filters,
-				owners: filters.owners?.join(',') || undefined,
-				organizations: filters.organizations?.join(',') || undefined
-			};
-			this.getDocuments();
+		rowStyleClassFn(row) {
+			if (!this.globalSearchValue) return '';
+			const name = row.name|| '';
+			const organizations = row.organizations?.map(entry => entry.name).join('') || '';
+			const ownerName = row.owner?.fullname || '';
+			const ownerUsername = row.owner?.username || '';
+			const articleTitle = row.metadata?.article_title || '';
+			const journal = row.metadata?.journal || '';
+			
+			const rowData = (`${name} ${organizations} ${ownerName} ${ownerUsername} ${articleTitle} ${journal}`).toLowerCase().trim();
+					
+			return rowData.indexOf(this.globalSearchValue) > -1 ? '' : 'hidden';
 		},
 		async getDocuments() {
 			this.loading = true;
@@ -450,7 +465,7 @@ export default {
 				alert(e.message)
 			}
 
-			// this.loading = false;
+			this.loading = false;
 		}
 	},
 

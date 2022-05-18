@@ -5,7 +5,7 @@
 				name="search"
 				type="search"
 				placeholder="Search"
-				:value="search"
+				:value="value"
 				@input="(value) => this.$emit('input', value)"
 			/>
 
@@ -38,14 +38,15 @@ export default {
 		Icon,
 		Field
 	},
-
+	
 	/**
-	 * Data
+	 * Props
 	 */
-	data: function() {
-		return {
-			search: ''
-		};
+	props: {
+		value: {
+			type: String,
+			default: ''
+		},
 	},
 
 	/**

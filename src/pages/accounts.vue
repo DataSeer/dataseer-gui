@@ -8,6 +8,7 @@
 		<template #subheader>	
 			<Subheader>
 				<SubheaderAccounts
+					:searchInputValue="globalSearchValue"
 					@searchInput="handleSearchInput"
 					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
 			/>
@@ -15,7 +16,7 @@
 		</template>
 		
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-			<FormAccountsFilters :initialValues="filters" @onApplyFilters="applyFilters" />
+			<FormAccountsFilters :initialValues="filters" @onsetFilters="setFilters" />
 		</TableFilters>
 		
 		<Table modifier="accounts">
@@ -30,7 +31,7 @@
 				}"
 				:search-options="{
 					enabled: true,
-					externalQuery: searchTerm
+					externalQuery: globalSearchValue
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -198,7 +199,7 @@ export default {
 			],
 			rows: [],
 			filters: {},
-			searchTerm: '',
+			globalSearchValue: '',
 			itemsPerPage: 50,
 			perPageOptions: [5, 10, 20, 50],
 			filtersVisibility: false,
@@ -287,20 +288,20 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleSearchInput(value) {
-			this.searchTerm = value
-		},
-		applyFilters(filters) {
-			this.filters = { ...filters };
-		},
-		setFiltersVisibility(value) {
-			this.filtersVisibility = value
-		},
 		formatDate(value) {
 			return format(new Date(value), 'yyyy-MM-dd');
 		},
 		formatRole(value) {
 			return value.label
+		},
+		setFilters(filters) {
+			this.filters = { ...filters };
+		},
+		setFiltersVisibility(value) {
+			this.filtersVisibility = value
+		},
+		handleSearchInput(value) {
+			this.globalSearchValue = value
 		},
 		onPerPageChange(params) {
 			this.itemsPerPage = params.currentPerPage
