@@ -9,8 +9,8 @@
 			</p>
 		</FormHead>
 
-		<FormStatus v-if="error || success" :text="message" :isError="error" />
-
+		<FormStatus ref="formStatus" v-show="error || success" :text="message" :isError="error" />
+		
 		<FormBody>
 			<Grid rowGap="extralarge">
 				<GridColumn>
@@ -101,7 +101,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -122,6 +121,8 @@ import Form, { FormActions, FormHead, FormBody, FormStatus } from '@/components/
 import accountsService from '@/services/account/accounts';
 import documentsService from '@/services/documents/documents';
 import organizationsService from '@/services/organizations/organizations';
+
+import ScrollHandler from "@/utils/use-scroll-handler";
 
 export default {
 	/**
@@ -163,6 +164,10 @@ export default {
 			error: false,
 			loading: false,
 			message: '',
+			formMessages: {
+				success: 'Your document was successfully uploaded',
+				error: 'There was an error uploading your document.'
+			},
 			accountsList: [],
 			organizationsList: [],
 		};
@@ -238,13 +243,14 @@ export default {
 				await documentsService.addDocument(params)
 
 				this.success = true;
-				this.message = "Example success message";
+				this.message = this.formMessages.success;
 			} catch (error) {
 				this.error = true;
-				this.message = error.message;
+				this.message = error.message || this.formMessages.error;
 			}
 
 			this.loading = false;
+			ScrollHandler(this.$refs.formStatus.$el);
 		}
 	},
 

@@ -1,6 +1,6 @@
 <template>
 	<Form className="form--edit" @submit.prevent="updateRole" :loading="loading">
-		<FormStatus v-if="error || success" :text="message" :isError="error" />
+		<FormStatus ref="formStatus" v-show="error || success" :text="message" :isError="error" />
 
 		<FormBody>
 			<FormGroup title="Annotator">
@@ -148,7 +148,12 @@ export default {
 			error: false,
 			success: false,
 			message: '',
-			confirmDeleteMessage: 'Are you sure you want to delete this role?',
+			formMessages: {
+				deleted: 'You\'ve successfully deleted this Role',
+				updated: 'You\'ve successfully updated this Role',
+				error: 'There was an error updating this Role.',
+				confirmDelete: 'Are you sure you want to delete this Role?'
+			},
 		};
 	},
 
@@ -178,17 +183,17 @@ export default {
 			try {
 				await RoleService.updateRole(this.roleID, params);
 				this.success = true;
-				this.message = `${this.formData.key} has been successfully updated!`;
+				this.message = this.formMessages.updated;
 			
-			} catch (e) {
+			} catch (error) {
 				this.error = true;
-				this.message = e.message;
+				this.message = error.message || this.formMessages.error;
 			}
 			
 			this.loading = false;
 		},
 		async deleteRole() {
-			const confirm = window.confirm(this.confirmDeleteMessage);
+			const confirm = window.confirm(this.messages.confirmDelete);
 			if (!confirm) return
 
 			this.loading = true;
@@ -197,11 +202,11 @@ export default {
 				await RoleService.deleteRole(this.roleID);
 				
 				this.success = true;
-				this.message = `${this.formData.key} has been successfully deleted!`;
+				this.message = this.formMessages.deleted;
 				
-			} catch (e) {
+			} catch (error) {
 				this.error = true;
-				this.message = e.message;
+				this.message = error.message || this.formMessages.error;
 			}
 			
 			this.loading = false;

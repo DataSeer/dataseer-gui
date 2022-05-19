@@ -1,6 +1,6 @@
 <template>
 	<Form className="form--edit" @submit.prevent="handleFormSubmit" :loading="loading">
-		<FormStatus v-if="error || success" :text="message" :isError="error" />
+		<FormStatus ref="formStatus" v-show="error || success" :text="message" :isError="error" />
 		
 		<FormBody>
 			<FormGroup>
@@ -115,6 +115,8 @@ import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormBody, FormActions, FormStatus, FormGroup } from '@/components/form/form';
 import RoleService from '@/services/roles/roles';
 
+import ScrollHandler from "@/utils/use-scroll-handler";
+
 export default {
 	/**
 	 * Name
@@ -155,7 +157,11 @@ export default {
 			loading: false,
 			error: false,
 			success: false,
-			message: ''
+			message: '',
+			formMessages: {
+				success: 'You\'ve successfully added a new role',
+				error: 'There was an error adding your role.'
+			},
 		};
 	},
 
@@ -192,16 +198,17 @@ export default {
 			this.loading = true;
 
 			try {
-				const res = await RoleService.addRole(this.formData)
+				await RoleService.addRole(this.formData)
 				
 				this.success = true;
-				this.message = `${res.label} has been successfully added.`;
+				this.message = this.formMessages.success;
 			} catch (error) {
 				this.error = true;
-				this.message = error.message;	
+				this.message = error.message || this.formMessages.error;
 			}
 
 			this.loading = false;
+			ScrollHandler(this.$refs.formStatus.$el);
 		},
 		resetForm() {
 			this.error = false;

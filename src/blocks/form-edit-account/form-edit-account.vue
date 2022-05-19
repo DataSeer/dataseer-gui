@@ -1,6 +1,6 @@
 <template>
 	<Form className="form--edit" @submit.prevent="updateAccount" :loading="loading">
-		<FormStatus v-if="error || success" :text="message" :isError="error" />
+		<FormStatus ref="formStatus" v-show="error || success" :text="message" :isError="error" />
 
 		<FormBody>
 			<FormGroup :title="formData.username">
@@ -165,7 +165,13 @@ export default {
 			loading: false,
 			error: false,
 			success: false,
-			message: ''
+			message: '',
+			formMessages: {
+				deleted: 'You\'ve successfully deleted this Account',
+				updated: 'You\'ve successfully updated this Account',
+				error: 'There was an error updating this Account.',
+				confirmDelete: 'Are you sure you want to delete this Account?'
+			},
 		};
 	},
 
@@ -202,16 +208,16 @@ export default {
 				
 				this.success = true;
 				this.$emit('accountUpdated');
-				this.message = `${this.formData.username} was updated successfully!`;
+				this.message = this.formMessages.updated;
 			} catch (e) {
 				this.error = true;
-				this.message = e.message;
+				this.message = e.message || this.formMessages.error;
 			}
 
 			this.loading = false;
 		},
 		async deleteAccount() {
-			const confirmDelete = window.confirm('Are you sure you want to delete this Account?');
+			const confirmDelete = window.confirm(confirmDelete);
 
 			if (!confirmDelete) return;
 			this.resetForm();
@@ -221,10 +227,10 @@ export default {
 				await AccountsService.deleteAccount(this.$route.params.id);
 
 				this.success = true;
-				this.message = `${this.formData.username} deleted successfully!`;
-			} catch (e) {
+				this.message = this.formMessages.deleted;
+			} catch (error) {
 				this.error = true;
-				this.message = e.message;
+				this.message = error.message || this.formMessages.error;
 			}
 
 			this.loading = false;

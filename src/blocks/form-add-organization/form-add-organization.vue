@@ -1,6 +1,6 @@
 <template>
 	<Form className="form--edit" @submit.prevent="handleFormSubmit" :loading="loading">
-		<FormStatus v-if="error || success" :text="message" :isError="error" />
+		<FormStatus ref="formStatus" v-show="error || success" :text="message" :isError="error" />
 		
 		<FormBody>
 			<FormGroup>
@@ -77,6 +77,8 @@ import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormBody, FormActions, FormStatus, FormGroup } from '@/components/form/form';
 import organizationsService from '@/services/organizations/organizations';
 
+import ScrollHandler from "@/utils/use-scroll-handler";
+
 export default {
 	/**
 	 * Name
@@ -113,7 +115,11 @@ export default {
 			loading: false,
 			error: false,
 			success: false,
-			message: ''
+			message: '',
+			formMessages: {
+				success: 'You\'ve successfully added an organization',
+				error: 'There was an error adding your organization.'
+			},
 		};
 	},
 
@@ -146,13 +152,14 @@ export default {
 				await organizationsService.addOrganization(this.formData)
 
 				this.success = true;
-				this.message = 'Example Success message';
+				this.message = this.formMessages.success;
 			} catch (error) {
 				this.error = true;
-				this.message = error.message;	
+				this.message = error.message || this.formMessages.error;	
 			}
 
 			this.loading = false
+			ScrollHandler(this.$refs.formStatus.$el);
 		},
 		resetForm() {
 			this.error = false;

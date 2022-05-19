@@ -108,7 +108,13 @@ export default {
 			loading: false,
 			error: false,
 			success: false,
-			message: ''
+			message: '',
+			formMessages: {
+				deleted: 'You\'ve successfully deleted this Organization',
+				updated: 'You\'ve successfully updated this Organization',
+				error: 'There was an error updating this Organization.',
+				confirmDelete: 'Are you sure you want to delete this Organization?'
+			},
 		};
 	},
 
@@ -140,7 +146,7 @@ export default {
 				
 				this.title = res.name;
 				this.success = true;
-				this.message = `${res.name} has been updated!`;
+				this.message = this.formMessages.updated;
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;
@@ -159,7 +165,7 @@ export default {
 				this.formData.visible = organization.visible;
 			} catch (error) {
 				this.error = true;
-				this.message = error.message;
+				this.message = error.message || this.formMessages.error;
 			}
 
 			this.loading = false;
@@ -172,13 +178,13 @@ export default {
 			
 			try {
 				this.resetForm()
-				const res = await organizationsService.deleteOrganization(this.organizationId);
+				await organizationsService.deleteOrganization(this.organizationId);
 				
 				this.success = true;
-				this.message = `${res.name} has been deleted!`;
+				this.message = this.formMessages.deleted;
 			} catch (error) {
 				this.error = true;
-				this.message = error.message;
+				this.message = error.message || this.formMessages.error;
 			}
 
 			this.loading = false;
