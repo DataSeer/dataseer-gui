@@ -7,7 +7,14 @@
 	>
 		<template #subheader>	
 			<Subheader>
-				<SubheaderRoles @searchInput="handleSearchInput" />
+				<SubheaderTable
+					title="Roles"
+					icon="key"
+					buttonLabel="Add New Role"
+					buttonUrl="/add-role"
+					:searchInputValue="globalSearchValue"
+					@searchInput="handleSearchInput"
+				/>
 			</Subheader>
 		</template>
 
@@ -23,7 +30,7 @@
 				}"
 				:search-options="{
 					enabled: true,
-					externalQuery: searchTerm
+					externalQuery: globalSearchValue
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -80,7 +87,7 @@
  * Internal Dependencies
  */
 import Subheader from '@/components/subheader/subheader';
-import SubheaderRoles from '@/components/subheader/subheader-roles';
+import SubheaderTable from '@/components/subheader/subheader-table';
 import Table from '@/components/table/table';
 import Icon from '@/components/icon/icon';
 import Main from '@/components/main/main';
@@ -100,7 +107,7 @@ export default {
 	 */
 	components: {
 		Subheader,
-		SubheaderRoles,
+		SubheaderTable,
 		Table,
 		Icon,
 		Main,
@@ -153,7 +160,7 @@ export default {
 			rows: [],
 			filters: {},
 			itemsPerPage: 10,
-			searchTerm: '',
+			globalSearchValue: '',
 			perPageOptions: [2, 5, 10, 20, 50],
 			filtersVisibility: false,
 			loading: true,
@@ -167,7 +174,7 @@ export default {
 	 */
 	methods: {
 		handleSearchInput(value) {
-			this.searchTerm = value
+			this.globalSearchValue = value
 		},
 		updateFilters(filters) {
 			this.availableFilters = { ...filters };

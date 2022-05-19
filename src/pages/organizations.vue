@@ -7,9 +7,13 @@
 	>
 		<template #subheader>	
 			<Subheader>
-				<SubheaderOrganizations
+				<SubheaderTable
 					title="Edit Organization"
 					icon="organization"
+					buttonLabel="Add New Organization"
+					buttonUrl="/add-organization"
+					showFiltersButton
+					:searchInputValue="globalSearchValue"
 					@searchInput="handleSearchInput"
 					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
 				/>
@@ -20,7 +24,10 @@
 			v-if="filtersVisibility"
 			@closeButtonClick="setFiltersVisibility(false)"
 		>
-			<FormOrganizationFilters @onApplyFilters="applyFilters" />
+			<FormOrganizationFilters
+				:initialFilters="filters"
+				@applyFilters="applyFilters"
+			/>
 		</TableFilters>
 				
 		<Table modifier="organizations">
@@ -42,7 +49,7 @@
 				}"
 				:search-options="{
 					enabled: true,
-					externalQuery: searchTerm
+					externalQuery: globalSearchValue
 				}"
 				@on-per-page-change="onPerPageChange"
 			>
@@ -121,7 +128,7 @@ import AccountsService from '@/services/account/accounts';
 import TableFilters from '@/components/table/table-filters';
 import Pagination from '@/components/pagination/pagination.vue';
 import organizationsService from '@/services/organizations/organizations';
-import SubheaderOrganizations from '@/components/subheader/subheader-organizations';
+import SubheaderTable from '@/components/subheader/subheader-table';
 import FormOrganizationFilters from '@/blocks/form-organization-filters/form-organization-filters';
 
 export default {
@@ -141,7 +148,7 @@ export default {
 		Pagination,
 		Table,
 		TableFilters,
-		SubheaderOrganizations,
+		SubheaderTable,
 		FormOrganizationFilters
 	},
 
@@ -189,7 +196,7 @@ export default {
 			rows: [],
 			filters: {},
 			itemsPerPage: 50,
-			searchTerm: '',
+			globalSearchValue: '',
 			perPageOptions: [5, 10, 20, 50],
 			filtersVisibility: false,
 			loading: true,
@@ -241,7 +248,7 @@ export default {
 	 */
 	methods: {
 		handleSearchInput(value) {
-			this.searchTerm = value
+			this.globalSearchValue = value
 		},
 		formatDate(date) {
 			return format(new Date(date), 'yyyy-MM-dd');

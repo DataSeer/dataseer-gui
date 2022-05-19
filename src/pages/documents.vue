@@ -16,7 +16,7 @@
 		>
 			<FormFilters
 				:initialValues="serverParams.filters"
-				@onApplyFilters="onApplyFilters"
+				@applyFilters="onApplyFilters"
 			/>
 		</TableFilters>
 		
@@ -364,21 +364,21 @@ export default {
 		},
 		onPageChange(params) {
 			this.globalSearchValue = '';
-			this.setpdateServerParams({
+			this.setServerParams({
 				page: params.currentPage
 			});
 			this.getDocuments();
 		},
 		onPerPageChange(params) {
 			this.globalSearchValue = '';
-			this.setpdateServerParams({
+			this.setServerParams({
 				perPage: params.currentPerPage
 			});
 			this.getDocuments();
 		},
 		onSortChange(params) {
 			this.globalSearchValue = '';
-			this.setpdateServerParams({
+			this.setServerParams({
 				sort: params[0].type
 			});
 			this.getDocuments();

@@ -101,9 +101,9 @@ export default {
 	 * Props
 	 */
 	props: {
-		initialValues: {
+		initialFilters: {
 			type: Object,
-			default:  () => {}
+			default: () => {}
 		},
 	},
 
@@ -154,9 +154,10 @@ export default {
 	 */
 	methods: {
 		handleApplyFilters() {
-			const query = { ...this.formData };
-			this.$router.replace({ query });
-			this.$emit('onApplyFilters', this.formData);
+			// Filter all falsy values ( "", 0, false, null, undefined )
+			const query = Object.entries(this.formData).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {});
+			this.$router.push({ query }).catch(() => {})
+			this.$emit('applyFilters', query);
 			this.areFiltersApplied = true;
 		},
 		handleClearFilters() {
@@ -181,7 +182,7 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.formData = { ...this.initialValues }
+		this.formData = { ...this.initialFilters }
 		this.getOrganizationsList();
 	},
 };

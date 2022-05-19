@@ -6,7 +6,7 @@
 				type="search"
 				placeholder="Search"
 				:value="value"
-				@input="(value) => this.$emit('input', value)"
+				@input="handleInput"
 			/>
 
 			<button type="submit" aria-label="Submit Search">
@@ -20,7 +20,7 @@
 /**
  * Internal Dependencies
  */
-
+import { debounce } from '@/utils/use-debounce'
 import variables from '@/assets/scss/generic/_variables.scss'
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
@@ -56,6 +56,12 @@ export default {
 		cssVariables() {
 			return variables
 		},
+	},
+
+	methods: {
+		handleInput: debounce(function (value) {
+			this.$emit('input', value);	
+		}, 500) 
 	},
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
 	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
 		<div class="subheader__left">
-			<h3 id="subheader-title">
-				<Icon name="organization" color="currentColor" />
+			<h3 v-if="title" id="subheader-title">
+				<Icon v-if="icon" :name="icon" color="currentColor" />
 
-				Organizations
+				{{ title }}
 			</h3>
 		</div> <!-- /.subheader__left -->
 
@@ -13,7 +13,7 @@
 
 			<div class="subheader__menu">
 				<ul>
-					<li>
+					<li v-if="showFiltersButton">
 						<Button
 							className="tertiary"
 							square
@@ -23,13 +23,16 @@
 							<Icon name="settings" color="currentColor" />
 						</Button>
 					</li>
-
+					
 					<li>
-						<Search @input="(value) => this.$emit('searchInput', value)" />
+						<Search
+							:value="searchInputValue"
+							@input="(value) => this.$emit('searchInput', value)"
+						/>
 					</li>
 
-					<li v-if="userRoleWeight >= 1000">
-						<Button className="tertiary" to="/add-organization">Add New Organization</Button>
+					<li>
+						<Button className="tertiary" :to="buttonUrl" > {{ buttonLabel }} </Button>
 					</li>
 				</ul>
 			</div> <!-- /.subheader__menu -->
@@ -38,7 +41,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 
 import Icon from '@/components/icon/icon';
 import Search from '@/components/search/search.vue';
@@ -48,7 +50,7 @@ export default {
 	/**
 	 * Name
 	 */
-	name: 'SubheaderOrganizations',
+	name: 'SubheaderTable',
 
 	/**
 	 * Components
@@ -57,6 +59,32 @@ export default {
 		Icon,
 		Search,
 		Button
+	},
+
+	/**
+	 * Props
+	 */
+	props: {
+		
+		title: {
+			type: String
+		},
+		icon: {
+			type: String
+		},
+		buttonLabel: {
+			type: String
+		},
+		buttonUrl: {
+			type: String
+		},
+		searchInputValue: {
+			type: String
+		},
+		showFiltersButton: {
+			type: Boolean,
+			default: false
+		}
 	},
 
 	/**
@@ -72,20 +100,12 @@ export default {
 	},
 
 	/**
-	 * Computed
-	 */
-	computed: {
-		...mapGetters('account', ['userRoleWeight'])
-	},
-
-	/**
 	 * Methods
 	 */
 	methods: {
-		...mapActions(['changeView', 'changeFiltersVisibility']),
 		toggleMobileMenu() {
 			this.showMobileMenu = !this.showMobileMenu;
 		}
-	},
+	}
 };
 </script>

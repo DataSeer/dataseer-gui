@@ -7,16 +7,24 @@
 	>
 		<template #subheader>	
 			<Subheader>
-				<SubheaderAccounts
+				<SubheaderTable
+					title="Accounts"
+					icon="user"
+					buttonLabel="Add New Account"
+					buttonUrl="/add-account"
+					showFiltersButton
 					:searchInputValue="globalSearchValue"
 					@searchInput="handleSearchInput"
 					@filtersButtonClick="setFiltersVisibility(!filtersVisibility)"
-			/>
+				/>
 			</Subheader>
 		</template>
 		
 		<TableFilters v-if="filtersVisibility" @closeButtonClick="setFiltersVisibility(false)" >
-			<FormAccountsFilters :initialValues="filters" @onsetFilters="setFilters" />
+			<FormAccountsFilters
+				:initialFilters="filters"
+				@applyFilters="setFilters"
+			/>
 		</TableFilters>
 		
 		<Table modifier="accounts">
@@ -118,11 +126,11 @@ import Main from '@/components/main/main';
 import Table from '@/components/table/table';
 import Button from '@/components/button/button';
 import Subheader from '@/components/subheader/subheader';
-import AccountsService from '@/services/account/accounts';
+import SubheaderTable from '@/components/subheader/subheader-table';
 import Pagination from '@/components/pagination/pagination';
 import TableFilters from '@/components/table/table-filters';
-import SubheaderAccounts from '@/components/subheader/subheader-accounts';
 import FormAccountsFilters from '@/blocks/form-accounts-filters/form-accounts-filters';
+import AccountsService from '@/services/account/accounts';
 
 export default {
 	/**
@@ -141,7 +149,7 @@ export default {
 		Subheader,
 		Pagination,
 		TableFilters,
-		SubheaderAccounts,
+		SubheaderTable,
 		FormAccountsFilters
 	},
 
@@ -217,16 +225,7 @@ export default {
 		filteredRows: function() {
 			if (Object.keys(this.filters).length === 0) return this.rows;
 			
-			const {
-				username,
-				fullname,
-				organization,
-				role,
-				createdFrom,
-				createdTo,
-				lastUpdatedFrom,
-				lastUpdatedTo,
-			} = this.filters;
+			const { username, fullname, organization, role, createdFrom, createdTo, lastUpdatedFrom, lastUpdatedTo } = this.filters;
 
 			return this.rows
 				.filter(row => username?.length ? row.username.indexOf(username) !== -1 : true )
@@ -278,10 +277,7 @@ export default {
 
 					return true;
 				})
-		},
-		routerQuery: function() {
-			return this.$route.query
-		},
+		}
 	},
 
 	/**
@@ -294,8 +290,8 @@ export default {
 		formatRole(value) {
 			return value.label
 		},
-		setFilters(filters) {
-			this.filters = { ...filters };
+		setFilters(newFilters) {
+			this.filters = { ...newFilters };
 		},
 		setFiltersVisibility(value) {
 			this.filtersVisibility = value
@@ -323,7 +319,7 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.filters = { ...this.routerQuery }
+		this.filters = this.$route.query
 	},
 
 	/**

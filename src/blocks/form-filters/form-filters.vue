@@ -207,9 +207,11 @@ export default {
 			this.formData = {};
 		},
 		handleApplyFilters() {
-			const query = { ...this.formData };
-			this.$router.replace({ query });
-			this.$emit('onApplyFilters', this.formData);
+			// Filter all falsy values ( "", 0, false, null, undefined )
+			const query = Object.entries(this.formData).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {});
+			
+			this.$router.push({ query }).catch(() => {})
+			this.$emit('applyFilters', query);
 			this.areFiltersApplied = true;
 		},
 		disableUploadedAfter(date) {
