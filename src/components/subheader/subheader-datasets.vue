@@ -5,6 +5,7 @@
 				<nav v-if="datasetTypes.length" class="nav-datasets">
 					<ul>
 						<li v-for="type in datasetTypes" :key="type.id">
+							
 							<button
 								:data-value="type.id"
 								:class="{ 'is-active': type.id === activeDatasetType}"
@@ -44,8 +45,9 @@
 							id="subheader-title"
 							class="overflow-truncate"
 							@click.prevent="toggleSummary"
+							v-tooltip.bottom-center="document.metadata.article_title"
 						>
-							{{document.metadata.article_title}}
+							{{ document.metadata.article_title }}
 						</h6>
 
 						<Dropdown placement="right">

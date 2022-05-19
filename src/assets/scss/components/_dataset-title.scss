@@ -7,20 +7,17 @@
 	top: 19px;
 	left: 50%;
 	transform: translateX(-50%);
-	max-width: 33%; 
+	width: 21%; 
+	max-width: 690px; 
 	font-size: 14px; 
 	line-height: 1; 
 	text-align: center;
-	
-	@include breakpoint-down(large-desktop) {
-		max-width: 500px; 
-	}
 
-	@include breakpoint-down(small-desktop) {
-		max-width: 350px; 
-		left: 150px;
+	@include breakpoint-down(large-desktop) {
+		width: 260px;
+		left: 158px;
 		transform: translateX(0);
-		text-align-last: left;
+		text-align: left;
 	}
 	
 	h6 {
