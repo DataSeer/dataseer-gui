@@ -63,18 +63,18 @@
 			</div> <!-- /.report-group -->
 
 			<div class="report-group">
-				<ReportSuggestions title="Data Availability Statement" :suggestions="suggestions" />
+				<ReportSuggestions title="Research Output Availability Statement" :datasetsInfos="report.sortedDatasetsInfos" />
 			</div> <!-- /.report-group -->
 		</div><!-- /.report -->
 
 		<template #right>
 			<div class="report-about">
 				<ul>
-					<li>
+					<li v-if="report.originalDocument.metadata.doi">
 						<h6>Preprint link</h6>
 
-						<a href="https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full">
-							https://www.biorxiv.org/content/10.1101/2021.07.30.454065v1.full
+						<a :href="report.originalDocument.metadata.doi" target="_blank">
+							{{report.originalDocument.metadata.doi}}
 						</a >
 					</li>
 
@@ -84,7 +84,7 @@
 						<a :href="dataseerLink" target="_blank">{{report.originalDocument.name}}</a>
 					</li>
 
-					<li>
+					<li v-if="authors.length">
 						<h6>Authors ({{ authors.length }})</h6>
 
 						<Author v-for="(author, index) in leadAuthors" :key="index" :author="author"></Author>
@@ -330,6 +330,7 @@ export default {
 			try {
 				const report = await documentsService.getDocumentReport(this.documentID);
 				const { sortedDatasetsInfos } = report;
+				console.log(report);
 				const imageData = await chartsService.getChart({
 					render: 'png',
 					

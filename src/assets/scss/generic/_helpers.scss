@@ -2,6 +2,11 @@
   Helpers
 \* ------------------------------------------------------------ */
 
+/* Fix google recaptcha */
+.grecaptcha-badge {
+	z-index: 5000;
+}
+
 /* Alt Text */
 
 .alt-text {

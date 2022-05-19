@@ -16,7 +16,7 @@
 		color: $c-skyblue-61;
 	}
 	
-	.report__body {
+	.report__entries {
 		position: relative; 
 		padding: 20px 0; 
 		font-size: 14px; 
@@ -37,20 +37,8 @@
 			pointer-events: none;
 		}
 	}
-	
-	.report__body h6 {
-		margin-bottom: 3px; 
-		font-size: 12px; 
-		line-height: 1.17; 
-		font-weight: 700; 
-		font-family: inherit; 
-	}
-	
-	.report__body a {
-		word-break: break-all;
-	}
-	
-	.report__body ul {
+
+	.report__entry {
 		position: relative;
 		max-width: 510px;
 		padding: 12px 25px;
@@ -73,13 +61,37 @@
 			position: absolute; 
 			background-color: $c-primary; 
 		}
-
-		&:nth-child(even):before {
-			background-color: $c-purple-72; 
-		}
+	}
+	
+	.report__entry h6 {
+		margin-bottom: 3px; 
+		font-size: 12px; 
+		line-height: 1.17; 
+		font-weight: 700; 
+		font-family: inherit; 
+	}
+	
+	.report__entry a {
+		word-break: break-all;
+	}
+	
+	.report__entry li + li {
+		margin-top: 25px; 
 	}
 
-	.report__body li + li {
-		margin-top: 25px; 
+	.report__entry--datasets:before {
+		background-color: $c-primary; 
+	}
+	
+	.report__entry--codes:before {
+		background-color: $c-purple-72;
+	}
+	
+	.report__entry--reagents:before {
+		background-color: $c-orange-d2;
+	}
+	
+	.report__entry--protocols:before {
+		background-color: $c-green-40;
 	}
 }

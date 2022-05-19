@@ -8,25 +8,43 @@
 
 				{{ buttonText }}
 			</Button>
-		</div>
-		<!-- /.report__head -->
+		</div> <!-- /.report__head -->
 
-		<div v-if="suggestions" class="report__body" ref="source">
-			<ul v-for="(suggestion, index) in suggestions" :key="index">
-				<li v-for="(entry, index) in suggestion" :key="index">
-					<h6>{{ entry.title }}</h6>
+		<div v-if="datasetsInfos" class="report__entries" ref="source">
+			<ul class="report__entry report__entry--datasets" v-if="datasetsInfos.datasets.length">
+				<li v-for="entry in datasetsInfos.datasets" :key="entry.id">
+					<h6>{{ entry.name ? entry.name : entry.id }} | {{ entry.dataType }}</h6>
 
-					<a v-if="!entry.isPrivate" :href="entry.url" target="_blank">{{ entry.url }}</a>
-
-					<p v-if="entry.isPrivate">
-						The data are not publicly available due to their containing information that could compromise the privacy of research participants.
-					</p>
+					<a :href="entry.DOI" target="_blank">{{ entry.DOI }}</a>
 				</li>
 			</ul>
-		</div>
-		<!-- /.report__body -->
-	</div>
-	<!-- /.report-suggestions -->
+
+			<ul class="report__entry report__entry--codes" v-if="datasetsCodes.length">
+			
+				<li v-for="entry in datasetsCodes" :key="entry.id">
+					<h6>{{ entry.name ? entry.name : entry.id }} | {{ entry.subType }}</h6>
+
+					<a :href="entry.DOI" target="_blank">{{ entry.DOI ? entry.DOI : entry.RRID }}</a>
+				</li>
+			</ul>
+
+			<ul class="report__entry report__entry--reagents" v-if="datasetsInfos.reagents.length">
+				<li v-for="entry in datasetsInfos.reagents" :key="entry.id">
+					<h6>{{ entry.name ? entry.name : entry.id }} | {{ entry.subType }}</h6>
+
+					<a :href="entry.DOI" target="_blank">{{ entry.RRID }}</a>
+				</li>
+			</ul>
+
+			<ul class="report__entry report__entry--protocols" v-if="datasetsInfos.protocols.length">
+				<li v-for="entry in datasetsInfos.protocols" :key="entry.id">
+					<h6>{{ entry.name ? entry.name : entry.id }} | {{ entry.dataType }}</h6>
+
+					<a :href="entry.DOI" target="_blank">{{ entry.DOI }}</a>
+				</li>
+			</ul>
+		</div> <!-- /.report__entries -->
+	</div> <!-- /.report-suggestions -->
 </template>
 
 <script>
@@ -44,7 +62,7 @@ export default {
 	 */
 	props: {
 		title: String,
-		suggestions: Array
+		datasetsInfos: Object
 	},
 
 	/**
@@ -62,6 +80,15 @@ export default {
 		return {
 			buttonText: 'Copy To Clipboard'
 		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		datasetsCodes() {
+			return [...this.datasetsInfos.codes, ...this.datasetsInfos.softwares];
+		}
 	},
 
 	/**
