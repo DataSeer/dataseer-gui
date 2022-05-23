@@ -226,10 +226,7 @@ export default {
 		},
 		isDatatypeFlagged(datatype) {
 			return this.datasets.some(el =>  {
-					return el.datasetType === datatype && (
-						el.issue === 'true' ||
-						el.issue === true
-					)
+					return el.datasetType === datatype && ( el.flagged == true)
 				}
 			)
 		}

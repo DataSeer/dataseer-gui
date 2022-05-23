@@ -10,7 +10,6 @@
 					@change="updateIssue"
 				/>
 			</div><!-- /.form__head -->
-			
 
 			<div class="form__body">
 				<FieldIssue
@@ -24,20 +23,20 @@
 					name="Additional Comments"
 					type="textarea"
 					placeholder="Additional Comments"
-					v-model="additionalComments"
+					v-model="formData.additionalComments"
 				/>
 			</div><!-- /.form__body -->
 
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small" @onClick.prevent="saveIssues">
+						<Button size="small" @onClick.prevent="handleSubmit">
 							Save issues
 						</Button>
 					</li>
 
 					<li>
-						<ButtonLink @onClick="cancel">Cancel</ButtonLink>
+						<ButtonLink @onClick.prevent="$emit('cancel')">Cancel</ButtonLink>
 					</li>
 				</ul>
 			</div><!-- /.form__actions -->
@@ -80,8 +79,9 @@ export default {
 
 	data() {
 		return {
-			isIssuesDropdownVisible: false,
-			additionalComments: '',
+			formData: {
+				additionalComments: '',
+			},
 			issues: [
 				{
 					id: 'issue1',
@@ -145,17 +145,13 @@ export default {
 		updateIssue(id, key, value) {
 			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
 			this.issues[issueIndex][key] = value;
-
-			// Close dropdown after each selected issue
-			this.isIssuesDropdownVisible = false;
 		},
-		saveIssues() {
-			console.log('Save issues');
-		},
-		cancel(e) {
-			e.preventDefault();
-			this.$emit('cancelClick')
-		},
+		handleSubmit() {
+			this.$emit('submit', {
+				issues: this.activeIssues,
+				additionalComments: this.formData.additionalComments
+			});
+		}
 	},
 };
 </script>

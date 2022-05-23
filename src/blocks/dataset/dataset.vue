@@ -5,7 +5,19 @@
 		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<FormIssues v-if="formData.flagged"/>
+			<template v-if="formData.flagged">
+				<FormCuratorIssues
+					v-if="userRoleWeight >= 1000"
+					@submit="handleIssuesFormSubmit"
+					@cancel="handleIssuesFormCancel"
+				/>
+				
+				<FormDefaultIssues
+					v-else
+					@submit="handleIssuesFormSubmit"
+					@messageCurator="handleMessageCurator"
+				/>
+			</template>
 
 			<p v-if="textReferences.length > 1" class="dataset-references">
 				<Icon name="references" />
@@ -146,7 +158,8 @@ import Button from '@/components/button/button'
 import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 
 import Form, { FormBody, FormHead } from '@/components/form/form';
-import FormIssues from '@/blocks/form-issues/form-issues';
+import FormDefaultIssues from '@/blocks/form-issues/form-default-issues';
+import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 import FormConnectText from '@/blocks/form-connect-text/form-connect-text';
 import FormDataset from '@/blocks/form-dataset/form-dataset-default';
@@ -177,7 +190,8 @@ export default {
 		FormBody,
 		RichtextEntry,
 		FormConnectText,
-		FormIssues
+		FormDefaultIssues,
+		FormCuratorIssues
 	},
 
 	/**
@@ -304,6 +318,15 @@ export default {
 		},
 		toggleIssuesForm() {
 			this.formData.flagged = !this.formData?.flagged
+		},
+		handleIssuesFormSubmit(formdata) {
+			console.log(formdata);
+		},
+		handleIssuesFormCancel() {
+			this.formData.flagged = false
+		},
+		handleMessageCurator() {
+			console.log('handleIssuesFormCancel');
 		},
 		openPopup() {
 			this.$refs.textPassagePopup.showModal();

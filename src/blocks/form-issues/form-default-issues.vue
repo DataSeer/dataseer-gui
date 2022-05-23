@@ -7,8 +7,7 @@
 				<p class="form__author">from Carli C.</p>
 
 				<p class="form__date">3 Days Ago</p>
-			</div>
-			<!-- /.form__heading -->
+			</div> <!-- /.form__heading -->
 
 			<div class="form__body">
 				<FieldIssue
@@ -19,22 +18,20 @@
 				/>
 
 				<div class="form__comment">
-					{{ additionalComments }}
-				</div>
-				<!-- /.form__comment -->
-			</div>
-			<!-- /.form__body -->
+					{{ formData.additionalComments }}
+				</div> <!-- /.form__comment -->
+			</div> <!-- /.form__body -->
 
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small" className="tertiary">
+						<Button size="small" className="tertiary" @onClick.prevent="handleSubmit">
 							All Issues Addressed
 						</Button>
 					</li>
 
 					<li>
-						<ButtonLink>Message Curator</ButtonLink>
+						<ButtonLink @onClick.prevent="$emit('messageCurator')">Message Curator</ButtonLink>
 					</li>
 				</ul>
 			</div>
@@ -73,8 +70,9 @@ export default {
 	 */
 	data() {
 		return {
-			additionalComments:
-				'In addition to the 2 issues above, please also link to the abc-xyz set. Thanks!',
+			formData: {
+				additionalComments: ''
+			},
 			issues: [
 				{
 					id: 'issue1',
@@ -173,6 +171,12 @@ export default {
 		updateIssue(id, key, value) {
 			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
 			this.issues[issueIndex][key] = value;
+		},
+		handleSubmit() {
+			this.$emit('submit', {
+				issues: this.activeIssues,
+				additionalComments: this.formData.additionalComments
+			});
 		}
 	}
 };

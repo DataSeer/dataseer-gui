@@ -43,7 +43,7 @@
 						v-tooltip.right="dataset.description"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
-						<Dot v-if="dataset.issue === 'true'" />
+						<Dot v-if="dataset.flagged" />
 
 						<span>
 							<Icon v-if="dataset.status === 'saved'" name="check" color="currentColor" />
