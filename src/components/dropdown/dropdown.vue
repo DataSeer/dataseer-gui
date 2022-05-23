@@ -1,5 +1,5 @@
 <template>
-	<div class="dropdown-holder" ref="dropdown">
+	<div class="dropdown-holder js-dropdown-holder" ref="dropdown">
 		<button tabindex="0" class="dropdown__header" @click="handleClick" aria-label="dropdown">
 			<slot name="header" />
 		</button> <!-- /.dropdown__header -->

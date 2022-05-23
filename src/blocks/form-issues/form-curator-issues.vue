@@ -1,28 +1,16 @@
 <template>
-	<div class="form form--issues">
+	<div class="form form--issues form--curator-issues">
 		<form action="?" method="post">
 			<div class="form__head">
 				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
-
-				<Button
-					className="tertiary"
-					size="small"
-					:active="isIssuesDropdownVisible"
-					@onClick.prevent="toggleIssuesDropdown"
-				>
-					<Icon name="plus" />
-
-					Select issues
-				</Button>
-			</div><!-- /.form__head -->
-
-			<div v-if="isIssuesDropdownVisible" class="form__issues">
+				
 				<FieldIssues
 					text="Select all that apply…"
 					:issues="issues"
 					@change="updateIssue"
 				/>
-			</div><!-- /.form__issues -->
+			</div><!-- /.form__head -->
+			
 
 			<div class="form__body">
 				<FieldIssue
@@ -43,7 +31,7 @@
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small" @onClick="saveIssues">
+						<Button size="small" @onClick.prevent="saveIssues">
 							Save issues
 						</Button>
 					</li>
@@ -62,7 +50,6 @@
  * Internal Dependencies
  */
 import Dot from '@/components/dot/dot';
-import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
 import ButtonLink from '@/components/button-link/button-link';
@@ -80,7 +67,6 @@ export default {
 	 */
 	components: {
 		Dot,
-		Icon,
 		Field,
 		Button,
 		ButtonLink,
@@ -105,29 +91,36 @@ export default {
 					active: false
 				},
 				{
-					id: 'issue1',
+					id: 'issue2',
 					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
 					required: true,
 					completed: true,
 					active: false
 				},
 				{
-					id: 'issue1',
+					id: 'issue3',
 					label: 'Item not yet publicly accessible',
 					required: true,
 					completed: true,
 					active: false
 				},
 				{
-					id: 'issue1',
+					id: 'issue4',
 					label: 'Not an appropriate reference',
 					required: true,
 					completed: true,
 					active: false
 				},
 				{
-					id: 'issue1',
+					id: 'issue5',
 					label: 'Dataset not provided',
+					required: true,
+					completed: true,
+					active: false
+				},
+				{
+					id: 'issue6',
+					label: 'Other',
 					required: true,
 					completed: true,
 					active: false
@@ -149,20 +142,20 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		toggleIssuesDropdown() {
-			this.isIssuesDropdownVisible = !this.isIssuesDropdownVisible;
-		},
 		updateIssue(id, key, value) {
 			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
 			this.issues[issueIndex][key] = value;
+
+			// Close dropdown after each selected issue
+			this.isIssuesDropdownVisible = false;
 		},
-		saveIssues(e) {
-			e.preventDefault();
+		saveIssues() {
+			console.log('Save issues');
 		},
 		cancel(e) {
 			e.preventDefault();
 			this.$emit('cancelClick')
-		}
-	}
+		},
+	},
 };
 </script>

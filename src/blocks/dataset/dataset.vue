@@ -5,7 +5,7 @@
 		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<FormIssues v-if="formData.flagged && userRoleWeight < 1000" />
+			<FormIssues v-if="formData.flagged"/>
 
 			<p v-if="textReferences.length > 1" class="dataset-references">
 				<Icon name="references" />
@@ -20,11 +20,7 @@
 					<DropdownNavDatasets :datasets="textReferences" @dropdownButtonClick="handleDropdownButtonClick" />
 				</Dropdown>
 			</p><!-- /.datasets-references -->
-
-			<FormCuratorIssues
-				v-if="formData.flagged && userRoleWeight >= 1000"
-				@cancelClick="toggleIssuesForm"
-			/>
+			
 
 			<Form className="form--dataset" :loading="isFormSubmitting">
 				<FormHead>
@@ -151,7 +147,6 @@ import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 
 import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormIssues from '@/blocks/form-issues/form-issues';
-import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
 
 import FormConnectText from '@/blocks/form-connect-text/form-connect-text';
 import FormDataset from '@/blocks/form-dataset/form-dataset-default';
@@ -180,10 +175,9 @@ export default {
 		DropdownNavDatasets,
 		FormHead,
 		FormBody,
-		FormIssues,
 		RichtextEntry,
 		FormConnectText,
-		FormCuratorIssues,
+		FormIssues
 	},
 
 	/**

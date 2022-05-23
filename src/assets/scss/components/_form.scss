@@ -11,6 +11,7 @@
 	
 	/* Form Head */
 	.form__head {
+		position: relative;
 		margin-bottom: 20px;
 		font-family: $ff-titles;
 	}
@@ -483,11 +484,9 @@
 	border-radius: 6px;
 
 	.form__head {
-		margin-bottom: 8px;
+		padding-bottom: 8px;
 		display: flex;
 		align-items: center;
-		font-size: 12px;
-		font-family: inherit;
 	}
 
 	.form__author,
@@ -529,21 +528,9 @@
 	.form__head .btn {
 		margin-left: auto;
 	}
-
-	.form__issues {
-		position: relative;
-		z-index: 100;
-	}
-
+	
 	.form__comment {
 		padding: 0 7px;
-	}
-
-	.field-issues {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
 	}
 
 	.btn {
@@ -577,10 +564,6 @@
 		border-color: #e9dad6;
 		background-color: $c-white;
 
-		&.is-active {
-			border-color: #8d2424;
-		}
-
 		&:hover,
 		&:focus {
 			color: $c-base;
@@ -595,5 +578,29 @@
 
 	.btn-link {
 		color: #9a7c74;
+	}
+
+	.field-issues.is-active .btn--tertiary {
+		border-color: #8d2424;
+	}
+}
+
+
+/* Form Curator Issues */
+
+.form--curator-issues {
+	.form__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}	
+}
+
+/* Form Default Issues */
+
+.form--default-issues {
+	.form__head {
+		font-size: 12px;
+		font-family: inherit;		
 	}
 }

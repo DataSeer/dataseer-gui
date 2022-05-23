@@ -3,7 +3,7 @@ const clearDropdown = function(dropdown) {
 }
 
 const clearDropdowns = function() {
-	const dropdowns = document.querySelectorAll('.dropdown-holder.is-active');
+	const dropdowns = document.querySelectorAll('.c.is-active');
 
 	if (!dropdowns) return
 	
@@ -13,7 +13,7 @@ const clearDropdowns = function() {
 }
 
 const clearDropdownsOnClick = function(event) {
-	const dropdowns = document.querySelectorAll('.dropdown-holder.is-active');
+	const dropdowns = document.querySelectorAll('.js-dropdown-holder.is-active');
 
 	if (!dropdowns) return
 	

@@ -1,35 +1,65 @@
 <template>
-	<div v-if="issues" class="field-issues">
-		<p v-if="text">{{ text }}</p>
+	<div
+		v-if="issues"
+		ref="dropdown"
+		class="field-issues js-dropdown-holder"
+	>
+		<Button
+			className="tertiary"
+			size="small"
+			:active="isActive"
+			@onClick.prevent="toggleIssuesDropdown"
+		>
+			<Icon name="plus" />
 
-		<ul>
-			<li v-for="issue in issues" :key="issue.id">
-				<input
-					tabindex="0"
-					type="checkbox"
-					class="sr-only"
-					:name="issue.id + '-active'"
-					:id="issue.id + '-active'"
-					:value="issue.active"
-					:checked="issue.active"
-					@change="handleChange"
-				/>
+			Select issues
+		</Button>
 
-				<label :for="issue.id + '-active'">
-					{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
-				</label>
-			</li>
-		</ul>
+		<div class="field__inner">
+			<p v-if="text">{{ text }}</p>
+
+			<ul>
+				<li v-for="issue in issues" :key="issue.id">
+					<input
+						tabindex="0"
+						type="checkbox"
+						class="sr-only"
+						:name="issue.id + '-active'"
+						:id="issue.id + '-active'"
+						:value="issue.active"
+						:checked="issue.active"
+						@change="handleChange"
+					/>
+
+					<label :for="issue.id + '-active'">
+						{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
+					</label>
+				</li>
+			</ul>
+		</div><!-- /.field__inner -->
 	</div>
-	<!-- /.field -->
 </template>
 
 <script>
+/**
+ * Internal Dependencies
+ */
+import Icon from '@/components/icon/icon';
+import Button from '@/components/button/button';
+
 export default {
 	/**
 	 * Name
 	 */
 	name: 'FieldIssues',
+
+	/**
+	 * Components
+	 */
+	components: {
+		Icon,
+		Button
+	},
 
 	/**
 	 * Props
@@ -44,6 +74,12 @@ export default {
 		}
 	},
 
+	computed: {
+		isActive() {
+			return true
+		}
+	},
+
 	/**
 	 * Methods
 	 */
@@ -54,7 +90,11 @@ export default {
 			const issueValue = e.target.checked;
 
 			this.$emit('change', issueID, issueKey, issueValue);
-		}
+			this.$refs.dropdown.classList.remove('is-active');
+		},
+		toggleIssuesDropdown() {
+			this.$refs.dropdown.classList.toggle('is-active');
+		},
 	}
 };
 </script>
