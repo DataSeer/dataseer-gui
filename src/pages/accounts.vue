@@ -78,9 +78,9 @@
 						</ul>
 					</span>
 
-					<span v-else-if="props.column.field === 'disabled'">
-						<span :style="{color: props.row.disabled ? '#006AC9' : '#8CABCD'}">
-							{{props.row.disabled ? 'Active' : 'Inactive'}}
+					<span v-else-if="props.column.field === 'visible'">
+						<span :style="{color: props.row.visible ? '#006AC9' : '#8CABCD'}">
+							{{props.row.visible ? 'Active' : 'Inactive'}}
 						</span>
 					</span>
 
@@ -192,7 +192,7 @@ export default {
 					sortable: false,
 				},
 				{
-					field: 'disabled',
+					field: 'visible',
 					label: 'Status',
 					sortable: false,
 					globalSearchDisabled: true

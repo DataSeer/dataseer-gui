@@ -217,7 +217,7 @@ export default {
 			this.loading = false;
 		},
 		async deleteAccount() {
-			const confirmDelete = window.confirm(confirmDelete);
+			const confirmDelete = window.confirm(this.formMessages.confirmDelete);
 
 			if (!confirmDelete) return;
 			this.resetForm();

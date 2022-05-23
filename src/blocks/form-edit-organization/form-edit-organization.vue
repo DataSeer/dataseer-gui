@@ -171,7 +171,7 @@ export default {
 			this.loading = false;
 		},
 		async deleteOrganization() {
-			const confirmDelete = window.confirm('Are you sure you want to delete this Organization?');
+			const confirmDelete = window.confirm(this.formMessages.confirmDelete);
 
 			if (!confirmDelete) return;
 			this.loading = true;

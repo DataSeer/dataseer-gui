@@ -33,7 +33,7 @@ const getOrganizationsList = () => {
 			const data = res.data.res.map((organization) => ({
 				value: organization._id,
 				label: organization.name
-			}))
+			})).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 
 			return [...data];
 		}

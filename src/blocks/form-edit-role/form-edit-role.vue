@@ -193,7 +193,7 @@ export default {
 			this.loading = false;
 		},
 		async deleteRole() {
-			const confirm = window.confirm(this.messages.confirmDelete);
+			const confirm = window.confirm(this.formMessages.confirmDelete);
 			if (!confirm) return
 
 			this.loading = true;

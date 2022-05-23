@@ -7,19 +7,6 @@
 				<Grid columnGap="large">
 					<GridColumn>
 						<Field
-							:error="$v.formData.username.$error"
-							placeholder="Username"
-							v-model.trim="formData.username"
-							name="fullname"
-						>
-							<Icon name="email" color="currentColor" />
-
-							Username
-						</Field>
-					</GridColumn>
-
-					<GridColumn>
-						<Field
 							:error="$v.formData.fullname.$error"
 							placeholder="Full Name"
 							v-model.trim="formData.fullname"
@@ -28,6 +15,19 @@
 							<Icon name="user" color="currentColor" />
 
 							Full Name
+						</Field>
+					</GridColumn>
+
+					<GridColumn>
+						<Field
+							:error="$v.formData.username.$error"
+							placeholder="Email Address"
+							v-model.trim="formData.username"
+							name="username"
+						>
+							<Icon name="email" color="currentColor" />
+
+							Email Address
 						</Field>
 					</GridColumn>
 
@@ -91,20 +91,20 @@
 								<li>
 									<FieldCheckbox
 										name="isActive"
-										v-model="formData.disabled"
+										v-model="formData.visible"
 										isToggle
 									>
-										Account Is {{ formData.disabled ? 'Active' : 'Inactive' }}
+										Account Is {{ formData.visible ? 'Active' : 'Inactive' }}
 									</FieldCheckbox>
 								</li>
 
 								<li>
 									<FieldCheckbox
 										name="isLocked"
-										v-model="formData.visible"
+										v-model="formData.disabled"
 										isToggle
 									>
-										Account Is {{ formData.visible ? 'Locked' : 'Not Locked' }}
+										Account Is {{ formData.disabled ? 'Locked' : 'Not Locked' }}
 									</FieldCheckbox>
 								</li>
 							</ul>
@@ -184,8 +184,8 @@ export default {
 				password: '',
 				confirm_password: '',
 				role: '',
+				visible: true,
 				disabled: false,
-				visible: false,
 				organizations: []
 			},
 			rolesList: [],
