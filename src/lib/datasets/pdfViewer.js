@@ -1109,7 +1109,9 @@ PdfViewer.prototype._scrollToSentence = function(sentence) {
 			10
 		),
 		pages = this.viewer.find(`div[class="page"]`),
-		height = 0;
+		height = 0,
+		screenHeight = this.screenElement.getBoundingClientRect().height || 0;
+		
 	for (let i = 0; i < pages.length; i++) {
 		let page = pages[i],
 			el = $(page),
@@ -1118,7 +1120,7 @@ PdfViewer.prototype._scrollToSentence = function(sentence) {
 		height += el.outerHeight();
 	}
 	this.currentPage = numPage;
-	return height + element.position().top;
+	return height + element.position().top - (screenHeight / 2);
 };
 
 // selectSentence

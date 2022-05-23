@@ -5,6 +5,7 @@
 .popup {
 	.v--modal-overlay {
 		z-index: 10001;
+		padding: 20px 0;
 		background-color: transparent;
 	}
 	
@@ -27,5 +28,9 @@
 		position: absolute;
 		top: 17px;
 		right: 21px;
+	}
+
+	.richtext-entry .richtext__body {
+		max-height: none;
 	}
 }
