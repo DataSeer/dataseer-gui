@@ -98,12 +98,13 @@
 				</Grid>
 			</FormGroup>
 
-			<FormGroup title="Authors">
+			<FormGroup v-if="formattedAuthors.length" title="Authors">
 				<Accordion>
-					<AccordionItem v-for="(author, index) in authors" :key="index" :label=author.name>
+					<AccordionItem v-for="(author, index) in formattedAuthors" :key="index" :label="author.name">
 						<Field
 							:name="`author-${index}-name`"
-							v-model="authors[index].name"
+							:value="authors[author.id].name"
+							@input="value => authors[author.id].name = value"
 						>
 							Name
 						</Field>
@@ -117,9 +118,8 @@
 						</Field>
 
 						<Field
+							readonly 
 							type="textarea"
-							placeholder="Name"
-							readonly
 							v-model="authors[index].affiliations"
 							:name="`author-${index}-affiliations`"
 						>
@@ -221,7 +221,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -291,7 +290,7 @@ export default {
 			error: false,
 			success: false,
 			message: '',
-			authors: '',
+			authors: [],
 			primaryFileName: '',
 			primaryFile: '',
 			appendFiles: '',
@@ -310,6 +309,9 @@ export default {
 		documentId() {
 			return this.data._id
 		},
+		formattedAuthors() {
+			return this.authors.filter(item => item.name)
+		}
 	},
 
 	/**
@@ -343,13 +345,20 @@ export default {
 			} = this.data;
 
 			// Populate authors
-			this.authors = authors;
+			this.authors = authors
+				.map((item, index) => ({
+					id: index,
+					authors: item.affiliations.join(', '),
+					...item,
+				}))
 
 			// Populate metadata
-			this.formMetadata.journal = journal;
-			this.formMetadata.publisher = publisher;
-			this.formMetadata.createdAt = createdAt;
-			this.formMetadata.doi = doi;
+			this.formMetadata = {
+				journal: journal,
+				publisher: publisher,
+				createdAt: createdAt,
+				doi: doi
+			}
 			
 			// Populate form data
 			this.formData = {
@@ -379,6 +388,7 @@ export default {
 				await documentsService.updateDocument(this.documentId, this.formData);
 				await documentsService.updateDocumentMetadata(this.documentId, {
 					...this.formMetadata,
+					authors: this.authors
 				});
 				
 				this.success = true;
