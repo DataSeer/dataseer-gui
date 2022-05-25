@@ -1,7 +1,7 @@
 <template>
-	<div v-if="imgSrc" class="report-chart">
+	<div v-if="src" class="report-chart">
 		<div class="report__graph">
-			<img :src="imgSrc" alt="Chart" />
+			<img :src="src" alt="Chart" />
 		</div> <!-- /.report__graph -->
 
 		<div class="report__content">
@@ -28,7 +28,7 @@
 
 		<Popup ref="reportChartPopup" name="report-chart-popup">
 			<figure>
-				<img :src="imgSrc" alt="Chart" />
+				<img :src="src" alt="Chart" />
 			</figure>
 		</Popup>
 	</div>
@@ -59,11 +59,11 @@ export default {
 	 * Props
 	 */
 	props: {
-		shareLink: {
+		url: {
 			type: String,
 			default: ''
 		},
-		imgSrc: {
+		src: {
 			type: String,
 			default: undefined
 		}
@@ -86,7 +86,7 @@ export default {
 		copyLinkToClip() {
 			const listener = (e) => {
 				e.preventDefault();
-				e.clipboardData.setData('text/plain', this.shareLink);
+				e.clipboardData.setData('text/plain', this.url);
 
 				this.copyButtonText = 'Copied';
 

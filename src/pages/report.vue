@@ -2,27 +2,25 @@
 	<Main
 		:loading="loading"
 		:error="error"
-		:errorMessage="message"
+		:errorMessage="errorMessage"
 		className="main--report"
 	>
-		<template #subheader>	
+		<template #subheader>
 			<Subheader>
 				<SubheaderReport />
 			</Subheader>
 		</template>
 
-		<div v-if="report" class="report">
+		<div class="report">
 			<div class="report-group">
 				<div class="report-title">
 					<h1>{{report.originalDocument.name}}</h1>
 					
-					<template v-if="report.originalDocument.identifiers.doi" >
-						<p>
-							<Icon name="chain" :color="cssVariables.primary" />
+					<p v-if="report.originalDocument.metadata.doi">
+						<Icon name="chain" :color="cssVariables.primary" />
 
-							<strong>DOI</strong> <a href="#">https://doi.org/10.1101/2021.07.30.454065</a>
-						</p>
-					</template>
+						<strong>DOI</strong> <a href="#">{{report.originalDocument.metadata.doi}}</a>
+					</p>
 				</div> <!-- /.report-title -->
 			</div> <!-- /.report-group -->
 
@@ -84,7 +82,7 @@
 						<a :href="dataseerLink" target="_blank">{{report.originalDocument.name}}</a>
 					</li>
 
-					<li v-if="authors.length">
+					<li v-if="authors">
 						<h6>Authors ({{ authors.length }})</h6>
 
 						<Author v-for="(author, index) in leadAuthors" :key="index" :author="author"></Author>
@@ -102,13 +100,13 @@
 				</ul>
 			</div> <!-- /.report-about -->
 
-			<ReportChart :imgSrc="imgSrc" shareLink="https://example.com/" />
-			
+			<ReportChart :src="graphImg" :url="graphURL" />
 		</template>
 	</Main>
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -155,11 +153,31 @@ export default {
 	 */
 	data: function() {
 		return {
-			error: false,
 			loading: true,
-			message: '',
-			report: null,
-			imgSrc: '',
+			error: false,
+			errorMessage: '',
+			report: {
+				sortedDatasetsInfos: {
+					all: [],
+					protocols: [],
+					codes: [],
+					softwares: [],
+					reagents: [],
+					datasets: []
+				},
+				originalDocument: {
+					name: '',
+					status: '',
+					softcite: '',
+					pdf: '',
+					tei: '',
+					metadata: {
+						doi: '',
+					},
+				},
+			},
+			graphImg: '',
+			graphURL: '',
 			suggestions: [
 				[
 					{
@@ -297,20 +315,24 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		authors() {
+			// Get report authors and filter cases where author got no name or email
+			const authors = this.report?.originalDocument.metadata.authors?.filter(author => author.name || author.email );
+			return authors || []
+		},
 		leadAuthors() {
-			return this.authors.filter((author) => author.isLeadAuthor);
+			// Get lead authors only
+			return this.authors.filter(author => author.isLeadSubmitting);
 		},
 		nonLeadAuthors() {
-			return this.authors.filter((author) => !author.isLeadAuthor);
+			// Get non lead authors only
+			return this.authors.filter(author => !author.isLeadSubmitting);
 		},
 		documentID() {
 			return this.$route.params.id
 		},
 		cssVariables() {
 			return variables
-		},
-		authors() {
-			return this.report ? this.report.originalDocument.metadata.authors : []
 		},
 		dataseerLink() {
 			const id = this.report?.originalDocument._id || '';
@@ -330,10 +352,7 @@ export default {
 			try {
 				const report = await documentsService.getDocumentReport(this.documentID);
 				const { sortedDatasetsInfos } = report;
-				console.log(report);
-				const imageData = await chartsService.getChart({
-					render: 'png',
-					
+				const graphParams = {
 					reUseDatasetsName: 'Data re-use correctly cited',
 					reUseDatasetsDone: sortedDatasetsInfos.datasets.filter(entry => entry.status === 'saved' && entry.reuse === true).length || 0,
 					reUseDatasetsTotal: sortedDatasetsInfos.datasets.filter(entry => entry.reuse === true).length || 0,
@@ -363,10 +382,14 @@ export default {
 					newProtocolsName: 'Protocols publicly shared',
 					newProtocolsDone: sortedDatasetsInfos.softwares.filter(entry => entry.status === 'saved' && !entry.reuse).length || 0,
 					newProtocolsTotal: sortedDatasetsInfos.softwares.filter(entry => entry.reuse === false).length || 0,
-				})
+				}
+				
+				const graphImg = await chartsService.getChartImg(graphParams);
+				const graphURL = chartsService.getChartUrl(graphParams);
 				
 				this.report = report;
-				this.imgSrc = imageData
+				this.graphImg = graphImg;
+				this.graphURL = graphURL;
 			} catch (error) {
 				this.error = true;
 				this.message = error.message;
@@ -379,7 +402,7 @@ export default {
 	/**
 	 * Created
 	 */
-	mounted () {
+	created () {
 		this.getDocumentReport();
 	},
 };

@@ -1,5 +1,5 @@
 <template>
-	<Form className="form--edit" :loading="loading">
+	<Form ref="form" className="form--edit" :loading="loading">
 		<FormStatus v-if="error || success" :text="message" :isError="error" />
 
 		<FormBody>
@@ -203,6 +203,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -220,6 +221,8 @@ import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import documentsService from '@/services/documents/documents';
 import accountsService from '@/services/account/accounts';
 import organizationsService from '@/services/organizations/organizations';
+
+import ScrollHandler from "@/utils/use-scroll-handler";
 
 export default {
 	/**
@@ -369,6 +372,7 @@ ${item.affiliations.join(`\n`)}`
 			}
 
 			this.loading = false;
+			ScrollHandler(this.$refs.form.$el);
 		},
 		async handleDocumentDelete() {
 			const confirm = window.confirm(this.documentConfirmDeleteMessage);

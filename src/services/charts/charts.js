@@ -3,9 +3,12 @@
  */
 import axiosInstance from '@/services/http.js';
 
-const getChart = (params) => (
+const getChartImg = (params) => (
 	axiosInstance.get('/charts/asap', {
-		params,
+		params: {
+			render: 'png',
+			...params
+		},
 		responseType: 'arraybuffer'
 	}).then((response) => {
 		let blob = new Blob([response.data], { type: response.headers['content-type'] });
@@ -14,6 +17,12 @@ const getChart = (params) => (
 	})
 );
 
+const getChartUrl = (params) => {
+	const qs = new URLSearchParams(params).toString()
+	return `${process.env.VUE_APP_BASE_API_URL}/charts/asap?${qs}`
+};
+
 export default {
-	getChart
+	getChartImg,
+	getChartUrl
 };

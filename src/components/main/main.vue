@@ -16,12 +16,12 @@
 				{{errorMessage}}	
 			</MainError>
 
-			<div v-if="!error && !loading" class="main__inner">
+			<div v-if="isContentVisible" class="main__inner">
 				<div class="main__left">
 					<slot />
 				</div> <!-- /.main__left -->
 
-				<div class="main__right" v-if="hasRightSide && !loading">
+				<div class="main__right" v-if="hasRightSide">
 					<slot name="right" />
 				</div> <!-- /.main__right -->
 			</div> <!-- /.main__inner -->
@@ -82,6 +82,9 @@ export default {
 		},
 		hasSubheader() {
 			return !!this.$slots['subheader'];
+		},
+		isContentVisible() {
+			return !this.error && !this.loading;
 		}
 	}
 };
