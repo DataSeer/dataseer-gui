@@ -1,0 +1,63 @@
+/* ------------------------------------------------------------ *\
+	Accordion
+\* ------------------------------------------------------------ */
+
+.accordion {
+	width: 100%;
+	border: 3px solid $c-skyblue;
+	border-radius: 6px;
+	font-weight: inherit;
+	transition: border $t-duration;
+	background-color: $c-white;
+	
+	.accordion__item {
+		&:not(:last-child) {
+			border-bottom: 3px solid $c-skyblue;
+		}
+	}
+
+	.accordion__item-head,
+	.accordion__item-content {
+		padding: 15px;
+	}
+
+	.accordion__item-head { 
+		position: relative;
+		font-weight: 700;
+		cursor: pointer;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			margin-top: -6px;
+			display: block;
+			width: 12px;
+			height: 12px;
+			margin-left: 8px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9.317' height='9.317' viewBox='0 0 9.317 9.317'%3E%3Cpath id='Rectangle' d='M6.293,1.707A1,1,0,0,1,8,2.414V7A1,1,0,0,1,7,8H2.414a1,1,0,0,1-.707-1.707Z' transform='translate(4.658 -1.997) rotate(45)' fill='%23444'/%3E%3C/svg%3E%0A");			
+			transition: transform .3s;
+		}
+	}
+	
+	.accordion-enter-active,
+	.accordion-leave-active {
+	  will-change: height, opacity;
+	  transition: height 0.3s ease, opacity 0.3s ease;
+	  overflow: hidden;
+	}
+	
+	.accordion-enter,
+	.accordion-leave-to {
+	  height: 0 !important;
+	  opacity: 0;
+	}
+
+	.accordion__item.is-open .accordion__item-head:before {
+		transform: rotate(-180deg);
+	}
+}

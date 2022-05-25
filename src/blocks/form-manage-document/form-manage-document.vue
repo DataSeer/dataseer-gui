@@ -37,7 +37,7 @@
 								<FieldSelect
 									multiple
 									v-model="formData.organizations"
-									:options="organizationsOptions"
+									:options="organizationsList"
 								>
 									<Icon name="organization" color="currentColor" />
 
@@ -95,20 +95,38 @@
 							</GridColumn>
 						</Grid>
 					</GridColumn>
+				</Grid>
+			</FormGroup>
 
-					<GridColumn fullwidth>
+			<FormGroup title="Authors">
+				<Accordion>
+					<AccordionItem v-for="(author, index) in authors" :key="index" :label=author.name>
+						<Field
+							:name="`author-${index}-name`"
+							v-model="authors[index].name"
+						>
+							Name
+						</Field>
+
+						<Field
+							readonly
+							:name="`author-${index}-email`"
+							v-model="authors[index].email"
+						>
+							Email
+						</Field>
+
 						<Field
 							type="textarea"
-							size="large"
-							v-model="authors"
-							name="Authors"
+							placeholder="Name"
+							readonly
+							v-model="authors[index].affiliations"
+							:name="`author-${index}-affiliations`"
 						>
-							<Icon name="user" color="currentColor" />
-
-							Authors
+							Affiliations
 						</Field>
-					</GridColumn>
-				</Grid>
+					</AccordionItem>
+				</Accordion>
 			</FormGroup>
 			
 			<FormGroup title="Files">
@@ -217,6 +235,7 @@ import FieldFile from '@/components/field-file/field-file';
 import FieldDatepicker from '@/components/field-datepicker/field-datepicker';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import Accordion, { AccordionItem } from '@/components/accordion/accordion';
 
 import documentsService from '@/services/documents/documents';
 import accountsService from '@/services/account/accounts';
@@ -234,6 +253,8 @@ export default {
 	 * Components
 	 */
 	components: {
+		Accordion,
+		AccordionItem,
 		Form,
 		FormBody,
 		FormGroup,
@@ -270,7 +291,6 @@ export default {
 			error: false,
 			success: false,
 			message: '',
-			
 			authors: '',
 			primaryFileName: '',
 			primaryFile: '',
@@ -278,7 +298,7 @@ export default {
 			formData: {},
 			formMetadata: {},
 			ownersList: [],
-			organizationsOptions: [],
+			organizationsList: [],
 			documentConfirmDeleteMessage: 'Are you sure you want to delete this document?',
 		};
 	},
@@ -289,7 +309,7 @@ export default {
 	computed: {
 		documentId() {
 			return this.data._id
-		}
+		},
 	},
 
 	/**
@@ -301,11 +321,11 @@ export default {
 			const organizations = await organizationsService.getOrganizationsList();
 			
 			this.ownersList = accounts;
-			this.organizationsOptions = organizations;
+			this.organizationsList = organizations;
 		},
 		parseDataToForm() {
 			if (!this.data) return
-
+			
 			const {
 				name,
 				owner,
@@ -323,12 +343,7 @@ export default {
 			} = this.data;
 
 			// Populate authors
-			this.authors = authors.reduce((acc, item) => {
-				const author = `
-${item.name} ${item.email ? `(${item.email})` : `${''}` }
-${item.affiliations.join(`\n`)}`
-				return acc + '\n' + author
-			}, '').trim();
+			this.authors = authors;
 
 			// Populate metadata
 			this.formMetadata.journal = journal;
@@ -362,7 +377,9 @@ ${item.affiliations.join(`\n`)}`
 			
 			try {
 				await documentsService.updateDocument(this.documentId, this.formData);
-				await documentsService.updateDocumentMetadata(this.documentId, this.formMetadata);
+				await documentsService.updateDocumentMetadata(this.documentId, {
+					...this.formMetadata,
+				});
 				
 				this.success = true;
 				this.message = `${this.formData.name} has been updated!`;
