@@ -37,6 +37,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -155,6 +156,7 @@ export default {
 				const datasetForm = new DatasetForm(`DatasetForm`);
 	
 				const datasets = doc.datasets.current;
+				console.log(datasets);
 				
 				// Add color and datatype definitions
 				for (let i = 0; i < datasets.length; i++) {

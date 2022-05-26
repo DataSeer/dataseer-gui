@@ -5,7 +5,7 @@
 		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<template v-if="formData.flagged">
+			<template v-if="formData.flagged === 'true' || formData.flagged === true">
 				<FormCuratorIssues
 					v-if="userRoleWeight >= 1000"
 					@submit="handleIssuesFormSubmit"

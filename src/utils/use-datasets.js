@@ -33,7 +33,7 @@ const formatDataset = (dataset) => {
 	const datasetType = getDatasetDataType(dataset);
 	
 	Object.assign(dataset, {
-		datasetType,
+		datasetType: datasetType,
 		color: DATATYPE_COLORS[datasetType]
 	})
 

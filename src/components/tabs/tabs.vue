@@ -20,7 +20,8 @@
 					class="tabs__link"
 					:class="{
 						'is-active': dataset.id === activeDatasetId,
-						'is-completed': dataset.status === 'saved'
+						'is-completed': dataset.status === 'saved',
+						'has-issue': ( dataset.flagged === true || dataset.flagged === 'true')
 					}"
 				>
 					<div v-if="mergeState" class="checkbox checkbox--default">
@@ -43,7 +44,7 @@
 						v-tooltip.right="dataset.description"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
-						<Dot v-if="dataset.flagged" />
+						<Dot v-if="( dataset.flagged === true || dataset.flagged === 'true')" />
 
 						<span>
 							<Icon v-if="dataset.status === 'saved'" name="check" color="currentColor" />
@@ -58,7 +59,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */

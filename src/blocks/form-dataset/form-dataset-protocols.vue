@@ -1,6 +1,19 @@
 <template>
 	<Grid rowGap="medium">
 		<GridColumn>
+			<FieldSelect
+				name="dataType"
+				:options="dataTypesOptions"
+				v-model.trim="formData.dataType"
+				placeholder="Select"
+			>
+				<Icon name="grid" />
+
+				Protocol Type
+			</FieldSelect>
+		</GridColumn>
+		
+		<GridColumn>
 			<Checkboxes>
 				<FieldCheckbox
 					name="reuse"
@@ -8,17 +21,6 @@
 					isDropdown
 				>
 					This protocol is re-used from another public or private source
-				</FieldCheckbox>
-			
-				<FieldCheckbox
-					v-if="formData.reuse === true"
-					v-model.trim="formData.protocolSource"
-					trueLabel="Manufacturer's Instructions"
-					falseLabel="Another Protocol"
-					name="protocolSource"
-					isDropdown
-				>
-					Source
 				</FieldCheckbox>
 			</Checkboxes>
 		</GridColumn>
@@ -34,7 +36,6 @@
 				Stable URL, DOI, or other link to this object
 			</Field>
 		</GridColumn>
-		
 		
 		<GridColumn>
 			<Field
@@ -58,18 +59,6 @@
 				Reference
 			</Field>
 		</GridColumn>
-
-		<GridColumn>
-			<Checkboxes>
-				<FieldCheckbox
-					name="issue"
-					v-model="formData.issue"
-					isDropdown
-				>
-					There is an issue with the information provided in the manuscript text
-				</FieldCheckbox>
-			</Checkboxes>
-		</GridColumn>
 	</Grid>
 </template>
 
@@ -85,6 +74,7 @@ import { mapGetters } from 'vuex'
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
+import FieldSelect from '@/components/field-select/field-select';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Checkboxes from '@/components/checkboxes/checkboxes';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
@@ -102,6 +92,7 @@ export default {
 		Grid,
 		Icon,
 		Field,
+		FieldSelect,
 		Checkboxes,
 		GridColumn,
 		FieldCheckbox,
@@ -127,23 +118,22 @@ export default {
 			if (!this.dataTypes.dataTypes) {
 				return [{
 					value: '',
-					label: 'none',
+					label: 'None',
 				}]
 			}
-			const keys = Object.keys(this.dataTypes.dataTypes)
 			
-			return keys.map(key => ({
+			return Object.keys(this.dataTypes.dataTypes).map(key => ({
 				value: key,
 				label: key,
 			}))
 		},
 		subTypeOptions() {
-			const subTypes = this.dataTypes.dataTypes[this.formData.type];
+			const subTypes = this.dataTypes.dataTypes[this.formData.dataType];
 			
 			if (!subTypes || !subTypes.length) {
 				return [{
 					value: '',
-					label: 'none',	
+					label: 'None',	
 				}]	
 			}
 

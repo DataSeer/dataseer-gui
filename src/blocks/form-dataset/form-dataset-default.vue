@@ -11,7 +11,7 @@
 			>
 				<Icon name="grid" />
 
-				Data Type <a href="#">Type Definitions</a>
+				Data Type <a href="#" target="_blank">Type Definitions</a>
 			</FieldSelect>
 		</GridColumn>
 
@@ -44,7 +44,7 @@
 					v-model="formData.representativeImage"
 					isDropdown
 				>
-					This dataset is a Representative Image(or another type of media)
+					This dataset is a Representative Image (or another type of media)
 				</FieldCheckbox>
 
 				<FieldCheckbox
@@ -66,7 +66,7 @@
 			>
 				<Icon name="chain" color="currentColor" />
 
-				DOI, Stable URL, or other link to this object
+				Stable URL, DOI, or other link to this object
 			</Field>
 		</GridColumn>
 
@@ -93,18 +93,6 @@
 
 				Additional Comments or Instructions
 			</Field>
-		</GridColumn>
-
-		<GridColumn>
-			<Checkboxes>
-				<FieldCheckbox
-					name="issue"
-					v-model="formData.issue"
-					isDropdown
-				>
-					<i>There is an issue with the information provided in the manuscript text</i>
-				</FieldCheckbox>
-			</Checkboxes>
 		</GridColumn>
 	</Grid>
 </template>
@@ -164,12 +152,11 @@ export default {
 			if (!this.dataTypes.dataTypes) {
 				return [{
 					value: '',
-					label: 'none',
+					label: 'None',
 				}]
 			}
-			const keys = Object.keys(this.dataTypes.dataTypes)
 			
-			return keys.map(key => ({
+			return Object.keys(this.dataTypes.dataTypes).map(key => ({
 				value: key,
 				label: key,
 			}))
@@ -180,7 +167,7 @@ export default {
 			if (!subTypes || !subTypes.length) {
 				return [{
 					value: '',
-					label: 'none',	
+					label: 'None',	
 				}]	
 			}
 

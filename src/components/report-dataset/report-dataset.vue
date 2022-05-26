@@ -71,16 +71,16 @@
 		 */
 		computed: {
 			actionsRequired() {
-				return this.data.some(entry => (entry.issue === true || entry.issue === 'true'));
+				return this.data.some(entry => (entry.issue === true));
 			},
 			actionsMayBeRequired() {
 				return this.data.some(entry => entry.flagged === true);
 			},
-			newCount() {
+			reuseCount() {
 				return this.data.filter(entry => entry.reuse === true).length;
 			},
-			reuseCount() {
-				return this.data.length - this.newCount;
+			newCount() {
+				return this.data.length - this.reuseCount;
 			}
 		},
 	}

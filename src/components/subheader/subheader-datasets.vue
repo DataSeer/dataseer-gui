@@ -225,11 +225,8 @@ export default {
 			});
 		},
 		isDatatypeFlagged(datatype) {
-			return this.datasets.some(el =>  {
-					return el.datasetType === datatype && ( el.flagged == true)
-				}
-			)
-		}
+			return this.datasets.some(el => el.datasetType === datatype && ( el.flagged === true || el.flagged === 'true'))
+		},
 	}
 };
 </script>

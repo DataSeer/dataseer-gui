@@ -1,116 +1,115 @@
 <template>
 	<Grid rowGap="medium">
 		<GridColumn>
-			<Field
-				:error="$v.type.$error"
-				v-model.trim="formData.version"
-				name="version"
-				:options="[
-					{
-						title: 'R 4.2.1',
-						helptext: 'Suggested'
-					},
-					{
-						title: 'Option 0'
-					},
-					{
-						title: 'Option 1'
-					},
-					{
-						title: 'Option 2'
-					}
-				]"
-				placeholder="Software/Version"
+			<FieldSelect
+				name="dataType"
+				:options="dataTypesOptions"
+				:value="formData.dataType"
+				@input="handleDataTypeChange"
+				placeholder="Select"
 			>
-				<Icon name="windows" color="currentColor" />
-				
-				Software/Version
-			</Field>
+				<Icon name="grid" />
+
+				Code Type <a href="#" target="_blank">Type Definitions</a>
+			</FieldSelect>
 		</GridColumn>
 
 		<GridColumn>
-			<Field
-				:error="$v.type.$error"
-				v-model.trim="formData.package"
-				name="package"
-				placeholder="Enter if applicable"
+			<FieldSelect
+				:options="subTypeOptions"
+				name="subType"
+				v-model.trim="formData.subType"
+				placeholder="Select"
 			>
-				<Icon name="cube" color="currentColor" />
+				<Icon name="grid" />
 
-				Software Package
-			</Field>
-		</GridColumn>
-
-		<GridColumn>	
-			<Field 
-				v-model.trim="formData.script"
-				name="script"
-				type="text"
-				placeholder="Script DOI /PID"
-			>
-				<Icon name="brackets" color="currentColor" />
-
-				Script
-			</Field>
+				Code Subtype
+			</FieldSelect>
 		</GridColumn>
 
 		<GridColumn>
 			<Checkboxes>
-				<FieldCheckbox name="reuse" v-model="formData.reuse" isDropdown>
-					This code is re-used from another public or private source
-				</FieldCheckbox>
-
 				<FieldCheckbox
-					name="practices"
-					v-model="formData.practices"
+					name="reuse"
+					v-model="formData.reuse"
 					isDropdown
-					v-if="formData.reuse !== null"
 				>
-					<a href="#">Best practices</a> for this code type have been followed
-
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showBestPractices = !showBestPractices"
-					>
-						{{ textToggle(showBestPractices) }}
-					</button>
+					This dataset is re-used from another public or private source
 				</FieldCheckbox>
-
-				<HiddenText v-if="showBestPractices" v-html="bestPracticesText" />
-
-				<FieldCheckbox name="repo" v-model="formData.repo" isDropdown v-if="formData.reuse !== null">
-					A <a href="#">suitable repository</a> has been used to host this code
-
-					<button
-						tabindex="0"
-						type="button"
-						class="text-toggle"
-						@click="showSuitableRepository = !showSuitableRepository"
-					>
-						{{ textToggle(showSuitableRepository) }}
-					</button>
-				</FieldCheckbox>
-
-				<HiddenText v-if="showSuitableRepository" v-html="suitableRepositoryText" />
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn v-if="formData.repo">
-			<Field
-				v-model.trim="formData.permalink"
-				name="permalink"
-				type="text"
-				placeholder="https://"
-			>
-				<Icon name="chain" color="currentColor" />
 
-				DOI or Permalink
-			</Field>
-		</GridColumn>
+		<template v-if="formData.subType === 'custom scripts'">
+			<GridColumn>
+				<Field
+					name="stable-url"
+					type="text"
+					v-model.trim="formData.DOI"
+					placeholder="https://"
+				>
+					<Icon name="chain" color="currentColor" />
 
-		<GridColumn v-if="formData.repo">
+					Stable URL
+				</Field>
+			</GridColumn>
+
+			<GridColumn>
+				<Field
+					name="stable-url"
+					type="text"
+					v-model.trim="formData.RRID"
+					placeholder="Enter DOI or PID if available"
+				>
+					<Icon name="chain" color="currentColor" />
+
+					Digital object identifier (DOI) or PID
+				</Field>
+			</GridColumn>
+		</template>
+
+		<template v-if="formData.subType !== 'custom scripts'">
+			<GridColumn>
+				<Field
+					:error="$v.type.$error"
+					v-model.trim="formData.version"
+					name="version"
+					placeholder="Version"
+				>
+					<Icon name="windows" color="currentColor" />
+					
+					Version
+				</Field>
+			</GridColumn>
+
+			<GridColumn>
+				<Field
+					name="DOI"
+					type="text"
+					v-model.trim="formData.DOI"
+					placeholder="https://"
+				>
+					<Icon name="chain" color="currentColor" />
+
+					Stable URL, DOI, or other link to this object
+				</Field>
+			</GridColumn>
+
+			<GridColumn>
+				<Field
+					name="DOI"
+					type="text"
+					v-model.trim="formData.RRID"
+					placeholder="Enter RRID if available"
+				>
+					<Icon name="chain" color="currentColor" />
+
+					Research Resource Identifier (RRID)
+				</Field>
+			</GridColumn>
+		</template>
+
+		<GridColumn>
 			<Field name="instructions" type="textarea" v-model="formData.instructions">
 				<Icon name="comment" />
 
@@ -133,9 +132,9 @@ import { mapGetters } from 'vuex'
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Grid, { GridColumn } from '@/components/grid/grid';
-import HiddenText from '@/components/hidden-text/hidden-text';
 import Checkboxes from '@/components/checkboxes/checkboxes';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
+import FieldSelect from '@/components/field-select/field-select';
 
 export default {
 	/**
@@ -152,8 +151,8 @@ export default {
 		Field,
 		Checkboxes,
 		GridColumn,
-		HiddenText,
-		FieldCheckbox,
+		FieldSelect,
+		FieldCheckbox
 	},
 
 	/**
@@ -190,23 +189,22 @@ export default {
 			if (!this.dataTypes.dataTypes) {
 				return [{
 					value: '',
-					label: 'none',
+					label: 'None',
 				}]
 			}
-			const keys = Object.keys(this.dataTypes.dataTypes)
 			
-			return keys.map(key => ({
+			return Object.keys(this.dataTypes.dataTypes).map(key => ({
 				value: key,
 				label: key,
 			}))
 		},
 		subTypeOptions() {
-			const subTypes = this.dataTypes.dataTypes[this.formData.type];
+			const subTypes = this.dataTypes.dataTypes[this.formData.dataType];
 			
 			if (!subTypes || !subTypes.length) {
 				return [{
 					value: '',
-					label: 'none',	
+					label: 'None',	
 				}]	
 			}
 
@@ -239,7 +237,11 @@ export default {
 		textToggle(check) {
 			return check ? 'Hide' : 'Show';
 		},
-	},
+		handleDataTypeChange(value) {
+			this.formData.dataType = value;
+			this.formData.subType = '';
+		}
+	}
 }
 </script>
 

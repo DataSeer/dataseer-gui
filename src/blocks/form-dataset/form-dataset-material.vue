@@ -2,15 +2,30 @@
 	<Grid rowGap="medium">
 		<GridColumn>
 			<FieldSelect
+				name="dataType"
 				:error="$v.type.$error"
-				:options="subTypeOptions"
-				name="material"
-				v-model.trim="formData.material"
-				placeholder="Material Type"
+				:options="dataTypesOptions"
+				:value="formData.dataType"
+				@input="handleDataTypeChange"
+				placeholder="Tabular Data"
 			>
-				<Icon name="flask" />
+				<Icon name="grid" />
 
-				Material Type <a href="#">Type Definitions</a>
+				Data Type <a href="#" target="_blank">Type Definitions</a>
+			</FieldSelect>
+		</GridColumn>
+
+		<GridColumn>
+			<FieldSelect
+				:error="$v.subtype.$error"
+				:options="subTypeOptions"
+				name="subType"
+				v-model.trim="formData.subType"
+				placeholder="Select"
+			>
+				<Icon name="grid" />
+
+				Data Subtype
 			</FieldSelect>
 		</GridColumn>
 
@@ -26,26 +41,10 @@
 			</Checkboxes>
 		</GridColumn>
 
-		<GridColumn 
-			v-if="formData.reuse === true"
-		>
+		<GridColumn>
 			<Field
-				name="rrid"
-				aria-placeholder="Enter RRID"
-				v-model="formData.labSource"
-			>
-				<Icon name="flask" />
-
-				Source (Name of Lab or Commercial Source)
-			</Field>
-		</GridColumn>
-
-		<GridColumn 
-			v-if="formData.reuse === true"
-		>
-			<Field
-				name="rrid"
-				aria-placeholder="Enter RRID"
+				name="labSource"
+				placeholder="Enter the name of the source of the material"
 				v-model="formData.labSource"
 			>
 				<Icon name="flask" />
@@ -56,8 +55,20 @@
 
 		<GridColumn>
 			<Field
+				name="catalog"
+				placeholder="enter the catalog number if available"
+				v-model="formData.catalog"
+			>
+				<Icon name="flask" />
+
+				Catalog Number
+			</Field>
+		</GridColumn>
+
+		<GridColumn>
+			<Field
 				name="rrid"
-				aria-placeholder="Enter RRID"
+				placeholder="Enter RRID if available"
 				v-model="formData.RRID"
 			>
 				<Icon name="key" />
@@ -77,23 +88,10 @@
 				Additional Comments or Instructions
 			</Field>
 		</GridColumn>
-
-		<GridColumn>
-			<Checkboxes>
-				<FieldCheckbox
-					name="issue"
-					v-model="formData.issue"
-					isDropdown
-				>
-					There is an issue with the information provided in the manuscript text
-				</FieldCheckbox>
-			</Checkboxes>
-		</GridColumn>
 	</Grid>
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -107,7 +105,6 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Checkboxes from '@/components/checkboxes/checkboxes';
-import HiddenText from '@/components/hidden-text/hidden-text';
 import FieldSelect from '@/components/field-select/field-select';
 import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
@@ -126,7 +123,6 @@ export default {
 		Field,
 		Checkboxes,
 		GridColumn,
-		HiddenText,
 		FieldSelect,
 		FieldCheckbox,
 	},
@@ -159,21 +155,34 @@ export default {
 	 */
 	computed: {
 		...mapGetters('pdfViewer', ['dataTypes']),
-		subTypeOptions() {
-			const subTypes = this.dataTypes.dataTypes['lab materials'];
-			
-			if (!subTypes) {
+		dataTypesOptions() {
+			if (!this.dataTypes.dataTypes) {
 				return [{
 					value: '',
-					label: 'none',
+					label: 'None',
 				}]
+			}
+			
+			return Object.keys(this.dataTypes.dataTypes).map(key => ({
+				value: key,
+				label: key,
+			}))
+		},
+		subTypeOptions() {
+			const subTypes = this.dataTypes.dataTypes[this.formData.dataType];
+			
+			if (!subTypes || !subTypes.length) {
+				return [{
+					value: '',
+					label: 'None',	
+				}]	
 			}
 
 			return subTypes.map(type => ({
 				value: type,
 				label: type,
 			}))
-		},
+		}
 	},
 
 	/**
@@ -195,10 +204,12 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		textToggle(check) {
-			return check ? 'Hide' : 'Show';
-		},
-	},
+		// Reset the sub type value when the main datatype changes
+		handleDataTypeChange(value) {
+			this.formData.dataType = value;
+			this.formData.subType = '';
+		}
+	}
 }
 </script>
 
