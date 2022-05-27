@@ -61,6 +61,7 @@ import flag from './icon-flag';
 import plus from './icon-plus';
 import references from './icon-references';
 import letter from './icon-letter';
+import microscope from './icon-microscope';
 
 export default {
 	name: 'Icon',
@@ -138,7 +139,8 @@ export default {
 		flag,
 		plus,
 		references,
-		letter
+		letter,
+		microscope
 	}
 };
 </script>

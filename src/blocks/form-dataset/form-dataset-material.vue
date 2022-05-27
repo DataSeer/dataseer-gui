@@ -47,7 +47,7 @@
 				placeholder="Enter the name of the source of the material"
 				v-model="formData.labSource"
 			>
-				<Icon name="flask" />
+				<Icon name="microscope" />
 
 				Source (Name of Lab or Commercial Source)
 			</Field>

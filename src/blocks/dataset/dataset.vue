@@ -33,7 +33,6 @@
 				</Dropdown>
 			</p><!-- /.datasets-references -->
 			
-
 			<Form className="form--dataset" :loading="isFormSubmitting">
 				<FormHead>
 					<input

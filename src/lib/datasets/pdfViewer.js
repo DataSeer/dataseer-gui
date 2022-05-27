@@ -980,7 +980,7 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 };
 
 // Remove a link
-PdfViewer.prototype.removeLink = function(dataset, sentence) {
+PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	const self = this;
 	this.links[dataset.id].splice(this.links[dataset.id].indexOf(sentence.id), 1);
 	const contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
@@ -1011,6 +1011,8 @@ PdfViewer.prototype.removeLink = function(dataset, sentence) {
 			.trim()
 	);
 	if (annotation.attr(`datasets`) === ``) annotation.removeAttr(`datasets`);
+	
+	if (typeof callback === `function`) callback();
 };
 
 // Update Link
@@ -1021,15 +1023,6 @@ PdfViewer.prototype.updateLink = function(dataset, sentence) {
 
 	contour.attr(`datasets-types`, JSON.stringify(datasetTypes));
 }
-
-// Remove some links
-PdfViewer.prototype.removeLinks = function(dataset) {
-
-	let ids = [...this.links[dataset.id]];
-	for (let i = 0; i < ids.length; i++) {
-		this.removeLink(dataset, { id: ids[i] });
-	}
-};
 
 // Update links
 PdfViewer.prototype.updateLinks = function(dataset) {
@@ -1052,8 +1045,14 @@ PdfViewer.prototype.addDataset = function(dataset, sentence, isSelected = true) 
 };
 
 // Remove a dataset
-PdfViewer.prototype.removeDataset = function (dataset) {
-	this.removeLinks(dataset);
+PdfViewer.prototype.removeDataset = function (dataset, callback) {
+	let ids = [...this.links[dataset.id]];
+
+	for (let i = 0; i < ids.length; i++) {
+		this.removeLink(dataset, { id: ids[i] });
+	}
+
+	if (typeof callback === `function`) callback();
 };
 
 // Scroll to a sentence
@@ -1120,7 +1119,7 @@ PdfViewer.prototype._scrollToSentence = function(sentence) {
 		height += el.outerHeight();
 	}
 	this.currentPage = numPage;
-	return height + element.position().top - (screenHeight / 2);
+	return height + element.position().top;
 };
 
 // selectSentence

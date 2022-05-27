@@ -64,14 +64,18 @@ export const DocumentView = function(id, events = {}) {
 	this.currentScroll = 0;
 	this.screen.scroll(
 		_.throttle(function() {
-			let scrollTop = self.screen.scrollTop(),
-				direction = scrollTop > self.currentScroll ? +1 : -1;
+			let scrollTop = self.screen.scrollTop();
+			let direction = scrollTop > self.currentScroll ? +1 : -1;
+			
 			self.currentScroll = scrollTop;
-			if (self.pdfVisible)
-				self.pdfViewer.onScroll(
-					{ position: scrollTop, height: self.screen.prop(`scrollHeight`) },
+			if (self.pdfVisible) {
+				self.pdfViewer.onScroll({
+					position: scrollTop,
+					height: self.screen.prop(`scrollHeight`)
+				},
 					direction
 				);
+			}
 		}, 200)
 	);
 	// Element initialization
@@ -88,37 +92,6 @@ export const DocumentView = function(id, events = {}) {
 		if (event.key === `Control`) self.ctrlPressed = false;
 		else if (event.key === `Shift`) self.shiftPressed = false;
 	});
-	$(`#documentView\\.viewSelection\\.tei\\.dataset`)
-		.parent()
-		.click(function() {
-			console.log(`TEI dataset`);
-			self.pdfVisible = false;
-			self.pdf.hide();
-			if (self.pdfViewer) self.pdfViewer.hideMarkers();
-			self.xml.show();
-			self.xml.find(`*.hidden`).removeClass(`hidden`);
-			self.xml.find(`text > div, text > *:not(div)`).map(function(i, el) {
-				let element = $(el);
-				if (element.find(`s[corresp]`).length === 0) return element.addClass(`hidden`);
-			});
-			self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
-			return typeof self.events.onParagraphView === `function`
-				? self.events.onParagraphView()
-				: undefined;
-		});
-	$(`#documentView\\.viewSelection\\.pdf`)
-		.parent()
-		.click(function() {
-			console.log(`PDF`);
-			self.pdfVisible = true;
-			self.pdf.show();
-			if (self.pdfViewer) self.pdfViewer.showMarkers();
-			self.xml.hide();
-			self.scrollToSentence({ sentence: self.lastSelectedSentence, noAnim: true });
-			return typeof self.events.onPdfView === `function`
-				? self.events.onPdfView()
-				: undefined;
-		});
 	// Events
 	this.events = events;
 	return this;
@@ -280,7 +253,8 @@ DocumentView.prototype.getSelectedSentences = function() {
 DocumentView.prototype.scrollToSentence = function(opts, cb) {
 	let self = this;
 	this.currentScrolledSentence = opts.sentence;
-	if (this.pdfVisible)
+	
+	if (this.pdfVisible) {
 		return this.pdfViewer.scrollToSentence(opts.sentence, function(position) {
 			if (position) {
 				if (opts.noAnim) self.screen.scrollTop(position);
@@ -288,7 +262,7 @@ DocumentView.prototype.scrollToSentence = function(opts, cb) {
 			} else console.log(`dataset not selected`);
 			return typeof cb === `function` ? cb() : undefined;
 		});
-	else
+	} else {
 		return this.xmlViewer.scrollToSentence(opts.sentence, function(position) {
 			if (position) {
 				if (opts.noAnim)
@@ -302,6 +276,7 @@ DocumentView.prototype.scrollToSentence = function(opts, cb) {
 			} else console.log(`dataset not selected`);
 			return typeof cb === `function` ? cb() : undefined;
 		});
+	}
 };
 
 // Get all Links
@@ -317,7 +292,7 @@ DocumentView.prototype.addDataset = function(dataset, sentence) {
 
 // Remove a dataset
 DocumentView.prototype.removeDataset = function(dataset) {
-	if (this.pdfViewer) this.pdfViewer.removeDataset(dataset);
+	if (this.pdfViewer) this.pdfViewer.removeDataset(dataset, () => this.clearKeys());
 	this.xmlViewer.removeDataset(dataset);
 };
 
@@ -334,8 +309,14 @@ DocumentView.prototype.addLink = function(dataset, sentence) {
 
 // Remove a corresp
 DocumentView.prototype.removeLink = function(dataset, sentence) {
-	if (this.pdfViewer) this.pdfViewer.removeLink(dataset, sentence);
+	if (this.pdfViewer) this.pdfViewer.removeLink(dataset, sentence, () => this.clearKeys());
 	if (this.xmlViewer)this.xmlViewer.removeLink(dataset, sentence);
+};
+
+// Clear any keys that may be clicked
+DocumentView.prototype.clearKeys = function() {
+	if (this.shiftPressed) this.shiftPressed = false;
+	if (this.ctrlPressed) this.ctrlPressed = false;
 };
 
 // display left

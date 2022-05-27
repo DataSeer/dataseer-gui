@@ -12,18 +12,6 @@
 				Protocol Type
 			</FieldSelect>
 		</GridColumn>
-		
-		<GridColumn>
-			<Checkboxes>
-				<FieldCheckbox
-					name="reuse"
-					v-model="formData.reuse"
-					isDropdown
-				>
-					This protocol is re-used from another public or private source
-				</FieldCheckbox>
-			</Checkboxes>
-		</GridColumn>
 
 		<GridColumn>
 			<Field
@@ -76,8 +64,6 @@ import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
 import FieldSelect from '@/components/field-select/field-select';
 import Grid, { GridColumn } from '@/components/grid/grid';
-import Checkboxes from '@/components/checkboxes/checkboxes';
-import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
 	/**
@@ -92,10 +78,8 @@ export default {
 		Grid,
 		Icon,
 		Field,
-		FieldSelect,
-		Checkboxes,
 		GridColumn,
-		FieldCheckbox,
+		FieldSelect
 	},
 
 	/**
@@ -107,7 +91,6 @@ export default {
 			default: () => {}
 		},
 	},
-
 
 	/**
 	 * Computed
