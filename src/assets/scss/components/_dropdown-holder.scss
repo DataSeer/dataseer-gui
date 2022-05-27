@@ -3,9 +3,6 @@
 \* ------------------------------------------------------------ */
 
 .dropdown-holder {
-	position: relative;
-	text-align-last: left;
-
 	.dropdown__header {
 		display: block;
 		cursor: pointer;
@@ -14,24 +11,14 @@
 	}
 
 	.dropdown__body {
-		display: none;
-		position: absolute;
+		opacity: 0;
+		visibility: hidden;
 		z-index: 999;
-		top: 100%;
-		margin-top: 6px;
 		padding: 12px 20px;
 		width: 268px;
 		border-radius: 11px;
 		border: 3px solid $c-primary;
 		background-color: $c-white;
-
-		&[data-placement="left"] {
-			right: 0;
-		}
-
-		&[data-placement="right"] {
-			left: 0;
-		}
 	}
 
 	.dropdown__account {
@@ -156,6 +143,7 @@
 		font-size: 16px;
 		line-height: inherit;
 		text-transform: uppercase;
+		text-align-last: left;
 		transition: color $t-duration;
 		
 		&:focus,
@@ -191,6 +179,7 @@
 		padding: 12px 0;
 	}
 	
+	.dropdown__nav-datasets a,
 	.dropdown__nav-datasets button {
 		position: relative;
 		display: block;
@@ -200,6 +189,7 @@
 		font-family: $ff-titles;
 		font-weight: 500;
 		font-size: 16px;
+		text-align: left;
 		transition: color $t-duration, opacity $t-duration;
 
 		&:hover:not(.is-active) {
@@ -230,6 +220,7 @@
 	}
 
 	&.is-active .dropdown__body {
-		display: block;
+		opacity: 1;
+		visibility: visible;
 	}
 }

@@ -3,7 +3,7 @@ const clearDropdown = function(dropdown) {
 }
 
 const clearDropdowns = function() {
-	const dropdowns = document.querySelectorAll('.c.is-active');
+	const dropdowns = document.querySelectorAll('.js-dropdown-holder.is-active');
 
 	if (!dropdowns) return
 	

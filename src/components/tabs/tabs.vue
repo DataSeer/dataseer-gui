@@ -69,6 +69,7 @@ import { mapGetters, mapActions } from 'vuex';
  */
 import Dot from '@/components/dot/dot';
 import Icon from '@/components/icon/icon';
+import { clearDropdowns } from '@/utils/use-dropdowns';
 
 export default {
 	/**
@@ -170,6 +171,9 @@ export default {
 				// Attach the listeners to `document`
 				document.addEventListener('mousemove', mouseMoveHandler);
 				document.addEventListener('mouseup', mouseUpHandler);
+
+				// Clear any dropdowns that might be open
+				clearDropdowns();
 			};
 			
 			contentHandle.addEventListener('mousedown', mouseDownHandler);

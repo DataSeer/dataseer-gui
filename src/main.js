@@ -14,6 +14,7 @@ import VueClipboard from 'vue-clipboard2'
 import 'vue-select/dist/vue-select.css';
 import 'vue2-datepicker/index.css';
 import 'vue-good-table/dist/vue-good-table.css';
+import 'vue-popperjs/dist/vue-popper.css';
 import '@/assets/scss/style.scss';
 
 Vue.use(Vuelidate);

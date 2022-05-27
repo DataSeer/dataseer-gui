@@ -24,7 +24,7 @@
 				
 				<em>{{ multipleReferencesText }}</em>
 
-				<Dropdown ref="textReferencesDropdown" placement="right">
+				<Dropdown ref="textReferencesDropdown" placement="bottom-end">
 					<template #header>
 						<span class="dropdown__arrow" />
 					</template>

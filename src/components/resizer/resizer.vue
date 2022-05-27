@@ -25,8 +25,13 @@
 </template>
 
 <script>
-/* eslint-disable */
+
+/**
+ * Internal Dependencies
+ */
 import { debounce } from '@/utils/use-debounce'
+import { clearDropdowns } from '@/utils/use-dropdowns';
+
 export default {
 	/**
 	 * Name
@@ -66,14 +71,6 @@ export default {
 		return {
 			observer: null,
 			observerWidth: null,
-		}
-	},
-
-	/**
-	 * Data
-	 */
-	data() {
-		return {
 			xPos: 0
 		}
 	},
@@ -103,6 +100,9 @@ export default {
 				// Attach the listeners to `document`
 				document.addEventListener('mousemove', mouseMoveHandler);
 				document.addEventListener('mouseup', mouseUpHandler);
+
+				// Clear any dropdowns that might be open
+				clearDropdowns();
 			};
 			
 			bar.addEventListener('mousedown', mouseDownHandler);
