@@ -221,7 +221,7 @@ export default {
 		
 			this.setActiveDataset({
 				dataset: firstDatasetOfType,
-				scrollToSentence: true
+				scrollToSentence: false
 			});
 		},
 		isDatatypeFlagged(datatype) {
