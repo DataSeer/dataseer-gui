@@ -70,7 +70,7 @@
 								v-tooltip.top="tooltips.unlink"
 								@onClick.prevent="unlinkSentenceFromDataset"
 							>
-								<Icon name="icon_disconnect" />
+								<Icon name="unlink" />
 
 								Unlink
 							</Button>
@@ -106,17 +106,19 @@
 							</Button>
 
 							<Button
-								className="tertiary"
 								square
+								className="tertiary"
+								modifier="is-warning"
 								v-tooltip.top-center="tooltips.unlink"
 								@onClick.prevent="unlinkSentenceFromDataset"
 							>
-								<Icon name="icon_disconnect" />
+								<Icon name="unlink" />
 							</Button>
 
 							<Button
 								className="tertiary"
 								square
+								modifier="is-warning"
 								v-tooltip.top-center="tooltips.deleteText"
 								@onClick.prevent="handleDatasetDelete"
 							>

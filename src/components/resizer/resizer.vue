@@ -6,13 +6,7 @@
 			[`resizer--${modifier}`]: modifier
 		}"
 	>
-		<div
-			ref="container"
-			class="resizer__container"
-			:style="{
-				width: `${startingWidth}px`
-			}"
-		>
+		<div ref="container" class="resizer__container" >
 			<slot name="resizerContainer" />
 		</div><!-- /.resizer__container -->
 		
@@ -90,6 +84,7 @@ export default {
 			let maxW = observerWidth - this.maxWidth <= this.rightMinWidth ? observerWidth - this.rightMinWidth : this.maxWidth;
 			let startingWidth = this.startingWidth < this.maxWidth ? this.startingWidth : this.maxWidth;
 			leftSide.style.width = `${((startingWidth / observerWidth) * 100).toFixed(2)}%`;
+			rightSide.style.width = `${(((observerWidth - startingWidth) / observerWidth ) * 100).toFixed(2)}%`;
 
 			const mouseDownHandler = (e) => {
 				// Get the current mouse position

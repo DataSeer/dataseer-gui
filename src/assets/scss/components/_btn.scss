@@ -91,6 +91,16 @@
 	&.is-active {
 		border-color: $c-primary;
 	}
+	
+	&.is-warning:focus,
+	&.is-warning:hover {
+		color: $c-orange-f8;
+		border-color: $c-orange-f8;
+		
+		i {
+			color: inherit;
+		}
+	}
 }
 
 /* Btn Small  */

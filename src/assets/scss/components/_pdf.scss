@@ -8,6 +8,7 @@
 	overflow: hidden;
 
 	&.is-xml {
+		width: 100% !important;
 		background-color: $c-white;
 	}
 
@@ -115,6 +116,7 @@
 
 	#documentView\.screen\.container {
 		padding: 0;
+		overflow: hidden !important;
 	}
 
 	#documentView #pdfViewer .textLayer {

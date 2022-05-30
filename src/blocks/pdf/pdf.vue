@@ -20,6 +20,8 @@
 			size="small"
 			className="tertiary"
 			modifier="pdf-holder__button"
+			:active="isPdfVisible"
+			v-tooltip.top="tooltipText"
 			@onClick.prevent="toggleDocumentView"
 		>
 			<Icon name="document" />
@@ -64,7 +66,10 @@
 		},
 
 		computed: {
-			...mapGetters('pdfViewer', ['documentHandler']) 
+			...mapGetters('pdfViewer', ['documentHandler']) ,
+			tooltipText() {
+				return this.isPdfVisible ? 'View Document as Text' : 'View Document as PDF'
+			}
 		},
 
 		/**

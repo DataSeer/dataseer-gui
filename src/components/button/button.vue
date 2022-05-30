@@ -1,6 +1,6 @@
 <template>
 	<component
-		:is="type"
+		:is="component"
 		:to="to"
 		:href="href"
 		class="btn"
@@ -14,7 +14,6 @@
 			'is-highlighted': highlighted,
 			'is-active': active,
 			[modifier]: modifier,
-			
 		}"
 		v-bind="$attrs"
 		@click="$emit('onClick', $event)"
@@ -88,14 +87,11 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		type() {
-			if (this.to) {
-				return 'router-link';
-			} else if (this.href) {
-				return 'a';
-			} else {
-				return 'button';
-			}
+		component() {
+			if (this.to) return 'router-link';
+			if (this.href) return 'a';
+			
+			return 'button';
 		}
 	}
 };
