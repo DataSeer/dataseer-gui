@@ -47,10 +47,10 @@ export default {
 		},
 		className: {
 			type: String,
-			default: '',
+			default: 'primary',
 			validator: function(value) {
 				// The value must match one of these strings
-				return ['', 'secondary', 'tertiary'].indexOf(value) !== -1;
+				return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
 			}
 		},
 		block: {

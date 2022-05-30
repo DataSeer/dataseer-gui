@@ -68,7 +68,7 @@
 							<Button
 								className="tertiary"
 								v-tooltip.top="tooltips.unlink"
-								@onClick.prevent="unlinkSentenceFromDataset"
+								@onClick.prevent="openLinkModal"
 							>
 								<Icon name="unlink" />
 
@@ -78,7 +78,7 @@
 							<Button
 								className="tertiary"
 								v-tooltip.top="tooltips.deleteText"
-								@onClick.prevent="handleDatasetDelete"
+								@onClick.prevent="openDeleteModal"
 							>
 								<Icon name="trash" />
 
@@ -110,7 +110,7 @@
 								className="tertiary"
 								modifier="is-warning"
 								v-tooltip.top-center="tooltips.unlink"
-								@onClick.prevent="unlinkSentenceFromDataset"
+								@onClick.prevent="openLinkModal"
 							>
 								<Icon name="unlink" />
 							</Button>
@@ -120,7 +120,7 @@
 								square
 								modifier="is-warning"
 								v-tooltip.top-center="tooltips.deleteText"
-								@onClick.prevent="handleDatasetDelete"
+								@onClick.prevent="openDeleteModal"
 							>
 								<Icon name="trash" />
 							</Button>
@@ -152,6 +152,7 @@ import { mapGetters, mapActions } from 'vuex'
 import variables from '@/assets/scss/generic/_variables.scss'
 
 import Popup from '@/components/popup/popup';
+import PopupConfirm from '@/components/popup/popup-confirm';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 
 import Icon from '@/components/icon/icon'
@@ -184,6 +185,7 @@ export default {
 		Icon,
 		Form,
 		Popup,
+		PopupConfirm,
 		Button,
 		Dropdown,
 		DropdownNavDatasets,
@@ -285,12 +287,6 @@ export default {
 		handleNameInputChange(e) {
 			this.formData = {...this.formData, name: e.target.value}
 		},
-		handleDatasetDelete() {
-			const confirm = window.confirm(this.datasetConfirmDeleteMessage);
-
-			if (!confirm) return
-			this.documentHandler.datasetsList.events.onDatasetDelete(this.activeDataset);
-		},
 		handleDropdownButtonClick(dataset) {
 			if (dataset.id === this.activeDatasetId) return
 
@@ -332,6 +328,40 @@ export default {
 		openPopup() {
 			this.$refs.textPassagePopup.showModal();
 		},
+		openDeleteModal() {
+			this.$modal.show(PopupConfirm, {
+				message: "Do you wish to permanently delete this item?",
+				confirm: "Yes, Delete",
+				cancel: "No, Keep It",
+				confirmFn: () => {
+					this.unlinkSentenceFromDataset()
+					this.$modal.hide('PopupConfirmUnlink');
+				},
+				cancelFn: () => {
+					this.$modal.hide('PopupConfirmUnlink');
+				},
+			}, {
+				name: 'PopupConfirmUnlink',
+				width: 500,
+			})
+		},
+		openLinkModal() {
+			this.$modal.show(PopupConfirm, {
+				message: "Do you wish to permanently delete this item?",
+				confirm: "Yes, Unlink",
+				cancel: "No, Keep It",
+				confirmFn: () => {
+					this.unlinkSentenceFromDataset()
+					this.$modal.hide('PopupConfirmUnlink');
+				},
+				cancelFn: () => {
+					this.$modal.hide('PopupConfirmUnlink');
+				},
+			}, {
+				name: 'PopupConfirmUnlink',
+				width: 500,
+			})
+		}
 	},
 
 	/**

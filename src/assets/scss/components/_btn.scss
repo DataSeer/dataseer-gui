@@ -18,8 +18,6 @@
 	text-transform: uppercase;
 	border-width: 4px;
 	border-style: solid;
-	border-color: $c-primary;
-	background-color: $c-primary;
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 1.2;
@@ -28,13 +26,6 @@
 	transition-property: background, color, border-color;
 	transition-duration: $t-duration;
 	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-
-	&:focus,
-	&:hover {
-		color: $c-white;
-		background-color: darken($c-primary, 8);
-		border-color: darken($c-primary, 8);
-	}
 
 	i {
 		margin-right: 9px;
@@ -46,17 +37,41 @@
 	}
 }
 
+/* Btn Primary */
+
+.btn--primary {
+	border-color: $c-primary;
+	background-color: $c-primary;
+
+	&:focus,
+	&:hover {
+		color: $c-white;
+		background-color: darken($c-primary, 8);
+		border-color: darken($c-primary, 8);
+	}
+
+	&.is-warning,
+	&.is-warning {
+		border-color: $c-orange-f8;
+		background-color: $c-orange-f8;
+
+		&:focus,
+		&:hover {
+			background-color: darken($c-orange-f8, 8);
+			border-color: darken($c-orange-f8, 8);
+		}
+	}
+}
+
 /* Btn Secondary */
 
 .btn--secondary {
-	background-color: transparent;
 	border-color: $c-primary-light;
 	color: $c-primary;
 
 	&:focus,
 	&:hover {
 		color: $c-primary;
-		background-color: transparent;
 		border-color: $c-primary;
 	}
 }

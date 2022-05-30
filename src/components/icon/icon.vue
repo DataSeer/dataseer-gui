@@ -63,6 +63,7 @@ import references from './icon-references';
 import letter from './icon-letter';
 import microscope from './icon-microscope';
 import unlink from './icon-unlink';
+import question from './icon-question';
 
 export default {
 	name: 'Icon',
@@ -142,7 +143,8 @@ export default {
 		references,
 		letter,
 		microscope,
-		unlink
+		unlink,
+		question
 	}
 };
 </script>

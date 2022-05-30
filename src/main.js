@@ -6,7 +6,8 @@ import VueGoodTablePlugin from 'vue-good-table';
 import Vuelidate from 'vuelidate';
 import vSelect from 'vue-select';
 import VTooltip from 'v-tooltip';
-import VModal from 'vue-js-modal';
+import vModal from 'vue-js-modal'
+
 import VueCookies from 'vue-cookies';
 import PortalVue from 'portal-vue';
 import VueClipboard from 'vue-clipboard2'
@@ -32,7 +33,11 @@ Vue.use(vSelect);
 Vue.use(VTooltip, {
 	defaultHtml: false,
 });
-Vue.use(VModal);
+Vue.use(vModal, {
+	dynamicDefaults: {
+		height: 'auto'
+	}
+});
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueCookies);
 Vue.use(PortalVue);
