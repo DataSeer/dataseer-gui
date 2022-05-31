@@ -3,40 +3,33 @@
 \* ------------------------------------------------------------ */
 
 .vm--container {
-	z-index: 10001;
-	padding: 20px 0;
+	z-index: 10001 !important;
+	
+	.vm--overlay {
+		background-color: rgba($c-white, 0.76) !important;
+	}
+
+	.vm--modal {
+		background-color: #f8fbfe !important;
+		border-radius: 10px !important;
+		box-shadow: 0 2px 9px rgba($c-primary, 0.3) !important;
+	}
 }
 
-.vm--overlay {
-	background-color: rgba($c-white, 0.76);
-}
+/* ------------------------------------------------------------ *\
+	Popup
+\* ------------------------------------------------------------ */
 
-.vm--modal,
-.vm--modal figure {
-	border-radius: 10px;
-}
-
-.vm--modal {
+.popup {
+	position: relative;	
 	padding: 30px;
-	background-color: #f8fbfe;
-	border-radius: 10px;
-	box-shadow: 0 2px 9px rgba($c-primary, 0.3);
-}
 
-.vm--modal figure {
-	margin-top: 35px;
+	.btn-close {
+		position: absolute;
+		top: 17px;
+		right: 21px;
+	}
 }
-
-.richtext-entry .richtext__body {
-	max-height: none;
-}
-
-.btn-close {
-	position: absolute;
-	top: 17px;
-	right: 21px;
-}
-
 
 /* Popup Confirm */
 

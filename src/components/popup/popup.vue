@@ -1,11 +1,17 @@
 <template>
-	<div class="popup">
-		<modal :name="name" height="auto" :width="width[size]" adaptive scrollable>
+	<modal
+		:name="name"
+		height="auto"
+		:width="width[size]"
+		scrollable
+		reset
+	>
+		<div class="popup">
 			<BtnClose @onClick="hideModal" />
 
 			<slot />
-		</modal>
-	</div> <!-- /.popup -->
+		</div> <!-- /.popup -->
+	</modal>
 </template>
 
 <script>
@@ -34,7 +40,11 @@ export default {
 		name: String,
 		size: {
 			type: String,
-			default: 'large'
+			default: 'large',
+			validator: function(value) {
+				// The value must match one of these strings
+				return ['small', 'large'].indexOf(value) !== -1;
+			}
 		}
 	},
 

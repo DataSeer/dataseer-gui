@@ -24,9 +24,9 @@
 			v-tooltip.top="tooltipText"
 			@onClick.prevent="toggleDocumentView"
 		>
-			<Icon name="document" />
+			<Icon name="document" :color="isPdfVisible ? 'currentColor' : '#9D9D9D'" />
 			
-			<Icon name="letter" color="#9D9D9D" />
+			<Icon name="letter" :color="isPdfVisible ? '#9D9D9D' : 'currentColor'" />
 		</Button>
 	</div> <!-- /.pdf-holder -->
 </template>

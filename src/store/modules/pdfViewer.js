@@ -74,6 +74,7 @@ const actions = {
 	},
 	updateDataset({commit}, newDataset ) {
 		commit('UPDATE_DATASET', newDataset )
+		commit('SET_ACTIVE_SENTENCE', newDataset )
 	},
 	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
 		const documentHandler = state.documentHandler;
@@ -223,7 +224,7 @@ const mutations = {
 		state.activeSentence = payload;
 	},
 	UPDATE_DATASET(state, payload) {
-		state.datasets[state.datasets.findIndex(el => el.id === payload.id)] = {...payload};
+		state.datasets = state.datasets.map(item => item.id === payload.id ? payload : item);
 	},
 	CLEAR_STATE(state ) {
         state.dataTypes = {};
