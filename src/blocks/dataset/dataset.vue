@@ -68,7 +68,7 @@
 							<Button
 								className="tertiary"
 								v-tooltip.top="tooltips.unlink"
-								@onClick.prevent="openLinkModal"
+								@onClick.prevent="openUnlinkModal"
 							>
 								<Icon name="unlink" />
 
@@ -110,7 +110,7 @@
 								className="tertiary"
 								modifier="is-warning"
 								v-tooltip.top-center="tooltips.unlink"
-								@onClick.prevent="openLinkModal"
+								@onClick.prevent="openUnlinkModal"
 							>
 								<Icon name="unlink" />
 							</Button>
@@ -320,6 +320,7 @@ export default {
 			// Clear button focus
 			// Added as temporary solution until the form is properly integrated
 			if (document.activeElement != document.body) document.activeElement.blur();
+
 			console.log(formData);
 		},
 		handleIssuesFormCancel() {
@@ -332,37 +333,19 @@ export default {
 			this.$refs.textPassagePopup.showModal();
 		},
 		openDeleteModal() {
-			this.$modal.show(PopupConfirm, {
+			this.openConfirmModal({
 				message: "Do you wish to permanently delete this item?",
 				confirm: "Yes, Delete",
 				cancel: "No, Keep It",
-				confirmFn: () => {
-					this.unlinkSentenceFromDataset()
-					this.$modal.hide('PopupConfirmUnlink');
-				},
-				cancelFn: () => {
-					this.$modal.hide('PopupConfirmUnlink');
-				},
-			}, {
-				name: 'PopupConfirmUnlink',
-				width: 500,
+				onConfirm: this.unlinkSentenceFromDataset,
 			})
 		},
-		openLinkModal() {
-			this.$modal.show(PopupConfirm, {
-				message: "Do you wish to permanently delete this item?",
+		openUnlinkModal() {
+			this.openConfirmModal({
+				message: "Do you wish to unlink the selected text passage from this item?",
 				confirm: "Yes, Unlink",
 				cancel: "No, Keep It",
-				confirmFn: () => {
-					this.unlinkSentenceFromDataset()
-					this.$modal.hide('PopupConfirmUnlink');
-				},
-				cancelFn: () => {
-					this.$modal.hide('PopupConfirmUnlink');
-				},
-			}, {
-				name: 'PopupConfirmUnlink',
-				width: 500,
+				onConfirm: this.unlinkSentenceFromDataset,
 			})
 		}
 	},

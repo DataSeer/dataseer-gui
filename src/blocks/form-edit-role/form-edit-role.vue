@@ -76,7 +76,8 @@
 				<Button
 					type="button"
 					className="tertiary"
-					@onClick="deleteRole"
+					modifier="is-warning"
+					@onClick="handleDeleteButtonClick"
 				>
 					<Icon name="trash" color="#E36329" /> Delete Role
 				</Button>
@@ -193,9 +194,6 @@ export default {
 			this.loading = false;
 		},
 		async deleteRole() {
-			const confirm = window.confirm(this.formMessages.confirmDelete);
-			if (!confirm) return
-
 			this.loading = true;
 			
 			try {
@@ -210,6 +208,14 @@ export default {
 			}
 			
 			this.loading = false;
+		},
+		handleDeleteButtonClick() {
+			this.openConfirmModal({
+				message: this.formMessages.confirmDelete,
+				confirm: "Yes, Delete",
+				cancel: "No, Keep It",
+				onConfirm: this.deleteRole,
+			})
 		},
 	}
 };

@@ -8,7 +8,7 @@
 		<template #subheader>	
 			<Subheader>
 				<SubheaderTable
-					title="Edit Organization"
+					title="Organizations"
 					icon="organization"
 					buttonLabel="Add New Organization"
 					buttonUrl="/add-organization"

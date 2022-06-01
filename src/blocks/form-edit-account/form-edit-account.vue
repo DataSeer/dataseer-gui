@@ -85,7 +85,12 @@
 			</li>
 
 			<li>
-				<Button className="tertiary" type="button" @onClick="deleteAccount">
+				<Button
+					type="button"
+					className="tertiary"
+					modifier="is-warning"
+					@onClick="handleDeleteButtonClick"
+				>
 					<Icon name="trash" color="#E36329" /> Delete Account
 				</Button>
 			</li>
@@ -176,6 +181,16 @@ export default {
 	},
 
 	methods: {
+		async getOrganizationsList() {
+			const organizationsList = await organizationsService.getOrganizationsList();
+
+			this.organizationsList = organizationsList;
+		},
+		async getRolesList() {
+			const rolesList = await RolesService.getRolesList();
+
+			this.rolesList = rolesList;
+		},
 		async getAccount() {
 			const result = await AccountsService.getAccount(this.$route.params.id);
 			const { visible, disabled, fullname, username } = result;
@@ -217,10 +232,6 @@ export default {
 			this.loading = false;
 		},
 		async deleteAccount() {
-			const confirmDelete = window.confirm(this.formMessages.confirmDelete);
-
-			if (!confirmDelete) return;
-			this.resetForm();
 			this.loading = true;
 
 			try {
@@ -235,15 +246,13 @@ export default {
 
 			this.loading = false;
 		},
-		async getOrganizationsList() {
-			const organizationsList = await organizationsService.getOrganizationsList();
-
-			this.organizationsList = organizationsList;
-		},
-		async getRolesList() {
-			const rolesList = await RolesService.getRolesList();
-
-			this.rolesList = rolesList;
+		handleDeleteButtonClick() {
+			this.openConfirmModal({
+				message: this.formMessages.confirmDelete,
+				confirm: "Yes, Delete",
+				cancel: "No, Keep It",
+				onConfirm: this.deleteAccount,
+			})
 		},
 		resetForm() {
 			this.error = false;
@@ -251,7 +260,7 @@ export default {
 			this.message = '';
 		}
 	},
-
+	
 	created() {
 		this.getRolesList();
 		this.getOrganizationsList();

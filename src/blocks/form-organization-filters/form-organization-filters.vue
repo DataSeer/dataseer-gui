@@ -130,7 +130,7 @@ export default {
 			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
 		},
 		applyButtonClass() {
-			return this.areFiltersApplied ? 'tertiary' : '';
+			return this.areFiltersApplied ? 'tertiary' : 'primary';
 		},
 		routerQuery: function() {
 			return this.$route.query

@@ -192,7 +192,7 @@ export default {
 			return this.areFiltersApplied ? 'Filters Applied' : 'Apply Filters';
 		},
 		applyButtonClass() {
-			return this.areFiltersApplied ? 'tertiary' : '';
+			return this.areFiltersApplied ? 'tertiary' : 'primary';
 		},
 		gridColumnSize() {
 			return this.userRoleWeight <= 10 ? 'half' : 'quarter';

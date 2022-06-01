@@ -51,8 +51,13 @@
 			</li>
 
 			<li>
-				<Button type="button" @onClick="deleteOrganization" className="tertiary">
-					<Icon name="trash" color="#E36329" /> Delete Role
+				<Button
+					type="button"
+					className="tertiary"
+					modifier="is-warning"
+					@onClick="handleDeleteButtonClick"
+				>
+					<Icon name="trash" color="#E36329" /> Delete Organization
 				</Button>
 			</li>
 		</FormActions>
@@ -142,8 +147,7 @@ export default {
 
 			try {
 				const res = await organizationsService.updateOrganization(this.organizationId, params);
-				
-				
+								
 				this.title = res.name;
 				this.success = true;
 				this.message = this.formMessages.updated;
@@ -159,7 +163,7 @@ export default {
 			
 			try {
 				const organization = await organizationsService.getOrganization(this.organizationId);
-
+				
 				this.title = organization.name;
 				this.formData.name = organization.name;
 				this.formData.visible = organization.visible;
@@ -171,9 +175,6 @@ export default {
 			this.loading = false;
 		},
 		async deleteOrganization() {
-			const confirmDelete = window.confirm(this.formMessages.confirmDelete);
-
-			if (!confirmDelete) return;
 			this.loading = true;
 			
 			try {
@@ -188,6 +189,14 @@ export default {
 			}
 
 			this.loading = false;
+		},
+		handleDeleteButtonClick() {
+			this.openConfirmModal({
+				message: this.formMessages.confirmDelete,
+				confirm: "Yes, Delete",
+				cancel: "No, Keep It",
+				onConfirm: this.deleteOrganization,
+			})
 		},
 		resetForm() {
 			this.error = false;

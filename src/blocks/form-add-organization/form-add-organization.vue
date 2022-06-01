@@ -109,7 +109,7 @@ export default {
 		return {
 			formData: {
 				name: '',
-				visible: false,
+				visible: true,
 				locked: false,
 			},
 			loading: false,

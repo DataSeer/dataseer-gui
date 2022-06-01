@@ -176,7 +176,14 @@
 
 										<ul>
 											<li class="is-highlighted">
-												<button @click.prevent="deleteDocument(props.row.name, props.row._id)">
+												<button
+													@click.prevent="openConfirmModal({
+														message: `Are you sure you want to delete ${props.row.name}?`,
+														confirm: 'Yes, Delete',
+														cancel: 'No, Keep It',
+														onConfirm: () => deleteDocument(props.row.name, props.row._id),
+													})"
+												>
 													<Icon name="trash" color="currentColor" />
 
 													Delete Document
@@ -451,9 +458,6 @@ export default {
 			this.loading = false;
 		},
 		async deleteDocument(name, id) {
-			const confirmDelete = window.confirm(`Are you sure you want to delete ${name}?`);
-
-			if (!confirmDelete) return
 			this.loading = true;
 			
 			try {
