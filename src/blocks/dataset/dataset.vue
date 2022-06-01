@@ -90,6 +90,16 @@
 							<Button
 								className="tertiary"
 								square
+								v-tooltip.top="tooltips.sciscore"
+								@onClick.prevent="$refs.SciscorePopup.showModal()"
+							>
+								S
+							</Button>
+							
+
+							<Button
+								className="tertiary"
+								square
 								v-tooltip.top="tooltips.flag"
 								@onClick.prevent="toggleIssuesForm"
 							>
@@ -100,7 +110,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top="tooltips.passage"
-								@onClick.prevent="openPopup"
+								@onClick.prevent="$refs.textPassagePopup.showModal()"
 							>
 								<Icon name="documents" />
 							</Button>
@@ -128,6 +138,43 @@
 					</div> <!-- /.form__cta-row -->
 				</div> <!-- /.form__cta -->
 			</Form>
+
+			<Popup ref="SciscorePopup" name="sciscore-popup" size="small">
+				<Grid rowGap="medium">
+					<GridColumn>
+						<Field
+							name="suggestedEntity"
+							v-model.trim="formData.suggestedEntity"
+						>
+							<Icon name="windows" />
+
+							Suggested Name of Entity
+						</Field>
+					</GridColumn>
+
+					<GridColumn>
+						<Field
+							name="suggestedURL"
+							v-model.trim="formData.suggestedURL"
+						>
+							<Icon name="chain" />
+
+							Suggested URL
+						</Field>
+					</GridColumn>
+
+					<GridColumn>
+						<Field
+							name="suggestedURL"
+							v-model.trim="formData.citation"
+						>
+							<Icon name="key" />
+
+							Suggested RRID
+						</Field>
+					</GridColumn>
+				</Grid>
+			</Popup>
 
 			<Popup ref="textPassagePopup" name="text-passage-popup" size="small">
 				<RichtextEntry label="Connected Text Passages" icon="documents">
@@ -159,6 +206,8 @@ import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
 import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 
+import Grid, { GridColumn } from '@/components/grid/grid';
+
 import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormDefaultIssues from '@/blocks/form-issues/form-default-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
@@ -168,6 +217,8 @@ import FormDataset from '@/blocks/form-dataset/form-dataset-default';
 import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
+
+import Field from '@/components/field/field';
 
 import { clearDropdown } from '@/utils/use-dropdowns';
 
@@ -181,6 +232,9 @@ export default {
 	 * Components
 	 */
 	components: {
+		Grid,
+		GridColumn,
+		Field,
 		variables,
 		Icon,
 		Form,
@@ -217,6 +271,7 @@ export default {
 			NameInputPlaceholder: 'Enter...',
 			datasetConfirmDeleteMessage: 'Are you sure you want to delete this dataset?',
 			tooltips: {
+				sciscore: 'Suggest citation information for this object',
 				flag: 'Flag Issues For Author',
 				passage: 'Show Text Passage',
 				unlink: 'Unlink selected sentence to this dataset',
@@ -328,9 +383,6 @@ export default {
 		},
 		handleMessageCurator() {
 			console.log('handleIssuesFormCancel');
-		},
-		openPopup() {
-			this.$refs.textPassagePopup.showModal();
 		},
 		openDeleteModal() {
 			this.openConfirmModal({
