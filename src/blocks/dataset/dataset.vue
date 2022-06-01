@@ -314,10 +314,13 @@ export default {
 			})
 		},
 		toggleIssuesForm() {
-			this.formData.flagged = !this.formData?.flagged
+			this.formData.flagged = !this.formData?.flagged;
 		},
-		handleIssuesFormSubmit(formdata) {
-			console.log(formdata);
+		handleIssuesFormSubmit(formData) {
+			// Clear button focus
+			// Added as temporary solution until the form is properly integrated
+			if (document.activeElement != document.body) document.activeElement.blur();
+			console.log(formData);
 		},
 		handleIssuesFormCancel() {
 			this.formData.flagged = false

@@ -7,15 +7,15 @@
 	>
 		<ul>
 			<FieldCheckbox
-				:name="issue.id + '-completed'"
-				:value="issue.completed"
+				:name="issue.id + '-active'"
+				:value="issue.active"
 				@onChange="handleChange"
 			>
-				{{ issue.label }} <span v-if="!getCurator">{{ type }}</span>
+				{{ issue.label }} <span v-if="!isCurator">{{ type }}</span>
 			</FieldCheckbox>
 
 			<FieldCheckbox
-				v-if="getCurator"
+				v-if="isCurator"
 				:name="`${issue.id}-required`"
 				:value="issue.required"
 				isToggle
@@ -65,12 +65,14 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters(['getCurator']),
+		...mapGetters('account', ['userRoleWeight']),
 		type() {
 			return this.issue.required ? 'Required' : 'Recommended'
+		},
+		isCurator() {
+			return this.userRoleWeight >= 1000
 		}
 	},
-	
 
 	/**
 	 * Methods
@@ -80,6 +82,8 @@ export default {
 			const issueID = this.issue.id;
 			const issueKey = e.target.name.split('-').at(-1);
 			const issueValue = e.target.checked;
+
+			console.log(e.target.name);
 
 			this.$emit('change', issueID, issueKey, issueValue);
 		}

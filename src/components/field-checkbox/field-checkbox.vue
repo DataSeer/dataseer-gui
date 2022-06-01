@@ -7,7 +7,7 @@
 				'has-error': error,
 				'checkbox--select': isDropdown,
 				'checkbox--toggle': isToggle,
-				'checkbox--default': !isToggle && !isDropdown
+				'checkbox--default': isDefault
 			}"
 		>
 			<input
@@ -22,8 +22,10 @@
 				@change="handleChange"
 			/>
 
-			<label v-if="!isDropdown" :for="toKebabCase(name)">
+			<label class="checkbox__label" v-if="!isDropdown" :for="toKebabCase(name)">
 				<slot />
+
+				<Icon v-if="isDefault && sanitizedValue" name="check" />
 			</label>
 
 			<p v-if="isDropdown">
@@ -70,6 +72,7 @@ import vSelect from 'vue-select';
 /**
  * Internal Dependencies
  */
+import Icon from '@/components/icon/icon';
 import toKebabCase from '@/utils/str-to-kebab-case';
 
 export default {
@@ -82,6 +85,7 @@ export default {
 	 * Components
 	 */
 	components: {
+		Icon,
 		vSelect
 	},
 
@@ -151,6 +155,9 @@ export default {
 					return false;
 				default: return this.value;
 			}
+		},
+		isDefault() {
+			return !this.isToggle && !this.isDropdown;
 		}
 	},
 

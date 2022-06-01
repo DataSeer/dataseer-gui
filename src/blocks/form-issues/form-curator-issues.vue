@@ -16,7 +16,8 @@
 					v-for="activeIssue in activeIssues"
 					:key="activeIssue.id"
 					:issue="activeIssue"
-					isCurator @change="updateIssue" 
+					isCurator
+					@change="updateIssue" 
 				/>
 
 				<Field
@@ -88,21 +89,21 @@ export default {
 					label: 'URL broken',
 					required: true,
 					completed: true,
-					active: false
+					active: true
 				},
 				{
 					id: 'issue2',
 					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
 					required: true,
 					completed: true,
-					active: false
+					active: true
 				},
 				{
 					id: 'issue3',
 					label: 'Item not yet publicly accessible',
 					required: true,
 					completed: true,
-					active: false
+					active: true
 				},
 				{
 					id: 'issue4',

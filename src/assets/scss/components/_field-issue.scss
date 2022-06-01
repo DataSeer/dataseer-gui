@@ -24,10 +24,16 @@
 		}
 	}
 
-	.checkbox label:before {
-		background-color: #fff;
-		border-width: 2px;
+	.checkbox.checkbox--default label:before {
 		border-color: #e9dad6;
+	}
+	
+	.checkbox.checkbox--default input:checked + label {
+		color: $c-base-lighter;
+	}
+
+	.checkbox.checkbox--default input:checked + label .ico--check {
+		color: #8d2424;
 	}
 
 	.checkbox--toggle {
@@ -64,7 +70,7 @@
 		background-color: $c-white;
 	}
 
-	.checkbox label span {
+	.checkbox.checkbox--default label span {
 		text-transform: capitalize;
 		font-style: italic;
 		font-size: 14px;

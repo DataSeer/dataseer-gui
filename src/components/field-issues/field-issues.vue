@@ -5,6 +5,7 @@
 		class="field-issues js-dropdown-holder"
 	>
 		<Button
+			type="button"
 			className="tertiary"
 			size="small"
 			:active="isActive"
@@ -47,6 +48,8 @@
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
 
+import { clearDropdown } from '@/utils/use-dropdowns';
+
 export default {
 	/**
 	 * Name
@@ -87,10 +90,10 @@ export default {
 		handleChange(e) {
 			const issueID = e.target.id.split('-')[0];
 			const issueKey = e.target.id.split('-')[1];
-			const issueValue = e.target.checked;
+			const issueValue = e.target.checked
 
 			this.$emit('change', issueID, issueKey, issueValue);
-			this.$refs.dropdown.classList.remove('is-active');
+			clearDropdown(this.$refs.dropdown);
 		},
 		toggleIssuesDropdown() {
 			this.$refs.dropdown.classList.toggle('is-active');
