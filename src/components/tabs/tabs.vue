@@ -90,7 +90,7 @@ export default {
 	 */
 	data() {
 		return {
-			initialTabMargin: 72,
+			initialTabMargin: 300,
 			minMargin: 72,
 			maxMargin: 300,
 			minTabWith: 400,
