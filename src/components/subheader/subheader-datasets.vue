@@ -9,7 +9,7 @@
 							<button
 								:data-value="type.id"
 								:class="{ 'is-active': type.id === activeDatasetType}"
-								@click.prevent="handleDataTypeChange(type.id)"
+								@click.prevent="setActiveDatasetType(type.id)"
 							>
 								<Dot v-if="isDatatypeFlagged(type.id)" />
 								<Icon :name="type.icon" color="currentColor" />
@@ -211,18 +211,6 @@ export default {
 			}, () => {
 				alert('Can not copy')
 			})
-		},
-		handleDataTypeChange(datatype) {
-			this.setActiveDatasetType(datatype);
-			const firstDatasetOfType = this.filteredDatasets[0];
-			
-			// Select the first dataset of type if there is one
-			if ( this.activeDataset?.id === firstDatasetOfType?.id ) return
-		
-			this.setActiveDataset({
-				dataset: firstDatasetOfType,
-				scrollToSentence: false
-			});
 		},
 		isDatatypeFlagged(datatype) {
 			return this.datasets.some(el => el.datasetType === datatype && ( el.flagged === true || el.flagged === 'true'))
