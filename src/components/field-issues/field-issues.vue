@@ -25,7 +25,7 @@
 						tabindex="0"
 						type="checkbox"
 						class="sr-only"
-						:name="issue.id + '-active'"
+						:name="issue.id"
 						:id="issue.id + '-active'"
 						:value="issue.active"
 						:checked="issue.active"
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -88,8 +89,8 @@ export default {
 	 */
 	methods: {
 		handleChange(e) {
-			const issueID = e.target.id.split('-')[0];
-			const issueKey = e.target.id.split('-')[1];
+			const issueID = e.target.name;
+			const issueKey = 'active';
 			const issueValue = e.target.checked
 
 			this.$emit('change', issueID, issueKey, issueValue);

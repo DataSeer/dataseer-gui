@@ -13,10 +13,10 @@
 
 			<div class="form__body">
 				<FieldIssue
+					isCurator
 					v-for="activeIssue in activeIssues"
 					:key="activeIssue.id"
 					:issue="activeIssue"
-					isCurator
 					@change="updateIssue" 
 				/>
 
@@ -73,6 +73,16 @@ export default {
 		FieldIssue,
 		FieldIssues
 	},
+	
+	/**
+	 * Props
+	 */
+	props: {
+		issues: {
+			type: Array,
+			default: () => []
+		}
+	},
 
 	/**
 	 * Data
@@ -82,51 +92,7 @@ export default {
 		return {
 			formData: {
 				additionalComments: '',
-			},
-			issues: [
-				{
-					id: 'issue1',
-					label: 'URL broken',
-					required: true,
-					completed: true,
-					active: true
-				},
-				{
-					id: 'issue2',
-					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-					required: true,
-					completed: true,
-					active: true
-				},
-				{
-					id: 'issue3',
-					label: 'Item not yet publicly accessible',
-					required: true,
-					completed: true,
-					active: true
-				},
-				{
-					id: 'issue4',
-					label: 'Not an appropriate reference',
-					required: true,
-					completed: true,
-					active: false
-				},
-				{
-					id: 'issue5',
-					label: 'Dataset not provided',
-					required: true,
-					completed: true,
-					active: false
-				},
-				{
-					id: 'issue6',
-					label: 'Other',
-					required: true,
-					completed: true,
-					active: false
-				}
-			]
+			}
 		};
 	},
 

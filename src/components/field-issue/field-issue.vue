@@ -7,25 +7,14 @@
 	>
 		<ul>
 			<FieldCheckbox
-				:name="issue.id + '-active'"
-				:value="issue.active"
+				:name="issue.id"
+				:value="isCurator ? issue.active : issue.completed"
 				@onChange="handleChange"
 			>
-				{{ issue.label }} <span v-if="!isCurator">{{ type }}</span>
-			</FieldCheckbox>
-
-			<FieldCheckbox
-				v-if="isCurator"
-				:name="`${issue.id}-required`"
-				:value="issue.required"
-				isToggle
-				@onChange="handleChange"
-			>
-				{{ type }}
+				{{ issue.label }}
 			</FieldCheckbox>
 		</ul>
-	</div>
-	<!-- /.field-issue -->
+	</div> <!-- /.field-issue -->
 </template>
 
 <script>
@@ -66,9 +55,6 @@ export default {
 	 */
 	computed: {
 		...mapGetters('account', ['userRoleWeight']),
-		type() {
-			return this.issue.required ? 'Required' : 'Recommended'
-		},
 		isCurator() {
 			return this.userRoleWeight >= 1000
 		}
@@ -80,10 +66,8 @@ export default {
 	methods: {
 		handleChange(e) {
 			const issueID = this.issue.id;
-			const issueKey = e.target.name.split('-').at(-1);
-			const issueValue = e.target.checked;
-
-			console.log(e.target.name);
+			const issueKey = this.isCurator ? 'active' : 'completed';
+			const issueValue =  e.target.checked;
 
 			this.$emit('change', issueID, issueKey, issueValue);
 		}

@@ -8,12 +8,14 @@
 			<template v-if="formData.flagged === 'true' || formData.flagged === true">
 				<FormCuratorIssues
 					v-if="userRoleWeight >= 1000"
+					:issues="issues"
 					@submit="handleIssuesFormSubmit"
 					@cancel="handleIssuesFormCancel"
 				/>
 				
 				<FormDefaultIssues
 					v-else
+					:issues="issues"
 					@submit="handleIssuesFormSubmit"
 					@messageCurator="handleMessageCurator"
 				/>
@@ -277,10 +279,47 @@ export default {
 				unlink: 'Unlink selected sentence to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
+			issues: [
+				{
+					id: 'issue-1',
+					label: 'URL broken',
+					completed: false,
+					active: true
+				},
+				{
+					id: 'issue-2',
+					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
+					completed: false,
+					active: true
+				},
+				{
+					id: 'issue-3',
+					label: 'Item not yet publicly accessible',
+					completed: false,
+					active: true
+				},
+				{
+					id: 'issue-4',
+					label: 'Not an appropriate reference',
+					completed: false,
+					active: false
+				},
+				{
+					id: 'issue-5',
+					label: 'Dataset not provided',
+					completed: false,
+					active: false
+				},
+				{
+					id: 'issue-6',
+					label: 'Other',
+					completed: false,
+					active: false
+				}
+			],
 			isFormSubmitting: false,
 		}
 	},
-	
 
 	/**
 	 * Watch

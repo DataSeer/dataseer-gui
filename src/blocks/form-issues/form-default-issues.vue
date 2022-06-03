@@ -65,6 +65,13 @@ export default {
 		FieldIssue
 	},
 
+	props: {
+		issues: {
+			type: Array,
+			default: () => []
+		}
+	},
+
 	/**
 	 * Data
 	 */
@@ -72,86 +79,7 @@ export default {
 		return {
 			formData: {
 				additionalComments: ''
-			},
-			issues: [
-				{
-					id: 'issue1',
-					label: 'A particular issue number one',
-					required: true,
-					completed: false,
-					active: true
-				},
-
-				{
-					id: 'issue2',
-					label: 'Needs Citation',
-					required: false,
-					completed: false,
-					active: true
-				},
-
-				{
-					id: 'issue3',
-					label: 'Needs Citation',
-					required: false,
-					completed: false,
-					active: true
-				},
-
-				{
-					id: 'issue4',
-					label: 'A really bad issue that is a bit longer and wraps to two or more lines of written text',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue5',
-					label: 'Missing Support Files',
-					required: false,
-					completed: false,
-					active: false
-				},
-				{
-					id: 'issue6',
-					label: 'A particular issue number one',
-					required: false,
-					completed: false,
-					active: false
-				},
-				{
-					id: 'issue7',
-					label: 'Different issue',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue8',
-					label: 'A really bad issue that might be a little bit longer and wrap to two or more lines of written text',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue9',
-					label: 'One more issue down here',
-					required: false,
-					completed: false,
-					active: false
-				},
-
-				{
-					id: 'issue10',
-					label: 'Other (Described in comments below)',
-					required: false,
-					completed: false,
-					active: false
-				}
-			]
+			}
 		};
 	},
 
