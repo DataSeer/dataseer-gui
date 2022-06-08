@@ -66,10 +66,9 @@ export default {
 	methods: {
 		handleChange(e) {
 			const issueID = this.issue.id;
-			const issueKey = this.isCurator ? 'active' : 'completed';
 			const issueValue =  e.target.checked;
 
-			this.$emit('change', issueID, issueKey, issueValue);
+			this.$emit('change', issueID, issueValue);
 		}
 	}
 };

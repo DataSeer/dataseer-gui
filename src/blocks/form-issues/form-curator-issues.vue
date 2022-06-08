@@ -5,19 +5,18 @@
 				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
 				
 				<FieldIssues
-					text="Select all that apply…"
-					:issues="issues"
-					@change="updateIssue"
+					:issuesList="issuesList"
+					@change="handleIssueUpdate"
 				/>
 			</div><!-- /.form__head -->
 
 			<div class="form__body">
 				<FieldIssue
 					isCurator
-					v-for="activeIssue in activeIssues"
-					:key="activeIssue.id"
-					:issue="activeIssue"
-					@change="updateIssue" 
+					v-for="issue in activeIssues"
+					:key="issue.id"
+					:issue="issue"
+					@change="handleIssueUpdate" 
 				/>
 
 				<Field
@@ -46,6 +45,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -78,7 +78,11 @@ export default {
 	 * Props
 	 */
 	props: {
-		issues: {
+		activeIssues: {
+			type: Array,
+			default: () => []
+		},
+		issuesList: {
 			type: Array,
 			default: () => []
 		}
@@ -97,28 +101,25 @@ export default {
 	},
 
 	/**
-	 * Computed
-	 */
-	computed: {
-		activeIssues: function() {
-			return this.issues.filter((issue) => issue.active);
-		}
-	},
-
-	/**
 	 * Methods
 	 */
 	methods: {
-		updateIssue(id, key, value) {
-			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
-			this.issues[issueIndex][key] = value;
-		},
+		handleIssueUpdate(id, value) {
+			const issueIndex = this.issuesList.findIndex((issue) => issue.id == id);
+			console.log(issueIndex);
+
+			return
+			this.issuesList[issueIndex].active = value;
+			this.$emit('change');
+
+			console.log(this.activeIssues);
+		}, 
 		handleSubmit() {
 			this.$emit('submit', {
 				issues: this.activeIssues,
 				additionalComments: this.formData.additionalComments
 			});
 		}
-	},
+	}
 };
 </script>

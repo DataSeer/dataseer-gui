@@ -1,6 +1,5 @@
 <template>
 	<div
-		v-if="issues"
 		ref="dropdown"
 		class="field-issues js-dropdown-holder"
 	>
@@ -8,47 +7,42 @@
 			type="button"
 			className="tertiary"
 			size="small"
-			:active="isActive"
 			@onClick.prevent="toggleIssuesDropdown"
 		>
 			<Icon name="plus" />
 
-			Select issues
+			{{ toggleButtonText }}
 		</Button>
 
 		<div class="field__inner">
-			<p v-if="text">{{ text }}</p>
+			<p v-if="title">{{ title }}</p>
 
 			<ul>
-				<li v-for="issue in issues" :key="issue.id">
+				<li v-for="item in issuesList" :key="item.id">
 					<input
 						tabindex="0"
 						type="checkbox"
 						class="sr-only"
-						:name="issue.id"
-						:id="issue.id + '-active'"
-						:value="issue.active"
-						:checked="issue.active"
+						:name="item.id"
+						:id="item.id + '-dropdown'"
+						:value="item.active"
+						:checked="item.active"
 						@change="handleChange"
 					/>
-
-					<label :for="issue.id + '-active'">
-						{{ issue.label }} <span v-if="issue.type">({{ issue.type }})</span>
-					</label>
+					
+					<label :for="item.id + '-dropdown'"> {{ item.label }} </label>
 				</li>
 			</ul>
-		</div><!-- /.field__inner -->
+		</div>
 	</div>
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */
 import Icon from '@/components/icon/icon';
 import Button from '@/components/button/button';
-
 import { clearDropdown } from '@/utils/use-dropdowns';
 
 export default {
@@ -69,18 +63,19 @@ export default {
 	 * Props
 	 */
 	props: {
-		text: {
-			type: String,
-			default: ''
-		},
-		issues: {
-			type: Array
+		issuesList: {
+			type: Array,
+			default: () => []
 		}
 	},
 
-	computed: {
-		isActive() {
-			return true
+	/**
+	 * Data
+	 */
+	data() {
+		return {
+			title: 'Select all that apply…',
+			toggleButtonText: 'Select issues'
 		}
 	},
 
@@ -89,11 +84,10 @@ export default {
 	 */
 	methods: {
 		handleChange(e) {
-			const issueID = e.target.name;
-			const issueKey = 'active';
-			const issueValue = e.target.checked
-
-			this.$emit('change', issueID, issueKey, issueValue);
+			const { name, checked } = e.target;
+			
+			this.$emit('change', name, checked);
+			// Close dropdown after selection
 			clearDropdown(this.$refs.dropdown);
 		},
 		toggleIssuesDropdown() {

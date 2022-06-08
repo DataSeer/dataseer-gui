@@ -5,17 +5,19 @@
 		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<template v-if="formData.flagged === 'true' || formData.flagged === true">
+			<template v-if="formData.flagged === true">
 				<FormCuratorIssues
 					v-if="userRoleWeight >= 1000"
-					:issues="issues"
+					:activeIssues="formData.issues"
+					:issuesList="issuesList"
+					@change="handleIssuesFormChange"
 					@submit="handleIssuesFormSubmit"
 					@cancel="handleIssuesFormCancel"
 				/>
 				
 				<FormDefaultIssues
 					v-else
-					:issues="issues"
+					:issues="issuesList"
 					@submit="handleIssuesFormSubmit"
 					@messageCurator="handleMessageCurator"
 				/>
@@ -95,7 +97,7 @@
 								v-tooltip.top="tooltips.sciscore"
 								@onClick.prevent="$refs.SciscorePopup.showModal()"
 							>
-								S
+								<Icon name="sciscore" />
 							</Button>
 							
 
@@ -190,6 +192,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -206,6 +209,7 @@ import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 
 import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
+import Field from '@/components/field/field';
 import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 
 import Grid, { GridColumn } from '@/components/grid/grid';
@@ -219,8 +223,6 @@ import FormDataset from '@/blocks/form-dataset/form-dataset-default';
 import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
-
-import Field from '@/components/field/field';
 
 import { clearDropdown } from '@/utils/use-dropdowns';
 
@@ -268,10 +270,10 @@ export default {
 	 */
 	data() {
 		return {
-			multipleReferencesText: 'Multiple references share this text selection',
 			formData: {},
+			isFormSubmitting: false,
+			multipleReferencesText: 'Multiple references share this text selection',
 			NameInputPlaceholder: 'Enter...',
-			datasetConfirmDeleteMessage: 'Are you sure you want to delete this dataset?',
 			tooltips: {
 				sciscore: 'Suggest citation information for this object',
 				flag: 'Flag Issues For Author',
@@ -279,45 +281,56 @@ export default {
 				unlink: 'Unlink selected sentence to this dataset',
 				deleteText: 'Delete this Dataset'
 			},
-			issues: [
+			modals: {
+				confirmDelete: {
+					message: "Do you wish to permanently delete this item?",
+					confirm: "Yes, Delete",
+					cancel: "No, Keep It",
+				},
+				confirmUnlink: {
+					message: "Do you wish to unlink the selected text passage from this item?",
+					confirm: "Yes, Unlink",
+					cancel: "No, Keep It",
+				}
+			},
+			issuesList: [
 				{
 					id: 'issue-1',
 					label: 'URL broken',
-					completed: false,
-					active: true
+					active: 'false',
+					completed: 'false',
 				},
 				{
 					id: 'issue-2',
 					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-					completed: false,
-					active: true
+					active: 'false',
+					completed: 'false',
 				},
 				{
 					id: 'issue-3',
 					label: 'Item not yet publicly accessible',
-					completed: false,
-					active: true
+					active: 'false',
+					completed: 'false',
 				},
 				{
 					id: 'issue-4',
 					label: 'Not an appropriate reference',
-					completed: false,
-					active: false
+					active: 'false',
+					completed: 'false',
 				},
 				{
 					id: 'issue-5',
 					label: 'Dataset not provided',
-					completed: false,
-					active: false
+					active: 'false',
+					completed: 'false',
 				},
 				{
 					id: 'issue-6',
 					label: 'Other',
-					completed: false,
-					active: false
+					active: 'false',
+					completed: 'false',
 				}
-			],
-			isFormSubmitting: false,
+			]
 		}
 	},
 
@@ -376,7 +389,7 @@ export default {
 			'setActiveDatasetType',
 		]),
 		populateFormData() {
-			this.formData =  { ...this.formData, ...this.activeDataset }
+			this.formData =  {...this.activeDataset, ...this.formData }
 		},
 		handleNameInputChange(e) {
 			this.formData = {...this.formData, name: e.target.value}
@@ -410,12 +423,14 @@ export default {
 		toggleIssuesForm() {
 			this.formData.flagged = !this.formData?.flagged;
 		},
+		handleIssuesFormChange() {
+			this.formData.issues = this.issuesList.some((issue) => issue.active) ? [...this.issuesList.filter((issue) => issue.active)] : [];
+		},
 		handleIssuesFormSubmit(formData) {
 			// Clear button focus
 			// Added as temporary solution until the form is properly integrated
+			console.log(formData.issues);
 			if (document.activeElement != document.body) document.activeElement.blur();
-
-			console.log(formData);
 		},
 		handleIssuesFormCancel() {
 			this.formData.flagged = false
@@ -425,17 +440,13 @@ export default {
 		},
 		openDeleteModal() {
 			this.openConfirmModal({
-				message: "Do you wish to permanently delete this item?",
-				confirm: "Yes, Delete",
-				cancel: "No, Keep It",
+				...this.modals.confirmDelete,
 				onConfirm: this.unlinkSentenceFromDataset,
 			})
 		},
 		openUnlinkModal() {
 			this.openConfirmModal({
-				message: "Do you wish to unlink the selected text passage from this item?",
-				confirm: "Yes, Unlink",
-				cancel: "No, Keep It",
+				...this.modals.confirmUnLink,
 				onConfirm: this.unlinkSentenceFromDataset,
 			})
 		}

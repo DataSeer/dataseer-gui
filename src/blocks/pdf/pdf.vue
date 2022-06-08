@@ -16,18 +16,30 @@
 			</div> <!-- /#documentView.screen -->
 		</div> <!-- /#documentView -->
 
-		<Button
-			size="small"
-			className="tertiary"
-			modifier="pdf-holder__button"
-			:active="isPdfVisible"
-			v-tooltip.top="tooltipText"
-			@onClick.prevent="toggleDocumentView"
-		>
-			<Icon name="document" :color="isPdfVisible ? 'currentColor' : '#9D9D9D'" />
-			
-			<Icon name="letter" :color="isPdfVisible ? '#9D9D9D' : 'currentColor'" />
-		</Button>
+		<div class="pdf-holder__buttons">
+			<button
+				type="button"
+				v-tooltip.top="tooltips.pdf"
+				@click.prevent="() => setPdfView(true)"
+			>
+				<Icon
+					v-tooltip.top="tooltips.pdf"
+					name="document"
+					:color="isPdfVisible ? 'currentColor' : '#9D9D9D'"
+				/>
+			</button>
+
+			<button
+				type="button"
+				v-tooltip.top="tooltips.text"
+				@click.prevent="() => setPdfView(false)"
+			>
+				<Icon
+					name="letter"
+					:color="isPdfVisible ? '#9D9D9D' : 'currentColor'"
+				/>
+			</button>
+		</div><!-- /.pdf-holder__buttons -->
 	</div> <!-- /.pdf-holder -->
 </template>
 
@@ -40,7 +52,6 @@
 	 * Internal Dependencies
 	 */
 	import Icon from '@/components/icon/icon'
-	import Button from '@/components/button/button'
 	
 	export default {
 		/**
@@ -53,7 +64,6 @@
 		 */
 		components: {
 			Icon,
-			Button
 		},
 
 		/**
@@ -61,24 +71,29 @@
 		 */
 		data() {
 			return {
-				isPdfVisible: true
-			}
-		},
-
-		computed: {
-			...mapGetters('pdfViewer', ['documentHandler']) ,
-			tooltipText() {
-				return this.isPdfVisible ? 'View Document as Text' : 'View Document as PDF'
+				isPdfVisible: true,
+				tooltips: {
+					pdf: 'View Document as PDF',
+					text: 'View Document as Text'
+				}
 			}
 		},
 
 		/**
-		 * Data
+		 * Computed
+		 */
+		computed: {
+			...mapGetters('pdfViewer', ['documentHandler']),
+		},
+
+		/**
+		 * Methods
 		 */
 		methods: {
-			toggleDocumentView() {
-				this.isPdfVisible = !this.isPdfVisible;
-
+			setPdfView(val) {
+				if (this.isPdfVisible === val) return
+				
+				this.isPdfVisible = val;
 				this.documentHandler.documentView.toggleDocumentView(this.isPdfVisible)
 			}
 		},

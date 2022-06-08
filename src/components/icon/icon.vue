@@ -64,6 +64,7 @@ import letter from './icon-letter';
 import microscope from './icon-microscope';
 import unlink from './icon-unlink';
 import question from './icon-question';
+import sciscore from './icon-sciscore';
 
 export default {
 	name: 'Icon',
@@ -144,7 +145,8 @@ export default {
 		letter,
 		microscope,
 		unlink,
-		question
+		question,
+		sciscore
 	}
 };
 </script>
