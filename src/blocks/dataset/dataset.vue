@@ -99,7 +99,6 @@
 							>
 								<Icon name="sciscore" />
 							</Button>
-							
 
 							<Button
 								className="tertiary"
@@ -206,24 +205,19 @@ import variables from '@/assets/scss/generic/_variables.scss'
 import Popup from '@/components/popup/popup';
 import PopupConfirm from '@/components/popup/popup-confirm';
 import RichtextEntry from '@/components/richtext-entry/richtext-entry';
-
 import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
 import Field from '@/components/field/field';
 import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
-
 import Grid, { GridColumn } from '@/components/grid/grid';
-
 import Form, { FormBody, FormHead } from '@/components/form/form';
 import FormDefaultIssues from '@/blocks/form-issues/form-default-issues';
 import FormCuratorIssues from '@/blocks/form-issues/form-curator-issues';
-
 import FormConnectText from '@/blocks/form-connect-text/form-connect-text';
 import FormDataset from '@/blocks/form-dataset/form-dataset-default';
 import FormDatasetCode from '@/blocks/form-dataset/form-dataset-code';
 import FormDatasetMaterial from '@/blocks/form-dataset/form-dataset-material';
 import FormDatasetProtocols from '@/blocks/form-dataset/form-dataset-protocols';
-
 import { clearDropdown } from '@/utils/use-dropdowns';
 
 export default {
@@ -297,38 +291,38 @@ export default {
 				{
 					id: 'issue-1',
 					label: 'URL broken',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				},
 				{
 					id: 'issue-2',
 					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				},
 				{
 					id: 'issue-3',
 					label: 'Item not yet publicly accessible',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				},
 				{
 					id: 'issue-4',
 					label: 'Not an appropriate reference',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				},
 				{
 					id: 'issue-5',
 					label: 'Dataset not provided',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				},
 				{
 					id: 'issue-6',
 					label: 'Other',
-					active: 'false',
-					completed: 'false',
+					active: false,
+					completed: false,
 				}
 			]
 		}
@@ -389,7 +383,7 @@ export default {
 			'setActiveDatasetType',
 		]),
 		populateFormData() {
-			this.formData =  {...this.activeDataset, ...this.formData }
+			this.formData =  { ...this.formData, ...this.activeDataset }
 		},
 		handleNameInputChange(e) {
 			this.formData = {...this.formData, name: e.target.value}

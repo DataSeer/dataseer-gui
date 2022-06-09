@@ -30,9 +30,7 @@
 			<div class="form__actions">
 				<ul>
 					<li>
-						<Button size="small" @onClick.prevent="handleSubmit">
-							Save issues
-						</Button>
+						<Button size="small" @onClick.prevent="handleSubmit">Save issues</Button>
 					</li>
 
 					<li>
@@ -104,9 +102,8 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleIssueUpdate(id, value) {
+		handleIssueUpdate(id, key, value) {
 			const issueIndex = this.issuesList.findIndex((issue) => issue.id == id);
-			console.log(issueIndex);
 
 			return
 			this.issuesList[issueIndex].active = value;
