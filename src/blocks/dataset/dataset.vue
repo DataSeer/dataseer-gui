@@ -8,11 +8,10 @@
 			<template v-if="formData.flagged === true">
 				<FormCuratorIssues
 					v-if="userRoleWeight >= 1000"
-					:activeIssues="formData.issues"
+					:issues="formData.issues"
 					:issuesList="issuesList"
 					@change="handleIssuesFormChange"
-					@submit="handleIssuesFormSubmit"
-					@cancel="handleIssuesFormCancel"
+					@cancel="handleIssuesFormCancel(false)"
 				/>
 				
 				<FormDefaultIssues
@@ -103,8 +102,9 @@
 							<Button
 								className="tertiary"
 								square
+								:active="this.formData.flagged"
 								v-tooltip.top="tooltips.flag"
-								@onClick.prevent="toggleIssuesForm"
+								@onClick.prevent="SetIssuesFormVisibility(true)"
 							>
 								<Icon name="flag" />
 							</Button>
@@ -291,37 +291,31 @@ export default {
 				{
 					id: 'issue-1',
 					label: 'URL broken',
-					active: false,
 					completed: false,
 				},
 				{
 					id: 'issue-2',
 					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-					active: false,
 					completed: false,
 				},
 				{
 					id: 'issue-3',
 					label: 'Item not yet publicly accessible',
-					active: false,
 					completed: false,
 				},
 				{
 					id: 'issue-4',
 					label: 'Not an appropriate reference',
-					active: false,
 					completed: false,
 				},
 				{
 					id: 'issue-5',
 					label: 'Dataset not provided',
-					active: false,
 					completed: false,
 				},
 				{
 					id: 'issue-6',
 					label: 'Other',
-					active: false,
 					completed: false,
 				}
 			]
@@ -383,7 +377,26 @@ export default {
 			'setActiveDatasetType',
 		]),
 		populateFormData() {
-			this.formData =  { ...this.formData, ...this.activeDataset }
+			this.formData =  { ...this.formData, ...this.activeDataset, issues: {
+				issues: [
+					{
+						id: 'issue-1',
+						label: 'URL broken',
+						completed: false,
+					},
+					{
+						id: 'issue-2',
+						label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
+						completed: false,
+					},
+					{
+						id: 'issue-3',
+						label: 'Item not yet publicly accessible',
+						completed: false,
+					},
+				],
+				additionalComments: 'loremsdasdsad'
+			}}
 		},
 		handleNameInputChange(e) {
 			this.formData = {...this.formData, name: e.target.value}
@@ -402,7 +415,7 @@ export default {
 		handleDatasetSave() {
 			const documentHandler = this.documentHandler;
 			this.isFormSubmitting = true;
-			
+
 			documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
 				const newDataset = res;
 				this.updateDataset(newDataset);
@@ -414,16 +427,16 @@ export default {
 				this.isFormSubmitting = false;
 			})
 		},
-		toggleIssuesForm() {
-			this.formData.flagged = !this.formData?.flagged;
+		SetIssuesFormVisibility(value) {
+			this.formData.flagged = value;
 		},
-		handleIssuesFormChange() {
-			this.formData.issues = this.issuesList.some((issue) => issue.active) ? [...this.issuesList.filter((issue) => issue.active)] : [];
+		handleIssuesFormChange(formData) {
+			console.log(formData);
+			// this.formData.issues = {...formData}
 		},
-		handleIssuesFormSubmit(formData) {
+		handleIssuesFormSubmit() {
 			// Clear button focus
 			// Added as temporary solution until the form is properly integrated
-			console.log(formData.issues);
 			if (document.activeElement != document.body) document.activeElement.blur();
 		},
 		handleIssuesFormCancel() {

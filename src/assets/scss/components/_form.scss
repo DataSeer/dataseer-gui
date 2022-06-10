@@ -586,7 +586,6 @@
 	}
 }
 
-
 /* Form Curator Issues */
 
 .form--curator-issues {
@@ -595,6 +594,40 @@
 		align-items: center;
 		justify-content: space-between;
 	}	
+
+	.form__issues {
+		list-style: none;
+		font-size: 12px;
+		line-height: 20px;
+		color: $c-base-lighter;
+	}
+
+	.form__issues > li {
+		position: relative;
+		padding-left: 20px;
+		margin-bottom: 12px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	.form__issues button {
+		left: 0;
+		top: 50%;
+		width: 16px;
+		height: 16px;
+		margin-top: -9px;
+
+		&:hover:after,
+		&:hover:before {
+			background: #8d2424;
+		}
+	}
+
+	.form__actions {
+		text-align: right;
+	}
 }
 
 /* Form Default Issues */

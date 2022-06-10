@@ -5,20 +5,20 @@
 				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
 				
 				<FieldIssues
-					:issuesList="issuesList"
-					@change="handleIssueUpdate"
+					span:issuesList="issuesList"
+					@change="(issue, value) => toggleIssue(issue, value)"
 				/>
 			</div><!-- /.form__head -->
 
 			<div class="form__body">
-				<FieldIssue
-					isCurator
-					v-for="issue in activeIssues"
-					:key="issue.id"
-					:issue="issue"
-					@change="handleIssueUpdate" 
-				/>
-
+				<ul class="form__issues">
+					<li v-for="issue in formData.issues" :key="issue.id">
+						<BtnClose @onClick="toggleIssue(issue, false)" /> 
+						
+						{{ issue.label }}
+					</li>
+				</ul>
+				
 				<Field
 					name="Additional Comments"
 					type="textarea"
@@ -28,15 +28,7 @@
 			</div><!-- /.form__body -->
 
 			<div class="form__actions">
-				<ul>
-					<li>
-						<Button size="small" @onClick.prevent="handleSubmit">Save issues</Button>
-					</li>
-
-					<li>
-						<ButtonLink @onClick.prevent="$emit('cancel')">Cancel</ButtonLink>
-					</li>
-				</ul>
+				<Button @onClick.prevent="$emit('cancel')">Cancel</Button>
 			</div><!-- /.form__actions -->
 		</form>
 	</div><!-- /.form form--dataset -->
@@ -50,8 +42,7 @@
 import Dot from '@/components/dot/dot';
 import Field from '@/components/field/field';
 import Button from '@/components/button/button';
-import ButtonLink from '@/components/button-link/button-link';
-import FieldIssue from '@/components/field-issue/field-issue';
+import BtnClose from '@/components/btn-close/btn-close';
 import FieldIssues from '@/components/field-issues/field-issues';
 
 export default {
@@ -67,8 +58,7 @@ export default {
 		Dot,
 		Field,
 		Button,
-		ButtonLink,
-		FieldIssue,
+		BtnClose,
 		FieldIssues
 	},
 	
@@ -76,13 +66,25 @@ export default {
 	 * Props
 	 */
 	props: {
-		activeIssues: {
-			type: Array,
-			default: () => []
+		issues: {
+			type: Object,
+			default: () => {}
 		},
 		issuesList: {
 			type: Array,
 			default: () => []
+		}
+	},
+
+	/**
+	 * Watch
+	 */
+	watch: {
+		formData: {
+			handler(newValue) {
+				this.$emit('change', newValue);
+			},
+			deep: true
 		}
 	},
 
@@ -93,6 +95,7 @@ export default {
 	data() {
 		return {
 			formData: {
+				issues: [],
 				additionalComments: '',
 			}
 		};
@@ -102,21 +105,19 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleIssueUpdate(id, key, value) {
-			const issueIndex = this.issuesList.findIndex((issue) => issue.id == id);
+		toggleIssue(issue, value){
+			const index = this.formData.issues.findIndex(item => item.id === issue.id);
+			
+			if (value) {
+				if ( index === -1 ) this.formData.issues = [...this.formData.issues, issue];
+			} else {
+				this.formData.issues.splice(index, 1);
+			}
+		},
+	},
 
-			return
-			this.issuesList[issueIndex].active = value;
-			this.$emit('change');
-
-			console.log(this.activeIssues);
-		}, 
-		handleSubmit() {
-			this.$emit('submit', {
-				issues: this.activeIssues,
-				additionalComments: this.formData.additionalComments
-			});
-		}
-	}
+	created () {
+		this.formData = {...this.issues};
+	},
 };
 </script>

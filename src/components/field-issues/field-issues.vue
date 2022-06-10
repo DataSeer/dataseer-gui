@@ -27,7 +27,7 @@
 						:id="item.id + '-dropdown'"
 						:value="item.active"
 						:checked="item.active"
-						@change="handleChange"
+						@change="(e) => handleChange(item, e)"
 					/>
 
 					<label :for="item.id + '-dropdown'"> {{ item.label }} </label>
@@ -83,10 +83,9 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		handleChange(e) {
-			const { name, checked } = e.target;
+		handleChange(item, e) {
+			this.$emit('change', item, e.target.checked);
 			
-			this.$emit('change', name, 'active', checked);
 			// Close dropdown after selection
 			clearDropdown(this.$refs.dropdown);
 		},
