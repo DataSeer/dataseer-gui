@@ -5,22 +5,19 @@
 		</div><!-- /.dataset__form -->
 		
 		<div v-else class="dataset__form">
-			<template v-if="formData.flagged === true">
-				<FormCuratorIssues
-					v-if="userRoleWeight >= 1000"
-					:issues="formData.issues"
-					:issuesList="issuesList"
-					@change="handleIssuesFormChange"
-					@cancel="handleIssuesFormCancel(false)"
-				/>
-				
-				<FormDefaultIssues
-					v-else
-					:issues="issuesList"
-					@submit="handleIssuesFormSubmit"
-					@messageCurator="handleMessageCurator"
-				/>
-			</template>
+			<FormCuratorIssues
+				v-if="formData.flagged === true && userRoleWeight >= 1000"
+				:issues="formData.issues"
+				:issuesList="issuesList"
+				@change="handleCuratorFormChange"
+				@cancel="setIssuesFormVisibility(false)"
+			/>
+			
+			<FormDefaultIssues
+				v-if="formData.flagged === true && formDataIssues && userRoleWeight < 1000"
+				:issues="formData.issues"
+				@submit="handleIssuesFormSubmit"
+			/>
 
 			<p v-if="textReferences.length > 1" class="dataset-references">
 				<Icon name="references" />
@@ -104,7 +101,7 @@
 								square
 								:active="this.formData.flagged"
 								v-tooltip.top="tooltips.flag"
-								@onClick.prevent="SetIssuesFormVisibility(true)"
+								@onClick.prevent="setIssuesFormVisibility(true)"
 							>
 								<Icon name="flag" />
 							</Button>
@@ -191,7 +188,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * External Dependencies
  */
@@ -265,6 +261,12 @@ export default {
 	data() {
 		return {
 			formData: {},
+			formDataIssues: {
+				active: [''],
+				author: '',
+				createdAt: '',
+				comment: '',
+			},
 			isFormSubmitting: false,
 			multipleReferencesText: 'Multiple references share this text selection',
 			NameInputPlaceholder: 'Enter...',
@@ -288,36 +290,12 @@ export default {
 				}
 			},
 			issuesList: [
-				{
-					id: 'issue-1',
-					label: 'URL broken',
-					completed: false,
-				},
-				{
-					id: 'issue-2',
-					label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-					completed: false,
-				},
-				{
-					id: 'issue-3',
-					label: 'Item not yet publicly accessible',
-					completed: false,
-				},
-				{
-					id: 'issue-4',
-					label: 'Not an appropriate reference',
-					completed: false,
-				},
-				{
-					id: 'issue-5',
-					label: 'Dataset not provided',
-					completed: false,
-				},
-				{
-					id: 'issue-6',
-					label: 'Other',
-					completed: false,
-				}
+				'URL broken',
+				'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
+				'Item not yet publicly accessible',
+				'Not an appropriate reference',
+				'Dataset not provided',
+				'Other'
 			]
 		}
 	},
@@ -326,8 +304,11 @@ export default {
 	 * Watch
 	 */
 	watch: {
-		activeDatasetId() {
-			this.populateFormData()
+		activeDatasetId: {
+			handler() {
+				this.populateFormData()
+			},
+			deep: true
 		}
 	},
 
@@ -344,7 +325,7 @@ export default {
 			'activeSentence',
 			'datasets'
 		]),
-		...mapGetters('account', ['userRoleWeight']),
+		...mapGetters('account', ['userRoleWeight', 'user']),
 		FormFields() {
 			if (this.activeDatasetType === 'code') return FormDatasetCode;
 			if (this.activeDatasetType === 'material') return FormDatasetMaterial;
@@ -377,29 +358,10 @@ export default {
 			'setActiveDatasetType',
 		]),
 		populateFormData() {
-			this.formData =  { ...this.formData, ...this.activeDataset, issues: {
-				issues: [
-					{
-						id: 'issue-1',
-						label: 'URL broken',
-						completed: false,
-					},
-					{
-						id: 'issue-2',
-						label: 'Input incorrect (wrong cat#/RRID/PID/DOI/other)',
-						completed: false,
-					},
-					{
-						id: 'issue-3',
-						label: 'Item not yet publicly accessible',
-						completed: false,
-					},
-				],
-				additionalComments: 'loremsdasdsad'
-			}}
+			this.formData = { ...this.formData, ...this.activeDataset }
 		},
 		handleNameInputChange(e) {
-			this.formData = {...this.formData, name: e.target.value}
+			this.formData = { ...this.formData, name: e.target.value }
 		},
 		handleDropdownButtonClick(dataset) {
 			if (dataset.id === this.activeDatasetId) return
@@ -415,10 +377,22 @@ export default {
 		handleDatasetSave() {
 			const documentHandler = this.documentHandler;
 			this.isFormSubmitting = true;
+			let formData = { ...this.formData };
+			
+			// Set issues property when user is curator
+			if (this.userRoleWeight >= 1000) {
+				if (formData.flagged) {
+					formData.issues.author = this.user.username
+					formData.issues.createdAt = new Date()
+				} else {
+					formData.issues = { ...this.formDataIssues }
+				}
+			}
 
-			documentHandler.saveDataset(this.activeDataset.id, this.formData, (_, res) => {
+			documentHandler.saveDataset(this.activeDataset.id, formData, (_, res) => {
 				const newDataset = res;
 				this.updateDataset(newDataset);
+				this.formData = { ...this.formData, ...this.res }
 				
 				if (this.activeDatasetType !== newDataset.datasetType) {
 					this.setActiveDatasetType(newDataset.datasetType);
@@ -427,23 +401,20 @@ export default {
 				this.isFormSubmitting = false;
 			})
 		},
-		SetIssuesFormVisibility(value) {
+		handleCuratorFormChange(formData) {
+			this.formData.issues = {...this.formData.issues, ...formData}
+		},
+		handleIssuesFormSubmit(issues) {
+			const remainingIssues = issues.filter(issue => !issue.completed).map(issue => issue.label)
+			
+			this.formData.issues.active = {...remainingIssues}
+			
+			if (!remainingIssues.length) this.formData.flagged = false
+			
+			this.handleDatasetSave();
+		},
+		setIssuesFormVisibility(value) {
 			this.formData.flagged = value;
-		},
-		handleIssuesFormChange(formData) {
-			console.log(formData);
-			// this.formData.issues = {...formData}
-		},
-		handleIssuesFormSubmit() {
-			// Clear button focus
-			// Added as temporary solution until the form is properly integrated
-			if (document.activeElement != document.body) document.activeElement.blur();
-		},
-		handleIssuesFormCancel() {
-			this.formData.flagged = false
-		},
-		handleMessageCurator() {
-			console.log('handleIssuesFormCancel');
 		},
 		openDeleteModal() {
 			this.openConfirmModal({

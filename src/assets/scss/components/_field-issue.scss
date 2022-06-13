@@ -5,22 +5,15 @@
 .field-issue {
 	margin-bottom: 12px;
 	font-size: 12px;
-	line-height: 20px;
+	line-height: 22px;
+	list-style: none;
 
-	> ul {
-		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
-		list-style: none;
-	}
-
-	> ul > li {
-		&:first-child {
-			padding-right: 15px;
-		}
-
-		&:nth-child(2) {
-			flex-shrink: 0;
+	&,
+	> li {
+		margin-bottom: 12px;
+		
+		&:last-child {
+			margin-bottom: 0;
 		}
 	}
 

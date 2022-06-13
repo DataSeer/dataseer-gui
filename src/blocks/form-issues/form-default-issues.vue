@@ -4,21 +4,26 @@
 			<div class="form__head">
 				<h6 class="form__title"><Dot :size="16" /> Curator Issues</h6>
 
-				<p class="form__author">from Carli C.</p>
+				<p v-if="issues.author" class="form__author">{{issues.author}}</p>
 
-				<p class="form__date">3 Days Ago</p>
+				<p class="form__date">{{formatDate}}</p>
 			</div> <!-- /.form__heading -->
 
 			<div class="form__body">
-				<FieldIssue
-					v-for="activeIssue in activeIssues"
-					:key="activeIssue.id"
-					:issue="activeIssue"
-					@change="updateIssue"
-				/>
+				<ul class="field-issue" >
+					<FieldCheckbox
+						v-for="(issue, index) in formData"
+						:key="`issue-${index}`"
+						:name="`issue-${index}`"
+						:value="issue.completed"
+						@onChange="(e) => handleChange(e, index)"
+					>
+						{{ issue.label }}
+					</FieldCheckbox>
+				</ul> <!-- /.field-issue -->
 
 				<div class="form__comment">
-					{{ formData.additionalComments }}
+					{{ issues.comment }}
 				</div> <!-- /.form__comment -->
 			</div> <!-- /.form__body -->
 
@@ -31,7 +36,7 @@
 					</li>
 
 					<li>
-						<ButtonLink @onClick.prevent="$emit('messageCurator')">Message Curator</ButtonLink>
+						<ButtonLink :href="`mailto:${issues.author}`">Message Curator</ButtonLink>
 					</li>
 				</ul>
 			</div>
@@ -42,12 +47,17 @@
 
 <script>
 /**
+ * External Dependencies
+ */
+import { formatDistance } from 'date-fns'
+
+/**
  * Internal Dependencies
  */
 import Dot from '@/components/dot/dot';
 import Button from '@/components/button/button';
 import ButtonLink from '@/components/button-link/button-link';
-import FieldIssue from '@/components/field-issue/field-issue';
+import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 
 export default {
 	/**
@@ -62,14 +72,17 @@ export default {
 		Dot,
 		Button,
 		ButtonLink,
-		FieldIssue
+		FieldCheckbox
 	},
 
+	/**
+	 * Props
+	 */
 	props: {
 		issues: {
-			type: Array,
+			type: Object,
 			default: () => []
-		}
+		},
 	},
 
 	/**
@@ -77,9 +90,7 @@ export default {
 	 */
 	data() {
 		return {
-			formData: {
-				additionalComments: ''
-			}
+			formData: []
 		};
 	},
 
@@ -87,8 +98,8 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		activeIssues: function() {
-			return this.issues.filter((issue) => issue.active);
+		formatDate() {
+			return formatDistance(new Date(this.issues.createdAt), new Date(), { addSuffix: true })	
 		}
 	},
 
@@ -96,16 +107,32 @@ export default {
 	 * Methods
 	 */
 	methods: {
-		updateIssue(id, key, value) {
-			const issueIndex = this.issues.findIndex((issue) => issue.id == id);
-			this.issues[issueIndex][key] = value;
+		handleChange(e, index) {
+			this.$set(this.formData, index, {
+				...this.formData[index],
+				completed: e.target.checked
+			});
 		},
 		handleSubmit() {
-			this.$emit('submit', {
-				issues: this.activeIssues,
-				additionalComments: this.formData.additionalComments
-			});
+			this.$emit('submit', this.formData);
+		},
+		populateFormData() {
+			if (!this.issues.active.length) return
+			
+			this.formData = [
+				...this.issues.active.filter(issue => issue).map(issue => ({
+					completed: false,
+					label: issue
+				}))
+			];
 		}
-	}
+	},
+	
+	/**
+	 * Created
+	 */
+	created () {
+		this.populateFormData();
+	},
 };
 </script>

@@ -5,17 +5,18 @@
 				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
 				
 				<FieldIssues
-					span:issuesList="issuesList"
+					:issues="issues.active"
+					:issuesList="issuesList"
 					@change="(issue, value) => toggleIssue(issue, value)"
 				/>
 			</div><!-- /.form__head -->
 
 			<div class="form__body">
 				<ul class="form__issues">
-					<li v-for="issue in formData.issues" :key="issue.id">
+					<li v-for="(issue, index) in activeIssues" :key="`issue-${index}`">
 						<BtnClose @onClick="toggleIssue(issue, false)" /> 
 						
-						{{ issue.label }}
+						{{ issue }}
 					</li>
 				</ul>
 				
@@ -23,7 +24,7 @@
 					name="Additional Comments"
 					type="textarea"
 					placeholder="Additional Comments"
-					v-model="formData.additionalComments"
+					v-model="formData.comment"
 				/>
 			</div><!-- /.form__body -->
 
@@ -35,7 +36,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 /**
  * Internal Dependencies
  */
@@ -68,7 +68,7 @@ export default {
 	props: {
 		issues: {
 			type: Object,
-			default: () => {}
+			default: () => []
 		},
 		issuesList: {
 			type: Array,
@@ -95,10 +95,19 @@ export default {
 	data() {
 		return {
 			formData: {
-				issues: [],
-				additionalComments: '',
+				active: [],
+				comment: '',
 			}
 		};
+	},
+
+	/**
+	 * Computed
+	 */
+	computed: {
+		activeIssues() {
+			return this.issuesList.filter(issue => this.issues.active.some(item => item === issue) );
+		}
 	},
 
 	/**
@@ -106,18 +115,22 @@ export default {
 	 */
 	methods: {
 		toggleIssue(issue, value){
-			const index = this.formData.issues.findIndex(item => item.id === issue.id);
+			const index = this.formData.active.findIndex(item => item === issue);
 			
 			if (value) {
-				if ( index === -1 ) this.formData.issues = [...this.formData.issues, issue];
+				if ( index === -1 ) this.formData.active = [...this.formData.active, issue];
 			} else {
-				this.formData.issues.splice(index, 1);
+				if ( index !== -1 ) this.formData.active.splice(index, 1);
 			}
 		},
 	},
 
+	/**
+	 * Created
+	 */
 	created () {
-		this.formData = {...this.issues};
+		this.formData = {...this.issues };
 	},
 };
 </script>
+
