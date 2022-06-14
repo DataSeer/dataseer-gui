@@ -56,9 +56,8 @@
 
 				<template slot="table-row" slot-scope="props">
 					<span v-if="props.column.field == 'name'" class="table__title">
-						<router-link to="/report">
+						<router-link :to="`/documents/${props.row._id}/datasets`">
 							<Icon name="document" color="CurrentCOlor" />
-
 							{{ props.row.name }}
 						</router-link>
 					</span>
