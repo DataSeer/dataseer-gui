@@ -68,13 +68,11 @@ const actions = {
 	setDataTypes({commit}, dataTypes ) {
 		commit('SET_DATA_TYPES', dataTypes)
 	},
-	
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
 	},
 	updateDataset({commit}, newDataset ) {
 		commit('UPDATE_DATASET', newDataset )
-		commit('SET_ACTIVE_SENTENCE', newDataset )
 	},
 	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
 		const documentHandler = state.documentHandler;
@@ -224,7 +222,7 @@ const mutations = {
 		state.activeSentence = payload;
 	},
 	UPDATE_DATASET(state, payload) {
-		state.datasets = state.datasets.map(item => item.id === payload.id ? payload : item);
+		state.datasets = [...state.datasets.map(item => item.id === payload.id ? payload : item)];
 	},
 	CLEAR_STATE(state ) {
         state.dataTypes = {};

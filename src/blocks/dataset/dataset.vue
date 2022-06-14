@@ -336,14 +336,12 @@ export default {
 		dataType() {
 			return this.dataset?.dataType ? this.dataset.dataType : 'Undefined Type'
 		},
+		textReferences() {
+			return this.datasets.filter((dataset) => dataset.sentences.some((sentence) => sentence.id === this.activeSentence.id));
+		},
 		cssVariables() {
 			return variables
 		},
-		textReferences() {
-			return this.datasets.filter((dataset) =>
-				dataset.sentences.some((sentence) => sentence.id === this.activeSentence.id)
-			);
-		}
 	},
 
 	/**
@@ -353,7 +351,6 @@ export default {
 		...mapActions('pdfViewer', [
 			'updateDataset',
 			'unlinkSentenceFromDataset',
-			'setDatasets',
 			'setActiveDataset',
 			'setActiveDatasetType',
 		]),
@@ -397,7 +394,6 @@ export default {
 				if (this.activeDatasetType !== newDataset.datasetType) {
 					this.setActiveDatasetType(newDataset.datasetType);
 				}
-				
 				this.isFormSubmitting = false;
 			})
 		},

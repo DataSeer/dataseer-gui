@@ -1,47 +1,44 @@
 <template>
 	<div class="form form--issues form--default-issues">
-		<form action="?" method="post">
-			<div class="form__head">
-				<h6 class="form__title"><Dot :size="16" /> Curator Issues</h6>
+		<div class="form__head">
+			<h6 class="form__title"><Dot :size="16" /> Curator Issues</h6>
 
-				<p v-if="issues.author" class="form__author">{{issues.author}}</p>
+			<p v-if="issues.author" class="form__author">{{issues.author}}</p>
 
-				<p class="form__date">{{formatDate}}</p>
-			</div> <!-- /.form__heading -->
+			<p class="form__date">{{createdAt}}</p>
+		</div> <!-- /.form__heading -->
 
-			<div class="form__body">
-				<ul class="field-issue" >
-					<FieldCheckbox
-						v-for="(issue, index) in formData"
-						:key="`issue-${index}`"
-						:name="`issue-${index}`"
-						:value="issue.completed"
-						@onChange="(e) => handleChange(e, index)"
-					>
-						{{ issue.label }}
-					</FieldCheckbox>
-				</ul> <!-- /.field-issue -->
+		<div class="form__body">
+			<ul class="field-issue" >
+				<FieldCheckbox
+					v-for="(issue, index) in formData"
+					:key="`issue-${index}`"
+					:name="`issue-${index}`"
+					:value="issue.completed"
+					@onChange="(e) => handleChange(e, index)"
+				>
+					{{ issue.label }}
+				</FieldCheckbox>
+			</ul> <!-- /.field-issue -->
 
-				<div class="form__comment">
-					{{ issues.comment }}
-				</div> <!-- /.form__comment -->
-			</div> <!-- /.form__body -->
+			<div class="form__comment">
+				{{ issues.comment }}
+			</div> <!-- /.form__comment -->
+		</div> <!-- /.form__body -->
 
-			<div class="form__actions">
-				<ul>
-					<li>
-						<Button size="small" className="tertiary" @onClick.prevent="handleSubmit">
-							All Issues Addressed
-						</Button>
-					</li>
+		<div class="form__actions">
+			<ul>
+				<li>
+					<Button size="small" className="tertiary" @onClick.prevent="handleSubmit">
+						All Issues Addressed
+					</Button>
+				</li>
 
-					<li>
-						<ButtonLink :href="`mailto:${issues.author}`">Message Curator</ButtonLink>
-					</li>
-				</ul>
-			</div>
-			<!-- /.form__actions -->
-		</form>
+				<li>
+					<ButtonLink :href="`mailto:${issues.author}`">Message Curator</ButtonLink>
+				</li>
+			</ul>
+		</div><!-- /.form__actions -->
 	</div>
 </template>
 
@@ -81,7 +78,7 @@ export default {
 	props: {
 		issues: {
 			type: Object,
-			default: () => []
+			default: () => {}
 		},
 	},
 
@@ -98,8 +95,20 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		formatDate() {
+		createdAt() {
 			return formatDistance(new Date(this.issues.createdAt), new Date(), { addSuffix: true })	
+		}
+	},
+
+	/**
+	 * Watch
+	 */
+	watch: {
+		issues: {
+			handler(newIssues) {
+				this.populateFormData(Object.values(JSON.parse(JSON.stringify(newIssues.active))))
+			},
+			deep: true
 		}
 	},
 
@@ -116,15 +125,13 @@ export default {
 		handleSubmit() {
 			this.$emit('submit', this.formData);
 		},
-		populateFormData() {
-			if (!this.issues.active.length) return
+		populateFormData(issues) {
+			if (!issues) return
 			
-			this.formData = [
-				...this.issues.active.filter(issue => issue).map(issue => ({
-					completed: false,
-					label: issue
-				}))
-			];
+			this.formData = issues.filter(issue => issue).map(issue => ({
+				completed: false,
+				label: issue
+			}));
 		}
 	},
 	
@@ -132,7 +139,7 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.populateFormData();
+		this.populateFormData(this.issues.active);
 	},
 };
 </script>
