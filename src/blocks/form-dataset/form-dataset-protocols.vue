@@ -14,6 +14,20 @@
 		</GridColumn>
 
 		<GridColumn>
+			<FieldSelect
+				:error="$v.subtype.$error"
+				:options="subTypeOptions"
+				name="subType"
+				v-model.trim="formData.subType"
+				placeholder="Select"
+			>
+				<Icon name="grid" />
+
+				Data Subtype
+			</FieldSelect>
+		</GridColumn>
+
+		<GridColumn>
 			<Field
 				name="DOI"
 				v-model.trim="formData.DOI"
@@ -141,6 +155,17 @@ export default {
 			required
 		}
 	},
+
+	/**
+	 * Methods
+	 */
+	methods: {
+		// Reset the sub type value when the main datatype changes
+		handleDataTypeChange(value) {
+			this.formData.dataType = value;
+			this.formData.subType = '';
+		}
+	}
 }
 </script>
 

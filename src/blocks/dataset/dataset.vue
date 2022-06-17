@@ -143,8 +143,8 @@
 				<Grid rowGap="medium">
 					<GridColumn>
 						<Field
-							name="suggestedEntity"
-							v-model.trim="formData.suggestedEntity"
+							name="entity"
+							v-model.trim="formData.entity"
 						>
 							<Icon name="windows" />
 
@@ -155,7 +155,7 @@
 					<GridColumn>
 						<Field
 							name="suggestedURL"
-							v-model.trim="formData.suggestedURL"
+							v-model.trim="formData.DOI"
 						>
 							<Icon name="chain" />
 
@@ -166,7 +166,7 @@
 					<GridColumn>
 						<Field
 							name="suggestedURL"
-							v-model.trim="formData.citation"
+							v-model.trim="formData.RRID"
 						>
 							<Icon name="key" />
 
@@ -356,6 +356,8 @@ export default {
 		]),
 		populateFormData() {
 			this.formData = { ...this.formData, ...this.activeDataset }
+
+			console.log(this.formData);
 		},
 		handleNameInputChange(e) {
 			this.formData = { ...this.formData, name: e.target.value }

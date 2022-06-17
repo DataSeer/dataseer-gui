@@ -1,7 +1,6 @@
 <template>
-	<i class="ico" :class="{ [`ico--${name}`]: name }">
-		<component :is="name" :color="color" :width="width" :height="height" />
-	</i>
+	<component class="ico" :class="{ [`ico--${name}`]: name }" :is="name" :color="color" :width="width" :height="height" />
+	
 </template>
 
 <script>

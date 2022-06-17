@@ -3,7 +3,12 @@
 \* ------------------------------------------------------------ */
 
 .ico {
-	font-size: 0;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1;
+	text-align: center;
+	
+	/* font-size: 0;
 	line-height: 0;
 	display: inline-block;
 	vertical-align: middle;
@@ -13,7 +18,7 @@
 		display: block;
 		width: 100%;
 		height: 100%;
-	}
+	} */
 }
 
 /* Ico User */
@@ -247,3 +252,12 @@
 	width: 22px;
 	height: 17px;
 }
+
+/* Ico Plus */
+
+.ico--plus {
+	width: 10px;
+	height: 10px;
+}
+
+/*  */

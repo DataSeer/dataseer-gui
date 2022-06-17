@@ -13,7 +13,7 @@
 			'is-disabled': disabled,
 			'is-highlighted': highlighted,
 			'is-active': active,
-			[modifier]: modifier,
+			[modifier]: modifier
 		}"
 		v-bind="$attrs"
 		@click="$emit('onClick', $event)"
@@ -90,7 +90,7 @@ export default {
 		component() {
 			if (this.to) return 'router-link';
 			if (this.href) return 'a';
-			
+
 			return 'button';
 		}
 	}

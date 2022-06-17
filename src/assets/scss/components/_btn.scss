@@ -27,8 +27,8 @@
 	transition-duration: $t-duration;
 	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
-	i {
-		margin-right: 9px;
+	svg {
+		margin-right: 10px;	
 	}
 
 	&.is-disabled {
@@ -90,7 +90,7 @@
 		border-color: darken($c-gray, 8);
 	}
 
-	i {
+	svg {
 		color: $c-primary;
 	}
 
@@ -112,7 +112,7 @@
 		color: $c-orange-f8;
 		border-color: $c-orange-f8;
 		
-		i {
+		svg {
 			color: inherit;
 		}
 	}
@@ -132,8 +132,9 @@
 	padding-left: 0;
 	padding-right: 0;
 
-	i {
+	svg {
 		margin-right: 0;
+		margin-left: 0;
 	}
 
 	&.btn--small {

@@ -7,8 +7,7 @@
 	top: 19px;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 21%; 
-	max-width: 690px; 
+	max-width: 22%; 
 	font-size: 14px; 
 	line-height: 1; 
 	text-align: center;
@@ -22,7 +21,6 @@
 	
 	h6 {
 		max-width: 100%;
-		margin-bottom: 5px;
 		font-weight: 700; 
 		font-family: inherit; 
 		text-underline-position: under;
@@ -86,10 +84,11 @@
 		position: relative;
 		padding-left: 26px;
 		padding-right: 36px;
+		margin-bottom: 6px;
 
 	}
 
-	.dataset__inner > i {
+	.dataset__inner > svg {
 		position: absolute;
 		left: 0;
 		top: -4px;
