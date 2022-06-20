@@ -3,13 +3,15 @@
 		<GridColumn>
 			<FieldSelect
 				name="dataType"
+				:error="$v.type.$error"
 				:options="dataTypesOptions"
-				v-model.trim="formData.dataType"
-				placeholder="Select"
+				:value="formData.dataType"
+				@input="handleDataTypeChange"
+				placeholder="Tabular Data"
 			>
 				<Icon name="grid" />
 
-				Protocol Type
+				Data Type <a href="#" target="_blank">Type Definitions</a>
 			</FieldSelect>
 		</GridColumn>
 

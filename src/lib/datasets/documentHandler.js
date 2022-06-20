@@ -4,7 +4,6 @@
  * External Dependencies 
  */
 import $ from 'jquery';
-import _ from 'lodash';
 import async from 'async';
 
 /**
@@ -16,8 +15,6 @@ import { formatDataset, DATATYPE_COLORS } from '@/utils/use-datasets'
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
 	this.ids = opts.ids;
-	// It will save a dataset (secure way to not DDOS mongoDB server)
-	this.autoSave = _.debounce(this.saveDataset, 2000);
 	// It will store change states for each dataset
 	this.hasChanged = {};
 	// Events
@@ -847,97 +844,4 @@ DocumentHandler.prototype.synchronize = function() {
 			}
 		});
 	}
-	
-	/* 	
-		if (this.datasetForm) {
-			// Attach datasetsList events
-			this.datasetForm.attach(`onPropertyChange`, function(property, value) {
-				// console.log(property, value);
-				let dataset = self.datasetForm.getDataset();
-				self.modified(dataset.id);
-				self.updateDataset(dataset.id, dataset);
-				self.autoSave(dataset.id);
-				if (property === `highlight`)
-					if (value) self.datasetsList.highlight(dataset.id);
-					else self.datasetsList.unhighlight(dataset.id);
-			});
-			this.datasetForm.attach(`onLeave`, function() {
-				let dataset = self.datasetForm.getDataset();
-				self.saveDataset(dataset.id);
-			});
-			this.datasetForm.attach(`onDatasetIdClick`, function(dataset) {
-				let sentence = self.datasetForm.currentSentence();
-				if (dataset.id)
-					return self.selectSentence({ sentence: sentence, selectedDataset: dataset });
-			});
-			this.datasetForm.attach(`onDatasetDoneClick`, function(dataset) {
-				// console.log(dataset);
-				if (!self.user.isCurator) {
-					if (!dataset.dataType) {
-						return self.showModalError({
-							title: `Missing data`,
-							body: `To validate, please provide a datatype (predefined or custom)`
-						});
-					}
-					if (!dataset.name)
-						return self.showModalError({
-							title: `Missing data`,
-							body: `To validate, please provide a name for this dataset`
-						});
-					if (!dataset.DOI && !dataset.comments) {
-						return self.showModalError({
-							title: `Missing data`,
-							body: `To validate, please provide either a DOI for the dataset or a comment in the comment box`
-						});
-					}
-				}
-				if (self.hasChanged[dataset.id]) self.autoSave(dataset.id);
-				let nextDataset = self.getNextDataset(dataset.id);
-				return self.selectSentence({
-					sentence: nextDataset.sentences[0],
-					selectedDataset: nextDataset
-				});
-			});
-			this.datasetForm.attach(`onDatasetUnlinkClick`, function(dataset) {
-				let sentence = self.datasetForm.currentSentence(),
-					modifiedDataset = self.getDataset(dataset.id);
-				if (!modifiedDataset) return console.log(`bad dataset id`);
-				if (!modifiedDataset.sentences) return console.log(`empty sentences`);
-				if (modifiedDataset.sentences.length === 1) {
-					let sentence = modifiedDataset.sentences[0];
-					return self.deleteDataset(dataset.id, function() {
-						return self.selectSentence({ sentence: sentence });
-					});
-				} else
-					return self.deleteLink({ dataset: dataset, sentence: sentence }, function(err) {
-						if (err) return console.log(err);
-						return self.selectSentence({ sentence: sentence });
-					});
-			});
-			
-			// No corresponding element at the moment
-			this.datasetForm.attach(`onTabClick`, function(data) {
-				console.log(`onTabClick`);
-				return self.selectSentence({ sentence: data.sentence, selectedDataset: data.dataset });
-			});
-			
-			// No corresponding element at the moment
-			this.datasetForm.attach(`onRefreshDatatypesClick`, function(done) {
-				return API.dataseerML.resyncJsonDataTypes(function(err, res) {
-					console.log(err, res);
-					return done();
-				});
-			});
-			
-			// No corresponding element at the moment
-			this.datasetForm.attach(`onDisplayLeftClick`, function() {
-				self.documentView.displayRight();
-			});
-			
-			// No corresponding element at the moment
-			this.datasetForm.attach(`onDisplayRightClick`, function() {
-				self.documentView.displayLeft();
-			});
-		}
-	*/
 };

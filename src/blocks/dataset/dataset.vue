@@ -356,8 +356,6 @@ export default {
 		]),
 		populateFormData() {
 			this.formData = { ...this.formData, ...this.activeDataset }
-
-			console.log(this.formData);
 		},
 		handleNameInputChange(e) {
 			this.formData = { ...this.formData, name: e.target.value }

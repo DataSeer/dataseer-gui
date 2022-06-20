@@ -106,6 +106,7 @@ export default {
 	 */
 	computed: {
 		activeIssues() {
+			if (!this.issues.active) return []
 			return this.issuesList.filter(issue => this.issues.active.some(item => item === issue) );
 		}
 	},
