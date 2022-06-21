@@ -446,7 +446,9 @@
 /* Form Connect Text */
 
 .form--connect-text {
-	padding: 35px 65px 0;
+	max-width: 380px;
+	margin-left: auto;
+	margin-right: auto;
 
 	.btn {
 		padding-left: 8px;

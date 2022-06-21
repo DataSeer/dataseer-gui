@@ -17,7 +17,6 @@ $.ajaxSetup({
 	beforeSend: function(xhr, options) {
 		options.url = baseUrl + options.url;
 		xhr.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded');
-		
 	},
 	xhrFields: {
 		withCredentials: true

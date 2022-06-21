@@ -10,7 +10,7 @@ import async from 'async';
  * Internal Dependencies
  */
 import API from './api';
-import { formatDataset, DATATYPE_COLORS } from '@/utils/use-datasets'
+import { formatDataset, setDatasetDataType, DATATYPE_COLORS } from '@/utils/use-datasets'
 
 export const DocumentHandler = function(opts = {}, events) {
 	let self = this;
@@ -426,25 +426,35 @@ DocumentHandler.prototype.newDataInstanceId = function() {
 
 // Create new Dataset
 DocumentHandler.prototype.newDataset = function(sentences = {}, cb) {
-	let self = this,
-		datasetSentence = sentences[0],
-		linksSentences = sentences.slice(1);
+	const self = this;
+	const datasetSentence = sentences[0];
+	const linksSentences = sentences.slice(1);
+	
 	return API.dataseerML.getdataType({ text: datasetSentence.text }, function(err, res) {
 		console.log(err, res);
 		if (err) return cb(err, res);
 		if (res.err) return cb(true, res);
-		let dataType = res[`datatype`] ? res[`datatype`] : self.datasetForm?.defaultDataType,
-			subType = res[`subtype`] ? res[`subtype`] : ``,
-			cert = res[`cert`] ? res[`cert`] : 0;
-		let sentence = { id: datasetSentence.id, text: datasetSentence.text },
-			dataset = {
-				dataType: dataType,
-				subType: subType,
-				cert: cert
-			};
-		return API.datasets.createDataset(
-			{ datasetsId: self.datasets._id, dataset: dataset, sentence: sentence },
-			function(err, res) {
+
+		const dataType = res[`datatype`] ? res[`datatype`] : self.datasetForm?.defaultDataType;
+		const subType = res[`subtype`] ? res[`subtype`] : ``;
+		const cert = res[`cert`] ? res[`cert`] : 0;
+		
+		const sentence = {
+			id: datasetSentence.id,
+			text: datasetSentence.text
+		};
+		
+		const dataset = setDatasetDataType({
+			dataType: dataType,
+			subType: subType,
+			cert: cert
+		}, self.activeDatasetType);	
+
+		return API.datasets.createDataset({
+			datasetsId: self.datasets._id,
+			dataset: dataset,
+			sentence: sentence
+		}, function(err, res) {
 				console.log(err, res);
 				if (err) return cb(err, res);
 				if (res.err) return cb(true, res);
@@ -468,7 +478,7 @@ DocumentHandler.prototype.addDataset = function(dataset, sentence, cb) {
 	const datasetType = this.getDatasetDataType(dataset);
 	dataset.color = DATATYPE_COLORS[datasetType];
 	dataset.datasetType = datasetType;
-	
+
 	this.colors[dataset.id] = {
 		...dataset.color,
 		datasetType: dataset.datasetType
@@ -793,19 +803,23 @@ DocumentHandler.prototype.synchronize = function() {
 		});
 		this.datasetsList.attach(`onNewDatasetClick`, function() {
 			let selectedSentences = self.documentView.getSelectedSentences();
-			if (selectedSentences.length === 0)
+			
+			if (selectedSentences.length === 0) {
 				return self.showModalError({
 					title: `Error: New dataset`,
 					body: `You must select a sentence to create a new dataset`
 				});
-			else
-				return self.newDataset(selectedSentences, function(err, dataset) {
-					if (err) return console.log(err);
-					return self.selectSentence({
-						sentence: dataset.sentences[0],
-						selectedDataset: dataset
-					});
+			}
+			
+			return self.newDataset(selectedSentences, function(err, dataset) {
+				if (err) return console.log(err);
+				
+				// Select sentence
+				return self.selectSentence({
+					sentence: dataset.sentences[0],
+					selectedDataset: dataset
 				});
+			});
 		});
 		this.datasetsList.attach(`onMergeSelectionClick`, function(ids) {
 			// console.log(ids);

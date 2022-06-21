@@ -1,50 +1,53 @@
+/* eslint-disable */
 const DATATYPE_COLORS = {
 	code: {
 		background: {
-			border: "rgb(114, 93, 189)",
-			rgb: "rgb(232,215,255)"
+			border: 'rgb(114, 93, 189)',
+			rgb: 'rgb(232,215,255)'
 		},
-		foreground: "black"
+		foreground: 'black'
 	},
 	material: {
 		background: {
-			border: "rgb(210, 112, 68)",
-			rgb: "rgb(244,219,208)"
+			border: 'rgb(210, 112, 68)',
+			rgb: 'rgb(244,219,208)'
 		},
-		foreground: "black"
+		foreground: 'black'
 	},
 	protocol: {
 		background: {
-			border: "rgb(64, 164, 105)",
-			rgb: "rgb(206,244,222)"
+			border: 'rgb(64, 164, 105)',
+			rgb: 'rgb(206,244,222)'
 		},
-		foreground: "black"
+		foreground: 'black'
 	},
 	dataset: {
 		background: {
-			border: "rgb(0, 106, 201)",
-			rgb: "rgb(243,252,255)"
+			border: 'rgb(0, 106, 201)',
+			rgb: 'rgb(243,252,255)'
 		},
-		foreground: "black"
-	},
-}
+		foreground: 'black'
+	}
+};
 
-const formatDataset = (dataset) => {
+const formatDataset = dataset => {
 	const datasetType = getDatasetDataType(dataset);
-	
+
 	Object.assign(dataset, {
 		datasetType: datasetType,
 		color: DATATYPE_COLORS[datasetType]
-	})
+	});
 
 	return dataset;
 };
 
-const getDatasetDataType = (dataset) => {
-	const isMaterial = () => dataset.dataType === 'lab materials' ||
+const getDatasetDataType = dataset => {
+	const isMaterial = () =>
+		dataset.dataType === 'lab materials' ||
 		(dataset.dataType === 'other' && dataset.subType === 'reagent');
 
-	const isCode = () => dataset.dataType === 'code software' ||
+	const isCode = () =>
+		dataset.dataType === 'code software' ||
 		(dataset.dataType === 'other' && dataset.subType === 'code');
 
 	const isProtocol = () => dataset.dataType === 'other' && dataset.subType === 'protocol';
@@ -56,8 +59,30 @@ const getDatasetDataType = (dataset) => {
 	return 'dataset';
 };
 
-export {
-	DATATYPE_COLORS,
-	formatDataset,
-	getDatasetDataType,
+const setDatasetDataType = (dataset, datasetType) => {
+	console.log(datasetType);
+	switch (datasetType) {
+		case 'code':
+			return {
+				...dataset,
+				dataType: 'other',
+				subType: 'code',
+			}
+		case 'material':
+			return {
+				...dataset,
+				dataType: 'other',
+				subType: 'reagent',
+			}
+		case 'protocol':
+			return {
+				...dataset,
+				dataType: 'other',
+				subType: 'protocol',
+			}
+		default:
+			return dataset;
+	}
 };
+
+export { DATATYPE_COLORS, formatDataset, setDatasetDataType, getDatasetDataType };

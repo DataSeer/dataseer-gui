@@ -64,7 +64,6 @@ const actions = {
 	setDocumentHandler({commit}, documentHandler ) {
 		commit('SET_DOCUMENT_HANDLER', documentHandler)
 	},
-
 	setDataTypes({commit}, dataTypes ) {
 		commit('SET_DATA_TYPES', dataTypes)
 	},
