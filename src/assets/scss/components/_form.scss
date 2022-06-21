@@ -387,6 +387,7 @@
 	
 	.form__head input {
 		display: block;
+		flex-grow: 1;
 		width: auto;
 		border: none;
 		height: 42px;
@@ -407,6 +408,11 @@
 			padding-left: 12px;
 			border-color: $c-primary-light;
 		}
+	}
+
+	.form__head p {
+		flex-shrink: 0;
+		padding-left: 15px;
 	}
 
 	.form__cta {

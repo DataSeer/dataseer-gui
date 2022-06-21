@@ -41,7 +41,6 @@
 
 					<button
 						type="button"
-						v-tooltip.right="dataset.description"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
 						<Dot v-if="( dataset.flagged === true || dataset.flagged === 'true')" />

@@ -41,6 +41,7 @@
 						tabindex="0"
 						:placeholder="NameInputPlaceholder"
 						:value="formData.name"
+						v-tooltip.top="formData.name"
 						@input="handleNameInputChange"
 					/>
 
