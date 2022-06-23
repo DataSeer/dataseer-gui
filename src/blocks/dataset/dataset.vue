@@ -68,6 +68,15 @@
 						<div v-if="userRoleWeight < 1000" class="form__cta-col">
 							<Button
 								className="tertiary"
+								square
+								v-tooltip.top="tooltips.passage"
+								@onClick.prevent="$refs.textPassagePopup.showModal()"
+							>
+								<Icon name="documents" />
+							</Button>
+
+							<Button
+								className="tertiary"
 								v-tooltip.top="tooltips.unlink"
 								@onClick.prevent="openUnlinkModal"
 							>
