@@ -54,7 +54,7 @@ export const DocumentHandler = function(opts = {}, events) {
 		};
 	};
 	
-	//Here we update the information for each colored sentence, based on the current datasets
+	// Here we update the information for each colored sentence, based on the current datasets
 	for (let i = 0; i < opts.datasets.current.length; i++) {
 		self.datasets.current.map((dataset) => {
 			this.colors[dataset.id] = {
@@ -63,6 +63,7 @@ export const DocumentHandler = function(opts = {}, events) {
 			};
 		})
 	}
+
 	return this;
 };
 
@@ -189,37 +190,39 @@ DocumentHandler.prototype.getDatasetsOfSentence = function(sentence) {
 };
 
 // Select a sentence
-DocumentHandler.prototype.selectSentence = function(opts, cb) {
+DocumentHandler.prototype.selectSentence = function (opts, cb) {
 	let self = this;
 	let datasets = self.getDatasetsOfSentence(opts.sentence);
-	
+
+	// Filter out datasets that are not from the same activedatasettype
+	const activeDatasets = datasets.filter(item => item.datasetType === self.activeDatasetType);
+
 	let dataset =
-			datasets.length > 0
-				? opts.selectedDataset && opts.selectedDataset.id
-					? this.getDataset(opts.selectedDataset.id)
-					: datasets[0]
-				: undefined
+	activeDatasets.length > 0
+			? opts.selectedDataset && opts.selectedDataset.id
+				? this.getDataset(opts.selectedDataset.id)
+				: datasets[0]
+			: undefined;
+
 	let selectedSentences = this.documentView.getSelectedSentences();
 	let sentence = this.documentView.getSentence(opts.sentence);
-	
+
 	return this.documentView.scrollToSentence({
-		sentence: opts.sentence,
-		noAnim: opts.noAnim
-	}, function(err) {
+			sentence: opts.sentence,
+			noAnim: opts.noAnim
+		}, (err)=> {
 			if (!opts.disableSelection) {
 				self.documentView.unselectSentences(selectedSentences);
 				self.documentView.selectSentence(opts.sentence);
 			}
 
-			// if (dataset && self.documentView.getSelectedSentences().length === 1) {
-			// } 
-			
-			self.events.onSentenceClick(dataset, sentence)
-			
+			self.events.onSentenceClick(dataset, sentence);
+
 			return typeof cb === `function` ? cb(true) : undefined;
 		}
 	);
 };
+
 
 // Show error on finish
 DocumentHandler.prototype.throwDatasetsNotValidError = function() {

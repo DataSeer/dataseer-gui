@@ -16,6 +16,7 @@ export const DocumentView = function(id, events = {}) {
 	this.viewersEvents = {
 		onClick: function(element) {
 			let sentence = self.getSentence({ id: element.id });
+			//Handle Cases where ctrl ot shift are pressed
 			if (self.ctrlPressed) {
 				if (self.isSelected(sentence)) {
 					self.unselectSentence(sentence);
@@ -162,8 +163,8 @@ DocumentView.prototype.getSentence = function(sentence) {
 
 // Init documentView
 DocumentView.prototype.init = function(opts, cb) {
-	let self = this
-	let	xml = opts.xml.data.toString(`utf8`).replace(/\s/gm, ` `);
+	const self = this;
+	const xml = opts.xml.data.toString(`utf8`).replace(/\s/gm, ` `);
 
 	this.xmlViewer = new XmlViewer(`xml`, `documentView\\.screen`, this.viewersEvents);
 	

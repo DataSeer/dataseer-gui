@@ -186,6 +186,7 @@ export default {
 					},
 					onSentenceClick: (dataset, sentence) => {
 						this.setActiveSentence(sentence)
+						
 						this.setActiveDataset({
 							dataset: dataset,
 							scrollToSentence: false

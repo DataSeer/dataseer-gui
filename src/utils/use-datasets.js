@@ -50,7 +50,9 @@ const getDatasetDataType = dataset => {
 		dataset.dataType === 'code software' ||
 		(dataset.dataType === 'other' && dataset.subType === 'code');
 
-	const isProtocol = () => dataset.dataType === 'other' && dataset.subType === 'protocol';
+	const isProtocol = () =>
+		dataset.dataType === 'protocol' ||
+		(dataset.dataType === 'other' && dataset.subType === 'protocol');
 
 	if (isMaterial()) return 'material';
 	if (isCode()) return 'code';
@@ -66,20 +68,20 @@ const setDatasetDataType = (dataset, datasetType) => {
 			return {
 				...dataset,
 				dataType: 'other',
-				subType: 'code',
-			}
+				subType: 'code'
+			};
 		case 'material':
 			return {
 				...dataset,
 				dataType: 'other',
-				subType: 'reagent',
-			}
+				subType: 'reagent'
+			};
 		case 'protocol':
 			return {
 				...dataset,
 				dataType: 'other',
-				subType: 'protocol',
-			}
+				subType: 'protocol'
+			};
 		default:
 			return dataset;
 	}

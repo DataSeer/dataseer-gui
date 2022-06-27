@@ -107,24 +107,41 @@
 		position: relative;
 		cursor: pointer;
 		text-decoration: none;
-		margin-right: 3px;
-		line-height: 1.5;
-		padding: 3px;
+		margin-right: 2px;
+		line-height: 1.7;
+		padding: 2px;
 		z-index: 10;
 		color: black;
-		border-width: 3px;
+		border-width: 2px;
 		border-style: solid;
 		border-color: transparent;
 	}
 
+	#xml s.hover,
 	#xml s.selected {
-		border-color: rgb(0, 106, 201);
+		.main--datasets-dataset & {
+			border-color: $c-primary;
+		}
+		
+		.main--datasets-material & {
+			border-color: $c-orange-d2;
+		}
+		
+		.main--datasets-protocol & {
+			border-color: $c-green-40;
+		}
+
+		.main--datasets-code & {
+			border-color: $c-purple-72;
+		}
+	}
+
+	#xml s.selected {
 		z-index: 100;
 	}
 
 	#xml s.hover {
 		border-style: dashed;
-		border-color: rgb(0, 106, 201);
 		z-index: 110;
 	}
 

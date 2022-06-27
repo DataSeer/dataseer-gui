@@ -329,6 +329,7 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 			reuse: reuse
 		};
 	});
+	
 	this.datasetsList.find(`dataset`).map(function() {
 		let el = $(this),
 			datasetId = el.attr(`xml:id`),
@@ -342,19 +343,17 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 
 	this.datasets = datasets;
 	
-	// Color corresps
+	// Color active sentences
 	this.viewer.find(`s[corresp]`).map(function() {
-		let el = $(this),
-			dataInstanceIds = el
-				.attr(`corresp`)
-				.replace(/#/gm, ``)
-				.split(` `);
+		const el = $(this);
+		const dataInstanceIds = el.attr(`corresp`).replace(/#/gm, ``) .split(` `);
+		
 		dataInstanceIds.map(function(dataInstanceId) {
 			links.push({
+				sentence: { id: el.attr(`xml:id`) },
 				dataset: datasets[dataInstanceId],
-				sentence: { id: el.attr(`xml:id`) }
+				datasetType: datasets[dataInstanceId].datasetType
 			});
-			
 
 			if ( datasets[dataInstanceId]?.datasetType === self.activeDatasetType) {
 				self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
