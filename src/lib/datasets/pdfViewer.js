@@ -378,6 +378,14 @@ PdfViewer.prototype.getPages = function() {
 	else return [];
 };
 
+// Get Pages
+PdfViewer.prototype.getLoadedPages = function() {
+	const loadedPages = document.querySelectorAll('#pdfViewer div[data-loaded="true"]');
+	if (!loadedPages) return 
+	
+	return [...loadedPages].map(node => parseInt(node.getAttribute('data-page-number')))
+};
+
 // Insert Pages
 PdfViewer.prototype.insertPage = function(numPage, page) {
 	// delete older version of this page
@@ -626,62 +634,64 @@ PdfViewer.prototype.insertDatasets = function(numPage) {
 
 // Render a given page
 PdfViewer.prototype.renderPage = function (opts, cb) {
-	let self = this,
-	  force = !!opts.force,
-	  numPage = opts.numPage;
+	const self = this;
+	const force = !!opts.force;
+	const numPage = opts.numPage;
+
 	if (!numPage) return cb(new Error(`numPage required`));
-	else if (!force && this.viewer.find(`.page[data-page-number="${numPage}"]`).get(0)) return cb();
-	else
-	  return this.showMessage(`Loading Page ${numPage}...`, function () {
+
+	if (!force && this.viewer.find(`.page[data-page-number="${numPage}"]`).get(0)) return cb();
+
+	return this.showMessage(`Loading Page ${numPage}...`, function () {
 		return self.getPdfPage(numPage, function (err, pdfPage) {
-		  if (err) return cb(err);
-		  let desiredWidth = self.viewerElement.offsetWidth,
-			viewport_tmp = pdfPage.getViewport({ scale: 1 }),
-			the_scale = desiredWidth / viewport_tmp.width,
-			viewport = pdfPage.getViewport({ scale: the_scale }),
-			page = self.buildEmptyPage(numPage, viewport.width, viewport.height),
-			canvas = page.querySelector(`canvas`),
-			wrapper = page.querySelector(`.canvasWrapper`),
-			container = page.querySelector(`.textLayer`),
-			canvasContext = canvas.getContext(`2d`);
-		  // Insert page
-		  self.insertPage(numPage, page);
-		  return pdfPage
-			.render({
-			  canvasContext: canvasContext,
-			  viewport: viewport
-			})
-			.promise.then(function () {
-			  // Build Contours
-			  let contours = self.buildAreas(the_scale, numPage);
-			  // Insert Contours
-			  contours.map(function (contour) {
-				self.insertContours(contour);
-			  });
-			  // Insert Sentences
-			  self.insertSentences(the_scale, numPage);
-			  self.insertDatasets(numPage);
-			  // refresh markers scroll
-			  self.refreshMarkers();
-			  page.setAttribute(`data-loaded`, `true`);
-			  self.hideMessage();
-			  return cb(null, numPage);
-			})
-			.catch(function (err) {
-			  console.log(err);
-			  return cb(err);
-			});
+			if (err) return cb(err);
+			let desiredWidth = self.viewerElement.offsetWidth,
+				viewport_tmp = pdfPage.getViewport({ scale: 1 }),
+				the_scale = desiredWidth / viewport_tmp.width,
+				viewport = pdfPage.getViewport({ scale: the_scale }),
+				page = self.buildEmptyPage(numPage, viewport.width, viewport.height),
+				canvas = page.querySelector(`canvas`),
+				wrapper = page.querySelector(`.canvasWrapper`),
+				container = page.querySelector(`.textLayer`),
+				canvasContext = canvas.getContext(`2d`);
+			// Insert page
+			self.insertPage(numPage, page);
+			return pdfPage
+				.render({
+					canvasContext: canvasContext,
+					viewport: viewport
+				})
+				.promise.then(function () {
+					// Build Contours
+					let contours = self.buildAreas(the_scale, numPage);
+					// Insert Contours
+					contours.map(function (contour) {
+						self.insertContours(contour);
+					});
+					// Insert Sentences
+					self.insertSentences(the_scale, numPage);
+					self.insertDatasets(numPage);
+					// refresh markers scroll
+					self.refreshMarkers();
+					page.setAttribute(`data-loaded`, `true`);
+					self.hideMessage();
+					return cb(null, numPage);
+				})
+				.catch(function (err) {
+					console.log(err);
+					return cb(err);
+				});
 		});
-	  });
-  };
+	});
+};
 
 // Refresh pdf display
 PdfViewer.prototype.refresh = function (cb) {
-	if (!self.pdfDocument) {
+	let self = this;
+	
+	if (self.pdfDocument) {
 		// Loading document
-		let self = this;
-		return async.eachSeries(
-			this.getPages(),
+		return async.eachSeries(this.getLoadedPages(),
 			function (numPage, callback) {
 				return self.renderPage({ numPage: numPage, force: true }, function (err, res) {
 					console.log(err);
@@ -694,9 +704,10 @@ PdfViewer.prototype.refresh = function (cb) {
 			}
 		);
 	} else {
-		if (typeof cb === `function`) return cb(new Error(`PDF cannot be refreshed`))
-	};
+		if (typeof cb === `function`) return cb(new Error(`PDF cannot be refreshed`));
+	}
 };
+
 
 // Build all Areas
 PdfViewer.prototype.buildAreas = function(scale, numPage) {

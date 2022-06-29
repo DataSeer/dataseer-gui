@@ -19,17 +19,17 @@
 		text-transform: uppercase;
 	}
 
-	.subheader__left h3 i {
+	.subheader__left h3 svg {
 		margin-right: 10px;
 	}
 
-	.subheader__left h3 i.ico--key,
-	.subheader__left h3 i.ico--organization {
+	.subheader__left h3 svg.ico--key,
+	.subheader__left h3 svg.ico--organization {
 		width: 28px;
 		height: 28px;
 	}
 
-	.subheader__left h3 i.ico--lock {
+	.subheader__left h3 svg.ico--lock {
 		width: 21px;
 		height: 35px;
 

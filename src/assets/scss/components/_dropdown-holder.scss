@@ -197,11 +197,11 @@
 		}
 	}
 	
-	.dropdown__nav-datasets i:first-child { 
-		padding-right: 14px;
+	.dropdown__nav-datasets svg:first-child { 
+		margin-right: 14px;
 	}
 
-	.dropdown__nav-datasets i.ico--check {
+	.dropdown__nav-datasets svg.ico--check {
 		position: absolute;
 		right: 0;
 		top: 50%;
