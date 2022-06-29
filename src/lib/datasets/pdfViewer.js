@@ -463,14 +463,12 @@ PdfViewer.prototype.showMarkers = function() {
 
 // Refresh scroll cursor
 PdfViewer.prototype.refreshScrollCursor = function(scrollInfos) {
-	let spanTop = scrollInfos.position,
-		spanBottom = spanTop + this.screen.height(),
-		markerTop = Math.floor(
-			(spanTop * this.screen.height()) / this.container.prop(`scrollHeight`)
-		),
-		markerBottom = Math.floor(
-			(spanBottom * this.screen.height()) / this.container.prop(`scrollHeight`)
-		);
+	const spanTop = scrollInfos.position
+	
+	const spanBottom = spanTop + this.screen.height();
+	const markerTop = Math.floor( (spanTop * this.screen.height()) / this.container.prop(`scrollHeight`) );
+	const markerBottom = Math.floor( (spanBottom * this.screen.height()) / this.container.prop(`scrollHeight`) );
+	
 	this.scrollMarkersCursorElement.style.top = markerTop + `px`;
 	this.scrollMarkersCursorElement.style.height = markerBottom - markerTop + `px`;
 };
@@ -591,11 +589,13 @@ PdfViewer.prototype.renderPreviousPage = function(cb) {
 // Refresh markers
 PdfViewer.prototype.refreshMarkers = function() {
 	let self = this;
+	const screenHeight = this.screenElement.getBoundingClientRect().height || 0;
+
 	return this.scrollMarkers.find(`span.marker`).map(function() {
 		let marker = $(this),
 			markerElement = marker.get(0),
 			sentenceId = marker.attr(`sentenceId`),
-			spanTop = self._scrollToSentence({ id: sentenceId }),
+			spanTop = self._scrollToSentence({ id: sentenceId }) + (screenHeight / 2),
 			spanBottom = spanTop + parseInt(marker.attr(`contour-height`)),
 			spanLeft = parseInt(marker.attr(`contour-left`)),
 			spanRight = spanLeft + parseInt(marker.attr(`contour-width`)),
@@ -693,7 +693,10 @@ PdfViewer.prototype.refresh = function (cb) {
 		// Loading document
 		return async.eachSeries(this.getLoadedPages(),
 			function (numPage, callback) {
-				return self.renderPage({ numPage: numPage, force: true }, function (err, res) {
+				return self.renderPage({
+					numPage: numPage,
+					force: true
+				}, function (err, res) {
 					console.log(err);
 					return callback(err);
 				});
@@ -891,10 +894,12 @@ PdfViewer.prototype.setEvents = function(items) {
 PdfViewer.prototype.addMarker = function(dataset, sentence) {
 	let self = this;
 	let contours = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
+	const screenHeight = this.screenElement.getBoundingClientRect().height || 0;
+
 	return contours.map(function() {
 		let contour = $(this),
 			canvas = contour.find(`canvas`).first(),
-			spanTop = self._scrollToSentence(sentence),
+			spanTop = self._scrollToSentence(sentence) + screenHeight / 2 ,
 			spanBottom = spanTop + parseInt(contour.attr(`contour-height`)),
 			spanLeft = parseInt(contour.attr(`contour-left`)),
 			spanRight = spanLeft + parseInt(contour.attr(`contour-width`)),
@@ -909,6 +914,7 @@ PdfViewer.prototype.addMarker = function(dataset, sentence) {
 			markerElement = document.createElement(`span`),
 			marker = $(markerElement),
 			coeff = self.scrollMarkers.outerWidth() / self.container.outerWidth();
+		
 		markerElement.style.backgroundColor = dataset.color.background.border;
 		markerElement.style.top = markerTop + `px`;
 		markerElement.style.left = parseInt(markerLeft * coeff) + `px`;
@@ -1110,27 +1116,29 @@ PdfViewer.prototype.scrollToSentence = function(sentence, cb) {
 
 // Scroll to a sentence
 PdfViewer.prototype._scrollToSentence = function(sentence) {
-	let element = this.viewer.find(`s[sentenceId="${sentence.id}"]`).first(),
-		numPage = parseInt(
+	const element = this.viewer.find(`s[sentenceId="${sentence.id}"]`).first();
+	const numPage = parseInt(
 			element
 				.parent()
 				.parent()
 				.attr(`data-page-number`),
 			10
-		),
-		pages = this.viewer.find(`div[class="page"]`),
-		height = 0,
-		screenHeight = this.screenElement.getBoundingClientRect().height || 0;
+		);
+	const pages = this.viewer.find(`div[class="page"]`);
+	const screenHeight = this.screenElement.getBoundingClientRect().height || 0;
+	let height = 0;
 		
 	for (let i = 0; i < pages.length; i++) {
 		let page = pages[i],
 			el = $(page),
 			currentNumPage = parseInt(el.attr(`data-page-number`), 10);
 		if (currentNumPage === numPage) break;
+		
 		height += el.outerHeight();
 	}
 	this.currentPage = numPage;
-	return height + element.position().top;
+	
+	return height + element.position().top - (screenHeight / 2);
 };
 
 // selectSentence
