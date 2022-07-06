@@ -26,13 +26,15 @@
 	.tabs__links {
 		position: absolute;
 		top: 0;
-		right: 100%;
+		height: calc(100% - 101px);
+		right: 100%; 
 		font-size: 14px;
 		font-family: $ff-titles;
 		font-weight: 500;
 		margin: -1px 0 -9px -32px;
 		padding: 9px 0 9px 32px;
-		overflow: hidden;
+		overflow-y: scroll;
+		@include hide-scrollbar;
 	}
 
 	.tabs__links ul {
@@ -42,10 +44,6 @@
 	
 	.tabs__links ul li {
 		position: relative;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 
 	.tabs__link .checkbox {
