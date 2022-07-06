@@ -67,16 +67,6 @@
 		letter-spacing: inherit;
 	}
 
-	.vs__dropdown-menu {
-		top: 100%;
-		min-width: 0;
-		margin-top: 4px;
-		box-shadow: 0 4px 8px rgba($c-black, 0.14);
-		border: none;
-		border-radius: 0;
-		padding: 0;
-	}
-
 	.vs__dropdown-option--highlight {
 		color: $c-base;
 		background-color: rgba($c-placeholder, 0.15);
@@ -84,6 +74,22 @@
 
 	&.vs--open .vs__dropdown-toggle {
 		border-color: $c-primary-light;
+	}
+}
+
+.vs__dropdown-menu {
+	min-width: 0;
+	box-shadow: 0 4px 8px rgba($c-black, 0.14);
+	border: none;
+	border-radius: 0;
+	padding: 0;
+
+	&[data-popper-placement='top'] {
+		margin-bottom: 8px !important;
+	}
+
+	&[data-popper-placement='bottom'] {
+		margin-top: 8px !important;
 	}
 }
 

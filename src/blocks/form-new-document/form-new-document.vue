@@ -72,19 +72,6 @@
 						</FieldSelect>
 					</GridColumn>
 				</template>
-
-				<GridColumn>
-					<div class="checkboxes checkboxes--center">
-						<ul>
-							<FieldCheckbox
-								v-model="formData.dataseerML"
-								name="checkbox"
-							>
-								This is a new version of an article DataSeer has already assessed
-							</FieldCheckbox>
-						</ul>
-					</div> <!-- /.checkboxes -->
-				</GridColumn>
 			</Grid>
 		</FormBody>
 
@@ -115,7 +102,6 @@ import Button from '@/components/button/button';
 import Grid, { GridColumn } from '@/components/grid/grid';
 import FieldFile from '@/components/field-file/field-file';
 import FieldSelect from '@/components/field-select/field-select';
-import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import Form, { FormActions, FormHead, FormBody, FormStatus } from '@/components/form/form';
 
 import accountsService from '@/services/account/accounts';
@@ -144,8 +130,7 @@ export default {
 		Icon,
 		Button,
 		FieldFile,
-		FieldSelect,
-		FieldCheckbox
+		FieldSelect
 	},
 
 	/**
@@ -156,7 +141,7 @@ export default {
 			formData: {
 				file: '',
 				attachedFiles: '',
-				dataseerML: false,
+				dataseerML: true,
 				organizations: [],
 				owner: '',
 			},
