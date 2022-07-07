@@ -687,7 +687,10 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 
 // Refresh pdf display
 PdfViewer.prototype.refresh = function (cb) {
-	let self = this;
+	const self = this;
+	const currentScrollPos = self.screenElement.scrollTop;
+
+	console.log(currentScrollPos);
 	
 	if (self.pdfDocument) {
 		// Loading document
@@ -702,6 +705,7 @@ PdfViewer.prototype.refresh = function (cb) {
 				});
 			},
 			function (err) {
+				self.screenElement.scrollTop = currentScrollPos;
 				if (err) console.log(err);
 				if (typeof cb === `function`) return cb(err);
 			}
@@ -1005,7 +1009,7 @@ PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	const datasetTypes = contour.attr(`datasets-types`) ? JSON.parse(contour.attr(`datasets-types`)) : {};
 	delete datasetTypes[dataset.id];
 	
-	contour.attr(`datasets`, contour .attr(`datasets`) .replace(`#${dataset.dataInstanceId}`, ``) .trim());
+	contour.attr(`datasets`, contour.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``).trim());
 		
 	// Handle Datasets Types remove
 	if (Object.keys(datasetTypes).length > 0) {
