@@ -118,6 +118,14 @@ const actions = {
 		const documentHandler = state.documentHandler;
 		documentHandler.datasetsList.events.onNewDatasetClick();
 	},
+	deleteDataset() {
+		const { documentHandler, activeDataset } = state;
+		
+		if (!activeDataset) return console.log(`bad dataset id`);
+		if (!activeDataset.sentences) return console.log(`empty sentences`);
+		
+		return documentHandler.deleteDataset(activeDataset.id);
+	},
 	unlinkSentenceFromDataset() {
 		const { documentHandler, activeDataset, activeSentence }  = state
 		

@@ -197,12 +197,7 @@ DocumentHandler.prototype.selectSentence = function (opts, cb) {
 	// Filter out datasets that are not from the same activedatasettype
 	const activeDatasets = datasets.filter(item => item.datasetType === self.activeDatasetType);
 
-	let dataset =
-	activeDatasets.length > 0
-			? opts.selectedDataset && opts.selectedDataset.id
-				? this.getDataset(opts.selectedDataset.id)
-				: datasets[0]
-			: undefined;
+	const dataset = activeDatasets.length ? activeDatasets[0] : undefined
 
 	let selectedSentences = this.documentView.getSelectedSentences();
 	let sentence = this.documentView.getSentence(opts.sentence);
@@ -375,7 +370,7 @@ DocumentHandler.prototype.deleteDataset = function(id, cb) {
 			if (index > -1) self.datasets.deleted.push(self.datasets.current.splice(index, 1)[0]); // delete current dataset
 			self.datasetsList.delete(id);
 			self.documentView.removeDataset(dataset);
-			return cb(undefined, res);
+			return (typeof cb === `function`) ? cb(undefined, res) : undefined;
 		}
 	);
 };
@@ -670,9 +665,13 @@ DocumentHandler.prototype.getDatasetDataType = function (dataset) {
 // Set active dataset type
 DocumentHandler.prototype.setActiveDatasetType = function (datasetType, cb) {
 	const self = this;
+	const selectedSentences = self.documentView.getSelectedSentences();
 	self.activeDatasetType = datasetType;
 	self.documentView.setActiveDatasetType(datasetType);
-	
+
+	// Unselect any active sentences
+	if (selectedSentences) self.documentView.unselectSentences(selectedSentences);
+
 	// Callback function
 	if (typeof cb === `function`) return cb();
 };

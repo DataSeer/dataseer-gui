@@ -1004,18 +1004,22 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	const self = this;
 	this.links[dataset.id].splice(this.links[dataset.id].indexOf(sentence.id), 1);
+	
 	const contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 		
 	const datasetTypes = contour.attr(`datasets-types`) ? JSON.parse(contour.attr(`datasets-types`)) : {};
 	delete datasetTypes[dataset.id];
 	
 	contour.attr(`datasets`, contour.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``).trim());
-		
+			
 	// Handle Datasets Types remove
 	if (Object.keys(datasetTypes).length > 0) {
 		contour.attr(`datasets-types`, JSON.stringify(datasetTypes));
 	} else {
 		contour.removeAttr(`datasets-types`);
+	}
+	// Handle Sentence uncolorizing
+	if (!Object.values(datasetTypes).some(entry => entry === self.metadata.activeDatasetType)) {
 		this.uncolorize(sentence);
 		this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
 		this.removeMarker(sentence);
@@ -1023,14 +1027,8 @@ PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	
 	if (contour.attr(`datasets`) === ``) contour.removeAttr(`datasets`);
 	
-	let annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
-	annotation.attr(
-		`datasets`,
-		annotation
-			.attr(`datasets`)
-			.replace(`#${dataset.dataInstanceId}`, ``)
-			.trim()
-	);
+	const annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
+	annotation.attr( `datasets`, annotation.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``).trim());
 	if (annotation.attr(`datasets`) === ``) annotation.removeAttr(`datasets`);
 	
 	if (typeof callback === `function`) callback();
@@ -1216,7 +1214,6 @@ PdfViewer.prototype.unselectCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.hoverCanvas = function (sentence) {
-	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
@@ -1232,7 +1229,6 @@ PdfViewer.prototype.hoverCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.endHoverCanvas = function (sentence) {
-	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
