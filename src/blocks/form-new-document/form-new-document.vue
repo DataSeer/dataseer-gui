@@ -77,10 +77,18 @@
 					<div class="checkboxes checkboxes--center">
 						<ul>
 							<FieldCheckbox
-								v-model="formData.dataseerML"
-								name="checkbox"
+								v-model="formData.alreadyProcessed"
+								name="alreadyProcessed"
 							>
 								This is a new version of an article DataSeer has already assessed
+							</FieldCheckbox>
+
+							<FieldCheckbox
+								v-if="isAdministrator"
+								v-model="formData.dataseerML"
+								name="dataseerML"
+							>
+								Identify datasets automatically (DataSeer ML will processed this document)
 							</FieldCheckbox>
 						</ul>
 					</div> <!-- /.checkboxes -->
@@ -156,7 +164,8 @@ export default {
 			formData: {
 				file: '',
 				attachedFiles: '',
-				dataseerML: false,
+				alreadyProcessed: false,
+				dataseerML: true,
 				organizations: [],
 				owner: '',
 			},
