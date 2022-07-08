@@ -43,26 +43,26 @@ const formatDataset = dataset => {
 
 const getDatasetDataType = dataset => {
 	const isMaterial = () =>
-		dataset.dataType === 'lab materials' ||
-		(dataset.dataType === 'other' && dataset.subType === 'reagent');
+		dataset.kind === 'reagent' ;
 
 	const isCode = () =>
-		dataset.dataType === 'code software' ||
-		(dataset.dataType === 'other' && dataset.subType === 'code');
+		dataset.kind === 'code' || dataset.kind === 'software' ;
 
 	const isProtocol = () =>
-		dataset.dataType === 'protocol' ||
-		(dataset.dataType === 'other' && dataset.subType === 'protocol');
+		dataset.kind === 'protocol' ;
+
+	const isDataset = () =>
+		dataset.kind === 'dataset' ;
 
 	if (isMaterial()) return 'material';
 	if (isCode()) return 'code';
 	if (isProtocol()) return 'protocol';
+	if (isDataset()) return 'dataset';
 
-	return 'dataset';
+	return dataset.kind;
 };
 
 const setDatasetDataType = (dataset, datasetType) => {
-	console.log(datasetType);
 	switch (datasetType) {
 		case 'code':
 			return {

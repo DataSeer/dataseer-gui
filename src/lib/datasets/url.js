@@ -5,7 +5,7 @@
 import urljoin from 'url-join';
 
 const CONF = {
-	root: 'http://localhost:3000'
+	root: typeof process.env.VUE_APP_BASE_API_URL !== 'undefined' ? process.env.VUE_APP_BASE_API_URL.replace('/api', '') : 'http://localhost:3000'
 };
 
 const URLMANAGER = {
