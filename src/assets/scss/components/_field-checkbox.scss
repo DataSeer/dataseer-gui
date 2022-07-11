@@ -101,10 +101,25 @@
 			border: 2px solid $c-skyblue-bc;
 			background-color: $c-white;
 		}
+
+		&:after {
+			left: 8px;
+    		top: 5px;
+			width: 6px;
+			height: 10px;
+			display: none;
+			border: solid $c-primary;
+			border-width: 0 2px 2px 0;
+			transform: rotate(45deg);
+		}
 	}
 
 	input:checked + label {
 		color: $c-primary;
+
+		&:after {
+			display: block;
+		}
 
 		&:before {
 			border-color: $c-primary;
