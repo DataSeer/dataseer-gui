@@ -308,16 +308,16 @@ DocumentHandler.prototype.saveDataset = function(id, dataset, cb) {
 
 // Merge some datasets
 DocumentHandler.prototype.mergeDatasets = function(datasets, cb) {
+	const self = this;
 	if (datasets.length > 1) {
-		let self = this,
-			target = this.getDataset(datasets[0].id);
+		const target = this.getDataset(datasets[0].id);
+		
 		return async.mapSeries(
 			datasets.slice(1),
 			function(item, callback) {
-				let dataset = Object.assign({}, self.getDataset(item.id)),
-					sentences = self.documentView.getLinks(dataset).map(function(link) {
-						return link.sentence;
-					});
+				const  dataset = Object.assign({}, self.getDataset(item.id));
+				const sentences = self.documentView.getLinks(dataset).map((link) => link.sentence);
+				
 				return self.deleteDataset(dataset.id, function(err, res) {
 					if (err) return callback(err);
 					return self.newLinks(
@@ -353,14 +353,14 @@ DocumentHandler.prototype.deleteDatasets = function(datasets, cb) {
 
 // Delete a dataset
 DocumentHandler.prototype.deleteDataset = function(id, cb) {
-	let self = this,
-		dataset = this.getDataset(id);
+	const self = this;
+	const dataset = this.getDataset(id);
 	this.loading(id);
-	this.datasetForm?.unlink(id);
-	return API.datasets.deleteDataset(
-		{
+	
+	
+	return API.datasets.deleteDataset({
 			datasetsId: this.ids.datasets,
-			dataset: dataset
+			dataset: dataset 
 		},
 		function(err, res) {
 			console.log(err, res);

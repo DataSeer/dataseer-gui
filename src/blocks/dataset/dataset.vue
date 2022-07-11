@@ -431,8 +431,8 @@ export default {
 		},
 		openUnlinkModal() {
 			this.openConfirmModal({
-				...this.modals.confirmUnLink,
-				onConfirm: this.unlinkSentenceFromDataset,
+				...this.modals.confirmUnlink,
+				onConfirm: this.deleteDataset,
 			})
 		}
 	},

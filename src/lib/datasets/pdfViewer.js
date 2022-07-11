@@ -1065,7 +1065,8 @@ PdfViewer.prototype.addDataset = function(dataset, sentence, isSelected = true) 
 
 // Remove a dataset
 PdfViewer.prototype.removeDataset = function (dataset, callback) {
-	let ids = [...this.links[dataset.id]];
+	const links = this.links[dataset.id];
+	const ids = links ? [...links] : [];
 
 	for (let i = 0; i < ids.length; i++) {
 		this.removeLink(dataset, { id: ids[i] });

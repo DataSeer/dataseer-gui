@@ -346,15 +346,18 @@ XmlViewer.prototype.load = function(opts = {}, cb) {
 	// Color active sentences
 	this.viewer.find(`s[corresp]`).map(function() {
 		const el = $(this);
-		const dataInstanceIds = el.attr(`corresp`).replace(/#/gm, ``) .split(` `);
+		const dataInstanceIds = el.attr(`corresp`).replace(/#/gm, ``).split(` `);
 		
 		dataInstanceIds.map(function(dataInstanceId) {
+			if (!datasets[dataInstanceId]) return
+			
 			links.push({
 				sentence: { id: el.attr(`xml:id`) },
 				dataset: datasets[dataInstanceId],
 				datasetType: datasets[dataInstanceId].datasetType
 			});
-
+			
+			// Colorize active sentences
 			if ( datasets[dataInstanceId]?.datasetType === self.activeDatasetType) {
 				self.colorize(datasets[dataInstanceId], { id: el.attr(`xml:id`) });
 			}
