@@ -250,6 +250,10 @@ const PdfViewer = function(id, screenId, events = {}) {
 	this.links = {};
 	// Events
 	this.events = events;
+
+	// Flags
+	this.isRefreshing = false;
+	
 	return this;
 };
 
@@ -638,6 +642,8 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 	const force = !!opts.force;
 	const numPage = opts.numPage;
 
+	if (self.isRefreshing && !force) return;
+
 	if (!numPage) return cb(new Error(`numPage required`));
 
 	if (!force && this.viewer.find(`.page[data-page-number="${numPage}"]`).get(0)) return cb();
@@ -688,10 +694,11 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 // Refresh pdf display
 PdfViewer.prototype.refresh = function (cb) {
 	const self = this;
-	const currentScrollPos = self.screenElement.scrollTop;
+	const { screenElement } = self;
+	let screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+	const scrollPercentage = (100 * screenElement.scrollTop / screenScroll).toFixed(2);
+	self.isRefreshing = true;
 
-	console.log(currentScrollPos);
-	
 	if (self.pdfDocument) {
 		// Loading document
 		return async.eachSeries(this.getLoadedPages(),
@@ -705,7 +712,10 @@ PdfViewer.prototype.refresh = function (cb) {
 				});
 			},
 			function (err) {
-				self.screenElement.scrollTop = currentScrollPos;
+				screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+				screenElement.scrollTop = (screenScroll * scrollPercentage / 100);
+
+				self.isRefreshing = false;
 				if (err) console.log(err);
 				if (typeof cb === `function`) return cb(err);
 			}
@@ -714,7 +724,6 @@ PdfViewer.prototype.refresh = function (cb) {
 		if (typeof cb === `function`) return cb(new Error(`PDF cannot be refreshed`));
 	}
 };
-
 
 // Build all Areas
 PdfViewer.prototype.buildAreas = function(scale, numPage) {
