@@ -1,4 +1,3 @@
-/* eslint-disable */
 const DATATYPE_COLORS = {
 	code: {
 		background: {

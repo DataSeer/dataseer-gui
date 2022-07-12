@@ -66,13 +66,13 @@
 		margin-left: 30px;
 	}
 
-	.pagination__dropdown i,
+	.pagination__dropdown svg,
 	.pagination__dropdown label {
 		transform: translateY(-50%);
 		pointer-events: none;
 	}
 
-	.pagination__dropdown i {
+	.pagination__dropdown svg {
 		position: absolute;
 		top: 19px;
 		right: 14px;

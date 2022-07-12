@@ -9,7 +9,7 @@
 			>
 				<Icon :name="icons[dataset.datasetType]" color="currentColor" width="19" height="21" />
 
-				<span>{{ dataset.name ? dataset.name  : dataset.id }}</span>
+				<span>{{ dataset.name ? dataset.name : dataset.id }}</span>
 
 				<Icon v-if="dataset.id === activeDatasetId" name="check" :color="cssVariables.base" />
 			</button>
@@ -52,6 +52,7 @@
 		data() {
 			return {
 				icons: {
+					unknow: 'datasets',
 					dataset: 'datasets',
 					code: 'brackets',
 					material: 'flask',
@@ -67,7 +68,7 @@
 			cssVariables() {
 				return variables
 			},
-		},
+		}
 	}
 </script>
 

@@ -255,13 +255,13 @@ DatasetsList.prototype.add = function(dataset) {
 				.attr('value', dataset.id)
 				.attr('sentences', JSON.stringify(dataset.sentences))
 				.attr('sentence', dataset.sentences[0].id)
-				.css('background-color', dataset.color.background.rgba)
-				.css('border-color', dataset.color.background.rgba),
+				.css('background-color', dataset.color?.background.rgba || '')
+				.css('border-color', dataset.color?.background.rgba || ''),
 			label: $('<div>')
 				.attr('key', 'dataset.label')
 				.attr('value', label)
 				.attr('title', 'Click here to work on this Dataset')
-				.css('color', dataset.color.foreground)
+				.css('color', dataset.color?.foreground || '')
 				.append(
 					$('<div>')
 						.text(label)

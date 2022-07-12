@@ -29,7 +29,10 @@
 						<span class="dropdown__arrow" />
 					</template>
 
-					<DropdownNavDatasets :datasets="textReferences" @dropdownButtonClick="handleDropdownButtonClick" />
+					<DropdownNavDatasets
+						:datasets="textReferences"
+						@dropdownButtonClick="handleDropdownButtonClick"
+					/>
 				</Dropdown>
 			</p><!-- /.datasets-references -->
 			

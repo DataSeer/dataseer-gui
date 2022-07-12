@@ -142,7 +142,6 @@ export default {
 		async initializePdfViewer() {
 			const token = this.$route.query.token
 
-			try {
 				const doc = await documentsService.getDocument(this.documentId, {
 					datasets: true,
 					metadata: true,
@@ -164,7 +163,7 @@ export default {
 				for (let i = 0; i < datasets.length; i++) {
 					formatDataset(datasets[i]);
 				}
-	
+
 				const activeDatasetId = datasets[0]?.id;
 				const activeDatasetType = datasets[0]?.datasetType || this.activeDatasetType;
 	
@@ -207,6 +206,7 @@ export default {
 				this.setDocumentHandler(currentDocument);
 				this.setDataTypes(dataTypes);
 				this.setDatasets(datasets);
+			try {
 			} catch (error) {
 				this.loading = false;
 				this.error = true
