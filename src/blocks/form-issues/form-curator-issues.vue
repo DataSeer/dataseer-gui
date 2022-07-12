@@ -5,7 +5,7 @@
 				<h6 class="form__title"><Dot :size="16" />Flag issues</h6>
 				
 				<FieldIssues
-					:issues="issues.active"
+					:issues="issues ? issues.active : []"
 					:issuesList="issuesList"
 					@change="(issue, value) => toggleIssue(issue, value)"
 				/>
@@ -106,7 +106,7 @@ export default {
 	 */
 	computed: {
 		activeIssues() {
-			if (!this.issues.active) return []
+			if (!this.issues?.active) return []
 			return this.issuesList.filter(issue => this.issues.active.some(item => item === issue) );
 		}
 	},
@@ -130,7 +130,9 @@ export default {
 	 * Created
 	 */
 	created () {
-		this.formData = {...this.issues };
+		if(this.issues !== null) {
+			this.formData = { ...this.issues };
+		}
 	},
 };
 </script>

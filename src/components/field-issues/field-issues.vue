@@ -25,8 +25,8 @@
 						class="sr-only"
 						:name="`issue-${index}-dropdown`"
 						:id="`issue-${index}-dropdown`"
-						:value="issues.some(issue => issue === item)"
-						:checked="issues.some(issue => issue === item)"
+						:value="isIssueChecked(item)"
+						:checked="isIssueChecked(item)"
 						@change="(e) => handleChange(item, e)"
 					/>
 
@@ -96,6 +96,11 @@ export default {
 		toggleIssuesDropdown() {
 			this.$refs.dropdown.classList.toggle('is-active');
 		},
+		isIssueChecked(item) {
+			if (!this.issues) return false;
+			
+			return this.issues.some(issue => issue === item);
+		}
 	}
 };
 </script>
