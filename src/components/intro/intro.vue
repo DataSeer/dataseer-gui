@@ -2,14 +2,9 @@
 	<div class="intro">
 		<div class="intro__head">
 			<h3>
-				No<br/>
-				{{ typePlural }}<br/>
-				Yet<br/>
+				No {{ typePlural }} Yet
 
-				<span>Need<br/>
-				to<br/>
-				Add<br/>
-				Some?</span>
+				<span>Need to Add Some?</span>
 			</h3>
 
 			<figure>
