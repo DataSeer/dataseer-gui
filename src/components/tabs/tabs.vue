@@ -21,7 +21,7 @@
 					class="tabs__link"
 					:class="{
 						'is-active': dataset.id === activeDatasetId,
-						'is-completed': dataset.status === 'saved',
+						'is-completed': dataset.status === 'valid',
 						'has-issue': ( dataset.flagged === true || dataset.flagged === 'true')
 					}"
 				>
@@ -44,10 +44,10 @@
 						type="button"
 						@click.prevent="handleLinkButtonClick(dataset)"
 					>
-						<Dot v-if="( dataset.flagged === true || dataset.flagged === 'true')" />
+						<Dot v-if="( dataset.flagged === true || dataset.flagged === 'true' )" />
 
 						<span>
-							<Icon v-if="dataset.status === 'saved'" name="check" color="currentColor" />
+							<Icon v-if="dataset.status === 'valid'" name="check" color="currentColor" />
 						</span>
 						
 						<p class="overflow-truncate">{{dataset.name ? dataset.name : dataset.id }}</p>

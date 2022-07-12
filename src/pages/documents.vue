@@ -328,7 +328,7 @@ export default {
 				perPage: 10,
 			},
 			globalSearchValue: '',
-			perPageOptions: [2, 5, 10, 20],
+			perPageOptions: [2, 5, 10, 20, 50, 75, 100],
 			loading: true,
 			error: false,
 			errorMessage: '',

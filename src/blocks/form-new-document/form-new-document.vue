@@ -72,6 +72,28 @@
 						</FieldSelect>
 					</GridColumn>
 				</template>
+
+				<GridColumn>
+					<div class="checkboxes checkboxes--center">
+						<ul>
+							<FieldCheckbox
+								v-model="formData.alreadyProcessed"
+								name="alreadyProcessed"
+							>
+								This is a new version of an article DataSeer has already assessed
+							</FieldCheckbox>
+
+							<FieldCheckbox
+								v-if="isAdministrator"
+								v-model="formData.dataseerML"
+								name="dataseerML"
+							>
+								Identify datasets automatically (DataSeer ML will processed this document)
+							</FieldCheckbox>
+						</ul>
+					</div> <!-- /.checkboxes -->
+				</GridColumn>
+
 			</Grid>
 		</FormBody>
 
@@ -141,6 +163,7 @@ export default {
 			formData: {
 				file: '',
 				attachedFiles: '',
+				alreadyProcessed: false,
 				dataseerML: true,
 				organizations: [],
 				owner: '',

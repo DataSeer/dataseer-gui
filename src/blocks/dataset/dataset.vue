@@ -153,8 +153,8 @@
 				<Grid rowGap="medium">
 					<GridColumn>
 						<Field
-							name="entity"
-							v-model.trim="formData.entity"
+							name="suggestedEntity"
+							v-model.trim="formData.suggestedEntity"
 						>
 							<Icon name="windows" />
 
@@ -165,7 +165,7 @@
 					<GridColumn>
 						<Field
 							name="suggestedURL"
-							v-model.trim="formData.DOI"
+							v-model.trim="formData.suggestedURL"
 						>
 							<Icon name="chain" />
 
@@ -175,8 +175,8 @@
 
 					<GridColumn>
 						<Field
-							name="suggestedURL"
-							v-model.trim="formData.RRID"
+							name="suggestedRRID"
+							v-model.trim="formData.suggestedRRID"
 						>
 							<Icon name="key" />
 

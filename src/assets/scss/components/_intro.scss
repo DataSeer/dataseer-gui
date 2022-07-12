@@ -26,17 +26,23 @@
 	}
 
 	.intro__head h3 {
+		width: 250px;
 		margin-bottom: 0;
 		color: $c-base;
 		font-size: 23px;
 		line-height: 1.22;
 		text-transform: uppercase;
+		position: relative;
+		z-index: 1;
+		text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 	}
 
 	.intro__head h3 span {
+		width: 250px;
 		display: block;
 		color: $c-blue-19;
 		text-transform: initial;
+		text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 	}
 
 	.intro__head figure {
@@ -45,6 +51,12 @@
 		right: 12px;
 		top: 50%;
 		transform: translateY(-50%);
+	}
+
+	.intro__head figure img {
+		opacity: 0.85;
+		position: relative;
+		z-index: 1;
 	}
 
 	.intro__body {

@@ -11,7 +11,7 @@ import _ from 'lodash';
  */
 import URLMANAGER from './url';
 
-const baseUrl = 'https://dev.dataseer.ai/dataseer-web';
+const baseUrl = typeof process.env.VUE_APP_BASE_API_URL !== 'undefined' ? process.env.VUE_APP_BASE_API_URL.replace('/api', '') : 'http://localhost:3000';
 
 $.ajaxSetup({
 	beforeSend: function(xhr, options) {
