@@ -1,129 +1,129 @@
 <template>
 	<div class="subheader__inner" tabindex="0" aria-labelledby="subheader-title">
-		<template v-if="document">
-			<div class="subheader__left">
-				<nav v-if="datasetTypes.length" class="nav-datasets">
-					<ul>
-						<li v-for="type in datasetTypes" :key="type.id">
-							
-							<button
-								:data-value="type.id"
-								:class="{ 'is-active': type.id === activeDatasetType}"
-								@click.prevent="setActiveDatasetType(type.id)"
-							>
-								<Dot v-if="isDatatypeFlagged(type.id)" />
-								<Icon :name="type.icon" color="currentColor" />
-								
-								{{type.label}}
-							</button>
-						</li>
-					</ul>
-				</nav> <!-- /.nav-datasets -->
-			</div> <!-- /.subheader__left -->
-
-			<div class="subheader__right">
-				<Button :to="reportPageURl" className="tertiary">
-					<Icon name="lock" color="currentColor" />
-
-					Open Science Report
-				</Button>
-			</div> <!-- /.subheader__right -->
-
-			<template v-if="document.metadata._id">
-				<Summary
-					:metadata="document.metadata"
-					:isVisible="isSummaryVisible"
-					@closeBtnClick="toggleSummary"
-				/>
-
-				<div class="dataset-title">
-					<div class="dataset__inner">
-						<Icon name="document" />
-
-						<h6
-							v-if="document.metadata.article_title"
-							id="subheader-title"
-							class="overflow-truncate"
-							@click.prevent="toggleSummary"
-							v-tooltip.bottom-center="document.metadata.article_title"
+		<div class="subheader__left">
+			<nav class="nav-datasets">
+				<ul>
+					<li v-for="type in datasetTypes" :key="type.id">
+						<button
+							:data-value="type.id"
+							:class="{ 'is-active': type.id === activeDatasetType }"
+							@click.prevent="setActiveDatasetType(type.id)"
 						>
-							{{ document.metadata.article_title }}
-						</h6>
+							<Dot v-if="isDatatypeFlagged(type.id)" />
+							<Icon :name="type.icon" color="currentColor" />
 
-						<Dropdown placement="bottom-end">
-							<template #header>
-								<span class="btn-dropdown"></span>
-							</template>
+							{{ type.label }}
+						</button>
+					</li>
+				</ul>
+			</nav> <!-- /.nav-datasets -->
+		</div> <!-- /.subheader__left -->
 
-							<div class="dropdown__nav">
-								<ul>
-									<li>
-										<a href="#" @click.prevent="toggleSummary">
-											<Icon name="view_list" color="currentColor" />
+		<div v-if="reportPageURl" class="subheader__right">
+			<Button :to="reportPageURl" className="tertiary">
+				<Icon name="lock" color="currentColor" />
 
-											Document Summary
-										</a>
-									</li>
+				Open Science Report
+			</Button>
+		</div> <!-- /.subheader__right -->
 
-									<li>
-										<a :href="`mailto:${documentUsername}`">
-											<Icon name="invite" color="currentColor" />
+		<template v-if="document && document.metadata._id">
+			<Summary
+				:metadata="document.metadata"
+				:isVisible="isSummaryVisible"
+				@closeBtnClick="toggleSummary"
+			/>
 
-											Invite By Email
-										</a>
-									</li>
+			<div class="dataset-title">
+				<div class="dataset__inner">
+					<Icon name="document" />
 
-									<li>
-										<button type="button" @click.prevent="copyText(publicURL, 'Public URL copied !')">
-											<Icon name="share" color="currentColor" />
+					<h6
+						v-if="document.metadata.article_title"
+						id="subheader-title"
+						class="overflow-truncate"
+						@click.prevent="toggleSummary"
+						v-tooltip.bottom-center="document.metadata.article_title"
+					>
+						{{ document.metadata.article_title }}
+					</h6>
 
-											Get A Share Link
-										</button>
-									</li>
+					<Dropdown placement="bottom-end">
+						<template #header>
+							<span class="btn-dropdown"></span>
+						</template>
 
-									<li>
-										<a :href="uploadedFileURl" target="blank">
-											<Icon name="document_view" color="currentColor" />
+						<div class="dropdown__nav">
+							<ul>
+								<li>
+									<a href="#" @click.prevent="toggleSummary">
+										<Icon name="view_list" color="currentColor" />
 
-											View Uploaded File
-										</a>
-									</li>
-								</ul>
+										Document Summary
+									</a>
+								</li>
 
-								<ul v-if="userRoleWeight >= 1000" data-title="Curator Tools">
-									<li>
-										<button @click.prevent="detectSentences">
-											<Icon name="document_check" />
-											
-											OCR Detect
-										</button>
-									</li>
+								<li>
+									<a :href="`mailto:${documentUsername}`">
+										<Icon name="invite" color="currentColor" />
 
-									<li>
-										<button @click.prevent="importDatasets">
-											<Icon name="document_import" />
+										Invite By Email
+									</a>
+								</li>
 
-											Import Data
-										</button>
-									</li>
-								</ul>
-							</div> <!-- /.dropdown__nav -->
-						</Dropdown>
-					</div> <!-- /.dataset__inner -->
+								<li>
+									<button type="button" @click.prevent="copyText(publicURL, 'Public URL copied !')">
+										<Icon name="share" color="currentColor" />
 
-					<ul>
-						<li v-if="document.metadata.submitting_author">
-							<strong>{{document.metadata.submitting_author}}</strong>
-						</li>
+										Get A Share Link
+									</button>
+								</li>
 
-						<li>
-							<a :href="uploadedFileURl" target="blank">
-								{{ document.name }}
-							</a>
-						</li>
-					</ul>
-				</div> <!-- /.dataset-title -->
-			</template>
+								<li>
+									<a :href="uploadedFileURl" target="blank">
+										<Icon name="document_view" color="currentColor" />
+
+										View Uploaded File
+									</a>
+								</li>
+							</ul>
+
+							<ul v-if="userRoleWeight >= 1000" data-title="Curator Tools">
+								<li>
+									<button @click.prevent="detectSentences">
+										<Icon name="document_check" />
+
+										OCR Detect
+									</button>
+								</li>
+
+								<li>
+									<button @click.prevent="importDatasets">
+										<Icon name="document_import" />
+
+										Import Data
+									</button>
+								</li>
+							</ul>
+						</div>
+						<!-- /.dropdown__nav -->
+					</Dropdown>
+				</div>
+				<!-- /.dataset__inner -->
+
+				<ul>
+					<li v-if="document.metadata.submitting_author">
+						<strong>{{ document.metadata.submitting_author }}</strong>
+					</li>
+
+					<li>
+						<a :href="uploadedFileURl" target="blank">
+							{{ document.name }}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.dataset-title -->
 		</template>
 	</div> <!-- /.subheader__inner -->
 </template>
@@ -166,7 +166,7 @@ export default {
 	 */
 	data: function() {
 		return {
-			isSummaryVisible: false,
+			isSummaryVisible: false
 		};
 	},
 
@@ -188,8 +188,8 @@ export default {
 			'datasetTypes'
 		]),
 		reportPageURl() {
-			return `/documents/${this.document._id}/report`
-		},
+			return this.document ? `/documents/${this.document._id}/report` : undefined;
+		}
 	},
 
 	/**
@@ -206,15 +206,17 @@ export default {
 			this.isSummaryVisible = !this.isSummaryVisible;
 		},
 		copyText(text, message) {
-			this.$copyText(text).then(() => {
-				alert(message.length ? message : 'Copied !')
-			}, () => {
-				alert('Can not copy')
-			})
+			this.$copyText(text).then(
+				() => { alert(message.length ? message : 'Copied !') },
+				() => { alert('Can not copy') }
+			);
 		},
 		isDatatypeFlagged(datatype) {
-			return this.datasets.some(el => el.datasetType === datatype && ( el.flagged === true || el.flagged === 'true'))
-		},
+			return this.datasets.some(
+				el => el.datasetType === datatype &&
+				(el.flagged === true || el.flagged === 'true')
+			);
+		}
 	}
 };
 </script>

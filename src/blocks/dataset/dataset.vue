@@ -360,6 +360,7 @@ export default {
 	methods: {
 		...mapActions('pdfViewer', [
 			'updateDataset',
+			'deleteDataset',
 			'unlinkSentenceFromDataset',
 			'setActiveDataset',
 			'setActiveDatasetType',
@@ -425,13 +426,13 @@ export default {
 		openDeleteModal() {
 			this.openConfirmModal({
 				...this.modals.confirmDelete,
-				onConfirm: this.unlinkSentenceFromDataset,
+				onConfirm: this.deleteDataset,
 			})
 		},
 		openUnlinkModal() {
 			this.openConfirmModal({
-				...this.modals.confirmUnLink,
-				onConfirm: this.unlinkSentenceFromDataset,
+				...this.modals.confirmUnlink,
+				onConfirm: this.deleteDataset,
 			})
 		}
 	},

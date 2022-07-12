@@ -22,7 +22,10 @@
 					:errorMessage="errorMessage"
 				>
 					<Tabs>
-						<Dataset v-if="filteredDatasets.length" :dataset="activeDataset" />
+						<Dataset
+							v-if="filteredDatasets.length"
+							:dataset="activeDataset"
+						/>
 						
 						<Intro v-if="!filteredDatasets.length" />
 						

@@ -7,8 +7,9 @@
 			width: `${tabWidth}px`
 		}"
 	>
-		<div class="tabs__contents">
+		<div class="tabs__content">
 			<div ref="contentHandle" class="tabs__content-bar" />
+			
 			<slot />
 		</div> <!-- /.tabs__content -->
 		

@@ -250,6 +250,10 @@ const PdfViewer = function(id, screenId, events = {}) {
 	this.links = {};
 	// Events
 	this.events = events;
+
+	// Flags
+	this.isRefreshing = false;
+	
 	return this;
 };
 
@@ -638,6 +642,8 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 	const force = !!opts.force;
 	const numPage = opts.numPage;
 
+	if (self.isRefreshing && !force) return;
+
 	if (!numPage) return cb(new Error(`numPage required`));
 
 	if (!force && this.viewer.find(`.page[data-page-number="${numPage}"]`).get(0)) return cb();
@@ -687,8 +693,12 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 
 // Refresh pdf display
 PdfViewer.prototype.refresh = function (cb) {
-	let self = this;
-	
+	const self = this;
+	const { screenElement } = self;
+	let screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+	const scrollPercentage = (100 * screenElement.scrollTop / screenScroll).toFixed(2);
+	self.isRefreshing = true;
+
 	if (self.pdfDocument) {
 		// Loading document
 		return async.eachSeries(this.getLoadedPages(),
@@ -702,6 +712,10 @@ PdfViewer.prototype.refresh = function (cb) {
 				});
 			},
 			function (err) {
+				screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+				screenElement.scrollTop = (screenScroll * scrollPercentage / 100);
+
+				self.isRefreshing = false;
 				if (err) console.log(err);
 				if (typeof cb === `function`) return cb(err);
 			}
@@ -710,7 +724,6 @@ PdfViewer.prototype.refresh = function (cb) {
 		if (typeof cb === `function`) return cb(new Error(`PDF cannot be refreshed`));
 	}
 };
-
 
 // Build all Areas
 PdfViewer.prototype.buildAreas = function(scale, numPage) {
@@ -1000,18 +1013,22 @@ PdfViewer.prototype.addLink = function(dataset, sentence, isSelected = true) {
 PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	const self = this;
 	this.links[dataset.id].splice(this.links[dataset.id].indexOf(sentence.id), 1);
+	
 	const contour = this.viewer.find(`.contoursLayer > .contour[sentenceId="${sentence.id}"]`);
 		
 	const datasetTypes = contour.attr(`datasets-types`) ? JSON.parse(contour.attr(`datasets-types`)) : {};
 	delete datasetTypes[dataset.id];
 	
-	contour.attr(`datasets`, contour .attr(`datasets`) .replace(`#${dataset.dataInstanceId}`, ``) .trim());
-		
+	contour.attr(`datasets`, contour.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``).trim());
+			
 	// Handle Datasets Types remove
 	if (Object.keys(datasetTypes).length > 0) {
 		contour.attr(`datasets-types`, JSON.stringify(datasetTypes));
 	} else {
 		contour.removeAttr(`datasets-types`);
+	}
+	// Handle Sentence uncolorizing
+	if (!Object.values(datasetTypes).some(entry => entry === self.metadata.activeDatasetType)) {
 		this.uncolorize(sentence);
 		this.setCanvasBorder(sentence, BORDER_WIDTH, REMOVED_BORDER_COLOR);
 		this.removeMarker(sentence);
@@ -1019,14 +1036,8 @@ PdfViewer.prototype.removeLink = function(dataset, sentence, callback) {
 	
 	if (contour.attr(`datasets`) === ``) contour.removeAttr(`datasets`);
 	
-	let annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
-	annotation.attr(
-		`datasets`,
-		annotation
-			.attr(`datasets`)
-			.replace(`#${dataset.dataInstanceId}`, ``)
-			.trim()
-	);
+	const annotation = this.viewer.find(`.annotationsLayer > s[sentenceId="${sentence.id}"]`);
+	annotation.attr( `datasets`, annotation.attr(`datasets`).replace(`#${dataset.dataInstanceId}`, ``).trim());
 	if (annotation.attr(`datasets`) === ``) annotation.removeAttr(`datasets`);
 	
 	if (typeof callback === `function`) callback();
@@ -1063,7 +1074,8 @@ PdfViewer.prototype.addDataset = function(dataset, sentence, isSelected = true) 
 
 // Remove a dataset
 PdfViewer.prototype.removeDataset = function (dataset, callback) {
-	let ids = [...this.links[dataset.id]];
+	const links = this.links[dataset.id];
+	const ids = links ? [...links] : [];
 
 	for (let i = 0; i < ids.length; i++) {
 		this.removeLink(dataset, { id: ids[i] });
@@ -1212,7 +1224,6 @@ PdfViewer.prototype.unselectCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.hoverCanvas = function (sentence) {
-	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
@@ -1228,7 +1239,6 @@ PdfViewer.prototype.hoverCanvas = function (sentence) {
 
 // Build borders
 PdfViewer.prototype.endHoverCanvas = function (sentence) {
-	return
 	const isSelected = sentence.isSelected;
 	const activeDatasetTypeColor = DATATYPE_COLORS[this.metadata.activeDatasetType]?.background.border || SELECTED_BORDER_COLOR;
 
