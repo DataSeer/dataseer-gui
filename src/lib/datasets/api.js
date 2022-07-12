@@ -15,7 +15,6 @@ const baseUrl = typeof process.env.VUE_APP_BASE_API_URL !== 'undefined' ? proces
 
 $.ajaxSetup({
 	beforeSend: function(xhr, options) {
-		options.url = baseUrl + options.url;
 		xhr.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded');
 	},
 	xhrFields: {
@@ -37,7 +36,7 @@ const API = {
 		return $.ajax({
 			type: `PUT`,
 			data: _.get(opts, `data`, {}),
-			url: URLMANAGER.buildURL(`${this.url}/hypothesis/bioRxiv`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/hypothesis/bioRxiv`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`updateOrCreateAnnotation`, query);
 				return done(false, query);
@@ -55,7 +54,7 @@ const API = {
 	getCrispId: function(done) {
 		return $.ajax({
 			type: `GET`,
-			url: URLMANAGER.buildURL(`${this.url}/getCrispId`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/getCrispId`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`getCrispId`, query);
 				return done(false, query);
@@ -73,7 +72,7 @@ const API = {
 	getUserflowToken: function(done) {
 		return $.ajax({
 			type: `GET`,
-			url: URLMANAGER.buildURL(`${this.url}/getUserflowToken`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/getUserflowToken`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`getUserflowToken`, query);
 				return done(false, query);
@@ -92,7 +91,7 @@ const API = {
 	signin: function(opts = {}, done) {
 		return $.ajax({
 			type: `POST`,
-			url: URLMANAGER.buildURL(`${this.url}/signin`, {}),
+			url: URLMANAGER.buildURL(`${this.url}/signin`, {}, { origin: true }),
 			data: _.get(opts, `data`, {}),
 			success: function(query) {
 				console.log(`signin`, query);
@@ -112,7 +111,7 @@ const API = {
 	signup: function(opts = {}, done) {
 		return $.ajax({
 			type: `POST`,
-			url: URLMANAGER.buildURL(`${this.url}/signup`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/signup`, {}, { setToken: true, origin: true }),
 			data: _.get(opts, `data`, {}),
 			success: function(query) {
 				console.log(`signup`, query);
@@ -132,7 +131,7 @@ const API = {
 	forgotPassword: function(opts = {}, done) {
 		return $.ajax({
 			type: `POST`,
-			url: URLMANAGER.buildURL(`${this.url}/forgotPassword`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/forgotPassword`, {}, { setToken: true, origin: true }),
 			data: _.get(opts, `data`, {}),
 			success: function(query) {
 				console.log(`forgotPassword`, query);
@@ -152,7 +151,7 @@ const API = {
 	resetPassword: function(opts = {}, done) {
 		return $.ajax({
 			type: `POST`,
-			url: URLMANAGER.buildURL(`${this.url}/resetPassword`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/resetPassword`, {}, { setToken: true, origin: true }),
 			data: _.get(opts, `data`, {}),
 			success: function(query) {
 				console.log(`resetPassword`, query);
@@ -172,7 +171,7 @@ const API = {
 	currentUser: function(opts = {}, done) {
 		return $.ajax({
 			type: `GET`,
-			url: URLMANAGER.buildURL(`${this.url}/currentUser`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/currentUser`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`currentUser`, query);
 				return done(false, query);
@@ -196,7 +195,8 @@ const API = {
 				`${this.url}/${model}/${opts.id}/logs`,
 				_.get(opts, `params`, {}),
 				{
-					setToken: true
+					setToken: true,
+					origin: true
 				}
 			),
 			success: function(query) {
@@ -219,7 +219,8 @@ const API = {
 		return $.ajax({
 			type: `GET`,
 			url: URLMANAGER.buildURL(`${this.url}/${model}/${opts.id}`, _.get(opts, `params`, {}), {
-				setToken: true
+				setToken: true,
+				origin: true
 			}),
 			success: function(query) {
 				console.log(`get`, model, query);
@@ -240,7 +241,7 @@ const API = {
 	all: function(model, opts = {}, done) {
 		return $.ajax({
 			type: `GET`,
-			url: URLMANAGER.buildURL(`${this.url}/${model}`, opts.params, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/${model}`, opts.params, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`all`, model, query);
 				return done(false, query);
@@ -261,7 +262,7 @@ const API = {
 		return $.ajax({
 			type: `POST`,
 			data: _.get(opts, `data`, {}),
-			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`add`, model, query);
 				return done(false, query);
@@ -285,7 +286,7 @@ const API = {
 			url: URLMANAGER.buildURL(
 				`${this.url}/${model}/${opts.data._id}`,
 				{},
-				{ setToken: true }
+				{ setToken: true, origin: true }
 			),
 			success: function(query) {
 				console.log(`update`, model, query);
@@ -307,7 +308,7 @@ const API = {
 		return $.ajax({
 			type: `PUT`,
 			data: _.get(opts, `data`, {}),
-			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`updateMany`, model, query);
 				return done(false, query);
@@ -331,7 +332,7 @@ const API = {
 			url: URLMANAGER.buildURL(
 				`${this.url}/${model}/${opts.data._id}`,
 				{},
-				{ setToken: true }
+				{ setToken: true, origin: true }
 			),
 			success: function(query) {
 				console.log(`delete`, model, query);
@@ -353,7 +354,7 @@ const API = {
 		return $.ajax({
 			type: `DELETE`,
 			data: _.get(opts, `data`, {}),
-			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`deleteMany`, model, query);
 				return done(false, query);
@@ -377,7 +378,7 @@ const API = {
 			processData: false,
 			contentType: false,
 			enctype: `multipart/form-data`,
-			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true }),
+			url: URLMANAGER.buildURL(`${this.url}/${model}`, {}, { setToken: true, origin: true }),
 			success: function(query) {
 				console.log(`upload`, query);
 				return done(false, query);
@@ -397,7 +398,7 @@ const API = {
 		resyncJsonDataTypes: function(done) {
 			return $.ajax({
 				type: `POST`,
-				url: URLMANAGER.buildURL(`${this.url}/resyncJsonDataTypes`, {}, { setToken: true }),
+				url: URLMANAGER.buildURL(`${this.url}/resyncJsonDataTypes`, {}, { setToken: true, origin: true }),
 				success: function(query) {
 					console.log(`dataseerML.resyncJsonDataTypes`, query);
 					return done(false, query);
@@ -415,7 +416,7 @@ const API = {
 		jsonDataTypes: function(done) {
 			return $.ajax({
 				type: `GET`,
-				url: URLMANAGER.buildURL(`${this.url}/jsonDataTypes`, {}, { setToken: true }),
+				url: URLMANAGER.buildURL(`${this.url}/jsonDataTypes`, {}, { setToken: true, origin: true }),
 				success: function(query) {
 					console.log(`dataseerML.jsonDataTypes`, query);
 					return done(false, query);
@@ -471,7 +472,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/processDataseerSentence`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`dataseerML.getdataType`, query);
@@ -497,7 +498,7 @@ const API = {
 			return $.ajax({
 				type: `POST`,
 				data: opts,
-				url: URLMANAGER.buildURL(`${this.url}/findRepo`, {}, { setToken: true }),
+				url: URLMANAGER.buildURL(`${this.url}/findRepo`, {}, { setToken: true, origin: true }),
 				success: function(query) {
 					console.log(`repoRecommender.findRepo`, query);
 					return done(false, query);
@@ -540,7 +541,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.datasetsId}/dataset`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				data: { dataset: opts.dataset, sentence: opts.sentence },
 				success: function(query) {
@@ -579,7 +580,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.datasetsId}/dataset`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`datasets.updateDataset`, query);
@@ -604,7 +605,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.datasetsId}/dataset`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				data: { dataset: opts.dataset },
 				success: function(query) {
@@ -634,7 +635,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.datasetsId}/link`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				data: { link: opts.link },
 				success: function(query) {
@@ -664,7 +665,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.datasetsId}/unlink`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				data: { link: opts.link },
 				success: function(query) {
@@ -694,7 +695,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.target}/importDatasets/${opts.source}`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.importDatasets`, query);
@@ -722,7 +723,8 @@ const API = {
 					`${this.url}/${opts.id}/detectNewSentences`,
 					_.get(opts, `params`, {}),
 					{
-						setToken: true
+						setToken: true,
+						origin: true
 					}
 				),
 				success: function(query) {
@@ -747,7 +749,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/reports/${opts.kind}/${opts.organization}`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.getReport`, query);
@@ -768,7 +770,7 @@ const API = {
 		getPDF: function(opts = {}, done) {
 			return $.ajax({
 				type: `GET`,
-				url: URLMANAGER.buildURL(`${this.url}/${opts.id}/pdf`, {}, { setToken: true }),
+				url: URLMANAGER.buildURL(`${this.url}/${opts.id}/pdf`, {}, { setToken: true, origin: true }),
 				success: function(query) {
 					console.log(`documents.getPDF`, query);
 					return done(false, query);
@@ -788,7 +790,7 @@ const API = {
 		getTEI: function(opts = {}, done) {
 			return $.ajax({
 				type: `GET`,
-				url: URLMANAGER.buildURL(`${this.url}/${opts.id}/tei`, {}, { setToken: true }),
+				url: URLMANAGER.buildURL(`${this.url}/${opts.id}/tei`, {}, { setToken: true, origin: true }),
 				success: function(query) {
 					console.log(`documents.getTEI`, query);
 					return done(false, query);
@@ -811,7 +813,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/tei/content`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.getTEIContent`, query);
@@ -836,7 +838,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/refreshToken`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.refreshToken`, query);
@@ -861,7 +863,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/metadata/reload`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.reloadMetadata`, query);
@@ -886,7 +888,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/metadata/validate`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.validateMetadata`, query);
@@ -911,7 +913,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/datasets/validate`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.validateDatasets`, query);
@@ -936,7 +938,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/finish/reopen`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.reopen`, query);
@@ -961,7 +963,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/datasets/backToMetadata`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`documents.backToMetadata`, query);
@@ -985,7 +987,7 @@ const API = {
 				url: URLMANAGER.buildURL(
 					`${this.url}/${opts.id}/reports/gSpreadsheets/${opts.kind}`,
 					{},
-					{ setToken: true }
+					{ setToken: true, origin: true }
 				),
 				success: function(query) {
 					console.log(`buildGSpreadSheetReport`, query);
