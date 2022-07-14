@@ -78,6 +78,16 @@
 		overflow: scroll;
 		font-family: Times, 'Times New Roman', serif;
 		font-size: 14px;
+
+		.pdfViewer,
+		.pdfViewerScrollMarkers {
+			transition: opacity $t-duration;
+		}
+
+		&.is-loading .pdfViewer,
+		&.is-loading #pdfViewerScrollMarkers {
+			opacity: 0;
+		}
 	}
 	
 	#documentView\.screen::-webkit-scrollbar {

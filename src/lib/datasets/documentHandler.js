@@ -19,7 +19,6 @@ export const DocumentHandler = function(opts = {}, events) {
 	this.hasChanged = {};
 	// Events
 	this.events = events;
-	// Events
 	this.lastAction = {
 		type: undefined, // What kind of action it was
 		data: undefined // Data that were involved
@@ -42,6 +41,9 @@ export const DocumentHandler = function(opts = {}, events) {
 	//Here we store information active Dataset and Datatype
 	this.activeDatasetType = opts.activeDatasetType;
 	this.activeDatasetId = opts.activeDatasetId;
+
+	//Active Sentences
+	this.activeSentence = undefined;
 	
 	if (opts.pdf) {
 		this.pdf = {
@@ -126,8 +128,16 @@ DocumentHandler.prototype.init = function() {
 };
 
 // Refresh pdf viewer display
-DocumentHandler.prototype.refresh = function(cb) {
-	this.documentView.refresh(cb);
+DocumentHandler.prototype.refresh = function() {
+	const self = this;
+	const { activeSentence } = self;
+	
+	this.documentView.refresh(() => {
+		self.selectSentence({
+			sentence: activeSentence,
+			noAnim: true
+		})
+	});
 }
 
 // Check if document has change(s) not saved
@@ -193,6 +203,7 @@ DocumentHandler.prototype.getDatasetsOfSentence = function(sentence) {
 DocumentHandler.prototype.selectSentence = function (opts, cb) {
 	let self = this;
 	let datasets = self.getDatasetsOfSentence(opts.sentence);
+	self.activeSentence = opts.sentence;
 
 	// Filter out datasets that are not from the same activedatasettype
 	const activeDatasets = datasets.filter(item => item.datasetType === self.activeDatasetType);

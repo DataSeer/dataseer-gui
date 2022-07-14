@@ -592,7 +592,7 @@ PdfViewer.prototype.renderPreviousPage = function(cb) {
 
 // Refresh markers
 PdfViewer.prototype.refreshMarkers = function() {
-	let self = this;
+	const self = this;
 	const screenHeight = this.screenElement.getBoundingClientRect().height || 0;
 
 	return this.scrollMarkers.find(`span.marker`).map(function() {
@@ -695,9 +695,10 @@ PdfViewer.prototype.renderPage = function (opts, cb) {
 PdfViewer.prototype.refresh = function (cb) {
 	const self = this;
 	const { screenElement } = self;
-	let screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
-	const scrollPercentage = (100 * screenElement.scrollTop / screenScroll).toFixed(2);
+	// let screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+	// const scrollPercentage = (100 * screenElement.scrollTop / screenScroll).toFixed(2);
 	self.isRefreshing = true;
+	screenElement.classList.add('is-loading');
 
 	if (self.pdfDocument) {
 		// Loading document
@@ -712,12 +713,14 @@ PdfViewer.prototype.refresh = function (cb) {
 				});
 			},
 			function (err) {
-				screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
-				screenElement.scrollTop = (screenScroll * scrollPercentage / 100);
-
+				//screenScroll = screenElement.scrollHeight - screenElement.clientHeight;
+				// screenElement.scrollTop = (screenScroll * scrollPercentage / 100);
+				screenElement.classList.remove('is-loading');
 				self.isRefreshing = false;
+
 				if (err) console.log(err);
-				if (typeof cb === `function`) return cb(err);
+				
+				if (typeof cb === `function`) return cb();
 			}
 		);
 	} else {
