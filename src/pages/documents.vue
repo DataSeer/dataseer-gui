@@ -56,7 +56,7 @@
 
 				<template slot="table-row" slot-scope="props">
 					<span v-if="props.column.field == 'name'" class="table__title">
-						<router-link :to="`/documents/${props.row._id}/datasets`">
+						<router-link :to="`/documents/${props.row._id}/datasets`" :target="isAdministrator ? `_blank` : ``">
 							<Icon name="document" color="CurrentCOlor" />
 							{{ props.row.name }}
 						</router-link>
@@ -98,7 +98,8 @@
 									highlighted
 									size="small"
 									className="tertiary"
-									:to="`/documents/${props.row._id}/datasets`"
+									:href="`#/documents/${props.row._id}/datasets`"
+									:target="isAdministrator ? `_blank` : ``"
 								>
 									View
 								</Button>
@@ -109,7 +110,8 @@
 									highlighted
 									size="small"
 									className="tertiary"
-									:to="`/documents/${props.row._id}/report`"
+									:href="`#/documents/${props.row._id}/report`"
+									:target="isAdministrator ? `_blank` : ``"
 								>
 									Report
 								</Button>
@@ -126,7 +128,7 @@
 									<div class="dropdown__nav">
 										<ul>
 											<li>
-												<router-link :to="`/documents/${props.row._id}/datasets`">
+												<router-link :to="`/documents/${props.row._id}/datasets`" :target="isAdministrator ? `_blank` : ``">
 													<Icon name="connect" color="currentColor" />
 
 													View/Edit Datasets
@@ -147,7 +149,7 @@
 											</li>
 
 											<li>
-												<router-link :to="`/documents/${props.row._id}/report`">
+												<router-link :to="`/documents/${props.row._id}/report`" :target="isAdministrator ? `_blank` : ``">
 													<Icon name="document_view" color="currentColor" />
 
 													View Data Report
@@ -346,6 +348,9 @@ export default {
 		},
 		windowOrigin: function() {
 			return window.location.origin
+		},
+		isAdministrator() {
+			return this.userRoleWeight >= 1000;
 		}
 	},
 
