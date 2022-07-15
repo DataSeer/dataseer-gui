@@ -30,6 +30,18 @@
 		</GridColumn>
 
 		<GridColumn>
+			<Checkboxes>
+				<FieldCheckbox
+					name="reuse"
+					v-model="formData.reuse"
+					isDropdown
+				>
+					This protocol is re-used from a public or private source
+				</FieldCheckbox>
+			</Checkboxes>
+		</GridColumn>
+
+		<GridColumn>
 			<Field
 				name="DOI"
 				v-model.trim="formData.DOI"
@@ -78,7 +90,9 @@ import { mapGetters } from 'vuex'
  */
 import Icon from '@/components/icon/icon';
 import Field from '@/components/field/field';
+import Checkboxes from '@/components/checkboxes/checkboxes';
 import FieldSelect from '@/components/field-select/field-select';
+import FieldCheckbox from '@/components/field-checkbox/field-checkbox';
 import Grid, { GridColumn } from '@/components/grid/grid';
 
 export default {
@@ -95,6 +109,8 @@ export default {
 		Icon,
 		Field,
 		GridColumn,
+		Checkboxes,
+		FieldCheckbox,
 		FieldSelect
 	},
 
