@@ -104,7 +104,7 @@
 								className="tertiary"
 								square
 								v-tooltip.top="tooltips.sciscore"
-								@onClick.prevent="$refs.SciscorePopup.showModal()"
+								@onClick.prevent="handleSciscoreClick"
 							>
 								<Icon name="sciscore" />
 							</Button>
@@ -186,6 +186,20 @@
 							Suggested RRID
 						</Field>
 					</GridColumn>
+
+					<GridColumn>
+						<ListOfRRIDs
+							name="RRIDsFromSciscore"
+							:error="formData.RRIDsFromSciscore.err"
+							:list="formData.RRIDsFromSciscore.urls"
+							:links="formData.RRIDsFromSciscore.searches"
+							:entity="formData.RRIDsFromSciscore.entity"
+						>
+							<div class="list" :loading="isRequestingSciscoreAPI">
+								Suggested RRIDs from the<a href="https://scicrunch.org/" target="_blank"> Scicrunch API </a>
+							</div>
+						</ListOfRRIDs>
+					</GridColumn>
 				</Grid>
 			</Popup>
 
@@ -217,6 +231,7 @@ import RichtextEntry from '@/components/richtext-entry/richtext-entry';
 import Icon from '@/components/icon/icon'
 import Button from '@/components/button/button'
 import Field from '@/components/field/field';
+import ListOfRRIDs from '@/components/list-rrids/list-rrids';
 import Dropdown, { DropdownNavDatasets } from '@/components/dropdown/dropdown'
 import Grid, { GridColumn } from '@/components/grid/grid';
 import Form, { FormBody, FormHead } from '@/components/form/form';
@@ -255,7 +270,8 @@ export default {
 		RichtextEntry,
 		FormConnectText,
 		FormDefaultIssues,
-		FormCuratorIssues
+		FormCuratorIssues,
+		ListOfRRIDs
 	},
 
 	/**
@@ -273,13 +289,16 @@ export default {
 	 */
 	data() {
 		return {
-			formData: {},
+			formData: {
+				RRIDsFromSciscore: { err: "Not available", urls: [], searches: [], entity: '' }
+			},
 			formDataIssues: {
 				active: [''],
 				author: '',
 				createdAt: '',
 				comment: '',
 			},
+			isRequestingSciscoreAPI: false,
 			isFormSubmitting: false,
 			multipleReferencesText: 'Multiple references share this text selection',
 			NameInputPlaceholder: 'Enter...',
@@ -384,6 +403,40 @@ export default {
 				dataset,
 				scrollToSentence: true
 			});
+		},
+		handleSciscoreClick() {
+			const documentHandler = this.documentHandler;
+			const entity = { name: this.formData.name.toString(), URL: "" };
+			this.isRequestingSciscoreAPI = true;
+			this.$refs.SciscorePopup.showModal();
+			if (this.activeDataset.kind !== "code" && this.activeDataset.kind !== "software" && this.activeDataset.kind !== "reagent") return this.formData.RRIDsFromSciscore = { err: `Suggested RRIDs service is not available for DATASETS & PROTOCOLS`, urls:[] };
+			if (entity.name && entity.name.length > 0) {
+				this.formData.RRIDsFromSciscore = { err: "Requesting Sciscore API...", urls:[] };
+				documentHandler.getRRIDsFromSciscore(entity.name, (_, query) => {
+					console.log(_, query);
+					this.isRequestingSciscoreAPI = false;
+					if (_) return this.formData.RRIDsFromSciscore = { err: "Suggested RRIDs service is currently not available", urls:[], searches: [], entity: entity }; // error case
+					if (query.err) return this.formData.RRIDsFromSciscore = { err: "Suggested RRIDs service has returned an error", urls:[], searches: [], entity: entity }; // error case
+					// Build URLs for RRIDs results
+					entity.URL = query?.res?.entity?.URLs?.resources;
+					let urls = [];
+					for (let key in query?.res?.RRIDs?.values) {
+						urls.push({ href: query?.res?.RRIDs?.URLs?.resources[key], text: query?.res?.RRIDs?.values[key].name, RRID: query?.res?.RRIDs?.values[key].rid })
+					}
+					// Build "links of API results" depending of the data object kind
+					let searches = [];
+					if (this.activeDataset.kind === "code" || this.activeDataset.kind === "software") {
+						searches.push({ text: "Tools", href: query?.res?.entity?.URLs?.tool });
+					}
+					if (this.activeDataset.kind === "reagent") {
+						searches.push({ text: "Antibodies", href: query?.res?.entity?.URLs?.antibody });
+						searches.push({ text: "Cell Lines", href: query?.res?.entity?.URLs?.cellLine });
+						searches.push({ text: "Organisms", href: query?.res?.entity?.URLs?.organism });
+						searches.push({ text: "Plasmid", href: query?.res?.entity?.URLs?.plasmid });
+					}
+					this.formData.RRIDsFromSciscore = { err: "", urls: urls, searches: searches, entity: entity };
+				});
+			} else this.formData.RRIDsFromSciscore = { err: "You must provide a name to get suggested RRIDs", urls:[] };
 		},
 		handleDatasetSave() {
 			const documentHandler = this.documentHandler;

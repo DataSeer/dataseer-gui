@@ -486,6 +486,29 @@ const API = {
 			});
 		}
 	},
+  scicrunch: {
+    url: `api/scicrunch`,
+    /**
+     * Call processEntity on given entity
+     * @param {object} opts opts
+     * @param {function} done Callback function(err, res) (err: error process OR null, res: infos/data OR undefined)
+     * @returns {undefined} undefined
+     */
+    processEntity: function (opts = {}, done) {
+      return $.ajax({
+        type: `POST`,
+        data: opts,
+        url: URLMANAGER.buildURL(`${this.url}/processEntity`, {}, { setToken: true, origin: true }),
+        success: function (query) {
+          console.log(`scicrunch.processEntity`, query);
+          return done(false, query);
+        },
+        error: function (query) {
+          return done(query);
+        }
+      });
+    }
+  },
 	repoRecommender: {
 		url: `api/repoRecommender`,
 		/**

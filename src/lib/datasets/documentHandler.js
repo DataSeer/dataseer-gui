@@ -695,6 +695,13 @@ DocumentHandler.prototype.resyncJsonDataTypes = function(callback) {
 }
 
 // DocumentHandler synchronization
+DocumentHandler.prototype.getRRIDsFromSciscore = function(entity, cb) {
+	return API.scicrunch.processEntity({ entity: entity }, function(err, res) {
+		return cb(err, res);
+	});
+}
+
+// DocumentHandler synchronization
 DocumentHandler.prototype.synchronize = function() {
 	let self = this;
 	
