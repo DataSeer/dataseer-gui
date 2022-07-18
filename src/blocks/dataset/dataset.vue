@@ -411,7 +411,7 @@ export default {
 			this.$refs.SciscorePopup.showModal();
 			if (this.activeDataset.kind !== "code" && this.activeDataset.kind !== "software" && this.activeDataset.kind !== "reagent") return this.formData.RRIDsFromSciscore = { err: `Suggested RRIDs service is not available for DATASETS & PROTOCOLS`, urls:[] };
 			if (entity.name && entity.name.length > 0) {
-				this.formData.RRIDsFromSciscore = { err: "Requesting Sciscore API...", urls:[] };
+				this.formData.RRIDsFromSciscore = { err: "Requesting Scicrunch API...", urls:[] };
 				documentHandler.getRRIDsFromSciscore(entity.name, (_, query) => {
 					console.log(_, query);
 					this.isRequestingSciscoreAPI = false;
