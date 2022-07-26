@@ -450,6 +450,7 @@ PdfViewer.prototype.getPdfPages = function(cb) {
 
 // Get PdfPages
 PdfViewer.prototype.setPage = function(numPage) {
+	console.log(numPage);
 	this.infos.empty().append(`Page ${numPage}/${this.pdfDocument.numPages}`);
 };
 

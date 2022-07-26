@@ -45,7 +45,7 @@
 			<Field
 				name="labSource"
 				placeholder="Enter the name of the source of the material"
-				v-model="formData.labSource"
+				v-model="formData.source"
 			>
 				<Icon name="microscope" />
 
@@ -57,7 +57,7 @@
 			<Field
 				name="catalog"
 				placeholder="enter the catalog number if available"
-				v-model="formData.catalog"
+				v-model="formData.catalogNumber"
 			>
 				<Icon name="flask" />
 

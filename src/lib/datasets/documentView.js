@@ -182,7 +182,7 @@ DocumentView.prototype.init = function(opts, cb) {
 		function(datasetsInfos) {
 			if (opts.pdf)
 				return self.pdfViewer.load(opts.pdf, datasetsInfos, function() {
-					self.pdfViewer.setPage();
+					self.pdfViewer.setPage(1);
 					return typeof cb === `function` ? cb() : undefined;	
 				});
 			else {
