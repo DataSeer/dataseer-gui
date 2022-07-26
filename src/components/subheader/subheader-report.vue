@@ -19,7 +19,7 @@
 		<!-- /.subheader__left -->
 
 		<div class="subheader__right">
-			<Button tabindex="0" to="/documents" className="tertiary">
+			<Button tabindex="0" :to="documentPageURl" className="tertiary">
 				<Icon name="back" color="currentColor"></Icon>
 
 				Back to Document
@@ -47,6 +47,11 @@ export default {
 	name: 'SubheaderReport',
 
 	/**
+	 * Props
+	*/
+	props: ['documentID'],
+
+	/**
 	 * Components
 	 */
 	components: {
@@ -59,6 +64,9 @@ export default {
 	 */
 	computed: {
 		...mapGetters('account', ['userRoleWeight']),
+		documentPageURl() {
+			return this.documentID ? `/documents/${this.documentID}/datasets` : `/documents`;
+		}
 	}
 };
 </script>

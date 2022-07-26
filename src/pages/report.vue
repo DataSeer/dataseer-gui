@@ -7,7 +7,7 @@
 	>
 		<template #subheader>
 			<Subheader>
-				<SubheaderReport />
+				<SubheaderReport :documentID="documentID"/>
 			</Subheader>
 		</template>
 
