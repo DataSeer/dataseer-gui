@@ -106,8 +106,10 @@
 		 * Methods
 		 */
 		methods: {
-		...mapActions('pdfViewer', ['addSentenceToDataset', 'linkSentenceToDataset']),
-	},
-
+			...mapActions('pdfViewer', [
+				'addSentenceToDataset',
+				'linkSentenceToDataset'
+			])
+		}
 	}
 </script>

@@ -381,7 +381,6 @@ export default {
 	 */
 	methods: {
 		...mapActions('pdfViewer', [
-			'updateDataset',
 			'deleteDataset',
 			'unlinkSentenceFromDataset',
 			'setActiveDataset',
@@ -455,7 +454,6 @@ export default {
 
 			documentHandler.saveDataset(this.activeDataset.id, formData, (_, res) => {
 				const newDataset = res;
-				this.updateDataset(newDataset);
 				this.formData = { ...this.formData, ...this.res }
 				
 				if (this.activeDatasetType !== newDataset.datasetType) {

@@ -70,9 +70,6 @@ const actions = {
 	setDatasets({commit}, datasets ) {
 		commit('SET_DATASETS', datasets)
 	},
-	updateDataset({commit}, newDataset ) {
-		commit('UPDATE_DATASET', newDataset )
-	},
 	setActiveDataset({state, commit, getters, dispatch }, { dataset, scrollToSentence }) {
 		const documentHandler = state.documentHandler;
 		if (!dataset) {
@@ -114,17 +111,34 @@ const actions = {
 	setActiveSentence({ commit }, sentence) {
 		commit('SET_ACTIVE_SENTENCE', sentence)
 	},
-	addSentenceToDataset({state}) {
+	addSentenceToDataset({ state }) {
 		const documentHandler = state.documentHandler;
-		documentHandler.datasetsList.events.onNewDatasetClick();
+		const selectedSentences = documentHandler.documentView.getSelectedSentences();
+
+		if (selectedSentences.length === 0) {
+			return alert('You must select a sentence before linking it to the dataset');
+		}
+		
+		documentHandler.newDataset(selectedSentences, function(err, dataset) {
+			if (err) return console.log(err);
+			
+			// Select sentence
+			return documentHandler.selectSentence({
+				sentence: dataset.sentences[0],
+				selectedDataset: dataset
+			});
+		});
 	},
-	deleteDataset() {
+	deleteDataset({ commit }) {
 		const { documentHandler, activeDataset } = state;
 		
 		if (!activeDataset) return console.log(`bad dataset id`);
 		if (!activeDataset.sentences) return console.log(`empty sentences`);
 		
-		return documentHandler.deleteDataset(activeDataset.id);
+		return documentHandler.deleteDataset(activeDataset.id, () => {
+			commit('SET_ACTIVE_DATASET', undefined);
+			documentHandler.setActiveDatasetId(undefined);
+		});
 	},
 	unlinkSentenceFromDataset() {
 		const { documentHandler, activeDataset, activeSentence }  = state
@@ -228,17 +242,14 @@ const mutations = {
 	SET_ACTIVE_SENTENCE(state, payload) {
 		state.activeSentence = payload;
 	},
-	UPDATE_DATASET(state, payload) {
-		state.datasets = [...state.datasets.map(item => item.id === payload.id ? payload : item)];
-	},
-	CLEAR_STATE(state ) {
+	CLEAR_STATE( state ) {
         state.dataTypes = {};
 		state.documentHandler = {};
 		state.datasets = [];
 		state.datasetsForMerge = [];
 		state.document = undefined;
 		state.activeDataset = undefined;
-    },
+    }
 }
 
 export default {
