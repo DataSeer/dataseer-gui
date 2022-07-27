@@ -3,6 +3,7 @@ node_modules
 /dist
 
 app.config.json
+vue.config.js
 
 # local env files
 .env
