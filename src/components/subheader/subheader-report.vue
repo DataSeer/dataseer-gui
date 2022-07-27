@@ -6,14 +6,6 @@
 
 				Open Science Report
 
-				<Button
-					v-if="userRoleWeight >= 1000"
-					tabindex="0"
-					to="/datasets"
-					className="tertiary"
-				>
-					export curator report
-				</Button>
 			</h3>
 		</div>
 		<!-- /.subheader__left -->
@@ -29,10 +21,6 @@
 </template>
 
 <script>
-/**
- * External Dependencies
- */
-import { mapGetters } from 'vuex';
 
 /**
  * Internal Dependencies
@@ -63,7 +51,6 @@ export default {
 	 * Computed
 	 */
 	computed: {
-		...mapGetters('account', ['userRoleWeight']),
 		documentPageURl() {
 			return this.documentID ? `/documents/${this.documentID}/datasets` : `/documents`;
 		}

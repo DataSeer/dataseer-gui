@@ -12,6 +12,12 @@
 		</template>
 
 		<div class="report">
+
+			<div v-if="userRoleWeight >= 1000" class="report-group">
+				<ReportGoogle @submit="reportSubmit" @response="reportResponse" title="Manage Reports" :documentID="documentID" :documentToken="documentToken" />
+			</div> <!-- /.report-group -->
+
+
 			<div class="report-group">
 				<div class="report-title">
 					<h1>{{report.originalDocument.name}}</h1>
@@ -108,6 +114,11 @@
 <script>
 /* eslint-disable */
 /**
+ * External Dependencies
+ */
+import { mapGetters } from 'vuex';
+
+/**
  * Internal Dependencies
  */
 import Subheader from '@/components/subheader/subheader';
@@ -119,7 +130,8 @@ import Authors from '@/components/authors/authors';
 import ReportChart from '@/components/report-chart/report-chart';
 import ContentToggle from '@/components/contenttoggle/contenttoggle';
 import ReportSuggestions from '@/blocks/report-suggestions/report-suggestions';
-import ReportDataset from '@/components/report-dataset/report-dataset'
+import ReportDataset from '@/components/report-dataset/report-dataset';
+import ReportGoogle from '@/blocks/report-google/report-google';
 
 // import filesService from '@/services/files/files';
 import chartsService from '@/services/charts/charts';
@@ -145,7 +157,8 @@ export default {
 		ReportChart,
 		ReportDataset,
 		ContentToggle,
-		ReportSuggestions
+		ReportSuggestions,
+		ReportGoogle
 	},
 
 	/**
@@ -315,6 +328,7 @@ export default {
 	 * Computed
 	 */
 	computed: {
+		...mapGetters('account', ['userRoleWeight']),
 		authors() {
 			// Get report authors and filter cases where author got no name or email
 			const authors = this.report?.originalDocument.metadata.authors?.filter(author => author.name || author.email );
@@ -330,6 +344,9 @@ export default {
 		},
 		documentID() {
 			return this.$route.params.id
+		},
+		documentToken() {
+			return this.report?.originalDocument.token || '';
 		},
 		cssVariables() {
 			return variables
@@ -348,6 +365,12 @@ export default {
 	 * Methods
 	 */
 	methods: {
+		reportSubmit (data) {
+			console.log(data)
+		},
+		reportResponse (data) {
+			console.log(data)
+		},
 		async getDocumentReport() {
 			try {
 				const report = await documentsService.getDocumentReport(this.documentID);
@@ -396,7 +419,7 @@ export default {
 			}
 
 			this.loading = false;
-		},
+		}
 	},
 
 	/**
