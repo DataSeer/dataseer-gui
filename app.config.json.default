@@ -1,0 +1,10 @@
+{
+  "apps" : [
+    {
+      "name": "dataseer-gui",
+      "script": "npx",
+      "interpreter": "none",
+      "args": "serve -l 8080 dist"
+    }
+  ]
+}

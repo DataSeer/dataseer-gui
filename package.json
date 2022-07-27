@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "pm2 start app.config.json",
+    "stop": "pm2 delete dataseer-gui",
+    "restart": "pm2 delete dataseer-gui; yarn build; pm2 start app.config.json"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",

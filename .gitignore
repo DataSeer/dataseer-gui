@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+app.config.json
 
 # local env files
 .env
