@@ -31,7 +31,12 @@
 				</GridColumn>
 
 				<GridColumn>
-					<FieldFile v-model="formData.attachedFiles" name="attachedFiles" multiple="multiple">
+					<FieldFile
+						v-model="formData.attachedFiles"
+						name="attachedFiles"
+						multiple="multiple"
+						accept=".pdf"
+					>
 						<template #label>
 							<Icon name="documents" color="currentColor" />
 
@@ -39,7 +44,7 @@
 						</template>
 
 						<template #helptext>
-							All file formats supported
+							Supported formats: <strong>PDF</strong> 
 						</template>
 					</FieldFile>
 				</GridColumn>
