@@ -1,5 +1,5 @@
 <template>
-	<div class="dataset">
+	<div class="dataset" @mouseleave="handleDatasetAutoSave">
 		<div v-if="!(activeDataset && activeDataset.id)" class="dataset__form">
 			<FormConnectText />
 		</div><!-- /.dataset__form -->
@@ -219,6 +219,7 @@
  * External Dependencies
  */
 import { mapGetters, mapActions } from 'vuex'
+import { updatedDiff } from 'deep-object-diff'
 
 /**
  * Internal Dependencies
@@ -292,6 +293,7 @@ export default {
 			formData: {
 				RRIDsFromSciscore: { err: "Not available", urls: [], searches: [], entity: '' }
 			},
+			originalFormData: {},
 			formDataIssues: {
 				active: [''],
 				author: '',
@@ -388,6 +390,7 @@ export default {
 		]),
 		populateFormData() {
 			this.formData = { ...this.formData, ...this.activeDataset }
+			this.originalFormData = { ...this.originalFormData, ...this.activeDataset }
 		},
 		handleNameInputChange(e) {
 			this.formData = { ...this.formData, name: e.target.value }
@@ -437,6 +440,13 @@ export default {
 				});
 			} else this.formData.RRIDsFromSciscore = { err: "You must provide a name to get suggested RRIDs", urls:[] };
 		},
+		handleDatasetAutoSave() {
+			let formData = { ...this.formData };
+			let originalFormData = { ...this.originalFormData };
+			let updates = Object.keys(updatedDiff(originalFormData, formData));
+			let needSave = updates.length > 0;
+			if (needSave) this.handleDatasetSave()
+		},
 		handleDatasetSave() {
 			const documentHandler = this.documentHandler;
 			this.isFormSubmitting = true;
@@ -448,13 +458,14 @@ export default {
 					formData.issues.author = this.user.username
 					formData.issues.createdAt = new Date()
 				} else {
-					formData.issues = { ...this.formDataIssues }
+					formData.issues = null
 				}
 			}
 
 			documentHandler.saveDataset(this.activeDataset.id, formData, (_, res) => {
 				const newDataset = res;
 				this.formData = { ...this.formData, ...this.res }
+				this.originalFormData = { ...this.formData, ...this.res }
 				
 				if (this.activeDatasetType !== newDataset.datasetType) {
 					this.setActiveDatasetType(newDataset.datasetType);
