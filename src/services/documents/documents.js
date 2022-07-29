@@ -20,6 +20,9 @@ const addDocument = (params) => {
 	formData.append('file', params.file);
 	formData.append('owner', params.owner);
 	formData.append('organizations', params.organizations);
+	for (let i = 0; i < params.attachedFiles.length; i++) {
+		formData.append(`attachedFiles`, params.attachedFiles[i]);
+	}
 	formData.append('attachedFiles', params.attachedFiles);
 	formData.append('dataseerML', params.dataseerML);
 
