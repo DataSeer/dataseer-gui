@@ -79,7 +79,7 @@ export default {
 			const leftSide = this.$refs.container;
 			const rightSide = this.$refs.right;
 
-			let observerWidth = observerWidth || resizer.getBoundingClientRect().width;
+			let observerWidth = this.observerWidth || resizer.getBoundingClientRect().width;
 			let minW = this.minWidth;
 			let maxW = observerWidth - this.maxWidth <= this.rightMinWidth ? observerWidth - this.rightMinWidth : this.maxWidth;
 			let startingWidth = this.startingWidth < this.maxWidth ? this.startingWidth : this.maxWidth;
